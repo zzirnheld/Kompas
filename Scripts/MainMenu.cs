@@ -3,8 +3,10 @@ using System;
 
 public partial class MainMenu : Control
 {
+	private const string ClientScenePath = "res://Scenes/ClientScene.tscn";
+
 	private void _ConnectToServer()
 	{
-		GD.Print("Test");
+		GetTree().ChangeSceneToFile(ClientScenePath);
 	}
 }

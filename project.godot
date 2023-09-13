@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Kompas"
-run/main_scene="res://Scenes/MainMenu.tscn"
+run/main_scene="res://Scenes/MainMenuScene.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://Shame/icon.svg"
 
