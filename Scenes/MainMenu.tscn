@@ -23,10 +23,12 @@ anchor_bottom = 0.8
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Host Server2" type="Button" parent="HBoxContainer"]
+[node name="Connect to Server" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Host Server3" type="Button" parent="HBoxContainer"]
+[node name="Quit" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="pressed" from="HBoxContainer/Connect to Server" to="." method="_ConnectToServer"]
