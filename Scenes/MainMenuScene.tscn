@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckcvtia7thxt"]
+[gd_scene load_steps=4 format=3 uid="uid://ckcvtia7thxt"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_l4w8p"]
+[ext_resource type="Texture2D" uid="uid://dcex470xmut62" path="res://Icons/Main Menu/Kompas Logo.png" id="2_h12dc"]
+[ext_resource type="Script" path="res://Scenes/MainMenuKompasLogo.cs" id="3_pjl4c"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -13,22 +15,63 @@ script = ExtResource("1_l4w8p")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Connect to Server" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Connect to Server"
+
+[node name="Solo Mode" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "VS \"AI\""
+
+[node name="Host Server" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Host Server"
+
+[node name="Quit" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Quit"
+
+[node name="Contain Spinning Logo" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Contain Spinning Logo"]
+layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.55
-anchor_right = 0.9
-anchor_bottom = 0.8
+anchor_right = 1.5
+anchor_bottom = 1.0
+grow_vertical = 2
+pivot_offset = Vector2(429, 429)
+texture = ExtResource("2_h12dc")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("3_pjl4c")
 
-[node name="Host Server" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Connect to Server" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Quit" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[connection signal="pressed" from="HBoxContainer/Connect to Server" to="." method="_ConnectToServer"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Connect to Server" to="." method="_ConnectToServer"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Solo Mode" to="." method="_ConnectToServer"]
+[connection signal="resized" from="HBoxContainer/Contain Spinning Logo/TextureRect" to="HBoxContainer/Contain Spinning Logo/TextureRect" method="Resize"]
