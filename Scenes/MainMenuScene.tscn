@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckcvtia7thxt"]
+[gd_scene load_steps=5 format=3 uid="uid://ckcvtia7thxt"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_l4w8p"]
 [ext_resource type="Texture2D" uid="uid://dcex470xmut62" path="res://Icons/Main Menu/Kompas Logo.png" id="2_h12dc"]
+[ext_resource type="Script" path="res://Scenes/MainMenuButton.cs" id="2_pe4wm"]
 [ext_resource type="Script" path="res://Scenes/MainMenuKompasLogo.cs" id="3_pjl4c"]
 
 [node name="Control" type="Control"]
@@ -31,36 +32,44 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Connect to Server" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Connect to Server" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Connect to Server"
+script = ExtResource("2_pe4wm")
+SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
-[node name="Solo Mode" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Solo Mode" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "VS \"AI\""
+script = ExtResource("2_pe4wm")
+SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
-[node name="Host Server" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Host Server" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Host Server"
+script = ExtResource("2_pe4wm")
+SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
-[node name="Quit" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Quit"
+script = ExtResource("2_pe4wm")
+SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
 [node name="Contain Spinning Logo" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Contain Spinning Logo"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Contain Spinning Logo" node_paths=PackedStringArray("center")]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.5
@@ -71,6 +80,16 @@ texture = ExtResource("2_h12dc")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("3_pjl4c")
+center = NodePath("Center of Spinning Logo")
+
+[node name="Center of Spinning Logo" type="Control" parent="HBoxContainer/Contain Spinning Logo/TextureRect"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/Connect to Server" to="." method="_ConnectToServer"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/Solo Mode" to="." method="_ConnectToServer"]
