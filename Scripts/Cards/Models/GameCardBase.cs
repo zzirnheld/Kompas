@@ -190,7 +190,7 @@ namespace Kompas.Cards.Models
 		}
 
 		public int ShortestPath(Space space, Predicate<GameCard> throughPredicate)
-			=> Card.Game.BoardController.ShortestPath(Card.Position, space, throughPredicate);
+			=> Card.Game.Board.ShortestPath(Card.Position, space, throughPredicate);
 		#endregion distance/adjacency
 
 		public bool HasSubtype(string subtype) => SubtypeText.ToLower().Contains(subtype.ToLower());

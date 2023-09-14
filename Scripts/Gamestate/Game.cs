@@ -8,6 +8,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
+using Kompas.Gamestate.Locations.Models;
 
 namespace Kompas.Gamestate
 {
@@ -24,7 +25,7 @@ namespace Kompas.Gamestate
 		public abstract Settings Settings { get; }
 
 		//game mechanics
-		public abstract BoardModel BoardController { get; }
+		public abstract BoardModel Board { get; }
 
 		public abstract Player[] Players { get; }
 		public int TurnPlayerIndex { get; protected set; } = 0;
@@ -50,7 +51,7 @@ namespace Kompas.Gamestate
 		public bool BoardHasCopyOf(GameCard card)
 			=> Cards.Any(c => c != card && c.Location == Location.Board && c.ControllingPlayer == card.ControllingPlayer && c.CardName == card.CardName);
 
-		public bool IsValidSpellSpaceFor(GameCard card, Space space) => BoardController.ValidSpellSpaceFor(card, space);
+		public bool IsValidSpellSpaceFor(GameCard card, Space space) => Board.ValidSpellSpaceFor(card, space);
 
 		public bool IsValidStandardPlaySpace(Space space, Player player)
 		{
@@ -65,7 +66,7 @@ namespace Kompas.Gamestate
 			}
 
 			bool existsFriendlyAdjacent(Space adjacentTo)
-				=> adjacentTo.AdjacentSpaces.Any(s => cardAtSpaceIsFriendly(BoardController.GetCardAt(s)));
+				=> adjacentTo.AdjacentSpaces.Any(s => cardAtSpaceIsFriendly(Board.GetCardAt(s)));
 
 			//first see if there's an adjacent friendly card to this space
 			if (existsFriendlyAdjacent(space)) return true;
@@ -73,7 +74,7 @@ namespace Kompas.Gamestate
 			//A player can play to any space if there isn't a space that is adjacent to a friendly card
 			else
 			{
-				bool surrounded = !Space.Spaces.Any(s => BoardController.IsEmpty(s) && existsFriendlyAdjacent(s));
+				bool surrounded = !Space.Spaces.Any(s => Board.IsEmpty(s) && existsFriendlyAdjacent(s));
 				if (surrounded) GD.Print($"{player} is surrounded!");
 				return surrounded;
 			}

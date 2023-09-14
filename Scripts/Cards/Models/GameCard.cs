@@ -7,6 +7,7 @@ using Kompas.Cards.Loading;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 
@@ -68,7 +69,7 @@ namespace Kompas.Cards.Models
 
 				position = value;
 				//card controller will be null on server. not using null ? because of monobehavior
-				if (CardController != null) CardController.SetPhysicalLocation(Location);
+				CardController?.SetPhysicalLocation(Location);
 				foreach (var aug in augmentsList) aug.Position = value;
 			}
 		}
@@ -77,11 +78,11 @@ namespace Kompas.Cards.Models
 		public bool InHiddenLocation => Game.IsHiddenLocation(Location);
 
 		public override IReadOnlyCollection<GameCard> AdjacentCards
-			=> Game?.BoardController.CardsAdjacentTo(Position) ?? new List<GameCard>();
+			=> Game?.Board.CardsAdjacentTo(Position) ?? new List<GameCard>();
 		#endregion positioning
 
 		#region Augments
-		private readonly List<GameCard> augmentsList = new List<GameCard>();
+		private readonly List<GameCard> augmentsList = new();
 		public override IReadOnlyCollection<GameCard> Augments
 		{
 			get => augmentsList;
@@ -160,28 +161,28 @@ namespace Kompas.Cards.Models
 
 		public int TurnsOnBoard { get; set; }
 
-		public GameCardCardLinkHandler CardLinkHandler { get; private set; }
+		public GameCardLinksModel CardLinkHandler { get; private set; }
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			sb.Append(base.ToString());
 			sb.Append($", ID={ID}, Controlled by {ControllerIndex}, Owned by {OwnerIndex}, In Location {location}, Position {Position}, ");
 			if (Attached) sb.Append($"Augmenting {AugmentedCard.CardName} ID={AugmentedCard.ID}, ");
-			if (Augments.Count() > 0) sb.Append($"Augments are {string.Join(", ", Augments.Select(c => $"{c.CardName} ID={c.ID}"))}");
+			if (Augments.Count > 0) sb.Append($"Augments are {string.Join(", ", Augments.Select(c => $"{c.CardName} ID={c.ID}"))}");
 			return sb.ToString();
 		}
 
 		protected GameCard(int id)
 			: base(default,
-				  string.Empty, new string[0],
+				  string.Empty, System.Array.Empty<string>(),
 				  false,
 				  0, 0,
 				  'C', "Dummy Card", "generic/The Intern",
 				  "",
 				  "")
 		{
-			CardLinkHandler = new GameCardCardLinkHandler(this);
+			CardLinkHandler = new GameCardLinksModel(this);
 
 			ID = id;
 		}
@@ -195,21 +196,21 @@ namespace Kompas.Cards.Models
 					   serializeableCard.effText,
 					   serializeableCard.subtypeText)
 		{
-			CardLinkHandler = new GameCardCardLinkHandler(this);
+			CardLinkHandler = new GameCardLinksModel(this);
 
 			ID = id;
 			InitialCardValues = serializeableCard;
 
-			EffectInitializationContext initializationContext = new EffectInitializationContext(game, this); //Can't use property because constructor hasn't gotten there yet
+			var initContext = new EffectInitializationContext(game, this); //Can't use property because constructor hasn't gotten there yet
 
 			MovementRestriction = serializeableCard.movementRestriction ?? IMovementRestriction.CreateDefault();
-			MovementRestriction.Initialize(initializationContext);
+			MovementRestriction.Initialize(initContext);
 
 			AttackingDefenderRestriction = serializeableCard.attackingDefenderRestriction ?? IAttackingDefender.CreateDefault();
-			AttackingDefenderRestriction.Initialize(initializationContext);
+			AttackingDefenderRestriction.Initialize(initContext);
 
 			PlayRestriction = serializeableCard.PlayRestriction ?? IPlayRestriction.CreateDefault();
-			PlayRestriction.Initialize(initializationContext);
+			PlayRestriction.Initialize(initContext);
 
 			GD.Print($"Finished setting up info for card {CardName}");
 		}
@@ -235,7 +236,7 @@ namespace Kompas.Cards.Models
 		/// Accumulates the distance to <paramref name="to"/> into the number of spaces this card moved this turn.
 		/// </summary>
 		/// <param name="to">The space being moved to</param>
-		public void CountSpacesMovedTo((int x, int y) to) => SpacesMoved += Game.BoardController.ShortestEmptyPath(this, to);
+		public void CountSpacesMovedTo((int x, int y) to) => SpacesMoved += Game.Board.ShortestEmptyPath(this, to);
 
 		#region augments
 

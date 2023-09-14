@@ -26,7 +26,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class Empty : SpaceRestrictionBase
 	{
 		protected override bool IsValidLogic(Space space, IResolutionContext context)
-			=> InitializationContext.game.BoardController.IsEmpty(space);
+			=> InitializationContext.game.Board.IsEmpty(space);
 	}
 
 	public class Different : SpaceRestrictionBase
@@ -52,6 +52,6 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	{
 		protected override bool IsValidLogic(Space item, IResolutionContext context)
 			=> InitializationContext.source.CardType != 'S'
-			|| InitializationContext.game.BoardController.ValidSpellSpaceFor(InitializationContext.source, item);
+			|| InitializationContext.game.Board.ValidSpellSpaceFor(InitializationContext.source, item);
 	}
 }

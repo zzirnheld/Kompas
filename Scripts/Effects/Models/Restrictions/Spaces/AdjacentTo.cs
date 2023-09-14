@@ -48,7 +48,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		{
 			if (cardRestriction != null)
 				return toTest.AdjacentSpaces
-					.Select(InitializationContext.game.BoardController.GetCardAt)
+					.Select(InitializationContext.game.Board.GetCardAt)
 					.Count(c => cardRestriction.IsValid(c, context))
 					>= cardRestrictionMinimum.From(context);
 			else if (anyOfTheseCards != null)

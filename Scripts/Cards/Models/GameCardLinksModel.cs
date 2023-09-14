@@ -9,14 +9,14 @@ namespace Kompas.Cards.Controllers
 	/// <summary>
     /// Controls the CardLinks relevant to a particular GameCard
     /// </summary>
-	public class CardLinkController
+	public class GameCardLinksModel
 	{
 		public GameCard Card { get; }
 
 		private readonly List<CardLink> links = new List<CardLink>();
 		public IReadOnlyCollection<CardLink> Links => links;
 
-		public CardLinkController(GameCard card)
+		public GameCardLinksModel(GameCard card)
 		{
 			Card = card;
 		}
@@ -47,7 +47,7 @@ namespace Kompas.Cards.Controllers
 				card?.CardLinkHandler.RemoveLink(equivLink);
 			}
 
-			Card.CardController.RefreshLinks();
+			Card.CardController.RefreshLinks(); //TODO should the links have their own card controller? that this Model is aware of
 		}
 	}
 }
