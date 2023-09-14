@@ -1,6 +1,9 @@
+using System.Net.Sockets;
+using Kompas.Cards.Models;
+
 namespace Kompas.Gamestate.Players
 {
-	public abstract class Player : MonoBehaviour
+	public abstract class Player
 	{
 		public readonly int HandSizeLimit = 7;
 
@@ -35,11 +38,6 @@ namespace Kompas.Gamestate.Players
 		public DiscardController discardCtrl;
 		public HandController handCtrl;
 		public AnnihilationController annihilationCtrl;
-
-		//friendly
-		public GameObject deckObject;
-		public GameObject discardObject;
-		public GameObject handObject;
 
 		public TcpClient TcpClient { get; private set; }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Kompas.Gamestate;
 
-namespace Kompas.Effects.Models.Restrictions.SpaceRestrictions
+namespace Kompas.Effects.Models.Restrictions.Spaces
 {
 		public class MovementRestriction : DualRestrictionBase<Space>, IMovementRestriction
 		{
@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.SpaceRestrictions
 				get
 				{
 					//Card must be in play
-					yield return new TriggerRestrictionElements.CardFitsRestriction()
+					yield return new Gamestate.CardFitsRestriction()
 					{
 						card = new Identities.Cards.ThisCardNow(),
 						cardRestriction = new CardRestrictionElements.Location(Location.Board)

@@ -1,8 +1,10 @@
+using Godot;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;

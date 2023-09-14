@@ -225,6 +225,8 @@ namespace Kompas.Cards.Models
 		public virtual void SetC(int c, IStackable stackSrc, bool onlyStatBeingSet = true) => C = c;
 		public virtual void SetA(int a, IStackable stackSrc, bool onlyStatBeingSet = true) => A = a;
 
+		protected override void SetStats(CardStats cardStats) => SetStats(cardStats, stackSrc: null);
+
 		/// <summary>
 		/// Shorthand for modifying a card's stats all at once.
 		/// On the server, this only notifies the clients of stat changes once.

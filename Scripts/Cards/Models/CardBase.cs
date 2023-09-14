@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Kompas.Cards.Models
 {
@@ -149,7 +150,7 @@ namespace Kompas.Cards.Models
 		}};
 		#endregion
 
-		public Sprite SimpleSprite { get; private set; }
+		//public Sprite SimpleSprite { get; private set; }
 
 		public virtual string FileName { get; set; }
 
@@ -182,7 +183,8 @@ namespace Kompas.Cards.Models
 			if (cardName != CardName)
 			{
 				//GD.Print($"Names are different, changing card pics to match name {FileName}");
-				SimpleSprite = CardRepository.LoadSprite(FileName);
+				//TODO
+				//SimpleSprite = CardRepository.LoadSprite(FileName);
 			}
 			//else GD.Print("Names match. Set Info not updating pics.");
 
@@ -204,6 +206,11 @@ namespace Kompas.Cards.Models
 				serializableCard.radius, serializableCard.duration,
 				serializableCard.cardType, serializableCard.cardName,
 				serializableCard.effText, serializableCard.subtypeText);
+
+		protected virtual void SetStats(CardStats cardStats)
+		{
+			(N, E, S, W, C, A) = cardStats;
+		}
 
 		public override string ToString()
 		{

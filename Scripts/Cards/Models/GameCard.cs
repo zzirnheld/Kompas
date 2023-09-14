@@ -1,5 +1,12 @@
+using System.Collections.Generic;
+using System.Text;
+using Godot;
+using Kompas.Cards.Loading;
+using Kompas.Effects.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
@@ -64,7 +71,7 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public override int IndexInList => GameLocation?.IndexOf(this) ?? -1;
+		public override int IndexInList => LocationModel?.IndexOf(this) ?? -1;
 		public bool InHiddenLocation => Game.IsHiddenLocation(Location);
 
 		public override IReadOnlyCollection<GameCard> AdjacentCards
@@ -93,7 +100,7 @@ namespace Kompas.Cards.Models
 				augmentedCard = value;
 				if (augmentedCard != null)
 				{
-					GameLocation = augmentedCard.GameLocation;
+					LocationModel = augmentedCard.LocationModel;
 					Position = augmentedCard.Position;
 				}
 			}
@@ -128,25 +135,26 @@ namespace Kompas.Cards.Models
 			protected set
 			{
 				location = value;
-				//GD.Print($"Card {ID} named {CardName} location set to {Location}");
-				if (CardController != null) CardController.SetPhysicalLocation(Location);
-				//else GD.PrintWarning($"Missing a card control. Is this a debug card?");
+				GD.Print($"Card {ID} named {CardName} location set to {Location}");
+				//TODO: card controller
+				//if (CardController != null) CardController.SetPhysicalLocation(Location);
+				GD.PrintErr($"Missing a card control. Is this a debug card?");
 			}
 		}
 
-		private IGameLocation gameLocation;
-		public IGameLocation GameLocation
+		private ILocationModel locationModel;
+		public ILocationModel LocationModel
 		{
-			get => gameLocation;
+			get => locationModel;
 			set
 			{
-				GD.Print($"{CardName} moving from {gameLocation} to {value}");
-				gameLocation = value;
+				GD.Print($"{CardName} moving from {locationModel} to {value}");
+				locationModel = value;
 				Location = value.Location;
 			}
 		}
 
-		public string BaseJson => Game.CardRepository.GetJsonFromName(CardName);
+		public string BaseJson => CardRepository.GetJsonFromName(CardName);
 
 		public int TurnsOnBoard { get; set; }
 
@@ -316,7 +324,7 @@ namespace Kompas.Cards.Models
 			if (Location == Location.Nowhere) return true;
 
 			if (Attached) Detach(stackSrc);
-			else GameLocation.Remove(this);
+			else LocationModel.Remove(this);
 			//If it got to either of these, it's not an avatar that failed to get removed
 			return true;
 		}

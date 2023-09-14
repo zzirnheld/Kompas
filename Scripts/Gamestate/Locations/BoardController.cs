@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Godot;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations
 {
@@ -194,7 +198,7 @@ namespace Kompas.Gamestate.Locations
 		public void Remove(GameCard toRemove)
 		{
 			if (toRemove.Location != Location.Board)
-				throw new CardNotHereException(CardLocation, toRemove, $"Tried to remove {toRemove} not on board");
+				throw new CardNotHereException(Location, toRemove, $"Tried to remove {toRemove} not on board");
 			if (toRemove.Position == null)
 				throw new InvalidSpaceException(toRemove.Position, "Can't remove a card from a null space");
 
@@ -202,7 +206,7 @@ namespace Kompas.Gamestate.Locations
 			if (Board[x, y] == toRemove)
 				Board[x, y] = null;
 			else
-				throw new CardNotHereException(CardLocation, toRemove, $"Card thinks it's at {toRemove.Position}, but {Board[x, y]} is there");
+				throw new CardNotHereException(Location, toRemove, $"Card thinks it's at {toRemove.Position}, but {Board[x, y]} is there");
 		}
 
 		/// <summary>
@@ -216,7 +220,7 @@ namespace Kompas.Gamestate.Locations
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");
 			if (toPlay.Location == Location.Board)
-				throw new AlreadyHereException(CardLocation);
+				throw new AlreadyHereException(Location);
 			if (to == null)
 				throw new InvalidSpaceException(to, $"Space to play a card to cannot be null!");
 			if (!ValidSpellSpaceFor(toPlay, to))
@@ -239,12 +243,12 @@ namespace Kompas.Gamestate.Locations
 			//otherwise, put a card to the requested space
 			else
 			{
-				if (!IsEmpty(to)) throw new AlreadyHereException(CardLocation, "There's already a card in a space to be played to");
+				if (!IsEmpty(to)) throw new AlreadyHereException(Location, "There's already a card in a space to be played to");
 				toPlay.Remove(stackSrc);
 				var (toX, toY) = to;
 				Board[toX, toY] = toPlay;
 				toPlay.Position = to;
-				toPlay.GameLocation = this;
+				toPlay.LocationModel = this;
 
 				toPlay.Controller = controller;
 			}

@@ -1,3 +1,5 @@
+using Kompas.Effects.Models.Restrictions;
+
 namespace Kompas.Cards.Models
 {
 	public class SerializableCard

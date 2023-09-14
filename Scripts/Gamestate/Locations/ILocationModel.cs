@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Kompas.Cards.Models;
 
 namespace Kompas.Gamestate.Locations
 {
