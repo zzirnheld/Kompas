@@ -1,4 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
 using Kompas.Cards.Loading;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models;
+using Kompas.Gamestate.Locations;
+using Kompas.Gamestate.Players;
+using Kompas.Shared;
 
 namespace Kompas.Gamestate
 {
@@ -7,8 +14,8 @@ namespace Kompas.Gamestate
 		public const string CardListPath = "Card Jsons/Card List";
 
 		// The list of locations where cards generally shouldn't be made visible to the opponent
-		public static readonly CardLocation[] HiddenLocations =
-			new CardLocation[] { CardLocation.Nowhere, CardLocation.Deck, CardLocation.Hand };
+		public static readonly Location[] HiddenLocations =
+			new Location[] { Location.Nowhere, Location.Deck, Location.Hand };
 
 		//other scripts
 		//public abstract UIController UIController { get; }
@@ -36,22 +43,22 @@ namespace Kompas.Gamestate
 		public abstract bool NothingHappening { get; }
 
 		//game mechanics
-		public static bool IsHiddenLocation(CardLocation l) => HiddenLocations.Contains(l);
+		public static bool IsHiddenLocation(Location l) => HiddenLocations.Contains(l);
 
 		public bool BoardHasCopyOf(GameCard card)
-			=> Cards.Any(c => c != card && c.Location == CardLocation.Board && c.Controller == card.Controller && c.CardName == card.CardName);
+			=> Cards.Any(c => c != card && c.Location == Location.Board && c.Controller == card.Controller && c.CardName == card.CardName);
 
 		public bool IsValidSpellSpaceFor(GameCard card, Space space) => BoardController.ValidSpellSpaceFor(card, space);
 
 		public bool IsValidStandardPlaySpace(Space space, Player player)
 		{
-			/*Debug.Log($"Checking whether player {player?.index} can play a card to {space}. Cards adjacent to that space are" +
+			/*GD.Print($"Checking whether player {player?.index} can play a card to {space}. Cards adjacent to that space are" +
 				$"{string.Join(",", space.AdjacentSpaces.Select(BoardController.GetCardAt).Where(c => c != null).Select(c => c.CardName))}");*/
 
 			bool cardAtSpaceIsFriendly(GameCardBase card)
 			{
 				bool isFriendly = card?.Controller == player;
-				//if (isFriendly) Debug.Log($"{card} is at {card?.Position} adjacent and friendy to {space}");
+				//if (isFriendly) GD.Print($"{card} is at {card?.Position} adjacent and friendy to {space}");
 				return isFriendly;
 			}
 
@@ -65,7 +72,7 @@ namespace Kompas.Gamestate
 			else
 			{
 				bool surrounded = !Space.Spaces.Any(s => BoardController.IsEmpty(s) && existsFriendlyAdjacent(s));
-				if (surrounded) Debug.Log($"{player} is surrounded!");
+				if (surrounded) GD.Print($"{player} is surrounded!");
 				return surrounded;
 			}
 		}

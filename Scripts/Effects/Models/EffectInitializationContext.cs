@@ -1,4 +1,6 @@
+using Kompas.Cards.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
