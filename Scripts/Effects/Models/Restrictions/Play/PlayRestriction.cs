@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using Kompas.Effects.Models.Identities.Numbers;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
@@ -36,10 +38,10 @@ namespace Kompas.Effects.Models.Restrictions.Play
 		private static IRestriction<(Space s, Player p)> OnOrAdjacentToFriendly() => new AnyOf()
 			{
 				elements = new IRestriction<(Space s, Player p)>[] {
-					new CardRestrictionElements.Friendly(),
-					new SpaceRestrictionElements.AdjacentTo()
+					new Cards.Friendly(),
+					new Spaces.AdjacentTo()
 					{
-						cardRestriction = new CardRestrictionElements.Friendly()
+						cardRestriction = new Cards.Friendly()
 					}
 				}
 			};
@@ -48,19 +50,19 @@ namespace Kompas.Effects.Models.Restrictions.Play
 		{
 			get
 			{
-				yield return new SpaceRestrictionElements.SpellRule();
-				yield return new GamestateRestrictionElements.NoUniqueCopyExists();
+				yield return new Spaces.SpellRule();
+				yield return new Gamestate.NoUniqueCopyExists();
 
 				if (playAsAugment)
 				{
-					if (augmentOnSubtypes != null) yield return new CardRestrictionElements.Subtypes() { subtypes = augmentOnSubtypes };
+					if (augmentOnSubtypes != null) yield return new Cards.Subtypes() { subtypes = augmentOnSubtypes };
 
 					//On or adjacent to a friendly
 					if (requireStandardAdjacency) yield return OnOrAdjacentToFriendly();
 				}
 				else
 				{
-					yield return new SpaceRestrictionElements.Empty();
+					yield return new Spaces.Empty();
 
 					if (requireStandardAdjacency) yield return new StandardPlayRestriction();
 				}
@@ -71,32 +73,32 @@ namespace Kompas.Effects.Models.Restrictions.Play
 		{
 			get
 			{
-				yield return new GamestateRestrictionElements.NothingHappening();
+				yield return new Gamestate.NothingHappening();
 
 				//Can afford to play
-				yield return new TriggerRestrictionElements.NumberFitsRestriction()
+				yield return new Gamestate.NumberFitsRestriction()
 				{
 					number = new Identities.Numbers.FromCardValue()
 					{
 						card = new Identities.Cards.ThisCardNow(),
 						cardValue = new CardValue() { value = CardValue.Cost }
 					},
-					restriction = new Restrictions.NumberRestrictionElements.Compare()
+					restriction = new Restrictions.Numbers.Compare()
 					{
-						comparison = new Relationships.NumberRelationships.LessThanEqual(),
+						comparison = new Relationships.Numbers.LessThanEqual(),
 						other = new Identities.Numbers.Pips() { player = new Identities.Players.FriendlyPlayer() }
 					}
 				};
 
 				//Currently controls the card in hand
-				yield return new PlayerRestrictionElements.PlayersMatch()
+				yield return new Players.Is()
 				{
 					player = new Identities.Players.ControllerOf() { card = new Identities.Cards.ThisCardNow() }
 				};
-				yield return new TriggerRestrictionElements.CardFitsRestriction()
+				yield return new Gamestate.CardFitsRestriction()
 				{
 					card = new Identities.Cards.ThisCardNow(),
-					cardRestriction = new CardRestrictionElements.Location(CardLocation.Hand)
+					cardRestriction = new Cards.AtLocation(Location.Hand)
 				};
 			}
 		}
@@ -111,5 +113,4 @@ namespace Kompas.Effects.Models.Restrictions.Play
 		public bool IsValidIgnoringAdjacency((Space s, Player p) item, IResolutionContext context)
 			=> IsValidIgnoring(item, context, r => r is StandardPlayRestriction);
 	}
-}
 }

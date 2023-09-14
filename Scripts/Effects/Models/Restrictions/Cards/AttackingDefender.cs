@@ -44,8 +44,8 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 					};
 				}
 
-				yield return new Restrictions.GamestateRestrictionElements.MaxPerTurn() { max = maxPerTurn };
-				yield return new Restrictions.GamestateRestrictionElements.NothingHappening();
+				yield return new Restrictions.Gamestate.MaxPerTurn() { max = maxPerTurn };
+				yield return new Restrictions.Gamestate.NothingHappening();
 			}
 		}
 	}
