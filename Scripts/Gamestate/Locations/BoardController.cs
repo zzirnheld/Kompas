@@ -312,7 +312,7 @@ namespace Kompas.Gamestate.Locations
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			for (int i = 0; i < 7; i++)
 			{
 				for (int j = 0; j < 7; j++)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;

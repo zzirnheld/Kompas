@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		});
 
 		public static IRestriction<TriggeringEventContext> AllOf(IList<IRestriction<TriggeringEventContext>> elements)
-			=> new Triggering.AllOf() { elements = elements };
+			=> new AllOf() { elements = elements };
 
 		public bool? useDummyResolutionContext;
 

@@ -5,11 +5,11 @@ namespace Kompas.Shared
 {
 	public abstract class Settings
 	{
-		public static readonly Color DefaultFriendlyBlue = new(74, 78, 156, 255);
-		public static readonly Color DefaultEnemyRed = new(255, 53, 49, 255);
+		public static readonly Color DefaultFriendlyBlue = new("4a4e9c");
+		public static readonly Color DefaultEnemyRed = new("ff3531");
 
-		public static readonly Color FriendlyGold = new(226, 166, 0, 255);
-		public static readonly Color EnemySilver = new(128, 128, 128, 255);
+		public static readonly Color FriendlyGold = new("e2a600");
+		public static readonly Color EnemySilver = new("808080");
 		public string friendlyColorString;
 		public string enemyColorString;
 		public int friendlyColorIndex = 0;

@@ -1,7 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Identities;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
@@ -31,13 +33,13 @@ namespace Kompas.Effects.Models
 		public IList<GameCardInfo> CardInfoTargets => CurrentResolutionContext.CardInfoTargets;
 		public IList<IStackable> StackableTargets => CurrentResolutionContext.StackableTargets;
 
-		protected readonly List<CardLink> cardLinks = new List<CardLink>();
+		protected readonly List<CardLink> cardLinks = new();
 
 		//we don't care about informing players of the contents of these. yet. but we might later
-		public readonly List<Player> playerTargets = new List<Player>();
-		public readonly List<GameCard> rest = new List<GameCard>();
+		public readonly List<Player> playerTargets = new();
+		public readonly List<GameCard> rest = new();
 
-		public IdentityOverrides identityOverrides = new IdentityOverrides();
+		public IdentityOverrides identityOverrides = new();
 
 		/// <summary>
 		/// X value for card effect text (not coordinates)
@@ -78,7 +80,7 @@ namespace Kompas.Effects.Models
 		protected void SetInfo(GameCard source, int effIndex, Player owner)
 		{
 			GD.Print($"Trying to init eff {effIndex} of {source}, with game {Game}");
-			Source = source ?? throw new System.ArgumentNullException("source", "Effect cannot be attached to null card");
+			Source = source ?? throw new System.ArgumentNullException(nameof(source), "Effect cannot be attached to null card");
 			EffectIndex = effIndex;
 			Controller = owner;
 
@@ -117,7 +119,7 @@ namespace Kompas.Effects.Models
 
 		public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
 
-		public T TestWithCardTarget<T>(GameCard target, Func<T> toTest)
+		public T TestWithCardTarget<T>(GameCard target, System.Func<T> toTest)
 		{
 			CardTargets.Add(target);
 			var ret = toTest();
@@ -131,6 +133,6 @@ namespace Kompas.Effects.Models
 		public GameCard GetCause(GameCardBase withRespectTo) => Source;
 
 		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger trigger)
-			=> new EffectInitializationContext(game: Game, source: Source, effect: this, trigger: trigger, subeffect: subeffect);
+			=> new(game: Game, source: Source, effect: this, trigger: trigger, subeffect: subeffect);
 	}
 }

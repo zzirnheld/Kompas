@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models
 	/// <summary>
 	/// An object to hold all the parameters required to initialize any restriction/restriction elemnt
 	/// </summary>
-	public struct EffectInitializationContext
+	public readonly struct EffectInitializationContext
 	{
 		public readonly Game game;
 		public readonly GameCard source;
@@ -45,7 +45,7 @@ namespace Kompas.Effects.Models
 		}
 
 		public EffectInitializationContext Child(IContextInitializeable parent)
-			=> new EffectInitializationContext(game, source, effect, trigger, subeffect, controllerOverride, parent);
+			=> new(game, source, effect, trigger, subeffect, controllerOverride, parent);
 
 		public override string ToString()
 		{

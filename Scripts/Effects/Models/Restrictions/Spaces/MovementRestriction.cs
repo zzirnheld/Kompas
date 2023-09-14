@@ -21,10 +21,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 					};
 
 					//TODO re-add swapping probably. will req DefaultEffectElements
-					yield return new Spaces.Empty();
+					yield return new Empty();
 
 					//Can't "move" to the space the card is in now
-					yield return new Spaces.Different()
+					yield return new Different()
 					{
 						from = new Identities.Cards.ThisCardNow()
 					};
@@ -46,7 +46,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 						card = new Identities.Cards.ThisCardNow(),
 						cardRestriction = new Cards.Character()
 					};
-					yield return new Spaces.CompareDistance()
+					yield return new CompareDistance()
 					{
 						//If you can move through cards, you just care about the taxicab distance.
 						//Most cards have to move through an empty path

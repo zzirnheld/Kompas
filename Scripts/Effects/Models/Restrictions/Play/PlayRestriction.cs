@@ -78,15 +78,15 @@ namespace Kompas.Effects.Models.Restrictions.Play
 				//Can afford to play
 				yield return new Gamestate.NumberFitsRestriction()
 				{
-					number = new Identities.Numbers.FromCardValue()
+					number = new FromCardValue()
 					{
 						card = new Identities.Cards.ThisCardNow(),
 						cardValue = new CardValue() { value = CardValue.Cost }
 					},
-					restriction = new Restrictions.Numbers.Compare()
+					restriction = new Numbers.Compare()
 					{
 						comparison = new Relationships.Numbers.LessThanEqual(),
-						other = new Identities.Numbers.Pips() { player = new Identities.Players.FriendlyPlayer() }
+						other = new Pips() { player = new Identities.Players.FriendlyPlayer() }
 					}
 				};
 

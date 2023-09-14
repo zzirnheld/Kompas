@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		{
 			get
 			{
-				yield return new Restrictions.Gamestate.CardFitsRestriction()
+				yield return new Gamestate.CardFitsRestriction()
 				{
 					card = new Identities.Cards.ThisCardNow(),
 					cardRestriction = new AllOf()
@@ -38,14 +38,14 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 				if (!waiveAdjacencyRequirement)
 				{
-					yield return new Restrictions.Spaces.AdjacentTo()
+					yield return new Spaces.AdjacentTo()
 					{
 						card = new Identities.Cards.ThisCardNow()
 					};
 				}
 
-				yield return new Restrictions.Gamestate.MaxPerTurn() { max = maxPerTurn };
-				yield return new Restrictions.Gamestate.NothingHappening();
+				yield return new Gamestate.MaxPerTurn() { max = maxPerTurn };
+				yield return new Gamestate.NothingHappening();
 			}
 		}
 	}
