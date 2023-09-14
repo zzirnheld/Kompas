@@ -1,6 +1,6 @@
 using Godot;
 
-namespace KompasMenu.UI
+namespace Kompas.UI.MainMenu
 {
 	public partial class MainMenuKompasLogo : TextureRect
 	{
