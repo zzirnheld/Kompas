@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckcvtia7thxt"]
+[gd_scene load_steps=6 format=3 uid="uid://ckcvtia7thxt"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_l4w8p"]
 [ext_resource type="Texture2D" uid="uid://dcex470xmut62" path="res://Icons/Main Menu/Kompas Logo.png" id="2_h12dc"]
 [ext_resource type="Script" path="res://Scenes/MainMenuButton.cs" id="2_pe4wm"]
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_pef7p"]
 [ext_resource type="Script" path="res://Scenes/MainMenuKompasLogo.cs" id="3_pjl4c"]
 
 [node name="Control" type="Control"]
@@ -13,6 +14,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l4w8p")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.176471, 0.137255, 0.294118, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pef7p")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -72,7 +83,7 @@ size_flags_stretch_ratio = 5.0
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/Contain Spinning Logo" node_paths=PackedStringArray("center")]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.5
+anchor_right = 2.0
 anchor_bottom = 1.0
 grow_vertical = 2
 pivot_offset = Vector2(429, 429)
