@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://ckcvtia7thxt"]
 
-[ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_l4w8p"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenu.cs" id="1_jcu2n"]
 [ext_resource type="Texture2D" uid="uid://dcex470xmut62" path="res://Icons/Main Menu/Kompas Logo.png" id="2_h12dc"]
-[ext_resource type="Script" path="res://Scenes/MainMenuButton.cs" id="2_pe4wm"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_pef7p"]
-[ext_resource type="Script" path="res://Scenes/MainMenuKompasLogo.cs" id="3_pjl4c"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuButton.cs" id="3_s7n5j"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuKompasLogo.cs" id="5_kn3ij"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_l4w8p")
+script = ExtResource("1_jcu2n")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.176471, 0.137255, 0.294118, 1)
@@ -48,7 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Connect to Server"
-script = ExtResource("2_pe4wm")
+script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
 [node name="Solo Mode" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
@@ -56,7 +56,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "VS \"AI\""
-script = ExtResource("2_pe4wm")
+script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
 [node name="Host Server" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
@@ -64,7 +64,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Host Server"
-script = ExtResource("2_pe4wm")
+script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
 [node name="Quit" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
@@ -72,7 +72,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Quit"
-script = ExtResource("2_pe4wm")
+script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../Contain Spinning Logo/TextureRect")
 
 [node name="Contain Spinning Logo" type="Control" parent="HBoxContainer"]
@@ -80,7 +80,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Contain Spinning Logo" node_paths=PackedStringArray("center")]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Contain Spinning Logo"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 2.0
@@ -90,11 +90,13 @@ pivot_offset = Vector2(429, 429)
 texture = ExtResource("2_h12dc")
 expand_mode = 5
 stretch_mode = 4
-script = ExtResource("3_pjl4c")
-center = NodePath("Center of Spinning Logo")
+script = ExtResource("5_kn3ij")
+center = Object(Control,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":1,"anchors_preset":8,"anchor_left":0.5,"anchor_top":0.5,"anchor_right":0.5,"anchor_bottom":0.5,"offset_left":0.0,"offset_top":0.0,"offset_right":0.0,"offset_bottom":0.0,"grow_horizontal":2,"grow_vertical":2,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":1,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","script":null)
+
 
 [node name="Center of Spinning Logo" type="Control" parent="HBoxContainer/Contain Spinning Logo/TextureRect"]
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
