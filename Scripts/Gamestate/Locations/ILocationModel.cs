@@ -13,7 +13,5 @@ namespace Kompas.Gamestate.Locations
 		public int IndexOf(GameCard card);
 
 		public void Remove(GameCard card);
-
-		public void Refresh();
 	}
 }

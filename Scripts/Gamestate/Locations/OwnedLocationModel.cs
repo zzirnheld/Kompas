@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations
@@ -20,8 +21,12 @@ namespace Kompas.Gamestate.Locations
 
 		public abstract void Remove(GameCard card);
 
-		public abstract void Refresh();
-
 		public override string ToString() => $"{GetType()} owned by {Owner}";
+
+		protected void SharedAddValidation(GameCard card, bool allowAlreadyHere = false)
+		{
+			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
+			if (!allowAlreadyHere && this == card.LocationModel) throw new AlreadyHereException(Location);
+		}
 	}
 }

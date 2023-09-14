@@ -62,7 +62,7 @@ namespace Kompas.Cards.Models
 		}
 
 		public abstract Location Location { get; protected set; }
-		public abstract Player Controller { get; set; }
+		public abstract Player ControllingPlayer { get; set; }
 		public abstract GameCard AugmentedCard { get; protected set; }
 		public abstract IReadOnlyCollection<GameCard> Augments { get; protected set; }
 		/// <summary>
@@ -82,7 +82,7 @@ namespace Kompas.Cards.Models
 		public bool Hurt => CardType == 'C' && Location == Location.Board && E < BaseE;
 
 		#region distance/adjacency
-		public Space SubjectivePosition => Controller.SubjectiveCoords(Position);
+		public Space SubjectivePosition => ControllingPlayer.SubjectiveCoords(Position);
 
 		public int RadiusDistanceTo(Space space)
 			=> Location == Location.Board ? Position.RadiusDistanceTo(space) : int.MaxValue;
@@ -133,7 +133,7 @@ namespace Kompas.Cards.Models
 		/// </summary>
 		/// <param name="space">The space to check if it's in front of this card</param>
 		/// <returns><see langword="true"/> if <paramref name="space"/> is in front of this, <see langword="false"/> otherwise.</returns>
-		public bool SpaceInFront(Space space) => Controller.SubjectiveCoords(space).NorthOf(SubjectivePosition);
+		public bool SpaceInFront(Space space) => ControllingPlayer.SubjectiveCoords(space).NorthOf(SubjectivePosition);
 
 		/// <summary>
 		/// Returns whether the card passed in is in front of this card
@@ -147,7 +147,7 @@ namespace Kompas.Cards.Models
 		/// </summary>
 		/// <param name="space">The space to check if it's behind this card</param>
 		/// <returns><see langword="true"/> if <paramref name="space"/> is behind this, <see langword="false"/> otherwise.</returns>
-		public bool SpaceBehind(Space space) => SubjectivePosition.NorthOf(Controller.SubjectiveCoords(space));
+		public bool SpaceBehind(Space space) => SubjectivePosition.NorthOf(ControllingPlayer.SubjectiveCoords(space));
 
 		/// <summary>
 		/// Returns whether the card passed in is behind this card
@@ -157,7 +157,7 @@ namespace Kompas.Cards.Models
 		public bool CardBehind(GameCardBase card) => SpaceBehind(card.Position);
 
 		public bool SpaceDirectlyInFront(Space space)
-			=> Location == Location.Board && Controller.SubjectiveCoords(space) == SubjectivePosition.DueNorth;
+			=> Location == Location.Board && ControllingPlayer.SubjectiveCoords(space) == SubjectivePosition.DueNorth;
 
 		public bool CardDirectlyInFront(GameCardBase card)
 			=> card.Location == Location.Board && SpaceDirectlyInFront(card.Position);

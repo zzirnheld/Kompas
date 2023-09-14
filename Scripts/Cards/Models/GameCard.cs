@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Godot;
+using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
@@ -124,7 +126,7 @@ namespace Kompas.Cards.Models
 		public override IPlayRestriction PlayRestriction { get; }
 
 		//controller/owners
-		public int ControllerIndex => Controller?.index ?? 0;
+		public int ControllerIndex => ControllingPlayer?.index ?? 0;
 		public int OwnerIndex => Owner?.index ?? -1;
 
 		//misc
@@ -267,37 +269,37 @@ namespace Kompas.Cards.Models
 		{
 			base.SetN(n, stackSrc, onlyStatBeingSet);
 			//TODO leverage onlyStatBeingSet to only call refresh when necessary. (Will require bookkeeping)
-			CardController.gameCardViewController.Refresh();
+			CardController.RefreshStats();
 		}
 
 		public override void SetE(int e, IStackable stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetE(e, stackSrc, onlyStatBeingSet);
-			CardController.gameCardViewController.Refresh();
+			CardController.RefreshStats();
 		}
 
 		public override void SetS(int s, IStackable stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetS(s, stackSrc, onlyStatBeingSet);
-			CardController.gameCardViewController.Refresh();
+			CardController.RefreshStats();
 		}
 
 		public override void SetW(int w, IStackable stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetW(w, stackSrc, onlyStatBeingSet);
-			CardController.gameCardViewController.Refresh();
+			CardController.RefreshStats();
 		}
 
 		public override void SetC(int c, IStackable stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetC(c, stackSrc, onlyStatBeingSet);
-			CardController.gameCardViewController.Refresh();
+			CardController.RefreshStats();
 		}
 
 		public override void SetA(int a, IStackable stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetA(a, stackSrc, onlyStatBeingSet);
-			CardController.gameCardViewController.Refresh();
+			CardController.RefreshStats();
 		}
 
 		/// <summary>

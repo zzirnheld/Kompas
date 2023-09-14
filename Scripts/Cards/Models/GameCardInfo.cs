@@ -40,7 +40,7 @@ namespace Kompas.Cards.Models
 		#region mutable aspects
 		//Note for the unfamiliar: most of these have setters so that inheritors can have setters for the same property names without hiding
 		public override Location Location { get; protected set; }
-		public override Player Controller { get; set; }
+		public override Player ControllingPlayer { get; set; }
 		public override GameCard AugmentedCard { get; protected set; }
 		public override IReadOnlyCollection<GameCard> Augments { get; protected set; }
 		public override bool KnownToEnemy { get; set; }
@@ -76,7 +76,7 @@ namespace Kompas.Cards.Models
 			Card = card;
 			Location = card.Location;
 			IndexInList = card.IndexInList;
-			Controller = card.Controller;
+			ControllingPlayer = card.ControllingPlayer;
 			Owner = card.Owner;
 			Summoned = card.Summoned;
 			IsAvatar = card.IsAvatar;

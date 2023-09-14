@@ -24,7 +24,7 @@ namespace Kompas.Gamestate
 		public abstract Settings Settings { get; }
 
 		//game mechanics
-		public abstract BoardController BoardController { get; }
+		public abstract BoardModel BoardController { get; }
 
 		public abstract Player[] Players { get; }
 		public int TurnPlayerIndex { get; protected set; } = 0;
@@ -48,7 +48,7 @@ namespace Kompas.Gamestate
 		public static bool IsHiddenLocation(Location l) => HiddenLocations.Contains(l);
 
 		public bool BoardHasCopyOf(GameCard card)
-			=> Cards.Any(c => c != card && c.Location == Location.Board && c.Controller == card.Controller && c.CardName == card.CardName);
+			=> Cards.Any(c => c != card && c.Location == Location.Board && c.ControllingPlayer == card.ControllingPlayer && c.CardName == card.CardName);
 
 		public bool IsValidSpellSpaceFor(GameCard card, Space space) => BoardController.ValidSpellSpaceFor(card, space);
 
@@ -59,7 +59,7 @@ namespace Kompas.Gamestate
 
 			bool cardAtSpaceIsFriendly(GameCardBase card)
 			{
-				bool isFriendly = card?.Controller == player;
+				bool isFriendly = card?.ControllingPlayer == player;
 				//if (isFriendly) GD.Print($"{card} is at {card?.Position} adjacent and friendy to {space}");
 				return isFriendly;
 			}

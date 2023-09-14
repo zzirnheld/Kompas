@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		}
 
 		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> playerIdentity.From(context) == card.Controller;
+			=> playerIdentity.From(context) == card.ControllingPlayer;
 	}
 
 	public class Friendly : Controller

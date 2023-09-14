@@ -1,5 +1,6 @@
 using System.Net.Sockets;
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Locations.Models;
 
 namespace Kompas.Gamestate.Players
 {
@@ -30,14 +31,14 @@ namespace Kompas.Gamestate.Players
 		//this is not a property so it can be assigned in the inspector for client players
 		public int index;
 
-		public bool HandFull => handCtrl.HandSize >= HandSizeLimit;
+		public bool HandFull => hand.HandSize >= HandSizeLimit;
 		public Space AvatarCorner => index == 0 ? Space.NearCorner : Space.FarCorner;
 
 		//friendly
-		public DeckController deckCtrl;
-		public DiscardController discardCtrl;
-		public HandController handCtrl;
-		public AnnihilationController annihilationCtrl;
+		public DeckModel deck;
+		public DiscardModel discard;
+		public HandModel hand;
+		public AnnihilationModel annihilation;
 
 		public TcpClient TcpClient { get; private set; }
 

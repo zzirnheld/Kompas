@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models
 		public readonly Subeffect subeffect;
 
 		private readonly Player controllerOverride;
-		public readonly Player Controller => controllerOverride ?? effect?.Controller ?? source?.Controller;
+		public readonly Player Controller => controllerOverride ?? effect?.Controller ?? source?.ControllingPlayer;
 
 		public readonly IContextInitializeable parent;
 

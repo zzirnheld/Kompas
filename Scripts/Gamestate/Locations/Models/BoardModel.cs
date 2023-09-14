@@ -6,11 +6,13 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Gamestate.Locations
+namespace Kompas.Gamestate.Locations.Models
 {
-	public abstract class BoardController : ILocationModel
+	public abstract class BoardModel : ILocationModel
 	{
 		public const int SpacesInGrid = 7;
 		public const int NoPathExists = 50;
@@ -21,7 +23,7 @@ namespace Kompas.Gamestate.Locations
 		protected readonly GameCard[,] Board = new GameCard[SpacesInGrid, SpacesInGrid];
 		public IEnumerable<GameCard> Cards { get { foreach (var card in Board) yield return card; } }
 
-		//public BoardUIController boardUIController;
+		public BoardController boardUIController;
 		public void Refresh() => boardUIController.Refresh();
 
 		//helper methods
@@ -49,7 +51,7 @@ namespace Kompas.Gamestate.Locations
 			//true for non-spells
 			if (card == null || card.CardType != 'S') return true;
 
-			int dist = ShortestPath(card.Controller.Avatar.Position, card.Controller.Enemy.Avatar.Position, s => s != space && IsSpaceEmptyOfSpells(s));
+			int dist = ShortestPath(card.ControllingPlayer.Avatar.Position, card.ControllingPlayer.Enemy.Avatar.Position, s => s != space && IsSpaceEmptyOfSpells(s));
 
 			//if it's not in a relevant location, everything is fine
 			return dist < NoPathExists;
@@ -101,7 +103,7 @@ namespace Kompas.Gamestate.Locations
 			foreach (var card in Board)
 			{
 				if (predicate(card)) list.Add(card);
-				if (card != null) list.AddRange(card.Augments.Where(predicate));
+				if (card != null) list.AddRange(card.Augments.Where(c => predicate(c)));
 			}
 			return list;
 		}
@@ -238,7 +240,7 @@ namespace Kompas.Gamestate.Locations
 				//assuming there is a card there, try and add the augment. if it don't work, it borked.
 				augmented.AddAugment(toPlay, stackSrc);
 
-				toPlay.Controller = controller;
+				toPlay.ControllingPlayer = controller;
 			}
 			//otherwise, put a card to the requested space
 			else
@@ -250,7 +252,7 @@ namespace Kompas.Gamestate.Locations
 				toPlay.Position = to;
 				toPlay.LocationModel = this;
 
-				toPlay.Controller = controller;
+				toPlay.ControllingPlayer = controller;
 			}
 		}
 

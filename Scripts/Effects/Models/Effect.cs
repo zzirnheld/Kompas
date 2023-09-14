@@ -92,7 +92,7 @@ namespace Kompas.Effects.Models
 		public void ResetForTurn(Player turnPlayer)
 		{
 			TimesUsedThisTurn = 0;
-			if (turnPlayer == Source.Controller) TimesUsedThisRound = 0;
+			if (turnPlayer == Source.ControllingPlayer) TimesUsedThisRound = 0;
 		}
 
 		public void Reset()
