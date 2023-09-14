@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ckcvtia7thxt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenu.cs" id="1_jcu2n"]
-[ext_resource type="Texture2D" uid="uid://dcex470xmut62" path="res://Icons/Main Menu/Kompas Logo.png" id="2_h12dc"]
+[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="2_h12dc"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_pef7p"]
 [ext_resource type="Theme" uid="uid://c0p1gwi3hho7o" path="res://Themes/MainMenuButtonTheme.tres" id="3_8vhcs"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuButton.cs" id="3_s7n5j"]
@@ -43,7 +43,7 @@ size_flags_stretch_ratio = 3.0
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.25
 
 [node name="Connect to Server" type="Button" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
@@ -53,7 +53,6 @@ theme = ExtResource("3_8vhcs")
 theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
 text = "Connect to
 Server"
-icon = ExtResource("2_pef7p")
 icon_alignment = 2
 vertical_icon_alignment = 2
 script = ExtResource("3_s7n5j")

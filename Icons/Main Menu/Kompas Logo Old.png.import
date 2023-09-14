@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2xipuek8ngqc"
-path="res://.godot/imported/Kompas Logo.png-1b048ed859076bed12d6fd114e3ca506.ctex"
+uid="uid://dcex470xmut62"
+path="res://.godot/imported/Kompas Logo Old.png-1bbd665ade04d7224d1b4889b3b9e380.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Icons/Main Menu/Kompas Logo.png"
-dest_files=["res://.godot/imported/Kompas Logo.png-1b048ed859076bed12d6fd114e3ca506.ctex"]
+source_file="res://Icons/Main Menu/Kompas Logo Old.png"
+dest_files=["res://.godot/imported/Kompas Logo Old.png-1bbd665ade04d7224d1b4889b3b9e380.ctex"]
 
 [params]
 
