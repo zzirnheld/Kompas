@@ -1,4 +1,5 @@
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Cards;
 
 namespace Kompas.Effects.Models.Restrictions
 {

@@ -6,20 +6,20 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 	public abstract class TriggerRestrictionBase : RestrictionBase<TriggeringEventContext>
 	{
 		public static readonly IRestriction<TriggeringEventContext>[] DefaultFallOffRestrictions = {
-			new TriggerRestrictions.CardsMatch(){
+			new Gamestate.CardsMatch(){
 				card = new Identities.Cards.ThisCardNow(),
 				other = new Identities.Cards.CardBefore()
 			},
-			new GamestateRestrictions.ThisCardInPlay() };
+			new Gamestate.ThisCardInPlay() };
 
 		public static readonly ISet<Type> ReevalationRestrictions = new HashSet<Type>(new Type[] {
-			typeof(GamestateRestrictionElements.MaxPerTurn),
-			typeof(GamestateRestrictionElements.MaxPerRound),
-			typeof(GamestateRestrictionElements.MaxPerStack)
+			typeof(Gamestate.MaxPerTurn),
+			typeof(Gamestate.MaxPerRound),
+			typeof(Gamestate.MaxPerStack)
 		});
 
 		public static IRestriction<TriggeringEventContext> AllOf(IList<IRestriction<TriggeringEventContext>> elements)
-			=> new TriggerRestrictionElements.AllOf() { elements = elements };
+			=> new Triggering.AllOf() { elements = elements };
 
 		public bool? useDummyResolutionContext;
 

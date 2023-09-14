@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Effects.Models.Restrictions.Spaces
 {
@@ -16,14 +17,14 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 					yield return new Gamestate.CardFitsRestriction()
 					{
 						card = new Identities.Cards.ThisCardNow(),
-						cardRestriction = new CardRestrictionElements.Location(Location.Board)
+						cardRestriction = new Cards.AtLocation(Location.Board)
 					};
 
 					//TODO re-add swapping probably. will req DefaultEffectElements
-					yield return new SpaceRestrictionElements.Empty();
+					yield return new Spaces.Empty();
 
 					//Can't "move" to the space the card is in now
-					yield return new SpaceRestrictionElements.Different()
+					yield return new Spaces.Different()
 					{
 						from = new Identities.Cards.ThisCardNow()
 					};
@@ -40,31 +41,31 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 				get
 				{
 					//Only characters can move, normally
-					yield return new TriggerRestrictionElements.CardFitsRestriction()
+					yield return new Gamestate.CardFitsRestriction()
 					{
 						card = new Identities.Cards.ThisCardNow(),
-						cardRestriction = new CardRestrictionElements.Character()
+						cardRestriction = new Cards.Character()
 					};
-					yield return new SpaceRestrictionElements.CompareDistance()
+					yield return new Spaces.CompareDistance()
 					{
 						//If you can move through cards, you just care about the taxicab distance.
 						//Most cards have to move through an empty path
 						shortestEmptyPath = !moveThroughCards,
 						distanceTo = new Identities.Cards.ThisCardNow(),
-						comparison = new Relationships.NumberRelationships.LessThanEqual(),
+						comparison = new Relationships.Numbers.LessThanEqual(),
 						number = new Identities.Numbers.FromCardValue()
 						{
-							cardValue = new CardValue() { value = CardValue.SpacesCanMove },
+							cardValue = new Identities.Numbers.CardValue() { value = Identities.Numbers.CardValue.SpacesCanMove },
 							card = new Identities.Cards.ThisCardNow()
 						}
 					};
-					yield return new GamestateRestrictionElements.NothingHappening();
-					yield return new GamestateRestrictionElements.FriendlyTurn();
+					yield return new Gamestate.NothingHappening();
+					yield return new Gamestate.FriendlyTurn();
 				}
 			}
 
 			public bool WouldBeValidNormalMoveInOpenGamestate(Space item)
 				=> NormalRestriction.IsValidIgnoring(item, ResolutionContext.PlayerTrigger(null, InitializationContext.game),
-					restriction => restriction is GamestateRestrictionElements.NothingHappening); //ignore req that nothing is happening
+					restriction => restriction is Gamestate.NothingHappening); //ignore req that nothing is happening
 		}
 }
