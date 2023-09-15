@@ -8,7 +8,7 @@ using Kompas.Gamestate.Locations.Controllers;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public abstract class HandModel : OwnedLocationModel
+	public abstract class Hand : OwnedLocationModel
 	{
 		public HandController HandController { get; init; }
 
@@ -20,23 +20,11 @@ namespace Kompas.Gamestate.Locations.Models
 		public int HandSize => hand.Count;
 		public override int IndexOf(GameCard card) => hand.IndexOf(card);
 
-		public virtual bool Hand(GameCard card, IStackable stackSrc = null)
+		protected override void Add(GameCard card, int? index)
 		{
-			SharedAddValidation(card);
-
-			var successful = card.Remove(stackSrc);
-			if (successful)
-			{
-				GD.Print($"Handing {card.CardName}");
-
-				hand.Add(card);
-				card.LocationModel = this;
-				card.Position = null;
-				card.ControllingPlayer = Owner; //TODO should this be before or after the prev line?
-
-				HandController.Refresh();
-			}
-			return successful;
+			if (index.HasValue) hand.Insert(index.Value, card);
+			else hand.Add(card);
+			HandController.Refresh();
 		}
 
 		public override void Remove(GameCard card)

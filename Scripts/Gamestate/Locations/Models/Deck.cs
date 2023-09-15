@@ -8,7 +8,7 @@ using Kompas.Shared;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public abstract class DeckModel : OwnedLocationModel
+	public abstract class Deck : OwnedLocationModel
 	{
 		public override Location Location => Location.Deck;
 
@@ -22,42 +22,25 @@ namespace Kompas.Gamestate.Locations.Models
 		public GameCard Topdeck => deck.FirstOrDefault();
 		public GameCard Bottomdeck => deck.LastOrDefault();
 
-		/// <summary>
-		/// Sets the card's information to match this deck, but doesn't set its index.
-		/// </summary>
-		/// <param name="card">The card to add to this deck</param>
-		/// <returns><see langword="true"/> if the add was completely successful.<br></br>
-		/// <see langword="false"/> if the add failed in a way that isn't considered "impossible" (i.e. removing an avatar)</returns>
-		protected virtual bool AddToDeck(GameCard card, int? index = null, IStackable stackSrc = null)
+		protected override bool AllowAlreadyHereWhenAdd => true;
+
+		protected override void Add(GameCard card, int? index)
 		{
-			//Does not check if card is already in deck, because the functions to move around a card in deck are the same as those to add a card to deck
-			SharedAddValidation(card, allowAlreadyHere: true);
-			
-			//Check if the card is successfully removed (if it's not, it's probably an avatar)
-			if (card.Remove(stackSrc))
-			{
-				if (index.HasValue) deck.Insert(index.Value, card);
-				else deck.Add(card);
-				card.LocationModel = this;
-				card.ControllingPlayer = Owner;
-				card.Position = null;
-				return true;
-			}
-			return false;
+			if (index.HasValue) deck.Insert(index.Value, card);
+			else deck.Add(card);
 		}
 
 		//adding and removing cards
-		public virtual bool PushTopdeck(GameCard card, IStackable stackSrc = null)
-			=> AddToDeck(card, index: 0, stackSrc: stackSrc);
+		public virtual void PushTopdeck(GameCard card, IStackable stackSrc = null)
+			=> Add(card, index: 0, stackableCause: stackSrc);
 
-		public virtual bool PushBottomdeck(GameCard card, IStackable stackSrc = null)
-			=> AddToDeck(card, stackSrc: stackSrc);
+		public virtual void PushBottomdeck(GameCard card, IStackable stackSrc = null)
+			=> Add(card, stackableCause: stackSrc);
 
-		public virtual bool ShuffleIn(GameCard card, IStackable stackSrc = null)
+		public virtual void ShuffleIn(GameCard card, IStackable stackSrc = null)
 		{
-			bool ret = AddToDeck(card, stackSrc: stackSrc);
-			if (ret) Shuffle();
-			return ret;
+			Add(card, stackableCause: stackSrc);
+			Shuffle();
 		}
 
 		/// <summary>

@@ -9,6 +9,10 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
+	/// <summary>
+    /// Base class for card information relevant to a game.
+    /// Could be the actual card itself, or a stashed copy of that card's information.
+    /// </summary>
 	public abstract class GameCardBase : CardBase
 	{
 		#region immutable aspects

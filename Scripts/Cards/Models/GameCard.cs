@@ -68,7 +68,6 @@ namespace Kompas.Cards.Models
 				if (null != value) GD.Print($"Position of {CardName} set to {value}");
 
 				position = value;
-				//card controller will be null on server. not using null ? because of monobehavior
 				CardController?.SetPhysicalLocation(Location);
 				foreach (var aug in augmentsList) aug.Position = value;
 			}
@@ -322,14 +321,12 @@ namespace Kompas.Cards.Models
 		/// <param name="stackSrc">The stackable (if any) that caused the card's game location to change</param>
 		/// <returns><see langword="true"/> if the card was successfully removed, 
 		/// <see langword="false"/> if the card is an avatar that got sent back</returns>
-		public virtual bool Remove(IStackable stackSrc = null)
+		public virtual void Remove(IStackable stackSrc = null)
 		{
-			if (Location == Location.Nowhere) return true;
+			if (Location == Location.Nowhere) return;
 
 			if (Attached) Detach(stackSrc);
 			else LocationModel.Remove(this);
-			//If it got to either of these, it's not an avatar that failed to get removed
-			return true;
 		}
 
 		public virtual void Reveal(IStackable stackSrc = null)

@@ -35,10 +35,10 @@ namespace Kompas.Gamestate.Players
 		public Space AvatarCorner => index == 0 ? Space.NearCorner : Space.FarCorner;
 
 		//friendly
-		public DeckModel deck;
-		public DiscardModel discard;
-		public HandModel hand;
-		public AnnihilationModel annihilation;
+		public Deck deck;
+		public Discard discard;
+		public Hand hand;
+		public Annihilation annihilation;
 
 		public TcpClient TcpClient { get; private set; }
 

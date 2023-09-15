@@ -25,7 +25,7 @@ namespace Kompas.Gamestate
 		public abstract Settings Settings { get; }
 
 		//game mechanics
-		public abstract BoardModel Board { get; }
+		public abstract Board Board { get; }
 
 		public abstract Player[] Players { get; }
 		public int TurnPlayerIndex { get; protected set; } = 0;

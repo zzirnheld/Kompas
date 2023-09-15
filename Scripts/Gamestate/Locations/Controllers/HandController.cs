@@ -5,7 +5,7 @@ namespace Kompas.Gamestate.Locations.Controllers
 {
 	public partial class HandController : Node
 	{
-		public HandModel HandModel { get; init; }
+		public Hand HandModel { get; init; }
 
 		public void Refresh() => SpreadOutCards();
 

@@ -11,6 +11,7 @@ namespace Kompas.Gamestate.Exceptions
 		public CardNotHereException(Location location, GameCardBase card, string debugMessage = "", string message = "")
 			: base(debugMessage, message)
 		{
+			this.card = card;
 			this.location = location;
 		}
 	}
