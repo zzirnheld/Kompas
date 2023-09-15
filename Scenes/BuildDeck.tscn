@@ -1,16 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=5 format=3 uid="uid://dyd4kwq4w0phs"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Card Information Displayers/ControlInformationDisplayer.cs" id="1_e4tq2"]
-[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="2_5abee"]
-[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_a3oma"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_qkmpo"]
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_hbpds"]
+[ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/ControlInfoDisplayer.cs" id="3_wqsu4"]
+[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="4_ae6sg"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qkmpo")
+CardInfoDisplayer = NodePath("HBoxContainer/Card Info/Not a Card (PLACEHOLDER)")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.176471, 0.137255, 0.294118, 1)
@@ -20,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_a3oma")
+texture = ExtResource("2_hbpds")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -39,21 +42,21 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-script = ExtResource("1_e4tq2")
-Image = NodePath("Card Face Image")
-N = NodePath("Stats/N/N Value")
-E = NodePath("Stats/E/E Value")
-S = NodePath("Stats/S/S Value")
-W = NodePath("Stats/W/W Value")
-C = NodePath("Stats/C/C Value")
-A = NodePath("Stats/A/A Value")
-CardName = NodePath("Card Name")
-Subtypes = NodePath("Subtypes")
-EffText = NodePath("Effect Text")
+script = ExtResource("3_wqsu4")
+Image = NodePath("")
+N = NodePath("")
+E = NodePath("")
+S = NodePath("")
+W = NodePath("")
+C = NodePath("")
+A = NodePath("")
+CardName = NodePath("")
+Subtypes = NodePath("")
+EffText = NodePath("")
 
 [node name="Card Face Image" type="TextureRect" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
 layout_mode = 2
-texture = ExtResource("2_5abee")
+texture = ExtResource("4_ae6sg")
 expand_mode = 4
 stretch_mode = 4
 

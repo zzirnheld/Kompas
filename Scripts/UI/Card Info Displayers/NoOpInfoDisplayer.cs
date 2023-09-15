@@ -2,7 +2,7 @@ using Kompas.Cards.Models;
 
 namespace Kompas.UI.CardInformationDisplayers
 {
-	public class NoOpInformationDisplayer : ICardInformationDisplayer
+	public class NoOpInfoDisplayer : ICardInfoDisplayer
 	{
 		public bool ShowingInfo { set { } }
 		public void DisplayCardImage(CardBase card) { }

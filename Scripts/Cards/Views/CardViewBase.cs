@@ -9,7 +9,7 @@ namespace Kompas.Cards.Views
 	/// </summary>
 	public abstract class CardViewBase<CardType, DisplayerType>
 		where CardType : CardBase
-		where DisplayerType : ICardInformationDisplayer
+		where DisplayerType : ICardInfoDisplayer
 	{
 		/// <summary>
 		/// The card currently being shown to the user.
@@ -17,6 +17,11 @@ namespace Kompas.Cards.Views
 		public CardType ShownCard { get; private set; }
 
 		public DisplayerType InfoDisplayer { get; init; }
+
+		protected CardViewBase(DisplayerType infoDisplayer)
+		{
+			InfoDisplayer = infoDisplayer;
+		}
 
 		/// <summary>
 		/// Force an update to the currently shown card's information being displayed

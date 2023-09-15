@@ -3,7 +3,7 @@ using Kompas.Cards.Models;
 
 namespace Kompas.UI.CardInformationDisplayers
 {
-	public partial class ControlInformationDisplayer : Control, ICardInformationDisplayer
+	public partial class ControlInfoDisplayer : Control, ICardInfoDisplayer
 	{
 		[Export]
 		private TextureRect Image { get; set; }

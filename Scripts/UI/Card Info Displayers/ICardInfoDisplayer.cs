@@ -5,7 +5,7 @@ namespace Kompas.UI.CardInformationDisplayers
 	/// <summary>
     /// Defines how information is actually displayed on a card.
     /// </summary>
-	public interface ICardInformationDisplayer
+	public interface ICardInfoDisplayer
 	{
 		/// <summary>
 		/// Shows or hides the card information.

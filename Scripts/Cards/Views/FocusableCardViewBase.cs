@@ -9,7 +9,7 @@ namespace Kompas.Cards.Views
 	public abstract class FocusableCardViewBase<CardType, DisplayerType>
 		: CardViewBase<CardType, DisplayerType>
 		where CardType : CardBase
-		where DisplayerType : ICardInformationDisplayer
+		where DisplayerType : ICardInfoDisplayer
 	{
 		/// <summary>
 		/// The card being "focused" on.
@@ -18,6 +18,9 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		public CardType FocusedCard { get; private set; }
 
+		protected FocusableCardViewBase(DisplayerType infoDisplayer)
+			: base(infoDisplayer)
+		{ }
 
 		/// <summary>
 		/// Focus on a given card.
