@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyd4kwq4w0phs"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_qkmpo"]
-[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_hbpds"]
-[ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/ControlInfoDisplayer.cs" id="3_wqsu4"]
-[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="4_ae6sg"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
+[ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/ControlInfoDisplayer.cs" id="3_dc8x7"]
+[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="4_c8rh7"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer")]
 layout_mode = 3
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_qkmpo")
+script = ExtResource("1_vu5h4")
 CardInfoDisplayer = NodePath("HBoxContainer/Card Info/Not a Card (PLACEHOLDER)")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -23,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_hbpds")
+texture = ExtResource("2_l8goj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -42,7 +42,7 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-script = ExtResource("3_wqsu4")
+script = ExtResource("3_dc8x7")
 Image = NodePath("")
 N = NodePath("")
 E = NodePath("")
@@ -56,7 +56,7 @@ EffText = NodePath("")
 
 [node name="Card Face Image" type="TextureRect" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
 layout_mode = 2
-texture = ExtResource("4_ae6sg")
+texture = ExtResource("4_c8rh7")
 expand_mode = 4
 stretch_mode = 4
 
