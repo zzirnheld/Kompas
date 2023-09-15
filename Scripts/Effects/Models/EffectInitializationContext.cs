@@ -1,5 +1,5 @@
 using Kompas.Cards.Models;
-using Kompas.Effects.Models.Subeffects;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 

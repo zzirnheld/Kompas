@@ -1,5 +1,5 @@
 using Kompas.Cards.Models;
-using KompasServer.Effects.Subeffects;
+using Kompas.Effects.Subeffects;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards

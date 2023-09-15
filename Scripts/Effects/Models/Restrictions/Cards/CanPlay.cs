@@ -1,6 +1,8 @@
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
+using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards

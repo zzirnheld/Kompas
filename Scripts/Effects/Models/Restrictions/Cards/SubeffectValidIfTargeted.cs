@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
-using KompasServer.Effects;
+using Kompas.Effects.Models.InitializationRequirements;
 using Newtonsoft.Json;
 
 //TODO: move this to the KompasServer package?
@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		private bool ValidateAllSubeffectsPossible()
 		{
-			if (!(InitializationContext.effect is ServerEffect serverEffect))
+			if (InitializationContext.effect is not ServerEffect serverEffect)
 				throw new System.InvalidOperationException("Cannot check validity of a server-reliant restriction client-side!");
 
 			return subeffectIndices.Select(i => serverEffect.subeffects[i])

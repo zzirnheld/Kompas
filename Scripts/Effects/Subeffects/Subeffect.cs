@@ -1,9 +1,10 @@
 using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Effects.Models.Subeffects
+namespace Kompas.Effects.Subeffects
 {
 	/// <summary>
 	/// Not abstract because it's instantiated as part of loading subeffects

@@ -1,5 +1,6 @@
 
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Identities.Numbers;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
