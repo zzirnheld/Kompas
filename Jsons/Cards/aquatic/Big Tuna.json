@@ -9,13 +9,17 @@
 	"PlayRestriction": {
 		"$type": "Restrict.Play:PlayRestriction:",
 		"requireStandardAdjacency": false,
-		"normalAndEffect": [ {
-			"$type": "Restrict.Spaces:InAOEOf:",
-			"cardRestriction": {
-				"$type": "Restrict.Cards:Subtypes:",
-				"subtypes": [ "Water" ]
+		"normalAndEffect": [
+			{
+				"$type": "Restrict.Spaces:InAOEOf:",
+				"cardRestriction": {
+					"$type": "Restrict.Cards:Subtypes:",
+					"subtypes": [
+						"Water"
+					]
+				}
 			}
-		} ]
+		]
 	},
 	"n": 1,
 	"e": 4,

@@ -1,7 +1,7 @@
-using KompasCore.Cards;
+using Kompas.Cards.Models;
 using Newtonsoft.Json;
 
-namespace KompasCore.Effects.Identities.Cards
+namespace Kompas.Effects.Models.Identities.Cards
 {
 	public class TargetIndex : EffectContextualCardIdentityBase
 	{
@@ -11,7 +11,7 @@ namespace KompasCore.Effects.Identities.Cards
 		protected override GameCardBase AbstractItemFrom(IResolutionContext contextToConsider)
 		{
 			return InitializationContext.effect?.identityOverrides.TargetCardOverride
-				?? EffectHelpers.GetItem(contextToConsider.CardTargets, index);
+				?? EffectHelper.GetItem(contextToConsider.CardTargets, index);
 		} 
 	}
 
@@ -21,6 +21,6 @@ namespace KompasCore.Effects.Identities.Cards
 		public int index = -1;
 
 		protected override GameCardBase AbstractItemFrom(IResolutionContext contextToConsider)
-			=> EffectHelpers.GetItem(contextToConsider.CardInfoTargets, index);
+			=> EffectHelper.GetItem(contextToConsider.CardInfoTargets, index);
 	}
 }

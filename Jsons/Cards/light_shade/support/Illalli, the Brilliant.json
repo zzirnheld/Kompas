@@ -90,7 +90,7 @@
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"Identify.CardsSource": { "$type": "Identify.ManyCards:Board:" },
+					"cardsSource": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

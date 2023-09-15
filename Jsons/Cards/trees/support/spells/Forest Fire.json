@@ -31,7 +31,7 @@
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"Identify.CardsSource": {
+					"cardsSource": {
 						"$type": "Identify.ManyCards:CardsInPositions:",
 						"positions": {
 							"$type": "Identify.ManySpaces:AdjacentSpaces:",
