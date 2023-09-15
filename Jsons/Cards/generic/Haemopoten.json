@@ -10,7 +10,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:EffectUsesThisTurn:" }
+					"numberIdentity": { "$type": "Identify.Numbers:EffectUsesThisTurn:" }
 				},
 				{
 					"$type": "Subeffect:TargetThis:"
@@ -22,7 +22,7 @@
 				{
 					"$type": "Subeffect:AutoTarget:",
 					"blurb": "for Haemopoten to draw",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -33,7 +33,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
-									"other": { "$type": "Numbers:Constant:", "constant": 1 }
+									"other": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 								}
 							}
 						]

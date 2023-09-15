@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Golem" ]
@@ -26,8 +26,8 @@
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
-						"$type": "Cards:AugmentedCard:",
-						"cardFromContext": { "$type": "Cards:ThisCardNow:" }
+						"$type": "Identify.Cards:AugmentedCard:",
+						"cardFromContext": { "$type": "Identify.Cards:ThisCardNow:" }
 					}
 				},
 				{
@@ -35,8 +35,8 @@
 					"endCondition": "Augment Detached",
 					"triggerRestriction": {
 						"$type": "Restrict.Triggering:CardsMatch:",
-						"card": { "$type": "Cards:CardBefore:" },
-						"other": { "$type": "Cards:ThisCardNow:" }
+						"card": { "$type": "Identify.Cards:CardBefore:" },
+						"other": { "$type": "Identify.Cards:ThisCardNow:" }
 					}
 				}
 			]
@@ -52,10 +52,10 @@
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
-							"other": { "$type": "Cards:CardBefore:" }
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
@@ -69,7 +69,7 @@
 									}
 								]
 							},
-							"card": { "$type": "Cards:CardBefore:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" }
 						}
 					]
 				}
@@ -77,11 +77,11 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
-					"subeffectCardIdentity": { "$type": "Cards:CardBefore:" }
+					"subeffectCardIdentity": { "$type": "Identify.Cards:CardBefore:" }
 				},
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
-					"spaceIdentity": { "$type": "Cards:CardBefore:" }
+					"spaceIdentity": { "$type": "Identify.Cards:CardBefore:" }
 				},
 				{
 					"$type": "Subeffect:Play:"

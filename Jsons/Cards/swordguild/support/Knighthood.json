@@ -13,12 +13,12 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CauseAfter:" },
+							"card": { "$type": "Identify.Cards:CauseAfter:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -40,16 +40,16 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:CauseAfter:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:CauseAfter:" },
 						"cardValue": { "value": "N" }
 					}
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:CauseAfter:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:CauseAfter:" },
 						"cardValue": { "value": "E" }
 					},
 					"change": true
@@ -57,8 +57,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:CauseAfter:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:CauseAfter:" },
 						"cardValue": { "value": "S" }
 					},
 					"change": true
@@ -66,8 +66,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:CauseAfter:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:CauseAfter:" },
 						"cardValue": { "value": "W" }
 					},
 					"change": true
@@ -84,7 +84,7 @@
 				},
 				{
 					"$type":"Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction":
 					{
 						"blurb":"for Squire to become",
@@ -102,7 +102,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]

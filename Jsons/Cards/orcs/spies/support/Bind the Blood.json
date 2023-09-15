@@ -12,7 +12,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -21,7 +21,7 @@
 										"$type": "Restrict.Cards:Not:",
 										"negated": {
 											"$type": "Restrict.Cards:CardsMatch:",
-											"card": { "$type": "Cards:ThisCardNow:" }
+											"card": { "$type": "Identify.Cards:ThisCardNow:" }
 										}
 									},
 									{
@@ -30,7 +30,7 @@
 									},
 									{
 										"$type": "Restrict.Spaces:InAOEOf:",
-										"card": { "$type": "Cards:ThisCardNow:" }
+										"card": { "$type": "Identify.Cards:ThisCardNow:" }
 									}
 								]
 							}
@@ -41,7 +41,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
-					"subeffectCardIdentity": { "$type": "Cards:CardBefore:" }
+					"subeffectCardIdentity": { "$type": "Identify.Cards:CardBefore:" }
 				},
 				{
 					"$type": "Subeffect:ChangeCardStats:",
@@ -58,8 +58,8 @@
 						"elements": [
 							{
 								"$type": "Restrict.Triggering:StackablesMatch:",
-								"firstStackable": { "$type": "Stackables:StackableIndex:" },
-								"secondStackable": { "$type": "Stackables:StackableCause:" }
+								"firstStackable": { "$type": "Identify.Stackables:StackableIndex:" },
+								"secondStackable": { "$type": "Identify.Stackables:StackableCause:" }
 							}
 						]
 					},
@@ -68,14 +68,14 @@
 						"elements": [
 							{
 								"$type": "Restrict.Triggering:StackablesMatch:",
-								"firstStackable": { "$type": "Stackables:StackableIndex:" },
-								"secondStackable": { "$type": "Stackables:StackableCause:" }
+								"firstStackable": { "$type": "Identify.Stackables:StackableIndex:" },
+								"secondStackable": { "$type": "Identify.Stackables:StackableCause:" }
 							},
 							{
 								"$type": "Restrict.Triggering:CardsMatch:",
-								"card": { "$type": "Cards:CardBefore:" },
+								"card": { "$type": "Identify.Cards:CardBefore:" },
 								"other": {
-									"$type": "Cards:CardBefore:",
+									"$type": "Identify.Cards:CardBefore:",
 									"contextSecondaryCard": true
 								}
 							}
@@ -85,7 +85,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Bind blood to a card",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [

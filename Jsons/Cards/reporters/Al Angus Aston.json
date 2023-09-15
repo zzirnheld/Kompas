@@ -35,9 +35,9 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "cards to reveal",
+					"blurb": "Identify.Cards to reveal",
 					"toSearch": {
-						"$type": "ManyCards:Hand:",
+						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true,
 						"enemy": true
 					},
@@ -47,7 +47,7 @@
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Players:TargetIndex:" }
+								"player": { "$type": "Identify.Players:TargetIndex:" }
 							}
 						]
 					},
@@ -56,11 +56,11 @@
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 							}
 						]
 					}
@@ -81,7 +81,7 @@
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"cardsSource": { "$type": "ManyCards:Board:" },
+					"Identify.CardsSource": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

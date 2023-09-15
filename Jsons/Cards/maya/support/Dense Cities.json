@@ -9,8 +9,8 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -20,8 +20,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:CountCards:",
-						"cards": { "$type": "ManyCards:Board:" },
+						"$type": "Identify.Numbers:CountCards:",
+						"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
@@ -31,7 +31,7 @@
 								},
 								{
 									"$type": "Restrict.Spaces:SameDiagonal:",
-									"other": { "$type": "Cards:TargetIndex:" }
+									"other": { "$type": "Identify.Cards:TargetIndex:" }
 								}
 							]
 						}
@@ -40,7 +40,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Craftspeople move to the cities",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -52,7 +52,7 @@
 					},
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:Maximum:",
-						"bound": { "$type": "Numbers:EffectX:" }
+						"bound": { "$type": "Identify.Numbers:EffectX:" }
 					}
 				},
 				{

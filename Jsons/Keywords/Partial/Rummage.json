@@ -10,7 +10,7 @@
 				},
 				{
 					"$type": "Restrict.Players:PlayersMatch:",
-					"player": { "$type": "Players:TargetIndex:" }
+					"player": { "$type": "Identify.Players:TargetIndex:" }
 				}
 			]
 		}

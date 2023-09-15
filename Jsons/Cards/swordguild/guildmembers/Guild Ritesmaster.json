@@ -13,8 +13,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:CountCards:",
-						"cards": { "$type": "ManyCards:Discard:" },
+						"$type": "Identify.Numbers:CountCards:",
+						"Identify.Cards": { "$type": "Identify.ManyCards:Discard:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Warrior" ]
@@ -24,7 +24,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Warrior for the rites to summon",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -40,7 +40,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]
@@ -49,15 +49,15 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "S" }
 					}
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Warriors for Ritesmaster to reshuffle",
-					"toSearch": { "$type": "ManyCards:Discard:" },
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -72,11 +72,11 @@
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							}
 						]
 					}
@@ -101,7 +101,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},

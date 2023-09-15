@@ -13,10 +13,10 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:Avatar:",
-								"player": { "$type": "Players:FriendlyPlayer:" }
+								"$type": "Identify.Cards:Avatar:",
+								"player": { "$type": "Identify.Players:FriendlyPlayer:" }
 							}
 						}
 					]
@@ -38,8 +38,8 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -57,15 +57,15 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "C" }
 					}
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Pulsar to coalesce",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -81,7 +81,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]
@@ -96,7 +96,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

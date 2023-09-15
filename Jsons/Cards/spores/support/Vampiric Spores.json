@@ -14,14 +14,14 @@
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
-							"other": { "$type": "Cards:CauseBefore:" }
+							"other": { "$type": "Identify.Cards:CauseBefore:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

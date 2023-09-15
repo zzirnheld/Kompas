@@ -12,12 +12,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Golem" ]
@@ -35,8 +35,8 @@
 					"endCondition": "Augment Detached",
 					"triggerRestriction": {
 						"$type": "Restrict.Triggering:CardsMatch:",
-						"card": { "$type": "Cards:CardBefore:" },
-						"other": { "$type": "Cards:ThisCardNow:" }
+						"card": { "$type": "Identify.Cards:CardBefore:" },
+						"other": { "$type": "Identify.Cards:ThisCardNow:" }
 					}
 				},
 				{
@@ -45,8 +45,8 @@
 					"endCondition": "Augment Detached",
 					"triggerRestriction": {
 						"$type": "Restrict.Triggering:CardsMatch:",
-						"card": { "$type": "Cards:CardBefore:" },
-						"other": { "$type": "Cards:ThisCardNow:" }
+						"card": { "$type": "Identify.Cards:CardBefore:" },
+						"other": { "$type": "Identify.Cards:ThisCardNow:" }
 					}
 				}
 			]

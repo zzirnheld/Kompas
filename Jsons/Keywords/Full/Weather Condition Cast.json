@@ -11,7 +11,7 @@
 		},
 		{
 			"$type":"Subeffect:CardTarget:",
-			"toSearch": { "$type": "ManyCards:Deck:" },
+			"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 			"cardRestriction":{
 				"blurb":"Weather to deck-cast",
 				"elements": [
@@ -35,11 +35,11 @@
 				"elements": [
 					{
 						"$type": "Restrict.Spaces:CanPlayCard:",
-						"toPlay": { "$type": "Cards:TargetIndex:" }
+						"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 					},
 					{
 						"$type": "Restrict.Spaces:AdjacentTo:",
-						"space": { "$type": "Spaces:TargetIndex:" }
+						"space": { "$type": "Identify.Spaces:TargetIndex:" }
 					}
 				]
 			}

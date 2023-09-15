@@ -8,8 +8,8 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -27,7 +27,7 @@
 							},
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Cards:HasAugment:",
@@ -42,7 +42,7 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:CountCards:",
+						"$type": "Identify.Numbers:CountCards:",
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
@@ -52,7 +52,7 @@
 								},
 								{
 									"$type": "Restrict.Cards:Augments:",
-									"singleCard": { "$type": "Cards:TargetIndex:" }
+									"singleCard": { "$type": "Identify.Cards:TargetIndex:" }
 								}
 							]
 						}
@@ -69,7 +69,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Corporeal form to recall",
 					"cardRestriction": {
-						"toSearch": { "$type": "ManyCards:Deck:" },
+						"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
@@ -84,7 +84,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]
@@ -99,7 +99,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

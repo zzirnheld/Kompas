@@ -19,14 +19,14 @@
 					},
 					{
 						"$type": "Restrict.Cards:Augments:",
-						"singleCard": { "$type": "Cards:TargetIndex:" }
+						"singleCard": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				]
 			}
 		},
 		{
 			"$type":"Subeffect:CardTarget:",
-			"toSearch": { "$type": "ManyCards:Hand:" },
+			"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 			"cardRestriction":
 			{
 				"blurb": "Mask to swap for",

@@ -15,7 +15,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -37,7 +37,7 @@
 			"subeffects":[
 				{
 					"$type":"Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction":
 					{
 						"blurb":"for Haemopoten to draw",

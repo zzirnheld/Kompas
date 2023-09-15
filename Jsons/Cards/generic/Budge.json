@@ -12,8 +12,8 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:ThisCardNow:" },
-							"other": { "$type": "Cards:CardBefore:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						}
 					]
 				}
@@ -27,7 +27,7 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Cards:CanMove:",
@@ -44,12 +44,12 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 1 },
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 },
 								"comparison": { "$type": "Relationships.Number:Equal:" }
 							}
 						]

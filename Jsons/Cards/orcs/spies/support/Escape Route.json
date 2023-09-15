@@ -22,12 +22,12 @@
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:CardsMatch:",
-									"card": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							},
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}

@@ -13,7 +13,7 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [

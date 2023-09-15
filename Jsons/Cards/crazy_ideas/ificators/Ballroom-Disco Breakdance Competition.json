@@ -14,7 +14,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Spaces:InAOEOf:",
-							"card": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" }
 						}
 					]
 				}
@@ -26,8 +26,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "N" }
 					}
 				},
@@ -37,8 +37,8 @@
 					"endCondition": "Effect Pushed to Stack",
 					"triggerRestriction": {
 						"$type": "Restrict.Triggering:StackablesMatch:",
-						"firstStackable": { "$type": "Stackables:StackableEvent:" },
-						"secondStackable": { "$type": "Stackables:ThisEffect:" }
+						"firstStackable": { "$type": "Identify.Stackables:StackableEvent:" },
+						"secondStackable": { "$type": "Identify.Stackables:ThisEffect:" }
 					}
 				}
 			]

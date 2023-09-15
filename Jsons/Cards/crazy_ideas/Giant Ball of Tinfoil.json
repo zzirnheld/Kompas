@@ -26,11 +26,11 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -47,12 +47,12 @@
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"spaceIdentity": {
-						"$type": "Spaces:ApplyDisplacement:",
-						"from": { "$type": "Cards:ThisCardNow:" },
+						"$type": "Identify.Spaces:ApplyDisplacement:",
+						"from": { "$type": "Identify.Cards:ThisCardNow:" },
 						"displacement": {
-							"$type": "Spaces:Displacement:",
-							"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
-							"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+							"$type": "Identify.Spaces:Displacement:",
+							"from": { "$type": "Identify.Spaces:TargetIndex:", "index": -2 },
+							"to": { "$type": "Identify.Spaces:TargetIndex:", "index": -1 }
 						}
 					}
 				},
@@ -68,14 +68,14 @@
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
-						"$type": "Cards:CardAtPosition:",
+						"$type": "Identify.Cards:CardAtPosition:",
 						"position": {
-							"$type": "Spaces:ApplyDisplacement:",
-							"from": { "$type": "Cards:ThisCardNow:" },
+							"$type": "Identify.Spaces:ApplyDisplacement:",
+							"from": { "$type": "Identify.Cards:ThisCardNow:" },
 							"displacement": {
-								"$type": "Spaces:Displacement:",
-								"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
-								"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+								"$type": "Identify.Spaces:Displacement:",
+								"from": { "$type": "Identify.Spaces:TargetIndex:", "index": -2 },
+								"to": { "$type": "Identify.Spaces:TargetIndex:", "index": -1 }
 							}
 						}
 					}

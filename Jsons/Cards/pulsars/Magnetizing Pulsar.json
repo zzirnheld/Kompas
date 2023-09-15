@@ -14,19 +14,19 @@
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:Avatar:",
-								"player": { "$type": "Players:FriendlyPlayer:" }
+								"$type": "Identify.Cards:Avatar:",
+								"player": { "$type": "Identify.Players:FriendlyPlayer:" }
 							}
 						},
 						{
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
-							"number": { "$type": "Numbers:TriggerX:" },
+							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
-								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						}
 					]
@@ -36,7 +36,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Magnetizing to attract",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -44,7 +44,7 @@
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:CardsMatch:",
-									"card": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							},
 							{
@@ -62,17 +62,17 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 							},
 							{
 								"$type": "Restrict.Spaces:Towards:",
-								"destination": { "$type": "Cards:ThisCardNow:" },
-								"origin": { "$type": "Cards:TargetIndex:" }
+								"destination": { "$type": "Identify.Cards:ThisCardNow:" },
+								"origin": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -93,19 +93,19 @@
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:Avatar:",
-								"player": { "$type": "Players:FriendlyPlayer:" }
+								"$type": "Identify.Cards:Avatar:",
+								"player": { "$type": "Identify.Players:FriendlyPlayer:" }
 							}
 						},
 						{
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
-							"number": { "$type": "Numbers:TriggerX:" },
+							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:LessThan:" },
-								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						}
 					]
@@ -115,7 +115,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Magnetizing to repel",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -123,7 +123,7 @@
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:CardsMatch:",
-									"card": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							}, 
 							{
@@ -141,17 +141,17 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 							},
 							{
 								"$type": "Restrict.Spaces:AwayFrom:",
-								"destination": { "$type": "Cards:ThisCardNow:" },
-								"origin": { "$type": "Cards:TargetIndex:" }
+								"destination": { "$type": "Identify.Cards:ThisCardNow:" },
+								"origin": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

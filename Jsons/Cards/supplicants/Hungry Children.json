@@ -22,7 +22,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -32,7 +32,7 @@
 										"$type": "Restrict.Cards:Not:",
 										"negated": {
 											"$type": "Restrict.Cards:CardsMatch:",
-											"card": { "$type": "Cards:ThisCardNow:" }
+											"card": { "$type": "Identify.Cards:ThisCardNow:" }
 										}
 									}
 								]

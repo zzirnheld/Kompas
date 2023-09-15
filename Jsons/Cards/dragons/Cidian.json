@@ -13,14 +13,14 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [ {
 									"$type": "Restrict.Cards:Fighting:",
 									"defending": true,
-									"fightingWho": { "$type": "Cards:ThisCardNow:" }
+									"fightingWho": { "$type": "Identify.Cards:ThisCardNow:" }
 								} ]
 							}
 						}
@@ -31,8 +31,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:CardBefore:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:CardBefore:" },
 						"cardValue": { "value": "E" }
 					},
 					"change": true,
@@ -44,7 +44,7 @@
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"cardsSource": { "$type": "ManyCards:Board:" },
+					"Identify.CardsSource": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -54,12 +54,12 @@
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:CardsMatch:",
-									"card": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							},
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:TargetIndex:" }
+								"space": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},

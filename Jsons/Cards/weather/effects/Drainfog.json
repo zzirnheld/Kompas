@@ -13,11 +13,11 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Spaces:InAOEOf:",
-							"card": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
@@ -34,24 +34,24 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "The fog is draining",
 					"toSearch": {
-						"$type": "ManyCards:Hand:",
+						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true,
 						"enemy": true
 					},
 					"cardRestriction": {
 						"$type": "Restrict.Players:PlayersMatch:",
-						"player": { "$type": "Players:TargetIndex:" }
+						"player": { "$type": "Identify.Players:TargetIndex:" }
 					},
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 							}
 						]
 					}

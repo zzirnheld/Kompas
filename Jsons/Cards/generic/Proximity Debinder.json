@@ -12,16 +12,16 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:ThisCardNow:" },
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"anyOf": {
-								"$type": "ManyCards:Augments:",
-								"card": { "$type": "Cards:CardBefore:" }
+								"$type": "Identify.ManyCards:Augments:",
+								"card": { "$type": "Identify.Cards:CardBefore:" }
 							}
 						},
 						{ "$type": "Restrict.Triggering:IsAttack:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Board" ]

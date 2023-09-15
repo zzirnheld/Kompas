@@ -12,12 +12,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -45,7 +45,7 @@
 					{
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": {
-							"$type": "Numbers:CountCards:",
+							"$type": "Identify.Numbers:CountCards:",
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -65,7 +65,7 @@
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:LessThan:" },
-							"other": { "$type": "Numbers:Constant:", "constant": 2 }
+							"other": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 						}
 					}
 				},
@@ -97,7 +97,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -133,7 +133,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

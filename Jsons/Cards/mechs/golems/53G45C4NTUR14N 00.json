@@ -22,8 +22,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "N" }
 					}
 				},
@@ -34,8 +34,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "E" }
 					}
 				},
@@ -46,8 +46,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "S" }
 					}
 				},
@@ -58,8 +58,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "W" }
 					}
 				},
@@ -78,7 +78,7 @@
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
@@ -86,7 +86,7 @@
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},

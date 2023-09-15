@@ -8,22 +8,22 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:Operation:",
+						"$type": "Identify.Numbers:Operation:",
 						"operation": { "$type": "KompasCore.Effects.Identities.NumberOperations.Sum, Assembly-CSharp" },
-						"manyNumbers": {
-							"$type": "ManyNumbers:FromCardValue:",
+						"Identify.ManyNumbers": {
+							"$type": "Identify.ManyNumbers:FromCardValue:",
 							"cardValue": { "value": "Cost" },
-							"cards": {
-								"$type": "ManyCards:Restricted:",
-								"cards": { "$type": "ManyCards:Board:" },
+							"Identify.Cards": {
+								"$type": "Identify.ManyCards:Restricted:",
+								"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 								"cardRestriction": {
 									"$type": "Restrict.Cards:AllOf:",
 									"elements": [
@@ -33,9 +33,9 @@
 										},
 										{
 											"$type": "Restrict.Cards:AOEContains:",
-											"cards": {
-												"$type": "ManyCards:Concat:",
-												"cards": [ { "$type": "Cards:ThisCardNow:" } ]
+											"Identify.Cards": {
+												"$type": "Identify.ManyCards:Concat:",
+												"Identify.Cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
 											}
 										}
 									]
@@ -56,7 +56,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Monster here",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -72,7 +72,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]

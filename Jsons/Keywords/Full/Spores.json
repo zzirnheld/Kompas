@@ -7,8 +7,8 @@
 			"elements": [
 				{
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				},
 				{ "$type": "Restrict.Gamestate:MaxPerStack:" }
 			]
@@ -19,10 +19,10 @@
 		{
 			"$type": "Subeffect:TargetAll:",
 			"toSearch": {
-				"$type": "ManyCards:CardsInPositions:",
+				"$type": "Identify.ManyCards:CardsInPositions:",
 				"positions": {
-					"$type": "ManySpaces:AdjacentSpaces:",
-					"adjacentTo": { "$type": "Cards:ThisCardNow:" }
+					"$type": "Identify.ManySpaces:AdjacentSpaces:",
+					"adjacentTo": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			}
 		},

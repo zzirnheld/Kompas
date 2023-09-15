@@ -13,8 +13,8 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{ "$type": "Restrict.Triggering:Normally:" }
 					]
@@ -25,14 +25,14 @@
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue": {
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
-						"card": { "$type": "Cards:CardBefore:" },
+						"card": { "$type": "Identify.Cards:CardBefore:" },
 						"cardRestriction": { "$type": "Restrict.Cards:Hidden:", "hidden": true }
 					},
 					"jumpIndices": [ 3 ]
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"cardsSource": { "$type": "ManyCards:Board:" },
+					"Identify.CardsSource": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -54,7 +54,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "card to reveal",
 					"toSearch": {
-						"$type": "ManyCards:Hand:",
+						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
@@ -63,7 +63,7 @@
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Players:TargetIndex:" }
+								"player": { "$type": "Identify.Players:TargetIndex:" }
 							}
 						]
 					}

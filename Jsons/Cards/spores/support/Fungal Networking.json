@@ -9,15 +9,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "to network (1/2)",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -39,7 +39,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -50,7 +50,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "to network (2/2)",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -72,7 +72,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

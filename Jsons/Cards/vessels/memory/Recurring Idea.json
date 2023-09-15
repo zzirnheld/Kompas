@@ -12,12 +12,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -49,7 +49,7 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
@@ -65,7 +65,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Bestower of Memories to attach to",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [

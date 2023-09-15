@@ -14,7 +14,7 @@
 						{ "$type": "Restrict.Triggering:Normally:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -23,7 +23,7 @@
 										"$type": "Restrict.Cards:Not:",
 										"negated": {
 											"$type": "Restrict.Cards:CardsMatch:",
-											"card": { "$type": "Cards:ThisCardNow:" }
+											"card": { "$type": "Identify.Cards:ThisCardNow:" }
 										}
 									},
 									{
@@ -50,12 +50,12 @@
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"spaceIdentity": {
-						"$type": "Spaces:ApplyDisplacement:",
-						"from": { "$type": "Cards:ThisCardNow:" },
+						"$type": "Identify.Spaces:ApplyDisplacement:",
+						"from": { "$type": "Identify.Cards:ThisCardNow:" },
 						"displacement": {
-							"$type": "Spaces:Displacement:",
-							"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
-							"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+							"$type": "Identify.Spaces:Displacement:",
+							"from": { "$type": "Identify.Spaces:TargetIndex:", "index": -2 },
+							"to": { "$type": "Identify.Spaces:TargetIndex:", "index": -1 }
 						}
 					}
 				},

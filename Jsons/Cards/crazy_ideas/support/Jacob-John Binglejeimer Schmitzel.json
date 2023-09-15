@@ -12,7 +12,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Hand:" }
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" }
 				},
 				{
 					"$type": "Subeffect:Discard:"

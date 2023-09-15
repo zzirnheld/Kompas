@@ -10,8 +10,8 @@
 				"triggerCondition":"Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects":[
@@ -29,8 +29,8 @@
 						"elements": [
 							{
 								"$type": "Restrict.Triggering:CardsMatch:",
-								"card": { "$type": "Cards:CardBefore:" },
-								"other": { "$type": "Cards:ThisCardNow:" }
+								"card": { "$type": "Identify.Cards:CardBefore:" },
+								"other": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -46,7 +46,7 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardAfter:" },
+							"card": { "$type": "Identify.Cards:CardAfter:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -72,7 +72,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:ThisCardNow:" },
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]

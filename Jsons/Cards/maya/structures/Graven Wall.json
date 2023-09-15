@@ -14,11 +14,11 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"cardRestriction": { "$type": "Restrict.Spaces:Corner:" },
-							"card": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -28,7 +28,7 @@
 									},
 									{
 										"$type": "Restrict.Spaces:SameDiagonal:",
-										"other": { "$type": "Cards:ThisCardNow:" }
+										"other": { "$type": "Identify.Cards:ThisCardNow:" }
 									}
 								]
 							}

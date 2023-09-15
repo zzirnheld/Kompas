@@ -5,10 +5,10 @@
 		"elements": [
 			{
 				"$type": "Restrict.Triggering:CardFitsRestriction:",
-				"card": { "$type": "Cards:ThisCardNow:" },
+				"card": { "$type": "Identify.Cards:ThisCardNow:" },
 				"cardRestriction": {
 					"$type": "Restrict.Cards:CardValueFits:",
-					"cardValue": { "value": "Spaces Can Move" },
+					"cardValue": { "value": "Identify.Spaces Can Move" },
 					"numberRestriction": { "$type": "Restrict.Numbers:Positive:" }
 				}
 			}
@@ -27,22 +27,22 @@
 				"elements": [
 					{
 						"$type": "Restrict.Spaces:CanMoveCard:",
-						"toMove": { "$type": "Cards:TargetIndex:" }
+						"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 					},
 					{
 						"$type": "Restrict.Spaces:SameDiagonal:",
-						"other": { "$type": "Cards:TargetIndex:" }
+						"other": { "$type": "Identify.Cards:TargetIndex:" }
 					},
 					{
 						"$type": "Restrict.Spaces:ConnectedTo:",
-						"space": { "$type": "Cards:TargetIndex:" },
+						"space": { "$type": "Identify.Cards:TargetIndex:" },
 						"byRestriction": {
 							"$type": "Restrict.Spaces:AllOf:",
 							"elements": [
 								{ "$type": "Restrict.Spaces:Empty:" },
 								{
 									"$type": "Restrict.Spaces:SameDiagonal:",
-									"other": { "$type": "Cards:TargetIndex:" }
+									"other": { "$type": "Identify.Cards:TargetIndex:" }
 								}
 							]
 						}

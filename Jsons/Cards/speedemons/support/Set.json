@@ -8,8 +8,8 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -17,7 +17,7 @@
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue": {
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
-						"anyOf": { "$type": "ManyCards:Discard:", "friendly": true, "enemy": false },
+						"anyOf": { "$type": "Identify.ManyCards:Discard:", "friendly": true, "enemy": false },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Name:",
 							"nameIs": "Ready"
@@ -28,7 +28,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Ready for Set to search",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Name:",
 						"nameIs": "Ready"
@@ -49,14 +49,14 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character to set",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -68,7 +68,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "GO for Ready to search",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Name:",
 						"nameIs": "GO"

@@ -6,8 +6,8 @@
 			"elements": [
 				{
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				},
 				{ "$type": "Restrict.Gamestate:MaxPerRound:" }
 			]
@@ -21,8 +21,8 @@
 		{
 			"$type": "Subeffect:SetXByNumberIdentity:",
 			"numberIdentity": { 
-				"$type": "Numbers:FromCardValue:",
-				"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+				"$type": "Identify.Numbers:FromCardValue:",
+				"card": { "$type": "Identify.Cards:CardBefore:", "secondaryCard": true },
 				"cardValue": { "value": "W" }
 			}
 		},
@@ -34,8 +34,8 @@
 				"elements": [
 					{
 						"$type": "Restrict.Triggering:StackablesMatch:",
-						"firstStackable": { "$type": "Stackables:StackableEvent:", "secondaryContext": true },
-						"secondStackable": { "$type": "Stackables:StackableEvent:" }
+						"firstStackable": { "$type": "Identify.Stackables:StackableEvent:", "secondaryContext": true },
+						"secondStackable": { "$type": "Identify.Stackables:StackableEvent:" }
 					}
 				]
 			}

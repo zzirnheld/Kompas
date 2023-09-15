@@ -11,10 +11,10 @@
 					{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 					{
 						"$type": "Restrict.Triggering:CardsMatch:",
-						"card": { "$type": "Cards:CardBefore:" },
+						"card": { "$type": "Identify.Cards:CardBefore:" },
 						"other": {
-							"$type": "Cards:AugmentedCard:",
-							"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							"$type": "Identify.Cards:AugmentedCard:",
+							"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 						}
 					}
 				]
@@ -32,20 +32,20 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 							},
 							{
 								"$type": "Restrict.Spaces:Direction:",
-								"from": { "$type": "Cards:ThisCardNow:" },
+								"from": { "$type": "Identify.Cards:ThisCardNow:" },
 								"directionToMatch": {
-									"$type": "Spaces:Direction:",
-									"from": { "$type": "Cards:CardBefore:" },
-									"to": { "$type": "Cards:ThisCardNow:" }
+									"$type": "Identify.Spaces:Direction:",
+									"from": { "$type": "Identify.Cards:CardBefore:" },
+									"to": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							}
 						]

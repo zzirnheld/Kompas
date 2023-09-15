@@ -8,14 +8,14 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -30,16 +30,16 @@
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
-						"$type": "Spaces:SelectFromMany:",
+						"$type": "Identify.Spaces:SelectFromMany:",
 						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
-						"spaces": {
-							"$type": "ManySpaces:CompareDistance:",
-							"distanceTo": { "$type": "Cards:TargetIndex:" },
-							"spaces": {
-								"$type": "ManySpaces:PositionsOfEach:",
-								"cards": {
-									"$type": "ManyCards:Restricted:",
-									"cards": { "$type": "ManyCards:Board:" },
+						"Identify.Spaces": {
+							"$type": "Identify.ManySpaces:CompareDistance:",
+							"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+							"Identify.Spaces": {
+								"$type": "Identify.ManySpaces:PositionsOfEach:",
+								"Identify.Cards": {
+									"$type": "Identify.ManyCards:Restricted:",
+									"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 									"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 								}
 							}
@@ -49,14 +49,14 @@
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
-						"$type": "Spaces:SelectFromMany:",
+						"$type": "Identify.Spaces:SelectFromMany:",
 						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
-						"spaces": {
-							"$type": "ManySpaces:CompareDistance:",
-							"distanceTo": { "$type": "Cards:TargetIndex:" },
-							"spaces": {
-								"$type": "ManySpaces:AdjacentSpaces:",
-								"adjacentTo": { "$type": "Cards:TargetIndex:" }
+						"Identify.Spaces": {
+							"$type": "Identify.ManySpaces:CompareDistance:",
+							"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+							"Identify.Spaces": {
+								"$type": "Identify.ManySpaces:AdjacentSpaces:",
+								"adjacentTo": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						}
 					}

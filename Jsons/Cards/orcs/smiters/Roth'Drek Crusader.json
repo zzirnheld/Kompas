@@ -11,8 +11,8 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CauseBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CauseBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						}
 					]
 				}

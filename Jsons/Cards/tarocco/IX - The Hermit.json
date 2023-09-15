@@ -14,8 +14,8 @@
 						{ "$type": "Restrict.Gamestate:MaxPerTurn:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}
 					]
 				}
@@ -24,7 +24,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Hermit to move",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -45,12 +45,12 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:EffectX:" }
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:EffectX:" }
 							}
 						]
 					}

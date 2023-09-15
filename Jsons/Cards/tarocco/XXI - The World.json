@@ -14,7 +14,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -41,11 +41,11 @@
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
-						"number": { "$type": "Numbers:HandSize:" },
+						"number": { "$type": "Identify.Numbers:HandSize:" },
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-							"other": { "$type": "Numbers:HandSizeLimit:" }
+							"other": { "$type": "Identify.Numbers:HandSizeLimit:" }
 						}
 					}
 				},

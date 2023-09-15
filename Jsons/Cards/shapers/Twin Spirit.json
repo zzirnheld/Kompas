@@ -11,12 +11,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },		
+							"card": { "$type": "Identify.Cards:CardBefore:" },		
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Hand" ]
@@ -32,14 +32,14 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "copy of Twin Spirit to decksummon",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{
 								"$type": "Restrict.Cards:Name:",
-								"sameAs": { "$type": "Cards:TargetIndex:" }
+								"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},
@@ -54,7 +54,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

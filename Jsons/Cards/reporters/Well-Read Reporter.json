@@ -13,12 +13,12 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Spell:" }
 						}
 					]
@@ -28,8 +28,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:CardBefore:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:CardBefore:" },
 						"cardValue": { "value": "C" }
 					}
 				},
@@ -60,7 +60,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "C > X spell to reveal",
 					"toSearch": {
-						"$type": "ManyCards:Hand:",
+						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
@@ -70,7 +70,7 @@
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Players:TargetIndex:" }
+								"player": { "$type": "Identify.Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
@@ -78,7 +78,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:GreaterThan:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]

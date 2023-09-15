@@ -22,7 +22,7 @@
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardRestriction": {
 							"$type": "Restrict.Spaces:InAOEOf:",
 							"cardRestriction": {
@@ -34,19 +34,19 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "cards for Ma Rinner to bottomdeck",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"blurb": "Identify.Cards for Ma Rinner to bottomdeck",
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" },
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 3 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 3 }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 3 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 3 }
 							}
 						]
 					}

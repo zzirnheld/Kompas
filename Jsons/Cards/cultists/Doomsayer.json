@@ -13,7 +13,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Cultist for Doomsayer to search",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Cultist" ]

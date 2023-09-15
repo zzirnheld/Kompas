@@ -8,15 +8,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "unworthy Cultist",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -29,7 +29,7 @@
 							},
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -40,7 +40,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "unworthy card in hand",
-					"toSearch": { "$type": "ManyCards:Hand:" }
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" }
 				},
 				{
 					"$type": "Subeffect:Reshuffle:"

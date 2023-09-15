@@ -12,7 +12,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
@@ -25,7 +25,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "who will Leygrapple",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -36,7 +36,7 @@
 							},
 							{
 								"$type": "Restrict.Spaces:SameDiagonal:",
-								"other": { "$type": "Cards:TargetIndex:" }
+								"other": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -50,7 +50,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:TargetIndex:" }
+								"space": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},

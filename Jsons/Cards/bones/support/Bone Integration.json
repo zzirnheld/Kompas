@@ -13,7 +13,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "pick 'em up pick 'em up",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -33,7 +33,7 @@
 				},
 				{
 					"$type": "Subeffect:AutoTarget:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -50,8 +50,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "N" }
 					}
 				},
@@ -62,8 +62,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "E" }
 					}
 				},
@@ -74,8 +74,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "S" }
 					}
 				},
@@ -86,8 +86,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "W" }
 					}
 				},

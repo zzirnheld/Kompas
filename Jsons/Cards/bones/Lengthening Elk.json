@@ -25,12 +25,12 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 							}
 						]
 					}
@@ -41,7 +41,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Elk bone",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -52,7 +52,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:CanPlay:",
-								"destination": { "$type": "Spaces:TargetIndex:" },
+								"destination": { "$type": "Identify.Spaces:TargetIndex:" },
 								"ignoreAdjacency": true
 							}
 						]

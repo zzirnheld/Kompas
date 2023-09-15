@@ -12,7 +12,7 @@
 			"subeffects": [
 				{
 					"$type":"Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction":{
 						"blurb":"Card to discard"
 					}
@@ -23,7 +23,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Invocation to find",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [

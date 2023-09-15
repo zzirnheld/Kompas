@@ -8,15 +8,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "What water moves?",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -40,11 +40,11 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:ConnectedTo:",
-								"space": { "$type": "Cards:TargetIndex:" },
+								"space": { "$type": "Identify.Cards:TargetIndex:" },
 								"byRestriction":{
 									"$type": "Restrict.Spaces:InAOEOf:",
 									"cardRestriction": {
@@ -72,7 +72,7 @@
 							{ "$type": "Restrict.Cards:Summoned:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:TargetIndex:" }
+								"card": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -89,7 +89,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:TargetIndex:" }
+								"card": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},

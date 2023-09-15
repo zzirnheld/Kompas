@@ -9,15 +9,15 @@
 				"triggerCondition": "Deal Combat Damage",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Mind bawk bawk Controlled Pigeons",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Crazy", "Idea" ]

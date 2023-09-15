@@ -8,15 +8,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "friendly Reporter to set X by S of",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -28,7 +28,7 @@
 							},
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -36,8 +36,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "S" }
 					}
 				},
@@ -68,7 +68,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character to reveal",
 					"toSearch": {
-						"$type": "ManyCards:Hand:",
+						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
@@ -78,7 +78,7 @@
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Players:TargetIndex:" }
+								"player": { "$type": "Identify.Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
@@ -86,7 +86,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]
@@ -104,7 +104,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"playerIndex": -2,
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
@@ -120,7 +120,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]

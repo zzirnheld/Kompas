@@ -13,12 +13,12 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardAfter:" },
+							"card": { "$type": "Identify.Cards:CardAfter:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -53,7 +53,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Vessel to get a copy of the memory",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -72,7 +72,7 @@
 							"elements": [
 											{
 												"$type": "Restrict.Cards:Name:",
-												"sameAs": { "$type": "Cards:TargetIndex:" }
+												"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
 											}
 										]
 									}
@@ -96,7 +96,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:Name:",
-								"sameAs": { "$type": "Cards:TargetIndex:" }
+								"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},

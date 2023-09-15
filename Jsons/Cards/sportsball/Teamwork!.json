@@ -14,8 +14,8 @@
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}
 					]
 				}

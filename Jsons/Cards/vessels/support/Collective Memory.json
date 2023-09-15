@@ -8,15 +8,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Memory whose bearers will be echoed",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Memory" ]
@@ -24,12 +24,12 @@
 				},
 				{
 					"$type": "Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:HasAugment:",
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Name:",
-							"sameAs": { "$type": "Cards:TargetIndex:" }
+							"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
 						}
 					}
 				},
@@ -39,7 +39,7 @@
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+					"numberIdentity": { "$type": "Identify.Numbers:TargetCount:" }
 				},
 				{
 					"$type": "Subeffect:Resummon:"

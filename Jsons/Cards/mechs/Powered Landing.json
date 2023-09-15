@@ -12,7 +12,7 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Mech", "Golem" ]
@@ -20,7 +20,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:ThisCardNow:" },
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
@@ -44,7 +44,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character within 4 spaces to have this Mech attack",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -53,13 +53,13 @@
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:CardsMatch:",
-									"card": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 2 },
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 2 },
 								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
 							}
 						]
@@ -81,10 +81,10 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						}
 					]

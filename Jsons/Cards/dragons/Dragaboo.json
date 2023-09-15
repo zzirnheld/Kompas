@@ -13,12 +13,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CauseBefore:" },
+							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Dragon" ]
@@ -36,7 +36,7 @@
 				},
 				{
 					"$type":"Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction":
 					{
 						"blurb":"OWO SO DRAGONNNNNNNNN",
@@ -52,8 +52,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "Cost" }
 					}
 				},

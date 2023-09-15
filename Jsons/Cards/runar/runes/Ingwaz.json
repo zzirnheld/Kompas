@@ -8,15 +8,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Ingwaz to recast",
-					"toSearch": { "$type": "ManyCards:Discard:" },
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -36,8 +36,8 @@
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 									"other": {
-										"$type": "Numbers:Pips:",
-										"player": { "$type": "Players:TargetIndex:" }
+										"$type": "Identify.Numbers:Pips:",
+										"player": { "$type": "Identify.Players:TargetIndex:" }
 									}
 								}
 							},
@@ -58,7 +58,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

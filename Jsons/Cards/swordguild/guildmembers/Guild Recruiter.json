@@ -20,7 +20,7 @@
 							{
 								"$type": "Restrict.Spaces:WithinDistanceOfNumberOfCards:",
 								"numberOfCards": { 
-									"$type": "Numbers:Constant:",
+									"$type": "Identify.Numbers:Constant:",
 									"constant": 2
 								},
 								"cardRestriction": {
@@ -30,7 +30,7 @@
 							},
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -38,7 +38,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "New Squire",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [

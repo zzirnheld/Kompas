@@ -11,13 +11,13 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:StackableFitsRestriction:",
-							"stackable": { "$type": "Stackables:StackableCause:" },
+							"stackable": { "$type": "Identify.Stackables:StackableCause:" },
 							"restriction": {
 								"$type": "Core.StackableRestriction:Keyword:",
 								"keyword": "Speedemon"
@@ -46,12 +46,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:SpacesFitRestriction:",
-							"spaces": { "$type": "ManySpaces:Corners:" },
+							"Identify.Spaces": { "$type": "Identify.ManySpaces:Corners:" },
 							"spaceRestriction": {
 								"$type": "Restrict.Spaces:Not:",
 								"negated": { "$type": "Restrict.Spaces:Empty:" }
@@ -70,7 +70,7 @@
 							{ "$type": "Restrict.Cards:Enemy:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					},

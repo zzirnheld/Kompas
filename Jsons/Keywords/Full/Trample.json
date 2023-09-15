@@ -4,11 +4,11 @@
 		"triggerCondition": "Take Combat Damage",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:CardBefore:" },
+			"card": { "$type": "Identify.Cards:CardBefore:" },
 			"cardRestriction": {
 				"$type": "Restrict.Cards:Fighting:",
 				"defending": true,
-				"fightingWho": { "$type": "Cards:ThisCardNow:" }
+				"fightingWho": { "$type": "Identify.Cards:ThisCardNow:" }
 			}
 		}
 	},
@@ -16,8 +16,8 @@
 		{
 			"$type": "Subeffect:SetXByNumberIdentity:",
 			"numberIdentity": { 
-				"$type": "Numbers:FromCardValue:",
-				"card": { "$type": "Cards:CardBefore:" },
+				"$type": "Identify.Numbers:FromCardValue:",
+				"card": { "$type": "Identify.Cards:CardBefore:" },
 				"cardValue": { "value": "E" }
 			},
 			"change": true,
@@ -31,11 +31,11 @@
 			"$type": "Subeffect:ConditionalEnd:",
 			"endIfTrue": {
 				"$type": "Restrict.Triggering:NumberFitsRestriction:",
-				"number": { "$type": "Numbers:EffectX:" },
+				"number": { "$type": "Identify.Numbers:EffectX:" },
 				"restriction": {
 					"$type": "Restrict.Numbers:Compare:",
 					"comparison": { "$type": "Relationships.Number:LessThan:" },
-					"other": { "$type": "Numbers:Constant:", "constant": 0 }
+					"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 				}
 			}
 		},
@@ -51,7 +51,7 @@
 					{ "$type": "Restrict.Cards:Character:" },
 					{
 						"$type": "Restrict.Spaces:AdjacentTo:",
-						"space": { "$type": "Spaces:TargetIndex:" }
+						"space": { "$type": "Identify.Spaces:TargetIndex:" }
 					}
 				]
 			},

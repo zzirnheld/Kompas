@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Triggering:Normally:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
@@ -34,7 +34,7 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:TargetIndex:" }
+								"space": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:TowardsAny:",
@@ -42,11 +42,11 @@
 									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Shadow" ]
 								},
-								"origin": { "$type": "Cards:TargetIndex:" }
+								"origin": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

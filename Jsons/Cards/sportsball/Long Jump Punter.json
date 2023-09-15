@@ -12,14 +12,14 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}
 					]
 				}
@@ -28,7 +28,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character within 4 spaces to punt Augment to",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -37,13 +37,13 @@
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:CardsMatch:",
-									"card": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:ThisCardNow:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 4 },
+								"distanceTo": { "$type": "Identify.Cards:ThisCardNow:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 4 },
 								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
 							}
 						]

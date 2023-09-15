@@ -14,12 +14,12 @@
 						{ "$type": "Restrict.Gamestate:MaxPerTurn:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Hand" ]
@@ -32,7 +32,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "card for Correctly Sized Crane to grab",
-					"toSearch": { "$type": "ManyCards:Discard:" }
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" }
 				},
 				{
 					"$type": "Subeffect:Hand:"

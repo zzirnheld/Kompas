@@ -12,8 +12,8 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{ "$type": "Restrict.Triggering:EnemyTurn:" }
 					]
@@ -31,18 +31,18 @@
 							},
 							{
 								"$type": "Restrict.Cards:AOEContains:",
-								"cards": { "$type": "Cards:ThisCardNow:" }
+								"Identify.Cards": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+					"numberIdentity": { "$type": "Identify.Numbers:TargetCount:" }
 				},
 				{
 					"$type": "Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 							"elements": [
@@ -50,7 +50,7 @@
 							{ "$type": "Restrict.Cards:Enemy:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:TargetIndex:" }
+								"card": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -63,7 +63,7 @@
 					"$type": "Subeffect:LoopWhileHaveTargets:",
 					"delete": true,
 					"jumpIndices": [ 3 ],
-					"leaveRemainingTargets": { "$type": "Numbers:EffectX:" }
+					"leaveRemainingTargets": { "$type": "Identify.Numbers:EffectX:" }
 				},
 				{
 					"$type": "Subeffect:LoopWhileHaveTargets:",
@@ -83,7 +83,7 @@
 				"subtypes": [ "Weather" ]
 			},
 			"minAnyOfCount": { 
-				"$type": "Numbers:Constant:",
+				"$type": "Identify.Numbers:Constant:",
 				"constant": 2
 			}
 		} ]

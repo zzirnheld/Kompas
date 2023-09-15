@@ -11,7 +11,7 @@
 			"subeffects": [
 				{
 					"$type":"Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction":
 					{
 						"blurb": "character whose Module to swap out",
@@ -46,14 +46,14 @@
 							},
 							{
 								"$type": "Restrict.Cards:Augments:",
-								"singleCard": { "$type": "Cards:TargetIndex:" }
+								"singleCard": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction":
 					{
 						"elements": [
@@ -69,11 +69,11 @@
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 							}
 						]
 					}

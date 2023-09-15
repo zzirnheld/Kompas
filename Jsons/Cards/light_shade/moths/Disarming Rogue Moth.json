@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"elements": [
 								{ "$type": "Restrict.Cards:Friendly:" },
 								{
@@ -28,7 +28,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+							"card": { "$type": "Identify.Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
 								"$type": "Restrict.Spaces:InAOEOf:",
 								"cardRestriction": {
@@ -48,8 +48,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "W" }
 					}
 				},

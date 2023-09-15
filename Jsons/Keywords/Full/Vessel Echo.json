@@ -19,7 +19,7 @@
 					},
 					{
 						"$type": "Restrict.Cards:Augments:",
-						"singleCard": { "$type": "Cards:TargetIndex:" }
+						"singleCard": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				]
 			}

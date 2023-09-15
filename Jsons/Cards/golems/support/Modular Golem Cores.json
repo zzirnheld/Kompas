@@ -14,7 +14,7 @@
 						{ "$type": "Restrict.Gamestate:MaxPerTurn:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardAfter:" },
+							"card": { "$type": "Identify.Cards:CardAfter:" },
 							"cardRestriction": {
 								"$type": "Restrict.Spaces:AdjacentTo:",
 								"cardRestriction": {
@@ -39,7 +39,7 @@
 				{
 					"$type": "Subeffect:TargetAll:",
 					"blurb": "Golem to swap out modules",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -59,7 +59,7 @@
 										},
 										{
 											"$type": "Restrict.Spaces:AdjacentTo:",
-											"space": { "$type": "Cards:CardBefore:" }
+											"space": { "$type": "Identify.Cards:CardBefore:" }
 										}
 									]
 								}
@@ -73,7 +73,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Golem core for Modular Golem Cores to attach",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [

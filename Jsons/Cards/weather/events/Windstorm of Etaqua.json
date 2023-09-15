@@ -12,8 +12,8 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{ "$type": "Restrict.Triggering:EnemyTurn:" }
 					]
@@ -31,14 +31,14 @@
 							},
 							{
 								"$type": "Restrict.Cards:AOEContains:",
-								"cards": { "$type": "Cards:ThisCardNow:" }
+								"Identify.Cards": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+					"numberIdentity": { "$type": "Identify.Numbers:TargetCount:" }
 				},
 				{
 					"$type": "Subeffect:TargetAll:",
@@ -48,7 +48,7 @@
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:TargetIndex:" }
+								"card": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -56,13 +56,13 @@
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
-						"$type": "Spaces:SelectFromMany:",
+						"$type": "Identify.Spaces:SelectFromMany:",
 						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
-						"spaces": {
-							"$type": "ManySpaces:Restricted:",
+						"Identify.Spaces": {
+							"$type": "Identify.ManySpaces:Restricted:",
 							"restriction": {
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						}
 					}
@@ -74,7 +74,7 @@
 					"$type": "Subeffect:LoopWhileHaveTargets:",
 					"delete": true,
 					"jumpIndices": [ 3 ],
-					"leaveRemainingTargets": { "$type": "Numbers:EffectX:" }
+					"leaveRemainingTargets": { "$type": "Identify.Numbers:EffectX:" }
 				},
 				{
 					"$type": "Subeffect:LoopWhileHaveTargets:",
@@ -94,7 +94,7 @@
 				"subtypes": [ "Weather" ]
 			},
 			"minAnyOfCount": { 
-				"$type": "Numbers:Constant:",
+				"$type": "Identify.Numbers:Constant:",
 				"constant": 2
 			}
 		} ]

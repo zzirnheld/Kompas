@@ -10,7 +10,7 @@
 	},
 	{
 		"$type":"Subeffect:CardTarget:",
-		"toSearch": { "$type": "ManyCards:Hand:" },
+		"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 		"cardRestriction":
 		{
 			"blurb":"Mech to Pilot",
@@ -23,7 +23,7 @@
 				{ "$type": "Restrict.Cards:CanPlay:" }
 			]
 		},
-		"toLinkWith": { "$type": "Cards:ThisCardNow:" }
+		"toLinkWith": { "$type": "Identify.Cards:ThisCardNow:" }
 	},
 	{
 		"$type":"Subeffect:Play:"

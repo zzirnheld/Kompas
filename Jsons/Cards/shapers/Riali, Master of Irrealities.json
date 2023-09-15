@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -27,8 +27,8 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CauseBefore:" },
-							"other": { "$type": "Cards:CardBefore:" }
+							"card": { "$type": "Identify.Cards:CauseBefore:" },
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						}
 					]
 				}

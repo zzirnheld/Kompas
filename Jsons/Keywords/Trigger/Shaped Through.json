@@ -1,7 +1,7 @@
 [
 	{
 		"$type": "Restrict.Triggering:StackableFitsRestriction:",
-		"stackable": { "$type": "Stackables:StackableCause:" },
+		"stackable": { "$type": "Identify.Stackables:StackableCause:" },
 		"restriction": {
 			"$type": "Core.StackableRestriction:Keyword:",
 			"keyword": "Shape"
@@ -10,26 +10,26 @@
 	{
 		"$type": "Restrict.Triggering:CompareNumbers:",
 		"firstNumber": {
-			"$type": "Numbers:Operation:",
-			"numbers": [
+			"$type": "Identify.Numbers:Operation:",
+			"Identify.Numbers": [
 				{
-					"$type": "Numbers:TriggerX:",
+					"$type": "Identify.Numbers:TriggerX:",
 					"multiplier": 0,
 					"modifier": 1
 				},
 				{
-					"$type": "Numbers:Distance:",
-					"firstSpace": { "$type": "Cards:ThisCardNow:" },
-					"secondSpace": { "$type": "Cards:CardBefore:" },
+					"$type": "Identify.Numbers:Distance:",
+					"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },
+					"secondSpace": { "$type": "Identify.Cards:CardBefore:" },
 					"throughRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Ethereal" ]
 					}
 				},
 				{
-					"$type": "Numbers:Distance:",
-					"firstSpace": { "$type": "Cards:ThisCardNow:" },
-					"secondSpace": { "$type": "Cards:CardAfter:" },
+					"$type": "Identify.Numbers:Distance:",
+					"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },
+					"secondSpace": { "$type": "Identify.Cards:CardAfter:" },
 					"throughRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Ethereal" ]
@@ -39,9 +39,9 @@
 			"operation": { "$type": "KompasCore.Effects.Identities.NumberOperations.Sum, Assembly-CSharp" }
 		},
 		"secondNumber": {
-			"$type": "Numbers:Distance:",
-			"firstSpace": { "$type": "Cards:CardBefore:" },
-			"secondSpace": { "$type": "Cards:CardAfter:" },
+			"$type": "Identify.Numbers:Distance:",
+			"firstSpace": { "$type": "Identify.Cards:CardBefore:" },
+			"secondSpace": { "$type": "Identify.Cards:CardAfter:" },
 			"throughRestriction": {
 				"$type": "Restrict.Cards:Subtypes:",
 				"subtypes": [ "Ethereal" ]

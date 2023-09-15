@@ -21,8 +21,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "E" }
 					}
 				},
@@ -31,7 +31,7 @@
 					"XRest": {
 						"$type": "Restrict.Numbers:Compare:",
 						"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-						"other": { "$type": "Numbers:EffectX:" }
+						"other": { "$type": "Identify.Numbers:EffectX:" }
 					}
 				},
 				{
@@ -44,7 +44,7 @@
 				{
 					"$type": "Subeffect:TargetAll:",
 					"blurb": "for Haemopoten to draw",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -55,7 +55,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]

@@ -13,8 +13,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:CountCards:",
-						"cards": { "$type": "ManyCards:Board:" },
+						"$type": "Identify.Numbers:CountCards:",
+						"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
@@ -24,7 +24,7 @@
 								},
 								{
 									"$type": "Restrict.Spaces:AdjacentTo:",
-									"space": { "$type": "Cards:ThisCardNow:" }
+									"space": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							]
 						}
@@ -33,7 +33,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Structure to plan out",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -49,11 +49,11 @@
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							}
 						]
 					}

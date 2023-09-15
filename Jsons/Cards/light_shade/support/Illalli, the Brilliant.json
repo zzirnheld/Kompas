@@ -22,9 +22,9 @@
 							},
 							{
 								"$type": "Restrict.Cards:AOEContains:",
-								"cards": {
-									"$type": "ManyCards:Concat:",
-									"cards": [ { "$type": "Cards:ThisCardNow:" } ]
+								"Identify.Cards": {
+									"$type": "Identify.ManyCards:Concat:",
+									"Identify.Cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
 								}
 							}
 						]
@@ -39,7 +39,7 @@
 				},
 				{
 					"$type": "Subeffect:AutoTarget:",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -69,7 +69,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -90,7 +90,7 @@
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"cardsSource": { "$type": "ManyCards:Board:" },
+					"Identify.CardsSource": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -99,7 +99,7 @@
 							{ "$type": "Restrict.Cards:Enemy:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:TargetIndex:" }
+								"card": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},

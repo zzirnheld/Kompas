@@ -9,15 +9,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Who to burn",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -31,11 +31,11 @@
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"cardsSource": {
-						"$type": "ManyCards:CardsInPositions:",
+					"Identify.CardsSource": {
+						"$type": "Identify.ManyCards:CardsInPositions:",
 						"positions": {
-							"$type": "ManySpaces:AdjacentSpaces:",
-							"adjacentTo": { "$type": "Cards:TargetIndex:" }
+							"$type": "Identify.ManySpaces:AdjacentSpaces:",
+							"adjacentTo": { "$type": "Identify.Cards:TargetIndex:" }
 						}
 					},
 					"eModifier": -4

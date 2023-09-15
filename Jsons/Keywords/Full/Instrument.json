@@ -10,7 +10,7 @@
 				{ "$type": "Restrict.Cards:Friendly:" },
 				{
 					"$type": "Restrict.Spaces:AdjacentTo:",
-					"space": { "$type": "Cards:ThisCardNow:" }
+					"space": { "$type": "Identify.Cards:ThisCardNow:" }
 				},
 				{
 					"$type": "Restrict.Cards:Subtypes:",

@@ -13,8 +13,8 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}
 					]
 				}
@@ -23,13 +23,13 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character for Wheel of Fortune to swap N of (1/2)",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character for Wheel of Fortune to swap N of (2/2)",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [

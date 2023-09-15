@@ -13,10 +13,10 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						}
 					]
@@ -29,10 +29,10 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:CountCards:",
-						"cards": {
-							"$type": "ManyCards:Augments:",
-							"card": { "$type": "Cards:TargetIndex:" }
+						"$type": "Identify.Numbers:CountCards:",
+						"Identify.Cards": {
+							"$type": "Identify.ManyCards:Augments:",
+							"card": { "$type": "Identify.Cards:TargetIndex:" }
 						},
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Subtypes:",

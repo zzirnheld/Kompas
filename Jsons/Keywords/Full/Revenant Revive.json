@@ -18,7 +18,7 @@
 			"spaceRestriction":
 			{
 				"$type": "Restrict.Spaces:CanPlayCard:",
-				"toPlay": { "$type": "Cards:TargetIndex:" }
+				"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 			}
 		},
 		{

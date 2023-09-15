@@ -11,10 +11,10 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						}
 					]
@@ -27,7 +27,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "What creature does the camouflage look like?",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -42,8 +42,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "W" }
 					}
 				},

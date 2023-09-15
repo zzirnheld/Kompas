@@ -10,7 +10,7 @@
 				{ "$type": "Restrict.Gamestate:FriendlyTurn:" },
 				{
 					"$type": "Restrict.Triggering:CardFitsRestriction:",
-					"anyOf": { "$type": "ManyCards:Board:" },
+					"anyOf": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -25,7 +25,7 @@
 				},
 				{
 					"$type": "Restrict.Triggering:CardFitsRestriction:",
-					"card": { "$type": "Cards:ThisCardNow:" },
+					"card": { "$type": "Identify.Cards:ThisCardNow:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Location:",
 						"locations": [ "Discard" ]
@@ -47,7 +47,7 @@
 				"elements": [
 					{
 						"$type": "Restrict.Spaces:CanPlayCard:",
-						"toPlay": { "$type": "Cards:TargetIndex:" }
+						"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				]
 			}

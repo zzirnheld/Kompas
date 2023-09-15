@@ -10,16 +10,16 @@
 		{
 			"$type": "Subeffect:AutoTargetSpaceIdentity:",
 			"subeffectSpaceIdentity": {
-				"$type": "Spaces:SelectFromMany:",
+				"$type": "Identify.Spaces:SelectFromMany:",
 				"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
-				"spaces": {
-					"$type": "ManySpaces:CompareDistance:",
-					"distanceTo": { "$type": "Cards:ThisCardNow:" },
-					"spaces": {
-						"$type": "ManySpaces:PositionsOfEach:",
-						"cards": {
-							"$type": "ManyCards:Restricted:",
-							"cards": { "$type": "ManyCards:Board:" },
+				"Identify.Spaces": {
+					"$type": "Identify.ManySpaces:CompareDistance:",
+					"distanceTo": { "$type": "Identify.Cards:ThisCardNow:" },
+					"Identify.Spaces": {
+						"$type": "Identify.ManySpaces:PositionsOfEach:",
+						"Identify.Cards": {
+							"$type": "Identify.ManyCards:Restricted:",
+							"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 						}
 					}
@@ -29,14 +29,14 @@
 		{
 			"$type": "Subeffect:AutoTargetSpaceIdentity:",
 			"subeffectSpaceIdentity": {
-				"$type": "Spaces:SelectFromMany:",
+				"$type": "Identify.Spaces:SelectFromMany:",
 				"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
-				"spaces": {
-					"$type": "ManySpaces:CompareDistance:",
-					"distanceTo": { "$type": "Spaces:TargetIndex:" },
-					"spaces": {
-						"$type": "ManySpaces:AdjacentSpaces:",
-						"adjacentTo": { "$type": "Cards:ThisCardNow:" }
+				"Identify.Spaces": {
+					"$type": "Identify.ManySpaces:CompareDistance:",
+					"distanceTo": { "$type": "Identify.Spaces:TargetIndex:" },
+					"Identify.Spaces": {
+						"$type": "Identify.ManySpaces:AdjacentSpaces:",
+						"adjacentTo": { "$type": "Identify.Cards:ThisCardNow:" }
 					}
 				}
 			}

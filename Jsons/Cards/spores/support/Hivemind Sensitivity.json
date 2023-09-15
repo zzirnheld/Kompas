@@ -15,10 +15,10 @@
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
-							"other": { "$type": "Cards:CardBefore:" }
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						}
 					]
 				}

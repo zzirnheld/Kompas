@@ -12,7 +12,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -24,7 +24,7 @@
 							},
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:ThisCardNow:" }
+								"card": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -32,14 +32,14 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "Cost" }
 					}
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Discard:" },
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -54,7 +54,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:EffectX:", "modifier": 1 }
+									"other": { "$type": "Identify.Numbers:EffectX:", "modifier": 1 }
 								}
 							}
 						]

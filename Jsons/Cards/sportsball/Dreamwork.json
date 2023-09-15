@@ -38,14 +38,14 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "adjacent character to attach augment to",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:TargetIndex:" }
+								"space": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

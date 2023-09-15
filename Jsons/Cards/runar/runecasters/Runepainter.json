@@ -12,7 +12,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Rune for Runepainter to cast",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -28,8 +28,8 @@
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 									"other": {
-										"$type": "Numbers:Pips:",
-										"player": { "$type": "Players:TargetIndex:" }
+										"$type": "Identify.Numbers:Pips:",
+										"player": { "$type": "Identify.Players:TargetIndex:" }
 									}
 								}
 							},
@@ -46,7 +46,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -66,7 +66,7 @@
 				{
 					"$type": "Subeffect:CardTargetSaveRest:",
 					"blurb": "Rune for Runepainter to search (to hand)",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -81,12 +81,12 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
-									"other": { "$type": "Numbers:Constant:", "constant": 10 }
+									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
 								}
 							},
 							{
 								"$type": "Restrict.Cards:Name:",
-								"sameAs": { "$type": "Cards:TargetIndex:" }
+								"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},
@@ -100,7 +100,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
-									"other": { "$type": "Numbers:Constant:", "constant": 10 }
+									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
 								}
 							},
 							{

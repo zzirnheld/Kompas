@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardAfter:" },
+							"card": { "$type": "Identify.Cards:CardAfter:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -45,10 +45,10 @@
 				{
 					"$type": "Subeffect:TargetAll:",
 					"toSearch": {
-						"$type": "ManyCards:Limit:",
-						"cards": { "$type": "ManyCards:Discard:" },
+						"$type": "Identify.ManyCards:Limit:",
+						"Identify.Cards": { "$type": "Identify.ManyCards:Discard:" },
 						"limit": {
-							"$type": "Numbers:EffectX:",
+							"$type": "Identify.Numbers:EffectX:",
 							"multiplier": 1
 						}
 					}

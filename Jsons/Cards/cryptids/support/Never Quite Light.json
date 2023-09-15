@@ -12,7 +12,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -23,7 +23,7 @@
 									},
 									{
 										"$type": "Restrict.Spaces:InAOEOf:",
-										"card": { "$type": "Cards:ThisCardNow:" }
+										"card": { "$type": "Identify.Cards:ThisCardNow:" }
 									}
 								]
 							}
@@ -41,7 +41,7 @@
 						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:TargetIndex:" },
+							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]

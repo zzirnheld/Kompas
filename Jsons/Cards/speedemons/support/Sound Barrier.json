@@ -22,7 +22,7 @@
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardRestriction": {
 							"$type": "Restrict.Spaces:InAOEOf:",
 							"cardRestriction": {
@@ -31,7 +31,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-									"other": { "$type": "Numbers:Constant:", "constant": 20 }
+									"other": { "$type": "Identify.Numbers:Constant:", "constant": 20 }
 								}
 							}
 						}

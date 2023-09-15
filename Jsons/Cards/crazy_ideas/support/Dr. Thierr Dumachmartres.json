@@ -12,8 +12,8 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{ "$type": "Restrict.Triggering:Normally:" }
 					]
@@ -23,7 +23,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Evil scheme!?",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" }
 				},
 				{

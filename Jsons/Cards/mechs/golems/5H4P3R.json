@@ -13,8 +13,8 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:ThisCardNow:" },
-							"other": { "$type": "Cards:CardBefore:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						}
 					]
 				}
@@ -23,18 +23,18 @@
 				{
 					"$type": "Subeffect:TargetAll:",
 					"toSearch": {
-						"$type": "ManyCards:CardsInPositions:",
+						"$type": "Identify.ManyCards:CardsInPositions:",
 						"positions": {
-							"$type": "ManySpaces:ThreeSpaceRelationship:",
-							"firstSpace": { "$type": "Cards:CardBefore:" },
-							"secondSpace": { "$type": "Spaces:ContextSpace:" },
-							"thirdSpaceRelationship": { "$type": "ThreeSpaceRelationships:Between:" }
+							"$type": "Identify.ManySpaces:ThreeSpaceRelationship:",
+							"firstSpace": { "$type": "Identify.Cards:CardBefore:" },
+							"secondSpace": { "$type": "Identify.Spaces:ContextSpace:" },
+							"thirdSpaceRelationship": { "$type": "Relationships.Spaces:Between:" }
 						}
 					}
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+					"numberIdentity": { "$type": "Identify.Numbers:TargetCount:" }
 				},
 				{
 					"$type": "Subeffect:Discard:"
@@ -60,7 +60,7 @@
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
@@ -69,7 +69,7 @@
 		"moveThroughCards": true,
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},

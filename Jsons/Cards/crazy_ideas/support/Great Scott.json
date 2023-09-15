@@ -14,7 +14,7 @@
 						{ "$type": "Restrict.Triggering:Normally:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
@@ -24,7 +24,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "WHAT ARE WE DISCARDING, SCARMY!?",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" }
 				},
 				{
@@ -41,12 +41,12 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
-								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
+								"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 							}
 						]
 					}

@@ -6,12 +6,12 @@
             "elements": [
                 {
                     "$type": "Restrict.Triggering:CardsMatch:",
-                    "card": { "$type": "Cards:CardBefore:" },
-                    "other": { "$type": "Cards:ThisCardNow:" }
+                    "card": { "$type": "Identify.Cards:CardBefore:" },
+                    "other": { "$type": "Identify.Cards:ThisCardNow:" }
                 },
                 {
                     "$type": "Restrict.Triggering:CardFitsRestriction:",
-                    "card": { "$type": "Cards:CardBefore:" },
+                    "card": { "$type": "Identify.Cards:CardBefore:" },
                     
                 "cardRestriction": {
                     "$type": "Restrict.Cards:AllOf:",
@@ -37,7 +37,7 @@
                 "negated": {
                     "$type": "Restrict.Triggering:CardFitsRestriction:",
                     "useDummyResolutionContext": false,
-                    "card": { "$type": "Cards:TargetIndex:" },
+                    "card": { "$type": "Identify.Cards:TargetIndex:" },
                     "cardRestriction": {
                         "$type": "Restrict.Cards:Location:",
                         "locations": [ "Discard" ]

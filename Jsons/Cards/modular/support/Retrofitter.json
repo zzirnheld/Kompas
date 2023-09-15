@@ -13,15 +13,15 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CauseBefore:" },
+							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							"other": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:CardBefore:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:CardBefore:" }
 							}
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardAfter:" },
+							"card": { "$type": "Identify.Cards:CardAfter:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -39,7 +39,7 @@
 									},
 									{
 										"$type": "Restrict.Spaces:AdjacentTo:",
-										"space": { "$type": "Cards:ThisCardNow:" }
+										"space": { "$type": "Identify.Cards:ThisCardNow:" }
 									}
 								]
 							}
@@ -56,7 +56,7 @@
 				},
 				{
 					"$type":"Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Discard:" },
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"cardRestriction":
 					{
 						"blurb": "Module to attach to the Modular character",

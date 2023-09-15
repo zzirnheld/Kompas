@@ -12,7 +12,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Discard:" },
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

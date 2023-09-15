@@ -12,12 +12,12 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -32,8 +32,8 @@
 											"$type": "Restrict.Numbers:Compare:",
 											"comparison": { "$type": "Relationships.Number:GreaterThan:" },
 											"other": {
-												"$type": "Numbers:FromCardValue:",
-												"card": { "$type": "Cards:Avatar:", "player": { "$type": "Players:FriendlyPlayer:" } },
+												"$type": "Identify.Numbers:FromCardValue:",
+												"card": { "$type": "Identify.Cards:Avatar:", "player": { "$type": "Identify.Players:FriendlyPlayer:" } },
 												"cardValue": { "value": "S" }
 											}
 										}
@@ -61,12 +61,12 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -81,8 +81,8 @@
 											"$type": "Restrict.Numbers:Compare:",
 											"comparison": { "$type": "Relationships.Number:LessThan:" },
 											"other": {
-												"$type": "Numbers:FromCardValue:",
-												"card": { "$type": "Cards:Avatar:", "player": { "$type": "Players:FriendlyPlayer:" } },
+												"$type": "Identify.Numbers:FromCardValue:",
+												"card": { "$type": "Identify.Cards:Avatar:", "player": { "$type": "Identify.Players:FriendlyPlayer:" } },
 												"cardValue": { "value": "S" }
 											}
 										}

@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -44,7 +44,7 @@
 									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Weather", "Condition" ]
 								},
-								"sameAs": { "$type": "Cards:ThisCardNow:" }
+								"sameAs": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Cards:Not:",

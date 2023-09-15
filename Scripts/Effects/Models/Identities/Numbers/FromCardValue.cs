@@ -37,7 +37,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		public const string NumberOfAugments = "Number of Augments";
 		public const string DistanceToSource = "Distance to Source";
 		public const string Index = "Index";
-		public const string SpacesCanMove = "Spaces Can Move";
+		public const string SpacesCanMove = "Identify.Spaces Can Move";
 		#endregion values
 
 		[JsonProperty(Required = Required.Always)]

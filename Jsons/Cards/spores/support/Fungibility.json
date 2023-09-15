@@ -13,13 +13,13 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{ "$type": "Restrict.Triggering:Normally:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -27,7 +27,7 @@
 										"$type": "Restrict.Cards:Not:",
 										"negated": {
 											"$type": "Restrict.Cards:CardsMatch:",
-											"card": { "$type": "Cards:ThisCardNow:" }
+											"card": { "$type": "Identify.Cards:ThisCardNow:" }
 										}
 									},
 									{
@@ -61,7 +61,7 @@
 						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:TargetIndex:" },
+							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Fungus" ]
@@ -79,7 +79,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

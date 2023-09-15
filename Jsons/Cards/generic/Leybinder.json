@@ -32,7 +32,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Leybinder to hand-summon",
 					"toSearch": {
-						"$type": "ManyCards:Hand:",
+						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true,
 						"enemy": true
 					},
@@ -46,12 +46,12 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:Equal:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							},
 							{
 								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Players:TargetIndex:" }
+								"player": { "$type": "Identify.Players:TargetIndex:" }
 							}
 						]
 					}
@@ -65,7 +65,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

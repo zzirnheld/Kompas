@@ -13,11 +13,11 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Spaces:InAOEOf:",
-							"card": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
@@ -30,8 +30,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "N" }
 					}
 				},
@@ -43,13 +43,13 @@
 						"elements": [
 							{
 								"$type": "Restrict.Triggering:CardsMatch:",
-								"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
-								"other": { "$type": "Cards:ThisCardNow:" }
+								"card": { "$type": "Identify.Cards:CardBefore:", "secondaryCard": true },
+								"other": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Triggering:CardsMatch:",
-								"card": { "$type": "Cards:CardBefore:" },
-								"other": { "$type": "Cards:TargetIndex:", "secondaryContext": true }
+								"card": { "$type": "Identify.Cards:CardBefore:" },
+								"other": { "$type": "Identify.Cards:TargetIndex:", "secondaryContext": true }
 							}
 						]
 					}

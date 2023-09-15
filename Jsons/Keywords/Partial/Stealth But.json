@@ -9,7 +9,7 @@
 			"elements": [
 				{
 					"$type": "Restrict.Spaces:CanMoveCard:",
-					"toMove": { "$type": "Cards:TargetIndex:" }
+					"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 				},
 				{
 					"$type": "Restrict.Spaces:InAOEOf:",
@@ -17,7 +17,7 @@
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Shade" ]
 					},
-					"sameAs": { "$type": "Cards:ThisCardNow:" }
+					"sameAs": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			]
 		}
@@ -32,7 +32,7 @@
 		"endCondition": "Arrive",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:CardAfter:" },
+			"card": { "$type": "Identify.Cards:CardAfter:" },
 			
 				"cardRestriction": {
 					"$type": "Restrict.Cards:AllOf:",
@@ -43,9 +43,9 @@
 					},
 					{
 						"$type": "Restrict.Cards:AOEContains:",
-						"cards": {
-							"$type": "ManyCards:Concat:",
-							"cards": [ { "$type": "Cards:ThisCardNow:" } ]
+						"Identify.Cards": {
+							"$type": "Identify.ManyCards:Concat:",
+							"Identify.Cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
 						}
 					}
 				]

@@ -12,7 +12,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -34,15 +34,15 @@
 					"endIfTrue": {
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": {
-							"$type": "Numbers:HandSize:",
-							"player": { "$type": "Players:TargetIndex:" }
+							"$type": "Identify.Numbers:HandSize:",
+							"player": { "$type": "Identify.Players:TargetIndex:" }
 						},
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
 							"other": { 
-								"$type": "Numbers:HandSizeLimit:",
-								"player": { "$type": "Players:TargetIndex:" }
+								"$type": "Identify.Numbers:HandSizeLimit:",
+								"player": { "$type": "Identify.Players:TargetIndex:" }
 							}
 						}
 					}

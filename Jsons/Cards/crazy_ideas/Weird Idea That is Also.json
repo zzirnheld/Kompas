@@ -19,7 +19,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "card in hand that is also discard",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 					}
 				},
@@ -29,7 +29,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character that is also +1 W",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{

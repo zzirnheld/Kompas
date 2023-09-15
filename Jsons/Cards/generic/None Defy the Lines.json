@@ -9,8 +9,8 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -23,7 +23,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "who to next be brought low by the Lines",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -51,11 +51,11 @@
 							{ "$type": "Restrict.Spaces:Edge:" },
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:SameDiagonal:",
-								"other": { "$type": "Cards:TargetIndex:" }
+								"other": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

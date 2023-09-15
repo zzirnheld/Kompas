@@ -11,16 +11,16 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
-							"number": { "$type": "Numbers:TriggerX:" },
+							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:Equal:" },
-								"other": { "$type": "Numbers:Constant:", "constant": 3 }
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 3 }
 							}
 						}
 					]
@@ -30,7 +30,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "An oviparous mamal? ORRY THE OVIPAROUS MAMMAL?",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" }
 				},
 				{

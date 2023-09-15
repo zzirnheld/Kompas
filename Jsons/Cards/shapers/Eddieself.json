@@ -9,8 +9,8 @@
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -20,7 +20,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Trailing Dreammist to hand-summon",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -31,7 +31,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:CanPlay:",
-								"destination": { "$type": "Spaces:TargetIndex:" }
+								"destination": { "$type": "Identify.Spaces:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
@@ -39,7 +39,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:Equal:" },
-									"other": { "$type": "Numbers:EffectX:" }
+									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
 						]

@@ -12,7 +12,7 @@
 				{
 					"$type":"Subeffect:CardTarget:",
 					"blurb":"Card to Cycle",
-					"toSearch": { "$type": "ManyCards:Hand:" }
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" }
 				},
 				{
 					"$type":"Subeffect:Discard:"

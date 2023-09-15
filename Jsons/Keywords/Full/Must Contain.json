@@ -22,11 +22,11 @@
 								},
 								{
 									"$type": "Restrict.Spaces:InAOEOf:",
-									"card": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							]
 						},
-						"anyOf": { "$type": "ManyCards:Board:" }
+						"anyOf": { "$type": "Identify.ManyCards:Board:" }
 					}
 				}
 			]

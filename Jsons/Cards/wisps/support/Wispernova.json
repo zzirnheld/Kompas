@@ -8,19 +8,19 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
-						"$type": "Cards:SelectFromMany:",
-						"cards": {
-							"$type": "ManyCards:Restricted:",
-							"cards": {
-								"$type": "ManyCards:Discard:",
+						"$type": "Identify.Cards:SelectFromMany:",
+						"Identify.Cards": {
+							"$type": "Identify.ManyCards:Restricted:",
+							"Identify.Cards": {
+								"$type": "Identify.ManyCards:Discard:",
 								"friendly": true,
 								"enemy": false
 							},
@@ -34,13 +34,13 @@
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
-						"$type": "Spaces:SelectFromMany:",
+						"$type": "Identify.Spaces:SelectFromMany:",
 						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
-						"spaces": {
-							"$type": "ManySpaces:Restricted:",
+						"Identify.Spaces": {
+							"$type": "Identify.ManySpaces:Restricted:",
 							"restriction": {
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						}
 					}

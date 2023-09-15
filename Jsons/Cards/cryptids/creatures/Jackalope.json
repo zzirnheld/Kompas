@@ -8,16 +8,16 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:CountCards:",
-						"cards": { "$type": "ManyCards:Board:" },
+						"$type": "Identify.Numbers:CountCards:",
+						"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
@@ -26,7 +26,7 @@
 									"$type": "Restrict.Cards:Not:",
 									"negated": {
 										"$type": "Restrict.Spaces:InAOEOf:",
-										"card": { "$type": "Cards:ThisCardNow:" }
+										"card": { "$type": "Identify.Cards:ThisCardNow:" }
 									}
 								}
 							]

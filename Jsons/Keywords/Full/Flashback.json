@@ -15,7 +15,7 @@
 				"negated": {
 					"$type": "Restrict.Triggering:CardFitsRestriction:",
 					"useDummyResolutionContext": false,
-					"card": { "$type": "Cards:TargetIndex:" },
+					"card": { "$type": "Identify.Cards:TargetIndex:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Location:",
 						"locations": [ "Hand" ]
@@ -32,7 +32,7 @@
 			"spaceRestriction":
 			{
 				"$type": "Restrict.Spaces:CanPlayCard:",
-				"toPlay": { "$type": "Cards:TargetIndex:" }
+				"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 			}
 		},
 		{

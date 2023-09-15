@@ -9,16 +9,16 @@
 			"elements": [
 				{
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				},
 				{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 				{
 					"$type": "Restrict.Triggering:Not:",
 					"inverted": {
 						"$type": "Restrict.Triggering:StackablesMatch:",
-						"firstStackable": { "$type": "Stackables:StackableCause:" },
-						"secondStackable": { "$type": "Stackables:ThisEffect:" }
+						"firstStackable": { "$type": "Identify.Stackables:StackableCause:" },
+						"secondStackable": { "$type": "Identify.Stackables:ThisEffect:" }
 					}
 				}
 			]
@@ -44,21 +44,21 @@
 				"elements": [
 					{
 						"$type": "Restrict.Spaces:CanMoveCard:",
-						"toMove": { "$type": "Cards:TargetIndex:" }
+						"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 					},
 					{
 						"$type": "Restrict.Spaces:CompareDistance:",
-						"distanceTo": { "$type": "Cards:ThisCardNow:" },
-						"number": { "$type": "Numbers:Constant:", "constant": 1 },
+						"distanceTo": { "$type": "Identify.Cards:ThisCardNow:" },
+						"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 },
 						"comparison": { "$type": "Relationships.Number:Equal:" }
 					},
 					{
 						"$type": "Restrict.Spaces:Direction:",
-						"from": { "$type": "Cards:ThisCardNow:" },
+						"from": { "$type": "Identify.Cards:ThisCardNow:" },
 						"direction": {
-							"$type": "Spaces:Direction:",
-							"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
-							"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+							"$type": "Identify.Spaces:Direction:",
+							"from": { "$type": "Identify.Spaces:TargetIndex:", "index": -2 },
+							"to": { "$type": "Identify.Spaces:TargetIndex:", "index": -1 }
 						}
 					}
 				]

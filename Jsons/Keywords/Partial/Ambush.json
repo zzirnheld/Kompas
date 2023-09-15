@@ -11,7 +11,7 @@
 				{ "$type": "Restrict.Cards:Character:" },
 				{
 					"$type": "Restrict.Spaces:AdjacentTo:",
-					"space": { "$type": "Cards:ThisCardNow:" }
+					"space": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			]
 		}
@@ -24,8 +24,8 @@
 	{
 		"$type": "Subeffect:SetXByNumberIdentity:",
 		"numberIdentity": { 
-			"$type": "Numbers:FromCardValue:",
-			"card": { "$type": "Cards:TargetIndex:" },
+			"$type": "Identify.Numbers:FromCardValue:",
+			"card": { "$type": "Identify.Cards:TargetIndex:" },
 			"cardValue": { "value": "W" }
 		}
 	},
@@ -35,8 +35,8 @@
 		"endCondition": "Battle End",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:StackablesMatch:",
-			"firstStackable": { "$type": "Stackables:StackableIndex:", "secondaryContext": true },
-			"secondStackable": { "$type": "Stackables:StackableEvent:" }
+			"firstStackable": { "$type": "Identify.Stackables:StackableIndex:", "secondaryContext": true },
+			"secondStackable": { "$type": "Identify.Stackables:StackableEvent:" }
 		}
 	},
 	{

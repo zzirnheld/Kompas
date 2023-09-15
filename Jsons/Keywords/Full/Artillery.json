@@ -11,7 +11,7 @@
 		},
 		{
 			"$type": "Subeffect:CardTarget:",
-			"toSearch": { "$type": "ManyCards:Board:" },
+			"toSearch": { "$type": "Identify.ManyCards:Board:" },
 			"cardRestriction": {
 				"blurb": "Pick a target to barrage",
 				"elements": [

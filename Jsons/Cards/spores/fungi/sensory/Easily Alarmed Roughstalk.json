@@ -13,8 +13,8 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:ThisCardNow:" },
-							"other": { "$type": "Cards:CardBefore:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						}
 					]
 				}

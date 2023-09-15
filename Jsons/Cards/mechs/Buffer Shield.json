@@ -10,8 +10,8 @@
 				"triggerCondition":"Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects":[
@@ -26,8 +26,8 @@
 						"elements": [
 							{
 								"$type": "Restrict.Triggering:CardsMatch:",
-								"card": { "$type": "Cards:CardBefore:" },
-								"other": { "$type": "Cards:ThisCardNow:" }
+								"card": { "$type": "Identify.Cards:CardBefore:" },
+								"other": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -44,7 +44,7 @@
 						{ "$type": "Restrict.Triggering:EnemyTurn:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:ThisCardNow:" },
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
@@ -60,7 +60,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Buffer Shield to attach to",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Mech" ]

@@ -8,21 +8,21 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "card for Raido to move",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Cards:CanMove:",
@@ -36,7 +36,7 @@
 					"blurb": "where for Raido to move it starget",
 					"spaceRestriction": {
 						"$type": "Restrict.Spaces:CanMoveCard:",
-						"toMove": { "$type": "Cards:TargetIndex:" }
+						"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				},
 				{

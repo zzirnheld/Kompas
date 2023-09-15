@@ -12,8 +12,8 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}
 					]
 				}
@@ -44,9 +44,9 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "cards to reveal",
+					"blurb": "Identify.Cards to reveal",
 					"toSearch": {
-						"$type": "ManyCards:Hand:",
+						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
@@ -55,7 +55,7 @@
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Players:TargetIndex:" }
+								"player": { "$type": "Identify.Players:TargetIndex:" }
 							}
 						]
 					},
@@ -64,11 +64,11 @@
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							}
 						]
 					}

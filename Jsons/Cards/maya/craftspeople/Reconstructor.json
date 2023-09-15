@@ -13,7 +13,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Structure to reconstruct",
-					"toSearch": { "$type": "ManyCards:Discard:" },
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -29,8 +29,8 @@
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 									"other": {
-										"$type": "Numbers:Pips:",
-										"player": { "$type": "Players:TargetIndex:" }
+										"$type": "Identify.Numbers:Pips:",
+										"player": { "$type": "Identify.Players:TargetIndex:" }
 									}
 								}
 							},
@@ -50,11 +50,11 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

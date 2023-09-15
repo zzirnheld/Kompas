@@ -12,12 +12,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+							"card": { "$type": "Identify.Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": { "$type": "Restrict.Cards:Summoned:" }
 						}
 					]
@@ -27,8 +27,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:CardBefore:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:CardBefore:" },
 						"cardValue": { "value": "E" }
 					}
 				},

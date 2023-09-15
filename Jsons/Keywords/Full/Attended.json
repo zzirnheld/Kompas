@@ -8,7 +8,7 @@
 			"elements": [
 				{
 					"$type": "Restrict.Triggering:CardFitsRestriction:",
-					"card": { "$type": "Cards:CardBefore:" },
+					"card": { "$type": "Identify.Cards:CardBefore:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -27,14 +27,14 @@
 				{
 					"$type": "Restrict.Triggering:NumberFitsRestriction:",
 					"number": {
-						"$type": "Numbers:CountCards:",
+						"$type": "Identify.Numbers:CountCards:",
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 								{ "$type": "Restrict.Cards:Friendly:" },
 								{
 									"$type": "Restrict.Spaces:AdjacentTo:",
-									"space": { "$type": "Cards:ThisCardNow:" }
+									"space": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							]
 						}
@@ -42,7 +42,7 @@
 					"restriction": {
 						"$type": "Restrict.Numbers:Compare:",
 						"comparison": { "$type": "Relationships.Number:LessThan:" },
-						"other": { "$type": "Numbers:Arg:" }
+						"other": { "$type": "Identify.Numbers:Arg:" }
 					}
 				}
 			]

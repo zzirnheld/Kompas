@@ -15,12 +15,12 @@
 						{ "$type": "Restrict.Gamestate:MaxPerTurn:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -28,7 +28,7 @@
 										"$type": "Restrict.Cards:Not:",
 										"negated": {
 											"$type": "Restrict.Cards:CardsMatch:",
-											"card": { "$type": "Cards:ThisCardNow:" }
+											"card": { "$type": "Identify.Cards:ThisCardNow:" }
 										}
 									},
 									{
@@ -37,7 +37,7 @@
 										"numberRestriction": {
 											"$type": "Restrict.Numbers:Compare:",
 											"comparison": { "$type": "Relationships.Number:LessThan:" },
-											"other": { "$type": "Numbers:Constant:", "constant": 1 }
+											"other": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 										}
 									}
 								]

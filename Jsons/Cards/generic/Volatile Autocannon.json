@@ -25,7 +25,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:SameDiagonal:",
-								"other": { "$type": "Cards:ThisCardNow:" }
+								"other": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -37,7 +37,7 @@
 					"$type": "Subeffect:AutoTarget:",
 					"cardRestriction": {
 						"$type": "Restrict.Spaces:Direction:",
-						"from": { "$type": "Cards:ThisCardNow:" }
+						"from": { "$type": "Identify.Cards:ThisCardNow:" }
 					},
 					"tiebreakerValue": {
 						"value": "Distance to Source"

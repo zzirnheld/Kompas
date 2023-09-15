@@ -13,7 +13,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "ritual sacrifice",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -32,7 +32,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Silent convert",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -43,7 +43,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:CanPlay:",
-								"destination": { "$type": "Spaces:TargetIndex:" },
+								"destination": { "$type": "Identify.Spaces:TargetIndex:" },
 								"ignoreAdjacency": true
 							}
 						]

@@ -12,16 +12,16 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:ThisCardNow:" },
-							"other": { "$type": "Cards:CardBefore:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" },
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
 						{
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
-							"number": { "$type": "Numbers:TriggerX:" },
+							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:LessThan:" },
-								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						}
 					]

@@ -16,16 +16,16 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "enemy character to attack",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Spaces:CompareDistance:",
-								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
 								"number": { 
-									"$type": "Numbers:Constant:",
+									"$type": "Identify.Numbers:Constant:",
 									"constant": 2
 								},
 								"comparison": { "$type": "Relationships.Number:Equal:" }

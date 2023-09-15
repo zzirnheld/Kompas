@@ -10,7 +10,7 @@
 			"spaceRestriction":
 			{
 				"$type": "Restrict.Spaces:ConnectedTo:",
-				"space": { "$type": "Cards:ThisCardNow:" },
+				"space": { "$type": "Identify.Cards:ThisCardNow:" },
 				"byRestriction":{
 					"$type": "Restrict.Cards:Subtypes:",
 					"subtypes": [ "Ethereal" ]
@@ -28,9 +28,9 @@
 		{
 			"$type": "Subeffect:SetXByNumberIdentity:",
 			"numberIdentity": {
-				"$type": "Numbers:Distance:",
-				"firstSpace": { "$type": "Cards:ThisCardNow:" },
-				"secondSpace": { "$type": "Spaces:TargetIndex:" },
+				"$type": "Identify.Numbers:Distance:",
+				"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },
+				"secondSpace": { "$type": "Identify.Spaces:TargetIndex:" },
 				"throughRestriction": {
 					"$type": "Restrict.Cards:Subtypes:",
 					"subtypes": [ "Ethereal" ]

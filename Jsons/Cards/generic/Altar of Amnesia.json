@@ -12,7 +12,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Which character will die",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -21,7 +21,7 @@
 							{ "$type": "Restrict.Cards:Summoned:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:ThisCardNow:" }
+								"card": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -35,7 +35,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Whose stats will get set",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -44,7 +44,7 @@
 							{ "$type": "Restrict.Cards:Summoned:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:ThisCardNow:" }
+								"card": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -52,8 +52,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "N" }
 					}
 				},
@@ -64,8 +64,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "E" }
 					}
 				},
@@ -76,8 +76,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "S" }
 					}
 				},
@@ -88,8 +88,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetCardInfoIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetCardInfoIndex:" },
 						"cardValue": { "value": "W" }
 					}
 				},

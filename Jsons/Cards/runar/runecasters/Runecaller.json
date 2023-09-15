@@ -12,7 +12,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Rune for Runecaller to cast",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -28,8 +28,8 @@
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 									"other": {
-										"$type": "Numbers:Pips:",
-										"player": { "$type": "Players:TargetIndex:" }
+										"$type": "Identify.Numbers:Pips:",
+										"player": { "$type": "Identify.Players:TargetIndex:" }
 									}
 								}
 							},
@@ -46,7 +46,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

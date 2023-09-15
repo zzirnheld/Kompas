@@ -14,15 +14,15 @@
 					"endIfTrue": {
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": {
-							"$type": "Numbers:HandSize:",
-							"player": { "$type": "Players:EnemyPlayer:" }
+							"$type": "Identify.Numbers:HandSize:",
+							"player": { "$type": "Identify.Players:EnemyPlayer:" }
 						},
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 							"other": {
-								"$type": "Numbers:HandSize:",
-								"player": { "$type": "Players:FriendlyPlayer:" }
+								"$type": "Identify.Numbers:HandSize:",
+								"player": { "$type": "Identify.Players:FriendlyPlayer:" }
 							}
 						}
 					}

@@ -8,15 +8,15 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Module to discard",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Module" ]
@@ -25,8 +25,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "A" }
 					}
 				},
@@ -35,7 +35,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction":
 					{
 						"elements": [
@@ -52,11 +52,11 @@
 							{ "$type": "Restrict.ManyCards:DistinctNames:" },
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							}
 						]
 					}
@@ -88,18 +88,18 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "cards to reshuffle",
-					"toSearch": { "$type": "ManyCards:Discard:" },
+					"blurb": "Identify.Cards to reshuffle",
+					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 5 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 5 }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:Constant:", "constant": 5 }
+								"bound": { "$type": "Identify.Numbers:Constant:", "constant": 5 }
 							}
 						]
 					}

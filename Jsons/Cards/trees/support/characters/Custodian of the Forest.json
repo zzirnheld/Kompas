@@ -13,22 +13,22 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
-							"number": { "$type": "Numbers:TriggerX:" },
+							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:LessThan:" },
-								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						},
 						{ "$type": "Restrict.Triggering:IsEffect:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardAfter:" },
+							"card": { "$type": "Identify.Cards:CardAfter:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

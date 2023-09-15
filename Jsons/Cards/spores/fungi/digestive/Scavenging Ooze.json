@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CauseBefore:" },
+							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -27,7 +27,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -41,10 +41,10 @@
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
-						"$type": "Cards:SelectFromMany:",
+						"$type": "Identify.Cards:SelectFromMany:",
 						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Assembly-CSharp" },
-						"cards": {
-							"$type": "ManyCards:Discard:",
+						"Identify.Cards": {
+							"$type": "Identify.ManyCards:Discard:",
 							"friendly": true,
 							"enemy": false
 						}
@@ -56,10 +56,10 @@
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
-						"$type": "Cards:SelectFromMany:",
+						"$type": "Identify.Cards:SelectFromMany:",
 						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Assembly-CSharp" },
-						"cards": {
-							"$type": "ManyCards:Discard:",
+						"Identify.Cards": {
+							"$type": "Identify.ManyCards:Discard:",
 							"friendly": false,
 							"enemy": true
 						}

@@ -8,12 +8,12 @@
 			"elements": [
 				{
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				},
 				{
 					"$type": "Restrict.Triggering:CardFitsRestriction:",
-					"card": { "$type": "Cards:CardBefore:" },
+					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Location:",
 						"locations": [ "Hand" ]
@@ -30,7 +30,7 @@
 		{
 			"$type":"Subeffect:CardTarget:",
 			"blurb":"Crazy Idea for Ificator to Ificate",
-			"toSearch": { "$type": "ManyCards:Discard:" },
+			"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 			"cardRestriction":
 			{
 				"$type": "Restrict.Cards:AllOf:",
@@ -40,7 +40,7 @@
 						"$type": "Restrict.Cards:Not:",
 						"negated": {
 							"$type": "Restrict.Cards:CardsMatch:",
-							"card": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:ThisCardNow:" }
 						}
 					},
 					{
@@ -64,7 +64,7 @@
 				"elements": [
 					{
 						"$type": "Restrict.Spaces:CanPlayCard:",
-						"toPlay": { "$type": "Cards:TargetIndex:" }
+						"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				]
 			}

@@ -8,14 +8,14 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -23,7 +23,7 @@
 							{ "$type": "Restrict.Cards:Spell:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -36,12 +36,12 @@
 							"elements": [
 								{
 									"$type": "Restrict.Triggering:CardsMatch:",
-									"card": { "$type": "Cards:CardBefore:" },
-									"other": { "$type": "Cards:ThisCardNow:" }
+									"card": { "$type": "Identify.Cards:CardBefore:" },
+									"other": { "$type": "Identify.Cards:ThisCardNow:" }
 								},
 								{
 									"$type": "Restrict.Triggering:CardFitsRestriction:",
-									"card": { "$type": "Cards:CardBefore:" },
+									"card": { "$type": "Identify.Cards:CardBefore:" },
 									"cardRestriction": {
 										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
@@ -60,7 +60,7 @@
 				},
 				{
 					"$type": "Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -68,7 +68,7 @@
 							{ "$type": "Restrict.Cards:Spell:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}

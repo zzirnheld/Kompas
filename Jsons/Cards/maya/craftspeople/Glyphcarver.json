@@ -13,8 +13,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:CountCards:",
-						"cards": { "$type": "ManyCards:Board:" },
+						"$type": "Identify.Numbers:CountCards:",
+						"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
@@ -24,7 +24,7 @@
 								},
 								{
 									"$type": "Restrict.Spaces:AdjacentTo:",
-									"space": { "$type": "Cards:ThisCardNow:" }
+									"space": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							]
 						}

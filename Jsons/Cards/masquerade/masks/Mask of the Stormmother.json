@@ -14,10 +14,10 @@
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": {
-								"$type": "Cards:AugmentedCard:",
-								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								"$type": "Identify.Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
-							"other": { "$type": "Cards:CardBefore:" }
+							"other": { "$type": "Identify.Cards:CardBefore:" }
 						}
 					]
 				}
@@ -29,8 +29,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "S" }
 					}
 				},
@@ -50,7 +50,7 @@
 				"$type": "Restrict.Cards:HasAugment:",
 				"cardRestriction": {
 					"$type": "Restrict.Cards:Name:",
-					"sameAs": { "$type": "Cards:ThisCardNow:" }
+					"sameAs": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			}
 		} ]

@@ -22,7 +22,7 @@
 				},
 				{
 					"$type": "Subeffect:AutoTarget:",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -49,8 +49,8 @@
 							},
 							{
 								"$type": "Restrict.Cards:Overlaps:",
-								"other": { "$type": "Cards:TargetIndex:" },
-								"overrideOtherSpace": { "$type": "Spaces:TargetIndex:" }
+								"other": { "$type": "Identify.Cards:TargetIndex:" },
+								"overrideOtherSpace": { "$type": "Identify.Spaces:TargetIndex:" }
 							}
 						]
 					}

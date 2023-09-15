@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -33,7 +33,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Maya to discard",
-					"toSearch": { "$type": "ManyCards:Hand:" }
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" }
 				},
 				{
 					"$type": "Subeffect:Discard:"

@@ -11,7 +11,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -19,7 +19,7 @@
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:ThisCardNow:" }
+								"card": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					},

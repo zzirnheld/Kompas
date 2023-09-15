@@ -28,7 +28,7 @@
 					},
 					{
 						"$type": "Restrict.Spaces:CanMoveCard:",
-						"toMove": { "$type": "Cards:TargetIndex:" }
+						"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				]
 			}
@@ -46,7 +46,7 @@
 				"elements": [
 					{
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
-						"card": { "$type": "Cards:CardAfter:" },
+						"card": { "$type": "Identify.Cards:CardAfter:" },
 						
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -57,9 +57,9 @@
 								},
 								{
 									"$type": "Restrict.Cards:AOEContains:",
-									"cards": {
-										"$type": "ManyCards:Concat:",
-										"cards": [ { "$type": "Cards:ThisCardNow:" } ]
+									"Identify.Cards": {
+										"$type": "Identify.ManyCards:Concat:",
+										"Identify.Cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
 									}
 								}
 							]
@@ -82,7 +82,7 @@
 		},
 		{
 			"$type": "Subeffect:CardTarget:",
-			"toSearch": { "$type": "ManyCards:Board:" },
+			"toSearch": { "$type": "Identify.ManyCards:Board:" },
 			"cardRestriction": {
 				"blurb": "enemy character to attack",
 				"elements": [
@@ -90,7 +90,7 @@
 					{ "$type": "Restrict.Cards:Character:" },
 					{
 						"$type": "Restrict.Spaces:AdjacentTo:",
-						"space": { "$type": "Cards:TargetIndex:" }
+						"space": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				]
 			}

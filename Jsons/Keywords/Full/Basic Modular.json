@@ -5,8 +5,8 @@
 			"elements": [
 				{
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			]
 		}
@@ -17,19 +17,19 @@
 		},
 		{
 			"$type": "Subeffect:CardTarget:",
-			"toSearch": { "$type": "ManyCards:Hand:" },
+			"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 			"cardRestriction": {
 				"$type": "Restrict.Cards:Subtypes:",
 				"subtypes": [ "Basic", "Module" ]
 			},
 			"listRestriction": {
 				"$type": "Restrict.ManyCards:Maximum:",
-				"bound": { "$type": "Numbers:Arg:" }
+				"bound": { "$type": "Identify.Numbers:Arg:" }
 			}
 		},
 		{
 			"$type": "Subeffect:SetXByNumberIdentity:",
-			"numberIdentity": { "$type": "Numbers:TargetCount:" },
+			"numberIdentity": { "$type": "Identify.Numbers:TargetCount:" },
 			"xModifier": -1
 		},
 		{

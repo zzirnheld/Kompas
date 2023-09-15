@@ -25,8 +25,8 @@
 						"elements": [
 							{
 								"$type": "Restrict.Triggering:PlayersMatch:",
-								"card": { "$type": "Players:TriggeringPlayer:" },
-								"other": { "$type": "Players:EnemyPlayer:" }
+								"card": { "$type": "Identify.Players:TriggeringPlayer:" },
+								"other": { "$type": "Identify.Players:EnemyPlayer:" }
 							}
 						]
 					},

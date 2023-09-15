@@ -13,7 +13,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"elements": [
 								{ "$type": "Restrict.Cards:Friendly:" },
 								{
@@ -28,7 +28,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+							"card": { "$type": "Identify.Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
 								"$type": "Restrict.Spaces:InAOEOf:",
 								"cardRestriction": {
@@ -43,7 +43,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:AutoTarget:",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -52,7 +52,7 @@
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Cards:Name:",
-								"sameAs": { "$type": "Cards:TargetIndex:" }
+								"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					},

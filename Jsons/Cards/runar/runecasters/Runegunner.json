@@ -12,7 +12,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Rune for Runegunner to cast",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -34,7 +34,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -45,9 +45,9 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
-						"$type": "Numbers:Distance:",
-						"firstSpace": { "$type": "Cards:ThisCardNow:" },
-						"secondSpace": { "$type": "Cards:TargetIndex:" }
+						"$type": "Identify.Numbers:Distance:",
+						"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },
+						"secondSpace": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				},
 				{

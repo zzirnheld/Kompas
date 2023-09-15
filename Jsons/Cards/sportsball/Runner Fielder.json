@@ -12,13 +12,13 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}
 					]
 				}
@@ -33,8 +33,8 @@
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Spaces:Displacement:",
-								"from": { "$type": "Cards:ThisCardNow:" },
-								"displacement": { "$type": "Spaces:Constant:", "x": 1, "y": 1 },
+								"from": { "$type": "Identify.Cards:ThisCardNow:" },
+								"displacement": { "$type": "Identify.Spaces:Constant:", "x": 1, "y": 1 },
 								"subjective": true
 							}
 						]

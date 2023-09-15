@@ -23,7 +23,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
@@ -39,7 +39,7 @@
 						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:TargetIndex:" },
+							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:HasAugment:",
 								"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" }	
@@ -56,7 +56,7 @@
 							{ "$type": "Restrict.Cards:Avatar:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:TargetIndex:" }
+								"space": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -69,11 +69,11 @@
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
-						"number": { "$type": "Numbers:TargetCount:" },
+						"number": { "$type": "Identify.Numbers:TargetCount:" },
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-							"other": { "$type": "Numbers:Constant:", "constant": 2 }
+							"other": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 						}
 					}
 				},

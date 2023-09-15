@@ -13,12 +13,12 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -31,7 +31,7 @@
 									{ "$type": "Restrict.Cards:Avatar:" },
 									{
 										"$type": "Restrict.Spaces:AdjacentTo:",
-										"space": { "$type": "Cards:ThisCardNow:" }
+										"space": { "$type": "Identify.Cards:ThisCardNow:" }
 									}
 								]
 							}
@@ -46,20 +46,20 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character to goal-kick Augment to",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:CardsMatch:",
-									"card": { "$type": "Cards:TargetIndex:" }
+									"card": { "$type": "Identify.Cards:TargetIndex:" }
 								}
 							}
 						]
@@ -73,11 +73,11 @@
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
-						"number": { "$type": "Numbers:TargetCount:" },
+						"number": { "$type": "Identify.Numbers:TargetCount:" },
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-							"other": { "$type": "Numbers:Constant:", "constant": 2 }
+							"other": { "$type": "Identify.Numbers:Constant:", "constant": 2 }
 						}
 					}
 				},

@@ -10,16 +10,16 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
-						"$type": "Cards:Avatar:",
-						"player": { "$type": "Players:EnemyPlayer:" }
+						"$type": "Identify.Cards:Avatar:",
+						"player": { "$type": "Identify.Players:EnemyPlayer:" }
 					}
 				},
 				{
@@ -27,7 +27,7 @@
 					"XRest": {
 						"$type": "Restrict.Numbers:Compare:",
 						"comparison": { "$type": "Relationships.Number:GreaterThan:" },
-						"other": { "$type": "Numbers:Constant:", "constant": 0 }
+						"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 					}
 				},
 				{

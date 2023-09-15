@@ -13,7 +13,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "ritual sacrifice",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -46,7 +46,7 @@
 					"spaceRestriction":
 					{
 						"$type": "Restrict.Spaces:CanPlayCard:",
-						"toPlay": { "$type": "Cards:TargetIndex:" }
+						"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				},
 				{
@@ -61,12 +61,12 @@
 			{
 				"$type": "Restrict.Triggering:CompareNumbers:",
 				"firstNumber": {
-					"$type": "Numbers:CountCards:",
-					"cards": { "$type": "ManyCards:Board:" },
+					"$type": "Identify.Numbers:CountCards:",
+					"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": { "$type": "Restrict.Spaces:Edge:" }
 				},
 				"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
-				"secondNumber": { "$type": "Numbers:Constant:", "constant": 14 }
+				"secondNumber": { "$type": "Identify.Numbers:Constant:", "constant": 14 }
 			}
 		]
 	},

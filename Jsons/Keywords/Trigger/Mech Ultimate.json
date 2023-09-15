@@ -1,8 +1,8 @@
 [
 	{
 		"$type": "Restrict.Triggering:CardsMatch:",
-		"card": { "$type": "Cards:ThisCardNow:" },
-		"other": { "$type": "Cards:CardBefore:" }
+		"card": { "$type": "Identify.Cards:ThisCardNow:" },
+		"other": { "$type": "Identify.Cards:CardBefore:" }
 	},
 	{
 		"$type": "Restrict.Triggering:NumberFitsRestriction:",
@@ -10,12 +10,12 @@
 			"XRest": {
 				"$type": "Restrict.Numbers:Compare:",
 				"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
-				"other": { "$type": "Numbers:Constant:", "constant": 30 }
+				"other": { "$type": "Identify.Numbers:Constant:", "constant": 30 }
 			}
 		},
 		"number": {
-			"$type": "Numbers:FromCardValue:",
-			"card": { "$type": "Cards:CardBefore:" },
+			"$type": "Identify.Numbers:FromCardValue:",
+			"card": { "$type": "Identify.Cards:CardBefore:" },
 			"cardValue": { "value": "S" }
 		}
 	}

@@ -13,15 +13,15 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:Not:",
 							"inverted": {
 								"$type": "Restrict.Triggering:StackablesMatch:",
-								"firstStackable": { "$type": "Stackables:StackableCause:" },
-								"secondStackable": { "$type": "Stackables:ThisEffect:" }
+								"firstStackable": { "$type": "Identify.Stackables:StackableCause:" },
+								"secondStackable": { "$type": "Identify.Stackables:ThisEffect:" }
 							}
 						}
 					]
@@ -43,29 +43,29 @@
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:HandSize:" },
+					"numberIdentity": { "$type": "Identify.Numbers:HandSize:" },
 					"xModifier": -1
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:HandSizeLimit:" },
+					"numberIdentity": { "$type": "Identify.Numbers:HandSizeLimit:" },
 					"change": true,
 					"xModifier": -1
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "folly of the Tower",
-					"toSearch": { "$type": "ManyCards:Hand:" },
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
 								"$type": "Restrict.ManyCards:Minimum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							},
 							{
 								"$type": "Restrict.ManyCards:Maximum:",
-								"bound": { "$type": "Numbers:EffectX:" }
+								"bound": { "$type": "Identify.Numbers:EffectX:" }
 							}
 						]
 					}

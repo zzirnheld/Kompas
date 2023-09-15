@@ -8,8 +8,8 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -22,7 +22,7 @@
 				{
 					"$type": "Subeffect:CardTargetSaveRest:",
 					"blurb": "spell for Mannaz to search (to hand)",
-					"toSearch": { "$type": "ManyCards:Deck:" },
+					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"constant": 10,
 						"$type": "Restrict.Cards:AllOf:",
@@ -35,7 +35,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
-									"other": { "$type": "Numbers:Constant:", "constant": 10 }
+									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
 								}
 							}
 						]
@@ -50,7 +50,7 @@
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
-									"other": { "$type": "Numbers:Constant:", "constant": 10 }
+									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
 								}
 							},
 							{

@@ -12,8 +12,8 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{ "$type": "Restrict.Triggering:EnemyTurn:" }
 					]
@@ -33,7 +33,7 @@
 									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Weather", "Condition" ]
 								},
-								"sameAs": { "$type": "Cards:ThisCardNow:" }
+								"sameAs": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							{
 								"$type": "Restrict.Cards:Subtypes:",
@@ -64,7 +64,7 @@
 				"subtypes": [ "Weather" ]
 			},
 			"minAnyOfCount": { 
-				"$type": "Numbers:Constant:",
+				"$type": "Identify.Numbers:Constant:",
 				"constant": 2
 			}
 		} ]

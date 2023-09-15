@@ -24,7 +24,7 @@
 										"$type": "Restrict.Cards:Not:",
 										"negated": {
 											"$type": "Restrict.Cards:CardsMatch:",
-											"card": { "$type": "Cards:CardBefore:" }
+											"card": { "$type": "Identify.Cards:CardBefore:" }
 										}
 									}
 								]
@@ -53,7 +53,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction":
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
@@ -68,7 +68,7 @@
 											"$type": "Restrict.Cards:Not:",
 											"negated": {
 												"$type": "Restrict.Cards:CardsMatch:",
-												"card": { "$type": "Cards:CardBefore:" }
+												"card": { "$type": "Identify.Cards:CardBefore:" }
 											}
 										}
 									]

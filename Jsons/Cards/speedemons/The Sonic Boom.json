@@ -9,8 +9,8 @@
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -27,7 +27,7 @@
 							{ "$type": "Restrict.Cards:Enemy:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Spaces:TargetIndex:" }
+								"space": { "$type": "Identify.Spaces:TargetIndex:" }
 							}
 						]
 					},

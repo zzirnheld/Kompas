@@ -27,44 +27,17 @@ namespace Kompas.Cards.Loading
 		private static readonly Regex subeffRegex = new(@"Subeffect:([^:]+):"); //Subeffect:*:
 		private const string subeffReplacement = @"KompasServer.Effects.Subeffects.$1, Assembly-CSharp";
 
-		//restriction regexes
 		private static readonly Regex coreRestrictionRegex = new(@"Restrict\.([^:]+):([^:]+):"); //Restrict.*:*:
 		private const string coreRestrictionReplacement = @"Kompas.Effects.Restrictions.$1.$2, Assembly-CSharp";
 
-		//identity regexes
-		private static readonly Regex cardsIdentityRegex = new(@"""Cards:([^:]+):"); //"Cards:*:
-		private const string cardsIdentityReplacement = @"""KompasCore.Effects.Identities.Cards.$1, Assembly-CSharp";
+		private static readonly Regex coreIdentityRegex = new(@"Identify\.([^:]+):([^:]+):"); //Restrict.*:*:
+		private const string coreIdentityReplacement = @"Kompas.Effects.Identities.$1.$2, Assembly-CSharp";
 
-		private static readonly Regex manyCardsIdentityRegex = new(@"""ManyCards:([^:]+):"); //"ManyCards:*:
-		private const string manyCardsIdentityReplacement = @"""KompasCore.Effects.Identities.ManyCards.$1, Assembly-CSharp";
-
-		private static readonly Regex spacesIdentityRegex = new(@"""Spaces:([^:]+):"); //"Spaces:*:
-		private const string spacesIdentityReplacement = @"""KompasCore.Effects.Identities.Spaces.$1, Assembly-CSharp";
-
-		private static readonly Regex manySpacesIdentityRegex = new(@"""ManySpaces:([^:]+):"); //"ManySpaces:*:
-		private const string manySpacesIdentityReplacement = @"""KompasCore.Effects.Identities.ManySpaces.$1, Assembly-CSharp";
-
-		private static readonly Regex numbersIdentityRegex = new(@"""Numbers:([^:]+):"); //"Numbers:*:
-		private const string numbersIdentityReplacement = @"""KompasCore.Effects.Identities.Numbers.$1, Assembly-CSharp";
-
-		private static readonly Regex manyNumbersIdentityRegex = new(@"""ManyNumbers:([^:]+):"); //"ManyNumbers:*:
-		private const string manyNumbersIdentityReplacement = @"""KompasCore.Effects.Identities.ManyNumbers.$1, Assembly-CSharp";
-
-		private static readonly Regex playersIdentityRegex = new(@"""Players:([^:]+):"); //"Players:*:
-		private const string playersIdentityReplacement = @"""KompasCore.Effects.Identities.Players.$1, Assembly-CSharp";
-
-		private static readonly Regex stackablesIdentityRegex = new(@"""Stackables:([^:]+):"); //"Stackables:*:
-		private const string stackablesIdentityReplacement = @"""KompasCore.Effects.Identities.Stackables.$1, Assembly-CSharp";
-
-		//relationships
 		private static readonly Regex relationshipRegex = new(@"Relationships\.([^:]+):([^:]+):"); //Relationships.*:*:
 		private const string relationshipReplacement = @"KompasCore.Effects.Relationships.$1Relationships.$2, Assembly-CSharp";
 
-		private static readonly Regex numberSelectorRegex = new(@"NumberSelector:([^:]+):"); //NumberSelector:*:
+		private static readonly Regex numberSelectorRegex = new(@"Selectors.Numbers:([^:]+):"); //NumberSelector:*:
 		private const string numberSelectorReplacement = @"KompasCore.Effects.Identities.NumberSelectors.$1, Assembly-CSharp";
-
-		private static readonly Regex threeSpaceRelationshipRegex = new(@"ThreeSpaceRelationships:([^:]+):"); //ThreeSpaceRelationships:*:
-		private const string threeSpaceRelationshipReplacement = @"KompasCore.Effects.Identities.ThreeSpaceRelationships.$1, Assembly-CSharp";
 
 		protected static readonly JsonSerializerSettings CardLoadingSettings = new()
 		{
@@ -226,21 +199,10 @@ namespace Kompas.Cards.Loading
 			json = coreRestrictionRegex.Replace(json, coreRestrictionReplacement);
 
 			//Many before single, to not replace the many with a broken thing
-			json = manyCardsIdentityRegex.Replace(json, manyCardsIdentityReplacement);
-			json = cardsIdentityRegex.Replace(json, cardsIdentityReplacement);
-
-			json = manySpacesIdentityRegex.Replace(json, manySpacesIdentityReplacement);
-			json = spacesIdentityRegex.Replace(json, spacesIdentityReplacement);
-
-			json = manyNumbersIdentityRegex.Replace(json, manyNumbersIdentityReplacement);
-			json = numbersIdentityRegex.Replace(json, numbersIdentityReplacement);
-
-			json = playersIdentityRegex.Replace(json, playersIdentityReplacement);
-			json = stackablesIdentityRegex.Replace(json, stackablesIdentityReplacement);
+			json = coreIdentityRegex.Replace(json, coreIdentityReplacement);
 
 			json = relationshipRegex.Replace(json, relationshipReplacement);
 			json = numberSelectorRegex.Replace(json, numberSelectorReplacement);
-			json = threeSpaceRelationshipRegex.Replace(json, threeSpaceRelationshipReplacement);
 
 			return json;
 		}

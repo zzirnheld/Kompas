@@ -15,11 +15,11 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"cardRestriction": {
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:ThisCardNow:" }
+								"space": { "$type": "Identify.Cards:ThisCardNow:" }
 							},
 							"card": {
-								"$type": "Cards:Avatar:",
-								"player": { "$type": "Players:EnemyPlayer:" }
+								"$type": "Identify.Cards:Avatar:",
+								"player": { "$type": "Identify.Players:EnemyPlayer:" }
 							}
 						}
 					]
@@ -32,8 +32,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "S" }
 					}
 				},
@@ -48,7 +48,7 @@
 						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:TargetIndex:" },
+							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -59,7 +59,7 @@
 										"numberRestriction": {
 											"$type": "Restrict.Numbers:Compare:",
 											"comparison": { "$type": "Relationships.Number:LessThan:" },
-											"other": { "$type": "Numbers:EffectX:" }
+											"other": { "$type": "Identify.Numbers:EffectX:" }
 										}
 									}
 								]
@@ -77,7 +77,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:CanPlayCard:",
-								"toPlay": { "$type": "Cards:TargetIndex:" }
+								"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

@@ -13,7 +13,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Magician to hand-bottomdeck",
-					"toSearch": { "$type": "ManyCards:Hand:" }
+					"toSearch": { "$type": "Identify.ManyCards:Hand:" }
 				},
 				{
 					"$type": "Subeffect:Bottomdeck:"

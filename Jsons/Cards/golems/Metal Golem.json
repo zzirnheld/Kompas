@@ -9,15 +9,15 @@
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "first character for Metal Golem to set N to 0",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{
@@ -27,7 +27,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "second character for Metal Golem to set N to 0",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -50,7 +50,7 @@
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
@@ -58,7 +58,7 @@
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},

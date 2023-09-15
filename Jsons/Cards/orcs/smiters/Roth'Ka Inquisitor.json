@@ -12,12 +12,12 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
-							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
@@ -32,7 +32,7 @@
 										"numberRestriction": {
 											"$type": "Restrict.Numbers:Compare:",
 											"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
-											"other": { "$type": "Numbers:Constant:", "constant": 0 }
+											"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 										}
 									}
 								]
@@ -50,7 +50,7 @@
 					"blurb": "Choose space to cast the spell",
 					"spaceRestriction": {
 						"$type": "Restrict.Spaces:CanPlayCard:",
-						"toPlay": { "$type": "Cards:TargetIndex:" }
+						"toPlay": { "$type": "Identify.Cards:TargetIndex:" }
 					}
 				},
 				{

@@ -13,7 +13,7 @@
 					"elements": [
 						{
 							"$type": "Restrict.Spaces:AdjacentTo:",
-							"space": { "$type": "Cards:ThisCardNow:" }
+							"space": { "$type": "Identify.Cards:ThisCardNow:" }
 						}
 					]
 				}

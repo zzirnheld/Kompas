@@ -14,10 +14,10 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"anyOf": {
-								"$type": "ManyCards:CardsInPositions:",
+								"$type": "Identify.ManyCards:CardsInPositions:",
 								"positions": {
-									"$type": "ManySpaces:AdjacentSpaces:",
-									"adjacentTo": { "$type": "Cards:ThisCardNow:" }
+									"$type": "Identify.ManySpaces:AdjacentSpaces:",
+									"adjacentTo": { "$type": "Identify.Cards:ThisCardNow:" }
 								}
 							},
 							"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
@@ -28,7 +28,7 @@
 			"subeffects":[
 				{
 					"$type":"Subeffect:CardTarget:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction":
 					{
 						"blurb":"friendly character for Crab Robot Crab Minion to give intel",

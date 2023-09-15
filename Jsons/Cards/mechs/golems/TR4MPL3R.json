@@ -7,7 +7,7 @@
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
@@ -15,7 +15,7 @@
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},

@@ -9,8 +9,8 @@
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -20,8 +20,8 @@
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": { 
-						"$type": "Numbers:FromCardValue:",
-						"card": { "$type": "Cards:TargetIndex:" },
+						"$type": "Identify.Numbers:FromCardValue:",
+						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardValue": { "value": "W" }
 					}
 				},
@@ -32,7 +32,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "summon for Gunpowder Golem to give -X E",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -53,7 +53,7 @@
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
@@ -61,7 +61,7 @@
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},

@@ -12,12 +12,12 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
-							"other": { "$type": "Cards:ThisCardNow:" }
+							"card": { "$type": "Identify.Cards:CardBefore:" },
+							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
@@ -36,14 +36,14 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:TargetAll:",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Enemy:" },
 							{
 								"$type": "Restrict.Spaces:ConnectedTo:",
-								"space": { "$type": "Cards:TargetIndex:" },
+								"space": { "$type": "Identify.Cards:TargetIndex:" },
 								"byRestriction":{
 									"$type": "Restrict.Spaces:AllOf:",
 									"elements": [
@@ -61,7 +61,7 @@
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
-					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+					"numberIdentity": { "$type": "Identify.Numbers:TargetCount:" }
 				},
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",

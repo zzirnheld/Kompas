@@ -14,15 +14,15 @@
 						{
 							"$type": "Restrict.Triggering:CompareNumbers:",
 							"firstNumber": {
-								"$type": "Numbers:Distance:",
-								"firstSpace": { "$type": "Cards:ThisCardNow:" },
-								"secondSpace": { "$type": "Cards:CardBefore:" }
+								"$type": "Identify.Numbers:Distance:",
+								"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },
+								"secondSpace": { "$type": "Identify.Cards:CardBefore:" }
 							},
 							"comparison": { "$type": "Relationships.Number:LessThan:" },
 							"secondNumber": {
-								"$type": "Numbers:Distance:",
-								"firstSpace": { "$type": "Cards:ThisCardNow:" },
-								"secondSpace": { "$type": "Cards:CardAfter:" }
+								"$type": "Identify.Numbers:Distance:",
+								"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },
+								"secondSpace": { "$type": "Identify.Cards:CardAfter:" }
 							}
 						}
 					]

@@ -12,7 +12,7 @@
 					"elements": [
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"elements": [
 								{ "$type": "Restrict.Cards:Friendly:" },
 								{
@@ -27,7 +27,7 @@
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+							"card": { "$type": "Identify.Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
 								"$type": "Restrict.Spaces:InAOEOf:",
 								"cardRestriction": {
@@ -43,7 +43,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Moth that feels the call",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -67,11 +67,11 @@
 						"elements": [
 							{
 								"$type": "Restrict.Spaces:CanMoveCard:",
-								"toMove": { "$type": "Cards:TargetIndex:" }
+								"toMove": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Cards:TargetIndex:" }
+								"card": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}

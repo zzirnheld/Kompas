@@ -13,19 +13,19 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:Avatar:",
-								"player": { "$type": "Players:FriendlyPlayer:" }
+								"$type": "Identify.Cards:Avatar:",
+								"player": { "$type": "Identify.Players:FriendlyPlayer:" }
 							}
 						},
 						{
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
-							"number": { "$type": "Numbers:TriggerX:" },
+							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
-								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						}
 					]
@@ -35,7 +35,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "summon for Stardusting Pulsar to buff",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
@@ -63,19 +63,19 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
-							"card": { "$type": "Cards:CardBefore:" },
+							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
-								"$type": "Cards:Avatar:",
-								"player": { "$type": "Players:FriendlyPlayer:" }
+								"$type": "Identify.Cards:Avatar:",
+								"player": { "$type": "Identify.Players:FriendlyPlayer:" }
 							}
 						},
 						{
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
-							"number": { "$type": "Numbers:TriggerX:" },
+							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:LessThan:" },
-								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						}
 					]
@@ -85,7 +85,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "summon for Stardusting Pulsar to debuff",
-					"toSearch": { "$type": "ManyCards:Board:" },
+					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [

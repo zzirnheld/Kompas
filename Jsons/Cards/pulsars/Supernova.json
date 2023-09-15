@@ -8,8 +8,8 @@
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:CardsMatch:",
-					"card": { "$type": "Cards:CardBefore:" },
-					"other": { "$type": "Cards:ThisCardNow:" }
+					"card": { "$type": "Identify.Cards:CardBefore:" },
+					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}
 			},
 			"subeffects": [
@@ -26,14 +26,14 @@
 					{
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": { 
-							"$type": "Numbers:FromCardValue:",
-							"card": { "$type": "Cards:TargetIndex:" },
+							"$type": "Identify.Numbers:FromCardValue:",
+							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardValue": { "value": "S" }
 						},
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
-							"other": { "$type": "Numbers:Constant:", "constant": 1 }
+							"other": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 						}
 					},
 					"jumpIndices": [ 1 ]

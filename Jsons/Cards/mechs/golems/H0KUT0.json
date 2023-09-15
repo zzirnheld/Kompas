@@ -11,13 +11,13 @@
 				"elements": [
 					{
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
-						"card": { "$type": "Cards:ThisCardNow:" },
+						"card": { "$type": "Identify.Cards:ThisCardNow:" },
 						"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 					},
 					{
 						"$type": "Restrict.Triggering:PlayersMatch:",
-						"card": { "$type": "Players:TriggeringPlayer:" },
-						"other": { "$type": "Players:EnemyPlayer:" }
+						"card": { "$type": "Identify.Players:TriggeringPlayer:" },
+						"other": { "$type": "Identify.Players:EnemyPlayer:" }
 					}
 				]
 			},
@@ -37,7 +37,7 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Cards:TargetIndex:" }
+								"space": { "$type": "Identify.Cards:TargetIndex:" }
 							}
 						]
 					}
@@ -57,7 +57,7 @@
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
@@ -65,7 +65,7 @@
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
-			"card": { "$type": "Cards:ThisCardNow:" },
+			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
