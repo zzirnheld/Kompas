@@ -31,7 +31,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:AOEContains:",
-								"Identify.Cards": { "$type": "Identify.Cards:ThisCardNow:" }
+								"cards": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}
@@ -57,8 +57,8 @@
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
 						"$type": "Identify.Spaces:SelectFromMany:",
-						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Kompas" },
-						"Identify.Spaces": {
+						"selector": { "$type": "Selectors.Spaces:RandomSpace:" },
+						"spaces": {
 							"$type": "Identify.ManySpaces:Restricted:",
 							"restriction": {
 								"$type": "Restrict.Spaces:CanMoveCard:",

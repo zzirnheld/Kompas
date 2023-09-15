@@ -37,7 +37,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		public const string NumberOfAugments = "Number of Augments";
 		public const string DistanceToSource = "Distance to Source";
 		public const string Index = "Index";
-		public const string SpacesCanMove = "Identify.Spaces Can Move";
+		public const string SpacesCanMove = "Spaces Can Move";
 		#endregion values
 
 		[JsonProperty(Required = Required.Always)]
@@ -69,19 +69,19 @@ namespace Kompas.Effects.Models.Identities.Numbers
 				AugmentCost => card.A,
 
 				Cost => card.Cost,
-				NumberOfAugments => card.Augments.Count(),
+				NumberOfAugments => card.Augments.Count,
 				DistanceToSource => card.DistanceTo(Source),
 				Index => card.IndexInList,
 				SpacesCanMove => card.SpacesCanMove,
 				
-				_ => throw new System.ArgumentException($"Invalid value string {value}", "value"),
+				_ => throw new System.ArgumentException($"Invalid value string {value}", nameof(value)),
 			};
 			return intermediateValue * multiplier / divisor + modifier;
 		}
 
 		public void SetValueOf(GameCard card, int num, IStackable stackSrc = null)
 		{
-			if (card == null) throw new System.ArgumentException("Cannot set value of null card", "card");
+			if (card == null) throw new System.ArgumentException("Cannot set value of null card", nameof(card));
 
 			int intermediateValue = num * multiplier / divisor + modifier;
 			switch (value)

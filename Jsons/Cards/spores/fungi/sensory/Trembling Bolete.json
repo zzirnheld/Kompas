@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {
@@ -24,7 +24,7 @@
 							"$type": "Restrict.Triggering:AnyOf:",
 							"elements": [
 								{
-									"$type": "Restrict.Triggering:CardFitsRestriction:",
+									"$type": "Restrict.Gamestate:CardFitsRestriction:",
 									"card": { "$type": "Identify.Cards:CardBefore:" },
 									"cardRestriction": {
 										"$type": "Restrict.Spaces:AdjacentTo:",
@@ -32,7 +32,7 @@
 									}
 								},
 								{
-									"$type": "Restrict.Triggering:CardFitsRestriction:",
+									"$type": "Restrict.Gamestate:CardFitsRestriction:",
 									"card": { "$type": "Identify.Cards:CardAfter:" },
 									"cardRestriction": {
 										"$type": "Restrict.Spaces:AdjacentTo:",

@@ -17,9 +17,9 @@
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
 						"$type": "Identify.Cards:SelectFromMany:",
-						"Identify.Cards": {
+						"cards": {
 							"$type": "Identify.ManyCards:Restricted:",
-							"Identify.Cards": {
+							"cards": {
 								"$type": "Identify.ManyCards:Discard:",
 								"friendly": true,
 								"enemy": false
@@ -35,8 +35,8 @@
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
 						"$type": "Identify.Spaces:SelectFromMany:",
-						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Kompas" },
-						"Identify.Spaces": {
+						"selector": { "$type": "Selectors.Spaces:RandomSpace:" },
+						"spaces": {
 							"$type": "Identify.ManySpaces:Restricted:",
 							"restriction": {
 								"$type": "Restrict.Spaces:CanPlayCard:",

@@ -16,7 +16,7 @@
 						},
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
-							"$type": "Restrict.Triggering:StackableFitsRestriction:",
+							"$type": "Restrict.Gamestate:StackableFitsRestriction:",
 							"stackable": { "$type": "Identify.Stackables:StackableCause:" },
 							"restriction": {
 								"$type": "Core.StackableRestriction:Keyword:",
@@ -50,8 +50,8 @@
 							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Restrict.Triggering:SpacesFitRestriction:",
-							"Identify.Spaces": { "$type": "Identify.ManySpaces:Corners:" },
+							"$type": "Restrict.Gamestate:SpacesFitRestriction:",
+							"spaces": { "$type": "Identify.ManySpaces:Corners:" },
 							"spaceRestriction": {
 								"$type": "Restrict.Spaces:Not:",
 								"negated": { "$type": "Restrict.Spaces:Empty:" }

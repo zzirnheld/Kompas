@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardAfter:" },
 							
 						"cardRestriction": {
@@ -46,7 +46,7 @@
 					"$type": "Subeffect:TargetAll:",
 					"toSearch": {
 						"$type": "Identify.ManyCards:Limit:",
-						"Identify.Cards": { "$type": "Identify.ManyCards:Discard:" },
+						"cards": { "$type": "Identify.ManyCards:Discard:" },
 						"limit": {
 							"$type": "Identify.Numbers:EffectX:",
 							"multiplier": 1

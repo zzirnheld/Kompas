@@ -17,7 +17,7 @@
 					"$type": "Subeffect:TargetAll:",
 					"toSearch": {
 						"$type": "Identify.ManyCards:Distinct:",
-						"Identify.Cards": { "$type": "Identify.ManyCards:Deck:", "friendly": true, "enemy": false },
+						"cards": { "$type": "Identify.ManyCards:Deck:", "friendly": true, "enemy": false },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Basic", "Module" ]

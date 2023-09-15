@@ -10,7 +10,7 @@
 				{
 					"$type": "Restrict.Triggering:Not:",
 					"inverted": {
-						"$type": "Restrict.Triggering:CardFitsRestriction:",
+						"$type": "Restrict.Gamestate:CardFitsRestriction:",
 						
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

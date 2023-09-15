@@ -13,12 +13,12 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",

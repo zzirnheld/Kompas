@@ -15,7 +15,7 @@
 							"card": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
-						{ "$type": "Restrict.Triggering:Normally:" }
+						{ "$type": "Restrict.Gamestate:Normally:" }
 					]
 				}
 			},

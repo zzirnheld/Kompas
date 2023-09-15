@@ -18,7 +18,7 @@
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
 						"$type": "Identify.Numbers:CountCards:",
-						"Identify.Cards": { "$type": "Identify.ManyCards:Hand:" },
+						"cards": { "$type": "Identify.ManyCards:Hand:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Crazy", "Idea" ]

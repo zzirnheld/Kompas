@@ -13,7 +13,7 @@
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
 						"$type": "Identify.Numbers:CountCards:",
-						"Identify.Cards": { "$type": "Identify.ManyCards:Discard:" },
+						"cards": { "$type": "Identify.ManyCards:Discard:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Rune" ]
@@ -38,7 +38,7 @@
 								"cardValue": { "value": "C" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}

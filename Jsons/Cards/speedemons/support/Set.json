@@ -16,7 +16,7 @@
 				{
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue": {
-						"$type": "Restrict.Triggering:CardFitsRestriction:",
+						"$type": "Restrict.Gamestate:CardFitsRestriction:",
 						"anyOf": { "$type": "Identify.ManyCards:Discard:", "friendly": true, "enemy": false },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Name:",

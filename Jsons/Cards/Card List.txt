@@ -753,7 +753,7 @@ weather/skyknights/Passingbinder
 weather/skyknights/Pactbinder
 weather/skyknights/Skybinder
 
-wisps/support/Dancing wisps
+wisps/support/Dancing Wisps
 wisps/support/Flisp
 wisps/support/Wispernova
 wisps/support/Wispflux Generator

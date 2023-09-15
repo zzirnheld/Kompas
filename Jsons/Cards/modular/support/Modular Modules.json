@@ -88,7 +88,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "Identify.Cards to reshuffle",
+					"blurb": "cards to reshuffle",
 					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:AllOf:",

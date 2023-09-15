@@ -5,11 +5,11 @@
 		"other": { "$type": "Identify.Cards:CardBefore:" }
 	},
 	{
-		"$type": "Restrict.Triggering:NumberFitsRestriction:",
+		"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 		"restriction": {
 			"XRest": {
 				"$type": "Restrict.Numbers:Compare:",
-				"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+				"comparison": { "$type": "Relationships.Numbers:GreaterThanEqual:" },
 				"other": { "$type": "Identify.Numbers:Constant:", "constant": 30 }
 			}
 		},

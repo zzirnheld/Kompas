@@ -31,7 +31,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:AOEContains:",
-								"Identify.Cards": { "$type": "Identify.Cards:ThisCardNow:" }
+								"cards": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
 						]
 					}

@@ -57,7 +57,7 @@
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}

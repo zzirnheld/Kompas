@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
@@ -58,7 +58,7 @@
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

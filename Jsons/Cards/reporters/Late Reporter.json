@@ -16,7 +16,7 @@
 						},
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
-							"$type": "Restrict.Triggering:StackableFitsRestriction:",
+							"$type": "Restrict.Gamestate:StackableFitsRestriction:",
 							"stackable": { "$type": "Identify.Stackables:StackableCause:" },
 							"restriction": {
 								"$type": "Core.StackableRestriction:Keyword:",

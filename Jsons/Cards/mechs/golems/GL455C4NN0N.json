@@ -16,7 +16,7 @@
 							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
@@ -45,7 +45,7 @@
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
@@ -53,7 +53,7 @@
 	"movementRestriction": {
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]

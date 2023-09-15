@@ -26,7 +26,7 @@
 								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Identify.Cards:ThisCardNow:" },
 								"number": { "$type": "Identify.Numbers:Constant:", "constant": 1 },
-								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+								"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" }
 							}
 						]
 					},

@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 						}
@@ -36,7 +36,7 @@
 								},
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 									"other": {
 										"$type": "Identify.Numbers:Pips:",
 										"player": { "$type": "Identify.Players:TargetIndex:" }

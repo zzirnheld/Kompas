@@ -10,7 +10,7 @@
                     "other": { "$type": "Identify.Cards:ThisCardNow:" }
                 },
                 {
-                    "$type": "Restrict.Triggering:CardFitsRestriction:",
+                    "$type": "Restrict.Gamestate:CardFitsRestriction:",
                     "card": { "$type": "Identify.Cards:CardBefore:" },
                     
                 "cardRestriction": {
@@ -35,7 +35,7 @@
             "endIfTrue": {
                 "$type": "Restrict.Gamestate:Not:",
                 "negated": {
-                    "$type": "Restrict.Triggering:CardFitsRestriction:",
+                    "$type": "Restrict.Gamestate:CardFitsRestriction:",
                     "useDummyResolutionContext": false,
                     "card": { "$type": "Identify.Cards:TargetIndex:" },
                     "cardRestriction": {

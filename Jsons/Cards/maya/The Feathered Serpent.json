@@ -59,13 +59,13 @@
 		"$type": "Restrict.Play:PlayRestriction:",
 		"normalAndEffect": [
 			{
-				"$type": "Restrict.Triggering:CompareNumbers:",
+				"$type": "Restrict.Gamestate:CompareNumbers:",
 				"firstNumber": {
 					"$type": "Identify.Numbers:CountCards:",
-					"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
+					"cards": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": { "$type": "Restrict.Spaces:Edge:" }
 				},
-				"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+				"comparison": { "$type": "Relationships.Numbers:GreaterThanEqual:" },
 				"secondNumber": { "$type": "Identify.Numbers:Constant:", "constant": 14 }
 			}
 		]

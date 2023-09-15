@@ -35,7 +35,7 @@
 					"jumpIfTrue": {
 						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
@@ -46,7 +46,7 @@
 										"cardValue": { "value": "Cost" },
 										"numberRestriction": {
 											"$type": "Restrict.Numbers:Compare:",
-											"comparison": { "$type": "Relationships.Number:LessThan:" },
+											"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 											"other": { "$type": "Identify.Numbers:EffectX:" }
 										}
 									}

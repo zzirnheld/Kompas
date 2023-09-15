@@ -45,7 +45,7 @@
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardAfter:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
@@ -71,7 +71,7 @@
 							}
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",

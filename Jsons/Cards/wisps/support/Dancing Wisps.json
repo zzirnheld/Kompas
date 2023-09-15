@@ -10,7 +10,7 @@
 				"elements": [
 					{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 					{
-						"$type": "Restrict.Triggering:CardFitsRestriction:",
+						"$type": "Restrict.Gamestate:CardFitsRestriction:",
 						"card": { "$type": "Identify.Cards:CardBefore:" },
 						"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 					},
@@ -38,11 +38,11 @@
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
 						"$type": "Identify.Spaces:SelectFromMany:",
-						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Kompas" },
-						"Identify.Spaces": {
+						"selector": { "$type": "Selectors.Space:RandomSpace:" },
+						"spaces": {
 							"$type": "Identify.ManySpaces:Restricted:",
 							"restriction": { "$type": "Restrict.Spaces:Empty:" },
-							"Identify.Spaces": {
+							"spaces": {
 								"$type": "Identify.ManySpaces:AdjacentSpaces:",
 								"adjacentTo": {
 									"$type": "Identify.Cards:TargetIndex:",

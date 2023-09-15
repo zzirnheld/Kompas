@@ -16,9 +16,9 @@
 							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
 							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
-						{ "$type": "Restrict.Triggering:Normally:" },
+						{ "$type": "Restrict.Gamestate:Normally:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
@@ -60,7 +60,7 @@
 					"jumpIfTrue": {
 						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",

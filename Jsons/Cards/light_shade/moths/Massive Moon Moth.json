@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"elements": [
 								{ "$type": "Restrict.Cards:Friendly:" },
@@ -27,7 +27,7 @@
 							]
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
 								"$type": "Restrict.Spaces:InAOEOf:",
@@ -59,7 +59,7 @@
 								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
 								"number": { "$type": "Identify.Numbers:Constant:", "constant": 2 },
-								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+								"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" }
 							},
 							{
 								"$type": "Restrict.Cards:Not:",

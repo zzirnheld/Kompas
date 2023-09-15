@@ -10,10 +10,10 @@
 				"$type": "Restrict.Spaces:CompareDistance:",
 				"distanceTo": { "$type": "Identify.Cards:ThisCardNow:" },
 				"number": { "$type": "Identify.Numbers:Constant:", "constant": 2 },
-				"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+				"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" }
 			},
 			{
-				"$type": "Restrict.Triggering:CardFitsRestriction:",
+				"$type": "Restrict.Gamestate:CardFitsRestriction:",
 				"card": { "$type": "Identify.Cards:ThisCardNow:" },
 				"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 			}
@@ -22,7 +22,7 @@
 	"movementRestriction": {
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]

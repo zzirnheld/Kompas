@@ -65,13 +65,13 @@
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							},
 							{
 								"$type": "Restrict.Cards:DistinctName:",
-								"Identify.Cards": { "$type": "Identify.ManyCards:Targets:" }
+								"cards": { "$type": "Identify.ManyCards:Targets:" }
 							}
 						]
 					}
@@ -107,11 +107,11 @@
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue":
 					{
-						"$type": "Restrict.Triggering:NumberFitsRestriction:",
+						"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 						"number": { "$type": "Identify.Numbers:EffectX:" },
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
-							"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+							"comparison": { "$type": "Relationships.Numbers:GreaterThanEqual:" },
 							"other": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 						}
 					},

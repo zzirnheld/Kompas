@@ -35,10 +35,10 @@ namespace Kompas.Cards.Loading
 		private const string coreIdentityReplacement = @"Kompas.Effects.Models.Identities.$1.$2, Kompas";
 
 		private static readonly Regex relationshipRegex = new(@"Relationships\.([^:]+):([^:]+):"); //Relationships.*:*:
-		private const string relationshipReplacement = @"KompasCore.Effects.Models.Relationships.$1Relationships.$2, Kompas";
+		private const string relationshipReplacement = @"Kompas.Effects.Models.Relationships.$1.$2, Kompas";
 
-		private static readonly Regex numberSelectorRegex = new(@"Selectors.Numbers:([^:]+):"); //NumberSelector:*:
-		private const string numberSelectorReplacement = @"KompasCore.Effects.Models.Selectors.Numbers.$1, Kompas";
+		private static readonly Regex numberSelectorRegex = new(@"Selectors.([^:]+):([^:]+):"); //NumberSelector:*:
+		private const string numberSelectorReplacement = @"Kompas.Effects.Models.Selectors.$1.$2, Kompas";
 
 		protected static readonly JsonSerializerSettings CardLoadingSettings = new()
 		{
@@ -160,7 +160,7 @@ namespace Kompas.Cards.Loading
 				cardFileNames.Add(cardName, filename);
 			}
 
-			GD.Print(string.Join("\n", CardNames));
+			//GD.Print(string.Join(", ", CardNames));
 		}
 
 		protected static SerializableCard SerializableCardFromJson(string json)

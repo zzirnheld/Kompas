@@ -3,7 +3,7 @@
 	"triggerData": {
 		"triggerCondition": "Take Combat Damage",
 		"triggerRestriction": {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:CardBefore:" },
 			"cardRestriction": {
 				"$type": "Restrict.Cards:Fighting:",
@@ -30,11 +30,11 @@
 		{
 			"$type": "Subeffect:ConditionalEnd:",
 			"endIfTrue": {
-				"$type": "Restrict.Triggering:NumberFitsRestriction:",
+				"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 				"number": { "$type": "Identify.Numbers:EffectX:" },
 				"restriction": {
 					"$type": "Restrict.Numbers:Compare:",
-					"comparison": { "$type": "Relationships.Number:LessThan:" },
+					"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 					"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 				}
 			}

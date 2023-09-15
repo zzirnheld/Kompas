@@ -12,13 +12,13 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CompareNumbers:",
+							"$type": "Restrict.Gamestate:CompareNumbers:",
 							"firstNumber": {
 								"$type": "Identify.Numbers:Distance:",
 								"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },
 								"secondSpace": { "$type": "Identify.Cards:CardBefore:" }
 							},
-							"comparison": { "$type": "Relationships.Number:LessThan:" },
+							"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 							"secondNumber": {
 								"$type": "Identify.Numbers:Distance:",
 								"firstSpace": { "$type": "Identify.Cards:ThisCardNow:" },

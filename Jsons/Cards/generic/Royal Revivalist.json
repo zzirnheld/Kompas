@@ -22,7 +22,7 @@
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 									"other": {
 										"$type": "Identify.Numbers:Pips:",
 										"player": { "$type": "Identify.Players:TargetIndex:" }

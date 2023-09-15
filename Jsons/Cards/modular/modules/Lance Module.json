@@ -28,7 +28,7 @@
 									"$type": "Identify.Numbers:Constant:",
 									"constant": 2
 								},
-								"comparison": { "$type": "Relationships.Number:Equal:" }
+								"comparison": { "$type": "Relationships.Numbers:Equal:" }
 							}
 						]
 					}

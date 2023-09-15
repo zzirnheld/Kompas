@@ -26,7 +26,7 @@
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 									"other": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 								}
 							}

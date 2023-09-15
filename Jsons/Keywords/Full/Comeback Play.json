@@ -9,7 +9,7 @@
 			"elements": [
 				{ "$type": "Restrict.Gamestate:FriendlyTurn:" },
 				{
-					"$type": "Restrict.Triggering:CardFitsRestriction:",
+					"$type": "Restrict.Gamestate:CardFitsRestriction:",
 					"anyOf": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
@@ -24,7 +24,7 @@
 					}
 				},
 				{
-					"$type": "Restrict.Triggering:CardFitsRestriction:",
+					"$type": "Restrict.Gamestate:CardFitsRestriction:",
 					"card": { "$type": "Identify.Cards:ThisCardNow:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Location:",

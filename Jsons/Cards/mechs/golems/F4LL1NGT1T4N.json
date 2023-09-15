@@ -9,11 +9,11 @@
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [
 					{
-						"$type": "Restrict.Triggering:CardFitsRestriction:",
+						"$type": "Restrict.Gamestate:CardFitsRestriction:",
 						"card": { "$type": "Identify.Cards:ThisCardNow:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:CardValueFits:",
-							"cardValue": { "value": "Identify.Spaces Can Move" },
+							"cardValue": { "value": "Spaces Can Move" },
 							"numberRestriction": { "$type": "Restrict.Numbers:Positive:" }
 						}
 					}
@@ -65,7 +65,7 @@
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
@@ -73,7 +73,7 @@
 	"movementRestriction": {
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]

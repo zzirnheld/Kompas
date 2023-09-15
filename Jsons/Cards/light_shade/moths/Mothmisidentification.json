@@ -48,7 +48,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:DistinctName:",
-								"Identify.Cards": { "$type": "Identify.ManyCards:Targets:" }
+								"cards": { "$type": "Identify.ManyCards:Targets:" }
 							}
 						]
 					}

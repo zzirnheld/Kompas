@@ -16,16 +16,16 @@
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
 						{
-							"$type": "Restrict.Triggering:NumberFitsRestriction:",
+							"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
-								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+								"comparison": { "$type": "Relationships.Numbers:GreaterThan:" },
 								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
@@ -56,16 +56,16 @@
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
 						{
-							"$type": "Restrict.Triggering:NumberFitsRestriction:",
+							"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
-								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+								"comparison": { "$type": "Relationships.Numbers:GreaterThan:" },
 								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
@@ -96,16 +96,16 @@
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
 						{
-							"$type": "Restrict.Triggering:NumberFitsRestriction:",
+							"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
-								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+								"comparison": { "$type": "Relationships.Numbers:GreaterThan:" },
 								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Subtypes:",
@@ -164,7 +164,7 @@
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}

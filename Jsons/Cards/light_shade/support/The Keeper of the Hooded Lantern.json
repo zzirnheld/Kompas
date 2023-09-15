@@ -32,9 +32,9 @@
 							},
 							{
 								"$type": "Restrict.Cards:AOEContains:",
-								"Identify.Cards": {
+								"cards": {
 									"$type": "Identify.ManyCards:Concat:",
-									"Identify.Cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
+									"cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
 								}
 							}
 						]
@@ -55,9 +55,9 @@
 							},
 							{
 								"$type": "Restrict.Cards:AOEContains:",
-								"Identify.Cards": {
+								"cards": {
 									"$type": "Identify.ManyCards:Concat:",
-									"Identify.Cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
+									"cards": [ { "$type": "Identify.Cards:ThisCardNow:" } ]
 								}
 							}
 						]

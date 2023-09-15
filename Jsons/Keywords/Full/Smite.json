@@ -24,7 +24,7 @@
 			"$type": "Subeffect:SetXByNumberIdentity:",
 			"numberIdentity": {
 				"$type": "Identify.Numbers:CountCards:",
-				"Identify.Cards": { "$type": "Identify.ManyCards:Targets:" }
+				"cards": { "$type": "Identify.ManyCards:Targets:" }
 			}
 		},
 		{

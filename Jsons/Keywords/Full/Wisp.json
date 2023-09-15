@@ -12,14 +12,14 @@
 			"subeffectSpaceIdentity": {
 				"$type": "Identify.Spaces:SelectFromMany:",
 				"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Kompas" },
-				"Identify.Spaces": {
+				"spaces": {
 					"$type": "Identify.ManySpaces:CompareDistance:",
 					"distanceTo": { "$type": "Identify.Cards:ThisCardNow:" },
-					"Identify.Spaces": {
+					"spaces": {
 						"$type": "Identify.ManySpaces:PositionsOfEach:",
-						"Identify.Cards": {
+						"cards": {
 							"$type": "Identify.ManyCards:Restricted:",
-							"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
+							"cards": { "$type": "Identify.ManyCards:Board:" },
 							"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 						}
 					}
@@ -31,10 +31,10 @@
 			"subeffectSpaceIdentity": {
 				"$type": "Identify.Spaces:SelectFromMany:",
 				"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Kompas" },
-				"Identify.Spaces": {
+				"spaces": {
 					"$type": "Identify.ManySpaces:CompareDistance:",
 					"distanceTo": { "$type": "Identify.Spaces:TargetIndex:" },
-					"Identify.Spaces": {
+					"spaces": {
 						"$type": "Identify.ManySpaces:AdjacentSpaces:",
 						"adjacentTo": { "$type": "Identify.Cards:ThisCardNow:" }
 					}

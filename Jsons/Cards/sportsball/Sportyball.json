@@ -17,7 +17,7 @@
 						},
 						{ "$type": "Restrict.Gamestate:MaxPerTurn:", "max": 2 },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							
 						"cardRestriction": {

@@ -12,12 +12,12 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"cardRestriction": { "$type": "Restrict.Spaces:Corner:" },
 							"card": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:AllOf:",
@@ -49,7 +49,7 @@
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Gamestate:Not:",
-			"negated": { "$type": "Restrict.Triggering:Normally:" }
+			"negated": { "$type": "Restrict.Gamestate:Normally:" }
 		} ]
 	},
 	"movementRestriction": {

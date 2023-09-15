@@ -12,14 +12,14 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Restrict.Triggering:NumberFitsRestriction:",
+						"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 						"number": {
 							"$type": "Identify.Numbers:HandSize:",
 							"player": { "$type": "Identify.Players:EnemyPlayer:" }
 						},
 						"restriction": {
 							"$type": "Restrict.Numbers:Compare:",
-							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+							"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 							"other": {
 								"$type": "Identify.Numbers:HandSize:",
 								"player": { "$type": "Identify.Players:FriendlyPlayer:" }

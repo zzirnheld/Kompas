@@ -16,7 +16,7 @@
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
-						{ "$type": "Restrict.Triggering:Normally:" }
+						{ "$type": "Restrict.Gamestate:Normally:" }
 					]
 				}
 			},

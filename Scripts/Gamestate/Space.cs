@@ -86,7 +86,7 @@ public class Space
 				Space s = (x, yCoord);
 				if (s.IsValid) list.Add(s);
 			}
-			//GD.Print($"Identify.Spaces adjacent to {this} are {string.Join(", ", list.Select(s => s.ToString()))}");
+			//GD.Print($"Spacesadjacent to {this} are {string.Join(", ", list.Select(s => s.ToString()))}");
 			return list;
 		}
 	}

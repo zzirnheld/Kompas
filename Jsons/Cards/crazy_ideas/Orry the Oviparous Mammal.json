@@ -15,11 +15,11 @@
 							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Restrict.Triggering:NumberFitsRestriction:",
+							"$type": "Restrict.Gamestate:NumberFitsRestriction:",
 							"number": { "$type": "Identify.Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Restrict.Numbers:Compare:",
-								"comparison": { "$type": "Relationships.Number:Equal:" },
+								"comparison": { "$type": "Relationships.Numbers:Equal:" },
 								"other": { "$type": "Identify.Numbers:Constant:", "constant": 3 }
 							}
 						}

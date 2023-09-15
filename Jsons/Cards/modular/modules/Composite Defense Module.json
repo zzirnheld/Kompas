@@ -30,7 +30,7 @@
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
 						"$type": "Identify.Numbers:CountCards:",
-						"Identify.Cards": {
+						"cards": {
 							"$type": "Identify.ManyCards:Augments:",
 							"card": { "$type": "Identify.Cards:TargetIndex:" }
 						},

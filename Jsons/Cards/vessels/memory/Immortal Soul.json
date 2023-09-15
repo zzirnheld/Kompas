@@ -20,7 +20,7 @@
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",

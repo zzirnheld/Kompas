@@ -77,7 +77,7 @@
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							},
@@ -86,7 +86,7 @@
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
@@ -101,7 +101,7 @@
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							},
@@ -128,7 +128,7 @@
 								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Identify.Cards:ThisCardNow:" },
 								"number": { "$type": "Identify.Numbers:Constant:", "constant": 2 },
-								"comparison": { "$type": "Relationships.Number:Equal:" }
+								"comparison": { "$type": "Relationships.Numbers:Equal:" }
 							}
 						]
 					}

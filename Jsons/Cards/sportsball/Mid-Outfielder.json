@@ -41,7 +41,7 @@
 								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Identify.Cards:TargetIndex:" },
 								"number": { "$type": "Identify.Numbers:Constant:", "constant": 2 },
-								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+								"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" }
 							}
 						]
 					}

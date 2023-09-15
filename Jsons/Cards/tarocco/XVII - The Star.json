@@ -18,7 +18,7 @@
 							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						},
 						{
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardAfter:" },
 							
 						"cardRestriction": {
@@ -54,7 +54,7 @@
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
 						"$type": "Identify.Numbers:CountCards:",
-						"Identify.Cards": { "$type": "Identify.ManyCards:Board:" },
+						"cards": { "$type": "Identify.ManyCards:Board:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [

@@ -21,7 +21,7 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Restrict.Triggering:CardFitsRestriction:",
+						"$type": "Restrict.Gamestate:CardFitsRestriction:",
 						"card": { "$type": "Identify.Cards:TargetIndex:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Location:",
@@ -38,7 +38,7 @@
 					"endIfTrue": {
 						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
-							"$type": "Restrict.Triggering:CardFitsRestriction:",
+							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Restrict.Cards:Location:",
@@ -57,7 +57,7 @@
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
@@ -65,7 +65,7 @@
 	"movementRestriction": {
 		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Restrict.Triggering:CardFitsRestriction:",
+			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]

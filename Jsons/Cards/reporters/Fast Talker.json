@@ -44,7 +44,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "Identify.Cards to reveal",
+					"blurb": "cards to reveal",
 					"toSearch": {
 						"$type": "Identify.ManyCards:Hand:",
 						"friendly": true, "enemy": true

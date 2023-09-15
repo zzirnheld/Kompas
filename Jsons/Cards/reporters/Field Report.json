@@ -85,7 +85,7 @@
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
@@ -119,7 +119,7 @@
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"comparison": { "$type": "Relationships.Numbers:LessThanEqual:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}

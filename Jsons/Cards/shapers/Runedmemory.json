@@ -31,7 +31,7 @@
 								"cardValue": { "value": "C" },
 								"numberRestriction": {
 									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Number:Equal:" },
+									"comparison": { "$type": "Relationships.Numbers:Equal:" },
 									"other": { "$type": "Identify.Numbers:EffectX:" }
 								}
 							}
