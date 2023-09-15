@@ -21,11 +21,11 @@
 					"$type": "Subeffect:ChangeAllCardStats:",
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Spaces:TargetIndex:" }
 							}
 						]

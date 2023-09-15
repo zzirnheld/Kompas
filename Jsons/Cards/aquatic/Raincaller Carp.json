@@ -19,15 +19,15 @@
 					"blurb": "RAIN PLEASE",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Water" ]
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -38,7 +38,7 @@
 									}
 								}
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" }
+							{ "$type": "Restrict.Cards:CanPlay:" }
 						]
 					}
 				},
@@ -46,11 +46,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "RAAAAAAAAAAIN!",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

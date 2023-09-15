@@ -18,11 +18,11 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -43,7 +43,7 @@
 									"$type": "Restrict.Triggering:CardFitsRestriction:",
 									"card": { "$type": "Cards:CardBefore:" },
 									"cardRestriction": {
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									}
 								}
@@ -63,11 +63,11 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]

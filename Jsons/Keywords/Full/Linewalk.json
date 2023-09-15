@@ -7,7 +7,7 @@
 				"$type": "Restrict.Triggering:CardFitsRestriction:",
 				"card": { "$type": "Cards:ThisCardNow:" },
 				"cardRestriction": {
-					"$type": "Core.CardRestriction:CardValueFits:",
+					"$type": "Restrict.Cards:CardValueFits:",
 					"cardValue": { "value": "Spaces Can Move" },
 					"numberRestriction": { "$type": "Core.NumberRestriction:Positive:" }
 				}
@@ -23,25 +23,25 @@
 			"blurb":"to Linewalk to",
 			"spaceRestriction":
 			{
-				"$type": "Core.SpaceRestriction:AllOf:",
+				"$type": "Restrict.Spaces:AllOf:",
 				"elements": [
 					{
-						"$type": "Core.SpaceRestriction:CanMoveCard:",
+						"$type": "Restrict.Spaces:CanMoveCard:",
 						"toMove": { "$type": "Cards:TargetIndex:" }
 					},
 					{
-						"$type": "Core.SpaceRestriction:SameDiagonal:",
+						"$type": "Restrict.Spaces:SameDiagonal:",
 						"other": { "$type": "Cards:TargetIndex:" }
 					},
 					{
-						"$type": "Core.SpaceRestriction:ConnectedTo:",
+						"$type": "Restrict.Spaces:ConnectedTo:",
 						"space": { "$type": "Cards:TargetIndex:" },
 						"byRestriction": {
-							"$type": "Core.SpaceRestriction:AllOf:",
+							"$type": "Restrict.Spaces:AllOf:",
 							"elements": [
-								{ "$type": "Core.SpaceRestriction:Empty:" },
+								{ "$type": "Restrict.Spaces:Empty:" },
 								{
-									"$type": "Core.SpaceRestriction:SameDiagonal:",
+									"$type": "Restrict.Spaces:SameDiagonal:",
 									"other": { "$type": "Cards:TargetIndex:" }
 								}
 							]

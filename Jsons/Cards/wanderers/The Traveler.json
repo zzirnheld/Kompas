@@ -14,11 +14,11 @@
 					"blurb": "character to reshuffle",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Summoned:" }
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Summoned:" }
 						]
 					}
 				},
@@ -38,11 +38,11 @@
 					"blurb": "Wanderer to inspire with music",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -51,7 +51,7 @@
 								}
 							},
 							{
-								"$type": "Core.CardRestriction:DistinctName:",
+								"$type": "Restrict.Cards:DistinctName:",
 								"cards": { "$type": "ManyCards:Targets:" }
 							}
 						]
@@ -62,11 +62,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where character to travel to",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

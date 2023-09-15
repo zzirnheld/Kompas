@@ -25,7 +25,7 @@
 								"enemy": false
 							},
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Wisp" ]
 							}
 						}
@@ -39,7 +39,7 @@
 						"spaces": {
 							"$type": "ManySpaces:Restricted:",
 							"restriction": {
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						}

@@ -15,11 +15,11 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Friendly:" },
+									{ "$type": "Restrict.Cards:Friendly:" },
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Water" ]
 									}
 								]
@@ -34,12 +34,12 @@
 					"blurb": "Shifting tide",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Water" ]
 							}
 						]
@@ -56,14 +56,14 @@
 					"blurb": "Tide that Shifts In",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Water" ]
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" }
+							{ "$type": "Restrict.Cards:CanPlay:" }
 						]
 					}
 				},

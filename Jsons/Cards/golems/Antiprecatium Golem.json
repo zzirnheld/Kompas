@@ -30,11 +30,11 @@
 					"blurb": "spell to stab with green rocks and thereby dispel",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:ThisCardNow:" },
 								"number": { "$type": "Numbers:EffectX:" },
 								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
@@ -49,19 +49,19 @@
 		}
 	],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"n": 2,

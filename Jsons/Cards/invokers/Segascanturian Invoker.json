@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"$type": "Restrict.Spaces:AdjacentTo:",
 							"space": { "$type": "Cards:ThisCardNow:" }
 						},
 						{
@@ -48,11 +48,11 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Core.CardRestriction:CardValueFits:",
+										"$type": "Restrict.Cards:CardValueFits:",
 										"cardValue": { "value": "Cost" },
 										"numberRestriction": {
 											"$type": "Core.NumberRestriction:Compare:",
@@ -70,11 +70,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to Invoke",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

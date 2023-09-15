@@ -24,8 +24,8 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Summoned:" } ]
 							}
 						}
 					]
@@ -62,8 +62,8 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Summoned:" } ]
 							}
 						}
 					]
@@ -88,7 +88,7 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"playAsAugment": true,
-		"normalAndEffect": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+		"normalAndEffect": [ { "$type": "Restrict.Cards:Summoned:" } ]
 	},
 	"a": 2,
 	"subtypeText": "Sword: Summoned"

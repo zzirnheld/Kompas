@@ -9,10 +9,10 @@
 			"blurb":"to move Shaper to",
 			"spaceRestriction":
 			{
-				"$type": "Core.SpaceRestriction:ConnectedTo:",
+				"$type": "Restrict.Spaces:ConnectedTo:",
 				"space": { "$type": "Cards:ThisCardNow:" },
 				"byRestriction":{
-					"$type": "Core.CardRestriction:Subtypes:",
+					"$type": "Restrict.Cards:Subtypes:",
 					"subtypes": [ "Ethereal" ]
 				}
 			}
@@ -32,7 +32,7 @@
 				"firstSpace": { "$type": "Cards:ThisCardNow:" },
 				"secondSpace": { "$type": "Spaces:TargetIndex:" },
 				"throughRestriction": {
-					"$type": "Core.CardRestriction:Subtypes:",
+					"$type": "Restrict.Cards:Subtypes:",
 					"subtypes": [ "Ethereal" ]
 				}
 			},

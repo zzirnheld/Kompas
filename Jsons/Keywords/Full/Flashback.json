@@ -17,7 +17,7 @@
 					"useDummyResolutionContext": false,
 					"card": { "$type": "Cards:TargetIndex:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Location:",
+						"$type": "Restrict.Cards:Location:",
 						"locations": [ "Hand" ]
 					}
 				}
@@ -31,7 +31,7 @@
 			"$type":"Subeffect:SpaceTarget:",
 			"spaceRestriction":
 			{
-				"$type": "Core.SpaceRestriction:CanPlayCard:",
+				"$type": "Restrict.Spaces:CanPlayCard:",
 				"toPlay": { "$type": "Cards:TargetIndex:" }
 			}
 		},

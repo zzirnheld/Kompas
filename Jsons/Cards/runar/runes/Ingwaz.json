@@ -18,16 +18,16 @@
 					"blurb": "for Ingwaz to recast",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
-							{ "$type": "Core.CardRestriction:DistinctName:" },
+							{ "$type": "Restrict.Cards:Spell:" },
+							{ "$type": "Restrict.Cards:DistinctName:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Rune" ]
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": {
 									"value": "Cost",
 									"divisor": 2
@@ -41,7 +41,7 @@
 									}
 								}
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" }
+							{ "$type": "Restrict.Cards:CanPlay:" }
 						]
 					}
 				},
@@ -53,11 +53,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where Ingwaz to recast",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

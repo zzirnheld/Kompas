@@ -20,7 +20,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character for Something Cannon to blast",
 					"toSearch": { "$type": "ManyCards:Board:" },
-					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{
 					"$type": "Subeffect:Attack:",

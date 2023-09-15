@@ -35,11 +35,11 @@
 					"cardRestriction":
 					{
 						"blurb":"for Dragon Hatchling to eat (discard)",
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Dragon" ]
 							}
 						]
@@ -54,14 +54,14 @@
 					"cardRestriction":
 					{
 						"blurb":"for Dragon Hatchling to become (play)",
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Dragon" ]
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" }
+							{ "$type": "Restrict.Cards:CanPlay:" }
 						]
 					}
 				},

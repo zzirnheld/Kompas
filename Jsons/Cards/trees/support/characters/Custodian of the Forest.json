@@ -31,11 +31,11 @@
 							"card": { "$type": "Cards:CardAfter:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Hurt:" },
+									{ "$type": "Restrict.Cards:Hurt:" },
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									}
 								]

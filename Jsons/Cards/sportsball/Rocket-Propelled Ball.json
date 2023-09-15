@@ -20,8 +20,8 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Augments:",
-								"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+								"$type": "Restrict.Cards:Augments:",
+								"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 							}
 						}
 					]
@@ -34,14 +34,14 @@
 				{
 					"$type": "Subeffect:SpaceTarget:",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}

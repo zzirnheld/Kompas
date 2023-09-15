@@ -20,8 +20,8 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Augments:",
-								"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+								"$type": "Restrict.Cards:Augments:",
+								"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 							}
 						}
 					]

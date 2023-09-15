@@ -17,11 +17,11 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character to ANNIHILATE",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -36,9 +36,9 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"normalAndEffect": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": {
-				"$type": "Core.CardRestriction:Subtypes:",
+				"$type": "Restrict.Cards:Subtypes:",
 				"subtypes": [ "Shaper" ]
 			}
 		} ]

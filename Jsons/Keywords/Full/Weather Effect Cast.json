@@ -21,13 +21,13 @@
 			"cardRestriction":{
 				"blurb":"Weather to deck-cast",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Spell:" },
-					{ "$type": "Core.CardRestriction:DistinctName:" },
+					{ "$type": "Restrict.Cards:Spell:" },
+					{ "$type": "Restrict.Cards:DistinctName:" },
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Weather" ]
 					},
-					{ "$type": "Core.CardRestriction:CanPlay:" }
+					{ "$type": "Restrict.Cards:CanPlay:" }
 				]
 			},
 			"maxCanChoose":1
@@ -39,12 +39,12 @@
 				"blurb":"where to cast the Weather",
 				"elements": [
 					{
-						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"$type": "Restrict.Spaces:CanPlayCard:",
 						"toPlay": { "$type": "Cards:TargetIndex:" },
 						"ignoreAdjacency": true
 					},
 					{
-						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"$type": "Restrict.Spaces:AdjacentTo:",
 						"space": { "$type": "Spaces:TargetIndex:" }
 					}
 				]

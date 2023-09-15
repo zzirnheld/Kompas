@@ -40,20 +40,20 @@
 			"blurb":"speeeeeeeeeeeeeeeed",
 			"spaceRestriction":
 			{
-				"$type": "Core.SpaceRestriction:AllOf:",
+				"$type": "Restrict.Spaces:AllOf:",
 				"elements": [
 					{
-						"$type": "Core.SpaceRestriction:CanMoveCard:",
+						"$type": "Restrict.Spaces:CanMoveCard:",
 						"toMove": { "$type": "Cards:TargetIndex:" }
 					},
 					{
-						"$type": "Core.SpaceRestriction:CompareDistance:",
+						"$type": "Restrict.Spaces:CompareDistance:",
 						"distanceTo": { "$type": "Cards:ThisCardNow:" },
 						"number": { "$type": "Numbers:Constant:", "constant": 1 },
 						"comparison": { "$type": "Relationships.Number:Equal:" }
 					},
 					{
-						"$type": "Core.SpaceRestriction:Direction:",
+						"$type": "Restrict.Spaces:Direction:",
 						"from": { "$type": "Cards:ThisCardNow:" },
 						"direction": {
 							"$type": "Spaces:Direction:",

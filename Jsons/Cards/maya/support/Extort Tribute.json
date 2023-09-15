@@ -18,11 +18,11 @@
 					"blurb": "for Haemopoten to draw",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Enemy:" },
+							{ "$type": "Restrict.Cards:Enemy:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -60,20 +60,20 @@
 					"spaceRestriction": {
 						"blurb": "Where to play that card",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:WithinDistanceOfNumberOfCards:",
+								"$type": "Restrict.Spaces:WithinDistanceOfNumberOfCards:",
 								
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-										{ "$type": "Core.CardRestriction:Friendly:" },
+										{ "$type": "Restrict.Cards:Friendly:" },
 										{
-											"$type": "Core.CardRestriction:Subtypes:",
+											"$type": "Restrict.Cards:Subtypes:",
 											"subtypes": [ "Structure" ]
 										}
 									]

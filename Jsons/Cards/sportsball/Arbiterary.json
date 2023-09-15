@@ -45,7 +45,7 @@
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
-							"cardRestriction": { "$type": "Core.SpaceRestriction:Corner:" }
+							"cardRestriction": { "$type": "Restrict.Spaces:Corner:" }
 						}
 					}
 				},
@@ -61,10 +61,10 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Enemy:" },
-									{ "$type": "Core.CardRestriction:Avatar:" }
+									{ "$type": "Restrict.Cards:Enemy:" },
+									{ "$type": "Restrict.Cards:Avatar:" }
 								]
 							}
 						}

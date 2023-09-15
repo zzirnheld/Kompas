@@ -20,12 +20,12 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction":
 					{
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Maya", "Structure" ]
 							}
 						]
@@ -36,11 +36,11 @@
 					"blurb": "copies of Structure to decksummon",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Name:",
+								"$type": "Restrict.Cards:Name:",
 								"sameAs": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -54,12 +54,12 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "Space for your enemy to play a Structure to",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
-							{ "$type": "Core.SpaceRestriction:Edge:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
+							{ "$type": "Restrict.Spaces:Edge:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

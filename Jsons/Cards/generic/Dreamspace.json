@@ -21,11 +21,11 @@
 					"blurb": "copy of Dreamspace to decksummon",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Name:",
+								"$type": "Restrict.Cards:Name:",
 								"sameAs": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -35,11 +35,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where for Dreamspace to decksummon a copy of itself",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

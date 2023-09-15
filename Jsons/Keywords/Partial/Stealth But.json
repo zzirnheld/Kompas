@@ -8,13 +8,13 @@
 			"blurb": "Stealth position to 'actually' be in",
 			"elements": [
 				{
-					"$type": "Core.SpaceRestriction:CanMoveCard:",
+					"$type": "Restrict.Spaces:CanMoveCard:",
 					"toMove": { "$type": "Cards:TargetIndex:" }
 				},
 				{
-					"$type": "Core.SpaceRestriction:InAOEOf:",
+					"$type": "Restrict.Spaces:InAOEOf:",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Shade" ]
 					},
 					"sameAs": { "$type": "Cards:ThisCardNow:" }
@@ -35,14 +35,14 @@
 			"card": { "$type": "Cards:CardAfter:" },
 			
 				"cardRestriction": {
-					"$type": "Core.CardRestriction:AllOf:",
+					"$type": "Restrict.Cards:AllOf:",
 					"elements": [
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Light" ]
 					},
 					{
-						"$type": "Core.CardRestriction:AOEContains:",
+						"$type": "Restrict.Cards:AOEContains:",
 						"cards": {
 							"$type": "ManyCards:Concat:",
 							"cards": [ { "$type": "Cards:ThisCardNow:" } ]

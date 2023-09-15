@@ -59,9 +59,9 @@
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Hidden:" },
+							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Core.PlayerRestriction:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }

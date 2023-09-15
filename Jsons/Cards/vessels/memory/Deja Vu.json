@@ -21,7 +21,7 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CauseBefore:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:DistinctName:" }
+							"cardRestriction": { "$type": "Restrict.Cards:DistinctName:" }
 						}
 					]
 				}

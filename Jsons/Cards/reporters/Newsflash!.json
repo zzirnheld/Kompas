@@ -44,15 +44,15 @@
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Hidden:" },
+							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Core.PlayerRestriction:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -75,20 +75,20 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"playerIndex": -2,
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Reporter" ]
 							},
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							},
 							{
-								"$type": "Core.CardRestriction:CanMove:",
+								"$type": "Restrict.Cards:CanMove:",
 								"spaceRestrictionSubeffectIndex": 7
 							}
 						]
@@ -99,7 +99,7 @@
 					"blurb": "where for Newsflash! to move it starget",
 					"playerIndex": -2,
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:CanMoveCard:",
+						"$type": "Restrict.Spaces:CanMoveCard:",
 						"toMove": { "$type": "Cards:TargetIndex:" }
 					}
 				},
@@ -113,9 +113,9 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"recommendations": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": {
-				"$type": "Core.CardRestriction:Subtypes:",
+				"$type": "Restrict.Cards:Subtypes:",
 				"subtypes": [ "Reporter" ]
 			}
 		} ]

@@ -24,8 +24,8 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Summoned:" } ]
 							}
 						}
 					]
@@ -37,11 +37,11 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]

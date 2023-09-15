@@ -24,12 +24,12 @@
 					"blurb": "spell for Perthro to search (to hand)",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -40,11 +40,11 @@
 						]
 					},
 					"restRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -53,8 +53,8 @@
 								}
 							},
 							{
-								"$type": "Core.CardRestriction:Not:",
-								"negated": { "$type": "Core.CardRestriction:Target:" }
+								"$type": "Restrict.Cards:Not:",
+								"negated": { "$type": "Restrict.Cards:Target:" }
 							}
 						]
 					},

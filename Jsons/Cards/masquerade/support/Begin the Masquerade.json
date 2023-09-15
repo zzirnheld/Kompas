@@ -18,13 +18,13 @@
 					"blurb": "Mask to reveal",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Mask" ]
 							},
-							{ "$type": "Core.CardRestriction:Hidden:" }
+							{ "$type": "Restrict.Cards:Hidden:" }
 						]
 					}
 				},
@@ -36,12 +36,12 @@
 					"blurb": "Dancer to summon",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -59,11 +59,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where for the Dancer to start the masquerade",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

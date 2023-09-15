@@ -15,10 +15,10 @@
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Crazy", "Idea" ]
 							}
 						]

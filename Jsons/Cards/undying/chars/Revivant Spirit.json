@@ -22,7 +22,7 @@
 					"blurb": "where to revive the Spirit",
 					"spaceRestriction":
 					{
-						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"$type": "Restrict.Spaces:CanPlayCard:",
 						"toPlay": { "$type": "Cards:TargetIndex:" }
 					}
 				},

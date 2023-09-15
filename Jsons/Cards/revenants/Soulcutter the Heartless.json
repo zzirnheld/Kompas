@@ -14,7 +14,7 @@
 					"blurb": "for Soulcutter to discard",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Revenant" ]
 					}
 				},

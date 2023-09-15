@@ -48,20 +48,20 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardAfter:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Mask" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Augments:",
+										"$type": "Restrict.Cards:Augments:",
 										"cardRestriction": {
-											"$type": "Core.CardRestriction:AllOf:",
+											"$type": "Restrict.Cards:AllOf:",
 											"elements": [
-												{ "$type": "Core.CardRestriction:Friendly:" },
+												{ "$type": "Restrict.Cards:Friendly:" },
 												{
-													"$type": "Core.CardRestriction:Subtypes:",
+													"$type": "Restrict.Cards:Subtypes:",
 													"subtypes": [ "Dancer" ]
 												}
 											]
@@ -74,7 +74,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Location:",
+								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
 							}
 						}

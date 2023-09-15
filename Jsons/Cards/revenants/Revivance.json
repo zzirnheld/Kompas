@@ -15,10 +15,10 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Revenant" ]
 									}
 								]
@@ -35,14 +35,14 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"spaceRestriction": {
 						"blurb": "where to move the revived Revenant",
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}

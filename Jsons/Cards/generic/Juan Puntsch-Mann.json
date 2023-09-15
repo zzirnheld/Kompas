@@ -18,7 +18,7 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
-							"cardRestriction": { "$type": "Core.CardRestriction:Summoned:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Summoned:" }
 						}
 					]
 				}

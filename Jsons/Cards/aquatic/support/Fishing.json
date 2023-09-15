@@ -27,7 +27,7 @@
 					"blurb": "Aquatic for Fishing to annihilate",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Aquatic" ]
 					}
 				},

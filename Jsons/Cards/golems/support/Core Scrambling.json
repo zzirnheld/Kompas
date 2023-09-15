@@ -17,10 +17,10 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Golem" ]
 									}
 								]
@@ -40,16 +40,16 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "CORE!!!1!",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Augment:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Augment:" },
 							{
-								"$type": "Core.CardRestriction:Location:",
+								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
 							},
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Golem", "Core" ]
 							}
 						]

@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.SpaceRestriction:InAOEOf:",
+							"$type": "Restrict.Spaces:InAOEOf:",
 							"card": { "$type": "Cards:ThisCardNow:" }
 						},
 						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
@@ -20,9 +20,9 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Not:",
+								"$type": "Restrict.Cards:Not:",
 								"negated": {
-									"$type": "Core.CardRestriction:CardsMatch:",
+									"$type": "Restrict.Cards:CardsMatch:",
 									"card": { "$type": "Cards:ThisCardNow:" }
 								}
 							}
@@ -42,12 +42,12 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where for Yeeterator to move its target",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
-							{ "$type": "Core.SpaceRestriction:Corner:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
+							{ "$type": "Restrict.Spaces:Corner:" },
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							}
 						]

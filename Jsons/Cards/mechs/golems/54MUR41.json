@@ -4,20 +4,20 @@
 	"effText": "Nimble. Speedemon. Golem.",
 	"effects": [],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"moveThroughCards": true,
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"keywords": [

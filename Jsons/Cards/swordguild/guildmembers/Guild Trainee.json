@@ -28,7 +28,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CauseBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Warrior" ]
 							}
 						}
@@ -68,7 +68,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CauseBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Warrior" ]
 							}
 						}
@@ -108,7 +108,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CauseBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Warrior" ]
 							}
 						}
@@ -151,16 +151,16 @@
 					"blurb": "Guild Title",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Swordguild", "Warrior" ]
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" },
+							{ "$type": "Restrict.Cards:CanPlay:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",

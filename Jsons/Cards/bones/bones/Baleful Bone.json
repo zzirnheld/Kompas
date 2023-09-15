@@ -18,12 +18,12 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Name:",
+								"$type": "Restrict.Cards:Name:",
 								"nameIs": "Lengthening Elk"
 							}
 						]
@@ -34,12 +34,12 @@
 					"blurb": "enemy character to attack",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Enemy:" },
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Enemy:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:TargetIndex:" }
 							}
 						]

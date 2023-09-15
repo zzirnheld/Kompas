@@ -23,7 +23,7 @@
 								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
 							},
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Golem" ]
 							}
 						}

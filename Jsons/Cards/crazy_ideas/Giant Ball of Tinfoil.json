@@ -21,15 +21,15 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "rollinnnnnnnn",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -89,14 +89,14 @@
 		}
 	],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Core.GamestateRestriction:Not:",
 			"negated": { "$type": "Restrict.Triggering:Normally:" }
 		} ]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
 	},
 	"n": 0,

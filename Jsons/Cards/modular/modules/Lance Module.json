@@ -18,11 +18,11 @@
 					"blurb": "enemy character to attack",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { 
 									"$type": "Numbers:Constant:",

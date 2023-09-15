@@ -18,7 +18,7 @@
 					"blurb": "Module to discard",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Module" ]
 					}
 				},
@@ -39,9 +39,9 @@
 					"cardRestriction":
 					{
 						"elements": [
-							{ "$type": "Core.CardRestriction:Augment:" },
+							{ "$type": "Restrict.Cards:Augment:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Module" ]
 							}
 						]

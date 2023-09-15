@@ -19,7 +19,7 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:Spell:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Spell:" }
 						}
 					]
 				}
@@ -64,16 +64,16 @@
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
-							{ "$type": "Core.CardRestriction:Hidden:" },
+							{ "$type": "Restrict.Cards:Spell:" },
+							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Core.PlayerRestriction:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "C" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",

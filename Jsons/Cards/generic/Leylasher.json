@@ -17,10 +17,10 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
-									{ "$type": "Core.CardRestriction:Friendly:" }
+									{ "$type": "Restrict.Cards:Character:" },
+									{ "$type": "Restrict.Cards:Friendly:" }
 								]
 							}
 						}

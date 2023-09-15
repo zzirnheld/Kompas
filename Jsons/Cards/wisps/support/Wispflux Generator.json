@@ -23,11 +23,11 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Wisp" ]
 									}
 								]
@@ -46,7 +46,7 @@
 						"spaces": {
 							"$type": "ManySpaces:Restricted:",
 							"restriction": {
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						}

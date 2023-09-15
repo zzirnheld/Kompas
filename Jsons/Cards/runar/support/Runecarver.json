@@ -13,15 +13,15 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Rune for Runecarver to reshuffle",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Location:",
+								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Hand", "Board", "Discard" ]
 							},
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Rune" ]
 							}
 						]

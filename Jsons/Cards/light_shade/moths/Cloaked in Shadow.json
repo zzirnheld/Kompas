@@ -16,10 +16,10 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Shade" ]
 									}
 								]
@@ -36,15 +36,15 @@
 					"$type": "Subeffect:ChangeAllCardStats:",
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Moth" ]
 							},
 							{
-								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"$type": "Restrict.Spaces:InAOEOf:",
 								"card": { "$type": "Cards:TargetIndex:" }
 							}
 						]

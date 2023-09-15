@@ -13,15 +13,15 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:Hurt:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Hurt:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardAfter:" },
 							"cardRestriction": 
 							{
-								"$type": "Core.CardRestriction:Not:",
-								"negated": { "$type": "Core.CardRestriction:Hurt:" }
+								"$type": "Restrict.Cards:Not:",
+								"negated": { "$type": "Restrict.Cards:Hurt:" }
 							}
 						}
 					]

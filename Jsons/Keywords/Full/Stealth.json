@@ -17,17 +17,17 @@
 		{
 			"$type": "Subeffect:SpaceTarget:",
 			"spaceRestriction": {
-				"$type": "Core.SpaceRestriction:AllOf:",
+				"$type": "Restrict.Spaces:AllOf:",
 				"elements": [
 					{
-						"$type": "Core.SpaceRestriction:InAOEOf:",
+						"$type": "Restrict.Spaces:InAOEOf:",
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Subtypes:",
+							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Shade" ]
 						}
 					},
 					{
-						"$type": "Core.SpaceRestriction:CanMoveCard:",
+						"$type": "Restrict.Spaces:CanMoveCard:",
 						"toMove": { "$type": "Cards:TargetIndex:" }
 					}
 				]
@@ -49,14 +49,14 @@
 						"card": { "$type": "Cards:CardAfter:" },
 						
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 								{
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Light" ]
 								},
 								{
-									"$type": "Core.CardRestriction:AOEContains:",
+									"$type": "Restrict.Cards:AOEContains:",
 									"cards": {
 										"$type": "ManyCards:Concat:",
 										"cards": [ { "$type": "Cards:ThisCardNow:" } ]
@@ -86,10 +86,10 @@
 			"cardRestriction": {
 				"blurb": "enemy character to attack",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Enemy:" },
-					{ "$type": "Core.CardRestriction:Character:" },
+					{ "$type": "Restrict.Cards:Enemy:" },
+					{ "$type": "Restrict.Cards:Character:" },
 					{
-						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"$type": "Restrict.Spaces:AdjacentTo:",
 						"space": { "$type": "Cards:TargetIndex:" }
 					}
 				]

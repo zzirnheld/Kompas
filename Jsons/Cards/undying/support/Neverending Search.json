@@ -23,10 +23,10 @@
 					"blurb": "Who to revive, then kill",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:CanPlay:" }
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:CanPlay:" }
 						]
 					}
 				},
@@ -34,11 +34,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to revive that character",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

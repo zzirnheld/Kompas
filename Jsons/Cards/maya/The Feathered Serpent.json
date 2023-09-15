@@ -15,19 +15,19 @@
 					"blurb": "ritual sacrifice",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Summoned:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Summoned:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Person" ]
 							},
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"cardRestriction": {
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Structure" ]
 								}
 							}
@@ -45,7 +45,7 @@
 					"blurb":"where to revive the Feathered Serpent",
 					"spaceRestriction":
 					{
-						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"$type": "Restrict.Spaces:CanPlayCard:",
 						"toPlay": { "$type": "Cards:TargetIndex:" }
 					}
 				},
@@ -63,7 +63,7 @@
 				"firstNumber": {
 					"$type": "Numbers:CountCards:",
 					"cards": { "$type": "ManyCards:Board:" },
-					"cardRestriction": { "$type": "Core.SpaceRestriction:Edge:" }
+					"cardRestriction": { "$type": "Restrict.Spaces:Edge:" }
 				},
 				"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
 				"secondNumber": { "$type": "Numbers:Constant:", "constant": 14 }

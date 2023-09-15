@@ -22,7 +22,7 @@
 					"firstSpace": { "$type": "Cards:ThisCardNow:" },
 					"secondSpace": { "$type": "Cards:CardBefore:" },
 					"throughRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Ethereal" ]
 					}
 				},
@@ -31,7 +31,7 @@
 					"firstSpace": { "$type": "Cards:ThisCardNow:" },
 					"secondSpace": { "$type": "Cards:CardAfter:" },
 					"throughRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Ethereal" ]
 					}
 				}
@@ -43,7 +43,7 @@
 			"firstSpace": { "$type": "Cards:CardBefore:" },
 			"secondSpace": { "$type": "Cards:CardAfter:" },
 			"throughRestriction": {
-				"$type": "Core.CardRestriction:Subtypes:",
+				"$type": "Restrict.Cards:Subtypes:",
 				"subtypes": [ "Ethereal" ]
 			}
 		},

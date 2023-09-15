@@ -57,15 +57,15 @@
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Hidden:" },
+							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Core.PlayerRestriction:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -87,11 +87,11 @@
 					"blurb": "enemy character to attack",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:TargetIndex:" }
 							},
 							{

@@ -15,18 +15,18 @@
 					"cardRestriction":
 					{
 						"blurb": "character whose Module to swap out",
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:HasAugment:",
+								"$type": "Restrict.Cards:HasAugment:",
 								
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 										{
-											"$type": "Core.CardRestriction:Subtypes:",
+											"$type": "Restrict.Cards:Subtypes:",
 											"subtypes": [ "Module" ]
 										}
 									]
@@ -41,11 +41,11 @@
 						"blurb": "Module to swap out",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Module" ]
 							},
 							{
-								"$type": "Core.CardRestriction:Augments:",
+								"$type": "Restrict.Cards:Augments:",
 								"singleCard": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -57,9 +57,9 @@
 					"cardRestriction":
 					{
 						"elements": [
-							{ "$type": "Core.CardRestriction:Augment:" },
+							{ "$type": "Restrict.Cards:Augment:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Module" ]
 							}
 						]

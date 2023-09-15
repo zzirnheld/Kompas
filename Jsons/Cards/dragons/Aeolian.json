@@ -23,11 +23,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where for Aeolian to move its target",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [ 
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							}
 						]

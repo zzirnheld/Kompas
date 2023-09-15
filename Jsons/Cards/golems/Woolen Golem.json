@@ -34,10 +34,10 @@
 					"blurb": "character for Woolen Golem to give -XW",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:DistinctName:" }
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:DistinctName:" }
 						]
 					}
 				},
@@ -49,19 +49,19 @@
 		}
 	],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"n": 1,

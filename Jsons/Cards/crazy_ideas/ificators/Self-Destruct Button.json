@@ -18,18 +18,18 @@
 					"blurb": "No! Not the Self-Destruct Button installed on all Ificator (TM) systems!",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Not:",
+								"$type": "Restrict.Cards:Not:",
 								"negated": {
-									"$type": "Core.CardRestriction:CardsMatch:",
+									"$type": "Restrict.Cards:CardsMatch:",
 									"card": { "$type": "Cards:ThisCardNow:" }
 								}
 							},
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Crazy", "Idea" ]
 							}
 						]
@@ -45,7 +45,7 @@
 					"$type": "Subeffect:TargetAll:",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Crazy", "Idea" ]
 					}
 				},

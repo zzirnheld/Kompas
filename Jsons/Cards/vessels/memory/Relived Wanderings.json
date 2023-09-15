@@ -24,8 +24,8 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Summoned:" } ]
 							}
 						}
 					]
@@ -38,14 +38,14 @@
 				{
 					"$type": "Subeffect:SpaceTarget:",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}

@@ -18,11 +18,11 @@
 					"blurb": "spell for Chain Dispel to Dispel",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -39,17 +39,17 @@
 					"blurb": "spell for Chain Dispel to Dispel",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.CardRestriction:Not:",
+								"$type": "Restrict.Cards:Not:",
 								"negated": {
-									"$type": "Core.CardRestriction:CardsMatch:",
+									"$type": "Restrict.Cards:CardsMatch:",
 									"cards": { "$type": "ManyCards:Targets:" }
 								}
 							}
@@ -82,8 +82,8 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"recommendations": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
-			"cardRestriction": { "$type": "Core.CardRestriction:Spell:" }
+			"$type": "Restrict.Spaces:AdjacentTo:",
+			"cardRestriction": { "$type": "Restrict.Cards:Spell:" }
 		} ]
 	},
 	"c": 4,

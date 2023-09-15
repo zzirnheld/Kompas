@@ -4,14 +4,14 @@
 	"effText": "Structure.",
 	"effects": [],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Core.GamestateRestriction:Not:",
 			"negated": { "$type": "Restrict.Triggering:Normally:" }
 		} ]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
 	},
 	"n": 0,

@@ -15,7 +15,7 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
 				}
@@ -37,14 +37,14 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "WHERE ARE WE MOVING THAT CARD THEY MOVED!?",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}

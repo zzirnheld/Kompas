@@ -21,17 +21,17 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
 									{
-										"$type": "Core.CardRestriction:Not:",
+										"$type": "Restrict.Cards:Not:",
 										"negated": {
-											"$type": "Core.CardRestriction:CardsMatch:",
+											"$type": "Restrict.Cards:CardsMatch:",
 											"card": { "$type": "Cards:ThisCardNow:" }
 										}
 									},
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Fungus" ]
 									}
 								]
@@ -63,7 +63,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Fungus" ]
 							}
 						}
@@ -74,11 +74,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to Invoke the Fungus",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

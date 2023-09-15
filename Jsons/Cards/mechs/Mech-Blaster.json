@@ -41,11 +41,11 @@
 					"blurb": "who to Mechblast",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:SameDiagonal:",
+								"$type": "Restrict.Spaces:SameDiagonal:",
 								"other": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -65,7 +65,7 @@
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"playAsAugment": true,
 		"normalOnly": [ {
-			"$type": "Core.CardRestriction:Subtypes:",
+			"$type": "Restrict.Cards:Subtypes:",
 			"subtypes": [ "Mech" ]
 		} ]
 	},

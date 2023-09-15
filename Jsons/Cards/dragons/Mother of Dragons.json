@@ -27,10 +27,10 @@
 					"blurb": "for Mother of Dragons to kill",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Summoned:" }
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Summoned:" }
 						]
 					}
 				},
@@ -64,16 +64,16 @@
 					"blurb": "for Mother of Dragons to birth",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Dragon" ]
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -82,7 +82,7 @@
 								}
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -93,11 +93,11 @@
 						]
 					},
 					"restRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -106,8 +106,8 @@
 								}
 							},
 							{
-								"$type": "Core.CardRestriction:Not:",
-								"negated": { "$type": "Core.CardRestriction:Target:" }
+								"$type": "Restrict.Cards:Not:",
+								"negated": { "$type": "Restrict.Cards:Target:" }
 							}
 						]
 					}
@@ -116,16 +116,16 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where Mother of Dragons to birth",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" },
 								"ignoreAdjacency": true
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:ThisCardNow:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 2 },
 								"comparison": { "$type": "Relationships.Number:Equal:" }

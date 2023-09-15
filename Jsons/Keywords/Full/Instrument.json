@@ -7,13 +7,13 @@
 			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-				{ "$type": "Core.CardRestriction:Friendly:" },
+				{ "$type": "Restrict.Cards:Friendly:" },
 				{
-					"$type": "Core.SpaceRestriction:AdjacentTo:",
+					"$type": "Restrict.Spaces:AdjacentTo:",
 					"space": { "$type": "Cards:ThisCardNow:" }
 				},
 				{
-					"$type": "Core.CardRestriction:Subtypes:",
+					"$type": "Restrict.Cards:Subtypes:",
 					"subtypes": [ "Music" ]
 				}
 			]

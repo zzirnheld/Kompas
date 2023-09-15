@@ -18,14 +18,14 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Tree" ]
 									}
 								]
@@ -41,11 +41,11 @@
 					"cardRestriction":
 					{
 						"blurb":"for Haemopoten to draw",
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Tree" ]
 							}
 						]

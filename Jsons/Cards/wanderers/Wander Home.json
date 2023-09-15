@@ -18,16 +18,16 @@
 					"blurb": "character to wander home",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Wanderer" ]
 							},
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -52,15 +52,15 @@
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Core.PlayerRestriction:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -75,11 +75,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to wander out",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -93,11 +93,11 @@
 					"blurb": "other character to wander home",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -125,14 +125,14 @@
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
 								"$type": "Core.PlayerRestriction:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -147,11 +147,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to play who is wandering home",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -166,13 +166,13 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"recommendations": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": {
-				"$type": "Core.CardRestriction:AllOf:",
+				"$type": "Restrict.Cards:AllOf:",
 				"elements":[
-					{ "$type": "Core.CardRestriction:Character:" },
+					{ "$type": "Restrict.Cards:Character:" },
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Wanderer" ]
 					}
 				]

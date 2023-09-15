@@ -15,12 +15,12 @@
 		{
 			"blurb":"Mech to Pilot",
 			"elements": [
-				{ "$type": "Core.CardRestriction:Character:" },
+				{ "$type": "Restrict.Cards:Character:" },
 				{
-					"$type": "Core.CardRestriction:Subtypes:",
+					"$type": "Restrict.Cards:Subtypes:",
 					"subtypes": [ "Mech", "Golem" ]
 				},
-				{ "$type": "Core.CardRestriction:CanPlay:" }
+				{ "$type": "Restrict.Cards:CanPlay:" }
 			]
 		},
 		"toLinkWith": { "$type": "Cards:ThisCardNow:" }

@@ -15,7 +15,7 @@
 						"$type": "Numbers:CountCards:",
 						"cards": { "$type": "ManyCards:Discard:" },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Subtypes:",
+							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Rune" ]
 						}
 					}
@@ -25,16 +25,16 @@
 					"blurb": "Rune for Runechanneler to cast",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Rune" ]
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" },
+							{ "$type": "Restrict.Cards:CanPlay:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "C" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -58,10 +58,10 @@
 					"blurb": "Rune for Runechanneler to reshuffle",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Rune" ]
 							}
 						]
@@ -95,11 +95,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where for Runechanneler to cast its target Rune",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

@@ -20,7 +20,7 @@
 						"$type": "Numbers:CountCards:",
 						"cards": { "$type": "ManyCards:Hand:" },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Subtypes:",
+							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Crazy", "Idea" ]
 						}
 					}

@@ -15,13 +15,13 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"elements": [
-								{ "$type": "Core.CardRestriction:Friendly:" },
+								{ "$type": "Restrict.Cards:Friendly:" },
 								{
-									"$type": "Core.CardRestriction:Location:",
+									"$type": "Restrict.Cards:Location:",
 									"locations": [ "Board" ]
 								},
 								{
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Moth" ]
 								}
 							]
@@ -30,9 +30,9 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
-								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"$type": "Restrict.Spaces:InAOEOf:",
 								"cardRestriction": {
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Light" ]
 								}
 							}
@@ -46,10 +46,10 @@
 					"blurb": "character for Sun to give -1 E",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Summoned:" }
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Summoned:" }
 						]
 					}
 				},
@@ -62,13 +62,13 @@
 					"blurb": "character for Sun to give +1 E",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Summoned:" },
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Summoned:" },
 							{
-								"$type": "Core.CardRestriction:Not:",
-								"negated": { "$type": "Core.CardRestriction:Target:" }
+								"$type": "Restrict.Cards:Not:",
+								"negated": { "$type": "Restrict.Cards:Target:" }
 							}
 						]
 					}

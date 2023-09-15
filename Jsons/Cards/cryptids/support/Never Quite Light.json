@@ -14,15 +14,15 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Friendly:" },
+									{ "$type": "Restrict.Cards:Friendly:" },
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Shadow" ]
 									},
 									{
-										"$type": "Core.SpaceRestriction:InAOEOf:",
+										"$type": "Restrict.Spaces:InAOEOf:",
 										"card": { "$type": "Cards:ThisCardNow:" }
 									}
 								]
@@ -43,7 +43,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Location:",
+								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
 							}
 						}

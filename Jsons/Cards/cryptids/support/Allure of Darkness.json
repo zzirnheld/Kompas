@@ -14,7 +14,7 @@
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
 				}
@@ -30,22 +30,22 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "towards the darkness",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:TowardsAny:",
+								"$type": "Restrict.Spaces:TowardsAny:",
 								"anyDestinationRestriction": {
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Shadow" ]
 								},
 								"origin": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							}
 						]

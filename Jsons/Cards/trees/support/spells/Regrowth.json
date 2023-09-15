@@ -14,11 +14,11 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Who to heal",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Hurt:" },
+							{ "$type": "Restrict.Cards:Hurt:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Tree" ]
 							}
 						]

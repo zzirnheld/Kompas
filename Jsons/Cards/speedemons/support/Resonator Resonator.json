@@ -15,7 +15,7 @@
 					"blurb": "Ready to resonate?",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Name:",
+						"$type": "Restrict.Cards:Name:",
 						"nameIs": "Sonic Resonator"
 					}
 				},

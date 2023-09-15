@@ -5,7 +5,7 @@
 			"blurb": "Card to discard so you can draw",
 			"elements": [
 				{
-					"$type": "Core.CardRestriction:Location:",
+					"$type": "Restrict.Cards:Location:",
 					"locations": [ "Hand" ]
 				},
 				{

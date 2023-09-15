@@ -15,12 +15,12 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
-									{ "$type": "Core.CardRestriction:Negated:" },
+									{ "$type": "Restrict.Cards:Character:" },
+									{ "$type": "Restrict.Cards:Negated:" },
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									}
 								]

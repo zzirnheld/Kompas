@@ -24,8 +24,8 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Enemy:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Enemy:" } ]
 							}
 						}
 					]

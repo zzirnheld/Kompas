@@ -15,16 +15,16 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 								"cardRestriction": {
-									"$type": "Core.CardRestriction:AllOf:",
+									"$type": "Restrict.Cards:AllOf:",
 									"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
-									{ "$type": "Core.CardRestriction:Friendly:" },
+									{ "$type": "Restrict.Cards:Character:" },
+									{ "$type": "Restrict.Cards:Friendly:" },
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Cultist" ]
 									}
 								]
@@ -45,12 +45,12 @@
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Cultist", "Mook" ]
 							}
 						]
@@ -62,17 +62,17 @@
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Cultist", "Mook" ]
 							},
 							{
-								"$type": "Core.CardRestriction:Not:",
-								"negated": { "$type": "Core.CardRestriction:Target:" }
+								"$type": "Restrict.Cards:Not:",
+								"negated": { "$type": "Restrict.Cards:Target:" }
 							}
 						]
 					},
@@ -82,11 +82,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to play Mad Blood's new bloodcurse (1/2)",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -99,11 +99,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to play Mad Blood's new bloodcurse (2/2)",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

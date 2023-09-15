@@ -17,7 +17,7 @@
 			"blurb":"where to revive the Revenant",
 			"spaceRestriction":
 			{
-				"$type": "Core.SpaceRestriction:CanPlayCard:",
+				"$type": "Restrict.Spaces:CanPlayCard:",
 				"toPlay": { "$type": "Cards:TargetIndex:" }
 			}
 		},

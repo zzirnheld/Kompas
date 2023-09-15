@@ -20,12 +20,12 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Warrior" ]
 							}
 						},
 						{
-							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"$type": "Restrict.Spaces:AdjacentTo:",
 							"space": { "$type": "Cards:ThisCardNow:" }
 						}
 					]
@@ -55,15 +55,15 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Friendly:" },
+									{ "$type": "Restrict.Cards:Friendly:" },
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Warrior" ]
 									}
 								]

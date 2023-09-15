@@ -18,7 +18,7 @@
 					"blurb": "Memory whose bearers will be echoed",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Memory" ]
 					}
 				},
@@ -26,9 +26,9 @@
 					"$type": "Subeffect:TargetAll:",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:HasAugment:",
+						"$type": "Restrict.Cards:HasAugment:",
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Name:",
+							"$type": "Restrict.Cards:Name:",
 							"sameAs": { "$type": "Cards:TargetIndex:" }
 						}
 					}

@@ -16,9 +16,9 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Enemy:" }
+									{ "$type": "Restrict.Cards:Enemy:" }
 								]
 							}
 						}
@@ -31,10 +31,10 @@
 					"cardsSource": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Friendly:" }
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" }
 						]
 					},
 					"sModifier": 1,
@@ -45,10 +45,10 @@
 					"cardsSource": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Enemy:" }
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Enemy:" }
 						]
 					},
 					"sModifier": -1,

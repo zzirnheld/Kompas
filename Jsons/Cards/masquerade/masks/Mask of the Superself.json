@@ -25,8 +25,8 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Summoned:" } ]
 							}
 						}
 					]
@@ -47,11 +47,11 @@
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"playAsAugment": true,
 		"normalAndEffect": [ {
-			"$type": "Core.CardRestriction:Not:",
+			"$type": "Restrict.Cards:Not:",
 			"negated": {
-				"$type": "Core.CardRestriction:HasAugment:",
+				"$type": "Restrict.Cards:HasAugment:",
 				"cardRestriction": {
-					"$type": "Core.CardRestriction:Name:",
+					"$type": "Restrict.Cards:Name:",
 					"sameAs": { "$type": "Cards:ThisCardNow:" }
 				}
 			}

@@ -18,9 +18,9 @@
 					"blurb": "zoom",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [ {
-							"$type": "Core.CardRestriction:CanMove:",
+							"$type": "Restrict.Cards:CanMove:",
 							"spaceRestrictionSubeffectIndex": 1
 						} ]
 					}
@@ -29,14 +29,14 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "zoom",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}
@@ -51,9 +51,9 @@
 					"blurb": "Zoom!",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [ {
-							"$type": "Core.CardRestriction:CanMove:",
+							"$type": "Restrict.Cards:CanMove:",
 							"spaceRestrictionSubeffectIndex": 4
 						} ]
 					}
@@ -62,14 +62,14 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "Zoom!",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}
@@ -84,9 +84,9 @@
 					"blurb": "ZOOM!",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [ {
-							"$type": "Core.CardRestriction:CanMove:",
+							"$type": "Restrict.Cards:CanMove:",
 							"spaceRestrictionSubeffectIndex": 7
 						} ]
 					}
@@ -95,14 +95,14 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "ZOOM!",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}

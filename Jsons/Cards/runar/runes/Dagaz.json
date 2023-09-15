@@ -15,18 +15,18 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Spell:" },
+									{ "$type": "Restrict.Cards:Spell:" },
 									{
-										"$type": "Core.CardRestriction:Not:",
+										"$type": "Restrict.Cards:Not:",
 										"negated": {
-											"$type": "Core.CardRestriction:CardsMatch:",
+											"$type": "Restrict.Cards:CardsMatch:",
 											"card": { "$type": "Cards:ThisCardNow:" }
 										}
 									},
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Rune" ]
 									}
 								]

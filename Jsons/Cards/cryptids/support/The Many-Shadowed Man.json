@@ -14,7 +14,7 @@
 					"blurb": "Shadow to add to hand",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Shadow" ]
 					}
 				},

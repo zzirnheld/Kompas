@@ -4,10 +4,10 @@
 	"effText": "Golem.\nI can attack characters 2 spaces from me, not just adjacent ones.",
 	"effects": [],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [
 			{
-				"$type": "Core.SpaceRestriction:CompareDistance:",
+				"$type": "Restrict.Spaces:CompareDistance:",
 				"distanceTo": { "$type": "Cards:ThisCardNow:" },
 				"number": { "$type": "Numbers:Constant:", "constant": 2 },
 				"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
@@ -15,16 +15,16 @@
 			{
 				"$type": "Restrict.Triggering:CardFitsRestriction:",
 				"card": { "$type": "Cards:ThisCardNow:" },
-				"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+				"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 			}
 		]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"n": 4,

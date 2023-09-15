@@ -19,7 +19,7 @@
 					"blurb": "Crazy Idea to ideate",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Crazy", "Idea" ]
 					}
 				},

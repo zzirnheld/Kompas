@@ -22,19 +22,19 @@
 							"card": { "$type": "Cards:CardAfter:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
-									{ "$type": "Core.CardRestriction:Enemy:" },
+									{ "$type": "Restrict.Cards:Character:" },
+									{ "$type": "Restrict.Cards:Enemy:" },
 									{
-										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"$type": "Restrict.Spaces:AdjacentTo:",
 										
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-												{ "$type": "Core.CardRestriction:Summoned:" },
+												{ "$type": "Restrict.Cards:Summoned:" },
 												{
-													"$type": "Core.CardRestriction:Subtypes:",
+													"$type": "Restrict.Cards:Subtypes:",
 													"subtypes": [ "Tarocco" ]
 												}
 											]
@@ -56,14 +56,14 @@
 						"$type": "Numbers:CountCards:",
 						"cards": { "$type": "ManyCards:Board:" },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 								{
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Tarocco" ]
 								},
 								{
-									"$type": "Core.SpaceRestriction:AdjacentTo:",
+									"$type": "Restrict.Spaces:AdjacentTo:",
 									"space": { "$type": "Cards:TargetIndex:" }
 								}
 							]

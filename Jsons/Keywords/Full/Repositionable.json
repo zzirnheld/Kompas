@@ -12,16 +12,16 @@
 			"blurb":"to Linewalk to",
 			"spaceRestriction":
 			{
-				"$type": "Core.SpaceRestriction:AllOf:",
+				"$type": "Restrict.Spaces:AllOf:",
 				"elements": [
-                    { "$type": "Core.SpaceRestriction:Empty:" },
+                    { "$type": "Restrict.Spaces:Empty:" },
 					{
-						"$type": "Core.SpaceRestriction:CanMoveCard:",
+						"$type": "Restrict.Spaces:CanMoveCard:",
 						"toMove": { "$type": "Cards:TargetIndex:" }
 					},
                     {
-                        "$type": "Core.SpaceRestriction:AdjacentTo:",
-                        "cardRestriction": { "$type": "Core.CardRestriction:Friendly:" }
+                        "$type": "Restrict.Spaces:AdjacentTo:",
+                        "cardRestriction": { "$type": "Restrict.Cards:Friendly:" }
                     }
 				]
 			}

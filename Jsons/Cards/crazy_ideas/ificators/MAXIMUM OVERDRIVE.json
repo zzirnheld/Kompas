@@ -19,11 +19,11 @@
 					"blurb": "character to MAXIMUM OVERDRIVE",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -41,7 +41,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Crazy" ]
 							}
 						}
@@ -57,8 +57,8 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"recommendations": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
-			"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+			"$type": "Restrict.Spaces:AdjacentTo:",
+			"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 		} ]
 	},
 	"keywords": [

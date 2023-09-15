@@ -18,11 +18,11 @@
 					"blurb": "for Kaunan to give -3 EW",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -40,8 +40,8 @@
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ],
 		"recommendations": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
-			"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+			"$type": "Restrict.Spaces:AdjacentTo:",
+			"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 		} ]
 	},
 	"c": 2,

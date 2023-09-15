@@ -15,8 +15,8 @@
 			"cardRestriction": {
 				"blurb": "Pick a target to barrage",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Enemy:" },
-					{ "$type": "Core.CardRestriction:Character:" }
+					{ "$type": "Restrict.Cards:Enemy:" },
+					{ "$type": "Restrict.Cards:Character:" }
 				]
 			}
 		},

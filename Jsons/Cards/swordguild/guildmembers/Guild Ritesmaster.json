@@ -16,7 +16,7 @@
 						"$type": "Numbers:CountCards:",
 						"cards": { "$type": "ManyCards:Discard:" },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Subtypes:",
+							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Warrior" ]
 						}
 					}
@@ -26,16 +26,16 @@
 					"blurb": "Warrior for the rites to summon",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Warrior" ]
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" },
+							{ "$type": "Restrict.Cards:CanPlay:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",
@@ -59,10 +59,10 @@
 					"blurb": "Warriors for Ritesmaster to reshuffle",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Warrior" ]
 							}
 						]
@@ -96,11 +96,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where for Ritesmaster to summon the Warrior",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

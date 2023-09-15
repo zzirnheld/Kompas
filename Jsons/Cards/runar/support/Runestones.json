@@ -16,12 +16,12 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Friendly:" },
-									{ "$type": "Core.CardRestriction:Spell:" },
+									{ "$type": "Restrict.Cards:Friendly:" },
+									{ "$type": "Restrict.Cards:Spell:" },
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Rune" ]
 									}
 								]
@@ -36,7 +36,7 @@
 					"blurb": "Rune for Runestones to search",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Rune" ]
 					}
 				},

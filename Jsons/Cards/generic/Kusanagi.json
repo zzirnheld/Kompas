@@ -34,7 +34,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.SpaceRestriction:Behind:",
+								"$type": "Restrict.Spaces:Behind:",
 								"card": { "$type": "Cards:ThisCardNow:" }
 							}
 						}

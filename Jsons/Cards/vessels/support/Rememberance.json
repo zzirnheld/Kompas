@@ -17,7 +17,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "for Rememberance to annihilate",
 					"toSearch": { "$type": "ManyCards:Discard:" },
-					"cardRestriction": {"$type": "Core.CardRestriction:Character:" }
+					"cardRestriction": {"$type": "Restrict.Cards:Character:" }
 				},
 				{
 					"$type": "Subeffect:SetXByNumberIdentity:",
@@ -48,7 +48,7 @@
 					"blurb": "card to hand",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:CardValueFits:",
+						"$type": "Restrict.Cards:CardValueFits:",
 						"cardValue": { "value": "Cost" },
 						"numberRestriction": {
 							"$type": "Core.NumberRestriction:Compare:",
@@ -69,7 +69,7 @@
 					"blurb": "Memories to recover",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Memory" ]
 					},
 					"listRestriction": {

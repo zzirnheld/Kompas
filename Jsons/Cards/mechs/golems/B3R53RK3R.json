@@ -4,20 +4,20 @@
 	"effText": "Berserker. Golem.",
 	"effects": [],
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"maxPerTurn": 3,
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"n": 4,

@@ -16,20 +16,20 @@
 							"card": { "$type": "Cards:CardAfter:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Module" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Augments:",
+										"$type": "Restrict.Cards:Augments:",
 										
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 												{
-													"$type": "Core.CardRestriction:Subtypes:",
+													"$type": "Restrict.Cards:Subtypes:",
 													"subtypes": [ "Modular" ]
 												}
 											]

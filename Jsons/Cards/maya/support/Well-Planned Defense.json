@@ -16,11 +16,11 @@
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction":
 					{
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Maya", "Structure" ]
 							}
 						]
@@ -30,12 +30,12 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "Space on the edge of the board to play the Structure to",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
-							{ "$type": "Core.SpaceRestriction:Edge:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
+							{ "$type": "Restrict.Spaces:Edge:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

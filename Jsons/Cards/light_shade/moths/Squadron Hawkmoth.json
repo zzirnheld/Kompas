@@ -15,13 +15,13 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"elements": [
-								{ "$type": "Core.CardRestriction:Friendly:" },
+								{ "$type": "Restrict.Cards:Friendly:" },
 								{
-									"$type": "Core.CardRestriction:Location:",
+									"$type": "Restrict.Cards:Location:",
 									"locations": [ "Board" ]
 								},
 								{
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Moth" ]
 								}
 							]
@@ -30,9 +30,9 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
-								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"$type": "Restrict.Spaces:InAOEOf:",
 								"cardRestriction": {
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Light" ]
 								}
 							}
@@ -46,12 +46,12 @@
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Name:",
+								"$type": "Restrict.Cards:Name:",
 								"sameAs": { "$type": "Cards:TargetIndex:" }
 							}
 						]

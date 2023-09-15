@@ -18,7 +18,7 @@
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
 					"cardsSource": { "$type": "ManyCards:Board:" },
-					"cardRestriction": { "$type": "Core.CardRestriction:Character:" },
+					"cardRestriction": { "$type": "Restrict.Cards:Character:" },
 					"eModifier": 1
 				}
 			]
@@ -38,7 +38,7 @@
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
 					"cardsSource": { "$type": "ManyCards:Board:" },
-					"cardRestriction": { "$type": "Core.CardRestriction:Character:" },
+					"cardRestriction": { "$type": "Restrict.Cards:Character:" },
 					"eModifier": -1
 				}
 			]

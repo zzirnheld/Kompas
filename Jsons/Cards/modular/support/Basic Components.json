@@ -19,7 +19,7 @@
 						"$type": "ManyCards:Distinct:",
 						"cards": { "$type": "ManyCards:Deck:", "friendly": true, "enemy": false },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Subtypes:",
+							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Basic", "Module" ]
 						}
 					}

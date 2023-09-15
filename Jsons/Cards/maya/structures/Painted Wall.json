@@ -13,21 +13,21 @@
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
-							"cardRestriction": { "$type": "Core.SpaceRestriction:Corner:" },
+							"cardRestriction": { "$type": "Restrict.Spaces:Corner:" },
 							"card": { "$type": "Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Structure" ]
 									},
 									{
-										"$type": "Core.SpaceRestriction:SameDiagonal:",
+										"$type": "Restrict.Spaces:SameDiagonal:",
 										"other": { "$type": "Cards:ThisCardNow:" }
 									}
 								]
@@ -46,14 +46,14 @@
 		}
 	],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Core.GamestateRestriction:Not:",
 			"negated": { "$type": "Restrict.Triggering:Normally:" }
 		} ]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
 	},
 	"n": 0,

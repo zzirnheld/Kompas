@@ -19,7 +19,7 @@
 						"$type": "Numbers:CountCards:",
 						"cards": { "$type": "ManyCards:Discard:", "friendly": true, "enemy": false },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Subtypes:",
+							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Cultist" ]
 						}
 					}
@@ -28,7 +28,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character to deafen with silence",
 					"toSearch": { "$type": "ManyCards:Board:" },
-					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{
 					"$type": "Subeffect:ChangeCardStats:",

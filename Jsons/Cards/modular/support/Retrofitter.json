@@ -24,21 +24,21 @@
 							"card": { "$type": "Cards:CardAfter:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Module" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Augments:",
+										"$type": "Restrict.Cards:Augments:",
 										"cardRestriction": {
-											"$type": "Core.CardRestriction:Subtypes:",
+											"$type": "Restrict.Cards:Subtypes:",
 											"subtypes": [ "Modular" ]
 										}
 									},
 									{
-										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"$type": "Restrict.Spaces:AdjacentTo:",
 										"space": { "$type": "Cards:ThisCardNow:" }
 									}
 								]
@@ -60,11 +60,11 @@
 					"cardRestriction":
 					{
 						"blurb": "Module to attach to the Modular character",
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Augment:" },
+							{ "$type": "Restrict.Cards:Augment:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Module" ]
 							}
 						]

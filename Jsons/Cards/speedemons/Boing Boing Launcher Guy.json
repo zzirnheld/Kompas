@@ -22,21 +22,21 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Not:",
+								"$type": "Restrict.Cards:Not:",
 								"negated": {
-									"$type": "Core.CardRestriction:CardsMatch:",
+									"$type": "Restrict.Cards:CardsMatch:",
 									"card": { "$type": "Cards:ThisCardNow:" }
 								}
 							},
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Spaces:TargetIndex:" }
 							},
 							{
-								"$type": "Core.CardRestriction:CanMove:",
+								"$type": "Restrict.Cards:CanMove:",
 								"spaceRestrictionSubeffectIndex": 2
 							}
 						]
@@ -46,19 +46,19 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to boing boing launch that guy",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							},
 							{
-								"$type": "Core.SpaceRestriction:AwayFrom:",
+								"$type": "Restrict.Spaces:AwayFrom:",
 								"destination": { "$type": "Cards:ThisCardNow:" },
 								"origin": { "$type": "Spaces:TargetIndex:" }
 							}

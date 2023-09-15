@@ -25,14 +25,14 @@
 								"$type": "ManyCards:Restricted:",
 								"cards": { "$type": "ManyCards:Board:" },
 								"cardRestriction": {
-									"$type": "Core.CardRestriction:AllOf:",
+									"$type": "Restrict.Cards:AllOf:",
 									"elements": [
 										{
-											"$type": "Core.CardRestriction:Subtypes:",
+											"$type": "Restrict.Cards:Subtypes:",
 											"subtypes": [ "Water" ]
 										},
 										{
-											"$type": "Core.CardRestriction:AOEContains:",
+											"$type": "Restrict.Cards:AOEContains:",
 											"cards": {
 												"$type": "ManyCards:Concat:",
 												"cards": [ { "$type": "Cards:ThisCardNow:" } ]
@@ -58,16 +58,16 @@
 					"blurb": "Monster here",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Aquatic" ]
 							},
-							{ "$type": "Core.CardRestriction:CanPlay:" },
+							{ "$type": "Restrict.Cards:CanPlay:" },
 							{
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",

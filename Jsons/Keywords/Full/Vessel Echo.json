@@ -14,11 +14,11 @@
 				"blurb":"to destroy",
 				"elements": [
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Memory" ]
 					},
 					{
-						"$type": "Core.CardRestriction:Augments:",
+						"$type": "Restrict.Cards:Augments:",
 						"singleCard": { "$type": "Cards:TargetIndex:" }
 					}
 				]

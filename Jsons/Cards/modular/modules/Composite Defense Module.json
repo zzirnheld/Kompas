@@ -35,7 +35,7 @@
 							"card": { "$type": "Cards:TargetIndex:" }
 						},
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:Subtypes:",
+							"$type": "Restrict.Cards:Subtypes:",
 							"subtypes": [ "Module" ]
 						}
 					}

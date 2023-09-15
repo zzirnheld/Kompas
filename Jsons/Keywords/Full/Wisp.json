@@ -20,7 +20,7 @@
 						"cards": {
 							"$type": "ManyCards:Restricted:",
 							"cards": { "$type": "ManyCards:Board:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 						}
 					}
 				}

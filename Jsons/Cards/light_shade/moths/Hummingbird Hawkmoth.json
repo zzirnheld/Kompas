@@ -6,9 +6,9 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"normalAndEffect": [ {
-			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"$type": "Restrict.Spaces:InAOEOf:",
 			"cardRestriction": {
-				"$type": "Core.CardRestriction:Subtypes:",
+				"$type": "Restrict.Cards:Subtypes:",
 				"subtypes": [ "Shade" ]
 			}
 		} ]

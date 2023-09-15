@@ -16,8 +16,8 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Enemy:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Enemy:" } ]
 							}
 						},
 						{
@@ -25,10 +25,10 @@
 							"card": { "$type": "Cards:CardAfter:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"$type": "Restrict.Spaces:AdjacentTo:",
 										"card": { "$type": "Cards:ThisCardNow:" }
 									}
 								]
@@ -73,16 +73,16 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Enemy:" },
-									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Restrict.Cards:Enemy:" },
+									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									},
 									{
-										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"$type": "Restrict.Spaces:AdjacentTo:",
 										"space": { "$type": "Cards:ThisCardNow:" }
 									}
 								]

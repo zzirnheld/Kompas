@@ -18,11 +18,11 @@
 					"blurb": "Who pays the price of fame?",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Unique:" },
+							{ "$type": "Restrict.Cards:Unique:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -37,12 +37,12 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"recommendations": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": {
-				"$type": "Core.CardRestriction:AllOf:",
+				"$type": "Restrict.Cards:AllOf:",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Character:" },
-					{ "$type": "Core.CardRestriction:Unique:" }
+					{ "$type": "Restrict.Cards:Character:" },
+					{ "$type": "Restrict.Cards:Unique:" }
 				]
 			}
 		} ]

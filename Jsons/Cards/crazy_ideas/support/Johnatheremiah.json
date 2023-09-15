@@ -22,8 +22,8 @@
 					"$type": "Subeffect:TargetAll:",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Not:",
-						"negated": { "$type": "Core.CardRestriction:Target:" }
+						"$type": "Restrict.Cards:Not:",
+						"negated": { "$type": "Restrict.Cards:Target:" }
 					}
 				},
 				{

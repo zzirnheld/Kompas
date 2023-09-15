@@ -12,13 +12,13 @@
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.SpaceRestriction:InAOEOf:",
+							"$type": "Restrict.Spaces:InAOEOf:",
 							"card": { "$type": "Cards:ThisCardNow:" }
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
 				}

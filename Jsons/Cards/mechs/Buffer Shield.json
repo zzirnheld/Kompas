@@ -46,7 +46,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Location:",
+								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
 							}
 						}
@@ -62,7 +62,7 @@
 					"blurb": "for Buffer Shield to attach to",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Mech" ]
 					}
 				},

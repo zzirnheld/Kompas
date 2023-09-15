@@ -17,21 +17,21 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Not:",
+										"$type": "Restrict.Cards:Not:",
 										"negated": {
-											"$type": "Core.CardRestriction:AOEContains:",
+											"$type": "Restrict.Cards:AOEContains:",
 											"cardRestriction": {
-												"$type": "Core.CardRestriction:AllOf:",
+												"$type": "Restrict.Cards:AllOf:",
 												"elements": [
-													{ "$type": "Core.CardRestriction:Enemy:" },
-													{ "$type": "Core.CardRestriction:Character:" }
+													{ "$type": "Restrict.Cards:Enemy:" },
+													{ "$type": "Restrict.Cards:Character:" }
 												]
 											}
 										}
@@ -57,12 +57,12 @@
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
-							{ "$type": "Core.CardRestriction:Spell:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
+							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Shade" ]
 							}
 						]

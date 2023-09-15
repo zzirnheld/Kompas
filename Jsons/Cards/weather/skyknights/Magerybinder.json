@@ -20,13 +20,13 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardAfter:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Spell:" },
+									{ "$type": "Restrict.Cards:Spell:" },
 									{
-										"$type": "Core.SpaceRestriction:InAOEOf:",
+										"$type": "Restrict.Spaces:InAOEOf:",
 										"cardRestriction": {
-											"$type": "Core.CardRestriction:Subtypes:",
+											"$type": "Restrict.Cards:Subtypes:",
 											"subtypes": [ "Weather" ]
 										}
 									}

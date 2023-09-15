@@ -14,7 +14,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Mech", "Golem" ]
 							}
 						},
@@ -22,7 +22,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Location:",
+								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Discard" ]
 							}
 						}
@@ -46,18 +46,18 @@
 					"blurb": "character within 4 spaces to have this Mech attack",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Not:",
+								"$type": "Restrict.Cards:Not:",
 								"negated": {
-									"$type": "Core.CardRestriction:CardsMatch:",
+									"$type": "Restrict.Cards:CardsMatch:",
 									"card": { "$type": "Cards:ThisCardNow:" }
 								}
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 2 },
 								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }

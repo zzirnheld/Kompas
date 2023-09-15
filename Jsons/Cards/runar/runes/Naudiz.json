@@ -17,10 +17,10 @@
 					"$type": "Subeffect:ChangeAllCardStats:",
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Enemy:" }
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Enemy:" }
 						]
 					},
 					"eModifier": -3

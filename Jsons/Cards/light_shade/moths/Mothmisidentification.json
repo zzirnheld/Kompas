@@ -18,13 +18,13 @@
 					"blurb": "Can't ID this frikkin moth!",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Moth" ]
 							},
-							{ "$type": "Core.CardRestriction:Hidden:" }
+							{ "$type": "Restrict.Cards:Hidden:" }
 						]
 					}
 				},
@@ -39,15 +39,15 @@
 					"blurb": "Ah, that's what moth it was",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Moth" ]
 							},
 							{
-								"$type": "Core.CardRestriction:DistinctName:",
+								"$type": "Restrict.Cards:DistinctName:",
 								"cards": { "$type": "ManyCards:Targets:" }
 							}
 						]

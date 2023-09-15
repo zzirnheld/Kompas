@@ -18,14 +18,14 @@
 					"blurb": "I don't want to remember!",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Memory" ]
 							},
 							{
-								"$type": "Core.CardRestriction:Augments:",
+								"$type": "Restrict.Cards:Augments:",
 								"singleCard": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -55,14 +55,14 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to move the Unwilling Vessel",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:ThisCardNow:" },
 								"number": { "$type": "Numbers:EffectX:" },
 								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }

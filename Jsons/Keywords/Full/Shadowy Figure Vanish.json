@@ -7,7 +7,7 @@
 			"elements": [
 				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 				{
-					"$type": "Core.SpaceRestriction:InAOEOf:",
+					"$type": "Restrict.Spaces:InAOEOf:",
 					"card": { "$type": "Cards:ThisCardNow:" }
 				}
 			]

@@ -14,11 +14,11 @@
 				"blurb": "Mask to swap out",
 				"elements": [
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Mask" ]
 					},
 					{
-						"$type": "Core.CardRestriction:Augments:",
+						"$type": "Restrict.Cards:Augments:",
 						"singleCard": { "$type": "Cards:TargetIndex:" }
 					}
 				]
@@ -31,9 +31,9 @@
 			{
 				"blurb": "Mask to swap for",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Augment:" },
+					{ "$type": "Restrict.Cards:Augment:" },
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Mask" ]
 					}
 				]

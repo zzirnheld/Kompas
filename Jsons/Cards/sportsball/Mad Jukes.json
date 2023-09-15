@@ -15,12 +15,12 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
-									{ "$type": "Core.CardRestriction:Friendly:" },
+									{ "$type": "Restrict.Cards:Character:" },
+									{ "$type": "Restrict.Cards:Friendly:" },
 									{
-										"$type": "Core.CardRestriction:HasAugment:",
+										"$type": "Restrict.Cards:HasAugment:",
 										"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
 									}
 								]
@@ -60,11 +60,11 @@
 				{
 					"$type": "Subeffect:ChangeAllCardStats:",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:TargetIndex:" }
 							}
 						]

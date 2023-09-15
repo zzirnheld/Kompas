@@ -6,7 +6,7 @@
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:CardBefore:" },
 			"cardRestriction": {
-				"$type": "Core.CardRestriction:Fighting:",
+				"$type": "Restrict.Cards:Fighting:",
 				"defending": true,
 				"fightingWho": { "$type": "Cards:ThisCardNow:" }
 			}

@@ -29,7 +29,7 @@ namespace Kompas.Cards.Loading
 
 		//restriction regexes
 		private static readonly Regex coreRestrictionRegex = new(@"Restrict\.([^:]+):([^:]+):"); //Restrict.*:*:
-		private const string coreRestrictionReplacement = @"KompasCore.Effects.Restrictions.$1.$2, Assembly-CSharp";
+		private const string coreRestrictionReplacement = @"Kompas.Effects.Restrictions.$1.$2, Assembly-CSharp";
 
 		//identity regexes
 		private static readonly Regex cardsIdentityRegex = new(@"""Cards:([^:]+):"); //"Cards:*:

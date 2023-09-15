@@ -14,8 +14,8 @@
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
-							"elements": [ { "$type": "Core.CardRestriction:Character:" } ]
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [ { "$type": "Restrict.Cards:Character:" } ]
 					}
 				},
 				{

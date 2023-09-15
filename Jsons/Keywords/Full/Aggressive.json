@@ -17,9 +17,9 @@
 			{
 				"blurb": "to take out aggression on",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Character:" },
+					{ "$type": "Restrict.Cards:Character:" },
 					{
-						"$type": "Core.SpaceRestriction:InAOEOf:",
+						"$type": "Restrict.Spaces:InAOEOf:",
 						"card": { "$type": "Cards:ThisCardNow:" }
 					}
 				]

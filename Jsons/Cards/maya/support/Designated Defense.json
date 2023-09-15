@@ -17,10 +17,10 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "Space for your enemy to play a Structure to",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
-							{ "$type": "Core.SpaceRestriction:Edge:" }
+							{ "$type": "Restrict.Spaces:Empty:" },
+							{ "$type": "Restrict.Spaces:Edge:" }
 						]
 					}
 				},
@@ -29,15 +29,15 @@
 					"blurb": "Designated build site",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Structure" ]
 							},
 							{
-								"$type": "Core.CardRestriction:CanPlay:",
+								"$type": "Restrict.Cards:CanPlay:",
 								"destination": { "$type": "Spaces:TargetIndex:" },
 								"ignoreAdjacency": true
 							}

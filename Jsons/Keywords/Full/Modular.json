@@ -29,7 +29,7 @@
 				"blurb": "Modules to attach",
 				"elements": [
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Module" ]
 					}
 				]

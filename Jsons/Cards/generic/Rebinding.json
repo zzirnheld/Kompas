@@ -19,11 +19,11 @@
 					"blurb": "for Rebinding to kill",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -45,8 +45,8 @@
 					"blurb": "for Rebinding to buff",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Not:",
-						"negated": { "$type": "Core.CardRestriction:Target:" }
+						"$type": "Restrict.Cards:Not:",
+						"negated": { "$type": "Restrict.Cards:Target:" }
 					}
 				},
 				{
@@ -60,8 +60,8 @@
 					"blurb": "for Rebinding to buff",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Not:",
-						"negated": { "$type": "Core.CardRestriction:Target:" }
+						"$type": "Restrict.Cards:Not:",
+						"negated": { "$type": "Restrict.Cards:Target:" }
 					}
 				},
 				{
@@ -76,8 +76,8 @@
 	"PlayRestriction": {
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"recommendations": [ {
-			"$type": "Core.SpaceRestriction:AdjacentTo:",
-			"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+			"$type": "Restrict.Spaces:AdjacentTo:",
+			"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 		} ]
 	},
 	"c": 1,

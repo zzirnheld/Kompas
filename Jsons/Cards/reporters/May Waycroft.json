@@ -26,7 +26,7 @@
 					"jumpIfTrue": {
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"card": { "$type": "Cards:CardBefore:" },
-						"cardRestriction": { "$type": "Core.CardRestriction:Hidden:", "hidden": true }
+						"cardRestriction": { "$type": "Restrict.Cards:Hidden:", "hidden": true }
 					},
 					"jumpIndices": [ 3 ]
 				},
@@ -35,12 +35,12 @@
 					"cardsSource": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Character:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Reporter" ]
 							}
 						]
@@ -58,9 +58,9 @@
 						"friendly": true, "enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Hidden:" },
+							{ "$type": "Restrict.Cards:Hidden:" },
 							{
 								"$type": "Core.PlayerRestriction:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }

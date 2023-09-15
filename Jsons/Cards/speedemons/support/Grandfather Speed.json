@@ -19,7 +19,7 @@
 					"blurb": "Ready for Set to search",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Name:",
+						"$type": "Restrict.Cards:Name:",
 						"nameIs": "Ready"
 					}
 				},

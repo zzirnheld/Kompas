@@ -20,11 +20,11 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "Direction to fire the cannon",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:SameDiagonal:",
+								"$type": "Restrict.Spaces:SameDiagonal:",
 								"other": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -36,7 +36,7 @@
 				{
 					"$type": "Subeffect:AutoTarget:",
 					"cardRestriction": {
-						"$type": "Core.SpaceRestriction:Direction:",
+						"$type": "Restrict.Spaces:Direction:",
 						"from": { "$type": "Cards:ThisCardNow:" }
 					},
 					"tiebreakerValue": {

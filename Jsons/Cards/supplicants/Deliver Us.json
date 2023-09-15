@@ -18,16 +18,16 @@
 					"numberIdentity": {
 						"$type": "Numbers:CountCards:",
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-								{ "$type": "Core.CardRestriction:Character:" },
-								{ "$type": "Core.CardRestriction:Friendly:" },
+								{ "$type": "Restrict.Cards:Character:" },
+								{ "$type": "Restrict.Cards:Friendly:" },
 								{
-									"$type": "Core.CardRestriction:Location:",
+									"$type": "Restrict.Cards:Location:",
 									"locations": [ "Board", "Discard" ]
 								},
 								{
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Supplicant" ]
 								}
 							]
@@ -50,15 +50,15 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "God of the Supplicants",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{
-								"$type": "Core.CardRestriction:Location:",
+								"$type": "Restrict.Cards:Location:",
 								"locations": [ "Hand", "Deck", "Discard" ]
 							},
 							{
-								"$type": "Core.CardRestriction:Name:",
+								"$type": "Restrict.Cards:Name:",
 								"nameIs": "God of Mercy"
 							}
 						]
@@ -69,9 +69,9 @@
 					"spaceRestriction": {
 						"blurb": "where to play God of Mercy",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"$type": "Restrict.Spaces:CanPlayCard:",
 								"toPlay": { "$type": "Cards:TargetIndex:" }
 							}
 						]

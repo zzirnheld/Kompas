@@ -23,14 +23,14 @@
 				{
 					"$type": "Subeffect:TargetAll:",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Weather", "Condition" ]
 							},
 							{
-								"$type": "Core.CardRestriction:AOEContains:",
+								"$type": "Restrict.Cards:AOEContains:",
 								"cards": { "$type": "Cards:ThisCardNow:" }
 							}
 						]
@@ -43,11 +43,11 @@
 				{
 					"$type": "Subeffect:TargetAll:",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"$type": "Restrict.Spaces:InAOEOf:",
 								"card": { "$type": "Cards:TargetIndex:" }
 							}
 						]
@@ -78,9 +78,9 @@
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"requireStandardAdjacency": false,
 		"normalAndEffect": [ {
-			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"$type": "Restrict.Spaces:InAOEOf:",
 			"cardRestriction": {
-				"$type": "Core.CardRestriction:Subtypes:",
+				"$type": "Restrict.Cards:Subtypes:",
 				"subtypes": [ "Weather" ]
 			},
 			"minAnyOfCount": { 

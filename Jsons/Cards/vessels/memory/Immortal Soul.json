@@ -23,10 +23,10 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Vessel" ]
 									}
 								]

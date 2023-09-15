@@ -24,19 +24,19 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character for Wheel of Fortune to swap N of (1/2)",
 					"toSearch": { "$type": "ManyCards:Board:" },
-					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character for Wheel of Fortune to swap N of (2/2)",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.CardRestriction:Not:",
-								"negated": { "$type": "Core.CardRestriction:Target:" }
+								"$type": "Restrict.Cards:Not:",
+								"negated": { "$type": "Restrict.Cards:Target:" }
 							}
 						]
 					}

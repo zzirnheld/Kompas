@@ -14,9 +14,9 @@
 					"blurb": "card to teach speed",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [ {
-							"$type": "Core.CardRestriction:CanMove:",
+							"$type": "Restrict.Cards:CanMove:",
 							"spaceRestrictionSubeffectIndex": 1
 						} ]
 					}
@@ -25,14 +25,14 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"blurb": "where to show them speed",
 					"spaceRestriction": {
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"$type": "Restrict.Spaces:CompareDistance:",
 								"distanceTo": { "$type": "Cards:TargetIndex:" },
 								"number": { "$type": "Numbers:Constant:", "constant": 1 }
 							}

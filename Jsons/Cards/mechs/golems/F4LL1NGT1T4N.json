@@ -12,7 +12,7 @@
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"card": { "$type": "Cards:ThisCardNow:" },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:CardValueFits:",
+							"$type": "Restrict.Cards:CardValueFits:",
 							"cardValue": { "value": "Spaces Can Move" },
 							"numberRestriction": { "$type": "Core.NumberRestriction:Positive:" }
 						}
@@ -33,21 +33,21 @@
 					"blurb":"to teleport F4LL1NGT1T4N to",
 					"spaceRestriction":
 					{
-						"$type": "Core.SpaceRestriction:AllOf:",
+						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
-							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Restrict.Spaces:Empty:" },
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"cardRestriction": {
-									"$type": "Core.CardRestriction:AllOf:",
+									"$type": "Restrict.Cards:AllOf:",
 									"elements": [
-										{ "$type": "Core.CardRestriction:Friendly:" },
+										{ "$type": "Restrict.Cards:Friendly:" },
 										{
-											"$type": "Core.CardRestriction:Subtypes:",
+											"$type": "Restrict.Cards:Subtypes:",
 											"subtypes": [ "Mech" ]
 										}
 									]
@@ -63,19 +63,19 @@
 		}
 	],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"movementRestriction": {
-		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"$type": "Restrict.Spaces:MovementRestriction:",
 		"normalOnly": [ {
 			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
-			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ]
 	},
 	"n": 4,

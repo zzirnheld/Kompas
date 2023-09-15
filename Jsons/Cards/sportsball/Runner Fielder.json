@@ -28,11 +28,11 @@
 					"$type": "Subeffect:AutoTarget:",
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.SpaceRestriction:Displacement:",
+								"$type": "Restrict.Spaces:Displacement:",
 								"from": { "$type": "Cards:ThisCardNow:" },
 								"displacement": { "$type": "Spaces:Constant:", "x": 1, "y": 1 },
 								"subjective": true

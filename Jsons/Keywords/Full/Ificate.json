@@ -15,7 +15,7 @@
 					"$type": "Restrict.Triggering:CardFitsRestriction:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Location:",
+						"$type": "Restrict.Cards:Location:",
 						"locations": [ "Hand" ]
 					}
 				}
@@ -33,18 +33,18 @@
 			"toSearch": { "$type": "ManyCards:Discard:" },
 			"cardRestriction":
 			{
-				"$type": "Core.CardRestriction:AllOf:",
+				"$type": "Restrict.Cards:AllOf:",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Friendly:" },
+					{ "$type": "Restrict.Cards:Friendly:" },
 					{
-						"$type": "Core.CardRestriction:Not:",
+						"$type": "Restrict.Cards:Not:",
 						"negated": {
-							"$type": "Core.CardRestriction:CardsMatch:",
+							"$type": "Restrict.Cards:CardsMatch:",
 							"card": { "$type": "Cards:ThisCardNow:" }
 						}
 					},
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Crazy", "Idea" ]
 					}
 				]
@@ -60,10 +60,10 @@
 			"blurb":"where Ificator to play targeted Crazy Idea",
 			"spaceRestriction":
 			{
-				"$type": "Core.SpaceRestriction:AllOf:",
+				"$type": "Restrict.Spaces:AllOf:",
 				"elements": [
 					{
-						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"$type": "Restrict.Spaces:CanPlayCard:",
 						"toPlay": { "$type": "Cards:TargetIndex:" }
 					}
 				]

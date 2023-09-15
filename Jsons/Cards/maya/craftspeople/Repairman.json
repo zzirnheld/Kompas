@@ -30,18 +30,18 @@
 							"card": { "$type": "Cards:CardAfter:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Board" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Structure" ]
 									},
 									{
-										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"$type": "Restrict.Spaces:AdjacentTo:",
 										"space": { "$type": "Cards:ThisCardNow:" }
 									}
 								]

@@ -30,7 +30,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "character that is also +1 W",
 					"toSearch": { "$type": "ManyCards:Board:" },
-					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{
 					"$type": "Subeffect:ChangeCardStats:",

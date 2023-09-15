@@ -23,7 +23,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:CardValueFits:",
+								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "W" },
 								"numberRestriction": {
 									"$type": "Core.NumberRestriction:Compare:",

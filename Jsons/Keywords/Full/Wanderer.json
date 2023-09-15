@@ -31,13 +31,13 @@
 			{
 				"blurb":"Wanderer to Wander into",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Character:" },
+					{ "$type": "Restrict.Cards:Character:" },
 					{
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Wanderer" ]
 					},
 					{
-						"$type": "Core.CardRestriction:CardValueFits:",
+						"$type": "Restrict.Cards:CardValueFits:",
 						"cardValue": { "value": "S" },
 						"numberRestriction": {
 							"$type": "Core.NumberRestriction:Compare:",

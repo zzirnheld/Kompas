@@ -12,10 +12,10 @@
 					{
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"card": { "$type": "Cards:CardBefore:" },
-						"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+						"cardRestriction": { "$type": "Restrict.Cards:Enemy:" }
 					},
 					{
-						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"$type": "Restrict.Spaces:AdjacentTo:",
 						"space": { "$type": "Cards:ThisCardNow:" }
 					}
 				]
@@ -41,7 +41,7 @@
 						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
 						"spaces": {
 							"$type": "ManySpaces:Restricted:",
-							"restriction": { "$type": "Core.SpaceRestriction:Empty:" },
+							"restriction": { "$type": "Restrict.Spaces:Empty:" },
 							"spaces": {
 								"$type": "ManySpaces:AdjacentSpaces:",
 								"adjacentTo": {

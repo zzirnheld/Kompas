@@ -19,12 +19,12 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Vessel" ]
 							}
 						},
 						{
-							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"$type": "Restrict.Spaces:AdjacentTo:",
 							"space": { "$type": "Cards:ThisCardNow:" }
 						}
 					]

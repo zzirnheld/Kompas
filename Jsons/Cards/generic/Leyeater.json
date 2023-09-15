@@ -19,10 +19,10 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Core.CardRestriction:Enemy:" },
-							{ "$type": "Core.CardRestriction:Spell:" }
+							{ "$type": "Restrict.Cards:Enemy:" },
+							{ "$type": "Restrict.Cards:Spell:" }
 						]
 					}
 				},
@@ -33,7 +33,7 @@
 		}
 	],
 	"attackingDefenderRestriction": {
-		"$type": "Core.CardRestriction:AttackingDefender:",
+		"$type": "Restrict.Cards:AttackingDefender:",
 		"maxPerTurn": 3
 	},
 	"n": 7,

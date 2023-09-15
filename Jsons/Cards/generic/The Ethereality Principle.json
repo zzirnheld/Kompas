@@ -20,15 +20,15 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Core.CardRestriction:Location:",
+										"$type": "Restrict.Cards:Location:",
 										"locations": [ "Discard" ]
 									},
 									{
-										"$type": "Core.CardRestriction:Subtypes:",
+										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Ethereal" ]
 									}
 								]
@@ -55,7 +55,7 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Remnant to put back on top",
-					"cardRestriction": { "$type": "Core.CardRestriction:Target:" }
+					"cardRestriction": { "$type": "Restrict.Cards:Target:" }
 				},
 				{
 					"$type": "Subeffect:Topdeck:"

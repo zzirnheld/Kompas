@@ -22,14 +22,14 @@
 						"$type": "Numbers:CountCards:",
 						"cards": { "$type": "ManyCards:Board:" },
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 								{
-									"$type": "Core.CardRestriction:Subtypes:",
+									"$type": "Restrict.Cards:Subtypes:",
 									"subtypes": [ "Structure" ]
 								},
 								{
-									"$type": "Core.SpaceRestriction:AdjacentTo:",
+									"$type": "Restrict.Spaces:AdjacentTo:",
 									"space": { "$type": "Cards:ThisCardNow:" }
 								}
 							]
@@ -41,10 +41,10 @@
 					"blurb": "Structures to salvage",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Structure" ]
 							}
 						]

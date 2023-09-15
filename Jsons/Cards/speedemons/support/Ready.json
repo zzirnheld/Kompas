@@ -18,10 +18,10 @@
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 							{
-								"$type": "Core.CardRestriction:Name:",
+								"$type": "Restrict.Cards:Name:",
 								"nameIs": "Set"
 							}
 						]
@@ -35,7 +35,7 @@
 					"blurb": "Linewalker for Leypathmaking to search",
 					"toSearch": { "$type": "ManyCards:Deck:" },
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:Subtypes:",
+						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Speedemon" ]
 					}
 				},

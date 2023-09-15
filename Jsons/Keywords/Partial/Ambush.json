@@ -7,10 +7,10 @@
 		"cardRestriction": {
 			"blurb": "Choose a target to Ambush",
 			"elements": [
-				{ "$type": "Core.CardRestriction:Enemy:" },
-				{ "$type": "Core.CardRestriction:Character:" },
+				{ "$type": "Restrict.Cards:Enemy:" },
+				{ "$type": "Restrict.Cards:Character:" },
 				{
-					"$type": "Core.SpaceRestriction:AdjacentTo:",
+					"$type": "Restrict.Spaces:AdjacentTo:",
 					"space": { "$type": "Cards:ThisCardNow:" }
 				}
 			]

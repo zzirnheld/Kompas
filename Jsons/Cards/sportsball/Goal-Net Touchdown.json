@@ -12,19 +12,19 @@
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"$type": "Restrict.Spaces:AdjacentTo:",
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:AllOf:",
+								"$type": "Restrict.Cards:AllOf:",
 								"elements": [
-									{ "$type": "Core.CardRestriction:Enemy:" },
-									{ "$type": "Core.CardRestriction:Avatar:" }
+									{ "$type": "Restrict.Cards:Enemy:" },
+									{ "$type": "Restrict.Cards:Avatar:" }
 								]
 							}
 						},
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
-							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+							"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 						}
 					]
 				}
@@ -41,7 +41,7 @@
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
-								"$type": "Core.CardRestriction:HasAugment:",
+								"$type": "Restrict.Cards:HasAugment:",
 								"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }	
 							}
 						}
@@ -50,12 +50,12 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"cardRestriction": {
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Core.CardRestriction:Enemy:" },
-							{ "$type": "Core.CardRestriction:Avatar:" },
+							{ "$type": "Restrict.Cards:Enemy:" },
+							{ "$type": "Restrict.Cards:Avatar:" },
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"space": { "$type": "Cards:TargetIndex:" }
 							}
 						]

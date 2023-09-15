@@ -16,15 +16,15 @@
 					"toSearch": { "$type": "ManyCards:Board:" },
 					
 						"cardRestriction": {
-							"$type": "Core.CardRestriction:AllOf:",
+							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
 							{
-								"$type": "Core.CardRestriction:Subtypes:",
+								"$type": "Restrict.Cards:Subtypes:",
 								"any": true,
 								"subtypes": [ "Light", "Shade" ]
 							},
 							{
-								"$type": "Core.CardRestriction:CanMove:",
+								"$type": "Restrict.Cards:CanMove:",
 								"spaceRestrictionSubeffectIndex": 1
 							}
 						]
@@ -34,16 +34,16 @@
 					"$type": "Subeffect:SpaceTarget:",
 					"spaceRestriction": {
 						"blurb": "where to slightly yeet target card",
-						"$type": "Core.CardRestriction:AllOf:",
+						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"$type": "Restrict.Spaces:CanMoveCard:",
 								"toMove": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"$type": "Restrict.Spaces:AdjacentTo:",
 								"cardRestriction": { "elements": [
-									{ "$type": "Core.CardRestriction:Friendly:" }
+									{ "$type": "Restrict.Cards:Friendly:" }
 								] }
 							}
 						]

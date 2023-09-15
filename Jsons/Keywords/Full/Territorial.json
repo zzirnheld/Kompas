@@ -14,9 +14,9 @@
 			{
 				"blurb":"for Dragon to move and attack",
 				"elements": [
-					{ "$type": "Core.CardRestriction:Character:" },
+					{ "$type": "Restrict.Cards:Character:" },
 					{
-						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"$type": "Restrict.Spaces:AdjacentTo:",
 						"space": { "$type": "Cards:ThisCardNow:" }
 					}
 				]
