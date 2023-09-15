@@ -51,7 +51,7 @@
 						]
 					},
 					"listRestriction": {
-						"$type": "Core.ListRestriction:Maximum:",
+						"$type": "Restrict.ManyCards:Maximum:",
 						"bound": { "$type": "Numbers:EffectX:" }
 					}
 				},

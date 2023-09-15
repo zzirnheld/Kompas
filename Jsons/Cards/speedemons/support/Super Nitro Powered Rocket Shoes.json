@@ -8,7 +8,7 @@
 			"triggerCondition":"Move",
 			"triggerRestriction":{
 				"elements": [
-					{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+					{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 					{
 						"$type": "Restrict.Triggering:CardsMatch:",
 						"card": { "$type": "Cards:CardBefore:" },
@@ -57,7 +57,7 @@
 			]
 		}	
 	],
-	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"PlayRestriction": { "$type": "Restrict.Play:PlayRestriction:", "playAsAugment": true },
 	"a": 4,
 	"subtypeText":"Shoes"
 }

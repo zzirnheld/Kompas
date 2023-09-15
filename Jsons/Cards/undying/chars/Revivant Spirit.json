@@ -6,7 +6,7 @@
 		{
 			"blurb": "Revive",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"$type": "Restrict.Players:ActivationRestriction:",
 				"locations": [ "Discard" ]
 			},
 			"subeffects":[

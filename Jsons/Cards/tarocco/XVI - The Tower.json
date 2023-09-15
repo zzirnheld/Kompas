@@ -10,7 +10,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
@@ -57,14 +57,14 @@
 					"blurb": "folly of the Tower",
 					"toSearch": { "$type": "ManyCards:Hand:" },
 					"listRestriction": {
-						"$type": "Core.ListRestriction:AllOf:",
+						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.ListRestriction:Minimum:",
+								"$type": "Restrict.ManyCards:Minimum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							},
 							{
-								"$type": "Core.ListRestriction:Maximum:",
+								"$type": "Restrict.ManyCards:Maximum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							}
 						]

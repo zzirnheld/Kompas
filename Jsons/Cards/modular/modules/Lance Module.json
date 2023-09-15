@@ -6,8 +6,8 @@
 		{
 			"blurb": "Reaching Attack",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
-				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+				"$type": "Restrict.Players:ActivationRestriction:",
+				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]
 			},
 			"subeffects": [
 				{
@@ -41,7 +41,7 @@
 			]
 		}
 	],
-	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"PlayRestriction": { "$type": "Restrict.Play:PlayRestriction:", "playAsAugment": true },
 	"a": 3,
 	"subtypeText": "Module"
 }

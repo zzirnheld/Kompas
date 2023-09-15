@@ -48,7 +48,7 @@
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{ "$type": "Restrict.Cards:Spell:" },
 							{
-								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"$type": "Restrict.Players:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							}
 						]

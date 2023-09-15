@@ -10,7 +10,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
@@ -48,7 +48,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:IsAttack:",
 							"stackable": { "$type": "Stackables:StackableCause:" }

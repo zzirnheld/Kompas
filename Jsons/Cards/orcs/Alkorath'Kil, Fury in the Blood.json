@@ -9,8 +9,8 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:FriendlyTurn:" }
 					]
 				}
 			},
@@ -19,7 +19,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Return Orcs to the Fray",
 					"toSearch": { "$type": "ManyCards:Discard:" },
-					"listRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" },
+					"listRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
 						"subtypes": [ "Orc" ]
@@ -40,7 +40,7 @@
 		{
 			"triggerData": {
 				"triggerCondition": "Battle Start",
-				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},
 			"subeffects": [
 				{
@@ -78,7 +78,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },

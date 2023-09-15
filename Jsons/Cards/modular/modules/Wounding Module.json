@@ -34,7 +34,7 @@
 			]
 		}
 	],
-	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"PlayRestriction": { "$type": "Restrict.Play:PlayRestriction:", "playAsAugment": true },
 	"a": 2,
 	"subtypeText": "Basic Module"
 }

@@ -47,15 +47,15 @@
 						]
 					},
 					"listRestriction": {
-						"$type": "Core.ListRestriction:AllOf:",
+						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
-							{ "$type": "Core.ListRestriction:DistinctNames:" },
+							{ "$type": "Restrict.ManyCards:DistinctNames:" },
 							{
-								"$type": "Core.ListRestriction:Minimum:",
+								"$type": "Restrict.ManyCards:Minimum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							},
 							{
-								"$type": "Core.ListRestriction:Maximum:",
+								"$type": "Restrict.ManyCards:Maximum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							}
 						]
@@ -75,7 +75,7 @@
 		{
 			"blurb": "Recover me",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"$type": "Restrict.Players:ActivationRestriction:",
 				"locations": [ "Discard" ]
 			},
 			"subeffects": [
@@ -91,14 +91,14 @@
 					"blurb": "cards to reshuffle",
 					"toSearch": { "$type": "ManyCards:Discard:" },
 					"listRestriction": {
-						"$type": "Core.ListRestriction:AllOf:",
+						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.ListRestriction:Minimum:",
+								"$type": "Restrict.ManyCards:Minimum:",
 								"bound": { "$type": "Numbers:Constant:", "constant": 5 }
 							},
 							{
-								"$type": "Core.ListRestriction:Maximum:",
+								"$type": "Restrict.ManyCards:Maximum:",
 								"bound": { "$type": "Numbers:Constant:", "constant": 5 }
 							}
 						]

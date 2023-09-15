@@ -14,7 +14,7 @@
 							"$type": "Restrict.Spaces:AdjacentTo:",
 							"space": { "$type": "Cards:ThisCardNow:" }
 						},
-						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },

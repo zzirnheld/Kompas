@@ -1,7 +1,7 @@
 {
 	"blurb":"Flashback",
 	"activationRestriction": {
-		"$type": "Core.PlayerRestriction:ActivationRestriction:",
+		"$type": "Restrict.Players:ActivationRestriction:",
 		"locations": [ "Discard" ]
 	},
 	"subeffects":[
@@ -11,7 +11,7 @@
 		{
 			"$type":"Subeffect:ConditionalEnd:",
 			"endIfTrue": {
-				"$type": "Core.GamestateRestriction:Not:",
+				"$type": "Restrict.Gamestate:Not:",
 				"negated": {
 					"$type": "Restrict.Triggering:CardFitsRestriction:",
 					"useDummyResolutionContext": false,

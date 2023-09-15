@@ -50,7 +50,7 @@
 					"endCondition": "Turn Start",
 					"triggerRestriction": {
 						"elements": [
-							{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }
+							{ "$type": "Restrict.Gamestate:FriendlyTurn:" }
 						]
 					}
 				}

@@ -11,7 +11,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": {
@@ -33,7 +33,7 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Core.GamestateRestriction:Not:",
+						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
@@ -58,7 +58,7 @@
 		"Recoverable"
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"playAsAugment": true,
 		"augmentOnSubtypes": [ "Golem" ]
 	},

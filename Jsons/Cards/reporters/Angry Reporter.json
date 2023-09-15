@@ -5,8 +5,8 @@
 	"effects": [
 		{
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
-				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+				"$type": "Restrict.Players:ActivationRestriction:",
+				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]
 			},
 			"subeffects": [
 				{
@@ -14,7 +14,7 @@
 					"blurb": "angry WX character that might attack",
 					"toSearch": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Core.PlayerRestriction:PlayersMatch:",
+						"$type": "Restrict.Players:PlayersMatch:",
 						"player": { "$type": "Players:TargetIndex:" }
 					}
 				},
@@ -61,14 +61,14 @@
 						"elements": [
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
-								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"$type": "Restrict.Players:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:GreaterThan:" },
 									"other": { "$type": "Numbers:EffectX:" }
 								}
@@ -95,9 +95,9 @@
 								"space": { "$type": "Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Core.PlayerRestriction:Not:",
+								"$type": "Restrict.Players:Not:",
 								"negated": {
-									"$type": "Core.PlayerRestriction:PlayersMatch:",
+									"$type": "Restrict.Players:PlayersMatch:",
 									"player": { "$type": "Players:TargetIndex:" }
 								}
 							}

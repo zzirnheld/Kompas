@@ -10,8 +10,8 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:FriendlyTurn:" }
 					]
 				}
 			},
@@ -50,7 +50,7 @@
 						]
 					},
 					"listRestriction": {
-						"$type": "Core.ListRestriction:Maximum:",
+						"$type": "Restrict.ManyCards:Maximum:",
 						"bound": { "$type": "Numbers:EffectX:" }
 					}
 				},

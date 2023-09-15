@@ -7,7 +7,7 @@
 			"blurb": "Fish",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
-				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},
 			"subeffects": [
 				{
@@ -36,16 +36,16 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "cards for Ma Rinner to bottomdeck",
 					"toSearch": { "$type": "ManyCards:Hand:" },
-					"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" },
+					"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" },
 					"listRestriction": {
-						"$type": "Core.ListRestriction:AllOf:",
+						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.ListRestriction:Minimum:",
+								"$type": "Restrict.ManyCards:Minimum:",
 								"bound": { "$type": "Numbers:Constant:", "constant": 3 }
 							},
 							{
-								"$type": "Core.ListRestriction:Maximum:",
+								"$type": "Restrict.ManyCards:Maximum:",
 								"bound": { "$type": "Numbers:Constant:", "constant": 3 }
 							}
 						]
@@ -67,7 +67,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"requireStandardAdjacency": false,
 		"normalAndEffect": [ {
 			"$type": "Restrict.Spaces:InAOEOf:",

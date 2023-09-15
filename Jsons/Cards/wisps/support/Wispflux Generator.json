@@ -7,7 +7,7 @@
 			"triggerData": {
 				"blurb": "Invoke",
 				"triggerCondition": "Turn Start",
-				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},
 			"subeffects": [
 				{
@@ -18,7 +18,7 @@
 				{
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue": {
-						"$type": "Core.GamestateRestriction:Not:",
+						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },

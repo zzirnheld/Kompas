@@ -6,7 +6,7 @@
 		{
 			"blurb": "Death Begets Life",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"$type": "Restrict.Players:ActivationRestriction:",
 				"locations": [ "Discard" ]
 			},
 			"subeffects": [
@@ -56,7 +56,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"normalAndEffect": [
 			{
 				"$type": "Restrict.Triggering:CompareNumbers:",

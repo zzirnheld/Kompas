@@ -10,12 +10,12 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Spaces:AdjacentTo:",
 							"space": { "$type": "Cards:ThisCardNow:" }
 						},
-						{ "$type": "Core.GamestateRestriction:MaxPerTurn:", "max": 2 },
+						{ "$type": "Restrict.Gamestate:MaxPerTurn:", "max": 2 },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
@@ -57,7 +57,7 @@
 		"Pass Back",
 		"Recoverable"
 	],
-	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"PlayRestriction": { "$type": "Restrict.Play:PlayRestriction:", "playAsAugment": true },
 	"a": 1,
 	"subtypeText": "Sportsball"
 }

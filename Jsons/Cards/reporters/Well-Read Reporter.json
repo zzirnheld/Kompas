@@ -10,7 +10,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
@@ -69,14 +69,14 @@
 							{ "$type": "Restrict.Cards:Spell:" },
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
-								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"$type": "Restrict.Players:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "C" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:GreaterThan:" },
 									"other": { "$type": "Numbers:EffectX:" }
 								}

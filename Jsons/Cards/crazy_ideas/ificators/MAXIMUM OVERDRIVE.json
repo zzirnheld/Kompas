@@ -36,7 +36,7 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Core.GamestateRestriction:Not:",
+						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
@@ -55,7 +55,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"recommendations": [ {
 			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": { "$type": "Restrict.Cards:Character:" }

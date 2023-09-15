@@ -6,7 +6,7 @@
 		{
 			"blurb": "Dragonseek",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+				"$type": "Restrict.Players:ActivationRestriction:"
 			},
 			"subeffects": [
 				{

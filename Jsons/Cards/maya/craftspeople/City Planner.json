@@ -7,7 +7,7 @@
 			"blurb": "Plan new structures",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
-				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},
 			"subeffects": [
 				{
@@ -45,14 +45,14 @@
 						]
 					},
 					"listRestriction": {
-						"$type": "Core.ListRestriction:AllOf:",
+						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.ListRestriction:Minimum:",
+								"$type": "Restrict.ManyCards:Minimum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							},
 							{
-								"$type": "Core.ListRestriction:Maximum:",
+								"$type": "Restrict.ManyCards:Maximum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							}
 						]

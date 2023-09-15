@@ -6,9 +6,9 @@
 		{
 			"blurb": "Recruit",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [
-					{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+					{ "$type": "Restrict.Gamestate:MaxPerTurn:" },
 					{
 						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"anyOf": {

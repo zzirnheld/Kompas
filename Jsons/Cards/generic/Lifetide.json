@@ -9,7 +9,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{ "$type": "Restrict.Triggering:EnemyTurn:" }
 					]
 				}
@@ -29,8 +29,8 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:FriendlyTurn:" }
 					]
 				}
 			},

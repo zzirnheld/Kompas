@@ -6,7 +6,7 @@
 		{
 			"triggerData": {
 				"triggerCondition": "Turn Start",
-				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},
 			"subeffects": [
 				{
@@ -15,7 +15,7 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Core.GamestateRestriction:Not:",
+						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },

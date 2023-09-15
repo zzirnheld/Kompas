@@ -85,7 +85,7 @@
 		"Recoverable"
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"playAsAugment": true,
 		"augmentOnSubtypes": [ "Golem" ]
 	},

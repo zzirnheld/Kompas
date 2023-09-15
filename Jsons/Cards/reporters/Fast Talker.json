@@ -9,7 +9,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
@@ -54,20 +54,20 @@
 						"elements": [
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
-								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"$type": "Restrict.Players:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							}
 						]
 					},
 					"listRestriction": {
-						"$type": "Core.ListRestriction:AllOf:",
+						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.ListRestriction:Minimum:",
+								"$type": "Restrict.ManyCards:Minimum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							},
 							{
-								"$type": "Core.ListRestriction:Maximum:",
+								"$type": "Restrict.ManyCards:Maximum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							}
 						]

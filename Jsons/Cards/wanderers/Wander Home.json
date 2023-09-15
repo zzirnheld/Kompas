@@ -56,14 +56,14 @@
 						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"$type": "Restrict.Players:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
 									"other": { "$type": "Numbers:EffectX:" }
 								}
@@ -128,14 +128,14 @@
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{
-								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"$type": "Restrict.Players:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
 									"other": { "$type": "Numbers:EffectX:" }
 								}
@@ -164,7 +164,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"recommendations": [ {
 			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": {

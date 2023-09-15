@@ -61,7 +61,7 @@
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "S" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 									"other": { "$type": "Numbers:EffectX:" }
 								}
@@ -77,7 +77,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"recommendations": [ {
 			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": { "$type": "Restrict.Cards:Character:" }

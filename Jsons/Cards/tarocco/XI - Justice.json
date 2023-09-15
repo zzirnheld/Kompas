@@ -5,8 +5,8 @@
 	"effects": [
 		{
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
-				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+				"$type": "Restrict.Players:ActivationRestriction:",
+				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]
 			},
 			"subeffects": [
 				{
@@ -18,7 +18,7 @@
 							"player": { "$type": "Players:EnemyPlayer:" }
 						},
 						"restriction": {
-							"$type": "Core.NumberRestriction:Compare:",
+							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 							"other": {
 								"$type": "Numbers:HandSize:",

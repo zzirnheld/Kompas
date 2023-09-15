@@ -9,7 +9,7 @@
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				},
-				{ "$type": "Core.GamestateRestriction:MaxPerRound:" }
+				{ "$type": "Restrict.Gamestate:MaxPerRound:" }
 			]
 		}
 	},

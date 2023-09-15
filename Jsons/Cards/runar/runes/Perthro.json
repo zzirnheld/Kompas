@@ -32,7 +32,7 @@
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
 									"other": { "$type": "Numbers:Constant:", "constant": 10 }
 								}
@@ -47,7 +47,7 @@
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
 									"other": { "$type": "Numbers:Constant:", "constant": 10 }
 								}
@@ -59,7 +59,7 @@
 						]
 					},
 					"listRestriction": {
-						"$type": "Core.ListRestriction:Maximum:",
+						"$type": "Restrict.ManyCards:Maximum:",
 						"bound": { "$type": "Numbers:Constant:", "constant": 3 }
 					}
 				},
@@ -83,8 +83,8 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
-		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+		"$type": "Restrict.Play:PlayRestriction:",
+		"normalOnly": [ { "$type": "Restrict.Gamestate:NeverValid:" } ]
 	},
 	"c": 2,
 	"spellTypes": [

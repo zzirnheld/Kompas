@@ -10,8 +10,8 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.GamestateRestriction:MaxPerRound:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:MaxPerRound:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
@@ -40,7 +40,7 @@
 				{
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue": {
-						"$type": "Core.GamestateRestriction:Not:",
+						"$type": "Restrict.Gamestate:Not:",
 						"negated": {
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
@@ -52,7 +52,7 @@
 										"$type": "Restrict.Cards:CardValueFits:",
 										"cardValue": { "value": "S" },
 										"numberRestriction": {
-											"$type": "Core.NumberRestriction:Compare:",
+											"$type": "Restrict.Numbers:Compare:",
 											"comparison": { "$type": "Relationships.Number:LessThan:" },
 											"other": { "$type": "Numbers:EffectX:" }
 										}

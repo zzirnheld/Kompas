@@ -18,7 +18,7 @@
 								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
 							}
 						},
-						{ "$type": "Core.GamestateRestriction:MaxPerTurn:", "max": 2 }
+						{ "$type": "Restrict.Gamestate:MaxPerTurn:", "max": 2 }
 					]
 				}
 			},
@@ -51,7 +51,7 @@
 		"Pass Back",
 		"Recoverable"
 	],
-	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"PlayRestriction": { "$type": "Restrict.Play:PlayRestriction:", "playAsAugment": true },
 	"a": 1,
 	"subtypeText": "Sportsball"
 }

@@ -7,7 +7,7 @@
 			"blurb": "Waterborne Spores",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
-				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 				"orderPriority": -100
 			},
 			"subeffects": [
@@ -49,7 +49,7 @@
 		"Waterdweller"
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"requireStandardAdjacency": false,
 		"normalAndEffect": [ {
 			"$type": "Restrict.Spaces:InAOEOf:",

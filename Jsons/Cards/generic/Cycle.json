@@ -6,7 +6,7 @@
 		{
 			"blurb":"Pass",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+				"$type": "Restrict.Players:ActivationRestriction:"
 			},
 			"subeffects":[
 				{

@@ -1,7 +1,7 @@
 {
 	"blurb":"Linewalk",
 	"activationRestriction": {
-		"$type": "Core.PlayerRestriction:ActivationRestriction:",
+		"$type": "Restrict.Players:ActivationRestriction:",
 		"elements": [
 			{
 				"$type": "Restrict.Triggering:CardFitsRestriction:",
@@ -9,7 +9,7 @@
 				"cardRestriction": {
 					"$type": "Restrict.Cards:CardValueFits:",
 					"cardValue": { "value": "Spaces Can Move" },
-					"numberRestriction": { "$type": "Core.NumberRestriction:Positive:" }
+					"numberRestriction": { "$type": "Restrict.Numbers:Positive:" }
 				}
 			}
 		]

@@ -62,7 +62,7 @@
 		"Collectible"
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"playAsAugment": true,
 		"normalOnly": [ {
 			"$type": "Restrict.Cards:Subtypes:",

@@ -5,8 +5,8 @@
 	"effects": [
 		{
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
-				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+				"$type": "Restrict.Players:ActivationRestriction:",
+				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]
 			},
 			"subeffects": [
 				{
@@ -53,7 +53,7 @@
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
 									"other": { "$type": "Numbers:Constant:", "constant": 10 }
 								}
@@ -68,7 +68,7 @@
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Index" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
 									"other": { "$type": "Numbers:Constant:", "constant": 10 }
 								}

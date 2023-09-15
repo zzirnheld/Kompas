@@ -36,7 +36,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"normalAndEffect": [ {
 			"$type": "Restrict.Spaces:InAOEOf:",
 			"cardRestriction": {

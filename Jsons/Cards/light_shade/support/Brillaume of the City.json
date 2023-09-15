@@ -6,8 +6,8 @@
 		{
 			"blurb": "Creep",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:",
-				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:", "max": 3 } ]
+				"$type": "Restrict.Players:ActivationRestriction:",
+				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:", "max": 3 } ]
 			},
 			"subeffects": [
 				{

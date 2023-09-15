@@ -17,7 +17,7 @@
 								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
 							}
 						},
-						{ "$type": "Core.GamestateRestriction:MaxPerRound:" }
+						{ "$type": "Restrict.Gamestate:MaxPerRound:" }
 					]
 				}
 			},
@@ -33,7 +33,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"playAsAugment": true,
 		"augmentOnSubtypes": [ "Warrior" ]
 	},

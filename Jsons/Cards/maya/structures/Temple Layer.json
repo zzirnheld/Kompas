@@ -6,16 +6,16 @@
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
-			"$type": "Core.GamestateRestriction:Not:",
+			"$type": "Restrict.Gamestate:Not:",
 			"negated": { "$type": "Restrict.Triggering:Normally:" }
 		} ]
 	},
 	"movementRestriction": {
 		"$type": "Restrict.Spaces:MovementRestriction:",
-		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+		"normalOnly": [ { "$type": "Restrict.Gamestate:NeverValid:" } ]
 	},
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"normalAndEffect": [ {
 			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": {

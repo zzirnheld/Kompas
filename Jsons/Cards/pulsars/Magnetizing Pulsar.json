@@ -10,8 +10,8 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
@@ -24,7 +24,7 @@
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
-								"$type": "Core.NumberRestriction:Compare:",
+								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
 								"other": { "$type": "Numbers:Constant:", "constant": 0 }
 							}
@@ -89,8 +89,8 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
@@ -103,7 +103,7 @@
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
-								"$type": "Core.NumberRestriction:Compare:",
+								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:LessThan:" },
 								"other": { "$type": "Numbers:Constant:", "constant": 0 }
 							}

@@ -10,7 +10,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"cardRestriction": { "$type": "Restrict.Spaces:Corner:" },
@@ -48,13 +48,13 @@
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",
 		"elements": [ {
-			"$type": "Core.GamestateRestriction:Not:",
+			"$type": "Restrict.Gamestate:Not:",
 			"negated": { "$type": "Restrict.Triggering:Normally:" }
 		} ]
 	},
 	"movementRestriction": {
 		"$type": "Restrict.Spaces:MovementRestriction:",
-		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+		"normalOnly": [ { "$type": "Restrict.Gamestate:NeverValid:" } ]
 	},
 	"n": 0,
 	"e": 10,

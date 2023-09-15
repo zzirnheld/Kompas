@@ -33,7 +33,7 @@
 									"divisor": 2
 								},
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 									"other": {
 										"$type": "Numbers:Pips:",
@@ -70,8 +70,8 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
-		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+		"$type": "Restrict.Play:PlayRestriction:",
+		"normalOnly": [ { "$type": "Restrict.Gamestate:NeverValid:" } ]
 	},
 	"c": 1,
 	"spellTypes": [

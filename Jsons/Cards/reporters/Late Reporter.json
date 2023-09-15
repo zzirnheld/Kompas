@@ -14,7 +14,7 @@
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": { "$type": "Cards:ThisCardNow:" }
 						},
-						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
 						{
 							"$type": "Restrict.Triggering:StackableFitsRestriction:",
 							"stackable": { "$type": "Stackables:StackableCause:" },
@@ -82,7 +82,7 @@
 						"elements": [
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
-								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"$type": "Restrict.Players:PlayersMatch:",
 								"player": { "$type": "Players:TargetIndex:" }
 							}
 						]

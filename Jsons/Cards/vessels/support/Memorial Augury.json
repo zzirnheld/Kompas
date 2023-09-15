@@ -52,11 +52,11 @@
 						"subtypes": [ "Memory" ]
 					},
 					"listRestriction": {
-						"$type": "Core.ListRestriction:AllOf:",
+						"$type": "Restrict.ManyCards:AllOf:",
 						"elements": [
-							{ "$type": "Core.ListRestriction:DistinctNames:" },
+							{ "$type": "Restrict.ManyCards:DistinctNames:" },
 							{
-								"$type": "Core.ListRestriction:Maximum:",
+								"$type": "Restrict.ManyCards:Maximum:",
 								"bound": { "$type": "Numbers:EffectX:" }
 							}
 						]

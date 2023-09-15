@@ -4,7 +4,7 @@
 	"effText": "Stealth.\nSummon only in Shade.",
 	"effects": [],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"normalAndEffect": [ {
 			"$type": "Restrict.Spaces:InAOEOf:",
 			"cardRestriction": {

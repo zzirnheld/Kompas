@@ -10,7 +10,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Spaces:AdjacentTo:",
 							"space": { "$type": "Cards:ThisCardNow:" }
@@ -32,7 +32,7 @@
 									},
 									{
 										"$type": "Restrict.Cards:HasAugment:",
-										"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
+										"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" }
 									}
 								]
 							}
@@ -56,7 +56,7 @@
 						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": { "$type": "Numbers:TargetCount:" },
 						"restriction": {
-							"$type": "Core.NumberRestriction:Compare:",
+							"$type": "Restrict.Numbers:Compare:",
 							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
 							"other": { "$type": "Numbers:Constant:", "constant": 2 }
 						}

@@ -15,7 +15,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:ConditionalEnd:",
-					"endIfTrue": { "$type": "Core.GamestateRestriction:EnemyTurn:" }
+					"endIfTrue": { "$type": "Restrict.Gamestate:EnemyTurn:" }
 				},
 				{
 					"$type": "Subeffect:AddPips:",
@@ -29,8 +29,8 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
-		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+		"$type": "Restrict.Play:PlayRestriction:",
+		"normalOnly": [ { "$type": "Restrict.Gamestate:NeverValid:" } ]
 	},
 	"c": 1,
 	"spellTypes": [

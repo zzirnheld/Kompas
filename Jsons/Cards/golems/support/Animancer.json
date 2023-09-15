@@ -6,7 +6,7 @@
 		{
 			"blurb": "It's In Here Somewhere",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+				"$type": "Restrict.Players:ActivationRestriction:"
 			},
 			"subeffects": [
 				{
@@ -62,7 +62,7 @@
 								"$type": "Restrict.Cards:CardValueFits:",
 								"cardValue": { "value": "Cost" },
 								"numberRestriction": {
-									"$type": "Core.NumberRestriction:Compare:",
+									"$type": "Restrict.Numbers:Compare:",
 									"comparison": { "$type": "Relationships.Number:LessThan:" },
 									"other": { "$type": "Numbers:EffectX:" }
 								}

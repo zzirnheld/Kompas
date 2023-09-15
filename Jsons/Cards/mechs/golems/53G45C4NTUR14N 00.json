@@ -6,7 +6,7 @@
 		{
 			"blurb": "00 BB",
 			"activationRestriction": {
-				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+				"$type": "Restrict.Players:ActivationRestriction:"
 			},
 			"subeffects": [
 				{

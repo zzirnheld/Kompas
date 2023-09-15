@@ -9,7 +9,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:ThisCardNow:" },
@@ -19,7 +19,7 @@
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
-								"$type": "Core.NumberRestriction:Compare:",
+								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
 								"other": { "$type": "Numbers:Constant:", "constant": 0 }
 							}

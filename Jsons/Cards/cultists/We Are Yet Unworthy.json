@@ -65,7 +65,7 @@
 		}
 	],
 	"PlayRestriction": {
-		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"$type": "Restrict.Play:PlayRestriction:",
 		"recommendations": [ {
 			"$type": "Restrict.Spaces:AdjacentTo:",
 			"cardRestriction": {

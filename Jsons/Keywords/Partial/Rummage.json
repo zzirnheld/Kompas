@@ -9,7 +9,7 @@
 					"locations": [ "Hand" ]
 				},
 				{
-					"$type": "Core.PlayerRestriction:PlayersMatch:",
+					"$type": "Restrict.Players:PlayersMatch:",
 					"player": { "$type": "Players:TargetIndex:" }
 				}
 			]

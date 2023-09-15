@@ -18,7 +18,7 @@
 							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
-								"$type": "Core.NumberRestriction:Compare:",
+								"$type": "Restrict.Numbers:Compare:",
 								"comparison": { "$type": "Relationships.Number:Equal:" },
 								"other": { "$type": "Numbers:Constant:", "constant": 3 }
 							}
@@ -31,7 +31,7 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "An oviparous mamal? ORRY THE OVIPAROUS MAMMAL?",
 					"toSearch": { "$type": "ManyCards:Hand:" },
-					"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
+					"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" }
 				},
 				{
 					"$type": "Subeffect:Discard:"
