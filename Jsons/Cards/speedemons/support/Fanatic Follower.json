@@ -8,7 +8,7 @@
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				}
@@ -38,7 +38,7 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"$type": "Restrict.Triggering:StackablesMatch:",
 								"firstStackable": { "$type": "Stackables:StackableEvent:", "secondaryContext": true },
 								"secondStackable": { "$type": "Stackables:StackableEvent:" }
 							}

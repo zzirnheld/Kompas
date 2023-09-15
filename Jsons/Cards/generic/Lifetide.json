@@ -7,10 +7,10 @@
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.TriggerRestriction:EnemyTurn:" }
+						{ "$type": "Restrict.Triggering:EnemyTurn:" }
 					]
 				}
 			},
@@ -27,7 +27,7 @@
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }

@@ -8,11 +8,11 @@
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": {
 								"$type": "Cards:AugmentedCard:",
@@ -20,7 +20,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
@@ -46,11 +46,11 @@
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": {
 								"$type": "Cards:AugmentedCard:",
@@ -58,7 +58,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {

@@ -9,7 +9,7 @@
 				"blurb": "LET'S BREAKDANCE",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
@@ -36,7 +36,7 @@
 					"nMultiplier": -1,
 					"endCondition": "Effect Pushed to Stack",
 					"triggerRestriction": {
-						"$type": "Core.TriggerRestriction:StackablesMatch:",
+						"$type": "Restrict.Triggering:StackablesMatch:",
 						"firstStackable": { "$type": "Stackables:StackableEvent:" },
 						"secondStackable": { "$type": "Stackables:ThisEffect:" }
 					}

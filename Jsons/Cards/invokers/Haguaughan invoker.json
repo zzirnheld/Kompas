@@ -8,11 +8,11 @@
 				"blurb": "Invoke",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"cardRestriction": {
 								"$type": "Core.SpaceRestriction:AdjacentTo:",
 								"space": { "$type": "Cards:ThisCardNow:" }
@@ -47,7 +47,7 @@
 					"jumpIfTrue": {
 						"$type": "Core.GamestateRestriction:Not:",
 						"negated": {
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",

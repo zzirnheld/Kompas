@@ -10,7 +10,7 @@
 				"elements": [
 					{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 					{
-						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"card": { "$type": "Cards:CardBefore:" },
 						"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
 					},

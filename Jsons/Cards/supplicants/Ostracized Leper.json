@@ -8,7 +8,7 @@
 				"blurb": "Leprosy",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
@@ -19,7 +19,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {

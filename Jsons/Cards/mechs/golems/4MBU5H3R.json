@@ -8,7 +8,7 @@
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				}
@@ -24,7 +24,7 @@
 	"attackingDefenderRestriction": {
 		"$type": "Core.CardRestriction:AttackingDefender:",
 		"elements": [ {
-			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 		} ]
@@ -32,7 +32,7 @@
 	"movementRestriction": {
 		"$type": "Core.SpaceRestriction:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 		} ]

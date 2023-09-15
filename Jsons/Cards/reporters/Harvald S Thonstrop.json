@@ -8,12 +8,12 @@
 			"triggerData": {
 				"triggerCondition": "Revealed",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{ "$type": "Core.GamestateRestriction:MaxPerRound:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
 						}
@@ -42,7 +42,7 @@
 					"jumpIfTrue": {
 						"$type": "Core.GamestateRestriction:Not:",
 						"negated": {
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",

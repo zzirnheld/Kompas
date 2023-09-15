@@ -4,13 +4,13 @@
 	{
 		"triggerCondition":"Stack End",
 		"triggerRestriction": {
-			"$type": "Core.TriggerRestriction:AllOf:",
+			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 				{
-					"$type": "Core.TriggerRestriction:Not:",
+					"$type": "Restrict.Triggering:Not:",
 					"inverted": {
-						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						
 						"cardRestriction": {
 							"$type": "Core.CardRestriction:AllOf:",

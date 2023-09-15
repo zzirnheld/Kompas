@@ -10,12 +10,12 @@
 				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 				"elements": [
 					{
-						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"card": { "$type": "Cards:ThisCardNow:" },
 						"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 					},
 					{
-						"$type": "Core.TriggerRestriction:PlayersMatch:",
+						"$type": "Restrict.Triggering:PlayersMatch:",
 						"card": { "$type": "Players:TriggeringPlayer:" },
 						"other": { "$type": "Players:EnemyPlayer:" }
 					}
@@ -56,7 +56,7 @@
 	"attackingDefenderRestriction": {
 		"$type": "Core.CardRestriction:AttackingDefender:",
 		"elements": [ {
-			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 		} ]
@@ -64,7 +64,7 @@
 	"movementRestriction": {
 		"$type": "Core.SpaceRestriction:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 		} ]

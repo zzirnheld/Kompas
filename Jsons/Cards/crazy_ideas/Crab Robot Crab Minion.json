@@ -8,11 +8,11 @@
 			{
 				"triggerCondition":"Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"anyOf": {
 								"$type": "ManyCards:CardsInPositions:",
 								"positions": {

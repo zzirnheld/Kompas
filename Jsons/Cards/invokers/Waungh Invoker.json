@@ -8,7 +8,7 @@
 				"blurb": "Invoke",
 				"triggerCondition": "Attack",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				}
@@ -35,7 +35,7 @@
 					"jumpIfTrue": {
 						"$type": "Core.GamestateRestriction:Not:",
 						"negated": {
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",

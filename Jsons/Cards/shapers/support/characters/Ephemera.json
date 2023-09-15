@@ -7,7 +7,7 @@
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				}
@@ -55,11 +55,11 @@
 				"blurb": "Dissipate",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:TriggerKeyword:",
+							"$type": "Restrict.Triggering:TriggerKeyword:",
 							"keyword": "Shaped Through"
 						}
 					]

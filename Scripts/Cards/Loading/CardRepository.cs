@@ -28,8 +28,8 @@ namespace Kompas.Cards.Loading
 		private const string subeffReplacement = @"KompasServer.Effects.Subeffects.$1, Assembly-CSharp";
 
 		//restriction regexes
-		private static readonly Regex coreRestrictionRegex = new(@"Core\.([^R]+)Restriction:([^:]+):"); //Core.*Restriction:*:
-		private const string coreRestrictionReplacement = @"KompasCore.Effects.Restrictions.$1RestrictionElements.$2, Assembly-CSharp";
+		private static readonly Regex coreRestrictionRegex = new(@"Restrict\.([^:]+):([^:]+):"); //Restrict.*:*:
+		private const string coreRestrictionReplacement = @"KompasCore.Effects.Restrictions.$1.$2, Assembly-CSharp";
 
 		//identity regexes
 		private static readonly Regex cardsIdentityRegex = new(@"""Cards:([^:]+):"); //"Cards:*:

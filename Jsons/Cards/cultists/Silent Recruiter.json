@@ -10,7 +10,7 @@
 				"elements": [
 					{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
 					{
-						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"anyOf": {
 							"$type": "ManyCards:CardsInPositions:",
 							"positions": {

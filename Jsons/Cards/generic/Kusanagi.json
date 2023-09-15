@@ -7,10 +7,10 @@
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": {
 								"$type": "Cards:AugmentedCard:",
@@ -31,7 +31,7 @@
 					"endIfTrue": {
 						"$type": "Core.GamestateRestriction:Not:",
 						"negated": {
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Core.SpaceRestriction:Behind:",

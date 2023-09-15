@@ -7,11 +7,11 @@
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",
@@ -57,7 +57,7 @@
 					"fallOffRestriction": {
 						"elements": [
 							{
-								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"$type": "Restrict.Triggering:StackablesMatch:",
 								"firstStackable": { "$type": "Stackables:StackableIndex:" },
 								"secondStackable": { "$type": "Stackables:StackableCause:" }
 							}
@@ -67,12 +67,12 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"$type": "Restrict.Triggering:StackablesMatch:",
 								"firstStackable": { "$type": "Stackables:StackableIndex:" },
 								"secondStackable": { "$type": "Stackables:StackableCause:" }
 							},
 							{
-								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"$type": "Restrict.Triggering:CardsMatch:",
 								"card": { "$type": "Cards:CardBefore:" },
 								"other": {
 									"$type": "Cards:CardBefore:",

@@ -7,7 +7,7 @@
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				}
@@ -16,7 +16,7 @@
 				{
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue": {
-						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"$type": "Restrict.Triggering:CardFitsRestriction:",
 						"anyOf": { "$type": "ManyCards:Discard:", "friendly": true, "enemy": false },
 						"cardRestriction": {
 							"$type": "Core.CardRestriction:Name:",

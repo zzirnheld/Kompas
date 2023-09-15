@@ -59,7 +59,7 @@
 		"$type": "Core.PlayRestriction:PlayRestriction:",
 		"normalAndEffect": [
 			{
-				"$type": "Core.TriggerRestriction:CompareNumbers:",
+				"$type": "Restrict.Triggering:CompareNumbers:",
 				"firstNumber": {
 					"$type": "Numbers:CountCards:",
 					"cards": { "$type": "ManyCards:Board:" },

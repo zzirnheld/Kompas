@@ -7,11 +7,11 @@
 			"triggerData": {
 				"triggerCondition": "Rehand",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
@@ -32,7 +32,7 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": {
 							"$type": "Numbers:HandSize:",
 							"player": { "$type": "Players:TargetIndex:" }

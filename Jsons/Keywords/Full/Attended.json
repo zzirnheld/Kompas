@@ -4,10 +4,10 @@
 	{
 		"triggerCondition":"Stack End",
 		"triggerRestriction": {
-			"$type": "Core.TriggerRestriction:AllOf:",
+			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{
-					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"$type": "Restrict.Triggering:CardFitsRestriction:",
 					"card": { "$type": "Cards:CardBefore:" },
 					
 						"cardRestriction": {
@@ -25,7 +25,7 @@
 					}
 				},
 				{
-					"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+					"$type": "Restrict.Triggering:NumberFitsRestriction:",
 					"number": {
 						"$type": "Numbers:CountCards:",
 						"cardRestriction": {

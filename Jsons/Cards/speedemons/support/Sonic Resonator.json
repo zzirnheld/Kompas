@@ -31,7 +31,7 @@
 				"blurb": "Resound",
 				"triggerCondition": "Vanish",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				}
@@ -107,7 +107,7 @@
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue":
 					{
-						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": { "$type": "Numbers:EffectX:" },
 						"restriction": {
 							"$type": "Core.NumberRestriction:Compare:",

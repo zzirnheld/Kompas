@@ -7,16 +7,16 @@
 			"triggerData": {
 				"triggerCondition": "N Change",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"other": { "$type": "Cards:CardBefore:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Core.NumberRestriction:Compare:",
@@ -25,7 +25,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:Subtypes:",
@@ -47,16 +47,16 @@
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"other": { "$type": "Cards:CardBefore:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Core.NumberRestriction:Compare:",
@@ -65,7 +65,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:Subtypes:",
@@ -87,16 +87,16 @@
 			"triggerData": {
 				"triggerCondition": "W Change",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"other": { "$type": "Cards:CardBefore:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Core.NumberRestriction:Compare:",
@@ -105,7 +105,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CauseBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:Subtypes:",

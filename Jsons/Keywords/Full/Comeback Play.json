@@ -5,11 +5,11 @@
 		"blurb":"Comeback Play",
 		"triggerCondition":"Turn Start",
 		"triggerRestriction": {
-			"$type": "Core.TriggerRestriction:AllOf:",
+			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{ "$type": "Core.GamestateRestriction:FriendlyTurn:" },
 				{
-					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"$type": "Restrict.Triggering:CardFitsRestriction:",
 					"anyOf": { "$type": "ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Core.CardRestriction:AllOf:",
@@ -24,7 +24,7 @@
 					}
 				},
 				{
-					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"$type": "Restrict.Triggering:CardFitsRestriction:",
 					"card": { "$type": "Cards:ThisCardNow:" },
 					"cardRestriction": {
 						"$type": "Core.CardRestriction:Location:",

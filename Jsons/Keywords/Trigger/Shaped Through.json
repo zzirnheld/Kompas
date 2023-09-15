@@ -1,6 +1,6 @@
 [
 	{
-		"$type": "Core.TriggerRestriction:StackableFitsRestriction:",
+		"$type": "Restrict.Triggering:StackableFitsRestriction:",
 		"stackable": { "$type": "Stackables:StackableCause:" },
 		"restriction": {
 			"$type": "Core.StackableRestriction:Keyword:",
@@ -8,7 +8,7 @@
 		}
 	},
 	{
-		"$type": "Core.TriggerRestriction:CompareNumbers:",
+		"$type": "Restrict.Triggering:CompareNumbers:",
 		"firstNumber": {
 			"$type": "Numbers:Operation:",
 			"numbers": [

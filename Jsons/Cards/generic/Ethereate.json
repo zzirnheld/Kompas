@@ -7,10 +7,10 @@
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"other": { "$type": "Cards:CardBefore:" }
 						}

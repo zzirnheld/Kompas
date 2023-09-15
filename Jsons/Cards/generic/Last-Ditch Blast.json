@@ -9,10 +9,10 @@
 			{
 				"triggerCondition": "Defend",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": {
 								"$type": "Cards:AugmentedCard:",
@@ -20,7 +20,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:CardValueFits:",

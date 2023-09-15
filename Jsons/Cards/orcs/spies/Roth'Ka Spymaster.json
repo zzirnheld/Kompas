@@ -37,7 +37,7 @@
 					"endIfTrue": {
 						"$type": "Core.GamestateRestriction:Not:",
 						"negated": {
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:Subtypes:",

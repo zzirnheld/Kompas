@@ -5,18 +5,18 @@
 		"blurb":"Speedemon",
 		"triggerCondition":"Move",
 		"triggerRestriction": {
-			"$type": "Core.TriggerRestriction:AllOf:",
+			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				},
 				{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
 				{
-					"$type": "Core.TriggerRestriction:Not:",
+					"$type": "Restrict.Triggering:Not:",
 					"inverted": {
-						"$type": "Core.TriggerRestriction:StackablesMatch:",
+						"$type": "Restrict.Triggering:StackablesMatch:",
 						"firstStackable": { "$type": "Stackables:StackableCause:" },
 						"secondStackable": { "$type": "Stackables:ThisEffect:" }
 					}

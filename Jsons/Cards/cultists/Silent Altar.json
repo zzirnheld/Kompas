@@ -7,11 +7,11 @@
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
@@ -83,7 +83,7 @@
 					"$type": "Subeffect:ConditionalJump:",
 					"jumpIfTrue":
 					{
-						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": { "$type": "Numbers:EffectX:" },
 						"restriction": {
 							"$type": "Core.NumberRestriction:Compare:",

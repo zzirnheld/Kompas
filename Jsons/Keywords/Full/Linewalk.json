@@ -4,7 +4,7 @@
 		"$type": "Core.PlayerRestriction:ActivationRestriction:",
 		"elements": [
 			{
-				"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+				"$type": "Restrict.Triggering:CardFitsRestriction:",
 				"card": { "$type": "Cards:ThisCardNow:" },
 				"cardRestriction": {
 					"$type": "Core.CardRestriction:CardValueFits:",

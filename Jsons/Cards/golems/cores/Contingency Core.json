@@ -8,11 +8,11 @@
 				"blurb": "Activate Golem",
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:Subtypes:",
@@ -34,7 +34,7 @@
 					"$type": "Subeffect:Hanging.Activation:",
 					"endCondition": "Augment Detached",
 					"triggerRestriction": {
-						"$type": "Core.TriggerRestriction:CardsMatch:",
+						"$type": "Restrict.Triggering:CardsMatch:",
 						"card": { "$type": "Cards:CardBefore:" },
 						"other": { "$type": "Cards:ThisCardNow:" }
 					}
@@ -45,12 +45,12 @@
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
-						{ "$type": "Core.TriggerRestriction:EnemyTurn:" },
+						{ "$type": "Restrict.Triggering:EnemyTurn:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": {
 								"$type": "Cards:AugmentedCard:",
 								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
@@ -58,7 +58,7 @@
 							"other": { "$type": "Cards:CardBefore:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							
 						"cardRestriction": {
 							"$type": "Core.CardRestriction:AllOf:",

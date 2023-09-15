@@ -8,7 +8,7 @@
 				"blurb": "Invoke",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
@@ -16,7 +16,7 @@
 							"space": { "$type": "Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
 							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
 						}
@@ -45,7 +45,7 @@
 					"jumpIfTrue": {
 						"$type": "Core.GamestateRestriction:Not:",
 						"negated": {
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",

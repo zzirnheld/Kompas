@@ -8,10 +8,10 @@
 				"blurb": "Mercy",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": { "$type": "Cards:ThisCardNow:" }
 						},
@@ -49,7 +49,7 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"$type": "Restrict.Triggering:CardsMatch:",
 								"card": { "$type": "Cards:CardBefore:" },
 								"other": { "$type": "Cards:ThisCardNow:" }
 							}

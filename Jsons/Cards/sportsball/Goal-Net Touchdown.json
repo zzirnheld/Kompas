@@ -8,7 +8,7 @@
 				"blurb": "Touchdown!",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
@@ -22,7 +22,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
 						}
@@ -38,7 +38,7 @@
 					"endIfTrue": {
 						"$type": "Core.GamestateRestriction:Not:",
 						"negated": {
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:TargetIndex:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:HasAugment:",
@@ -68,7 +68,7 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": { "$type": "Numbers:TargetCount:" },
 						"restriction": {
 							"$type": "Core.NumberRestriction:Compare:",

@@ -7,16 +7,16 @@
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
 							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",
@@ -56,16 +56,16 @@
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
 							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",

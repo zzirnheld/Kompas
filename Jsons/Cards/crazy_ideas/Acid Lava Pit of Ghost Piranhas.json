@@ -8,14 +8,14 @@
 				"blurb": "acid/lava burn with ghost pirhanas",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
 							"$type": "Core.SpaceRestriction:AdjacentTo:",
 							"space": { "$type": "Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",

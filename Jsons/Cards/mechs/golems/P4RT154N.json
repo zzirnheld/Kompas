@@ -13,7 +13,7 @@
 				"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
 			},
 			{
-				"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+				"$type": "Restrict.Triggering:CardFitsRestriction:",
 				"card": { "$type": "Cards:ThisCardNow:" },
 				"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 			}
@@ -22,7 +22,7 @@
 	"movementRestriction": {
 		"$type": "Core.SpaceRestriction:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 		} ]

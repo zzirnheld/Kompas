@@ -6,7 +6,7 @@
 	"movementRestriction": {
 		"$type": "Core.SpaceRestriction:MovementRestriction:",
 		"normalOnly": [ {
-			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 		} ]
@@ -15,7 +15,7 @@
 		"$type": "Core.CardRestriction:AttackingDefender:",
 		"maxPerTurn": 3,
 		"elements": [ {
-			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"$type": "Restrict.Triggering:CardFitsRestriction:",
 			"card": { "$type": "Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
 		} ]

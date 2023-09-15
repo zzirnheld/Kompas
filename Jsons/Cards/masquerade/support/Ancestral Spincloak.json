@@ -9,7 +9,7 @@
 			{
 				"triggerCondition":"Augment Attached",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				}
@@ -28,7 +28,7 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"$type": "Restrict.Triggering:CardsMatch:",
 								"card": { "$type": "Cards:CardBefore:" },
 								"other": { "$type": "Cards:ThisCardNow:" }
 							}
@@ -42,10 +42,10 @@
 			"triggerData": {
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardAfter:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:AllOf:",
@@ -71,7 +71,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:ThisCardNow:" },
 							"cardRestriction": {
 								"$type": "Core.CardRestriction:Location:",

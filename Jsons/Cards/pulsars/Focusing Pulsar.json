@@ -8,11 +8,11 @@
 				"blurb": "Enfocus",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": {
 								"$type": "Cards:Avatar:",
@@ -20,7 +20,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Core.NumberRestriction:Compare:",
@@ -55,11 +55,11 @@
 				"blurb": "Unfocus",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": {
 								"$type": "Cards:Avatar:",
@@ -67,7 +67,7 @@
 							}
 						},
 						{
-							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"$type": "Restrict.Triggering:NumberFitsRestriction:",
 							"number": { "$type": "Numbers:TriggerX:" },
 							"restriction": {
 								"$type": "Core.NumberRestriction:Compare:",

@@ -3,10 +3,10 @@
 	"triggerData": {
 		"triggerCondition": "Activate",
 		"triggerRestriction": {
-			"$type": "Core.TriggerRestriction:AllOf:",
+			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{
-					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"$type": "Restrict.Triggering:CardsMatch:",
 					"card": { "$type": "Cards:CardBefore:" },
 					"other": { "$type": "Cards:ThisCardNow:" }
 				},

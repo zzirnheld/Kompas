@@ -8,15 +8,15 @@
 				"blurb": "Run Forward!",
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"$type": "Restrict.Triggering:CardsMatch:",
 							"card": { "$type": "Cards:CardBefore:" },
 							"other": { "$type": "Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"$type": "Restrict.Triggering:PlayersMatch:",
 							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
 							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
 						}

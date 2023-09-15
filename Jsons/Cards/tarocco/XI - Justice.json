@@ -12,7 +12,7 @@
 				{
 					"$type": "Subeffect:ConditionalEnd:",
 					"endIfTrue": {
-						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"$type": "Restrict.Triggering:NumberFitsRestriction:",
 						"number": {
 							"$type": "Numbers:HandSize:",
 							"player": { "$type": "Players:EnemyPlayer:" }

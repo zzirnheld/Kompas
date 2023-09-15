@@ -4,7 +4,7 @@
 	{
 		"triggerCondition":"Play",
 		"triggerRestriction": {
-			"$type": "Core.TriggerRestriction:AllOf:",
+			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
 				{ "$type": "Core.CardRestriction:Friendly:" },

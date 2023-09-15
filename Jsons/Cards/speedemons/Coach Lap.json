@@ -8,7 +8,7 @@
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
-					"$type": "Core.TriggerRestriction:AllOf:",
+					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
 							"$type": "Core.SpaceRestriction:AdjacentTo:",
@@ -16,7 +16,7 @@
 						},
 						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
 						{
-							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"$type": "Restrict.Triggering:CardFitsRestriction:",
 							"card": { "$type": "Cards:CardBefore:" },
 							
 						"cardRestriction": {
