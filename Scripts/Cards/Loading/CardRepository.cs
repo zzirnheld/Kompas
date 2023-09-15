@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.IO;
 using Kompas.Cards.Models;
 
 namespace Kompas.Cards.Loading
@@ -12,7 +11,7 @@ namespace Kompas.Cards.Loading
 	{
 		public const string JsonsFolderPath = "res://Jsons";
 		public const string CardJsonsFolderPath = $"{JsonsFolderPath}/Cards";
-		public const string CardListFilePath = $"{CardJsonsFolderPath}/Card List";
+		public const string CardListFilePath = $"{CardJsonsFolderPath}/Card List.txt";
 
 		public const string KeywordJsonsFolderPath = $"{JsonsFolderPath}/Keywords/Full";
 		public const string keywordListFilePath = $"{KeywordJsonsFolderPath}/Keyword List";
@@ -23,7 +22,7 @@ namespace Kompas.Cards.Loading
 		public const string TriggerKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Trigger";
 		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List";
 
-		public static readonly string RemindersJsonPath = Path.Combine("Reminder Text", "Reminder Texts");
+		public static readonly string RemindersJsonPath = $"res://Reminder Text/Reminder Texts";
 
 		private static readonly Regex subeffRegex = new(@"Subeffect:([^:]+):"); //Subeffect:*:
 		private const string subeffReplacement = @"KompasServer.Effects.Subeffects.$1, Assembly-CSharp";
@@ -67,7 +66,7 @@ namespace Kompas.Cards.Loading
 		private static readonly Regex threeSpaceRelationshipRegex = new(@"ThreeSpaceRelationships:([^:]+):"); //ThreeSpaceRelationships:*:
 		private const string threeSpaceRelationshipReplacement = @"KompasCore.Effects.Identities.ThreeSpaceRelationships.$1, Assembly-CSharp";
 
-		protected static readonly JsonSerializerSettings cardLoadingSettings = new()
+		protected static readonly JsonSerializerSettings CardLoadingSettings = new()
 		{
 			TypeNameHandling = TypeNameHandling.Auto,
 			MaxDepth = null,
@@ -103,7 +102,10 @@ namespace Kompas.Cards.Loading
 
 		public static IEnumerable<string> CardJsons => cardJsons.Values;
 
-		public static void Init() => InitializeCardJsons();
+		protected CardRepository()
+		{
+			InitializeCardJsons(); //TODO replace with what's currently in Awake()
+		}
 
 		protected virtual void Awake()
 		{
@@ -118,18 +120,34 @@ namespace Kompas.Cards.Loading
 				InitializeMapFromJsons(PartialKeywordListFilePath, PartialKeywordFolderPath, partialKeywordJsons);
 				InitializeMapFromJsons(TriggerKeywordListFilePath, TriggerKeywordFolderPath, triggerKeywordJsons);
 
-				var reminderJsonAsset = File.ReadAllText(RemindersJsonPath);
+				var reminderJsonAsset = LoadFileAsText(RemindersJsonPath);
 				//Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset);
 				//Reminders.Initialize();
 				Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
 			}
 		}
 
+		private static string LoadFileAsText(string path)
+		{
+			//GD.Print($"Trying to load {path}");
+			if (!FileAccess.FileExists(path)) return null;
+
+			using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+
+			return file.GetAsText();
+
+			/*
+			var json = ResourceLoader.Load<Json>(path);
+			GD.Print($"{Json.Stringify(json)}\n\n{json.GetParsedText()}");
+			Json.Stringify(json);
+			return json.GetParsedText(); */
+		}
+
 		private static void InitializeCardJsons()
 		{
 			static bool isCardToIgnore(string name) => string.IsNullOrWhiteSpace(name) || cardNamesToIgnore.Contains(name);
 
-			string cardFilenameList = File.ReadAllText(CardListFilePath);
+			string cardFilenameList = LoadFileAsText(CardListFilePath);
 			cardFilenameList = cardFilenameList.Replace('\r', '\n');
 			string[] cardFilenameArray = cardFilenameList.Split('\n');
 
@@ -142,7 +160,7 @@ namespace Kompas.Cards.Loading
 				if (isCardToIgnore(filenameClean) || CardExists(filenameClean)) continue;
 
 				//load the json
-				var jsonAsset = File.ReadAllText(Path.Combine(CardJsonsFolderPath, filenameClean));
+				var jsonAsset = LoadFileAsText($"{CardJsonsFolderPath}/{filenameClean}.json");
 				if (jsonAsset == null)
 				{
 					GD.PrintErr($"Failed to load json file for {filenameClean}");
@@ -154,21 +172,9 @@ namespace Kompas.Cards.Loading
 				json = ReplacePlaceholders(json);
 
 				//load the cleaned json to get the card's name according to itself
-				SerializableCard card;
-				try
-				{
-					card = JsonConvert.DeserializeObject<SerializableCard>(json, cardLoadingSettings);
-				}
-				catch (JsonReaderException e)
-				{
-					GD.PrintErr($"Failed to load {json}. Error\n{e}");
-					continue;
-				}
-				catch (JsonSerializationException e)
-				{
-					GD.PrintErr($"Failed to load {json}. Error\n{e}");
-					continue;
-				}
+				SerializableCard card = SerializableCardFromJson(json);
+				if (card == null) continue;
+
 				string cardName = card.cardName;
 
 				//add the cleaned json to the dictionary
@@ -181,15 +187,28 @@ namespace Kompas.Cards.Loading
 			GD.Print(string.Join("\n", CardNames));
 		}
 
+		protected static SerializableCard SerializableCardFromJson(string json)
+		{
+			try
+			{
+				return JsonConvert.DeserializeObject<SerializableCard>(json, CardLoadingSettings);
+			}
+			catch (JsonException e)
+			{
+				GD.PrintErr($"Failed to load {json}. Error\n{e}");
+				return null;
+			}
+		}
+
 		private static void InitializeMapFromJsons(string filePath, string folderPath, Dictionary<string, string> dict)
 		{
-			string keywordList = File.ReadAllText(filePath);
+			string keywordList = LoadFileAsText(filePath);
 			var keywords = keywordList.Replace('\r', '\n').Split('\n').Where(s => !string.IsNullOrEmpty(s));
 			GD.Print($"Keywords list: \n{string.Join("\n", keywords.Select(keyword => $"{keyword} length {keyword.Length}"))}");
 			foreach (string keyword in keywords)
 			{
-				GD.Print($"Loading {keyword} from {Path.Combine(folderPath, keyword)}");
-				string json = File.ReadAllText(Path.Combine(folderPath, keyword));
+				GD.Print($"Loading {keyword} from {folderPath}/{keyword}");
+				string json = LoadFileAsText($"{folderPath}/{keyword}");
 				json = ReplacePlaceholders(json);
 				dict.Add(keyword, json);
 			}
@@ -245,8 +264,8 @@ namespace Kompas.Cards.Loading
 
 		public static string FileNameFor(string cardName) => cardFileNames[cardName];
 
-		public static Texture2D LoadSprite(string cardFileName) => GD.Load<Texture2D>(Path.Combine("Card Face Images", cardFileName));
+		public static Texture2D LoadSprite(string cardFileName) => GD.Load<Texture2D>($"Card Face Images/{cardFileName}");
 
-		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(json => JsonConvert.DeserializeObject<SerializableCard>(json, cardLoadingSettings));
+		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(SerializableCardFromJson).Where(c => c != null);
 	}
 }

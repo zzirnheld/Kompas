@@ -1,3 +1,5 @@
+using Kompas.Cards.Models;
+
 namespace Kompas.Cards.Loading
 {
 	public class DeckBuilderCardRepository : CardRepository
@@ -30,5 +32,12 @@ namespace Kompas.Cards.Loading
 			return card;
 		}
 		*/
+
+		public DeckBuilderCard CreateDeckBuilderCard(string cardName)
+		{
+			var json = GetJsonFromName(cardName);
+			var serializableCard = SerializableCardFromJson(json);
+			return new DeckBuilderCard(serializableCard, cardFileNames[cardName]);
+		}
 	}
 }

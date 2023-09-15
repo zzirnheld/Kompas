@@ -16,6 +16,8 @@ namespace Kompas.UI.DeckBuilder
 		public override void _Ready()
 		{
 			CardView = new DeckBuilderCardView(CardInfoDisplayer);
+
+			CardView.Show(CardRepository.CreateDeckBuilderCard("Animancer"));
 		}
 	}
 }

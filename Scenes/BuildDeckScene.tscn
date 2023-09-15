@@ -38,21 +38,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Not a Card (PLACEHOLDER)" type="VBoxContainer" parent="HBoxContainer/Card Info" node_paths=PackedStringArray("Image", "N", "E", "S", "W", "C", "A", "CardName", "Subtypes", "EffText")]
+[node name="Not a Card (PLACEHOLDER)" type="VBoxContainer" parent="HBoxContainer/Card Info"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 script = ExtResource("3_dc8x7")
-Image = NodePath("")
-N = NodePath("")
-E = NodePath("")
-S = NodePath("")
-W = NodePath("")
-C = NodePath("")
-A = NodePath("")
-CardName = NodePath("")
-Subtypes = NodePath("")
-EffText = NodePath("")
 
 [node name="Card Face Image" type="TextureRect" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
 layout_mode = 2
