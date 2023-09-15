@@ -36,7 +36,7 @@
 					}
 				}
 			],
-			"operation": { "$type": "KompasCore.Effects.Identities.NumberOperations.Sum, Assembly-CSharp" }
+			"operation": { "$type": "KompasCore.Effects.Identities.NumberOperations.Sum, Kompas" }
 		},
 		"secondNumber": {
 			"$type": "Identify.Numbers:Distance:",

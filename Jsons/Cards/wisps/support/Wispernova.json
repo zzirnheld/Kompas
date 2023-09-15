@@ -35,7 +35,7 @@
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
 					"subeffectSpaceIdentity": {
 						"$type": "Identify.Spaces:SelectFromMany:",
-						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Kompas" },
 						"Identify.Spaces": {
 							"$type": "Identify.ManySpaces:Restricted:",
 							"restriction": {

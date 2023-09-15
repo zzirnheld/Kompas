@@ -42,7 +42,7 @@
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
 						"$type": "Identify.Cards:SelectFromMany:",
-						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Assembly-CSharp" },
+						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Kompas" },
 						"Identify.Cards": {
 							"$type": "Identify.ManyCards:Discard:",
 							"friendly": true,
@@ -57,7 +57,7 @@
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
 						"$type": "Identify.Cards:SelectFromMany:",
-						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Assembly-CSharp" },
+						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Kompas" },
 						"Identify.Cards": {
 							"$type": "Identify.ManyCards:Discard:",
 							"friendly": false,

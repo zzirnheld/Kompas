@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Play;
 
 namespace Kompas.Cards.Loading
 {
@@ -25,19 +26,19 @@ namespace Kompas.Cards.Loading
 		public static readonly string RemindersJsonPath = $"res://Reminder Text/Reminder Texts";
 
 		private static readonly Regex subeffRegex = new(@"Subeffect:([^:]+):"); //Subeffect:*:
-		private const string subeffReplacement = @"KompasServer.Effects.Subeffects.$1, Assembly-CSharp";
+		private const string subeffReplacement = @"KompasServer.Effects.Subeffects.$1, Kompas";
 
 		private static readonly Regex coreRestrictionRegex = new(@"Restrict\.([^:]+):([^:]+):"); //Restrict.*:*:
-		private const string coreRestrictionReplacement = @"Kompas.Effects.Restrictions.$1.$2, Assembly-CSharp";
+		private const string coreRestrictionReplacement = @"Kompas.Effects.Models.Restrictions.$1.$2, Kompas";
 
 		private static readonly Regex coreIdentityRegex = new(@"Identify\.([^:]+):([^:]+):"); //Restrict.*:*:
-		private const string coreIdentityReplacement = @"Kompas.Effects.Identities.$1.$2, Assembly-CSharp";
+		private const string coreIdentityReplacement = @"Kompas.Effects.Models.Identities.$1.$2, Kompas";
 
 		private static readonly Regex relationshipRegex = new(@"Relationships\.([^:]+):([^:]+):"); //Relationships.*:*:
-		private const string relationshipReplacement = @"KompasCore.Effects.Relationships.$1Relationships.$2, Assembly-CSharp";
+		private const string relationshipReplacement = @"KompasCore.Effects.Models.Relationships.$1Relationships.$2, Kompas";
 
 		private static readonly Regex numberSelectorRegex = new(@"Selectors.Numbers:([^:]+):"); //NumberSelector:*:
-		private const string numberSelectorReplacement = @"KompasCore.Effects.Identities.NumberSelectors.$1, Assembly-CSharp";
+		private const string numberSelectorReplacement = @"KompasCore.Effects.Models.Selectors.Numbers.$1, Kompas";
 
 		protected static readonly JsonSerializerSettings CardLoadingSettings = new()
 		{
@@ -77,6 +78,8 @@ namespace Kompas.Cards.Loading
 
 		protected CardRepository()
 		{
+			GD.Print(JsonConvert.SerializeObject(new PlayRestriction(), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All }));
+
 			InitializeCardJsons(); //TODO replace with what's currently in Awake()
 		}
 
