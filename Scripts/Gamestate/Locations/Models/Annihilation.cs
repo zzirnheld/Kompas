@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
-using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
 

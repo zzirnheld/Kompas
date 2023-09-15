@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using Godot;
+using Kompas.Cards.Loading;
 
 namespace Kompas.Cards.Models
 {
@@ -143,7 +145,7 @@ namespace Kompas.Cards.Models
 		}
 		#endregion
 
-		//public Sprite SimpleSprite { get; private set; }
+		public Texture2D CardFaceImage { get; private set; }
 
 		public virtual string FileName { get; set; }
 
@@ -175,11 +177,10 @@ namespace Kompas.Cards.Models
 			//(check this by card name. cards should never have a pic that doesn't match their name)
 			if (cardName != CardName)
 			{
-				//GD.Print($"Names are different, changing card pics to match name {FileName}");
-				//TODO
-				//SimpleSprite = CardRepository.LoadSprite(FileName);
+				GD.Print($"Names are different, changing card pics to match name {FileName}");
+				CardFaceImage = CardRepository.LoadSprite(FileName);
 			}
-			//else GD.Print("Names match. Set Info not updating pics.");
+			else GD.Print("Names match. Set Info not updating pics.");
 
 			Subtext = subtext; //TODO un-deprecate and use as an override for constructed subtype text from the subtypes array
 			SpellSubtypes = spellTypes;

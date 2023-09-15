@@ -12,8 +12,8 @@ namespace Kompas.Cards.Models
 		public string effText;
 		public string subtypeText;
 
-		public string[] keywords = new string[0];
-		public int[] keywordArgs = new int[0];
+		public string[] keywords = System.Array.Empty<string>();
+		public int[] keywordArgs = System.Array.Empty<int>();
 
 		public IMovementRestriction movementRestriction = null;
 		public IRestriction<GameCardBase> attackingDefenderRestriction = null;

@@ -244,7 +244,7 @@ namespace Kompas.Cards.Loading
 
 		public static string FileNameFor(string cardName) => cardFileNames[cardName];
 
-		public static Texture LoadSprite(string cardFileName) => GD.Load<Texture>(Path.Combine("Simple Sprites", cardFileName));
+		public static Texture2D LoadSprite(string cardFileName) => GD.Load<Texture2D>(Path.Combine("Card Face Images", cardFileName));
 
 		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(json => JsonConvert.DeserializeObject<SerializableCard>(json, cardLoadingSettings));
 	}
