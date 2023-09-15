@@ -1,0 +1,47 @@
+{
+	"cardType": 67,
+	"cardName": "Manyself",
+	"effText": "Shape.\nWhen a Shaper Shapes through me, give me +2 NSW.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Condense",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:TriggerKeyword:",
+							"keyword": "Shaped Through"
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 2,
+					"sModifier": 2,
+					"wModifier": 2
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Shape",
+		"Evasive"
+	],
+	"n": 0,
+	"e": 6,
+	"s": 4,
+	"w": 4,
+	"subtypes": [
+		"Ethereal",
+		"Shaper"
+	],
+	"subtypeText": "Ethereal Shaper"
+}

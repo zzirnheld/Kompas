@@ -1,0 +1,55 @@
+{
+	"cardType": 83,
+	"cardName": "Knucklebones",
+	"effText": "Hand X friendly Bones. Draw X cards. Gain X pips.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "pick 'em up pick 'em up",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Bone" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:CountXLoop:",
+					"canDecline": true,
+					"jumpIndices": [
+						0
+					]
+				},
+				{
+					"$type": "Subeffect:DrawX:"
+				},
+				{
+					"$type": "Subeffect:AddPips:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

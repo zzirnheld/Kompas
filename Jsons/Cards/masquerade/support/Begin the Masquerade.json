@@ -1,0 +1,86 @@
+{
+	"cardType": 83,
+	"cardName": "Begin the Masquerade",
+	"effText": "Reveal a Mask. Pip deck->summon a Dancer.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Mask to reveal",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mask" ]
+							},
+							{ "$type": "Core.CardRestriction:Hidden:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Dancer to summon",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": {
+										"$type": "Numbers:Pips:",
+										"player": { "$type": "Players:TargetIndex:" }
+									}
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for the Dancer to start the masquerade",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:PayPipsTargetCost:"
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

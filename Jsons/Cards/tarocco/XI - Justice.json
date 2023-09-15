@@ -1,0 +1,52 @@
+{
+	"cardType": 67,
+	"cardName": "XI - Justice",
+	"effText": "Once each turn, you can draw 1 card until you have as many in hand as your enemy.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": {
+							"$type": "Numbers:HandSize:",
+							"player": { "$type": "Players:EnemyPlayer:" }
+						},
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+							"other": {
+								"$type": "Numbers:HandSize:",
+								"player": { "$type": "Players:FriendlyPlayer:" }
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				},
+				{
+					"$type": "Subeffect:Loop:",
+					"canDecline": true,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		}
+	],
+	"n": 5,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypes": [
+		"Tarocco",
+		"Mage"
+	],
+	"subtypeText": "Tarocco Mage"
+}

@@ -1,0 +1,60 @@
+{
+	"cardType": 67,
+	"cardName": "Mid-Outfielder",
+	"effText": "When you augment me, move me up to 2 spaces.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Run Augment Outfield",
+				"triggerCondition": "Augmented",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "wher?",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 2 },
+								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 3,
+	"s": 2,
+	"w": 0,
+	"subtypeText": "Teammate"
+}

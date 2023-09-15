@@ -1,0 +1,42 @@
+{
+	"cardType": 83,
+	"cardName": "Odal",
+	"effText": "Runic.\nHand me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ],
+		"recommendations": [ {
+			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+		} ]
+	},
+	"c": 0,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Rune",
+		"Simple"
+	],
+	"subtypeText": "Rune Simple"
+}

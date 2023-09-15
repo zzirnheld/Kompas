@@ -1,0 +1,34 @@
+{
+	"cardType": 67,
+	"cardName": "Jacob-John Binglejeimer Schmitzel",
+	"effText": "Once each turn, you can hand->discard a card. (That's it.)",
+	"effects": [
+		{
+			"blurb": "Intern Nonsense",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Crazy",
+		"Intern",
+		"Person"
+	],
+	"subtypeText": "Crazy Intern Person"
+}

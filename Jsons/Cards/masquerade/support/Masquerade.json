@@ -1,0 +1,73 @@
+{
+	"cardType": 83,
+	"cardName": "Masquerade",
+	"effText": "Once each turn, you can hand a Dancer's Mask to deck->attach a Mask to that Dancer.",
+	"effects": [
+		{
+			"blurb": "Continue the masquerade",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Mask to be replaced",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mask" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Augments:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Dancer" ]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetTargetsAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:Hand:",
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "new Mask",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mask" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"c": 3,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant"
+}

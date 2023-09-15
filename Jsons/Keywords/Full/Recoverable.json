@@ -1,0 +1,29 @@
+{
+	"blurb":"Recoverable",
+	"triggerData":
+	{
+		"blurb":"Recoverable",
+		"triggerCondition":"Discard",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:ThisCardNow:" },
+					"anyOf": {
+						"$type": "ManyCards:Augments:",
+						"card": { "$type": "Cards:CardBefore:" }
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Hand:"
+		}
+	]
+}

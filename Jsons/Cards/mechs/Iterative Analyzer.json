@@ -1,0 +1,94 @@
+{
+	"cardType": 65,
+	"cardName": "Iterative Analyzer",
+	"effText": "When this Mech dies, deck->hand a distinct Mech Golem. 1 turn later, discard->hand me.",
+	"effects": [
+		{
+			"blurb": "Postmortem Analysis",
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Mech" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Iterative Analysis to produce",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mech", "Golem" ]
+							},
+							{
+								"$type": "Core.CardRestriction:DistinctName:",
+								"cards": { "$type": "ManyCards:Targets:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [
+						3
+					],
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.GamestateRestriction:Not:",
+						"negated": {
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Discard" ]
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 2,
+	"subtypeText": "Device"
+}

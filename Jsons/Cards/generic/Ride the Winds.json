@@ -1,0 +1,61 @@
+{
+	"cardType": 83,
+	"cardName": "Ride the Winds",
+	"effText": "Once each turn, you can move a Flying character 1 space.",
+	"effects": [
+		{
+			"blurb": "Ride the Winds",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "to ride the winds",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Flying" ]
+							},
+							{
+								"$type": "Core.CardRestriction:CanMove:",
+								"spaceRestrictionSubeffectIndex": 1
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to ride",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant"
+}

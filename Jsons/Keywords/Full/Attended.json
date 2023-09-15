@@ -1,0 +1,59 @@
+{
+	"blurb":"Attended",
+	"triggerData":
+	{
+		"triggerCondition":"Stack End",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"card": { "$type": "Cards:CardBefore:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Board" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": { "$type": "Core.CardRestriction:Avatar:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+					"number": {
+						"$type": "Numbers:CountCards:",
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{ "$type": "Core.CardRestriction:Friendly:" },
+								{
+									"$type": "Core.SpaceRestriction:AdjacentTo:",
+									"space": { "$type": "Cards:ThisCardNow:" }
+								}
+							]
+						}
+					},
+					"restriction": {
+						"$type": "Core.NumberRestriction:Compare:",
+						"comparison": { "$type": "Relationships.Number:LessThan:" },
+						"other": { "$type": "Numbers:Arg:" }
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Discard:"
+		}
+	]	
+}

@@ -1,0 +1,47 @@
+{
+	"cardType": 83,
+	"cardName": "Prepare the Name",
+	"effText": "Hand->topdeck a Spirit. Gain 3 pips.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"blurb": "Prepare the Name",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Spirit whose name to prepare",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Spirit" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Topdeck:"
+				},
+				{
+					"$type": "Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 3
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": ""
+}

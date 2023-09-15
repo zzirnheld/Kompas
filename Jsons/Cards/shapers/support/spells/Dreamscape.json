@@ -1,0 +1,56 @@
+{
+	"cardType": 83,
+	"cardName": "Dreamscape",
+	"effText": "The first time each turn a Shaper moves, give them +1 N and heal them.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Dreamscape",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Friendly:" },
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Shaper" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 1
+				},
+				{
+					"$type": "Subeffect:Heal:"
+				}
+			]
+		}
+	],
+	"c": 3,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypes": [
+		"Enchant",
+		"Shaping"
+	],
+	"subtypeText": "Enchant Shaping"
+}

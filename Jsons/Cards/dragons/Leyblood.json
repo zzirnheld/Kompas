@@ -1,0 +1,43 @@
+{
+	"cardType":83,
+	"cardName":"Leyblood",
+	"effText":"When a Dragon kills a character, gain 1 pip.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"blurb":"Leyblood",
+				"triggerCondition":"Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier":1
+				}
+			]	
+		}
+	],
+	"c":2,
+	"spellTypes":["Enchant"],
+	"subtypeText":"Enchant"
+}

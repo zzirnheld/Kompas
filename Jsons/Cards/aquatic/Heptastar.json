@@ -1,0 +1,25 @@
+{
+	"cardType": 67,
+	"cardName": "Heptastar",
+	"effText": "Waterborn Waterdweller.",
+	"effects": [],
+	"keywords": [
+		"Waterdweller"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Water" ]
+			}
+		} ]
+	},
+	"n": 11,
+	"e": 9,
+	"s": 7,
+	"w": 13,
+	"subtypeText": "Aquatic Fish Monster"
+}

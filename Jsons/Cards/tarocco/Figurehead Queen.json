@@ -1,0 +1,114 @@
+{
+	"cardType": 83,
+	"cardName": "Figurehead Queen",
+	"effText": "When you draw X cards, give me +X C.\n1 turn after I'm cast, deck->summon a Tarocco with S <= my C.",
+	"effects": [
+		{
+			"blurb": "+X C",
+			"triggerData": {
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"cMultiplier": 1
+				}
+			]
+		},
+		{
+			"blurb": "You are Summoned",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [
+						1
+					],
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "Cost" }
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"cardRestriction": {
+						"toSearch": { "$type": "ManyCards:Deck:" },
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tarocco" ]
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"c": 4,
+	"spellTypes": [
+		"Delayed"
+	],
+	"subtypes": [
+		"Tarocco",
+		"Delayed"
+	],
+	"subtypeText": "Tarocco Delayed",
+	"duration": 1
+}

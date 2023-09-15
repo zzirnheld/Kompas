@@ -1,0 +1,86 @@
+{
+	"cardType": 67,
+	"cardName": "Ma Rinner",
+	"effText": "Waterborn.\nWhen turns start, draw 2 cards. Then, unless I'm in Water, hand->bottomdeck 3.",
+	"effects": [
+		{
+			"blurb": "Fish",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:DrawX:",
+					"xMultiplier": 0,
+					"xModifier": 2
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardRestriction": {
+							"$type": "Core.SpaceRestriction:InAOEOf:",
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Water" ]
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "cards for Ma Rinner to bottomdeck",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" },
+					"listRestriction": {
+						"$type": "Core.ListRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.ListRestriction:Minimum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 3 }
+							},
+							{
+								"$type": "Core.ListRestriction:Maximum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 3 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:",
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:",
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:",
+					"targetIndex": -3
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Water" ]
+			}
+		} ]
+	},
+	"unique": true,
+	"n": 1,
+	"e": 3,
+	"s": 5,
+	"w": 7,
+	"subtypeText": "Aquatic Fisherperson"
+}

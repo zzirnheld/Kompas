@@ -1,0 +1,62 @@
+{
+	"cardType": 83,
+	"cardName": "Starbirth",
+	"effText": "Hand->discard X Pulsars. Give your Avatar +X S. Draw X cards. Gain X pips. Annihilate me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Starbirth to discard",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Pulsar" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:CountXLoop:",
+					"canDecline": true,
+					"jumpIndices": [
+						0
+					]
+				},
+				{
+					"$type": "Subeffect:TargetAvatar:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": 1
+				},
+				{
+					"$type": "Subeffect:DrawX:"
+				},
+				{
+					"$type": "Subeffect:AddPips:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

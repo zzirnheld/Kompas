@@ -1,0 +1,51 @@
+{
+	"blurb":"Wisp Turn Start",
+	"triggerData":
+	{
+		"blurb":"Wisp Turn Start",
+		"triggerCondition":"Turn Start",
+		"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+	},
+	"subeffects":[
+		{
+			"$type": "Subeffect:AutoTargetSpaceIdentity:",
+			"subeffectSpaceIdentity": {
+				"$type": "Spaces:SelectFromMany:",
+				"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+				"spaces": {
+					"$type": "ManySpaces:CompareDistance:",
+					"distanceTo": { "$type": "Cards:ThisCardNow:" },
+					"spaces": {
+						"$type": "ManySpaces:PositionsOfEach:",
+						"cards": {
+							"$type": "ManyCards:Restricted:",
+							"cards": { "$type": "ManyCards:Board:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+						}
+					}
+				}
+			}
+		},
+		{
+			"$type": "Subeffect:AutoTargetSpaceIdentity:",
+			"subeffectSpaceIdentity": {
+				"$type": "Spaces:SelectFromMany:",
+				"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+				"spaces": {
+					"$type": "ManySpaces:CompareDistance:",
+					"distanceTo": { "$type": "Spaces:TargetIndex:" },
+					"spaces": {
+						"$type": "ManySpaces:AdjacentSpaces:",
+						"adjacentTo": { "$type": "Cards:ThisCardNow:" }
+					}
+				}
+			}
+		},
+		{
+			"$type": "Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Move:"
+		}
+	]	
+}

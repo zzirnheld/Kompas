@@ -1,0 +1,34 @@
+{
+	"blurb":"Territorial",
+	"triggerData":
+	{
+		"blurb":"Territorial",
+		"triggerCondition":"Turn Start",
+		"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Board:" },
+			"cardRestriction":
+			{
+				"blurb":"for Dragon to move and attack",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Character:" },
+					{
+						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"space": { "$type": "Cards:ThisCardNow:" }
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Attack:",
+			"attackerIndex":-1,
+			"targetIndex":-2
+		}
+	]	
+}

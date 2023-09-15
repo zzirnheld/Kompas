@@ -1,0 +1,54 @@
+{
+	"cardType": 65,
+	"cardName": "Vampirism Module",
+	"effText": "When this character survives dealing X damage, give them +X EW.",
+	"effects": [
+		{
+			"blurb": "Vampirism",
+			"triggerData": {
+				"triggerCondition": "Deal Combat Damage",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": 1,
+					"wMultiplier": 1
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 3,
+	"subtypeText": "Module"
+}

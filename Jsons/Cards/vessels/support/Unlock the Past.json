@@ -1,0 +1,95 @@
+{
+	"cardType": 83,
+	"cardName": "Unlock the Past",
+	"effText": "Tribute an adjacent Vessel's Memory. Deck->bestow 2 distinct Memories unto that Vessel.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Vessel's Memory to unlock",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Memory" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Augments:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Vessel" ]
+								}
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetTargetsAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Discard:",
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Memories to search for",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Memory" ]
+					},
+					"listRestriction": {
+						"$type": "Core.ListRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.ListRestriction:Minimum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							},
+							{
+								"$type": "Core.ListRestriction:Maximum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": 1,
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 2,
+					"jumpIndices": [
+						4
+					]
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

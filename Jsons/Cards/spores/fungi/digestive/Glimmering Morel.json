@@ -1,0 +1,61 @@
+{
+	"cardType": 67,
+	"cardName": "Glimmering Morel",
+	"effText": "Spores.\nWhen a Fungus pulses an enemy, gain 1 pip.",
+	"effects": [
+		{
+			"blurb": "Milk of the enemy",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Fungus" ]
+									}
+								]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Enemy:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier":1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 2,
+	"e": 2,
+	"s": 3,
+	"w": 2,
+	"subtypes": [
+		"Digestive",
+		"Fungus"
+	],
+	"subtypeText": "Digestive Fungus"
+}

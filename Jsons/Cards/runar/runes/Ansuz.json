@@ -1,0 +1,57 @@
+{
+	"cardType": 83,
+	"cardName": "Ansuz",
+	"effText": "Runic.\nSet an adjacent character's N to 1 and ESW to 10.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetCardStats:",
+					"nVal": 1,
+					"eVal": 10,
+					"sVal": 10,
+					"wVal": 10
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ],
+		"recommendations": [ {
+			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+		} ]
+	},
+	"c": 5,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Rune",
+		"Simple"
+	],
+	"subtypeText": "Rune Simple"
+}

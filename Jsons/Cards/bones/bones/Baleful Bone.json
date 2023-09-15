@@ -1,0 +1,61 @@
+{
+	"cardType": 67,
+	"cardName": "Baleful Bone",
+	"effText": "When I'm summoned, your \"Lengthening Elk\" attacks an enemy adjacent to them.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"nameIs": "Lengthening Elk"
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "enemy character to attack",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Enemy:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Attack:",
+					"targetIndex": -1,
+					"attackerIndex": -2
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 2,
+	"s": 2,
+	"w": 2,
+	"subtypeText": "Bone"
+}

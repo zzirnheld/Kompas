@@ -1,0 +1,93 @@
+{
+	"cardType": 67,
+	"cardName": "Massive Moon Moth",
+	"effText": "Stealth.\nWhen a friendly Moth attacks a character in Light, swap the W of two characters within 2 spaces of each other.",
+	"effects": [
+		{
+			"blurb": "this is my friend the moon moth",
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"elements": [
+								{ "$type": "Core.CardRestriction:Friendly:" },
+								{
+									"$type": "Core.CardRestriction:Location:",
+									"locations": [ "Board" ]
+								},
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Moth" ]
+								}
+							]
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+							"cardRestriction": {
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Light" ]
+								}
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character whose W to swap",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "other character whose W to swap",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 2 },
+								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": { "$type": "Core.CardRestriction:Target:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SwapStat:",
+					"targetIndex": -2,
+					"secondTargetIndex": -1,
+					"firstTargetStat": {
+						"value": "W"
+					},
+					"secondTargetStat": {
+						"value": "W"
+					}
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Stealth"
+	],
+	"n": 3,
+	"e": 7,
+	"s": 5,
+	"w": 1,
+	"subtypeText": "Shady Flying Moth"
+}

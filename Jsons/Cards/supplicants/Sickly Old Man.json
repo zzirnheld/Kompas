@@ -1,0 +1,14 @@
+{
+	"cardType":67,
+	"cardName":"Sickly Old Man",
+	"effText":"Supplicant.",
+	"effects":[ ],
+	"keywords": [
+		"Supplicant"
+	],
+	"n":1,
+	"e":1,
+	"s":0,
+	"w":0,
+	"subtypeText":"Supplicant"
+}

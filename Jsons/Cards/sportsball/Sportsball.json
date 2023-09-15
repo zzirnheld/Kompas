@@ -1,0 +1,57 @@
+{
+	"cardType": 65,
+	"cardName": "Sportsball",
+	"effText": "Pass Back. Recoverable.\nBouncy, twice each turn.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Bouncy!",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:", "max": 2 }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Attach:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Pass Back",
+		"Recoverable"
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 1,
+	"subtypeText": "Sportsball"
+}

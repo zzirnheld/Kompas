@@ -1,0 +1,44 @@
+{
+	"blurb": "Evasive",
+	"triggerData": {
+		"triggerCondition": "Battle Start",
+		"triggerRestriction": {
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				},
+				{ "$type": "Core.GamestateRestriction:MaxPerRound:" }
+			]
+		}
+	},
+	"subeffects": [
+		{
+			"$type":"Subeffect:TargetTriggeringCard:",
+			"contextSecondaryCard":true
+		},
+		{
+			"$type": "Subeffect:SetXByNumberIdentity:",
+			"numberIdentity": { 
+				"$type": "Numbers:FromCardValue:",
+				"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+				"cardValue": { "value": "W" }
+			}
+		},
+		{
+			"$type": "Subeffect:Hanging.ChangeCardStats:",
+			"wMultiplier": -1,
+			"endCondition": "Battle End",
+			"triggerRestriction": {
+				"elements": [
+					{
+						"$type": "Core.TriggerRestriction:StackablesMatch:",
+						"firstStackable": { "$type": "Stackables:StackableEvent:", "secondaryContext": true },
+						"secondStackable": { "$type": "Stackables:StackableEvent:" }
+					}
+				]
+			}
+		}
+	]
+}

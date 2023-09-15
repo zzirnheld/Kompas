@@ -1,0 +1,46 @@
+{
+	"cardType": 67,
+	"cardName": "Earthwapmer",
+	"effText": "Territorial.\nWhen I attack, hand a friendly Dragon.",
+	"effects": [
+		{
+			"blurb": "Earthwap",
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Who to earthwapm",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Territorial"
+	],
+	"n": 8,
+	"e": 8,
+	"s": 4,
+	"w": 12,
+	"subtypeText": "Flying Dragon"
+}

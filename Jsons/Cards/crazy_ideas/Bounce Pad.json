@@ -1,0 +1,63 @@
+{
+	"cardType": 67,
+	"cardName": "Bounce Pad",
+	"effText": "When another character arrives here, annihilate me to hand them.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "bounce",
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"space": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 5,
+	"s": 5,
+	"w": 0,
+	"spellTypes": [
+		"Radial"
+	],
+	"radius": 1,
+	"subtypeText": "Crazy Idea"
+}

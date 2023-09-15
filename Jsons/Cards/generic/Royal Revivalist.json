@@ -1,0 +1,70 @@
+{
+	"cardType": 67,
+	"cardName": "Royal Revivalist",
+	"effText": "Attended 2.\nOnce each turn, you can pip revive a character.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Sire, who shall we revive?",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": {
+										"$type": "Numbers:Pips:",
+										"player": { "$type": "Players:TargetIndex:" }
+									}
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:PayPipsTargetCost:"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"blurb": "Sire, where shall we revive them?",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Attended"
+	],
+	"keywordArgs": [
+		2
+	],
+	"n": 2,
+	"e": 4,
+	"s": 3,
+	"w": 2,
+	"unique": true,
+	"subtypeText": "Person"
+}

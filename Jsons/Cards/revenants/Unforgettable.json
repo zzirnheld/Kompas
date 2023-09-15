@@ -1,0 +1,19 @@
+{
+	"cardType": 67,
+	"cardName": "Unforgettable",
+	"effText": "Revenant.",
+	"effects": [],
+	"keywords": [
+		"Revenant Die",
+		"Revenant Revive"
+	],
+	"n": 4,
+	"e": 8,
+	"s": 10,
+	"w": 8,
+	"subtypes": [
+		"Ethereal",
+		"Revenant"
+	],
+	"subtypeText": "Ethereal Revenant"
+}

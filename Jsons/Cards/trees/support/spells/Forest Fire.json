@@ -1,0 +1,62 @@
+{
+	"cardType": 83,
+	"cardName": "Forest Fire",
+	"effText": "Any number of times: Give a friendly Tree and all characters adjacent to it -4 E.",
+	"effects": [
+		{
+			"blurb": "Simple",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Who to burn",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tree" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": {
+						"$type": "ManyCards:CardsInPositions:",
+						"positions": {
+							"$type": "ManySpaces:AdjacentSpaces:",
+							"adjacentTo": { "$type": "Cards:TargetIndex:" }
+						}
+					},
+					"eModifier": -4
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -4
+				},
+				{
+					"$type": "Subeffect:Loop:",
+					"canDecline": true,
+					"jumpIndices": [
+						0
+					]
+				}
+			]
+		}
+	],
+	"c": 4,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

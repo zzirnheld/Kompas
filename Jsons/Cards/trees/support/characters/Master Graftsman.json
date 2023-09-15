@@ -1,0 +1,57 @@
+{
+	"cardType": 67,
+	"cardName": "Master Graftsman",
+	"effText": "When you summon another character, give them -3 E, but +1 NW.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -3,
+					"nModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 10,
+	"s": 6,
+	"w": 0,
+	"subtypeText": "Person"
+}

@@ -1,0 +1,87 @@
+{
+	"cardType": 65,
+	"cardName": "Clever Decoy",
+	"effText": "When this summoned Spy defends, give their W X attacker -X W until the fight ends. After the fight, hand this Spy.",
+	"effects": [
+		{
+			"blurb": "Decoy!",
+			"triggerData": {
+				"blurb": "It's just a piece of wood!?",
+				"triggerCondition": "Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:TargetOtherInFight:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "W" }
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.ChangeCardStats:",
+					"wMultiplier": -1,
+					"endCondition": "Battle End",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"firstStackable": { "$type": "Stackables:StackableEvent:", "secondaryContext": true },
+								"secondStackable": { "$type": "Stackables:StackableEvent:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"jumpIndices": [
+						6
+					],
+					"endCondition": "Battle End",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"firstStackable": { "$type": "Stackables:StackableEvent:", "secondaryContext": true },
+								"secondStackable": { "$type": "Stackables:StackableEvent:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"augmentOnSubtypes": [ "Spy" ]
+	},
+	"a": 1,
+	"subtypeText": "Tool"
+}

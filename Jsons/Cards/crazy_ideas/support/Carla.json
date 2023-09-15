@@ -1,0 +1,44 @@
+{
+	"cardType": 67,
+	"cardName": "Carla",
+	"effText": "Once each turn, you can discard->hand a friendly Crazy card.",
+	"effects": [
+		{
+			"blurb": "Intern Nonsense",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Crazy", "Idea" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Crazy",
+		"Intern",
+		"Person"
+	],
+	"subtypeText": "Crazy Intern Person"
+}

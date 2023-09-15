@@ -1,0 +1,82 @@
+{
+	"cardType": 67,
+	"cardName": "Infectious Displeasure",
+	"effText": "When I'm revived, choose an enemy character. Give all X enemy characters connected to them -X NESW.",
+	"effects": [
+		{
+			"blurb": "Displeasure",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Discard" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Enemy:" },
+							{
+								"$type": "Core.SpaceRestriction:ConnectedTo:",
+								"space": { "$type": "Cards:TargetIndex:" },
+								"byRestriction":{
+									"$type": "Core.SpaceRestriction:AllOf:",
+									"elements": [
+										{ "$type": "Core.CardRestriction:Enemy:" },
+										{ "$type": "Core.CardRestriction:Character:" },
+										{
+											"$type": "Core.CardRestriction:Location:",
+											"locations": [ "Board" ]
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+				},
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardRestriction": { "$type": "Core.CardRestriction:Target:" },
+					"nMultiplier": -1,
+					"eMultiplier": -1,
+					"sMultiplier": -1,
+					"wMultiplier": -1
+				}
+			]
+		}
+	],
+	"n": 7,
+	"e": 6,
+	"s": 6,
+	"w": 4,
+	"subtypeText": "Ethereal Spirit"
+}

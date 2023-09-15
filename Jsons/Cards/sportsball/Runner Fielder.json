@@ -1,0 +1,74 @@
+{
+	"cardType": 67,
+	"cardName": "Runner Fielder",
+	"effText": "When you augment me, attach my Augments to the character immediately due N of me.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Run Forward!",
+				"triggerCondition": "Augmented",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTarget:",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:Displacement:",
+								"from": { "$type": "Cards:ThisCardNow:" },
+								"displacement": { "$type": "Spaces:Constant:", "x": 1, "y": 1 },
+								"subjective": true
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetAugments:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:",
+					"targetIndex": 1
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": 0,
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 1,
+					"jumpIndices": [
+						4
+					]
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 2,
+	"s": 1,
+	"w": 0,
+	"subtypeText": "Teammate"
+}

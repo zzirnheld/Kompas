@@ -1,0 +1,44 @@
+{
+	"cardType": 67,
+	"cardName": "Choo Choo Brain",
+	"effText": "Speedemon.\nWhen I move, hand->reshuffle a card. (Yes, you have to.) Give me +2 ESW. ",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "fuel for the Choo Choo Brain",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 2,
+					"sModifier": 2,
+					"wModifier": 2
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Speedemon"
+	],
+	"n": 2,
+	"e": 1,
+	"s": 4,
+	"w": 1,
+	"subtypeText": "Speedemon"
+}

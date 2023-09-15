@@ -1,0 +1,24 @@
+{
+	"blurb": "The shadow vanishes...",
+	"triggerData": {
+		"triggerCondition": "Arrive",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+				{
+					"$type": "Core.SpaceRestriction:InAOEOf:",
+					"card": { "$type": "Cards:ThisCardNow:" }
+				}
+			]
+		}
+	},
+	"subeffects": [
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Vanish:"
+		}
+	]
+}

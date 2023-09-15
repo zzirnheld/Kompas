@@ -1,0 +1,76 @@
+{
+	"blurb": "What *is* that shadow...",
+	"triggerData": {
+		"triggerCondition": "Play",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:CardsMatch:",
+			"card": { "$type": "Cards:CardBefore:" },
+			"other": { "$type": "Cards:ThisCardNow:" }
+		}
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:CardTarget:",
+			"blurb": "Which Cryptids could the shadow be?",
+			"toSearch": { "$type": "ManyCards:Hand:" },
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:AllOf:",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Character:" },
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Cryptid" ]
+					}
+				]
+			},
+			"listRestriction": {
+				"$type": "Core.ListRestriction:AllOf:",
+				"elements": [
+					{
+						"$type": "Core.ListRestriction:Minimum:",
+						"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+					},
+					{
+						"$type": "Core.ListRestriction:Maximum:",
+						"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+					}
+				]
+			},
+			"toLinkWith": { "$type": "Cards:ThisCardNow:" }
+		},
+		{
+			"$type": "Subeffect:Show:",
+			"targetIndex": -1
+		},
+		{
+			"$type": "Subeffect:Show:",
+			"targetIndex": -2
+		},
+		{
+			"$type": "Subeffect:CardTarget:",
+			"secretTarget": true,
+			"blurb": "Which Cryptid is it <i>really</i>?",
+			"toSearch": { "$type": "ManyCards:Hand:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Target:" },
+			"toLinkWith": { "$type": "Cards:ThisCardNow:" },
+			"linkColor": { "r": 195, "g": 195, "b": 195, "a": 195 }
+		},
+		{
+			"$type": "Subeffect:Hanging.Delay:",
+			"endCondition": "Vanish",
+			"numTimesToDelay": 0,
+			"jumpIndices": [ 5 ],
+			"triggerRestriction": {
+				"$type": "Core.TriggerRestriction:CardsMatch:",
+				"card": { "$type": "Cards:CardBefore:" },
+				"other": { "$type": "Cards:ThisCardNow:" }
+			}
+		},
+		{
+			"$type": "Subeffect:TargetTriggeringCardsSpace:"
+		},
+		{
+			"$type": "Subeffect:Play:"
+		}
+	]
+}

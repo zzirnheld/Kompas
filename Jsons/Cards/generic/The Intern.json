@@ -1,0 +1,34 @@
+{
+	"cardType": 67,
+	"cardName": "The Intern",
+	"effText": "Cannot be Avatar. (He's not ready for that kind of responsibility.)\nThe first time each stack you draw, draw 1.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 1,
+	"s": 11,
+	"w": 1,
+	"subtypeText": ""
+}

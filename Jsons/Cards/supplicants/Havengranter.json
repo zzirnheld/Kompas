@@ -1,0 +1,61 @@
+{
+	"cardType": 67,
+	"cardName": "Havengranter",
+	"effText": "When turns start, hand->summon an S 1 character adjacent to me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction":
+					{
+						"blurb": "for Havengranter to hand-summon",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "S" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:Equal:" },
+									"other": { "$type": "Numbers:Constant:", "constant": 1 }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"spaceRestriction": {
+						"blurb": "where Havengranter to hand-summon",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 2,
+	"s": 2,
+	"w": 0,
+	"subtypeText": "Kind Person"
+}

@@ -1,0 +1,59 @@
+{
+	"cardType": 65,
+	"cardName": "Draining Shield",
+	"effText": "When this character defends from a W X character, destroy me, then give them +2 * X E.",
+	"effects": [
+		{
+			"blurb":"Drain",
+			"triggerData":
+			{
+				"triggerCondition":"Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:Discard:",
+					"targetIndex": 2
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:", "index": 1 },
+						"cardValue": { "value": "W" }
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": 2,
+					"targetIndex": 0
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 1,
+	"subtypeText": ""
+}

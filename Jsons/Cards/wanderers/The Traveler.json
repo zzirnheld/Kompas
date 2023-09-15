@@ -1,0 +1,87 @@
+{
+	"cardType": 67,
+	"cardName": "The Traveler",
+	"effText": "Once each turn, you can hand a friendly summon to hand->summon a distinct character with up to 1 more S.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character to reshuffle",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Summoned:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Wanderer to inspire with music",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							},
+							{
+								"$type": "Core.CardRestriction:DistinctName:",
+								"cards": { "$type": "ManyCards:Targets:" }
+							}
+						]
+					},
+					"xModifier": 1
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where character to travel to",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 4,
+	"s": 10,
+	"w": 10,
+	"unique": true,
+	"subtypeText": ""
+}

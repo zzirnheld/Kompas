@@ -1,0 +1,18 @@
+{
+	"cardType": 67,
+	"cardName": "Toxic Mycelium",
+	"effText": "Spores.",
+	"effects": [],
+	"keywords": [
+		"Spores"
+	],
+	"n": 0,
+	"e": 1,
+	"s": 1,
+	"w": 1,
+	"subtypes": [
+		"Mycelium",
+		"Fungus"
+	],
+	"subtypeText": "Mycelium Fungus"
+}

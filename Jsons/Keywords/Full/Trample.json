@@ -1,0 +1,61 @@
+{
+	"blurb": "Trample",
+	"triggerData": {
+		"triggerCondition": "Take Combat Damage",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:CardBefore:" },
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Fighting:",
+				"defending": true,
+				"fightingWho": { "$type": "Cards:ThisCardNow:" }
+			}
+		}
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:SetXByNumberIdentity:",
+			"numberIdentity": { 
+				"$type": "Numbers:FromCardValue:",
+				"card": { "$type": "Cards:CardBefore:" },
+				"cardValue": { "value": "E" }
+			},
+			"change": true,
+			"xMultiplier": -1
+		},
+		{
+			"$type":"Subeffect:TargetTriggeringCard:",
+			"contextSecondaryCard":true
+		},
+		{
+			"$type": "Subeffect:ConditionalEnd:",
+			"endIfTrue": {
+				"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+				"number": { "$type": "Numbers:EffectX:" },
+				"restriction": {
+					"$type": "Core.NumberRestriction:Compare:",
+					"comparison": { "$type": "Relationships.Number:LessThan:" },
+					"other": { "$type": "Numbers:Constant:", "constant": 0 }
+				}
+			}
+		},
+		{
+			"$type": "Subeffect:TargetTriggeringCardsSpace:"
+		},
+		{
+			"$type": "Subeffect:ChangeAllCardStats:",
+			
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+					{ "$type": "Core.CardRestriction:Character:" },
+					{
+						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"space": { "$type": "Spaces:TargetIndex:" }
+					}
+				]
+			},
+			"eMultiplier": -1
+		}
+	]
+}

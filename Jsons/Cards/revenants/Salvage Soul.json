@@ -1,0 +1,57 @@
+{
+	"cardType": 83,
+	"cardName": "Salvage Soul",
+	"effText": "Board->hand a friendly Revenant. Rummage, rummage, rummage.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Revenant for Salvage Soul to hand",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Revenant" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Rummage"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Rummage"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Rummage"
+				}
+			]
+		}
+	],
+	"c": 0,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

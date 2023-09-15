@@ -1,0 +1,82 @@
+{
+	"cardType": 83,
+	"cardName": "Drainfog",
+	"effText": "Weather Condition: Their controller hand->discards 2 cards, then draws 1.",
+	"effects": [
+		{
+			"blurb": "So tired",
+			"triggerData": {
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:InAOEOf:",
+							"card": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type":"Subeffect:TargetTargetsController:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "The fog is draining",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true,
+						"enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.PlayerRestriction:PlayersMatch:",
+						"player": { "$type": "Players:TargetIndex:" }
+					},
+					"listRestriction": {
+						"$type": "Core.ListRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.ListRestriction:Minimum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							},
+							{
+								"$type": "Core.ListRestriction:Maximum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:Discard:",
+					"targetIndex": -2
+				},
+				{
+					"$type":"Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Weather Condition Cast"
+	],
+	"unique": true,
+	"c": 2,
+	"spellTypes": [
+		"Radial"
+	],
+	"subtypeText": "Radius Water Weather",
+	"radius": 2
+}

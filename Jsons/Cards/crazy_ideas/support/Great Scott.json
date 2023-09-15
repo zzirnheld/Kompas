@@ -1,0 +1,76 @@
+{
+	"cardType": 67,
+	"cardName": "Great Scott",
+	"effText": "When an enemy moves normally, hand->discard a card and move them 1 space. 1 turn later, draw 1 card.",
+	"effects": [
+		{
+			"blurb": "SCARTY, THE MAR!!",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.TriggerRestriction:Normally:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "WHAT ARE WE DISCARDING, SCARMY!?",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "WHERE ARE WE MOVING THAT CARD THEY MOVED!?",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [ 6 ],
+					"fallOffCondition": "",
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 5,
+	"s": 7,
+	"w": 5,
+	"unique": true,
+	"subtypeText": "Crazy Person"
+}

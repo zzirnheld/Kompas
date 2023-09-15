@@ -1,0 +1,107 @@
+{
+	"cardType": 67,
+	"cardName": "Giant Ball of Tinfoil",
+	"effText": "Structure.\nWhen turns start, I roll along a diagonal until I hit a character, who I attack.",
+	"technicalEffText": "Structure.\nWhen turns start, choose an adjacent space, then keep moving me 1 space in that direction until you can't. I attack any adjacent character in the direction I was moving.",
+	"effects": [
+		{
+			"blurb": "THE ENTIRE EASTERN SEABOARD",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "rollinnnnnnnn",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						8
+					]
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"spaceIdentity": {
+						"$type": "Spaces:ApplyDisplacement:",
+						"from": { "$type": "Cards:ThisCardNow:" },
+						"displacement": {
+							"$type": "Spaces:Displacement:",
+							"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
+							"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:Jump:",
+					"jumpIndices": [
+						5
+					]
+				},
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": {
+						"$type": "Cards:CardAtPosition:",
+						"position": {
+							"$type": "Spaces:ApplyDisplacement:",
+							"from": { "$type": "Cards:ThisCardNow:" },
+							"displacement": {
+								"$type": "Spaces:Displacement:",
+								"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
+								"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Attack:",
+					"targetIndex": -1,
+					"attackerIndex": -2
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.GamestateRestriction:Not:",
+			"negated": { "$type": "Core.TriggerRestriction:Normally:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+	},
+	"n": 0,
+	"e": 9,
+	"s": 5,
+	"w": 9,
+	"subtypeText": "Crazy Idea Structure"
+}

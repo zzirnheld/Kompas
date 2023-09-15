@@ -1,0 +1,74 @@
+{
+	"cardType": 67,
+	"cardName": "XIX - The Sun",
+	"effText": "When you draw, give a summon -1 E and another +1 E.",
+	"effects": [
+		{
+			"blurb": "Scorching Heat",
+			"triggerData": {
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character for Sun to give -1 E",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Summoned:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -1
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character for Sun to give +1 E",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Summoned:" },
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": {
+									"$type": "Core.CardRestriction:CardsMatch:",
+									"card": { "$type": "Cards:TargetIndex:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 8,
+	"s": 9,
+	"w": 8,
+	"subtypes": [
+		"Tarocco",
+		"Mage"
+	],
+	"subtypeText": "Tarocco Mage"
+}

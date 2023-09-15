@@ -1,0 +1,85 @@
+{
+	"cardType": 83,
+	"cardName": "Dreamwork",
+	"effText": "When turns start, attach each possible friendly Sportsball to a character adjacent to them.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Dreamwork! Pass!",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Board" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Sportsball" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						6
+					]
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "adjacent character to attach augment to",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						5
+					]
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": -1,
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:ClearOnImpossible:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Team Play Enchant"
+}

@@ -1,0 +1,89 @@
+{
+	"cardType": 83,
+	"cardName": "Flisp",
+	"effText": "In a random order, move each friendly Wisp 1 random space, then another, then another, closer to their closest enemy.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Wisp" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"subeffectSpaceIdentity": {
+						"$type": "Spaces:SelectFromMany:",
+						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+						"spaces": {
+							"$type": "ManySpaces:CompareDistance:",
+							"distanceTo": { "$type": "Cards:TargetIndex:" },
+							"spaces": {
+								"$type": "ManySpaces:PositionsOfEach:",
+								"cards": {
+									"$type": "ManyCards:Restricted:",
+									"cards": { "$type": "ManyCards:Board:" },
+									"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+								}
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"subeffectSpaceIdentity": {
+						"$type": "Spaces:SelectFromMany:",
+						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+						"spaces": {
+							"$type": "ManySpaces:CompareDistance:",
+							"distanceTo": { "$type": "Cards:TargetIndex:" },
+							"spaces": {
+								"$type": "ManySpaces:AdjacentSpaces:",
+								"adjacentTo": { "$type": "Cards:TargetIndex:" }
+							}
+						}
+					}
+				},
+				{
+					"$type":"Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:XTimes:",
+					"jumpIndices": [ 1 ],
+					"xMultiplier": 0,
+					"xModifier": 3
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [ 1 ]
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

@@ -1,0 +1,63 @@
+{
+	"cardType": 65,
+	"cardName": "Sportyball",
+	"effText": "Pass Back. Recoverable.\nSticky, twice each turn.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Sticky!",
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"space": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:", "max": 2 },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": {
+												"$type": "Cards:AugmentedCard:",
+												"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Attach:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Pass Back",
+		"Recoverable"
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 1,
+	"subtypeText": "Sportsball"
+}

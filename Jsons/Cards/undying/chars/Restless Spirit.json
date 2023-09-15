@@ -1,0 +1,19 @@
+{
+	"cardType": 67,
+	"cardName": "Restless Spirit",
+	"effText": "Undying.",
+	"effects": [
+	],
+	"keywords": [
+		"Undying"
+	],
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 1,
+	"subtypes": [
+		"Ethereal",
+		"Spirit"
+	],
+	"subtypeText": "Ethereal Spirit"
+}

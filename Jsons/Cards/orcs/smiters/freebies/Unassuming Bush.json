@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Unassuming Bush",
+	"effText": "<i>An ordinary bush. Nothing to be suspicious of.</i>",
+	"effects": [],
+	"n": 0,
+	"e": 1,
+	"s": 0,
+	"w": 0,
+	"subtypes": [
+		"Plant"
+	],
+	"subtypeText": "Plant"
+}

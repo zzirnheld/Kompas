@@ -1,0 +1,70 @@
+{
+	"cardType": 67,
+	"cardName": "Flameborn Seedling",
+	"effText": "When I die, deck->summon a Tree where I was. Give them -3 ES.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Seedling to become",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tree" ]
+							},
+							{ "$type": "Core.CardRestriction:CanPlay:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -3,
+					"sModifier": -3
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 2,
+	"s": 3,
+	"w": 0,
+	"subtypeText": ""
+}

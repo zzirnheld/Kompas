@@ -1,0 +1,79 @@
+{
+	"cardType": 67,
+	"cardName": "Hypnosympatheticizer",
+	"effText": "Speedemon.\nThe first time each stack I move, move a distinct character 1 space in the same direction.",
+	"effects": [
+		{
+			"blurb": "hyyyypnoooo SYMP",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "card to sympa",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:DistinctName:" },
+							{
+								"$type": "Core.CardRestriction:CanMove:",
+								"spaceRestrictionSubeffectIndex": 1
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for speed victim to move",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+							},
+							{
+								"$type": "Core.SpaceRestriction:Direction:",
+								"from": { "$type": "Cards:TargetIndex:" },
+								"directionToMatch": {
+									"$type": "Spaces:Direction:",
+									"from": { "$type": "Cards:CardBefore:" },
+									"to": { "$type": "Cards:ThisCardNow:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Speedemon"
+	],
+	"n": 1,
+	"e": 4,
+	"s": 4,
+	"w": 4,
+	"subtypeText": "Speedemon"
+}

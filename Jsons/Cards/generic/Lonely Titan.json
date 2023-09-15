@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Lonely Titan",
+	"effText": "Attended 3.",
+	"effects": [],
+	"keywords": [
+		"Attended"
+	],
+	"keywordArgs": [
+		3
+	],
+	"n": 3,
+	"e": 12,
+	"s": 5,
+	"w": 12,
+	"subtypeText": "Big Person"
+}

@@ -1,0 +1,91 @@
+{
+	"cardType": 83,
+	"cardName": "Deliver Us",
+	"effText": "If you have 10 friendly Supplicants, living or dead, summon a \"God of Mercy\" from anywhere.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{ "$type": "Core.CardRestriction:Character:" },
+								{ "$type": "Core.CardRestriction:Friendly:" },
+								{
+									"$type": "Core.CardRestriction:Location:",
+									"locations": [ "Board", "Discard" ]
+								},
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Supplicant" ]
+								}
+							]
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": { "$type": "Numbers:EffectX:" },
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:LessThan:" },
+							"other": { "$type": "Numbers:Constant:", "constant": 10 }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "God of the Supplicants",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Hand", "Deck", "Discard" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"nameIs": "God of Mercy"
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"spaceRestriction": {
+						"blurb": "where to play God of Mercy",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple Plea"
+}

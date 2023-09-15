@@ -1,0 +1,93 @@
+{
+	"cardType": 65,
+	"cardName": "Instinctive Dispel",
+	"effText": "When this summon attacks, echo them.\nWhen you echo this summon, dispel an adjacent spell to give them +5 W.",
+	"effects": [
+		{
+			"blurb": "Powerhunger",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Dispel:"
+				},
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 5
+				}
+			]
+		},
+		{
+			"blurb": "Echoed powerhunger",
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Resummon:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 2,
+	"subtypeText": "Memory"
+}

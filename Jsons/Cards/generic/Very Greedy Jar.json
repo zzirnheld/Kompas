@@ -1,0 +1,32 @@
+{
+	"cardType": 83,
+	"cardName": "Very Greedy Jar",
+	"effText": "Draw 4 cards.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:DrawX:",
+					"xMultiplier": 0,
+					"xModifier": 4
+				}
+			]
+		}
+	],
+	"c": 3,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

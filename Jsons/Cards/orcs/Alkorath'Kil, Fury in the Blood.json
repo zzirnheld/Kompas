@@ -1,0 +1,147 @@
+{
+	"cardType": 67,
+	"cardName": "Alkorath'Kil, Fury in the Blood",
+	"effText": "Can't be Avatar.\nWhen friendly turns start, discard->hand any number of Orcs.\nWhen a battle starts or a character dies, give all Orcs +3 EW.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Return Orcs to the Fray",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"listRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Orc" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"triggerCondition": "Battle Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Orc" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 3,
+					"eModifier": 3
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									},
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Orc" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 3,
+					"eModifier": 3
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 20,
+	"s": 16,
+	"w": 15,
+	"subtypes": [
+		"Orc",
+		"God"
+	],
+	"subtypeText": "Orc God"
+}

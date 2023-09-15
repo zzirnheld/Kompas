@@ -1,0 +1,39 @@
+{
+	"cardType": 67,
+	"cardName": "P4RT1S4N",
+	"effText": "Golem.\nI can attack characters 2 spaces from me, not just adjacent ones.",
+	"effects": [],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [
+			{
+				"$type": "Core.SpaceRestriction:CompareDistance:",
+				"distanceTo": { "$type": "Cards:ThisCardNow:" },
+				"number": { "$type": "Numbers:Constant:", "constant": 2 },
+				"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+			},
+			{
+				"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+				"card": { "$type": "Cards:ThisCardNow:" },
+				"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+			}
+		]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"n": 4,
+	"e": 4,
+	"s": 10,
+	"w": 7,
+	"subtypes": [
+		"Mech",
+		"Golem"
+	],
+	"subtypeText": "Mech Golem"
+}

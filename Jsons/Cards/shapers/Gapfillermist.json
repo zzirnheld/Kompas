@@ -1,0 +1,53 @@
+{
+	"cardType": 67,
+	"cardName": "Gapfillermist",
+	"effText": "Shape.\nWhen a Shaper Shapes through me, heal them, reshuffle me, and draw 1 card.",
+	"effects": [
+		{
+			"blurb": "Condense",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:TriggerKeyword:",
+							"keyword": "Shaped Through"
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:Heal:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Shape",
+		"Evasive"
+	],
+	"n": 1,
+	"e": 2,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Ethereal",
+		"Shaper"
+	],
+	"subtypeText": "Ethereal Shaper"
+}

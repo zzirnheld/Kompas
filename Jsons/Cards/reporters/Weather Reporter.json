@@ -1,0 +1,79 @@
+{
+	"cardType": 67,
+	"cardName": "Weather Reporter",
+	"effText": "When an enemy card is revealed, pip hand->summon a character at half cost.",
+	"effects": [
+		{
+			"blurb": "Weather Report",
+			"triggerData": {
+				"triggerCondition": "Revealed",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Weather Reporter to hand-summon",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": {
+									"value": "Cost",
+									"divisor": 2
+								},
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": {
+										"$type": "Numbers:Pips:",
+										"player": { "$type": "Players:TargetIndex:" }
+									}
+								}
+							},
+							{ "$type": "Core.CardRestriction:CanPlay:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:PayPipsTargetCost:",
+					"divisor": 2
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where Weather Reporter to hand-summon",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 1,
+	"subtypeText": "Weather Reporter Person"
+}

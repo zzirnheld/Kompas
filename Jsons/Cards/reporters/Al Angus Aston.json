@@ -1,0 +1,111 @@
+{
+	"cardType": 67,
+	"cardName": "Al Angus Aston",
+	"effText": "Once each turn, you can ask an enemy to reveal 2 cards. If they don't, give all friendly Reporters +1 NEWS and draw 1.",
+	"effects": [
+		{
+			"blurb": "SHOW ME 2 CARDS",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetEnemy:"
+				},
+				{
+					"$type": "Subeffect:CanResolve:",
+					"subeffIndices": [
+						3
+					],
+					"skipIndex": 7
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Reveal two cards?",
+					"optionBlurbs": [
+						"Yes",
+						"No"
+					],
+					"jumpIndices": [
+						3,
+						7
+					],
+					"showX": true
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "cards to reveal",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true,
+						"enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Hidden:" },
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							}
+						]
+					},
+					"listRestriction": {
+						"$type": "Core.ListRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.ListRestriction:Minimum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							},
+							{
+								"$type": "Core.ListRestriction:Maximum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				},
+				{
+					"$type": "Subeffect:Reveal:",
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:Draw:",
+					"playerIndex": -2
+				},
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Reporter" ]
+							}
+						]
+					},
+					"nModifier": 1,
+					"eModifier": 1,
+					"sModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 3,
+	"e": 5,
+	"s": 6,
+	"w": 6,
+	"subtypeText": "Probably Crazy Libelous Reporter Person"
+}

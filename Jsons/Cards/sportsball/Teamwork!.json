@@ -1,0 +1,39 @@
+{
+	"cardType": 83,
+	"cardName": "Teamwork!",
+	"effText": "Comeback Play.\nThe first time each stack you augment a character, draw 1.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Teamwork! Draw!",
+				"triggerCondition": "Augmented",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Comeback Play"
+	],
+	"c": 1,
+	"spellTypes": [
+		"Vanishing"
+	],
+	"duration": 1,
+	"subtypeText": "Team Play"
+}

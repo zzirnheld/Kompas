@@ -1,0 +1,63 @@
+{
+	"cardType": 83,
+	"cardName": "Well-Planned Defense",
+	"effText": "When turns start, hand->summon a Maya Structure to a space on the edge of the board, then draw 1 card.",
+	"effects": [
+		{
+			"blurb": "Planned construction",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:CardTarget:",
+					"blurb":"for Well-Planned Defense to summon",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction":
+					{
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Maya", "Structure" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "Space on the edge of the board to play the Structure to",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{ "$type": "Core.SpaceRestriction:Edge:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Vanishing"
+	],
+	"subtypes": [
+		"Vanishing",
+		"Maya"
+	],
+	"subtypeText": "Maya",
+	"duration": 3
+}

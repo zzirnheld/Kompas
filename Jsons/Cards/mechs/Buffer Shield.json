@@ -1,0 +1,80 @@
+{
+	"cardType":65,
+	"cardName":"Buffer Shield",
+	"effText":"While equipped, give this character +3 E.\nWhen enemy turns start, discard->attach me to a Mech.",
+	"effects":[
+		{
+			"blurb":"Buffer",
+			"triggerData":
+			{
+				"triggerCondition":"Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type":"Subeffect:Hanging.ChangeCardStats:",
+					"eModifier":3,
+					"endCondition":"Augment Detached",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"blurb": "Buffer Recharge",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.TriggerRestriction:EnemyTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:ThisCardNow:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Discard" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Buffer Shield to attach to",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Mech" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": -2,
+					"targetIndex": -1
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a":1,
+	"subtypeText":""
+}

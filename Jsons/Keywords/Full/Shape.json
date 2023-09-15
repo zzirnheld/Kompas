@@ -1,0 +1,49 @@
+{
+	"blurb":"Shape",
+	"activationRestriction": {
+		"$type": "Core.PlayerRestriction:ActivationRestriction:"
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:SpaceTarget:",
+			"blurb":"to move Shaper to",
+			"spaceRestriction":
+			{
+				"$type": "Core.SpaceRestriction:ConnectedTo:",
+				"space": { "$type": "Cards:ThisCardNow:" },
+				"byRestriction":{
+					"$type": "Core.CardRestriction:Subtypes:",
+					"subtypes": [ "Ethereal" ]
+				}
+			}
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:SpendMovement:",
+			"xMultiplier": 0,
+			"xModifier": 1
+		},
+		{
+			"$type": "Subeffect:SetXByNumberIdentity:",
+			"numberIdentity": {
+				"$type": "Numbers:Distance:",
+				"firstSpace": { "$type": "Cards:ThisCardNow:" },
+				"secondSpace": { "$type": "Spaces:TargetIndex:" },
+				"throughRestriction": {
+					"$type": "Core.CardRestriction:Subtypes:",
+					"subtypes": [ "Ethereal" ]
+				}
+			},
+			"xModifier":-1
+		},
+		{
+			"$type":"Subeffect:ChangeCardStats:",
+			"eMultiplier":-1
+		},
+		{
+			"$type":"Subeffect:Move:"
+		}
+	]
+}

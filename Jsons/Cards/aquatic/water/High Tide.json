@@ -1,0 +1,14 @@
+{
+	"cardType": 83,
+	"cardName": "High Tide",
+	"effText": "<i>Vanishes after 2 turns.</i>",
+	"effects": [],
+	"c": 1,
+	"spellTypes": [
+		"Vanishing",
+		"Radial"
+	],
+	"radius": 3,
+	"duration": 2,
+	"subtypeText": "Water"
+}

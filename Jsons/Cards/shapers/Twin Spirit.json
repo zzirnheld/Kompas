@@ -1,0 +1,76 @@
+{
+	"cardType": 67,
+	"cardName": "Twin Spirit",
+	"effText": "Shape.\nWhen I'm hand->summoned, deck->summon a copy of me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },		
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Hand" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "copy of Twin Spirit to decksummon",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"sameAs": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"maxCanChoose": 1
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for Twin Spirit to decksummon a copy of itself",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Shape"
+	],
+	"n": 1,
+	"e": 2,
+	"s": 4,
+	"w": 2,
+	"subtypeText": "Ethereal Shaper Spirit"
+}

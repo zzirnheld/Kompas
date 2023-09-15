@@ -1,0 +1,99 @@
+{
+	"cardType": 67,
+	"cardName": "Altar Builder",
+	"effText": "When a friendly Cultist dies, give me +1 S.\nI can pay 9 S to deck-cast an Altar.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Strengthen Builder",
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Friendly:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Cultist" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": 1
+				}
+			]
+		},
+		{
+			"blurb": "Build Altar",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:PayStats:",
+					"sModifier": 9
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Altar for Altar Builder to play",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Altar" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for Altar Builder to cast its target Altar",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 4,
+	"s": 4,
+	"w": 4,
+	"subtypeText": "Cultist Craftsman"
+}

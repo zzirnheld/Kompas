@@ -1,0 +1,65 @@
+{
+	"cardType": 67,
+	"cardName": "Venturebinder",
+	"effText": "When an enemy character enters Weather, Spin a Storm there.",
+	"effects": [
+		{
+			"blurb": "Bind the curiosity",
+			"triggerData": {
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							"cardRestriction": {
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Weather" ]
+								}
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Core.CardRestriction:Enemy:" },
+									{
+										"$type": "Core.SpaceRestriction:Not:",
+										"negated": {
+											"$type": "Core.SpaceRestriction:InAOEOf:",
+											"cardRestriction": {
+												"$type": "Core.CardRestriction:Subtypes:",
+												"subtypes": [ "Weather" ]
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Spin a Storm"
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 4,
+	"s": 4,
+	"w": 4,
+	"subtypeText": "Skyknight Stormspinner Warrior"
+}

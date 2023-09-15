@@ -1,0 +1,64 @@
+{
+	"cardType": 67,
+	"cardName": "5P33DRUNN3R",
+	"effText": "Speedemon. Golem.\nWhen I become active, give adjacent characters +2 N.",
+	"effects": [
+		{
+			"blurb": "5P33DRUN 5TR4T5",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					},
+					"nModifier": 2
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"keywords": [
+		"Speedemon"
+	],
+	"n": 3,
+	"e": 3,
+	"s": 10,
+	"w": 7,
+	"subtypes": [
+		"Mech",
+		"Golem"
+	],
+	"subtypeText": "Mech Golem"
+}

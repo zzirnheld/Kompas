@@ -1,0 +1,15 @@
+{
+	"cardType": 83,
+	"cardName": "Looming Shadow",
+	"effText": "Shadowy Figure.\n<i>Vanishes after 2 turns? Or less...</i>",
+	"effects": [],
+	"c": 4,
+	"keywords": [ "Shadowy Figure Summon", "Shadowy Figure Vanish" ],
+	"spellTypes": [
+		"Vanishing",
+		"Radial"
+	],
+	"radius": 3,
+	"duration": 2,
+	"subtypeText": "Shadow"
+}

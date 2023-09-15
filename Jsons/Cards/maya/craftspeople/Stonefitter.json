@@ -1,0 +1,75 @@
+{
+	"cardType": 67,
+	"cardName": "Stonefitter",
+	"effText": "When you summon a Structure normally, deck->summon a copy of it adjacent to me.",
+	"effects": [
+		{
+			"blurb": "Build temple",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.TriggerRestriction:Normally:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Structure" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "copy of the Structure to deck->summon",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"sameAs": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"maxCanChoose": 1
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for the Temple Builder to decksummon a copy of the Structure",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypeText": "Maya Craftsperson"
+}

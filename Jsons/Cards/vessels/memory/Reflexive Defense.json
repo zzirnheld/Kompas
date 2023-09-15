@@ -1,0 +1,95 @@
+{
+	"cardType": 65,
+	"cardName": "Reflexive Defense",
+	"effText": "When this summon defends, echo them thrice.\nWhen you echo this summon, give them +1 E.",
+	"effects": [
+		{
+			"blurb": "Reflexive Defense",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1
+				}
+			]
+		},
+		{
+			"blurb": "I HEAR ENEMIES",
+			"triggerData": {
+				"triggerCondition": "Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Resummon:"
+				},
+				{
+					"$type": "Subeffect:Resummon:"
+				},
+				{
+					"$type": "Subeffect:Resummon:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"normalAndEffect": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+	},
+	"a": 2,
+	"subtypeText": "Sword: Summoned"
+}

@@ -1,0 +1,67 @@
+{
+	"cardType": 67,
+	"cardName": "Silent Recruiter",
+	"effText": "Once each turn, if I'm adjacent to an enemy, you can deck->summon a Cultist Mook",
+	"effects": [
+		{
+			"blurb": "Recruit",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [
+					{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+					{
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"anyOf": {
+							"$type": "ManyCards:CardsInPositions:",
+							"positions": {
+								"$type": "ManySpaces:AdjacentSpaces:",
+								"adjacentTo": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+					}
+				]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Silent Cult Follower to recruit",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Cultist", "Mook" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to play Silent Recruiter's new recruit",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 6,
+	"e": 1,
+	"s": 3,
+	"w": 1,
+	"subtypeText": "Cultist"
+}

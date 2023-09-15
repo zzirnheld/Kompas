@@ -1,0 +1,104 @@
+{
+	"cardType": 67,
+	"cardName": "Inside Goalie Defender",
+	"effText": "When you augment your adjacent Avatar, attach their Augment(s) to another character adjacent to me.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Goal Kick",
+				"triggerCondition": "Augmented",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Friendly:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									},
+									{ "$type": "Core.CardRestriction:Avatar:" },
+									{
+										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"space": { "$type": "Cards:ThisCardNow:" }
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character to goal-kick Augment to",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": {
+									"$type": "Core.CardRestriction:CardsMatch:",
+									"card": { "$type": "Cards:TargetIndex:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetAugments:",
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": { "$type": "Numbers:TargetCount:" },
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+							"other": { "$type": "Numbers:Constant:", "constant": 2 }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": 1
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 2,
+					"jumpIndices": [
+						4
+					]
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 5,
+	"s": 1,
+	"w": 0,
+	"subtypeText": "Teammate"
+}

@@ -1,0 +1,74 @@
+{
+	"cardType": 67,
+	"cardName": "God of Mercy",
+	"effText": "When I arrive adjacent to a Supplicant, negate adjacent characters until I leave play.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Mercy",
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"cardRestriction": { "elements": [
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Supplicant" ]
+								}
+							] }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"blurb": "Supplicant to give safe haven",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Negate:",
+					"endCondition": "Remove",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		}
+	],
+	"n": 7,
+	"e": 17,
+	"s": 17,
+	"w": 0,
+	"subtypeText": "God"
+}

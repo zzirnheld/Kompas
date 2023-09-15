@@ -1,0 +1,118 @@
+{
+	"cardType": 67,
+	"cardName": "Pactbinder",
+	"effText": "When you summon a Skyknight normally, deck->hand Weather.\nWhen you cast Weather normally, deck->hand a Skyknight.",
+	"effects": [
+		{
+			"blurb": "Bind weather",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{ "$type": "Core.TriggerRestriction:Normally:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									},
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Skyknight" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Weather for the Pactbinder to bind",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Weather" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		},
+		{
+			"blurb": "Bind Skyknight",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{ "$type": "Core.TriggerRestriction:Normally:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									},
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Weather" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Skyknight for the Pactbinder to bind",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Skyknight" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 6,
+	"e": 8,
+	"s": 9,
+	"w": 7,
+	"subtypeText": "Skyknight Mage"
+}

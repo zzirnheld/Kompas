@@ -1,0 +1,67 @@
+{
+	"cardType": 67,
+	"cardName": "Button Mushroom",
+	"effText": "Spores.\nThe first time each turn a Fungus defends, pulse me and that Fungus.",
+	"effects": [
+		{
+			"blurb": "Push the Button?",
+			"triggerData": {
+				"triggerCondition": "Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Fungus" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 1,
+	"e": 4,
+	"s": 3,
+	"w": 2,
+	"subtypes": [
+		"Sensory",
+		"Fungus"
+	],
+	"subtypeText": "Sensory Fungus"
+}

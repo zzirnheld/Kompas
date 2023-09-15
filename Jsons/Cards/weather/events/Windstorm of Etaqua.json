@@ -1,0 +1,107 @@
+{
+	"cardType": 67,
+	"cardName": "Windstorm of Etaqua",
+	"effText": "Weather Event: Each moves all characters there, to a random space.",
+	"effects": [
+		{
+			"blurb": "Blow away",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.TriggerRestriction:EnemyTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Weather", "Condition" ]
+							},
+							{
+								"$type": "Core.CardRestriction:AOEContains:",
+								"cards": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"card": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"subeffectSpaceIdentity": {
+						"$type": "Spaces:SelectFromMany:",
+						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+						"spaces": {
+							"$type": "ManySpaces:Restricted:",
+							"restriction": {
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [ 3 ],
+					"leaveRemainingTargets": { "$type": "Numbers:EffectX:" }
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [ 2 ]
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Weather" ]
+			},
+			"minAnyOfCount": { 
+				"$type": "Numbers:Constant:",
+				"constant": 2
+			}
+		} ]
+	},
+	"n": 9,
+	"e": 4,
+	"s": 5,
+	"w": 3,
+	"subtypeText": "Weather Event Elemental"
+}

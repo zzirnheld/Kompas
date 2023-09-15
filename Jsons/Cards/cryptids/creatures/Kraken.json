@@ -1,0 +1,53 @@
+{
+	"cardType": 67,
+	"cardName": "Kraken",
+	"effText": "Aggressive.\nWhen I attack, move my target to any space in my area.",
+	"effects": [
+		{
+			"blurb": "Caught by a tentacle",
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for Kraken to move its target",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [ 
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"card": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				}
+			]
+		}
+	],
+	"keywords": [ "Aggressive" ],
+	"n": 2,
+	"e": 10,
+	"s": 8,
+	"w": 6,
+	"spellTypes": [ "Radial" ],
+	"radius": 2,
+	"subtypeText": "Cryptid Fish"
+}

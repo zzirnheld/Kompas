@@ -1,0 +1,67 @@
+{
+	"cardType": 67,
+	"cardName": "XII - The Hanged Man",
+	"effText": "When you draw X cards, give me and another summon -X E.",
+	"effects": [
+		{
+			"blurb": "Symbolic execution",
+			"triggerData": {
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "summon for Hanged Man to also give -X E",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Summoned:" },
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": {
+									"$type": "Core.CardRestriction:CardsMatch:",
+									"card": { "$type": "Cards:ThisCardNow:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": -1,
+					"targetIndex": 0
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": -1,
+					"targetIndex": 1
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 4,
+	"s": 3,
+	"w": 2,
+	"subtypes": [
+		"Tarocco",
+		"Mage"
+	],
+	"subtypeText": "Tarocco Mage"
+}

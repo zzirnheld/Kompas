@@ -1,0 +1,88 @@
+{
+	"cardType": 83,
+	"cardName": "Mannaz",
+	"effText": "Runic.\nHand a character from your deck's top 10 cards.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						4
+					]
+				},
+				{
+					"$type": "Subeffect:CardTargetSaveRest:",
+					"blurb": "spell for Mannaz to search (to hand)",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"constant": 10,
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Index" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"other": { "$type": "Numbers:Constant:", "constant": 10 }
+								}
+							}
+						]
+					},
+					"restRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Index" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"other": { "$type": "Numbers:Constant:", "constant": 10 }
+								}
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": { "$type": "Core.CardRestriction:Target:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ClearOnImpossible:"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:BottomdeckRest:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+	},
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Rune",
+		"Simple"
+	],
+	"subtypeText": "Rune Simple"
+}

@@ -1,0 +1,66 @@
+{
+	"cardType": 83,
+	"cardName": "Starstuff",
+	"effText": "Double or halve your Avatar's S. (Round up.) Draw 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAvatar:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Double or halve?",
+					"optionBlurbs": [
+						"Double",
+						"Halve"
+					],
+					"jumpIndices": [
+						3,
+						5
+					],
+					"hasDefault": false
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": 1
+				},
+				{
+					"$type": "Subeffect:Jump:",
+					"jumpIndices": [
+						6
+					]
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": -1,
+					"sDivisor": 2
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

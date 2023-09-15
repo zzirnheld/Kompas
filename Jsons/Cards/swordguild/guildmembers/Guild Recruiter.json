@@ -1,0 +1,64 @@
+{
+	"cardType": 67,
+	"cardName": "Guild Recruiter",
+	"effText": "When turns start, deck->summon a Squire to a space adjacent to at least 2 Warriors.",
+	"effects": [
+		{
+			"blurb": "Recruit",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to play the Squire",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:WithinDistanceOfNumberOfCards:",
+								"numberOfCards": { 
+									"$type": "Numbers:Constant:",
+									"constant": 2
+								},
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Warrior" ]
+								}
+							},
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "New Squire",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Squire" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 2,
+	"s": 2,
+	"w": 2,
+	"subtypeText": "Swordguild Bureaucrat"
+}

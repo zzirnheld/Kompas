@@ -1,0 +1,77 @@
+{
+	"cardType": 67,
+	"cardName": "Spring Agaricus",
+	"effText": "Spores.\nThe first time each turn an enemy arrives adjacent to a Fungus, pulse me and that enemy.",
+	"effects": [
+		{
+			"blurb": "Spring",
+			"triggerData": {
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Friendly:" },
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Fungus" ]
+									}
+								]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Core.CardRestriction:Enemy:" }
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 1,
+	"e": 4,
+	"s": 3,
+	"w": 2,
+	"subtypes": [
+		"Sensory",
+		"Fungus"
+	],
+	"subtypeText": "Sensory Fungus"
+}

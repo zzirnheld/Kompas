@@ -1,0 +1,15 @@
+{
+	"cardType": 83,
+	"cardName": "Long Shadow",
+	"effText": "Shadowy Figure.\n<i>Vanishes after 5 turns? Or less...</i>",
+	"effects": [],
+	"c": 1,
+	"keywords": [ "Shadowy Figure Summon", "Shadowy Figure Vanish" ],
+	"spellTypes": [
+		"Vanishing",
+		"Radial"
+	],
+	"radius": 3,
+	"duration": 5,
+	"subtypeText": "Shadow"
+}

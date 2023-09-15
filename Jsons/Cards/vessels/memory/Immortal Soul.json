@@ -1,0 +1,70 @@
+{
+	"cardType": 65,
+	"cardName": "Immortal Soul",
+	"effText": "When this Vessel attacks a W X character, give the Vessel +X E and echo them.",
+	"effects": [
+		{
+			"blurb": "We've fought before",
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							},
+							"other": { "$type": "Cards:CardBefore:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Vessel" ]
+									}
+								]
+							},
+							"card": { "$type": "Cards:CardBefore:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "W" }
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": 1,
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:Resummon:",
+					"targetIndex": -2
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 1,
+	"subtypeText": "Memory"
+}

@@ -1,0 +1,46 @@
+{
+	"cardType":83,
+	"cardName":"Dragonfeed",
+	"effText":"When a friendly Dragon kills a character, give the Dragon +1 EW.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"blurb":"Dragonfeed",
+				"triggerCondition":"Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type":"Subeffect:ChangeCardStats:",
+					"eModifier":1,
+					"wModifier":1
+				}
+			]	
+		}
+	],
+	"c":1,
+	"spellTypes":["Enchant"],
+	"subtypeText":"Enchant"
+}

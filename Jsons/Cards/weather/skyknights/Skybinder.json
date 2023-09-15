@@ -1,0 +1,70 @@
+{
+	"cardType": 67,
+	"cardName": "Skybinder",
+	"effText": "When you Spin a Storm, reshuffle all your annihilated Weather.",
+	"effects": [
+		{
+			"blurb": "Bind weather",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:StackableFitsRestriction:",
+							"stackable": { "$type": "Stackables:StackableCause:" },
+							"restriction": {
+								"$type": "Core.StackableRestriction:Keyword:",
+								"keyword": "Spin a Storm"
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Annihilation" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Weather" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:CountXLoop:",
+					"canDecline": false,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypeText": "Skyknight Mage"
+}

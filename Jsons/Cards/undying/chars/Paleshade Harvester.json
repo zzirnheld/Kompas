@@ -1,0 +1,57 @@
+{
+	"cardType": 67,
+	"cardName": "Paleshade Harvester",
+	"effText": "Undying.\nWhen I'm revived, gain 1 pip.",
+	"effects": [
+		{
+			"blurb": "Harvest",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Discard" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Undying"
+	],
+	"n": 3,
+	"e": 4,
+	"s": 5,
+	"w": 3,
+	"subtypes": [
+		"Ethereal",
+		"Spirit"
+	],
+	"subtypeText": "Ethereal Spirit"
+}

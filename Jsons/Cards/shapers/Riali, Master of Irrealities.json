@@ -1,0 +1,63 @@
+{
+	"cardType": 67,
+	"cardName": "Riali, Master of Irrealities",
+	"effText": "Shape.\nWhen a Shaper kills themselves, revive them where they died, with all movement expended.",
+	"effects": [
+		{
+			"blurb": "Empower the Shaper",
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Shaper" ]
+									}
+								]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							"other": { "$type": "Cards:CardBefore:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:"
+				},
+				{
+					"$type": "Subeffect:Play:"
+				},
+				{
+					"$type":"Subeffect:SpendRemainingMovement:",
+					"xMultiplier": 0,
+					"xModifier":1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Shape"
+	],
+	"n": 1,
+	"e": 7,
+	"s": 5,
+	"w": 3,
+	"unique": true,
+	"subtypeText": "Ethereal Shaper Mage"
+}

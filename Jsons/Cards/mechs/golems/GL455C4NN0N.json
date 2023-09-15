@@ -1,0 +1,76 @@
+{
+	"cardType": 67,
+	"cardName": "GL455C4NN0N",
+	"effText": "Revenant Golem.\nWhen I'm revived, activate me.",
+	"effects": [
+		{
+			"blurb": "Activate",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Discard" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Activate:"
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"keywords": [
+		"Revenant Die",
+		"Revenant Revive"
+	],
+	"n": 2,
+	"e": 1,
+	"s": 10,
+	"w": 11,
+	"subtypes": [
+		"Ethereal",
+		"Revenant",
+		"Mech",
+		"Golem"
+	],
+	"subtypeText": "Ethereal Revenant Mech Golem"
+}

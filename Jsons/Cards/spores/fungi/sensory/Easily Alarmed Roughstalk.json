@@ -1,0 +1,59 @@
+{
+	"cardType": 67,
+	"cardName": "Easily Alarmed Roughstalk",
+	"effText": "Spores.\nWhen I fight a character, I pulse us.",
+	"effects": [
+		{
+			"blurb": "Shrink",
+			"triggerData": {
+				"triggerCondition": "Battle Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:ThisCardNow:" },
+							"other": { "$type": "Cards:CardBefore:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 0,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Sensory",
+		"Fungus"
+	],
+	"subtypeText": "Sensory Fungus"
+}

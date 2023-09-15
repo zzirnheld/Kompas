@@ -1,0 +1,57 @@
+{
+	"cardType": 83,
+	"cardName": "Brainstorm",
+	"effText": "Weather Condition: Their controller draws 1 card, then hand->bottomdecks 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Inspiration strikes",
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:InAOEOf:",
+							"card": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsController:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "the idea struck from your head",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:"
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Weather Condition Cast"
+	],
+	"unique": true,
+	"c": 2,
+	"spellTypes": [
+		"Radial"
+	],
+	"subtypeText": "Weather Condition Radius",
+	"radius": 1
+}

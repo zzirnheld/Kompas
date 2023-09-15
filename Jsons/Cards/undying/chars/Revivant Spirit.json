@@ -1,0 +1,50 @@
+{
+	"cardType": 67,
+	"cardName": "Revivant Spirit",
+	"effText": "Undying.\nYou can pip revive me.",
+	"effects": [
+		{
+			"blurb": "Revive",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"locations": [ "Discard" ]
+			},
+			"subeffects":[
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:CanResolve:",
+					"subeffIndices": [ 3, 4 ]
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to revive the Spirit",
+					"spaceRestriction":
+					{
+						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"toPlay": { "$type": "Cards:TargetIndex:" }
+					}
+				},
+				{
+					"$type": "Subeffect:PayPipsTargetCost:"
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Undying"
+	],
+	"n": 2,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypes": [
+		"Ethereal",
+		"Spirit"
+	],
+	"subtypeText": "Ethereal Spirit"
+}

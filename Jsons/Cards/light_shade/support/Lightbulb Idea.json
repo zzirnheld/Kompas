@@ -1,0 +1,52 @@
+{
+	"cardType": 83,
+	"cardName": "Lightbulb Idea",
+	"effText": "When you cast Light, draw 1 card, but decrease my duration by 1.",
+	"effects": [
+		{
+			"blurb": "OH!",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Light" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				},
+				{
+					"$type": "Subeffect:ChangeDuration:",
+					"xMultiplier": 0,
+					"xModifier": -1
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Delayed"
+	],
+	"subtypes": [
+		"Delayed"
+	],
+	"subtypeText": "Delayed",
+	"duration": 12
+}

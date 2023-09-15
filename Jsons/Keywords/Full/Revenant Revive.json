@@ -1,0 +1,32 @@
+{
+	"blurb":"Revive",
+	"activationRestriction": {
+		"$type": "Core.PlayerRestriction:ActivationRestriction:",
+		"locations": [ "Discard" ]
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:CanResolve:",
+			"subeffIndices":[3,4]
+		},
+		{
+			"$type":"Subeffect:SpaceTarget:",
+			"blurb":"where to revive the Revenant",
+			"spaceRestriction":
+			{
+				"$type": "Core.SpaceRestriction:CanPlayCard:",
+				"toPlay": { "$type": "Cards:TargetIndex:" }
+			}
+		},
+		{
+			"$type":"Subeffect:PayPipsTargetCost:",
+			"divisor":2
+		},
+		{
+			"$type":"Subeffect:Play:"
+		}
+	]
+}

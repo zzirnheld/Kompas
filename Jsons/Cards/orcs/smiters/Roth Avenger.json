@@ -1,0 +1,35 @@
+{
+	"cardType": 67,
+	"cardName": "Roth Avenger",
+	"effText": "Smite.\nWhen I'm summoned, I Ambush.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Ambush"
+				}
+			]
+		}
+	],
+	"keywords":[
+		"Smite"
+	],
+	"n": 1,
+	"e": 4,
+	"s": 2,
+	"w": 2,
+	"subtypes": [
+		"Orc",
+		"Paladin"
+	],
+	"subtypeText": "Orc Paladin"
+}

@@ -1,0 +1,48 @@
+{
+	"cardType": 67,
+	"cardName": "Peruser of Ancient Texts",
+	"effText": "Once each turn, you can hand->discard a card to deck->hand an Invocation.",
+	"effects": [
+		{
+			"blurb": "What does this book say...",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction":{
+						"blurb":"Card to discard"
+					}
+				},
+				{
+					"$type":"Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Invocation to find",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Invocation" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 5,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Novice Mage"
+}

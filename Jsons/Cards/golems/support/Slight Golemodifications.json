@@ -1,0 +1,97 @@
+{
+	"cardType": 83,
+	"cardName": "Slight Golemodifications",
+	"effText": "Repositionable.\nWhen turns start, swap a friendly S X Golem here for an S <= X+1 one in your discard. The new Golem gets the old one's Cores.",
+	"effects": [
+		{
+			"blurb": "Modify Golem (Slightly)",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem" ]
+							},
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"card": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "Cost" }
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem" ]
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": { "$type": "Numbers:EffectX:", "modifier": 1 }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetAugments:",
+					"targetIndex": 0
+				},
+				{
+					"$type": "Subeffect:Discard:",
+					"targetIndex": 0
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:Play:"
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": 1,
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"jumpIndices": [ 7 ]
+				}
+			]
+		}
+	],
+	"keywords": [ "Repositionable" ],
+	"c": 3,
+	"spellTypes": [ "Radial" ],
+	"radius": 1,
+	"subtypeText": ""
+}

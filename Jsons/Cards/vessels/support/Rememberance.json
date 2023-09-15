@@ -1,0 +1,98 @@
+{
+	"cardType": 83,
+	"cardName": "Rememberance",
+	"effText": "Discard->annihilate an S X character. Discard->hand either a cost <= X card or up to X Memories.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Rememberance to annihilate",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {"$type": "Core.CardRestriction:Character:" }
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Hand one card, or several memories?",
+					"optionBlurbs": [
+						"Card",
+						"Memories"
+					],
+					"jumpIndices": [
+						4,
+						7
+					],
+					"hasDefault": false
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "card to hand",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:CardValueFits:",
+						"cardValue": { "value": "Cost" },
+						"numberRestriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+							"other": { "$type": "Numbers:EffectX:" }
+						}
+					},
+					"xMultiplier":1
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Memories to recover",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Memory" ]
+					},
+					"listRestriction": {
+						"$type": "Core.ListRestriction:Maximum:",
+						"bound": { "$type": "Numbers:EffectX:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						8
+					]
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

@@ -1,0 +1,57 @@
+{
+	"blurb":"Shifting Weather Conditions",
+	"triggerData":
+	{
+		"triggerCondition":"Turn Start",
+		"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThisSpace:"
+		},
+		{
+			"$type":"Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Deck:" },
+			"cardRestriction":{
+				"blurb":"Weather to deck-cast",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Spell:" },
+					{ "$type": "Core.CardRestriction:DistinctName:" },
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Weather" ]
+					},
+					{ "$type": "Core.CardRestriction:CanPlay:" }
+				]
+			},
+			"maxCanChoose":1
+		},
+		{
+			"$type":"Subeffect:SpaceTarget:",
+			"blurb":"where to cast the Weather",
+			"spaceRestriction":
+			{
+				"$type": "Core.SpaceRestriction:AllOf:",
+				"elements": [
+					{
+						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"toPlay": { "$type": "Cards:TargetIndex:" }
+					},
+					{
+						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"space": { "$type": "Spaces:TargetIndex:" }
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:Play:"
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Annihilate:"
+		}
+	]	
+}

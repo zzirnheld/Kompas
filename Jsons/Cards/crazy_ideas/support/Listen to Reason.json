@@ -1,0 +1,55 @@
+{
+	"cardType": 83,
+	"cardName": "Listen to Reason",
+	"effText": "Discard your hand, including X Crazy Ideas. Draw X cards.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Please",
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Hand:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:Subtypes:",
+							"subtypes": [ "Crazy", "Idea" ]
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"jumpIndices": [
+						2
+					]
+				},
+				{
+					"$type": "Subeffect:DrawX:"
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Crazy Simple"
+}

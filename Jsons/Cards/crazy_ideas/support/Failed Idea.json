@@ -1,0 +1,70 @@
+{
+	"cardType":67,
+	"cardName":"Failed Idea",
+	"effText":"When you hand->discard an Ificator, deck->discard a Crazy Idea, then tribute me.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"triggerCondition":"Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Ificator" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Hand" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:CardTarget:",
+					"cardRestriction":{
+						"blurb":"the idea that 'failed'",
+						"toSearch": { "$type": "ManyCards:Deck:" },
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Crazy", "Idea" ]
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Discard:"
+				},
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:Discard:"
+				}
+			]	
+		}
+	],
+	"n":1,
+	"e":1,
+	"s":1,
+	"w":0,
+	"subtypeText":"Crazy Failure"
+}

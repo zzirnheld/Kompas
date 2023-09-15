@@ -1,0 +1,73 @@
+{
+	"cardType": 67,
+	"cardName": "Forward Dunker",
+	"effText": "When you augment me, attach my Augments to an adjacent Avatar.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Slam Dunk!",
+				"triggerCondition": "Augmented",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Avatar:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetAugments:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:",
+					"targetIndex": 1
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": 0,
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 1,
+					"jumpIndices": [
+						4
+					]
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 2,
+	"s": 2,
+	"w": 0,
+	"subtypeText": "Teammate"
+}

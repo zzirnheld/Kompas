@@ -1,0 +1,63 @@
+{
+	"cardType":67,
+	"cardName":"Dragon Egg",
+	"effText":"2 turns after I'm summoned, tribute me and deck-summon a Dragon where I was.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"triggerCondition":"Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:Hanging.Delay:",
+					"numTimesToDelay":1,
+					"jumpIndices":[1],
+					"endCondition":"Turn Start"
+				},
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:TargetThisSpace:"
+				},
+				{
+					"$type":"Subeffect:Discard:"
+				},
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction":
+					{
+						"blurb":"for Dragon Egg to become",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							},
+							{ "$type": "Core.CardRestriction:CanPlay:" }
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Play:",
+					"spaceIndex":-1,
+					"targetIndex":-1
+				}
+			]
+		}
+	],
+	"n":0,
+	"e":9,
+	"s":4,
+	"w":0,
+	"subtypes": [ "Egg" ],
+	"subtypeText": "Egg"
+}

@@ -1,0 +1,112 @@
+{
+	"cardType": 65,
+	"cardName": "Modular Defense Core",
+	"effText": "Recoverable.\nWhile equipped, activate this Golem. When they defend, swap me for a Golem Core in your hand.",
+	"effects": [
+		{
+			"blurb": "Defense Activate!",
+			"triggerData": {
+				"blurb": "Activate Golem",
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Hanging.Activation:",
+					"endCondition": "Augment Detached",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"blurb": "You Shouldn't Have Done That",
+			"triggerData": {
+				"blurb": "Golem Defense",
+				"triggerCondition": "Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Golem core for Modular Golem Cores to attach",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem", "Core" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:",
+					"targetIndex": -3
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": -2,
+					"targetIndex": -1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Recoverable"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"augmentOnSubtypes": [ "Golem" ]
+	},
+	"a": 3,
+	"subtypeText": "Golem Core"
+}

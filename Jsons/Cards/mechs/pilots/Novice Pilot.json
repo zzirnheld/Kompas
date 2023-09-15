@@ -1,0 +1,35 @@
+{
+	"cardType":67,
+	"cardName":"Novice Pilot",
+	"effText":"I can Pilot a Mech, but give it -3 NESW.",
+	"effects":[
+		{
+			"blurb":"Substandard Piloting",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:Keyword:",
+					"keyword":"Mech Pilot Summon"
+				},
+				{
+					"$type":"Subeffect:ChangeCardStats:",
+					"nModifier":-3,
+					"eModifier":-3,
+					"sModifier":-3,
+					"wModifier":-3
+				},
+				{
+					"$type":"Subeffect:Keyword:",
+					"keyword":"Mech Pilot Return"
+				}
+			]
+		}
+	],
+	"n":1,
+	"e":1,
+	"s":3,
+	"w":1,
+	"subtypeText":"Mech Pilot Person"
+}

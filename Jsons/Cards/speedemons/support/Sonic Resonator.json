@@ -1,0 +1,129 @@
+{
+	"cardType": 83,
+	"cardName": "Sonic Resonator",
+	"effText": "When a character moves, give me +1 C, but I won't vanish until 2 turns after that.\nWhen I vanish with C X, deck->summon distinct Speedemons with total S <= X.",
+	"effects": [
+		{
+			"blurb": "Sonic +C",
+			"triggerData": {
+				"blurb": "Sonic +C",
+				"triggerCondition": "Move",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"cModifier": 1
+				},
+				{
+					"$type": "Subeffect:SetTurnsOnBoard:",
+					"xMultiplier": 0,
+					"xModifier": -1
+				}
+			]
+		},
+		{
+			"blurb": "Resound",
+			"triggerData": {
+				"blurb": "Resound",
+				"triggerCondition": "Vanish",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"cardValue": { "value": "C" }
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Speedemon to resonate",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Speedemon" ]
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "S" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							},
+							{
+								"$type": "Core.CardRestriction:DistinctName:",
+								"cards": { "$type": "ManyCards:Targets:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					},
+					"xMultiplier": -1,
+					"change": true
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to play newly resonated Speedemon",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				},
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue":
+					{
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": { "$type": "Numbers:EffectX:" },
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+							"other": { "$type": "Numbers:Constant:", "constant": 1 }
+						}
+					},
+					"jumpIndices": [ 2 ]
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Vanishing"
+	],
+	"subtypeText": "",
+	"duration": 1
+}

@@ -1,0 +1,63 @@
+{
+	"cardType": 67,
+	"cardName": "Acid Lava Pit of Ghost Piranhas",
+	"effText": "When another character arrives here, annihilate me to give them -11 E.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "acid/lava burn with ghost pirhanas",
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"space": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -11
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 1,
+	"s": 5,
+	"w": 3,
+	"spellTypes": [
+		"Radial"
+	],
+	"radius": 1,
+	"subtypeText": "Crazy Idea"
+}

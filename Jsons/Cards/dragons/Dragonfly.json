@@ -1,0 +1,35 @@
+{
+	"cardType": 67,
+	"cardName": "Dragonfly",
+	"effText": "Territorial.\nWhen I fight, give me +1 N.",
+	"effects": [
+		{
+			"blurb": "Speed Boost",
+			"triggerData": {
+				"triggerCondition": "Battle Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Territorial"
+	],
+	"n": 4,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypeText": "Flying Dragon Insect"
+}

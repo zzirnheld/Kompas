@@ -1,0 +1,111 @@
+{
+	"cardType": 67,
+	"cardName": "Spellbombsetter",
+	"effText": "When I'm summoned, negate adjacent spells until I die. Also, delay 2 turns, then kill me and dispel those spells.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Negate:",
+					"endCondition": "Discard",
+					"triggerRestriction": {
+						"triggerRestriction": {
+							"elements": [
+								{
+									"$type": "Core.TriggerRestriction:CardsMatch:",
+									"card": { "$type": "Cards:CardBefore:" },
+									"other": { "$type": "Cards:ThisCardNow:" }
+								},
+								{
+									"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+									"card": { "$type": "Cards:CardBefore:" },
+									"cardRestriction": {
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						1
+					]
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 1,
+					"jumpIndices": [
+						1
+					],
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:Dispel:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						8
+					]
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypeText": "Impersonal Mage Person"
+}

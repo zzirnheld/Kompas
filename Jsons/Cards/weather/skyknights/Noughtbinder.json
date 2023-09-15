@@ -1,0 +1,50 @@
+{
+	"cardType": 67,
+	"cardName": "Noughtbinder",
+	"effText": "After an enemy turn starts, if they don't do anything before your next turn starts, Spin a Storm in Weather I'm in.",
+	"effects": [
+		{
+			"blurb": "Bind the curiosity",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.TriggerRestriction:EnemyTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [ 1 ],
+					"fallOffCondition": "Anything",
+					"fallOffRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:PlayersMatch:",
+								"card": { "$type": "Players:TriggeringPlayer:" },
+								"other": { "$type": "Players:EnemyPlayer:" }
+							}
+						]
+					},
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:TargetThisSpace:"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Spin a Storm"
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 4,
+	"s": 4,
+	"w": 4,
+	"subtypeText": "Skyknight Stormspinner Warrior"
+}

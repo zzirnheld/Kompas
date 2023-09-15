@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Proof of Conchcept",
+	"effText": "Basic Modular 1.",
+	"effects": [],
+	"keywords": [
+		"Basic Modular"
+	],
+	"keywordArgs": [
+		1
+	],
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 1,
+	"subtypeText": "Modular Fish"
+}

@@ -1,0 +1,92 @@
+{
+	"cardType": 67,
+	"cardName": "XVI - The Tower",
+	"effText": "When something else makes you draw X, give me -X E, draw X again, and reshuffle to hand size.",
+	"effects": [
+		{
+			"blurb": "Folly",
+			"triggerData": {
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:Not:",
+							"inverted": {
+								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"firstStackable": { "$type": "Stackables:StackableCause:" },
+								"secondStackable": { "$type": "Stackables:ThisEffect:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": -1
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:DrawX:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { "$type": "Numbers:HandSize:" },
+					"xModifier": -1
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { "$type": "Numbers:HandSizeLimit:" },
+					"change": true,
+					"xModifier": -1
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "folly of the Tower",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"listRestriction": {
+						"$type": "Core.ListRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.ListRestriction:Minimum:",
+								"bound": { "$type": "Numbers:EffectX:" }
+							},
+							{
+								"$type": "Core.ListRestriction:Maximum:",
+								"bound": { "$type": "Numbers:EffectX:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [ 7 ]
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 2,
+	"s": 4,
+	"w": 0,
+	"subtypes": [
+		"Tarocco"
+	],
+	"subtypeText": "Tarocco"
+}

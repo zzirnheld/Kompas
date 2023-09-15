@@ -1,0 +1,72 @@
+{
+	"cardType": 83,
+	"cardName": "Dancing Wisps",
+	"effText": "When an enemy arrives adjacent to a Wisp, each Wisp adjacent to that enemy to another random space adjacent to that enemy. (In a random order.)",
+	"effects": [
+		{
+			"blurb": "The Wisps Dance",
+			"triggerCondition": "Arrive",
+			"triggerRestriction": {
+				"elements": [
+					{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+					{
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+					},
+					{
+						"$type": "Core.SpaceRestriction:AdjacentTo:",
+						"space": { "$type": "Cards:ThisCardNow:" }
+					}
+				]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": {
+						"$type": "ManyCards:CardsInPositions:",
+						"positions": {
+							"$type": "ManySpaces:AdjacentSpaces:",
+							"adjacentTo": { "$type": "Cards:TargetIndex:" }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"subeffectSpaceIdentity": {
+						"$type": "Spaces:SelectFromMany:",
+						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+						"spaces": {
+							"$type": "ManySpaces:Restricted:",
+							"restriction": { "$type": "Core.SpaceRestriction:Empty:" },
+							"spaces": {
+								"$type": "ManySpaces:AdjacentSpaces:",
+								"adjacentTo": {
+									"$type": "Cards:TargetIndex:",
+									"index": 0
+								}
+							}
+						}
+					}
+				},
+				{
+					"$type":"Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 1,
+					"jumpIndices": [ 2 ]
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant"
+}

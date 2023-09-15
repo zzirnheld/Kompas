@@ -1,0 +1,33 @@
+{
+	"cardType": 67,
+	"cardName": "Doomsayer",
+	"effText": "Once each turn, you can deck->hand a Cultist.",
+	"effects": [
+		{
+			"blurb": "DOOM cometh!",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Cultist for Doomsayer to search",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Cultist" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 2,
+	"s": 2,
+	"w": 2,
+	"subtypeText": "Cultist"
+}

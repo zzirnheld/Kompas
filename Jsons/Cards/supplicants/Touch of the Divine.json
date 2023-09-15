@@ -1,0 +1,47 @@
+{
+	"cardType": 83,
+	"cardName": "Touch of the Divine",
+	"effText": "When a friendly character is negated, give them +2 NESW.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Negate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Core.CardRestriction:Friendly:" }
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 2,
+					"eModifier": 2,
+					"sModifier": 2,
+					"wModifier": 2
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant Plea"
+}

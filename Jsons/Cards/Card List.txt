@@ -1,0 +1,765 @@
+generic/Castle
+generic/Royal Revivalist
+generic/Lonely Titan
+generic/Flighty Survivor
+generic/Volatile Autocannon
+generic/Spellbombsetter
+generic/Lifetide
+generic/Warlock
+generic/Juan Puntsch-Mann
+generic/Altar of Amnesia
+generic/Sapping Stone
+generic/Price of Fame
+generic/Crack Geode
+generic/Collective Dispel
+generic/Weigh Down
+generic/Bindsquash
+generic/Draining Shield
+generic/Last-Ditch Blast
+generic/Explosive Armor
+generic/Proximity Debinder
+generic/The Ethereality Principle
+generic/Bind the Aggression
+generic/Binding Site
+generic/Bound Offering
+generic/Chain Dispel
+generic/Correctly Sized Crane
+generic/The Intern
+generic/Demagogue
+generic/Dreamfog
+generic/Durendal
+generic/Fight
+generic/Fodderbin
+generic/Haemopoten
+generic/Kusanagi
+generic/Leybinder
+generic/Leybinding
+generic/Leylasher
+generic/None Defy the Lines
+generic/Notcropoten
+generic/Rebinding
+generic/Ride the Winds
+generic/Dreamspace
+generic/Shatter the Warranty
+generic/The Unspeakable
+generic/Thuan Thien
+generic/Trapped Offering
+generic/Unfinding
+generic/Yank
+generic/Ethereate
+generic/Empowering Binds
+generic/Growth Through Adversity
+generic/Leyeater
+generic/Greedy Jar
+generic/Very Greedy Jar
+generic/Do You Understand How Greedy This Jar Is
+generic/Tag
+
+generic/removal/Time Flies
+
+generic/cardDraw/Curiosity's Fruit
+
+aquatic/support/Changing Tides
+aquatic/support/Fishing
+aquatic/support/Shifting Tides
+aquatic/support/Sacrifice to the Old Sea Gods
+aquatic/support/Here Be Monsters
+aquatic/support/Wave
+
+aquatic/Big Tuna
+aquatic/Ma Rinner
+aquatic/Seigh Lorre
+aquatic/Heptastar
+aquatic/Expected Shark
+aquatic/Unexpected Shark
+aquatic/Sawfish
+aquatic/Squid Ex Nihilo
+aquatic/Leapingfish
+aquatic/Kraken
+aquatic/Dragon Turtle
+aquatic/Raincaller Carp
+aquatic/Inevitable Crab
+aquatic/Myceleocanth
+
+aquatic/water/High Tide
+aquatic/water/Nuisance Flooding
+aquatic/water/Hyper Tide
+aquatic/water/Placid Waters
+aquatic/water/Tide Pools
+aquatic/water/Hungry Tide
+
+bones/Lengthening Elk
+
+bones/bones/Baleful Bone
+bones/bones/Boneus Bone
+bones/bones/Cancerous Bone
+bones/bones/Dancing Bone
+bones/bones/Lengthening Bone
+bones/bones/Lucky Bone
+bones/bones/Milk Bone
+bones/bones/Nervous Wishbone
+bones/bones/Oracle Bone
+bones/bones/Thigh Bone
+
+bones/support/Bonecasting
+bones/support/Boneseeing
+bones/support/Knucklebones
+bones/support/Bone Integration
+
+crazy_ideas/ificators/A Frayed Knot
+crazy_ideas/ificators/Ballroom-Disco Breakdance Competition
+crazy_ideas/ificators/Just a Little Bit More
+crazy_ideas/ificators/MAXIMUM OVERDRIVE
+crazy_ideas/ificators/Right Into My Trap
+crazy_ideas/ificators/Self-Destruct Button
+crazy_ideas/ificators/Stupid Idea Generator
+crazy_ideas/ificators/Wait Hold Up
+crazy_ideas/ificators/Yeet Modification
+crazy_ideas/ificators/Yeeterator
+
+crazy_ideas/support/Dr. Thierr Dumachmartres
+crazy_ideas/support/Flippant Emo Daughter
+crazy_ideas/support/Great Scott
+crazy_ideas/support/Listen to Reason
+crazy_ideas/support/Jacob-John Binglejeimer Schmitzel
+crazy_ideas/support/Johnatheremiah
+crazy_ideas/support/Ideate
+crazy_ideas/support/Timothy
+crazy_ideas/support/Carla
+
+crazy_ideas/Acid Lava Pit of Ghost Piranhas
+crazy_ideas/Bounce Pad
+crazy_ideas/Giant Ball of Tinfoil
+crazy_ideas/Inexplicably Possible Black Hole
+crazy_ideas/Mind of Flock Controlled Pigeons
+crazy_ideas/Orry the Oviparous Mammal
+crazy_ideas/Something Cannon
+crazy_ideas/Weird Idea That is Also
+
+cryptids/creatures/Bigfoot
+cryptids/creatures/Giursie Devil
+cryptids/creatures/Jackalope
+cryptids/creatures/Kraken
+cryptids/creatures/Lonness Monster
+cryptids/creatures/Ningen
+cryptids/creatures/Thunderbird
+cryptids/creatures/Tsuchinoko
+cryptids/creatures/UFO
+
+cryptids/shadows/Long Shadow
+cryptids/shadows/Looming Shadow
+cryptids/shadows/Moving Shadow
+cryptids/shadows/Pervasive Shadow
+
+cryptids/support/Allure of Darkness
+cryptids/support/Never Quite Light
+cryptids/support/The Many-Shadowed Man
+cryptids/support/The Woman of the Backwoods
+
+cultists/Altar Builder
+cultists/Bloodcurser
+cultists/Cultist of the Silent
+cultists/Cyclical Sacrifice
+cultists/Deafening Silence
+cultists/Doomsayer
+cultists/Heart Eater
+cultists/Mad Blood
+cultists/Silent Altar
+cultists/Silent Conversion
+cultists/Silent Devotion
+cultists/Silent Fanatic
+cultists/Silent Recruiter
+cultists/Silent Ritualist
+cultists/Unwavering Devotion
+cultists/We Are Yet Unworthy
+cultists/Zealous Convert
+cultists/Bloodsilencer
+cultists/Silentbellringer
+cultists/Silent Twin
+cultists/Mindless Silent
+
+dragons/Aeolian
+dragons/Cidian
+dragons/Dragaboo
+dragons/Dragon Egg
+dragons/Dragonbinder
+dragons/Dragoncaller
+dragons/Dragonseeker
+dragons/Dragonsinger
+dragons/Dragonspeaker
+dragons/Fyrian
+dragons/Mother of Dragons
+dragons/Obscurian
+dragons/Sangrian
+dragons/Dragonfly
+dragons/Dragon Familiar
+dragons/Hungry Dragonling
+dragons/Growing Boye
+dragons/Earthwapmer
+dragons/Dragonking
+dragons/Cyrian
+dragons/Pseudodragon
+dragons/Dragon Hatchling
+
+golems/support/Animancer
+golems/support/Modular Golem Cores
+golems/support/Slight Golemodifications
+golems/support/Core Scrambling
+
+golems/cores/Combustion Core
+golems/cores/Defense Core
+golems/cores/Durability Core
+golems/cores/Speed Core
+golems/cores/Strength Core
+golems/cores/Contingency Core
+golems/cores/Modular Defense Core
+
+golems/Antiprecatium Golem
+golems/Clay Golem
+golems/Earth Golem
+golems/Gunpowder Golem
+golems/Ice Golem
+golems/Magma Golem
+golems/Metal Golem
+golems/Obsidian Golem
+golems/Pneumatic Golem
+golems/Straw Golem
+golems/Tallow Golem
+golems/Woolen Golem
+golems/Gold Golem
+golems/Stone Golem
+
+invokers/Haguaughan Invoker
+invokers/Invoke the Invoker
+invokers/Prepare the Name
+invokers/Segascanturian Invoker
+invokers/Waungh Invoker
+invokers/Novice Invocation
+invokers/Forlorn Invocation
+invokers/Peruser of Ancient Texts
+invokers/Spiritual Medium
+
+invokers/spirits/A Lot of Disappointment
+invokers/spirits/Allconsuming Frustration
+invokers/spirits/Generous Pleasure
+invokers/spirits/Overwhelming Anger
+invokers/spirits/Spiritual Advice
+invokers/spirits/Unfocusing Annoyance
+invokers/spirits/Whirlwind of Emotions
+invokers/spirits/Infectious Displeasure
+invokers/spirits/Nailbiting Anxiety
+invokers/spirits/Brightsmiling Excitement
+invokers/spirits/Hog Wildness
+invokers/spirits/Lizard Calm
+invokers/spirits/Boundless Creativity
+
+linewalkers/Blue Linewalker
+linewalkers/Cyan Linewalker
+linewalkers/Green Linewalker
+linewalkers/Leypathmaking
+linewalkers/Linewalk
+linewalkers/Purple Linewalker
+linewalkers/Red Linewalker
+linewalkers/White Linewalker
+linewalkers/Yellow Linewalker
+linewalkers/Leygrapple
+linewalkers/Golden Linewalker
+linewalkers/Orange Linewalker
+
+masquerade/dancers/Durable Dancer
+masquerade/dancers/Nimble Dancer
+masquerade/dancers/Wily Dancer
+
+masquerade/masks/Mask of Enemy Ancestors
+masquerade/masks/Mask of the Creator
+masquerade/masks/Mask of the Earthfather
+masquerade/masks/Mask of the Spider
+masquerade/masks/Mask of the Stormmother
+masquerade/masks/Mask of the Superself
+masquerade/masks/Mask of the Tinkerer
+
+masquerade/support/Ancestral Spincloak
+masquerade/support/Begin the Masquerade
+masquerade/support/Endless Dance
+masquerade/support/Masquerade Drummer
+masquerade/support/Masquerade Singer
+masquerade/support/Masquerade
+
+maya/The Feathered Serpent
+maya/The World Turtle
+
+maya/craftspeople/City Planner
+maya/craftspeople/Glyphcarver
+maya/craftspeople/Repairman
+maya/craftspeople/Reconstructor
+maya/craftspeople/Stonefitter
+maya/craftspeople/Stonesalvager
+
+maya/structures/Basic Wall
+maya/structures/City Wall
+maya/structures/Rough Wall
+maya/structures/Graven Wall
+maya/structures/Painted Wall
+maya/structures/Volatile Wall
+maya/structures/Temple Layer
+
+maya/support/Accident-Prone Construction
+maya/support/Dense Cities
+maya/support/Designated Defense
+maya/support/Shore Up
+maya/support/Resistive Empowerment
+maya/support/Structural Expansion
+maya/support/Well-Planned Defense
+
+mechs/golems/5H4P3R
+mechs/golems/5P33DRUNN3R
+mechs/golems/51NG3
+mechs/golems/53G45C4NTUR14N 00
+mechs/golems/54MUR41
+mechs/golems/B3R53RK3R
+mechs/golems/C4RR13R
+mechs/golems/F4LL1NGT1T4N
+mechs/golems/GL455C4NN0N
+mechs/golems/H0KUT0
+mechs/golems/P4RT154N
+mechs/golems/PH453R
+mechs/golems/S0ULL1NK3R
+mechs/golems/TR4MPL3R
+
+mechs/pilots/Standard Pilot
+mechs/pilots/Runn R Mann
+mechs/pilots/Heel R Mann
+mechs/pilots/Bind R Mann
+mechs/pilots/Gunn R Mann
+mechs/pilots/Rayla, Head Mann
+mechs/pilots/Gvala, Improvisor-Pilot
+
+mechs/Powered Landing
+mechs/Mech-Blaster
+mechs/Iterative Analyzer
+mechs/Recruitment Drive
+mechs/Collaborative Mechanization
+mechs/One Step Ahead
+mechs/Repair Hub
+mechs/Buffer Shield
+
+modular/characters/Proof of Conchcept
+modular/characters/Prototapir
+modular/characters/Stork in Progress
+modular/characters/Minimum Viable Produck
+modular/characters/Agile Scrumsnake
+modular/characters/Kanbanorangutan
+
+modular/modules/Endurance Module
+modular/modules/Nimbleness Module
+modular/modules/Wounding Module
+modular/modules/Composite Defense Module
+modular/modules/Creativity Module
+modular/modules/Energization Module
+modular/modules/Lance Module
+modular/modules/Vampirism Module
+
+modular/support/Retrofitter
+modular/support/Modular Retrograding
+modular/support/Basic Components
+modular/support/Modular Experimenter
+modular/support/Modular Modules
+modular/support/Modular Reconstruction
+
+orcs/smiters/freebies/Glimmer of Hope
+orcs/smiters/freebies/Unassuming Bush
+
+orcs/smiters/Roth Avenger
+orcs/smiters/Roth'Drek Crusader
+orcs/smiters/Roth'Ka Inquisitor
+
+orcs/spies/support/Bind the Blood
+orcs/spies/support/Bind the Shadows
+orcs/spies/support/Clever Decoy
+orcs/spies/support/Escape Route
+orcs/spies/support/Misplaced Supplies
+orcs/spies/support/Nothing to Hide
+
+orcs/spies/Raven Scout
+orcs/spies/Roth Agent
+orcs/spies/Roth Assassin
+orcs/spies/Roth'Drek Phantom
+orcs/spies/Roth'Ka Spymaster
+
+orcs/Alkorath'Kil, Fury in the Blood
+orcs/Malgonir'Kil, Secrets in the Shadows
+orcs/Roth Guerilla
+orcs/Roth Warrior
+orcs/Roth'Drek Champion
+orcs/Roth'Kil Blood Acolyte
+orcs/Roth'Kil Shadow Acolyte
+
+pulsars/Accelerating Pulsar
+pulsars/Boldening Pulsar
+pulsars/Cannot Be Created Nor Destroyed
+pulsars/Coalescing Stardust
+pulsars/Echoing Pulsar
+pulsars/Fires of Creation
+pulsars/Focusing Pulsar
+pulsars/Fortunating Pulsar
+pulsars/Magnetizing Pulsar
+pulsars/Starbirth
+pulsars/Stardusting Pulsar
+pulsars/Starheart
+pulsars/Starstuff
+pulsars/Supernova
+
+reporters/Al Angus Aston
+reporters/Angry Reporter
+reporters/Fast Talker
+reporters/Field Report
+reporters/Frontline Reporter
+reporters/Harvald S Thonstrop
+reporters/Arborealist, Nature Reporter
+reporters/Newsflash!
+reporters/Online Reporter
+reporters/Reporter Reportar
+reporters/Star Reporter
+reporters/Temp Reporter
+reporters/Weather Reporter
+reporters/Well-Read Reporter
+reporters/Late Reporter
+reporters/May Waycroft
+
+revenants/Death of a Soul
+revenants/Revenance
+revenants/Salvage Soul
+revenants/Soul Drain
+revenants/Soulcutter the Heartless
+revenants/Soulflare
+revenants/Soulmartyr the Peaceless
+revenants/Soulselfdestruct
+revenants/Soulstealer the Lossless
+revenants/Undone
+revenants/Unfound
+revenants/Unlost
+revenants/Unmoving
+revenants/Unpresent
+revenants/Unseen
+revenants/Unsought
+revenants/Unwanted
+revenants/Unforgettable
+
+runar/runes/Algiz
+runar/runes/Ansuz
+runar/runes/Berkanan
+runar/runes/Dagaz
+runar/runes/Ehwaz
+runar/runes/Fehu
+runar/runes/Gyfu
+runar/runes/Hagall
+runar/runes/Ihwaz
+runar/runes/Ingwaz
+runar/runes/Isaz
+runar/runes/Jera
+runar/runes/Kaunan
+runar/runes/Laguz
+runar/runes/Mannaz
+runar/runes/Naudiz
+runar/runes/Odal
+runar/runes/Perthro
+runar/runes/Raido
+runar/runes/Sowilo
+runar/runes/Thurisaz
+runar/runes/Tiwaz
+runar/runes/Uruz
+runar/runes/Wynn
+
+runar/support/Runebinding
+runar/support/Runecarver
+runar/support/Runesaga
+runar/support/Runestones
+runar/support/Runewriter
+runar/support/Runewritten
+
+runar/runecasters/Runecaller
+runar/runecasters/Runechanneler
+runar/runecasters/Runegunner
+runar/runecasters/Runeloremaster
+runar/runecasters/Runepainter
+runar/runecasters/Runerunner
+runar/runecasters/Runespeaker
+
+shapers/support/characters/Dreammist
+shapers/support/characters/Ephemera
+shapers/support/characters/Untethered Spirit
+
+shapers/support/spells/Dreamhook
+shapers/support/spells/Dreamscape
+shapers/support/spells/Pseudopod
+shapers/support/spells/Send Home
+shapers/support/spells/Shape Unbound
+shapers/support/spells/Unstable Dreaming
+
+shapers/Eddieself
+shapers/Evasoplasm
+shapers/Gapfillermist
+shapers/Golrannersmoke
+shapers/Grudgemud
+shapers/Inpragrang
+shapers/Heavypresence
+shapers/Irrilmist
+shapers/Lessreck
+shapers/Kindred Spirit
+shapers/Manyself
+shapers/Moanedrifter
+shapers/Outpragrang
+shapers/Thrillmist
+shapers/Twin Spirit
+shapers/Pale Ardentfire
+shapers/Runedmemory
+
+shapers/Maya, Mistress of Reality
+shapers/Riali, Master of Irrealities
+
+speedemons/support/Dust Eater
+speedemons/support/Fanatic Follower
+speedemons/support/Supportive Grandparent
+speedemons/support/ZOOMIN
+speedemons/support/Sound Barrier
+speedemons/support/Grandfather Speed
+speedemons/support/Resonator Resonator
+speedemons/support/Sonic Resonator
+speedemons/support/Ready
+speedemons/support/Set
+speedemons/support/GO
+
+speedemons/Coach Speed
+speedemons/Mr Power Vacuum
+speedemons/Boing Boing Launcher Guy
+speedemons/Fairy Dust Tooter Scooter
+speedemons/Hypnosympatheticizer
+speedemons/Choo Choo Brain
+speedemons/Coach Lap
+speedemons/Soul of Speed
+speedemons/The Sonic Boom
+speedemons/Mach the Porcupine
+
+spores/fungi/digestive/Armillaria Bulbosa
+spores/fungi/digestive/Fairy Ring
+spores/fungi/digestive/Glimmering Morel
+spores/fungi/digestive/Saffron Milkcap
+
+spores/fungi/fruiting/Destroying Angel
+spores/fungi/fruiting/Dirty Trich
+spores/fungi/fruiting/Felt-Ringed Agaricus
+
+spores/fungi/sensory/Bindshrinking Inkcap
+spores/fungi/sensory/Button Mushroom
+spores/fungi/sensory/Easily Alarmed Roughstalk
+spores/fungi/sensory/Spring Agaricus
+spores/fungi/sensory/Trembling Bolete
+
+spores/fungi/mycelium/Mobile Mycelium
+spores/fungi/mycelium/Toxic Mycelium
+
+spores/support/Fungal Networking
+spores/support/Hivemind Sensitivity
+spores/support/Vampiric Spores
+spores/support/Among Us
+spores/support/Fungibility
+
+sportsball/Arbiterary
+sportsball/Forward Dunker
+sportsball/Inside Goalie Defender
+sportsball/Long Jump Punter
+sportsball/Mad Jukes
+sportsball/Mid-Outfielder
+sportsball/Relay Long-Jumper
+sportsball/Runner Fielder
+sportsball/Sportsball
+sportsball/Sportyball
+sportsball/Teamwork!
+sportsball/Big Brain Plays
+sportsball/Dreamwork
+sportsball/Whats Gonna Work
+sportsball/Getcha Getcha Getcha
+sportsball/Go! Play Sportsball!
+sportsball/Goal-Net Touchdown
+sportsball/Rocket-Propelled Ball
+sportsball/Overwhelming Ball Skills
+sportsball/Penalty Box
+
+swordguild/guildmembers/Guild Armsmaster
+swordguild/guildmembers/Guild Pagemaster
+swordguild/guildmembers/Guild Recruiter
+swordguild/guildmembers/Guild Ritesmaster
+swordguild/guildmembers/Guild Sparmaster
+swordguild/guildmembers/Guild Sprintmaster
+swordguild/guildmembers/Guild Tiremaster
+swordguild/guildmembers/Guild Trainee
+swordguild/guildmembers/Guildmaster Jade
+swordguild/guildmembers/Guildmaster Obsidian
+swordguild/guildmembers/Guild Student
+swordguild/guildmembers/Guild Form Reviewer
+
+swordguild/squires/Hardy Squire
+swordguild/squires/Nimble Squire
+swordguild/squires/Strong Squire
+
+swordguild/support/Knighthood
+
+tarocco/Figurehead Jack
+tarocco/Figurehead King
+tarocco/Figurehead Knight
+tarocco/Figurehead Queen
+tarocco/I - The Magician
+tarocco/II - The High Priestess
+tarocco/III - The Empress
+tarocco/IV - The Emperor
+tarocco/IX - The Hermit
+tarocco/V - The Hierophant
+tarocco/VI - The Lovers
+tarocco/VII - The Chariot
+tarocco/VIII - Fortitude
+tarocco/X - Wheel of Fortune
+tarocco/XI - Justice
+tarocco/XII - The Hanged Man
+tarocco/XIII - Death
+tarocco/XIV - Temperance
+tarocco/XIX - The Sun
+tarocco/XV - The Devil
+tarocco/XVI - The Tower
+tarocco/XVII - The Star
+tarocco/XVIII - The Moon
+tarocco/XX - Judgement
+tarocco/XXI - The World
+
+trees/support/characters/Custodian of the Forest
+trees/support/characters/Master Graftsman
+trees/support/characters/The Man Who Replants
+
+trees/support/spells/Bark Salve
+trees/support/spells/Forest Fire
+trees/support/spells/Mulch
+trees/support/spells/Pruning
+trees/support/spells/Regrowth
+
+trees/Choketree
+trees/Flameborn Seedling
+trees/Lithetree
+trees/Seedling
+trees/Sharetree
+trees/Strongtree
+trees/Thinktree
+
+undying/chars/Gravetaleteller
+undying/chars/Paleshade Harvester
+undying/chars/Restless Spirit
+undying/chars/Returning Spirit
+undying/chars/Revivant Spirit
+undying/chars/Tetherbound
+undying/chars/Undying Spirit
+undying/chars/Unfinished Spirit
+
+undying/support/Addictive Augury
+undying/support/Addictive Haemomancy
+undying/support/Circle of Life
+undying/support/Endless Shape
+undying/support/Neverending Search
+
+vanilla/characters/Squirrel
+vanilla/characters/Rabbit
+vanilla/characters/Spider
+vanilla/characters/Tortoise
+vanilla/characters/Snake
+vanilla/characters/Deer
+vanilla/characters/Boar
+vanilla/characters/Elephant
+vanilla/characters/Big Enemy Eater Giant
+
+vanilla/support/Hibernation
+vanilla/support/See Red
+vanilla/support/Tunnel Vision
+
+vessels/Empty Vessel
+vessels/Fortified Vessel
+vessels/Hardy Vessel
+vessels/Meditative Vessel
+vessels/Unwilling Vessel
+
+vessels/memory/Childhood Inspiration
+vessels/memory/Deja Vu
+vessels/memory/Immortal Soul
+vessels/memory/Instinctive Dispel
+vessels/memory/Intuited Strike
+vessels/memory/Recurring Idea
+vessels/memory/Reflexive Defense
+vessels/memory/Relived Wanderings
+
+vessels/support/Bestower of Memories
+vessels/support/Collective Memory
+vessels/support/Corporeal Recall
+vessels/support/Memorial Augury
+vessels/support/Memory Guide
+vessels/support/Recall
+vessels/support/Rememberance
+vessels/support/Remembering
+vessels/support/Rememories
+vessels/support/Rememory Guide
+vessels/support/Uncall For
+vessels/support/Unlock the Past
+
+wanderers/At Home in the World
+wanderers/Leper
+wanderers/Leyseer
+wanderers/Mendicant
+wanderers/Merchant
+wanderers/Mysterious Attractive Person
+wanderers/Not All Who Wander
+wanderers/Researcher
+wanderers/Sellsword
+wanderers/The Traveler
+wanderers/Troubadour
+wanderers/Wander Home
+wanderers/Wanderer
+wanderers/Wanderlust
+wanderers/Wisewoman
+
+weather/effects/Dapplesun
+weather/effects/Puffyclouds
+weather/effects/Crispbreeze
+weather/effects/Flashflood
+weather/effects/Peltrain
+weather/effects/Muggyclouds
+weather/effects/Thunderstorm
+weather/effects/Blizzard
+weather/effects/Fog
+weather/effects/Brainstorm
+weather/effects/Thundersun
+
+weather/support/Cloudshift
+weather/support/Thunderous Echo
+weather/support/Unusual Weather
+weather/support/Eventful Weather
+
+weather/events/Lightning Elemental
+weather/events/Blizzard Squall
+weather/events/Immagic Drought
+weather/events/Roll of Leythunder
+weather/events/Windstorm of Etaqua
+weather/events/Leyhail Elemental
+
+weather/skyknights/Fearstrikebinder
+weather/skyknights/Venturebinder
+weather/skyknights/Skillingbinder
+weather/skyknights/Magerybinder
+weather/skyknights/Passingbinder
+weather/skyknights/Pactbinder
+weather/skyknights/Skybinder
+
+wisps/support/Dancing wisps
+wisps/support/Flisp
+wisps/support/Wispernova
+wisps/support/Wispflux Generator
+
+wisps/wisps/Prickiwisp
+wisps/wisps/Nippiwisp
+wisps/wisps/Pishiwisp
+wisps/wisps/Pippiwisp
+wisps/wisps/Wickiwisp

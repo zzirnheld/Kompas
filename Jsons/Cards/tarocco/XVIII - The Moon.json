@@ -1,0 +1,107 @@
+{
+	"cardType": 67,
+	"cardName": "XVIII - The Moon",
+	"effText": "When you draw, swap the E or W of two summons within 2 spaces of each other.",
+	"effects": [
+		{
+			"blurb": "Swap E or W",
+			"triggerData": {
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character to swap",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Summoned:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "other character to swap",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Summoned:" },
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 2 },
+								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": { "$type": "Core.CardRestriction:Target:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Swap W or swap E?",
+					"optionBlurbs": [
+						"Swap W",
+						"Swap E"
+					],
+					"jumpIndices": [
+						3,
+						5
+					],
+					"hasDefault": false
+				},
+				{
+					"$type": "Subeffect:SwapStat:",
+					"targetIndex": -2,
+					"secondTargetIndex": -1,
+					"firstTargetStat": {
+						"value": "W"
+					},
+					"secondTargetStat": {
+						"value": "W"
+					}
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:SwapStat:",
+					"targetIndex": -2,
+					"secondTargetIndex": -1,
+					"firstTargetStat": {
+						"value": "E"
+					},
+					"secondTargetStat": {
+						"value": "E"
+					}
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 9,
+	"s": 9,
+	"w": 0,
+	"subtypes": [
+		"Tarocco",
+		"Mage"
+	],
+	"subtypeText": "Tarocco Mage"
+}

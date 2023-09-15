@@ -1,0 +1,65 @@
+{
+	"cardType": 67,
+	"cardName": "Trapped Offering",
+	"effText": "When I die having X S, annihilate me, gain X/2 pips, and draw 1.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Annihilate",
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:AddPips:",
+					"xDivisor": 2
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 3,
+	"s": 3,
+	"w": 0,
+	"subtypeText": "Offering"
+}

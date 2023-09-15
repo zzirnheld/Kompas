@@ -1,0 +1,93 @@
+{
+	"cardType": 67,
+	"cardName": "Online Reporter",
+	"effText": "Linewalk.\nWhen I move X, an enemy can reveal a Cost < X card. If they don't, give me +X ESW.",
+	"effects": [
+		{
+			"blurb": "Onlinewalked",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetEnemy:"
+				},
+				{
+					"$type": "Subeffect:CanResolve:",
+					"subeffIndices": [
+						3
+					],
+					"skipIndex": 6
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Reveal an cost < X card?",
+					"optionBlurbs": [
+						"Yes",
+						"No"
+					],
+					"jumpIndices": [
+						3,
+						6
+					],
+					"showX": true
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "cost < X card to reveal",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true, "enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Hidden:" },
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": 1,
+					"sMultiplier": 1,
+					"wMultiplier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Linewalk"
+	],
+	"n": 1,
+	"e": 1,
+	"s": 6,
+	"w": 1,
+	"subtypeText": "Linewalker Reporter Mage"
+}

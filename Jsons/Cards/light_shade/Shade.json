@@ -1,0 +1,82 @@
+{
+	"cardType": 83,
+	"cardName": "Shade",
+	"effText": "Becomes Light when enemies are here.",
+	"tehnicalEffText": "If there's ANY enemy characters here and nothing else is happening, swap me for Light in your deck.",
+	"effects": [
+		{
+			"blurb":"Light Up",
+			"triggerData":
+			{
+				"triggerCondition":"Stack End",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									},
+									{
+										"$type": "Core.CardRestriction:AOEContains:",
+										
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+												{ "$type": "Core.CardRestriction:Enemy:" },
+												{ "$type": "Core.CardRestriction:Character:" }
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Light" ]
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]	
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Radial"
+	],
+	"subtypeText": "Shade",
+	"radius": 2
+}

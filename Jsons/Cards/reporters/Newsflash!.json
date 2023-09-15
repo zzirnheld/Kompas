@@ -1,0 +1,128 @@
+{
+	"cardType": 83,
+	"cardName": "Newsflash!",
+	"effText": "An enemy can reveal a Cost 1 card. If they don't, teleport an adjacent Reporter anywhere.",
+	"effects": [
+		{
+			"blurb": "Newsflash!",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetEnemy:"
+				},
+				{
+					"$type": "Subeffect:CanResolve:",
+					"subeffIndices": [
+						3
+					],
+					"skipIndex": 6
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Reveal a Cost 1 card?",
+					"optionBlurbs": [
+						"Yes",
+						"No"
+					],
+					"jumpIndices": [
+						3,
+						6
+					]
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "fast card to reveal",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true, "enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Hidden:" },
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:Equal:" },
+									"other": { "$type": "Numbers:Constant:", "constant": 1 }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "friendly Reporter to move",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"playerIndex": -2,
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Reporter" ]
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							},
+							{
+								"$type": "Core.CardRestriction:CanMove:",
+								"spaceRestrictionSubeffectIndex": 7
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for Newsflash! to move it starget",
+					"playerIndex": -2,
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:CanMoveCard:",
+						"toMove": { "$type": "Cards:TargetIndex:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Move:",
+					"playerIndex": -2
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"recommendations": [ {
+			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Reporter" ]
+			}
+		} ]
+	},
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "News"
+}

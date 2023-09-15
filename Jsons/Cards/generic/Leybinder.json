@@ -1,0 +1,84 @@
+{
+	"cardType": 67,
+	"cardName": "Leybinder",
+	"effText": "The first time each turn a character moves X, deal me X damage. Their controller hand-summons an SX character.",
+	"effects": [
+		{
+			"blurb": "Leybind",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Damage:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsController:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Leybinder to hand-summon",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true,
+						"enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "S" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:Equal:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							},
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where Leybinder to hand-summon",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 9,
+	"s": 9,
+	"w": 9,
+	"subtypeText": "Ley Mage"
+}

@@ -1,0 +1,35 @@
+{
+	"cardType": 67,
+	"cardName": "Hungry Dragonling",
+	"effText": "Territorial.\nWhen I fight, give me +7 S.",
+	"effects": [
+		{
+			"blurb": "Damage Boost",
+			"triggerData": {
+				"triggerCondition": "Battle Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": 7
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Territorial"
+	],
+	"n": 0,
+	"e": 1,
+	"s": 0,
+	"w": 0,
+	"subtypeText": "Smol Flying Dragon"
+}

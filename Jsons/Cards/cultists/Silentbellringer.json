@@ -1,0 +1,58 @@
+{
+	"cardType": 67,
+	"cardName": "Silentbellringer",
+	"effText": "When I'm summoned, deck->hand a Cultist.\nWhen friendly turns start, echo me.",
+	"effects": [
+		{
+			"blurb": "DOOM, sayeth the bell",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Cultist for Silentbellringer to search",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Cultist" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		},
+		{
+			"blurb": "The bell tolls...",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Resummon:"
+				}
+			]
+		}
+	],
+	"n": 5,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Cultist"
+}

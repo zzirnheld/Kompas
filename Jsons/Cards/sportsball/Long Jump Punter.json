@@ -1,0 +1,83 @@
+{
+	"cardType": 67,
+	"cardName": "Long Jump Punter",
+	"effText": "The first time each stack you augment me, attach my Augments to another character within 4 spaces of me.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Punt Augment",
+				"triggerCondition": "Augmented",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character within 4 spaces to punt Augment to",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": {
+									"$type": "Core.CardRestriction:CardsMatch:",
+									"card": { "$type": "Cards:ThisCardNow:" }
+								}
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:ThisCardNow:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 4 },
+								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetAugments:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:",
+					"targetIndex": 1
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": 0,
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 1,
+					"jumpIndices": [
+						4
+					]
+				}
+			]
+		}
+	],
+	"n": 5,
+	"e": 6,
+	"s": 4,
+	"w": 0,
+	"subtypeText": "Teammate"
+}

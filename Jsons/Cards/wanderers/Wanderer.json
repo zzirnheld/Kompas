@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Wanderer",
+	"effText": "Wanderer.",
+	"effects": [],
+	"keywords": [
+		"Wanderer"
+	],
+	"n": 3,
+	"e": 1,
+	"s": 1,
+	"w": 1,
+	"subtypeText": "Wanderer Person"
+}

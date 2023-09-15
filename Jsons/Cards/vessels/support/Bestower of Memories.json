@@ -1,0 +1,119 @@
+{
+	"cardType": 67,
+	"cardName": "Bestower of Memories",
+	"effText": "When you bestow a Memory unto a Vessel, deck-> or discard->bestow a copy unto a Vessel without one.",
+	"effects": [
+		{
+			"blurb": "Bestow Memory",
+			"triggerData": {
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Memory" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Augments:",
+										
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+												{
+													"$type": "Core.CardRestriction:Subtypes:",
+													"subtypes": [ "Vessel" ]
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Vessel to get a copy of the memory",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Vessel" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": {
+									"$type": "Core.CardRestriction:HasAugment:",
+									
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+											{
+												"$type": "Core.CardRestriction:Name:",
+												"sameAs": { "$type": "Cards:TargetIndex:" }
+											}
+										]
+									}
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Copy of the memory to attach",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:CanPlay:" },
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Deck", "Discard" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"sameAs": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": -2,
+					"targetIndex": -1
+				}
+			]
+		}
+	],
+	"unique":true,
+	"n": 1,
+	"e": 8,
+	"s": 10,
+	"w": 8,
+	"subtypeText": "Mage"
+}

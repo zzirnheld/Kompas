@@ -1,0 +1,42 @@
+{
+	"cardType": 67,
+	"cardName": "Mind of Flock Controlled Pigeons",
+	"effText": "When I deal damage, hand->discard a Crazy Idea and draw 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "bawk bawk bawk",
+				"triggerCondition": "Deal Combat Damage",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Mind bawk bawk Controlled Pigeons",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Crazy", "Idea" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:DrawX:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 1,
+	"s": 5,
+	"w": 1,
+	"subtypeText": "Crazy Idea"
+}

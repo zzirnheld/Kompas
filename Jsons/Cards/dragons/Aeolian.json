@@ -1,0 +1,62 @@
+{
+	"cardType": 67,
+	"cardName": "Aeolian",
+	"effText": "Territorial.\nWhen I attack a character, move them X spaces (as far as you want), then give them -X E.",
+	"effects": [
+		{
+			"blurb": "Air Breath",
+			"triggerData": {
+				"blurb": "Air Breath",
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for Aeolian to move its target",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [ 
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:Distance:",
+						"firstSpace": { "$type": "Cards:TargetIndex:" },
+						"secondSpace": { "$type": "Spaces:TargetIndex:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": -1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Territorial"
+	],
+	"n": 5,
+	"e": 10,
+	"s": 11,
+	"w": 11,
+	"subtypeText": "Dragon"
+}

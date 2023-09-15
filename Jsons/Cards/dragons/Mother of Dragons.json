@@ -1,0 +1,153 @@
+{
+	"cardType": 67,
+	"cardName": "Mother of Dragons",
+	"effText": "When enemy turns start, tribute summons with total S X. From your deck's top X cards, summon an S <= X Dragon, 1 space from me.",
+	"effects": [
+		{
+			"blurb": "Dragonbirth",
+			"triggerData": {
+				"blurb": "Dragonbirth",
+				"optional": true,
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.TriggerRestriction:EnemyTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetX:",
+					"xMultiplier": 0
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Mother of Dragons to kill",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Summoned:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					},
+					"change": true
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:Loop:",
+					"canDecline": true,
+					"jumpIndices": [
+						1
+					]
+				},
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						10
+					]
+				},
+				{
+					"$type": "Subeffect:CardTargetSaveRest:",
+					"blurb": "for Mother of Dragons to birth",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Index" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "S" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							}
+						]
+					},
+					"restRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Index" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": { "$type": "Core.CardRestriction:Target:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where Mother of Dragons to birth",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" },
+								"ignoreAdjacency": true
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:ThisCardNow:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 2 },
+								"comparison": { "$type": "Relationships.Number:Equal:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				},
+				{
+					"$type": "Subeffect:ClearOnImpossible:"
+				},
+				{
+					"$type": "Subeffect:BottomdeckRest:"
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 10,
+	"s": 10,
+	"w": 0,
+	"subtypeText": ""
+}

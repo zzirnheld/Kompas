@@ -1,0 +1,65 @@
+{
+	"cardType": 67,
+	"cardName": "Haemopoten",
+	"effText": "The Xth time each turn, you can give me -X E. Annihilate your topdeck. 1 turn later, hand it.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { "$type": "Numbers:EffectUsesThisTurn:" }
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": -1
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"blurb": "for Haemopoten to draw",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Index" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"other": { "$type": "Numbers:Constant:", "constant": 1 }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [
+						6
+					],
+					"fallOffCondition": "",
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 11,
+	"s": 10,
+	"w": 9,
+	"subtypeText": "Flying Dragon"
+}

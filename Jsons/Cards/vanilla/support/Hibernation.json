@@ -1,0 +1,65 @@
+{
+	"cardType": 65,
+	"cardName": "Hibernation",
+	"effText": "Negate this character.\nWhen I vanish, give them +10 ESW.",
+	"effects": [
+		{
+			"blurb": "Hibernation",
+			"triggerData": {
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Hanging.Negate:",
+					"endCondition": "Augment Detached",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"endCondition": "Vanish",
+					"numTimesToDelay": 0,
+					"jumpIndices": [ 3 ],
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 10,
+					"sModifier": 10,
+					"wModifier": 10
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"spellTypes": [
+		"Vanishing"
+	],
+	"duration": 3,
+	"a": 1,
+	"subtypeText": "",
+	"augSubtypes": []
+}

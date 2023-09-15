@@ -8,19 +8,20 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Cards.Loading
 {
-	public partial class CardRepository : Node
+	public abstract class CardRepository
 	{
-		public const string cardJsonsFolderPath = "Card Jsons";
-		public static readonly string cardListFilePath = Path.Combine(cardJsonsFolderPath, "Card List");
+		public const string JsonsFolderPath = "res://Jsons";
+		public const string CardJsonsFolderPath = $"{JsonsFolderPath}/Cards";
+		public const string CardListFilePath = $"{CardJsonsFolderPath}/Card List";
 
-		public static readonly string keywordJsonsFolderPath = Path.Combine("Keyword Jsons", "Full Keywords");
-		public static readonly string keywordListFilePath = Path.Combine(keywordJsonsFolderPath, "Keyword List");
+		public const string KeywordJsonsFolderPath = $"{JsonsFolderPath}/Keywords/Full";
+		public const string keywordListFilePath = $"{KeywordJsonsFolderPath}/Keyword List";
 
-		public static readonly string partialKeywordFolderPath = Path.Combine("Keyword Jsons", "Partial Keywords");
-		public static readonly string partialKeywordListFilePath = Path.Combine(partialKeywordFolderPath, "Keyword List");
+		public const string PartialKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Partial";
+		public const string PartialKeywordListFilePath = $"{PartialKeywordFolderPath}/Keyword List";
 
-		public static readonly string triggerKeywordFolderPath = Path.Combine("Keyword Jsons", "Trigger Keywords");
-		public static readonly string triggerKeywordListFilePath = Path.Combine(triggerKeywordFolderPath, "Keyword List");
+		public const string TriggerKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Trigger";
+		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List";
 
 		public static readonly string RemindersJsonPath = Path.Combine("Reminder Text", "Reminder Texts");
 
@@ -87,7 +88,7 @@ namespace Kompas.Cards.Loading
 		public static ICollection<string> Keywords { get; private set; }
 
 		private static bool initalized = false;
-		private static readonly object initializationLock = new object();
+		private static readonly object initializationLock = new();
 
 		/*
 		public Game game;
@@ -113,9 +114,9 @@ namespace Kompas.Cards.Loading
 
 				InitializeCardJsons();
 
-				InitializeMapFromJsons(keywordListFilePath, keywordJsonsFolderPath, keywordJsons);
-				InitializeMapFromJsons(partialKeywordListFilePath, partialKeywordFolderPath, partialKeywordJsons);
-				InitializeMapFromJsons(triggerKeywordListFilePath, triggerKeywordFolderPath, triggerKeywordJsons);
+				InitializeMapFromJsons(keywordListFilePath, KeywordJsonsFolderPath, keywordJsons);
+				InitializeMapFromJsons(PartialKeywordListFilePath, PartialKeywordFolderPath, partialKeywordJsons);
+				InitializeMapFromJsons(TriggerKeywordListFilePath, TriggerKeywordFolderPath, triggerKeywordJsons);
 
 				var reminderJsonAsset = File.ReadAllText(RemindersJsonPath);
 				//Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset);
@@ -128,7 +129,7 @@ namespace Kompas.Cards.Loading
 		{
 			static bool isCardToIgnore(string name) => string.IsNullOrWhiteSpace(name) || cardNamesToIgnore.Contains(name);
 
-			string cardFilenameList = File.ReadAllText(cardListFilePath);
+			string cardFilenameList = File.ReadAllText(CardListFilePath);
 			cardFilenameList = cardFilenameList.Replace('\r', '\n');
 			string[] cardFilenameArray = cardFilenameList.Split('\n');
 
@@ -141,7 +142,7 @@ namespace Kompas.Cards.Loading
 				if (isCardToIgnore(filenameClean) || CardExists(filenameClean)) continue;
 
 				//load the json
-				var jsonAsset = File.ReadAllText(Path.Combine(cardJsonsFolderPath, filenameClean));
+				var jsonAsset = File.ReadAllText(Path.Combine(CardJsonsFolderPath, filenameClean));
 				if (jsonAsset == null)
 				{
 					GD.PrintErr($"Failed to load json file for {filenameClean}");

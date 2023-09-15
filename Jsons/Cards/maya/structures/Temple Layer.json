@@ -1,0 +1,32 @@
+{
+	"cardType": 67,
+	"cardName": "Temple Layer",
+	"effText": "Structure.\nSummon only adjacent to a Maya Structure.",
+	"effects": [],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.GamestateRestriction:Not:",
+			"negated": { "$type": "Core.TriggerRestriction:Normally:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+	},
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Maya", "Structure" ]
+			}
+		} ]
+	},
+	"n": 0,
+	"e": 12,
+	"s": 1,
+	"w": 0,
+	"subtypeText": "Maya Structure"
+}

@@ -1,0 +1,19 @@
+{
+	"cardType": 67,
+	"cardName": "Minimum Viable Produck",
+	"effText": "Basic Modular 2. Modular 1.",
+	"effects": [],
+	"keywords": [
+		"Basic Modular",
+		"Modular"
+	],
+	"keywordArgs": [
+		2,
+		1
+	],
+	"n": 4,
+	"e": 4,
+	"s": 4,
+	"w": 4,
+	"subtypeText": "Modular Bird"
+}

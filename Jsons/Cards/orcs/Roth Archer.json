@@ -1,0 +1,21 @@
+{
+	"cardType": 67,
+	"cardName": "Roth Archer",
+	"effText": "Artillery 1.",
+	"effects": [],
+	"n": 1,
+	"e": 10,
+	"s": 7,
+	"w": 8,
+	"keywords": [
+		"Artillery"
+	],
+	"keywordArgs": [
+		1
+	],
+	"subtypes": [
+		"Orc",
+		"Archer"
+	],
+	"subtypeText": "Orc Archer"
+}

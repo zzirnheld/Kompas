@@ -1,0 +1,91 @@
+{
+	"cardType": 67,
+	"cardName": "The World Turtle",
+	"effText": "Speedemon, but move me back afterwards.\nIf there are cards in all corners when I arrive, give adjacent characters -10 E.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:StackableFitsRestriction:",
+							"stackable": { "$type": "Stackables:StackableCause:" },
+							"restriction": {
+								"$type": "Core.StackableRestriction:Keyword:",
+								"keyword": "Speedemon"
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Move:"
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:SpacesFitRestriction:",
+							"spaces": { "$type": "ManySpaces:Corners:" },
+							"spaceRestriction": {
+								"$type": "Core.SpaceRestriction:Not:",
+								"negated": { "$type": "Core.SpaceRestriction:Empty:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Enemy:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					},
+					"eModifier": -10
+				}
+			]
+		}
+	],
+	"unique": true,
+	"keywords": [
+		"Speedemon"
+	],
+	"n": 1,
+	"e": 5,
+	"s": 1,
+	"w": 0,
+	"subtypeText": "Slow Maya Speedemon God"
+}

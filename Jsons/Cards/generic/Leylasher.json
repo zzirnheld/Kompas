@@ -1,0 +1,48 @@
+{
+	"cardType": 67,
+	"cardName": "Leylasher",
+	"effText": "The first time each turn a character moves X, give them +X ESW.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Leybind",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Core.CardRestriction:Friendly:" }
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": 1,
+					"sMultiplier": 1,
+					"wMultiplier": 1
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Ley Mage"
+}

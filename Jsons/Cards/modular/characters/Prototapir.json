@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Prototapir",
+	"effText": "Basic Modular 3.",
+	"effects": [],
+	"keywords": [
+		"Basic Modular"
+	],
+	"keywordArgs": [
+		3
+	],
+	"n": 2,
+	"e": 2,
+	"s": 2,
+	"w": 2,
+	"subtypeText": "Modular Beast"
+}

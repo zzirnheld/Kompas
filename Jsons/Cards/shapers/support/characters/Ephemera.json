@@ -1,0 +1,90 @@
+{
+	"cardType": 67,
+	"cardName": "Ephemera",
+	"effText": "When I'm summoned, deck->summon a copy of me.\nWhen a Shaper Shapes through me, reshuffle me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"sameAs": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to summon Ephemera",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"blurb": "Dissipate",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:TriggerKeyword:",
+							"keyword": "Shaped Through"
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Ethereal"
+	],
+	"spellTypes": [
+		"Vanishing"
+	],
+	"duration": 1,
+	"subtypeText": "Ethereal"
+}

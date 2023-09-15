@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Giursie Devil",
+	"effText": "Aggressive.",
+	"effects": [],
+	"keywords": [ "Aggressive" ],
+	"n": 5,
+	"e": 7,
+	"s": 8,
+	"w": 13,
+	"spellTypes": [ "Radial" ],
+	"radius": 1,
+	"subtypeText": "Cryptid Fiend"
+}

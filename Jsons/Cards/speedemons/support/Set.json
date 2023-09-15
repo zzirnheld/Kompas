@@ -1,0 +1,88 @@
+{
+	"cardType": 83,
+	"cardName": "Set",
+	"effText": "If you don't have a discarded \"Ready\", deck->hand one and reshuffle me. If you do, give an adjacent character +1 N and deck->hand \"GO\".",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue": {
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"anyOf": { "$type": "ManyCards:Discard:", "friendly": true, "enemy": false },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:Name:",
+							"nameIs": "Ready"
+						}
+					},
+					"jumpIndices": [ 6 ]
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Ready for Set to search",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Name:",
+						"nameIs": "Ready"
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character to set",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 1
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "GO for Ready to search",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Name:",
+						"nameIs": "GO"
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

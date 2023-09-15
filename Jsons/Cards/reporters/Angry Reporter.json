@@ -1,0 +1,122 @@
+{
+	"cardType": 67,
+	"cardName": "Angry Reporter",
+	"effText": "Once each turn, you can choose a friendly W X. An enemy can reveal a cost > X card. If they don't, the chosen character attacks.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "angry WX character that might attack",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.PlayerRestriction:PlayersMatch:",
+						"player": { "$type": "Players:TargetIndex:" }
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "W" }
+					}
+				},
+				{
+					"$type": "Subeffect:TargetEnemy:"
+				},
+				{
+					"$type": "Subeffect:CanResolve:",
+					"subeffIndices": [
+						5
+					],
+					"skipIndex": 8
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Reveal an cost > X card?",
+					"optionBlurbs": [
+						"Yes",
+						"No"
+					],
+					"jumpIndices": [
+						5,
+						8
+					],
+					"showX": true
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "cost > X card to reveal",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true, "enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Hidden:" },
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "enemy character to attack",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.PlayerRestriction:Not:",
+								"negated": {
+									"$type": "Core.PlayerRestriction:PlayersMatch:",
+									"player": { "$type": "Players:TargetIndex:" }
+								}
+							}
+						]
+					},
+					"playerIndex": -2
+				},
+				{
+					"$type": "Subeffect:Attack:",
+					"playerIndex": -2,
+					"targetIndex": -1,
+					"attackerIndex": -2
+				}
+			]
+		}
+	],
+	"n": 6,
+	"e": 2,
+	"s": 4,
+	"w": 5,
+	"subtypeText": "Ethereal Reporter Spirit"
+}

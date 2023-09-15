@@ -1,0 +1,33 @@
+{
+	"cardType": 67,
+	"cardName": "Bind R Mann",
+	"effText": "I can Pilot a Mech, and give it +10 S.",
+	"effects": [
+		{
+			"blurb": "Careful Piloting",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Summon"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": 10
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Return"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 2,
+	"e": 4,
+	"s": 5,
+	"w": 4,
+	"subtypeText": "Mech Pilot Person"
+}

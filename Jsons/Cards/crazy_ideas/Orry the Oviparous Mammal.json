@@ -1,0 +1,55 @@
+{
+	"cardType": 67,
+	"cardName": "Orry the Oviparous Mammal",
+	"effText": "When I move EXACTLY 3 spaces at once, hand->discard a card and give me +3 W.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"number": { "$type": "Numbers:TriggerX:" },
+							"restriction": {
+								"$type": "Core.NumberRestriction:Compare:",
+								"comparison": { "$type": "Relationships.Number:Equal:" },
+								"other": { "$type": "Numbers:Constant:", "constant": 3 }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "An oviparous mamal? ORRY THE OVIPAROUS MAMMAL?",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 3
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 3,
+	"e": 1,
+	"s": 5,
+	"w": 0,
+	"subtypeText": "Semi-Aquatic Egg-Laying Crazy Idea"
+}

@@ -1,0 +1,62 @@
+{
+	"cardType": 67,
+	"cardName": "Supportive Grandparent",
+	"effText": "When I'm summoned, choose an adjacent character. Each time they move, give them +1 ESW.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Grandparent to support (i.e. with cookies)",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"jumpIndices": [
+						2
+					],
+					"endCondition": "Move",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:TargetIndex:", "secondaryContext": true }
+							}
+						]
+					},
+					"clearWhenResume": false
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1,
+					"sModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 2,
+	"s": 4,
+	"w": 0,
+	"subtypeText": "Random Kind Person"
+}

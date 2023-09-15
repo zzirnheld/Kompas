@@ -1,0 +1,57 @@
+{
+	"cardType": 65,
+	"cardName": "Kusanagi",
+	"effText": "The first time each round this character attacks, if their target is behind them, swap their places and give the defender -5 W.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{ "$type": "Core.GamestateRestriction:MaxPerRound:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.GamestateRestriction:Not:",
+						"negated": {
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardRestriction": {
+								"$type": "Core.SpaceRestriction:Behind:",
+								"card": { "$type": "Cards:ThisCardNow:" }
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": -5
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"augmentOnSubtypes": [ "Warrior" ]
+	},
+	"a": 3,
+	"subtypeText": "Sword"
+}

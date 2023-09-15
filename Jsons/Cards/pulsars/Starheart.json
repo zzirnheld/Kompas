@@ -1,0 +1,97 @@
+{
+	"cardType": 67,
+	"cardName": "Starheart",
+	"effText": "When a card moves that adjacent to a Pulsar:\nBefore they moved: Give me -1 S.\nAfter they moved: Give me +1 S.",
+	"effects": [
+		{
+			"blurb": "Surge",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Pulsar" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:CardBefore:" }
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": 1
+				}
+			]
+		},
+		{
+			"blurb": "Shrink",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction":
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:AllOf:",
+									"elements": [
+										{
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Pulsar" ]
+										},
+										{
+											"$type": "Core.CardRestriction:Not:",
+											"negated": {
+												"$type": "Core.CardRestriction:CardsMatch:",
+												"card": { "$type": "Cards:CardBefore:" }
+											}
+										}
+									]
+								}
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": -1
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Pulsar"
+}

@@ -1,0 +1,76 @@
+{
+	"cardType": 67,
+	"cardName": "Frontline Reporter",
+	"effText": "When I'm summoned, an enemy can reveal a spell. If they don't, draw 2.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetEnemy:"
+				},
+				{
+					"$type": "Subeffect:CanResolve:",
+					"subeffIndices": [
+						3
+					],
+					"skipIndex": 6
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Reveal a spell?",
+					"optionBlurbs": [
+						"Yes",
+						"No"
+					],
+					"jumpIndices": [
+						3,
+						6
+					]
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "spell to reveal",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true, "enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Hidden:" },
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:DrawX:",
+					"playerIndex": -2,
+					"xModifier": 2
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 2,
+	"s": 2,
+	"w": 2,
+	"subtypeText": "Reporter Person"
+}

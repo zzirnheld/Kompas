@@ -1,0 +1,57 @@
+{
+	"cardType":83,
+	"cardName":"Bark Salve",
+	"effText":"Heal an adjacent Tree. Draw 1 card.",
+	"effects":[
+		{
+			"blurb":"Simple",
+			"triggerData":
+			{
+				"triggerCondition":"Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction":
+					{
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Hurt:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tree" ]
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Heal:"
+				},
+				{
+					"$type":"Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"recommendations": [ {
+			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+		} ]
+	},
+	"c":1,
+	"spellTypes":["Simple"],
+	"subtypeText":"Simple"
+}

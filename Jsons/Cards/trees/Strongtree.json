@@ -1,0 +1,46 @@
+{
+	"cardType": 67,
+	"cardName": "Strongtree",
+	"effText": "When I gain X E, give me +X W.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "E Change",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:ThisCardNow:" },
+							"other": { "$type": "Cards:CardBefore:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"number": { "$type": "Numbers:TriggerX:" },
+							"restriction": {
+								"$type": "Core.NumberRestriction:Compare:",
+								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wMultiplier": 1
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 7,
+	"s": 4,
+	"w": 1,
+	"subtypeText": "Tree"
+}

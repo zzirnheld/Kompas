@@ -1,0 +1,50 @@
+{
+	"cardType": 67,
+	"cardName": "Nimble Dancer",
+	"effText": "Masquerade.\nWhen I'm summoned, hand->attach a Mask to me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:CardTarget:",
+					"cardRestriction":
+					{
+						"blurb": "Mask to attach to the Nimble Dancer",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mask" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetIndex": -2,
+					"targetToAttachTo": -1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Masquerade"
+	],
+	"n": 7,
+	"e": 1,
+	"s": 5,
+	"w": 1,
+	"subtypeText": "Masked Dancer"
+}

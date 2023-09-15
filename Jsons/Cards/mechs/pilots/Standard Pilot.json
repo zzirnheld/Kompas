@@ -1,0 +1,28 @@
+{
+	"cardType": 67,
+	"cardName": "Standard Pilot",
+	"effText": "I can Pilot a Mech.",
+	"effects": [
+		{
+			"blurb": "Standard Piloting",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Summon"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Return"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 1,
+	"s": 4,
+	"w": 1,
+	"subtypeText": "Mech Pilot Person"
+}

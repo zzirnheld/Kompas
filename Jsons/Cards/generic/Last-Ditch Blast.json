@@ -1,0 +1,64 @@
+{
+	"cardType": 65,
+	"cardName": "Last-Ditch Blast",
+	"effText": "When this E X character defends from a W > X character, give both -7 E.",
+	"effects": [
+		{
+			"blurb":"Blast",
+			"triggerData":
+			{
+				"triggerCondition": "Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:", "secondaryCard": true },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "W" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+									"other": {
+										"$type": "Numbers:FromCardValue:",
+										"card": { "$type": "Cards:ThisCardNow:" },
+										"cardValue": { "value": "E" }
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -7
+				},
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -7
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 2,
+	"subtypeText": "Explosive"
+}

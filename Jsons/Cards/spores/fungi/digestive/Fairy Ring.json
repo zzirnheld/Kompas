@@ -1,0 +1,94 @@
+{
+	"cardType": 67,
+	"cardName": "Fairy Ring",
+	"effText": "Spores.\nThe first time each stack a friendly Fungus pulses an enemy, Invoke a Fungus.",
+	"effects": [
+		{
+			"blurb": "Ring around the enemy enemy",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Fungus" ]
+									}
+								]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Enemy:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Mill:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				},
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue": {
+						"$type": "Core.GamestateRestriction:Not:",
+						"negated": {
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Fungus" ]
+							}
+						}
+					},
+					"jumpIndices": [ 0 ]
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to Invoke the Fungus",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 1,
+	"e": 7,
+	"s": 5,
+	"w": 2,
+	"subtypes": [
+		"Digestive",
+		"Fungus"
+	],
+	"subtypeText": "Digestive Fungus"
+}

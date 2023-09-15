@@ -1,0 +1,65 @@
+{
+	"cardType": 67,
+	"cardName": "Unexpected Shark",
+	"effText": "Waterborn Waterdweller.\nWhen I attack, dispel adjacent spells. ",
+	"effects": [
+		{
+			"blurb": "Unexpected",
+			"triggerData": {
+				"blurb": "Unexpected",
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Dispel:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						1
+					]
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Waterdweller"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Water" ]
+			}
+		} ]
+	},
+	"n": 5,
+	"e": 4,
+	"s": 4,
+	"w": 8,
+	"subtypeText": "Aquatic Fish Monster"
+}

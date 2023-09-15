@@ -1,0 +1,68 @@
+{
+	"cardType": 83,
+	"cardName": "Collective Dispel",
+	"effText": "Draw 1 card. Set X to the number of adjacent characters. Dispel an adjacent C <= X spell.",
+	"effects": [
+		{
+			"blurb": "Collective action",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{
+									"$type": "Core.SpaceRestriction:AdjacentTo:",
+									"space": { "$type": "Cards:ThisCardNow:" }
+								},
+								{ "$type": "Core.SpaceRestriction:Character:" }
+							]
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "C <= X spell to dispel",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Dispel:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": ""
+}

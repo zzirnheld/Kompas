@@ -1,0 +1,49 @@
+{
+	"cardType": 67,
+	"cardName": "Escape Route",
+	"effText": "Once each turn, you can hand an adjacent friendly character.",
+	"effects": [
+		{
+			"blurb": "Escape",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Hand a friendly summon",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": {
+									"$type": "Core.CardRestriction:CardsMatch:",
+									"card": { "$type": "Cards:ThisCardNow:" }
+								}
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 6,
+	"s": 2,
+	"w": 0,
+	"subtypes": [
+		"Structure"
+	],
+	"subtypeText": "Structure"
+}

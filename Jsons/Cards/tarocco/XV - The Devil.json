@@ -1,0 +1,65 @@
+{
+	"cardType": 67,
+	"cardName": "XV - The Devil",
+	"effText": "When an enemy deck->hands a card, unless your hand is full, draw 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Rehand",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Enemy:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Deck" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": {
+							"$type": "Numbers:HandSize:",
+							"player": { "$type": "Players:TargetIndex:" }
+						},
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+							"other": { 
+								"$type": "Numbers:HandSizeLimit:",
+								"player": { "$type": "Players:TargetIndex:" }
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 5,
+	"s": 8,
+	"w": 10,
+	"subtypes": [
+		"Tarocco",
+		"Mage"
+	],
+	"subtypeText": "Tarocco Mage"
+}

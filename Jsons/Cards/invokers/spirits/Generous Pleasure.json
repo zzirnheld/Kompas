@@ -1,0 +1,50 @@
+{
+	"cardType": 67,
+	"cardName": "Generous Pleasure",
+	"effText": "When I'm revived, gain 4 pips.",
+	"effects": [
+		{
+			"blurb": "Pleasure",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Discard" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 4
+				}
+			]
+		}
+	],
+	"n": 6,
+	"e": 10,
+	"s": 6,
+	"w": 0,
+	"subtypeText": "Ethereal Spirit"
+}

@@ -1,0 +1,35 @@
+{
+	"cardType": 67,
+	"cardName": "Flighty Survivor",
+	"effText": "Attended 1.\nWhen turns start, give me +1 EW.",
+	"effects": [
+		{
+			"blurb": "Survive",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Attended"
+	],
+	"keywordArgs": [
+		1
+	],
+	"n": 5,
+	"e": 1,
+	"s": 2,
+	"w": 1,
+	"subtypeText": "Person"
+}

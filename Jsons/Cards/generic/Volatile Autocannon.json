@@ -1,0 +1,65 @@
+{
+	"cardType": 67,
+	"cardName": "Volatile Autocannon",
+	"effText": "Attended 2.\nWhen turns start, choose a secondary heading. Give the closest card to me in that direction -3 E.",
+	"effects": [
+		{
+			"blurb": "Automaticfire",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "Direction to fire the cannon",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:SameDiagonal:",
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetDirection:"
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"cardRestriction": {
+						"$type": "Core.SpaceRestriction:Direction:",
+						"from": { "$type": "Cards:ThisCardNow:" }
+					},
+					"tiebreakerValue": {
+						"value": "Distance to Source"
+					},
+					"tiebreakerDirection": "Maximum"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -3
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Attended"
+	],
+	"keywordArgs": [
+		2
+	],
+	"n": 2,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypeText": "Construct"
+}

@@ -1,0 +1,53 @@
+{
+	"cardType":67,
+	"cardName":"Crab Robot Crab Minion",
+	"effText":"If I'm adjacent to an enemy when you play a Crazy Idea, give a friendly character +1 W.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"triggerCondition":"Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"anyOf": {
+								"$type": "ManyCards:CardsInPositions:",
+								"positions": {
+									"$type": "ManySpaces:AdjacentSpaces:",
+									"adjacentTo": { "$type": "Cards:ThisCardNow:" }
+								}
+							},
+							"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction":
+					{
+						"blurb":"friendly character for Crab Robot Crab Minion to give intel",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" }
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:ChangeCardStats:",
+					"wModifier":1
+				}
+			]	
+		}
+	],
+	"n":4,
+	"e":5,
+	"s":5,
+	"w":5,
+	"subtypeText":"Crazy Idea"
+}

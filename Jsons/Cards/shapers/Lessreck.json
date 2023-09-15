@@ -1,0 +1,85 @@
+{
+	"cardType": 67,
+	"cardName": "Lessreck",
+	"effText": "Shape.\nWhen I'm summoned, hand->discard 2 cards or kill me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CanResolve:",
+					"subeffIndices": [
+						2
+					],
+					"skipIndex": 6
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Discard 2 cards or kill me?",
+					"optionBlurbs": [
+						"Discard 2",
+						"Kill me"
+					],
+					"jumpIndices": [
+						2,
+						6
+					],
+					"showX": true
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Grudges",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"listRestriction": {
+						"$type": "Core.ListRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.ListRestriction:Minimum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							},
+							{
+								"$type": "Core.ListRestriction:Maximum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:Discard:",
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Shape"
+	],
+	"n": 1,
+	"e": 4,
+	"s": 2,
+	"w": 3,
+	"subtypes": [
+		"Ethereal",
+		"Shaper"
+	],
+	"subtypeText": "Ethereal Shaper"
+}

@@ -1,0 +1,80 @@
+{
+	"cardType": 83,
+	"cardName": "Protect Us",
+	"effText": "Give all X friendly Supplicants +X E. Give all friendly Negated Supplicants +2 * X W.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{ "$type": "Core.CardRestriction:Character:" },
+								{ "$type": "Core.CardRestriction:Friendly:" },
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Supplicant" ]
+								}
+							]
+						}
+					},
+					"xMultiplier":1
+				},
+				{
+					"$type":"Subeffect:ChangeAllCardStats:",
+					"cardRestriction":
+					{
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Supplicant" ]
+							}
+						]
+					},
+					"eMultiplier":1
+				},
+				{
+					"$type":"Subeffect:ChangeAllCardStats:",
+					"cardRestriction":
+					{
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Negated:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Supplicant" ]
+							}
+						]
+					},
+					"wMultiplier":3
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [ "Simple" ],
+	"subtypeText": "Simple Plea"
+}

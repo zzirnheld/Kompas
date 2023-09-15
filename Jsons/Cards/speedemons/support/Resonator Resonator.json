@@ -1,0 +1,33 @@
+{
+	"cardType": 67,
+	"cardName": "Resonator Resonator",
+	"effText": "When turns start, deck->hand \"Sonic Resonator\".",
+	"effects": [
+		{
+			"blurb": "Resonate",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Ready to resonate?",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Name:",
+						"nameIs": "Sonic Resonator"
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 1,
+	"s": 2,
+	"w": 2,
+	"subtypeText": "Machine"
+}

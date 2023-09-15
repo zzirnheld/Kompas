@@ -1,0 +1,117 @@
+{
+	"cardType": 67,
+	"cardName": "Illalli, the Brilliant",
+	"effText": "Once each turn, you can swap Light I'm in for Shade in your deck.\nWhen an enemy is lit up, give them -5 W.",
+	"effects": [
+		{
+			"blurb": "Brilliate!",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTarget:",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Light" ]
+							},
+							{
+								"$type": "Core.CardRestriction:AOEContains:",
+								"cards": {
+									"$type": "ManyCards:Concat:",
+									"cards": [ { "$type": "Cards:ThisCardNow:" } ]
+								}
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Shade" ]
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		},
+		{
+			"blurb": "Blinding Lights",
+			"triggerData": {
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Light" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Enemy:" },
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"card": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"wModifier": -5
+				}
+			]
+		}
+	],
+	"unique":true,
+	"n": 6,
+	"e": 6,
+	"s": 6,
+	"w": 6,
+	"subtypeText": "Brilliant Mage"
+}

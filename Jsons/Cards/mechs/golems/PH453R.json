@@ -1,0 +1,35 @@
+{
+	"cardType": 67,
+	"cardName": "PH453R",
+	"effText": "Nimble Evasive Golem.",
+	"effects": [],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"moveThroughCards": true,
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"keywords": [
+		"Evasive"
+	],
+	"n": 3,
+	"e": 3,
+	"s": 10,
+	"w": 3,
+	"subtypes": [
+		"Mech",
+		"Golem"
+	],
+	"subtypeText": "Mech Golem"
+}

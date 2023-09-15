@@ -1,0 +1,35 @@
+{
+	"blurb":"Vessel",
+	"activationRestriction": {
+		"$type": "Core.PlayerRestriction:ActivationRestriction:"
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:CardTarget:",
+			"cardRestriction":
+			{
+				"blurb":"to destroy",
+				"elements": [
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Memory" ]
+					},
+					{
+						"$type": "Core.CardRestriction:Augments:",
+						"singleCard": { "$type": "Cards:TargetIndex:" }
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:Discard:"
+		},
+		{
+			"$type": "Subeffect:Resummon:",
+			"targetIndex":-2
+		}
+	]	
+}

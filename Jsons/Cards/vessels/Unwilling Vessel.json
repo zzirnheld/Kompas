@@ -1,0 +1,90 @@
+{
+	"cardType": 67,
+	"cardName": "Unwilling Vessel",
+	"effText": "Vessel.\nWhen turns start, destroy an A X Memory attached to me. Give me +X ESW. Move me up to X spaces.",
+	"effects": [
+		{
+			"blurb": "No!",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "I don't want to remember!",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Memory" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Augments:",
+								"singleCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "A" }
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": 1,
+					"sMultiplier": 1,
+					"wMultiplier": 1
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to move the Unwilling Vessel",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:ThisCardNow:" },
+								"number": { "$type": "Numbers:EffectX:" },
+								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Vessel Echo"
+	],
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 1,
+	"subtypes": [
+		"Vessel"
+	],
+	"subtypeText": "Vessel"
+}

@@ -1,0 +1,49 @@
+{
+	"cardType": 67,
+	"cardName": "Tsuchinoko",
+	"effText": "When I'm summoned, if there's X characters in play but NOT in my area, gain X pips.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{ "$type": "Core.CardRestriction:Character:" },
+								{
+									"$type": "Core.CardRestriction:Not:",
+									"negated": {
+										"$type": "Core.SpaceRestriction:InAOEOf:",
+										"card": { "$type": "Cards:ThisCardNow:" }
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:AddPips:"
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 11,
+	"s": 8,
+	"w": 1,
+	"spellTypes": [ "Radial" ],
+	"radius": 3,
+	"subtypeText": "Cryptid Beast"
+}

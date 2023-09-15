@@ -1,0 +1,78 @@
+{
+	"cardType": 67,
+	"cardName": "Soul of Speed",
+	"effText": "When a Speedemon moves, move me the same direction and distance, and give me +1 EW.",
+	"effects": [
+		{
+			"blurb": "Speedsoul",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.TriggerRestriction:Normally:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									},
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Speedemon" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:",
+					"after": true
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"spaceIdentity": {
+						"$type": "Spaces:ApplyDisplacement:",
+						"from": { "$type": "Cards:ThisCardNow:" },
+						"displacement": {
+							"$type": "Spaces:Displacement:",
+							"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
+							"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 1,
+	"s": 5,
+	"w": 1,
+	"subtypeText": "Speed"
+}

@@ -1,0 +1,45 @@
+{
+	"cardType":83,
+	"cardName":"The Great Game of Tarocco",
+	"effText":"Set X to the number of friendly Tarocco. Draw X cards.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"triggerCondition":"Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects":[
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{ "$type": "Core.CardRestriction:Friendly:" },
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Tarocco" ]
+								}
+							]
+						}
+					}
+				},
+				{
+					"$type":"Subeffect:DrawX:",
+					"xMultiplier":1
+				}
+			]
+		}
+	],
+	"c":3,
+	"spellTypes":["Simple"],
+	"subtypes":["Tarocco","Simple"],
+	"subtypeText":"Tarocco Simple"
+}

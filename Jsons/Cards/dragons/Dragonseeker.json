@@ -1,0 +1,54 @@
+{
+	"cardType": 67,
+	"cardName": "Dragonseeker",
+	"effText": "You can hand->reshuffle your S X Dragon to give me +X/2 S.",
+	"effects": [
+		{
+			"blurb": "Dragonseek",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Dragonseeker to reshuffle",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					},
+					"xDivisor": 2
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": 1
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Draconic Mage"
+}

@@ -1,0 +1,88 @@
+{
+	"cardType": 83,
+	"cardName": "We Are Yet Unworthy",
+	"effText": "Tribute an adjacent Cultist, hand->reshuffle a card, and annihilate me. Draw 2 cards and gain 2 Pips.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "unworthy Cultist",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Summoned:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Cultist" ]
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "unworthy card in hand",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:DrawX:",
+					"xMultiplier": 0,
+					"xModifier": 2
+				},
+				{
+					"$type": "Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 2
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"recommendations": [ {
+			"$type": "Core.SpaceRestriction:AdjacentTo:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:AllOf:",
+				"elements":[
+					{ "$type": "Core.CardRestriction:Character:" },
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Cultist" ]
+					}
+				]
+			}
+		} ]
+	},
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Silent Simple"
+}

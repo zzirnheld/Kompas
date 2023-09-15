@@ -1,0 +1,86 @@
+{
+	"cardType": 67,
+	"cardName": "Retrofitter",
+	"effText": "When an adjacent Modular character attaches a Module to themselves, discard->attach a Module to them.",
+	"effects": [
+		{
+			"blurb": "Retrofit Module",
+			"triggerData": {
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:CardBefore:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Module" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Augments:",
+										"cardRestriction": {
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Modular" ]
+										}
+									},
+									{
+										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"space": { "$type": "Cards:ThisCardNow:" }
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsAugmentedCard:"
+				},
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction":
+					{
+						"blurb": "Module to attach to the Modular character",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Module" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetIndex": -1,
+					"targetToAttachTo": -2
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 5,
+	"s": 5,
+	"w": 3,
+	"subtypeText": "Craftsman"
+}

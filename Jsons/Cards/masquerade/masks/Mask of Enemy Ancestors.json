@@ -1,0 +1,91 @@
+{
+	"cardType": 65,
+	"cardName": "Mask of Enemy Ancestors",
+	"effText": "Mask.\nWhen this summon defends, annihilate their attacker's dead.",
+	"effects": [
+		{
+			"blurb": "You underestimate me",
+			"triggerData":
+			{
+				"triggerCondition": "Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard": true
+				},
+				{
+					"$type": "Subeffect:TargetTargetsController:"
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": {
+						"$type": "ManyCards:Discard:",
+						"friendly": true, "enemy": true
+					},
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 1,
+					"jumpIndices": [
+						3
+					]
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"normalAndEffect": [ {
+			"$type": "Core.CardRestriction:Not:",
+			"negated": {
+				"$type": "Core.CardRestriction:HasAugment:",
+				"cardRestriction": {
+					"$type": "Core.CardRestriction:Name:",
+					"sameAs": { "$type": "Cards:ThisCardNow:" }
+				}
+			}
+		} ]
+	},
+	"a": 3,
+	"subtypeText": "Mask"
+}

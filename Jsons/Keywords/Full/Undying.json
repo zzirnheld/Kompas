@@ -1,0 +1,42 @@
+{
+	"triggerData":
+	{
+		"blurb":"Undying",
+		"triggerCondition":"Discard",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				},
+				{
+					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Location:",
+						"locations": [ "Board" ]
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:TargetTriggeringCardsSpace:"
+		},
+		{
+			"$type":"Subeffect:Hanging.Delay:",
+			"numTimesToDelay": 0,
+			"jumpIndices": [ 1 ],
+			"endCondition": "Turn Start"
+		},
+		{
+			"$type": "Subeffect:Play:"
+		}
+	]
+}

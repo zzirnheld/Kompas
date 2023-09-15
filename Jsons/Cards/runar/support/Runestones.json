@@ -1,0 +1,55 @@
+{
+	"cardType": 83,
+	"cardName": "Runestones",
+	"effText": "The first time each turn you cast a Rune, deck->hand a Rune.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Friendly:" },
+									{ "$type": "Core.CardRestriction:Spell:" },
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Rune" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Rune for Runestones to search",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Rune" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"c": 4,
+	"unique": true,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Runar Enchant"
+}

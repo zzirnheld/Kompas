@@ -1,0 +1,76 @@
+{
+	"blurb":"Ificate",
+	"triggerData":{
+		"blurb":"Ificate",
+		"triggerCondition":"Discard",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				},
+				{
+					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Location:",
+						"locations": [ "Hand" ]
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:CanResolve:",
+			"subeffIndices":[2]
+		},
+		{
+			"$type":"Subeffect:CardTarget:",
+			"blurb":"Crazy Idea for Ificator to Ificate",
+			"toSearch": { "$type": "ManyCards:Discard:" },
+			"cardRestriction":
+			{
+				"$type": "Core.CardRestriction:AllOf:",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Friendly:" },
+					{
+						"$type": "Core.CardRestriction:Not:",
+						"negated": {
+							"$type": "Core.CardRestriction:CardsMatch:",
+							"card": { "$type": "Cards:ThisCardNow:" }
+						}
+					},
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Crazy", "Idea" ]
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:PayPips:",
+			"xMultiplier":0,
+			"xModifier":1
+		},
+		{
+			"$type":"Subeffect:SpaceTarget:",
+			"blurb":"where Ificator to play targeted Crazy Idea",
+			"spaceRestriction":
+			{
+				"$type": "Core.SpaceRestriction:AllOf:",
+				"elements": [
+					{
+						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"toPlay": { "$type": "Cards:TargetIndex:" }
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:Play:"
+		}
+	]
+}

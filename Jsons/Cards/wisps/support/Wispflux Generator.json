@@ -1,0 +1,66 @@
+{
+	"cardType": 67,
+	"cardName": "Wispflux Generator",
+	"effText": "When turns start, Invoke a Wisp to a random valid space.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Invoke",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Mill:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				},
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue": {
+						"$type": "Core.GamestateRestriction:Not:",
+						"negated": {
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Wisp" ]
+									}
+								]
+							}
+						}
+					},
+					"jumpIndices": [
+						0
+					]
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"subeffectSpaceIdentity": {
+						"$type": "Spaces:SelectFromMany:",
+						"selector": { "$type": "KompasCore.Effects.Selectors.RandomSpace, Assembly-CSharp" },
+						"spaces": {
+							"$type": "ManySpaces:Restricted:",
+							"restriction": {
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 10,
+	"s": 5,
+	"w": 0,
+	"subtypeText": "Structure"
+}

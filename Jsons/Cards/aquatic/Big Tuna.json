@@ -1,0 +1,25 @@
+{
+	"cardType": 67,
+	"cardName": "Big Tuna",
+	"effText": "Waterborn Waterdweller.",
+	"effects": [],
+	"keywords": [
+		"Waterdweller"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Water" ]
+			}
+		} ]
+	},
+	"n": 1,
+	"e": 4,
+	"s": 1,
+	"w": 2,
+	"subtypeText": "Aquatic Fish Monster"
+}

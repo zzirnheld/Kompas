@@ -1,0 +1,75 @@
+{
+	"cardType":67,
+	"cardName":"Dragaboo",
+	"effText":"When a Dragon kills me, hand->discard an S X Dragon and gain X pips.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"blurb":"*notices your dragon*",
+				"triggerCondition":"Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:Annihilate:"
+				},
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction":
+					{
+						"blurb":"OWO SO DRAGONNNNNNNNN",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "Cost" }
+					}
+				},
+				{
+					"$type":"Subeffect:Discard:"
+				},
+				{
+					"$type":"Subeffect:AddPips:",
+					"xMultiplier":1
+				}
+			]	
+		}
+	],
+	"n":2,
+	"e":1,
+	"s":2,
+	"w":2,
+	"subtypeText":""
+}

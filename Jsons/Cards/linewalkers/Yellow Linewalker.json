@@ -1,0 +1,38 @@
+{
+	"cardType": 67,
+	"cardName": "Yellow Linewalker",
+	"effText": "Linewalk.\nWhen I move X spaces, gain X pips, then give your opponent X - 2 pips.",
+	"effects": [
+		{
+			"blurb": "Yellow Linewalked",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AddPips:"
+				},
+				{
+					"$type": "Subeffect:TargetEnemy:"
+				},
+				{
+					"$type": "Subeffect:AddPips:",
+					"xModifier": -2
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Linewalk"
+	],
+	"n": 1,
+	"e": 6,
+	"s": 6,
+	"w": 6,
+	"subtypeText": "Linewalker Mage"
+}

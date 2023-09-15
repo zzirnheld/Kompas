@@ -1,0 +1,71 @@
+{
+	"cardType": 67,
+	"cardName": "Dragonspeaker",
+	"effText": "You can tribute a distinct S X character to give me +2*X S. If you're \"Mother of Dragons\", draw 1.",
+	"effects": [
+		{
+			"blurb": "Dragonspeak",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Dragonspeaker to kill",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:DistinctName:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": 2
+				},
+				{
+					"$type": "Subeffect:TargetAvatar:"
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.GamestateRestriction:Not:",
+						"negated": {
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Name:",
+								"nameIs": "Mother of Dragons"
+							}
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 1,
+	"s": 2,
+	"w": 0,
+	"subtypeText": "Draconic Mage"
+}

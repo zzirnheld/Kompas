@@ -1,0 +1,75 @@
+{
+	"cardType": 83,
+	"cardName": "Modular Retrograding",
+	"effText": "When a Modular creature attaches an A X Module to themselves, discard->reshuffle X random cards to gain 1 pip.",
+	"effects": [
+		{
+			"blurb": "Modules in Retrograde",
+			"triggerData": {
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Module" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Augments:",
+										
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+												{
+													"$type": "Core.CardRestriction:Subtypes:",
+													"subtypes": [ "Modular" ]
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": {
+						"$type": "ManyCards:Limit:",
+						"cards": { "$type": "ManyCards:Discard:" },
+						"limit": {
+							"$type": "Numbers:EffectX:",
+							"multiplier": 1
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [ 1 ]
+				},
+				{
+					"$type":"Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier":1
+				}
+			]	
+		}
+	],
+	"c": 3,
+	"spellTypes": [ "Enchant" ],
+	"subtypeText": "Enchant"
+}

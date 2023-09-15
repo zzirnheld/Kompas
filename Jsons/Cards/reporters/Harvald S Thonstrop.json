@@ -1,0 +1,94 @@
+{
+	"cardType": 67,
+	"cardName": "Harvald S Thonstrop",
+	"effText": "The first time each round an enemy card is revealed, I Invoke a character with less S than me.",
+	"effects": [
+		{
+			"blurb": "I knEW IT",
+			"triggerData": {
+				"triggerCondition": "Revealed",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerRound:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:Mill:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				},
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue": {
+						"$type": "Core.GamestateRestriction:Not:",
+						"negated": {
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:CardValueFits:",
+										"cardValue": { "value": "S" },
+										"numberRestriction": {
+											"$type": "Core.NumberRestriction:Compare:",
+											"comparison": { "$type": "Relationships.Number:LessThan:" },
+											"other": { "$type": "Numbers:EffectX:" }
+										}
+									}
+								]
+							}
+						}
+					},
+					"jumpIndices": [
+						2
+					]
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to Invoke",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 3,
+	"e": 1,
+	"s": 8,
+	"w": 5,
+	"subtypeText": "Crazy Intoxicated Reporter Person"
+}

@@ -1,0 +1,47 @@
+{
+	"cardType": 67,
+	"cardName": "Gold Golem",
+	"effText": "Golem.\nWhen I become active, draw 1 card.",
+	"effects": [
+		{
+			"blurb": "Draw draw draw",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Golem"
+	],
+	"subtypeText": "Golem"
+}

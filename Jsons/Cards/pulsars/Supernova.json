@@ -1,0 +1,49 @@
+{
+	"cardType": 83,
+	"cardName": "Supernova",
+	"effText": "Repeat until your Avatar's S is 0:\nGive your Avatar -1 S.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAvatar:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": -1
+				},
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue":
+					{
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": { 
+							"$type": "Numbers:FromCardValue:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardValue": { "value": "S" }
+						},
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+							"other": { "$type": "Numbers:Constant:", "constant": 1 }
+						}
+					},
+					"jumpIndices": [ 1 ]
+				}
+			]
+		}
+	],
+	"c": 5,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

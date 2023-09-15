@@ -1,0 +1,51 @@
+{
+	"cardType": 83,
+	"cardName": "Overwhelming Ball Skills",
+	"effText": "Comeback Play.\nWhen you augment an enemy character, give them -1 NW.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "My balls are SKILLED!",
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Augments:",
+								"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": -1,
+					"wModifier": -1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Comeback Play"
+	],
+	"c": 1,
+	"spellTypes": [
+		"Vanishing"
+	],
+	"duration": 1,
+	"subtypeText": "Team Play"
+}

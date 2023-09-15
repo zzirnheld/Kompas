@@ -1,0 +1,30 @@
+{
+	"cardType": 67,
+	"cardName": "Merchant",
+	"effText": "Wanderer.\nWhen I'm summoned, draw 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Wanderer"
+	],
+	"n": 1,
+	"e": 1,
+	"s": 2,
+	"w": 1,
+	"subtypeText": "Wanderer Person"
+}

@@ -1,0 +1,32 @@
+{
+	"blurb":"Pass Back",
+	"triggerData":
+	{
+		"blurb":"Pass Back",
+		"triggerCondition":"Defend",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": {
+						"$type": "Cards:AugmentedCard:",
+						"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetAvatar:"
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Attach:"
+		}
+	]
+}

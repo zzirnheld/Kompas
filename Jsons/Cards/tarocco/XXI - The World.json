@@ -1,0 +1,63 @@
+{
+	"cardType": 67,
+	"cardName": "XXI - The World",
+	"effText": "When a character dies, draw 1 card, then bottomdeck it if you're above your hand size limit.",
+	"effects": [
+		{
+			"blurb": "The World Goes On",
+			"triggerData": {
+				"orderPriority": 5,
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": { "$type": "Numbers:HandSize:" },
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+							"other": { "$type": "Numbers:HandSizeLimit:" }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:"
+				}
+			]
+		}
+	],
+	"n": 8,
+	"e": 12,
+	"s": 12,
+	"w": 12,
+	"subtypeText": "Tarocco Mage"
+}

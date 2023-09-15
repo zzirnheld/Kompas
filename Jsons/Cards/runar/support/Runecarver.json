@@ -1,0 +1,52 @@
+{
+	"cardType": 67,
+	"cardName": "Runecarver",
+	"effText": "Once each turn, you can hand->, field->, or discard->reshuffle a Rune to draw 2 cards.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Rune for Runecarver to reshuffle",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Hand", "Board", "Discard" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Rune" ]
+							}
+						]
+					},
+					"maxCanChoose": 1
+				},
+				{
+					"$type": "Subeffect:Reshuffle:",
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:DrawX:",
+					"xMultiplier": 0,
+					"xModifier": 2
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypes": [
+		"Runar",
+		"Mage"
+	],
+	"subtypeText": "Runar Mage"
+}

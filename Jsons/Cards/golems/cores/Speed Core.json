@@ -1,0 +1,65 @@
+{
+	"cardType": 65,
+	"cardName": "Speed Core",
+	"effText": "Recoverable.\nWhile equipped, activate this Golem and give them +1 N.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Activate Golem",
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Hanging.Activation:",
+					"endCondition": "Augment Detached",
+					"triggerRestriction": {
+						"$type": "Core.TriggerRestriction:CardsMatch:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"other": { "$type": "Cards:ThisCardNow:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.ChangeCardStats:",
+					"nModifier": 1,
+					"endCondition": "Augment Detached",
+					"triggerRestriction": {
+						"$type": "Core.TriggerRestriction:CardsMatch:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"other": { "$type": "Cards:ThisCardNow:" }
+					}
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Recoverable"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"augmentOnSubtypes": [ "Golem" ]
+	},
+	"a": 3,
+	"subtypeText": "Golem Core"
+}

@@ -1,0 +1,52 @@
+{
+    "triggerData": {
+        "blurb": "Restock",
+        "triggerCondition": "Discard",
+        "triggerRestriction": {
+            "elements": [
+                {
+                    "$type": "Core.TriggerRestriction:CardsMatch:",
+                    "card": { "$type": "Cards:CardBefore:" },
+                    "other": { "$type": "Cards:ThisCardNow:" }
+                },
+                {
+                    "$type": "Core.TriggerRestriction:CardFitsRestriction:",
+                    "card": { "$type": "Cards:CardBefore:" },
+                    
+                "cardRestriction": {
+                    "$type": "Core.CardRestriction:AllOf:",
+                    "elements": [
+                            {
+                                "$type": "Core.CardRestriction:Location:",
+                                "locations": [ "Board" ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "subeffects": [
+        {
+            "$type": "Subeffect:TargetThis:"
+        },
+        {
+            "$type": "Subeffect:ConditionalEnd:",
+            "endIfTrue": {
+                "$type": "Core.GamestateRestriction:Not:",
+                "negated": {
+                    "$type": "Core.TriggerRestriction:CardFitsRestriction:",
+                    "useDummyResolutionContext": false,
+                    "card": { "$type": "Cards:TargetIndex:" },
+                    "cardRestriction": {
+                        "$type": "Core.CardRestriction:Location:",
+                        "locations": [ "Discard" ]
+                    }
+                }
+            }
+        },
+        {
+            "$type": "Subeffect:Reshuffle:"
+        }
+    ]
+}

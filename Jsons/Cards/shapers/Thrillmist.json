@@ -1,0 +1,52 @@
+{
+	"cardType": 67,
+	"cardName": "Thrillmist",
+	"effText": "Shape.\nWhen a Shaper Shapes through me, give us both +3 W.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Thrill",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:TriggerKeyword:",
+							"keyword": "Shaped Through"
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 3
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 3
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Shape",
+		"Evasive"
+	],
+	"n": 1,
+	"e": 5,
+	"s": 3,
+	"w": 1,
+	"subtypes": [
+		"Ethereal",
+		"Shaper"
+	],
+	"subtypeText": "Ethereal Shaper"
+}

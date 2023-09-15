@@ -1,0 +1,90 @@
+{
+	"cardType": 67,
+	"cardName": "Echoing Pulsar",
+	"effText": "The first time each stack your Avatar's S changes, give them:\n+S: +1 S.\n-S: -1 S.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Echo Up",
+				"triggerCondition": "S Change",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:Avatar:",
+								"player": { "$type": "Players:FriendlyPlayer:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"number": { "$type": "Numbers:TriggerX:" },
+							"restriction": {
+								"$type": "Core.NumberRestriction:Compare:",
+								"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": 1
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"blurb": "Echo Down",
+				"triggerCondition": "S Change",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:Avatar:",
+								"player": { "$type": "Players:FriendlyPlayer:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+							"number": { "$type": "Numbers:TriggerX:" },
+							"restriction": {
+								"$type": "Core.NumberRestriction:Compare:",
+								"comparison": { "$type": "Relationships.Number:LessThan:" },
+								"other": { "$type": "Numbers:Constant:", "constant": 0 }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sModifier": -1
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 7,
+	"s": 7,
+	"w": 7,
+	"subtypeText": "Pulsar"
+}

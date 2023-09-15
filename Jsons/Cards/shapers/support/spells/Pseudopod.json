@@ -1,0 +1,67 @@
+{
+	"cardType": 83,
+	"cardName": "Pseudopod",
+	"effText": "Teleport an enemy character to a space adjacent to a friendly Shaper.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "enemy character to move",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Enemy:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to move the enemy character",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:AllOf:",
+									"elements": [
+										{ "$type": "Core.CardRestriction:Friendly:" },
+										{ "$type": "Core.CardRestriction:Character:" },
+										{
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Shaper" ]
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Simple",
+		"Shaping"
+	],
+	"subtypeText": "Simple Shaping"
+}

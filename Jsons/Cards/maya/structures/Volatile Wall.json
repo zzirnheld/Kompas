@@ -1,0 +1,22 @@
+{
+	"cardType": 67,
+	"cardName": "Volatile Wall",
+	"effText": "Structure.",
+	"effects": [],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.GamestateRestriction:Not:",
+			"negated": { "$type": "Core.TriggerRestriction:Normally:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+	},
+	"n": 0,
+	"e": 9,
+	"s": 4,
+	"w": 9,
+	"subtypeText": "Maya Structure"
+}

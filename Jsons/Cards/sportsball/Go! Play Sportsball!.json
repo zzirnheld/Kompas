@@ -1,0 +1,57 @@
+{
+	"cardType": 83,
+	"cardName": "Go! Play Sportsball!",
+	"effText": "Deck->attach a Sportsball to your Avatar.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Sportsball",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Sportsball" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": {
+						"$type": "Cards:Avatar:",
+						"player": { "$type": "Players:TargetIndex:" }
+					}
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:Play:",
+					"targetIndex": -2
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple Team Play"
+}

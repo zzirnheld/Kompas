@@ -1,0 +1,25 @@
+{
+	"cardType": 67,
+	"cardName": "Leapingfish",
+	"effText": "Nimble Waterborn Waterdweller.",
+	"effects": [],
+	"keywords": [
+		"Waterdweller"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Water" ]
+			}
+		} ]
+	},
+	"n": 6,
+	"e": 3,
+	"s": 4,
+	"w": 6,
+	"subtypeText": "Aquatic Fish"
+}

@@ -1,0 +1,34 @@
+{
+	"blurb":"Collectible",
+	"triggerData":
+	{
+		"triggerCondition":"Discard",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": {
+						"$type": "Cards:AugmentedCard:",
+						"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetTriggeringCard:",
+			"contextSecondaryCard":true
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Attach:",
+			"targetToAttachTo":-2,
+			"targetIndex":-1
+		}
+	]
+}

@@ -1,0 +1,80 @@
+{
+	"cardType": 67,
+	"cardName": "Cidian",
+	"effText": "Territorial.\nWhen I deal X more damage than my defender's E, give other characters adjacent to them -X EW.",
+	"effects": [
+		{
+			"blurb": "Acid Breath",
+			"triggerData": {
+				"blurb": "Acid Breath",
+				"triggerCondition": "Take Combat Damage",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ {
+									"$type": "Core.CardRestriction:Fighting:",
+									"defending": true,
+									"fightingWho": { "$type": "Cards:ThisCardNow:" }
+								} ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"cardValue": { "value": "E" }
+					},
+					"change": true,
+					"xMultiplier": -1
+				},
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": {
+									"$type": "Core.CardRestriction:CardsMatch:",
+									"card": { "$type": "Cards:ThisCardNow:" }
+								}
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"eMultiplier": -1,
+					"wMultiplier": -1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Territorial"
+	],
+	"n": 5,
+	"e": 14,
+	"s": 15,
+	"w": 15,
+	"subtypeText": "Dragon"
+}

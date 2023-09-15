@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Agile Scrumsnake",
+	"effText": "Modular 5.",
+	"effects": [],
+	"keywords": [
+		"Modular"
+	],
+	"keywordArgs": [
+		5
+	],
+	"n": 5,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Modular Reptile"
+}

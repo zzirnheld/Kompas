@@ -1,0 +1,24 @@
+{
+	"triggerData": {
+		"triggerCondition": "Play",
+		"blurb": "C to 0",
+		"triggerRestriction": {
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			]
+		}
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:SetCardStatsOld:",
+			"cVal": 0
+		}
+	]
+}

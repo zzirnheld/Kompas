@@ -1,0 +1,69 @@
+{
+	"cardType": 65,
+	"cardName": "Durability Core",
+	"effText": "Recoverable.\nWhile equipped, activate this Golem and give them +5 E.",
+	"effects": [
+		{
+			"blurb": "Activate",
+			"triggerData": {
+				"blurb": "Activate Golem",
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							},
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:Hanging.Activation:",
+					"endCondition": "Augment Detached",
+					"triggerRestriction": {
+						"$type": "Core.TriggerRestriction:CardsMatch:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"other": { "$type": "Cards:ThisCardNow:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.ChangeCardStats:",
+					"eModifier": 5,
+					"endCondition": "Augment Detached",
+					"triggerRestriction": {
+						"$type": "Core.TriggerRestriction:CardsMatch:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"other": { "$type": "Cards:ThisCardNow:" }
+					}
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Recoverable"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"augmentOnSubtypes": [ "Golem" ]
+	},
+	"a": 3,
+	"subtypeText": "Golem Core"
+}

@@ -1,0 +1,47 @@
+{
+	"cardType": 67,
+	"cardName": "Weird Idea That is Also",
+	"effText": "Also, once each turn, you can give me -1 E. Hand->discard 1 card. Also, give a character +1 W.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -1
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "card in hand that is also discard",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character that is also +1 W",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 5,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Crazy Idea"
+}

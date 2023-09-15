@@ -1,0 +1,77 @@
+{
+	"cardType": 67,
+	"cardName": "Roll of Leythunder",
+	"effText": "Weather Event: Each dispels all enemy spells there.",
+	"effects": [
+		{
+			"blurb": "Leythunder",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.TriggerRestriction:EnemyTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Enemy:" },
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Weather", "Condition" ]
+								},
+								"sameAs": { "$type": "Cards:ThisCardNow:" }
+							},
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"exclude": true,
+								"subtypes": [ "Weather" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Dispel:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [ 1 ]
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Weather" ]
+			},
+			"minAnyOfCount": { 
+				"$type": "Numbers:Constant:",
+				"constant": 2
+			}
+		} ]
+	},
+	"n": 1,
+	"e": 7,
+	"s": 4,
+	"w": 5,
+	"subtypeText": "Weather Event Elemental"
+}

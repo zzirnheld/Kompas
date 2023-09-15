@@ -1,0 +1,39 @@
+{
+	"cardType": 67,
+	"cardName": "I - The Magician",
+	"effText": "Once each turn, you can hand->bottomdeck X cards to draw X cards.",
+	"effects": [
+		{
+			"blurb": "Redraw",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Magician to hand-bottomdeck",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:"
+				},
+				{
+					"$type": "Subeffect:CountXLoop:",
+					"canDecline": true,
+					"jumpIndices": [
+						0
+					]
+				},
+				{
+					"$type": "Subeffect:DrawX:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 5,
+	"s": 5,
+	"w": 2,
+	"subtypeText": "Tarocco Mage"
+}

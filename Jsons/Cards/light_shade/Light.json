@@ -1,0 +1,84 @@
+{
+	"cardType": 83,
+	"cardName": "Light",
+	"effText": "Becomes Shade when NO enemies are here.",
+	"technicalEffText": "If there's NO enemy characters here and nothing else is happening, swap me for Shade in your deck.",
+	"effects": [
+		{
+			"blurb":"Become Shade",
+			"triggerData":
+			{
+				"triggerCondition":"Stack End",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:AOEContains:",
+											"cardRestriction": {
+												"$type": "Core.CardRestriction:AllOf:",
+												"elements": [
+													{ "$type": "Core.CardRestriction:Enemy:" },
+													{ "$type": "Core.CardRestriction:Character:" }
+												]
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Shade" ]
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]	
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Radial"
+	],
+	"subtypeText": "Light",
+	"radius": 2
+}

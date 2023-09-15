@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=4 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Card Information Displayers/ControlInformationDisplayer.cs" id="1_e4tq2"]
+[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="2_5abee"]
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_a3oma"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -10,8 +12,161 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.176471, 0.137255, 0.294118, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_a3oma")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card Info" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Not a Card (PLACEHOLDER)" type="VBoxContainer" parent="HBoxContainer/Card Info" node_paths=PackedStringArray("Image", "N", "E", "S", "W", "C", "A", "CardName", "Subtypes", "EffText")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 script = ExtResource("1_e4tq2")
+Image = NodePath("Card Face Image")
+N = NodePath("Stats/N/N Value")
+E = NodePath("Stats/E/E Value")
+S = NodePath("Stats/S/S Value")
+W = NodePath("Stats/W/W Value")
+C = NodePath("Stats/C/C Value")
+A = NodePath("Stats/A/A Value")
+CardName = NodePath("Card Name")
+Subtypes = NodePath("Subtypes")
+EffText = NodePath("Effect Text")
+
+[node name="Card Face Image" type="TextureRect" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
+layout_mode = 2
+texture = ExtResource("2_5abee")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Card Name" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
+layout_mode = 2
+text = "This is a card's name"
+horizontal_alignment = 1
+
+[node name="Subtypes" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
+layout_mode = 2
+text = "Humanoid Idiot"
+horizontal_alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
+layout_mode = 2
+
+[node name="N" type="HBoxContainer" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="N Label" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/N"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "N:"
+
+[node name="N Value" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/N"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "#"
+
+[node name="E" type="HBoxContainer" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="E Label" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/E"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "E:"
+
+[node name="E Value" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/E"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "#"
+
+[node name="S" type="HBoxContainer" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="S Label" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/S"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "S:"
+
+[node name="S Value" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/S"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "#"
+
+[node name="W" type="HBoxContainer" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="W Label" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/W"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "W:"
+
+[node name="W Value" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/W"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "#"
+
+[node name="C" type="HBoxContainer" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="C Label" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/C"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "C:"
+
+[node name="C Value" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/C"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "#"
+
+[node name="A" type="HBoxContainer" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="A Label" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/A"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A:"
+
+[node name="A Value" type="Label" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)/Stats/A"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "#"
+
+[node name="Effect Text" type="RichTextLabel" parent="HBoxContainer/Card Info/Not a Card (PLACEHOLDER)"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center]This is an example of card effect text. I'm wondering how it supports the various things that I want it tos upport. We'll find out as we go on.[/center]
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0

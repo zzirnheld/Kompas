@@ -1,0 +1,46 @@
+{
+	"cardType": 83,
+	"cardName": "Figurehead Jack",
+	"effText": "Draw 1 card. Hand->bottomdeck a Tarocco to draw another card.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Jack to hand-bottomdeck",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Tarocco" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Bottomdeck:"
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypes": [
+		"Tarocco",
+		"Simple"
+	],
+	"subtypeText": "Tarocco Simple"
+}

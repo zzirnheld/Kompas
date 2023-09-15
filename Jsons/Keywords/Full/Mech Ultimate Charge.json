@@ -1,0 +1,24 @@
+{
+	"blurb": "Charge up",
+	"triggerData": {
+		"triggerCondition": "Attack",
+		"triggerRestriction": {
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			]
+		}
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:ChangeCardStats:",
+			"sModifier": 10
+		}
+	]
+}

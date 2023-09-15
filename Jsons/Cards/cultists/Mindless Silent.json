@@ -1,0 +1,11 @@
+{
+	"cardType": 67,
+	"cardName": "Mindless Silent",
+	"effText": "<i>Singlemindedly determined. Or perhaps zeromindedly</i>",
+	"effects": [],
+	"n": 2,
+	"e": 3,
+	"s": 2,
+	"w": 3,
+	"subtypeText": "Cultist"
+}

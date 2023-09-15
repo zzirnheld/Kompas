@@ -1,0 +1,62 @@
+{
+	"cardType": 67,
+	"cardName": "Roth Agent",
+	"effText": "When I'm summoned, I Ambush.\nWhen you board->hand me, draw 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Ambush"
+				}
+			]
+		},
+		{
+			"blurb": "Supplies have been recovered.",
+			"triggerData": {
+				"triggerCondition": "Rehand",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Board" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:DrawX:",
+					"xModifier": 1
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 1,
+	"s": 2,
+	"w": 1,
+	"subtypes": [
+		"Orc",
+		"Spy"
+	],
+	"subtypeText": "Orc Spy"
+}

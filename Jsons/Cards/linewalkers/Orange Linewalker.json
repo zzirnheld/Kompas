@@ -1,0 +1,49 @@
+{
+	"cardType":67,
+	"cardName":"Orange Linewalker",
+	"effText":"Linewalk.\nWhen I move X spaces, hand->reshuffle a distinct Linewalker and draw X cards.",
+	"effects":[
+		{
+			"blurb":"Orange Linewalked",
+			"triggerData":
+			{
+				"triggerCondition":"Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects":[
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "linewalker to reshuffle",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:DistinctName:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Linewalker" ]
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Reshuffle:"
+				},
+				{
+					"$type":"Subeffect:DrawX:",
+					"xMultiplier":1
+				}
+			]
+		}
+	],
+	"keywords":["Linewalk"],
+	"n":1,
+	"e":4,
+	"s":6,
+	"w":4,
+	"subtypeText":"Linewalker Mage"
+}

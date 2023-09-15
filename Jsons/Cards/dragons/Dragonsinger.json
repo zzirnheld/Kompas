@@ -1,0 +1,64 @@
+{
+	"cardType": 67,
+	"cardName": "Dragonsinger",
+	"effText": "When turns start, hand->reshuffle X of your Dragons. Give me +X S and draw X cards.",
+	"effects": [
+		{
+			"blurb": "Dragonsing",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SetX:",
+					"xMultiplier": 0
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Dragonseeker to reshuffle",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Dragon" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetX:",
+					"change": true,
+					"xModifier": 1,
+					"xMultiplier": 0
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:Loop:",
+					"canDecline": true,
+					"jumpIndices": [ 1 ]
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": 1
+				},
+				{
+					"$type": "Subeffect:DrawX:"
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypeText": "Draconic Mage"
+}

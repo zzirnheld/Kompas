@@ -1,0 +1,69 @@
+{
+	"cardType": 67,
+	"cardName": "Roth'Drek Phantom",
+	"effText": "When I'm summoned, I Ambush.\nWhen I'm board-> or discard->handed, give me -2S.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Ambush"
+				}
+			]
+		},
+		{
+			"blurb": "Withdraw",
+			"triggerData": {
+				"triggerCondition": "Rehand",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Board", "Discard" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"forbidNotBoard": false,
+					"sModifier": -2
+				}
+			]
+		}
+	],
+	"n": 7,
+	"e": 7,
+	"s": 7,
+	"w": 7,
+	"subtypes": [
+		"Orc",
+		"Spy"
+	],
+	"subtypeText": "Orc Spy"
+}

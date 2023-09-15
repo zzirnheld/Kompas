@@ -1,0 +1,55 @@
+{
+	"blurb":"Wanderer",
+	"triggerData":
+	{
+		"blurb":"Wander",
+		"triggerCondition":"Turn Start",
+		"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThisSpace:"
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:SetXByNumberIdentity:",
+			"numberIdentity": { 
+				"$type": "Numbers:FromCardValue:",
+				"card": { "$type": "Cards:TargetIndex:" },
+				"cardValue": { "value": "S" }
+			}
+		},
+		{
+			"$type":"Subeffect:Reshuffle:"
+		},
+		{
+			"$type":"Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Deck:" },
+			"cardRestriction":
+			{
+				"blurb":"Wanderer to Wander into",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Character:" },
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Wanderer" ]
+					},
+					{
+						"$type": "Core.CardRestriction:CardValueFits:",
+						"cardValue": { "value": "S" },
+						"numberRestriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:LessThan:" },
+							"other": { "$type": "Numbers:EffectX:" }
+					}
+				} ]
+			},
+			"xMultiplier":1
+		},
+		{
+			"$type":"Subeffect:Play:"
+		}
+	]	
+}

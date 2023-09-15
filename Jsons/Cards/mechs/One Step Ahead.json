@@ -1,0 +1,104 @@
+{
+	"cardType": 83,
+	"cardName": "One Step Ahead",
+	"effText": "When I'm cast, deck->choose a Mech. At least 1 turn later, when a friendly Mech dies, deck->hand a copy of your choice, and repeat this process.",
+	"effects": [
+		{
+			"blurb": "Always thinking",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Mech plan",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mech" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [
+						2
+					],
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [
+						3
+					],
+					"endCondition": "Discard",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+								"card": { "$type": "Cards:CardBefore:" },
+								
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+										{ "$type": "Core.CardRestriction:Friendly:" },
+										{
+											"$type": "Core.CardRestriction:Location:",
+											"locations": [ "Board" ]
+										},
+										{
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Mech" ]
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"sameAs": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:Jump:",
+					"jumpIndices": [
+						0
+					]
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant"
+}

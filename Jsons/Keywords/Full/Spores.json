@@ -1,0 +1,42 @@
+{
+	"blurb":"Spores",
+	"triggerData": {
+		"triggerCondition": "Activate",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				},
+				{ "$type": "Core.GamestateRestriction:MaxPerStack:" }
+			]
+		},
+		"orderPriority": -100
+	},
+	"subeffects":[
+		{
+			"$type": "Subeffect:TargetAll:",
+			"toSearch": {
+				"$type": "ManyCards:CardsInPositions:",
+				"positions": {
+					"$type": "ManySpaces:AdjacentSpaces:",
+					"adjacentTo": { "$type": "Cards:ThisCardNow:" }
+				}
+			}
+		},
+		{
+			"$type":"Subeffect:Activate:"
+		},
+		{
+			"$type":"Subeffect:Activate:",
+			"activate":false
+		},
+		{
+			"$type":"Subeffect:LoopWhileHaveTargets:",
+			"delete":true,
+			"jumpIndices":[1]
+		}
+	]
+}

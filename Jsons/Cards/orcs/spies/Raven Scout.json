@@ -1,0 +1,16 @@
+{
+	"cardType": 67,
+	"cardName": "Raven Scout",
+	"effText": "<i>An ill omen.</i>",
+	"effects": [],
+	"n": 3,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Flying",
+		"Beast",
+		"Spy"
+	],
+	"subtypeText": "Flying Beast Spy"
+}

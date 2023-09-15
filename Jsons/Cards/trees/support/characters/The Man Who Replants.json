@@ -1,0 +1,60 @@
+{
+	"cardType": 67,
+	"cardName": "The Man Who Replants",
+	"effText": "When turns start, revive a Tree, then give it -3 ES.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Replant Tree",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Tree for the Man to Replant",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tree" ]
+							},
+							{ "$type": "Core.CardRestriction:CanPlay:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where for Man to replant the Tree",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -3,
+					"sModifier": -3
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 5,
+	"s": 4,
+	"w": 2,
+	"unique": true,
+	"subtypeText": "Person"
+}

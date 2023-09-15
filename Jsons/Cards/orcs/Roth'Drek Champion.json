@@ -1,0 +1,15 @@
+{
+	"cardType": 67,
+	"cardName": "Roth'Drek Champion",
+	"effText": "<i>I crave glorious battle, and the favor of Alkorath'Kil!</i>",
+	"effects": [],
+	"n": 1,
+	"e": 12,
+	"s": 7,
+	"w": 8,
+	"subtypes": [
+		"Orc",
+		"Warrior"
+	],
+	"subtypeText": "Orc Warrior"
+}

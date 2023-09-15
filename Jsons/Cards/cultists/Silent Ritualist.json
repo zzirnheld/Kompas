@@ -1,0 +1,63 @@
+{
+	"cardType": 67,
+	"cardName": "Silent Ritualist",
+	"effText": "When turns start, tribute a character. Deck->cast a Silent spell where they were.",
+	"effects": [
+		{
+			"blurb": "Ritual",
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "ritual sacrifice",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Summoned:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetTargetsSpace:"
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Silent convert",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Silent" ]
+							},
+							{
+								"$type": "Core.CardRestriction:CanPlay:",
+								"destination": { "$type": "Spaces:TargetIndex:" },
+								"ignoreAdjacency": true
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 1,
+	"s": 3,
+	"w": 1,
+	"subtypeText": "Cultist"
+}

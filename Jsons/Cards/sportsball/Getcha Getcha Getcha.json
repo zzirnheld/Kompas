@@ -1,0 +1,42 @@
+{
+	"cardType": 83,
+	"cardName": "Getcha Getcha Getcha",
+	"effText": "Comeback Play.\nWhen you augment a character, give them +1 N.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Getcha Getcha Getcha",
+				"triggerCondition": "Augmented",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Comeback Play"
+	],
+	"c": 1,
+	"spellTypes": [
+		"Vanishing"
+	],
+	"duration": 1,
+	"subtypeText": "Team Play"
+}

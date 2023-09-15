@@ -1,0 +1,11 @@
+{
+	"cardType": 67,
+	"cardName": "The Unspeakable",
+	"effText": "Can't be Avatar.",
+	"effects": [],
+	"n": 10,
+	"e": 25,
+	"s": 25,
+	"w": 25,
+	"subtypeText": "Aberration"
+}

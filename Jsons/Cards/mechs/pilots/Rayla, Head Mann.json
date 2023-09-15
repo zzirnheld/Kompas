@@ -1,0 +1,36 @@
+{
+	"cardType": 67,
+	"cardName": "Rayla, Head Mann",
+	"effText": "I can Pilot a Mech, and give it +1 NESW.",
+	"effects": [
+		{
+			"blurb": "Leading Piloting",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Summon"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 1,
+					"eModifier": 1,
+					"sModifier": 1,
+					"wModifier": 1
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Return"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 1,
+	"e": 3,
+	"s": 6,
+	"w": 3,
+	"subtypeText": "Mech Pilot Person"
+}

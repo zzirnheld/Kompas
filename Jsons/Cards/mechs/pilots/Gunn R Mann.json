@@ -1,0 +1,33 @@
+{
+	"cardType": 67,
+	"cardName": "Gunn R Mann",
+	"effText": "I can Pilot a Mech, and give it +2 W.",
+	"effects": [
+		{
+			"blurb": "Aggressive Piloting",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Summon"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 2
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Return"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 1,
+	"e": 1,
+	"s": 5,
+	"w": 4,
+	"subtypeText": "Mech Pilot Person"
+}

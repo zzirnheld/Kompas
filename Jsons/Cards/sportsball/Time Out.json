@@ -1,0 +1,67 @@
+{
+	"cardType":83,
+	"cardName":"Time Out",
+	"effText":"Choose an adjacent character wielding friendly Augment(s). Attach those Augments to your Avatar. Hand the character.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"triggerCondition":"Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetAvatar:"
+				},
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction":
+					{
+						"blurb":"character to put in TIME OUT!",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:HasAugment:",
+								
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Friendly:" } ]
+								}
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:TargetAugments:"
+				},
+				{
+					"$type":"Subeffect:Attach:",
+					"targetIndex":-1,
+					"targetToAttachTo":0
+				},
+				{
+					"$type":"Subeffect:LoopWhileHaveTargets:",
+					"delete":true,
+					"jumpIndices":[3]
+				},
+				{
+					"$type":"Subeffect:Hand:",
+					"targetIndex":1
+				}
+			]
+		}
+	],
+	"c":1,
+	"spellTypes":["Simple"],
+	"subtypeText":"Simple"
+}

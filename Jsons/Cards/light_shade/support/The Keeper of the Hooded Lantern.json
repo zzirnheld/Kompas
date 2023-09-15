@@ -1,0 +1,122 @@
+{
+	"cardType": 67,
+	"cardName": "The Keeper of the Hooded Lantern",
+	"effText": "When I arrive, reshuffle all Light and Shade I'm in. Deck->cast Light adjacent to me.",
+	"effects": [
+		{
+			"blurb": "Who goes there?",
+			"triggerData": {
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						2
+					]
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Shade" ]
+							},
+							{
+								"$type": "Core.CardRestriction:AOEContains:",
+								"cards": {
+									"$type": "ManyCards:Concat:",
+									"cards": [ { "$type": "Cards:ThisCardNow:" } ]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:ClearOnImpossible:"
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Light" ]
+							},
+							{
+								"$type": "Core.CardRestriction:AOEContains:",
+								"cards": {
+									"$type": "ManyCards:Concat:",
+									"cards": [ { "$type": "Cards:ThisCardNow:" } ]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						4
+					]
+				},
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Spell:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Light" ]
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"spaceRestriction": {
+						"blurb": "where to cast the Weather",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"unique":true,
+	"n": 2,
+	"e": 6,
+	"s": 4,
+	"w": 2,
+	"subtypeText": "Brilliant Mage"
+}

@@ -1,0 +1,47 @@
+{
+	"cardType": 83,
+	"cardName": "Hagall",
+	"effText": "Runic.\nWhen turns start, I give all characters here -2 NEW.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"card": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					},
+					"nModifier": -2,
+					"eModifier": -2,
+					"wModifier": -2
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+	},
+	"c": 1,
+	"spellTypes": [
+		"Radial"
+	],
+	"subtypes": [
+		"Rune",
+		"Radial"
+	],
+	"subtypeText": "Rune Radius",
+	"radius": 1
+}

@@ -1,0 +1,61 @@
+{
+	"cardType": 83,
+	"cardName": "Tide Pools",
+	"effText": "When turns start, if I'm in distinct Water, reset my turn count. <i>Otherwise, vanishes after 2 turns.</i>",
+	"effects": [
+		{
+			"blurb": "Refill",
+			"triggerData": {
+				"blurb": "Refill",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									},
+									{
+										"$type": "Core.SpaceRestriction:InAOEOf:",
+										"cardRestriction": {
+											"$type": "Core.CardRestriction:AllOf:",
+											"elements": [
+												{ "$type": "Core.CardRestriction:DistinctName:" },
+												{
+													"$type": "Core.CardRestriction:Subtypes:",
+													"subtypes": [ "Water" ]
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetTurnsOnBoard:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Vanishing",
+		"Radial"
+	],
+	"duration": 2,
+	"radius": 2,
+	"subtypeText": "Water"
+}

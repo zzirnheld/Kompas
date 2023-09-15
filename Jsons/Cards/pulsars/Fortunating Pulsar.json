@@ -1,0 +1,69 @@
+{
+	"cardType": 67,
+	"cardName": "Fortunating Pulsar",
+	"effText": "The first three times each turn your Avatar's S changes:\n+S: rummage.\n-S: give both players 1 pip.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Fortune-card",
+				"triggerCondition": "S Change",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:", "max": 3 },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:Avatar:",
+								"player": { "$type": "Players:FriendlyPlayer:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue":
+					{
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": { "$type": "Numbers:EffectX:" },
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+							"other": { "$type": "Numbers:Constant:", "constant": 0 }
+						}
+					},
+					"jumpIndices": [ 5 ]
+				},
+				{
+					"$type": "Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				},
+				{
+					"$type": "Subeffect:TargetEnemy:"
+				},
+				{
+					"$type": "Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Rummage"
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 4,
+	"s": 5,
+	"w": 4,
+	"subtypeText": "Pulsar"
+}

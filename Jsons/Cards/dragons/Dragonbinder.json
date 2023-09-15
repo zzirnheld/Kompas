@@ -1,0 +1,52 @@
+{
+	"cardType": 67,
+	"cardName": "Dragonbinder",
+	"effText": "When I'm summoned, choose X (a positive number). Give the enemy Avatar +2*X E, then give me +X S.",
+	"effects": [
+		{
+			"blurb": "Dragonbind",
+			"triggerData": {
+				"blurb": "Dragonbind",
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": {
+						"$type": "Cards:Avatar:",
+						"player": { "$type": "Players:EnemyPlayer:" }
+					}
+				},
+				{
+					"$type": "Subeffect:PlayerChooseX:",
+					"XRest": {
+						"$type": "Core.NumberRestriction:Compare:",
+						"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+						"other": { "$type": "Numbers:Constant:", "constant": 0 }
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": 2
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": 1
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 1,
+	"s": 5,
+	"w": 0,
+	"subtypeText": "Draconic Mage"
+}

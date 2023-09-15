@@ -1,0 +1,45 @@
+{
+	"cardType": 67,
+	"cardName": "Leyeater",
+	"effText": "Berserker.\nWhen I attack, dispel an enemy spell",
+	"effects": [
+		{
+			"blurb": "Eat magic",
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Enemy:" },
+							{ "$type": "Core.CardRestriction:Spell:" }
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Dispel:"
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"maxPerTurn": 3
+	},
+	"n": 7,
+	"e": 6,
+	"s": 11,
+	"w": 5,
+	"subtypes": [ "Ethereal", "Dragon" ],
+	"subtypeText": "Ethereal Dragon"
+}

@@ -1,0 +1,79 @@
+{
+	"cardType": 67,
+	"cardName": "The Feathered Serpent",
+	"effText": "Summon only if there's 14 cards on the edge of the board.\nYou can tribute a Person adjacent to a Structure to revive me.",
+	"effects": [
+		{
+			"blurb": "Death Begets Life",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"locations": [ "Discard" ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "ritual sacrifice",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Summoned:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Person" ]
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Structure" ]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:SpaceTarget:",
+					"blurb":"where to revive the Feathered Serpent",
+					"spaceRestriction":
+					{
+						"$type": "Core.SpaceRestriction:CanPlayCard:",
+						"toPlay": { "$type": "Cards:TargetIndex:" }
+					}
+				},
+				{
+					"$type":"Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"normalAndEffect": [
+			{
+				"$type": "Core.TriggerRestriction:CompareNumbers:",
+				"firstNumber": {
+					"$type": "Numbers:CountCards:",
+					"cards": { "$type": "ManyCards:Board:" },
+					"cardRestriction": { "$type": "Core.SpaceRestriction:Edge:" }
+				},
+				"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+				"secondNumber": { "$type": "Numbers:Constant:", "constant": 14 }
+			}
+		]
+	},
+	"unique": true,
+	"n": 5,
+	"e": 1,
+	"s": 5,
+	"w": 20,
+	"subtypeText": "Flying Serpent God"
+}

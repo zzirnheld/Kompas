@@ -1,0 +1,15 @@
+{
+	"cardType": 67,
+	"cardName": "Obscurian",
+	"effText": "Territorial. Soullink.",
+	"effects": [],
+	"keywords": [
+		"Territorial",
+		"Soullink"
+	],
+	"n": 5,
+	"e": 12,
+	"s": 13,
+	"w": 13,
+	"subtypeText": "Dragon"
+}

@@ -1,0 +1,55 @@
+{
+	"cardType":67,
+	"cardName":"Havengiver",
+	"effText":"When turns start, revive a Supplicant.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"blurb":"Give Safe Haven",
+				"triggerCondition":"Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction":
+					{
+						"blurb":"Supplicant to give safe haven",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Supplicant" ]
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:SpaceTarget:",
+					"spaceRestriction":
+					{
+						"blurb":"haven to play the Supplicant",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n":2,
+	"e":2,
+	"s":2,
+	"w":0,
+	"subtypeText": "Kind Person"
+}

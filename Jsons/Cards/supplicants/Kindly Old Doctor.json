@@ -1,0 +1,32 @@
+{
+	"cardType": 67,
+	"cardName": "Kindly Old Doctor",
+	"effText": "When turns start, discard->hand a character.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Character:" } ]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 5,
+	"s": 4,
+	"w": 0,
+	"subtypeText": "Kind Doctor Person"
+}

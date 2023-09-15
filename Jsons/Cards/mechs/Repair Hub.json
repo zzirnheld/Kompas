@@ -1,0 +1,64 @@
+{
+	"cardType": 83,
+	"cardName": "Repair Hub",
+	"effText": "2 turns after a friendly Mech Golem dies here, discard->hand them.",
+	"effects": [
+		{
+			"blurb": "Repair Mech",
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Friendly:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Mech", "Golem" ]
+									},
+									{
+										"$type": "Core.SpaceRestriction:InAOEOf:",
+										"card": { "$type": "Cards:ThisCardNow:" }
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 1,
+					"jumpIndices": [
+						1
+					],
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Radial"
+	],
+	"subtypeText": "Radius 3",
+	"radius": 3
+}

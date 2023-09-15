@@ -1,0 +1,109 @@
+{
+	"cardType": 83,
+	"cardName": "Fires of Creation",
+	"effText": "When you summon a Pulsar with:\nMore S than your Avatar: gain 1 pip.\nLess S than your Avatar: draw 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Pulsar" ]
+									},
+									{
+										"$type": "Core.CardRestriction:CardValueFits:",
+										"cardValue": { "value": "S" },
+										"numberRestriction": {
+											"$type": "Core.NumberRestriction:Compare:",
+											"comparison": { "$type": "Relationships.Number:GreaterThan:" },
+											"other": {
+												"$type": "Numbers:FromCardValue:",
+												"card": { "$type": "Cards:Avatar:", "player": { "$type": "Players:FriendlyPlayer:" } },
+												"cardValue": { "value": "S" }
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Pulsar" ]
+									},
+									{
+										"$type": "Core.CardRestriction:CardValueFits:",
+										"cardValue": { "value": "S" },
+										"numberRestriction": {
+											"$type": "Core.NumberRestriction:Compare:",
+											"comparison": { "$type": "Relationships.Number:LessThan:" },
+											"other": {
+												"$type": "Numbers:FromCardValue:",
+												"card": { "$type": "Cards:Avatar:", "player": { "$type": "Players:FriendlyPlayer:" } },
+												"cardValue": { "value": "S" }
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"c": 3,
+	"unique": true,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant"
+}

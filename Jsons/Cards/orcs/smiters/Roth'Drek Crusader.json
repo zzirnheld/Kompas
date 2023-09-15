@@ -1,0 +1,40 @@
+{
+	"cardType": 67,
+	"cardName": "Roth'Ka Crusader",
+	"effText": "Smite.\nWhen I kill a character, draw 1.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:DrawX:",
+					"xModifier": 1
+				}
+			]
+		}
+	],
+	"keywords":[
+		"Smite"
+	],
+	"n": 1,
+	"e": 9,
+	"s": 7,
+	"w": 6,
+	"subtypes": [
+		"Orc",
+		"Paladin"
+	],
+	"subtypeText": "Orc Paladin"
+}

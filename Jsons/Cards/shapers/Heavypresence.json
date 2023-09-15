@@ -1,0 +1,65 @@
+{
+	"cardType": 67,
+	"cardName": "Heavypresence",
+	"effText": "Shape.\nWhen I attack a character, I push them 1 space directly away. If I can't, annihilate them.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						5
+					]
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"spaceIdentity": {
+						"$type": "Spaces:ApplyDisplacement:",
+						"from": { "$type": "Spaces:TargetIndex:" },
+						"displacement": {
+							"$type": "Spaces:Displacement:",
+							"from": { "$type": "Cards:ThisCardNow:" },
+							"to": { "$type": "Spaces:TargetIndex:" }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:ClearOnImpossible:"
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Shape"
+	],
+	"n": 1,
+	"e": 6,
+	"s": 5,
+	"w": 0,
+	"subtypes": [
+		"Ethereal",
+		"Shaper"
+	],
+	"subtypeText": "Ethereal Shaper"
+}

@@ -1,0 +1,38 @@
+{
+	"cardType": 83,
+	"cardName": "Regrowth",
+	"effText": "When turns start, heal a Tree.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Regrowth",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Who to heal",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Hurt:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tree" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Heal:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant"
+}

@@ -1,0 +1,40 @@
+{
+	"cardType": 67,
+	"cardName": "Mendicant",
+	"effText": "Wanderer.\nWhen I'm summoned, give a character +1 E.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Character:" } ]
+					}
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Wanderer"
+	],
+	"n": 1,
+	"e": 3,
+	"s": 2,
+	"w": 0,
+	"subtypeText": "Wanderer Person"
+}

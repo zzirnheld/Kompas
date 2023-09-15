@@ -1,0 +1,46 @@
+{
+	"cardType": 67,
+	"cardName": "Soulmartyr the Peaceless",
+	"effText": "Revenant.\nWhen a card is annihilated, give friendly Ethereals +1 W.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Annihilate",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Ethereal" ]
+							}
+						]
+					},
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Revenant Die",
+		"Revenant Revive"
+	],
+	"n": 2,
+	"e": 3,
+	"s": 8,
+	"w": 5,
+	"unique": true,
+	"subtypes": [
+		"Ethereal",
+		"Revenant"
+	],
+	"subtypeText": "Ethereal Revenant"
+}

@@ -1,0 +1,82 @@
+{
+	"cardType": 67,
+	"cardName": "Blizzard Squall",
+	"effText": "Weather Event: Each sets the N of all enemies there to 0.",
+	"effects": [
+		{
+			"blurb": "Freeze",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.TriggerRestriction:EnemyTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Weather", "Condition" ]
+							},
+							{
+								"$type": "Core.CardRestriction:AOEContains:",
+								"cards": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetAllCardStats:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Enemy:" },
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"card": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"nVal": 0
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [ 1 ]
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Weather" ]
+			},
+			"minAnyOfCount": { 
+				"$type": "Numbers:Constant:",
+				"constant": 2
+			}
+		} ]
+	},
+	"n": 4,
+	"e": 7,
+	"s": 5,
+	"w": 5,
+	"subtypeText": "Weather Event Elemental"
+}

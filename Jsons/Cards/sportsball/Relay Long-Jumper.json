@@ -1,0 +1,85 @@
+{
+	"cardType": 67,
+	"cardName": "Relay Long-Jumper",
+	"effText": "When an augmented character arrives adjacent to me, attach their Augment(s) to me.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Relay Long-Jump",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"space": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									},
+									{
+										"$type": "Core.CardRestriction:HasAugment:",
+										"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetAugments:"
+				},
+				{
+					"$type": "Subeffect:ConditionalEnd:",
+					"endIfTrue": {
+						"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+						"number": { "$type": "Numbers:TargetCount:" },
+						"restriction": {
+							"$type": "Core.NumberRestriction:Compare:",
+							"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+							"other": { "$type": "Numbers:Constant:", "constant": 2 }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": 0
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 2,
+					"jumpIndices": [
+						4
+					]
+				}
+			]
+		}
+	],
+	"n": 5,
+	"e": 3,
+	"s": 4,
+	"w": 0,
+	"subtypeText": "Teammate"
+}

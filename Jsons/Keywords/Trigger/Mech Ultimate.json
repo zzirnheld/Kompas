@@ -1,0 +1,22 @@
+[
+	{
+		"$type": "Core.TriggerRestriction:CardsMatch:",
+		"card": { "$type": "Cards:ThisCardNow:" },
+		"other": { "$type": "Cards:CardBefore:" }
+	},
+	{
+		"$type": "Core.TriggerRestriction:NumberFitsRestriction:",
+		"restriction": {
+			"XRest": {
+				"$type": "Core.NumberRestriction:Compare:",
+				"comparison": { "$type": "Relationships.Number:GreaterThanEqual:" },
+				"other": { "$type": "Numbers:Constant:", "constant": 30 }
+			}
+		},
+		"number": {
+			"$type": "Numbers:FromCardValue:",
+			"card": { "$type": "Cards:CardBefore:" },
+			"cardValue": { "value": "S" }
+		}
+	}
+]

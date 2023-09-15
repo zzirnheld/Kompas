@@ -1,0 +1,69 @@
+{
+	"cardType":83,
+	"cardName":"Mulch",
+	"effText":"When a Tree dies, heal friendly Trees.",
+	"effects":[
+		{
+			"blurb":"Mulch",
+			"triggerData":
+			{
+				"blurb":"Mulch",
+				"triggerCondition":"Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Tree" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction":
+					{
+						"blurb":"for Haemopoten to draw",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tree" ]
+							}
+						]
+					},
+					"xMultiplier":1
+				},
+				{
+					"$type":"Subeffect:Heal:"
+				},
+				{
+					"$type":"Subeffect:LoopWhileHaveTargets:",
+					"delete":true,
+					"jumpIndices":[1]
+				}
+			]	
+		}
+	],
+	"c":1,
+	"spellTypes":["Enchant"],
+	"subtypeText":"Enchant"
+}

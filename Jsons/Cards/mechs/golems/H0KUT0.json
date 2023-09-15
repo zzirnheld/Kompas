@@ -1,0 +1,81 @@
+{
+	"cardType": 67,
+	"cardName": "H0KUT0",
+	"effText": "Golem.\nIf I'm active when an enemy is summoned, I move to an adjacent space, then attack them.",
+	"effects": [
+		{
+			"blurb": "0M43 W4 M0U 5H1ND31RU",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+				"elements": [
+					{
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"card": { "$type": "Cards:ThisCardNow:" },
+						"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+					},
+					{
+						"$type": "Core.TriggerRestriction:PlayersMatch:",
+						"card": { "$type": "Players:TriggeringPlayer:" },
+						"other": { "$type": "Players:EnemyPlayer:" }
+					}
+				]
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to move the H0KUT0",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Move:"
+				},
+				{
+					"$type": "Subeffect:Attack:",
+					"targetIndex": -2,
+					"attackerIndex": -1
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"n": 5,
+	"e": 3,
+	"s": 10,
+	"w": 10,
+	"subtypes": [
+		"Mech",
+		"Golem"
+	],
+	"subtypeText": "Mech Golem"
+}

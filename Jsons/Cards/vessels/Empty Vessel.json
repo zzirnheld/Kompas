@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Empty Vessel",
+	"effText": "Vessel.",
+	"effects": [],
+	"keywords": [
+		"Vessel Echo"
+	],
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 1,
+	"subtypes": [
+		"Vessel"
+	],
+	"subtypeText": "Vessel"
+}

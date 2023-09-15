@@ -1,0 +1,83 @@
+{
+	"cardType": 67,
+	"cardName": "May Waycroft",
+	"effText": "When an enemy plays a card normally, if it had been revealed, give friendly Reporters +1 NEWS. Regardless, they reveal a card.",
+	"effects": [
+		{
+			"blurb":"The Value of Accountability",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{ "$type": "Core.TriggerRestriction:Normally:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue": {
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"cardRestriction": { "$type": "Core.CardRestriction:Hidden:", "hidden": true }
+					},
+					"jumpIndices": [ 3 ]
+				},
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Reporter" ]
+							}
+						]
+					},
+					"nModifier": 1,
+					"eModifier": 1,
+					"sModifier": 1,
+					"wModifier": 1
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "card to reveal",
+					"toSearch": {
+						"$type": "ManyCards:Hand:",
+						"friendly": true, "enemy": true
+					},
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Hidden:" },
+							{
+								"$type": "Core.PlayerRestriction:PlayersMatch:",
+								"player": { "$type": "Players:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 1,
+	"e": 8,
+	"s": 6,
+	"w": 4,
+	"subtypeText": "Reporter Activist Mage Person"
+}

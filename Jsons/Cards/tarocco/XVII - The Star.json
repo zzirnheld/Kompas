@@ -1,0 +1,88 @@
+{
+	"cardType": 67,
+	"cardName": "XVII - The Star",
+	"effText": "When an enemy moves a character to a space adjacent to X Tarocco, draw 1 card X times.",
+	"effects": [
+		{
+			"blurb": "[redacted] upon a XVII",
+			"triggerData": {
+				"blurb": "When you [redacted] upon a XVII",
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Core.CardRestriction:Enemy:" },
+									{
+										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+												{ "$type": "Core.CardRestriction:Summoned:" },
+												{
+													"$type": "Core.CardRestriction:Subtypes:",
+													"subtypes": [ "Tarocco" ]
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Tarocco" ]
+								},
+								{
+									"$type": "Core.SpaceRestriction:AdjacentTo:",
+									"space": { "$type": "Cards:TargetIndex:" }
+								}
+							]
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				},
+				{
+					"$type": "Subeffect:XTimes:",
+					"jumpIndices": [ 2 ]
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 6,
+	"s": 7,
+	"w": 6,
+	"subtypeText": "Tarocco Mage"
+}

@@ -1,0 +1,84 @@
+{
+	"cardType": 67,
+	"cardName": "Armillaria Bulbosa",
+	"effText": "Spores.\nWhen a Fungus pulses an enemy, deck-> or discard->summon Mycelium.",
+	"effects": [
+		{
+			"blurb": "Army",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Fungus" ]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Enemy:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Mycelium to summon",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Deck", "Discard" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mycelium" ]
+							},
+							{ "$type": "Core.CardRestriction:CanPlay:" }
+						]
+					},
+					"targetIndex": -2
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "Where to summon the Mycelium",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 2,
+	"e": 2,
+	"s": 3,
+	"w": 2,
+	"subtypes": [
+		"Digestive",
+		"Fungus"
+	],
+	"subtypeText": "Digestive Fungus"
+}

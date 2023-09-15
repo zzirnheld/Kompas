@@ -1,0 +1,33 @@
+{
+	"cardType": 67,
+	"cardName": "Runn R Mann",
+	"effText": "I can Pilot a Mech, and give it +2 N.",
+	"effects": [
+		{
+			"blurb": "Fast Piloting",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Summon"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"nModifier": 2
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Return"
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 2,
+	"e": 2,
+	"s": 5,
+	"w": 0,
+	"subtypeText": "Mech Pilot Person"
+}

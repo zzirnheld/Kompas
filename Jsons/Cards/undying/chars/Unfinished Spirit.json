@@ -1,0 +1,19 @@
+{
+	"cardType": 67,
+	"cardName": "Unfinished Spirit",
+	"effText": "Undying.",
+	"effects": [
+	],
+	"keywords": [
+		"Undying"
+	],
+	"n": 2,
+	"e": 2,
+	"s": 2,
+	"w": 2,
+	"subtypes": [
+		"Ethereal",
+		"Spirit"
+	],
+	"subtypeText": "Ethereal Spirit"
+}

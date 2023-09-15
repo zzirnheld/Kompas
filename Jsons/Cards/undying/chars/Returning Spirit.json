@@ -1,0 +1,19 @@
+{
+	"cardType": 67,
+	"cardName": "Returning Spirit",
+	"effText": "Undying.",
+	"effects": [
+	],
+	"keywords": [
+		"Undying"
+	],
+	"n": 3,
+	"e": 4,
+	"s": 3,
+	"w": 3,
+	"subtypes": [
+		"Ethereal",
+		"Spirit"
+	],
+	"subtypeText": "Ethereal Spirit"
+}

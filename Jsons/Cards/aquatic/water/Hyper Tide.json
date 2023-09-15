@@ -1,0 +1,30 @@
+{
+	"cardType": 83,
+	"cardName": "Hyper Tide",
+	"effText": "When turns start, increase the leyload by 1.\n<i>Vanishes after 4 turns.</i>",
+	"effects": [
+		{
+			"blurb": "HYPER TIIIIIIDE",
+			"triggerData": {
+				"blurb": "HYPER TIIIIIIDE",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ChangeLeyload:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				}
+			]
+		}
+	],
+	"c": 4,
+	"spellTypes": [
+		"Vanishing",
+		"Radial"
+	],
+	"duration": 4,
+	"radius": 4,
+	"subtypeText": "Water"
+}

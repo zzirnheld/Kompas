@@ -1,0 +1,57 @@
+{
+	"cardType": 67,
+	"cardName": "II - The High Priestess",
+	"effText": "Once each turn, you can draw 3 cards, then hand->topdeck 3 cards.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:DrawX:",
+					"xMultiplier": 0,
+					"xModifier": 3
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for High Priestess to topdeck (1/3)",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type": "Subeffect:Topdeck:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for High Priestess to topdeck (2/3)",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Not:",
+						"negated": { "$type": "Core.CardRestriction:Target:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Topdeck:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for High Priestess to topdeck (3/3)",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Not:",
+						"negated": { "$type": "Core.CardRestriction:Target:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Topdeck:"
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 5,
+	"s": 4,
+	"w": 1,
+	"subtypeText": "Tarocco Mage"
+}

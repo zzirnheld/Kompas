@@ -1,0 +1,52 @@
+[
+	{
+		"$type": "Core.TriggerRestriction:StackableFitsRestriction:",
+		"stackable": { "$type": "Stackables:StackableCause:" },
+		"restriction": {
+			"$type": "Core.StackableRestriction:Keyword:",
+			"keyword": "Shape"
+		}
+	},
+	{
+		"$type": "Core.TriggerRestriction:CompareNumbers:",
+		"firstNumber": {
+			"$type": "Numbers:Operation:",
+			"numbers": [
+				{
+					"$type": "Numbers:TriggerX:",
+					"multiplier": 0,
+					"modifier": 1
+				},
+				{
+					"$type": "Numbers:Distance:",
+					"firstSpace": { "$type": "Cards:ThisCardNow:" },
+					"secondSpace": { "$type": "Cards:CardBefore:" },
+					"throughRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Ethereal" ]
+					}
+				},
+				{
+					"$type": "Numbers:Distance:",
+					"firstSpace": { "$type": "Cards:ThisCardNow:" },
+					"secondSpace": { "$type": "Cards:CardAfter:" },
+					"throughRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Ethereal" ]
+					}
+				}
+			],
+			"operation": { "$type": "KompasCore.Effects.Identities.NumberOperations.Sum, Assembly-CSharp" }
+		},
+		"secondNumber": {
+			"$type": "Numbers:Distance:",
+			"firstSpace": { "$type": "Cards:CardBefore:" },
+			"secondSpace": { "$type": "Cards:CardAfter:" },
+			"throughRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Ethereal" ]
+			}
+		},
+		"comparison": { "$type": "Relationships.Number:Equal:" }
+	}
+]

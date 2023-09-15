@@ -1,0 +1,100 @@
+{
+	"cardType": 67,
+	"cardName": "Notcropoten",
+	"effText": "When friendly turns start, I pay X E. Annihilate your deck's top X cards. 1 turn later, hand them.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "E" }
+					}
+				},
+				{
+					"$type": "Subeffect:PlayerChooseX:",
+					"XRest": {
+						"$type": "Core.NumberRestriction:Compare:",
+						"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+						"other": { "$type": "Numbers:EffectX:" }
+					}
+				},
+				{
+					"$type": "Subeffect:PayStats:",
+					"eMultiplier": 1
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					"blurb": "for Haemopoten to draw",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Index" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThan:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Annihilate:"
+				},
+				{
+					"$type": "Subeffect:XTimes:",
+					"jumpIndices": [
+						6
+					]
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [
+						8
+					],
+					"fallOffCondition": "",
+					"endCondition": "Turn Start"
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						8
+					]
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 3,
+	"s": 9,
+	"w": 9,
+	"subtypeText": "Dragon Mage"
+}

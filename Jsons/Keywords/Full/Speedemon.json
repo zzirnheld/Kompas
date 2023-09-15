@@ -1,0 +1,71 @@
+{
+	"blurb":"Speedemon",
+	"triggerData":
+	{
+		"blurb":"Speedemon",
+		"triggerCondition":"Move",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				},
+				{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+				{
+					"$type": "Core.TriggerRestriction:Not:",
+					"inverted": {
+						"$type": "Core.TriggerRestriction:StackablesMatch:",
+						"firstStackable": { "$type": "Stackables:StackableCause:" },
+						"secondStackable": { "$type": "Stackables:ThisEffect:" }
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:TargetTriggeringCardsSpace:"
+		},
+		{
+			"$type":"Subeffect:TargetTriggeringCardsSpace:",
+			"after":true
+		},
+		{
+			"$type":"Subeffect:AutoSpaceTarget:",
+			"blurb":"speeeeeeeeeeeeeeeed",
+			"spaceRestriction":
+			{
+				"$type": "Core.SpaceRestriction:AllOf:",
+				"elements": [
+					{
+						"$type": "Core.SpaceRestriction:CanMoveCard:",
+						"toMove": { "$type": "Cards:TargetIndex:" }
+					},
+					{
+						"$type": "Core.SpaceRestriction:CompareDistance:",
+						"distanceTo": { "$type": "Cards:ThisCardNow:" },
+						"number": { "$type": "Numbers:Constant:", "constant": 1 },
+						"comparison": { "$type": "Relationships.Number:Equal:" }
+					},
+					{
+						"$type": "Core.SpaceRestriction:Direction:",
+						"from": { "$type": "Cards:ThisCardNow:" },
+						"direction": {
+							"$type": "Spaces:Direction:",
+							"from": { "$type": "Spaces:TargetIndex:", "index": -2 },
+							"to": { "$type": "Spaces:TargetIndex:", "index": -1 }
+						}
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:Move:"
+		}
+	]	
+}

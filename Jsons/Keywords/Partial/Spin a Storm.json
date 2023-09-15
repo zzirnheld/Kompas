@@ -1,0 +1,52 @@
+[
+	{
+		"$type": "Subeffect:CardTarget:",
+		"toSearch": { "$type": "ManyCards:Hand:" },
+		"cardRestriction": {
+			"blurb": "Weather Event to hand->summon",
+			"elements": [
+				{ "$type": "Core.CardRestriction:Character:" },
+				{
+					"$type": "Core.CardRestriction:Subtypes:",
+					"subtypes": [ "Weather", "Event" ]
+				},
+				{
+					"$type": "Core.CardRestriction:SubeffectValidIfTargeted:",
+					"subeffectIndices": [ 1 ]
+				}
+			]
+		}
+	},
+	{
+		"$type": "Subeffect:SpaceTarget:",
+		"spaceRestriction": {
+			"$type": "Core.SpaceRestriction:AllOf:",
+			"elements": [
+				{ "$type": "Core.SpaceRestriction:Empty:" },
+				{
+					"$type": "Core.SpaceRestriction:InAOEOf:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Weather" ]
+					},
+					"minAnyOfCount": { "$type": "Numbers:Constant:", "constant": 2 }
+				},
+				{
+					"$type": "Core.SpaceRestriction:InAOEOf:",
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Weather" ]
+					},
+					"sameAs": { "$type": "Spaces:TargetIndex:" }
+				},
+				{
+					"$type": "Core.SpaceRestriction:CanPlayCard:",
+					"toPlay": { "$type": "Cards:TargetIndex:" }
+				}
+			]
+		}
+	},
+	{
+		"$type": "Subeffect:Play:"
+	}
+]

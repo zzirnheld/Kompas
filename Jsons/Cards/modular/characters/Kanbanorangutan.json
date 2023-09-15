@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Kanbanorangutan",
+	"effText": "Modular 9.",
+	"effects": [],
+	"keywords": [
+		"Modular"
+	],
+	"keywordArgs": [
+		9
+	],
+	"n": 6,
+	"e": 6,
+	"s": 6,
+	"w": 6,
+	"subtypeText": "Modular Reptile"
+}

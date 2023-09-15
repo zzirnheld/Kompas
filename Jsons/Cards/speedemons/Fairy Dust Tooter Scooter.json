@@ -1,0 +1,47 @@
+{
+	"cardType": 67,
+	"cardName": "Fairy Dust Tooter Scooter",
+	"effText": "Speedemon.\nAfter I move, give characters adjacent to the space I moved from +1 SW.",
+	"effects": [
+		{
+			"blurb": "scoot scoot doot doot",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:"
+				},
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Spaces:TargetIndex:" }
+							}
+						]
+					},
+					"sModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Speedemon"
+	],
+	"n": 2,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypeText": "Speedemon"
+}

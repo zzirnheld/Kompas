@@ -1,0 +1,51 @@
+{
+	"cardType": 67,
+	"cardName": "Durable Dancer",
+	"effText": "Masquerade.\nWhen I'm summoned, deck->attach a Mask to me.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction":
+					{
+						"blurb": "Mask to attach to the Nimble Dancer",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Mask" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetIndex": -2,
+					"targetToAttachTo": -1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Masquerade"
+	],
+	"n": 3,
+	"e": 7,
+	"s": 5,
+	"w": 1,
+	"subtypeText": "Masked Dancer"
+}

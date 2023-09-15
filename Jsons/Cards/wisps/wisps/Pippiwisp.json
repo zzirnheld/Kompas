@@ -1,0 +1,50 @@
+{
+	"cardType": 67,
+	"cardName": "Pippiwisp",
+	"effText": "Wisp: Gain 1 pip for each adjacent enemy.",
+	"effects": [
+		{
+			"blurb": "pipp",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCardsSpace:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{ "$type": "Core.CardRestriction:Enemy:" },
+								{
+									"$type": "Core.SpaceRestriction:AdjacentTo:",
+									"space": { "$type": "Cards:ThisCardNow:" }
+								}
+							]
+						}
+					}
+				},
+				{
+					"$type":"Subeffect:AddPips:"
+				}
+			]
+		}
+	],
+	"keywords": [ "Wisp" ],
+	"n": 0,
+	"e": 1,
+	"s": 2,
+	"w": 0,
+	"subtypes": [ "Wisp" ],
+	"subtypeText": "Wisp"
+}

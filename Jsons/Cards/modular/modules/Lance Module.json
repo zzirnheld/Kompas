@@ -1,0 +1,47 @@
+{
+	"cardType": 65,
+	"cardName": "Lance Module",
+	"effText": "Once each turn, this character can attack a character exactly 2 spaces from them. (Doesn't cost normal attack.)",
+	"effects": [
+		{
+			"blurb": "Reaching Attack",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "enemy character to attack",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { 
+									"$type": "Numbers:Constant:",
+									"constant": 2
+								},
+								"comparison": { "$type": "Relationships.Number:Equal:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Attack:",
+					"targetIndex": -1,
+					"attackerIndex": -2
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 3,
+	"subtypeText": "Module"
+}

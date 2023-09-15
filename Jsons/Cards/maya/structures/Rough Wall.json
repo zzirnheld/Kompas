@@ -1,0 +1,22 @@
+{
+	"cardType": 67,
+	"cardName": "Rough Wall",
+	"effText": "Structure.",
+	"effects": [],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.GamestateRestriction:Not:",
+			"negated": { "$type": "Core.TriggerRestriction:Normally:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ { "$type": "Core.GamestateRestriction:NeverValid:" } ]
+	},
+	"n": 0,
+	"e": 5,
+	"s": 2,
+	"w": 2,
+	"subtypeText": "Maya Structure"
+}

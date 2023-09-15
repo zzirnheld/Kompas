@@ -1,0 +1,90 @@
+{
+	"cardType": 67,
+	"cardName": "F4LL1NGT1T4N",
+	"effText": "Golem.\nI can spend 1 space of movement to teleport to a space adjacent to a friendly Mech.",
+	"effects": [
+		{
+			"blurb": "T3L3P0RT",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [
+					{
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						"card": { "$type": "Cards:ThisCardNow:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:CardValueFits:",
+							"cardValue": { "value": "Spaces Can Move" },
+							"numberRestriction": { "$type": "Core.NumberRestriction:Positive:" }
+						}
+					}
+				]
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:SpendRemainingMovement:",
+					"mod":1,
+					"mult":0
+				},
+				{
+					"$type":"Subeffect:SpaceTarget:",
+					"blurb":"to teleport F4LL1NGT1T4N to",
+					"spaceRestriction":
+					{
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:AllOf:",
+									"elements": [
+										{ "$type": "Core.CardRestriction:Friendly:" },
+										{
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Mech" ]
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Move:"
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"n": 4,
+	"e": 8,
+	"s": 10,
+	"w": 8,
+	"subtypes": [
+		"Mech",
+		"Golem"
+	],
+	"subtypeText": "Mech Golem"
+}

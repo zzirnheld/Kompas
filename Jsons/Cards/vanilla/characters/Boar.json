@@ -1,0 +1,11 @@
+{
+	"cardType": 67,
+	"cardName": "Boar",
+	"effText": "",
+	"effects": [],
+	"n": 7,
+	"e": 7,
+	"s": 7,
+	"w": 10,
+	"subtypeText": "Beast"
+}

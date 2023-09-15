@@ -1,0 +1,51 @@
+{
+	"blurb":"Flashback",
+	"activationRestriction": {
+		"$type": "Core.PlayerRestriction:ActivationRestriction:",
+		"locations": [ "Discard" ]
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:ConditionalEnd:",
+			"endIfTrue": {
+				"$type": "Core.GamestateRestriction:Not:",
+				"negated": {
+					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"useDummyResolutionContext": false,
+					"card": { "$type": "Cards:TargetIndex:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Location:",
+						"locations": [ "Hand" ]
+					}
+				}
+			}
+		},
+		{
+			"$type":"Subeffect:CanResolve:",
+			"subeffIndices":[4,5]
+		},
+		{
+			"$type":"Subeffect:SpaceTarget:",
+			"spaceRestriction":
+			{
+				"$type": "Core.SpaceRestriction:CanPlayCard:",
+				"toPlay": { "$type": "Cards:TargetIndex:" }
+			}
+		},
+		{
+			"$type":"Subeffect:PayPipsTargetCost:"
+		},
+		{
+			"$type":"Subeffect:Play:"
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Annihilate:"
+		}
+	]
+}

@@ -1,0 +1,36 @@
+{
+	"cardType": 67,
+	"cardName": "Roth'Kil Shadow Acolyte",
+	"effText": "Once each turn, you can give me -1 E to draw a card.",
+	"effects":[
+		{
+			"blurb": "Seek in Shadow",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -1
+				},
+				{
+					"$type": "Subeffect:DrawX:",
+					"xModifier": 1
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 4,
+	"s": 2,
+	"w": 0,
+	"subtypes": [
+		"Orc",
+		"Priest"
+	],
+	"subtypeText": "Orc Priest"
+}

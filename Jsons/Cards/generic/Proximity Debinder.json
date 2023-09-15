@@ -1,0 +1,47 @@
+{
+	"cardType": 65,
+	"cardName": "Proximity Debinder",
+	"effText": "When this character dies fighting, hand the character they were fighting.",
+	"effects": [
+		{
+			"blurb":"Debind",
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:ThisCardNow:" },
+							"anyOf": {
+								"$type": "ManyCards:Augments:",
+								"card": { "$type": "Cards:CardBefore:" }
+							}
+						},
+						{ "$type": "Core.TriggerRestriction:IsAttack:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Board" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 5,
+	"subtypeText": "Explosive"
+}

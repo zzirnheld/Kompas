@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "White Linewalker",
+	"effText": "Linewalk.",
+	"effects": [],
+	"keywords": [
+		"Linewalk"
+	],
+	"n": 1,
+	"e": 1,
+	"s": 3,
+	"w": 1,
+	"subtypeText": "Linewalker Mage"
+}

@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Bigfoot",
+	"effText": "Aggressive.",
+	"effects": [],
+	"keywords": [ "Aggressive" ],
+	"n": 6,
+	"e": 10,
+	"s": 8,
+	"w": 10,
+	"spellTypes": [ "Radial" ],
+	"radius": 3,
+	"subtypeText": "Cryptid Person"
+}

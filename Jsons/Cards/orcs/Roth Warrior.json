@@ -1,0 +1,15 @@
+{
+	"cardType": 67,
+	"cardName": "Roth Warrior",
+	"effText": "<i>The time has come to retake our homeland.</i>",
+	"effects": [],
+	"n": 1,
+	"e": 9,
+	"s": 4,
+	"w": 4,
+	"subtypes": [
+		"Orc",
+		"Warrior"
+	],
+	"subtypeText": "Orc Warrior"
+}

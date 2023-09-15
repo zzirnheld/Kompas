@@ -1,0 +1,105 @@
+{
+	"cardType":65,
+	"cardName": "Ancestral Spincloak",
+	"effText": "Give this character +5 NESW.\nWhen your Dancer dons a Mask, discard->attach me to them.",
+	"effects":[
+		{
+			"blurb": "Ancestors' power",
+			"triggerData":
+			{
+				"triggerCondition":"Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type":"Subeffect:Hanging.ChangeCardStats:",
+					"nModifier":5,
+					"eModifier":5,
+					"sModifier":5,
+					"wModifier":5,
+					"endCondition":"Augment Detached",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"blurb": "Inherit the costume",
+			"triggerData": {
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Mask" ]
+									},
+									{
+										"$type": "Core.CardRestriction:Augments:",
+										"cardRestriction": {
+											"$type": "Core.CardRestriction:AllOf:",
+											"elements": [
+												{ "$type": "Core.CardRestriction:Friendly:" },
+												{
+													"$type": "Core.CardRestriction:Subtypes:",
+													"subtypes": [ "Dancer" ]
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:ThisCardNow:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Discard" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetTargetsAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": -2,
+					"targetIndex": -1
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a":5,
+	"subtypeText":""
+}

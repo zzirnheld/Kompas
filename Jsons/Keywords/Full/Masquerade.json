@@ -1,0 +1,55 @@
+{
+	"blurb": "Masquerade",
+	"activationRestriction": {
+		"$type": "Core.PlayerRestriction:ActivationRestriction:",
+		"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:", "max": 2 } ]
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:CardTarget:",
+			"cardRestriction": {
+				"blurb": "Mask to swap out",
+				"elements": [
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Mask" ]
+					},
+					{
+						"$type": "Core.CardRestriction:Augments:",
+						"singleCard": { "$type": "Cards:TargetIndex:" }
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Hand:" },
+			"cardRestriction":
+			{
+				"blurb": "Mask to swap for",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Augment:" },
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Mask" ]
+					}
+				]
+			}
+		},
+		{
+			"$type": "Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:Hand:",
+			"targetIndex": -3
+		},
+		{
+			"$type": "Subeffect:Attach:",
+			"targetIndex": -2,
+			"targetToAttachTo": -1
+		}
+	]
+}

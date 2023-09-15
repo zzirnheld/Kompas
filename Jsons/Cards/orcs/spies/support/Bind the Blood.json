@@ -1,0 +1,125 @@
+{
+	"cardType": 83,
+	"cardName": "Bind the Blood",
+	"effText": "When an Orc here attacks, give them +1 W, and if they kill their target, give an Orc in your hand -2 S.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									},
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Orc" ]
+									},
+									{
+										"$type": "Core.SpaceRestriction:InAOEOf:",
+										"card": { "$type": "Cards:ThisCardNow:" }
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": { "$type": "Cards:CardBefore:" }
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 1
+				},
+				{
+					"$type": "Subeffect:Hanging.Delay:",
+					"numTimesToDelay": 0,
+					"jumpIndices": [
+						3
+					],
+					"fallOffCondition": "Battle End",
+					"fallOffRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"firstStackable": { "$type": "Stackables:StackableIndex:" },
+								"secondStackable": { "$type": "Stackables:StackableCause:" }
+							}
+						]
+					},
+					"endCondition": "Discard",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:StackablesMatch:",
+								"firstStackable": { "$type": "Stackables:StackableIndex:" },
+								"secondStackable": { "$type": "Stackables:StackableCause:" }
+							},
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": {
+									"$type": "Cards:CardBefore:",
+									"contextSecondaryCard": true
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Bind blood to a card",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Orc" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SkipToEffectOnImpossible:",
+					"jumpIndices": [
+						6
+					]
+				},
+				{
+					"$type": "Subeffect:Reveal:"
+				},
+				{
+					"$type": "Subeffect:ClearOnImpossible:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"forbidNotBoard": false,
+					"sModifier": -2
+				}
+			]
+		}
+	],
+	"c": 2,
+	"spellTypes": [
+		"Radial"
+	],
+	"radius": 2,
+	"subtypeText": "Radius 2"
+}

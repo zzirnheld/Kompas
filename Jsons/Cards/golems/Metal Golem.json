@@ -1,0 +1,73 @@
+{
+	"cardType": 67,
+	"cardName": "Metal Golem",
+	"effText": "Golem.\nWhen I become active, set two characters' N to 0.",
+	"effects": [
+		{
+			"blurb": "Go to Bonky Jail",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "first character for Metal Golem to set N to 0",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+				},
+				{
+					"$type": "Subeffect:SetCardStatsOld:",
+					"nVal": 0
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "second character for Metal Golem to set N to 0",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": { "$type": "Core.CardRestriction:Target:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:SetCardStatsOld:",
+					"nVal": 0
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"n": 3,
+	"e": 6,
+	"s": 4,
+	"w": 5,
+	"subtypes": [
+		"Golem"
+	],
+	"subtypeText": "Golem"
+}

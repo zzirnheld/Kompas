@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Inevitable Crab",
+	"effText": "Waterdweller (but NOT Waterborn).",
+	"effects": [],
+	"keywords": [
+		"Waterdweller"
+	],
+	"n": 0,
+	"e": 4,
+	"s": 1,
+	"w": 4,
+	"subtypeText": "Aquatic Fish Monster"
+}

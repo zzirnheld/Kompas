@@ -1,0 +1,77 @@
+{
+	"cardType": 83,
+	"cardName": "Dense Cities",
+	"effText": "Deck->hand up to [number of Maya Structures on my diagonal] distinct Maya Craftspeople.",
+	"effects": [
+		{
+			"blurb": "Attract craftspeople",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": {
+						"$type": "Numbers:CountCards:",
+						"cards": { "$type": "ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Structure" ]
+								},
+								{
+									"$type": "Core.SpaceRestriction:SameDiagonal:",
+									"other": { "$type": "Cards:TargetIndex:" }
+								}
+							]
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Craftspeople move to the cities",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Maya", "Craft", "Person" ]
+							}
+						]
+					},
+					"listRestriction": {
+						"$type": "Core.ListRestriction:Maximum:",
+						"bound": { "$type": "Numbers:EffectX:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"remainingTargets": 1,
+					"jumpIndices": [
+						3
+					]
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": ""
+}

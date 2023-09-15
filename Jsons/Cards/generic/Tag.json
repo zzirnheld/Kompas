@@ -1,0 +1,98 @@
+{
+	"cardType": 65,
+	"cardName": "Tag",
+	"effText": "Sticky.\nWhen I'm attached from one character to their enemy, draw 1 card and gain 1 pip.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Sticky!",
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:AdjacentTo:",
+							"space": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": {
+												"$type": "Cards:AugmentedCard:",
+												"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Attach:"
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"blurb": "Tag! You're IT!",
+				"triggerCondition": "Augment Detached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"card": { 
+								"$type": "Players:ControllerOf:",
+								"card": {
+									"$type": "Cards:AugmentedCard:",
+									"ofThisCard": { "$type": "Cards:CardBefore:" }
+								}
+							},
+							"other": {
+								"$type": "Players:ControllerOf:",
+								"card": {
+									"$type": "Cards:AugmentedCard:",
+									"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+								}
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Draw:"
+				},
+				{
+					"$type":"Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier":1
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 1,
+	"subtypeText": ""
+}

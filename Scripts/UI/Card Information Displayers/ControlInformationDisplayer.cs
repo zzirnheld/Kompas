@@ -24,7 +24,7 @@ namespace Kompas.UI.CardInformationDisplayers
 		[Export]
 		private Label Subtypes { get; set; }
 		[Export]
-		private Label EffText { get; set; }
+		private RichTextLabel EffText { get; set; }
 
 		public bool ShowingInfo { set => Visible = value; }
 

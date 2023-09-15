@@ -1,0 +1,54 @@
+{
+	"blurb": "Smite",
+	"triggerData": {
+		"blurb": "Smite",
+		"triggerCondition": "Attack",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			]
+		}
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Hand:" },
+			"listRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
+		},
+		{
+			"$type": "Subeffect:SetXByNumberIdentity:",
+			"numberIdentity": {
+				"$type": "Numbers:CountCards:",
+				"cards": { "$type": "ManyCards:Targets:" }
+			}
+		},
+		{
+			"$type": "Subeffect:Discard:"
+		},
+		{
+			"$type": "Subeffect:LoopWhileHaveTargets:",
+			"delete": true,
+			"jumpIndices": [
+				2
+			]
+		},
+		{
+			"$type": "Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:Hanging.ChangeCardStats:",
+			"wMultiplier": 2,
+			"endCondition": "Battle End",
+			"triggerRestriction": {
+				"$type": "Core.TriggerRestriction:StackablesMatch:",
+				"firstStackable": { "$type": "Stackables:StackableEvent:", "secondaryContext": true },
+				"secondStackable": { "$type": "Stackables:StackableEvent:" }
+			}
+		}
+	]
+}

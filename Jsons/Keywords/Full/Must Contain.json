@@ -1,0 +1,43 @@
+{
+	"blurb": "Must Contain",
+	"triggerData":
+	{
+		"triggerCondition":"Stack End",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+				{
+					"$type": "Core.TriggerRestriction:Not:",
+					"inverted": {
+						"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+						
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+								{ "$type": "Core.CardRestriction:Character:" },
+								{
+									"$type": "Core.CardRestriction:Subtypes:",
+									"subtypes": [ "Structure" ]
+								},
+								{
+									"$type": "Core.SpaceRestriction:InAOEOf:",
+									"card": { "$type": "Cards:ThisCardNow:" }
+								}
+							]
+						},
+						"anyOf": { "$type": "ManyCards:Board:" }
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Dispel:"
+		}
+	]	
+}

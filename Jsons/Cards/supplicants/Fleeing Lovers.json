@@ -1,0 +1,73 @@
+{
+	"cardType":67,
+	"cardName":"Fleeing Lovers",
+	"effText":"Supplicant.\nWhen I'm summoned normally, deck->summon a copy of me adjacent to me.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"blurb": "Lovers fleeing together",
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{ "$type": "Core.TriggerRestriction:Normally:" }
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type": "Subeffect:AutoTarget:",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Name:",
+								"sameAs": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					},
+					"tiebreakerDirection":"Any"
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"spaceRestriction":
+					{
+						"blurb": "where to summon the other Fleeing Lover",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Play:"
+				}
+			]	
+		}
+	],
+	"keywords": [
+		"Supplicant"
+	],
+	"n":1,
+	"e":1,
+	"s":2,
+	"w":0,
+	"subtypeText":"Supplicant"
+}

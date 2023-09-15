@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Fortified Vessel",
+	"effText": "Vessel.",
+	"effects": [],
+	"keywords": [
+		"Vessel Echo"
+	],
+	"n": 3,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypes": [
+		"Vessel"
+	],
+	"subtypeText": "Vessel"
+}

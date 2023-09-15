@@ -1,0 +1,40 @@
+{
+	"cardType": 65,
+	"cardName": "Nimbleness Module",
+	"effText": "Give this character +1 N.",
+	"effects": [
+		{
+			"blurb": "+1 Nimbleness",
+			"triggerData": {
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type":"Subeffect:Hanging.ChangeCardStats:",
+					"nModifier":1,
+					"endCondition":"Augment Detached",
+					"triggerRestriction": {
+						"elements": [
+							{
+								"$type": "Core.TriggerRestriction:CardsMatch:",
+								"card": { "$type": "Cards:CardBefore:" },
+								"other": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 2,
+	"subtypeText": "Basic Module"
+}

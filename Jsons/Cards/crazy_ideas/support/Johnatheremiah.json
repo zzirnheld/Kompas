@@ -1,0 +1,67 @@
+{
+	"cardType": 67,
+	"cardName": "Johnatheremiah",
+	"effText": "When I'm summoned, choose 1 friendly discarded Crazy Idea, then reshuffle all other X. Give me +X W.",
+	"effects": [
+		{
+			"blurb":"Intern Nonsense",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Discard:" }
+				},
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Not:",
+						"negated": { "$type": "Core.CardRestriction:Target:" }
+					}
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:",
+					"targetIndex": 0
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:CountXLoop:",
+					"canDecline": false,
+					"jumpIndices": [
+						3
+					]
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wMultiplier": 1
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 1,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Crazy",
+		"Intern",
+		"Person"
+	],
+	"subtypeText": "Crazy Intern Person"
+}

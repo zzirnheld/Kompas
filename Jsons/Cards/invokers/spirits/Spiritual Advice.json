@@ -1,0 +1,50 @@
+{
+	"cardType": 83,
+	"cardName": "Spiritual Advice",
+	"effText": "Flashback.\nDiscard->topdeck X Spirits. Draw 3 * X cards.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Spiritual Advice to reshuffle",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Spirit" ]
+					}
+				},
+				{
+					"$type": "Subeffect:Topdeck:"
+				},
+				{
+					"$type": "Subeffect:CountXLoop:",
+					"canDecline": true,
+					"jumpIndices": [
+						0
+					]
+				},
+				{
+					"$type": "Subeffect:DrawX:",
+					"xMultiplier": 3
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Flashback"
+	],
+	"c": 1,
+	"spellTypes": [
+		"Simple"
+	],
+	"subtypeText": "Simple"
+}

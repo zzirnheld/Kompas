@@ -1,0 +1,17 @@
+{
+	"cardType": 67,
+	"cardName": "Stork in Progress",
+	"effText": "Basic Modular 5.",
+	"effects": [],
+	"keywords": [
+		"Basic Modular"
+	],
+	"keywordArgs": [
+		5
+	],
+	"n": 3,
+	"e": 3,
+	"s": 3,
+	"w": 3,
+	"subtypeText": "Modular Bird"
+}

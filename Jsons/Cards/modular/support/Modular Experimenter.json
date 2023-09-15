@@ -1,0 +1,103 @@
+{
+	"cardType": 67,
+	"cardName": "Modular Experimenter",
+	"effText": "Once each turn, you can swap a Module attached to a friendly character for 2 distinct Modules in your hand.",
+	"effects": [
+		{
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:",
+				"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction":
+					{
+						"blurb": "character whose Module to swap out",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{ "$type": "Core.CardRestriction:Friendly:" },
+							{
+								"$type": "Core.CardRestriction:HasAugment:",
+								
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+										{
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Module" ]
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"cardRestriction": {
+						"blurb": "Module to swap out",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Module" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Augments:",
+								"singleCard": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction":
+					{
+						"elements": [
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Module" ]
+							}
+						]
+					},
+					"listRestriction": {
+						"$type": "Core.ListRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.ListRestriction:Minimum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							},
+							{
+								"$type": "Core.ListRestriction:Maximum:",
+								"bound": { "$type": "Numbers:Constant:", "constant": 2 }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:",
+					"targetIndex": -3
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetIndex": -1,
+					"targetToAttachTo": -4
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetIndex": -2,
+					"targetToAttachTo": -4
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 4,
+	"s": 4,
+	"w": 3,
+	"subtypeText": "Craftsman"
+}

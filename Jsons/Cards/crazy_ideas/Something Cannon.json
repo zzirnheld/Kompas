@@ -1,0 +1,38 @@
+{
+	"cardType": 67,
+	"cardName": "Something Cannon",
+	"effText": "When I'm summoned, I attack a character.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character for Something Cannon to blast",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+				},
+				{
+					"$type": "Subeffect:Attack:",
+					"attackerIndex": -2,
+					"targetIndex": -1
+				}
+			]
+		}
+	],
+	"n": 0,
+	"e": 1,
+	"s": 5,
+	"w": 3,
+	"subtypeText": "Crazy Idea"
+}

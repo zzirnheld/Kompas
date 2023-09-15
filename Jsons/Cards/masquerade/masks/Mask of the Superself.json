@@ -1,0 +1,62 @@
+{
+	"cardType": 65,
+	"cardName": "Mask of the Superself",
+	"effText": "Mask.\nWhen this summon defends, give them +5 E.",
+	"effects": [
+		{
+			"blurb": "You underestimate me",
+			"triggerData":
+			{
+				"triggerCondition": "Defend",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Summoned:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 5
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"normalAndEffect": [ {
+			"$type": "Core.CardRestriction:Not:",
+			"negated": {
+				"$type": "Core.CardRestriction:HasAugment:",
+				"cardRestriction": {
+					"$type": "Core.CardRestriction:Name:",
+					"sameAs": { "$type": "Cards:ThisCardNow:" }
+				}
+			}
+		} ]
+	},
+	"a": 3,
+	"subtypeText": "Mask"
+}

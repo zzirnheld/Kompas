@@ -1,0 +1,18 @@
+{
+	"cardType": 67,
+	"cardName": "Kindred Spirit",
+	"effText": "Shape. Attended 1.",
+	"effects": [],
+	"keywords": [
+		"Attended",
+		"Shape"
+	],
+	"keywordArgs": [
+		1
+	],
+	"n": 2,
+	"e": 5,
+	"s": 1,
+	"w": 5,
+	"subtypeText": "Ethereal Shaper"
+}

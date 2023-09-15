@@ -1,0 +1,46 @@
+{
+	"cardType": 67,
+	"cardName": "Red Linewalker",
+	"effText": "Linewalk.\nWhen I move X spaces, give me and adjacent characters +X E.",
+	"effects": [
+		{
+			"blurb": "Red Linewalked",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"cardsSource": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:ThisCardNow:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 1 },
+								"comparison": { "$type": "Relationships.Number:LessThanEqual:" }
+							}
+						]
+					},
+					"eMultiplier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Linewalk"
+	],
+	"n": 1,
+	"e": 1,
+	"s": 4,
+	"w": 0,
+	"subtypeText": "Linewalker Mage"
+}

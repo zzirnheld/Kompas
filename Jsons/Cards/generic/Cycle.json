@@ -1,0 +1,31 @@
+{
+	"cardType": 83,
+	"cardName": "Cycle",
+	"effText": "You can hand->discard 1 to increase the leyload by 1.",
+	"effects": [
+		{
+			"blurb":"Pass",
+			"activationRestriction": {
+				"$type": "Core.PlayerRestriction:ActivationRestriction:"
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:CardTarget:",
+					"blurb":"Card to Cycle",
+					"toSearch": { "$type": "ManyCards:Hand:" }
+				},
+				{
+					"$type":"Subeffect:Discard:"
+				},
+				{
+					"$type":"Subeffect:ChangeLeyload:",
+					"xMultiplier": 0,
+					"xModifier":1
+				}
+			]	
+		}
+	],
+	"c":3,
+	"spellTypes":["Enchant"],
+	"subtypeText":"Enchant"
+}

@@ -1,0 +1,39 @@
+{
+	"cardType": 67,
+	"cardName": "Gvala, Improvisor-Pilot",
+	"effText": "When I'm summoned, I Pilot a Mech, and if it dies, I return unnegated and do it again.",
+	"effects": [
+		{
+			"blurb": "Improvised Piloting",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Summon"
+				},
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Mech Pilot Return"
+				},
+				{
+					"$type": "Subeffect:Hanging.Negate:",
+					"endCondition": "Turn Start",
+					"negated": false
+				}
+			]
+		}
+	],
+	"unique": true,
+	"n": 1,
+	"e": 1,
+	"s": 6,
+	"w": 1,
+	"subtypeText": "Mech Pilot Person"
+}

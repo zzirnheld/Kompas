@@ -1,0 +1,49 @@
+[
+	{
+		"$type": "Subeffect:TargetThis:"
+	},
+	{
+		"$type": "Subeffect:CardTarget:",
+		"cardRestriction": {
+			"blurb": "Choose a target to Ambush",
+			"elements": [
+				{ "$type": "Core.CardRestriction:Enemy:" },
+				{ "$type": "Core.CardRestriction:Character:" },
+				{
+					"$type": "Core.SpaceRestriction:AdjacentTo:",
+					"space": { "$type": "Cards:ThisCardNow:" }
+				}
+			]
+		}
+	},
+	{
+		"$type": "Subeffect:Attack:",
+		"attackerIndex": -2,
+		"targetIndex": -1
+	},
+	{
+		"$type": "Subeffect:SetXByNumberIdentity:",
+		"numberIdentity": { 
+			"$type": "Numbers:FromCardValue:",
+			"card": { "$type": "Cards:TargetIndex:" },
+			"cardValue": { "value": "W" }
+		}
+	},
+	{
+		"$type": "Subeffect:Hanging.ChangeCardStats:",
+		"wMultiplier": -1,
+		"endCondition": "Battle End",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:StackablesMatch:",
+			"firstStackable": { "$type": "Stackables:StackableIndex:", "secondaryContext": true },
+			"secondStackable": { "$type": "Stackables:StackableEvent:" }
+		}
+	},
+	{
+		"$type": "Subeffect:TargetThis:"
+	},
+	{
+		"$type": "Subeffect:SpendAttacks:",
+		"xModifier": 1
+	}
+]

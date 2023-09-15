@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Moving Shadow",
+	"effText": "Shadowy Figure.\n<i>Vanishes after 3 turns? Or less...</i>",
+	"effects": [],
+	"keywords": [ "Shadowy Figure Summon", "Shadowy Figure Vanish" ],
+	"n": 1,
+	"e": 1,
+	"s": 3,
+	"w": 0,
+	"spellTypes": [ "Radial" ],
+	"radius": 1,
+	"subtypeText": "Shadow Person"
+}

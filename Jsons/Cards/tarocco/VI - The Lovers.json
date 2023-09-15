@@ -1,0 +1,75 @@
+{
+	"cardType": 67,
+	"cardName": "VI - The Lovers",
+	"effText": "When you draw X cards, you can tribute me to deck->summon an S <= X Tarocco where I was.",
+	"effects": [
+		{
+			"blurb": "Better together",
+			"triggerData": {
+				"blurb": "Tribute me to deck-summon Tarocco with S <= X?",
+				"optional": true,
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThisSpace:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:Discard:",
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Tarocco for Lovers to become",
+					"toSearch": { "$type": "ManyCards:Deck:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Tarocco" ]
+							},
+							{
+								"$type": "Core.CardRestriction:CardValueFits:",
+								"cardValue": { "value": "Cost" },
+								"numberRestriction": {
+									"$type": "Core.NumberRestriction:Compare:",
+									"comparison": { "$type": "Relationships.Number:LessThanEqual:" },
+									"other": { "$type": "Numbers:EffectX:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:",
+					"targetIndex": -1,
+					"SpaceIndex": -1
+				}
+			]
+		}
+	],
+	"n": 1,
+	"e": 2,
+	"s": 3,
+	"w": 2,
+	"subtypes": [
+		"Tarocco"
+	],
+	"subtypeText": "Tarocco"
+}

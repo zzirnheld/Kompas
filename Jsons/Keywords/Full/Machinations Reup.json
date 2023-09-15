@@ -1,0 +1,21 @@
+{
+	"blurb": "+1 C",
+	"triggerData": {
+		"triggerCondition": "Turn Start",
+		"triggerRestriction": {
+			"elements": [
+				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+				{ "$type": "Core.GamestateRestriction:FriendlyTurn:" }
+			]
+		}
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:ChangeCardStats:",
+			"cModifier": 1
+		}
+	]
+}

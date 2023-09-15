@@ -1,0 +1,102 @@
+{
+	"cardType": 65,
+	"cardName": "Contingency Core",
+	"effText": "Recoverable.\nWhile equipped, activate this Golem.\nWhen this Golem dies, revive them where they were.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Activate Golem",
+				"triggerCondition": "Augment Attached",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem" ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": {
+						"$type": "Cards:AugmentedCard:",
+						"cardFromContext": { "$type": "Cards:ThisCardNow:" }
+					}
+				},
+				{
+					"$type": "Subeffect:Hanging.Activation:",
+					"endCondition": "Augment Detached",
+					"triggerRestriction": {
+						"$type": "Core.TriggerRestriction:CardsMatch:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"other": { "$type": "Cards:ThisCardNow:" }
+					}
+				}
+			]
+		},
+		{
+			"triggerData": {
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.TriggerRestriction:EnemyTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							},
+							"other": { "$type": "Cards:CardBefore:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Golem" ]
+									}
+								]
+							},
+							"card": { "$type": "Cards:CardBefore:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": { "$type": "Cards:CardBefore:" }
+				},
+				{
+					"$type": "Subeffect:AutoTargetSpaceIdentity:",
+					"spaceIdentity": { "$type": "Cards:CardBefore:" }
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Recoverable"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"augmentOnSubtypes": [ "Golem" ]
+	},
+	"a": 3,
+	"subtypeText": "Golem Core"
+}

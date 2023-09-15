@@ -1,0 +1,58 @@
+{
+	"cardType": 67,
+	"cardName": "Nailbiting Anxiety",
+	"effText": "When I'm revived, set a character's N to 0.",
+	"effects": [
+		{
+			"blurb": "Anxiety",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"other": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Discard" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "character to overwhelm with anxiety",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [ { "$type": "Core.CardRestriction:Character:" } ]
+					}
+				},
+				{
+					"$type": "Subeffect:SetCardStatsOld:",
+					"nVal": 0
+				}
+			]
+		}
+	],
+	"n": 7,
+	"e": 8,
+	"s": 6,
+	"w": 0,
+	"subtypeText": "Ethereal Spirit"
+}

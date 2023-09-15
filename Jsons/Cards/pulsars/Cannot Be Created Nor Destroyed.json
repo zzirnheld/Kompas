@@ -1,0 +1,82 @@
+{
+	"cardType": 83,
+	"cardName": "Cannot Be Created Nor Destroyed",
+	"effText": "When turns start, discard->reshuffle all X friendly Pulsars, give your Avatar +-X S, and draw 1 card.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Repurpose Starstuff",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": { "$type": "ManyCards:Discard:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Pulsar" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:CountXLoop:",
+					"canDecline": false,
+					"jumpIndices": [
+						1
+					]
+				},
+				{
+					"$type": "Subeffect:TargetAvatar:"
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Give +X S or -X S?",
+					"optionBlurbs": [
+						"+X S",
+						"-X S"
+					],
+					"jumpIndices": [
+						6,
+						8
+					],
+					"hasDefault": false
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": 1
+				},
+				{
+					"$type": "Subeffect:Jump:",
+					"jumpIndices": [
+						9
+					]
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"sMultiplier": -1
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"c": 1,
+	"unique": true,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypeText": "Enchant"
+}

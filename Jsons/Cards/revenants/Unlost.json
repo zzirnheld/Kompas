@@ -1,0 +1,19 @@
+{
+	"cardType": 67,
+	"cardName": "Unlost",
+	"effText": "Revenant.",
+	"effects": [],
+	"keywords": [
+		"Revenant Die",
+		"Revenant Revive"
+	],
+	"n": 0,
+	"e": 3,
+	"s": 2,
+	"w": 0,
+	"subtypes": [
+		"Ethereal",
+		"Revenant"
+	],
+	"subtypeText": "Ethereal Revenant"
+}

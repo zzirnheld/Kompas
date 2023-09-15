@@ -1,0 +1,95 @@
+{
+	"cardType": 67,
+	"cardName": "Scavenging Ooze",
+	"effText": "Spores.\nWhen a Fungus pulses an enemy, reshuffle each player's most recently discarded card. Give me +1 ESW.",
+	"effects": [
+		{
+			"blurb": "Army",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CauseBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Fungus" ]
+									}
+								]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Enemy:" } ]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": {
+						"$type": "Cards:SelectFromMany:",
+						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Assembly-CSharp" },
+						"cards": {
+							"$type": "ManyCards:Discard:",
+							"friendly": true,
+							"enemy": false
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": {
+						"$type": "Cards:SelectFromMany:",
+						"selector": { "$type": "KompasCore.Effects.Selectors.SortIndex, Assembly-CSharp" },
+						"cards": {
+							"$type": "ManyCards:Discard:",
+							"friendly": false,
+							"enemy": true
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:Reshuffle:"
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1,
+					"sModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 2,
+	"e": 2,
+	"s": 3,
+	"w": 2,
+	"subtypes": [
+		"Digestive",
+		"Fungus"
+	],
+	"subtypeText": "Digestive Fungus"
+}

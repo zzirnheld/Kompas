@@ -1,0 +1,63 @@
+{
+	"cardType":65,
+	"cardName":"Super Nitro Powered Rocket Shoes",
+	"effText":"When this character moves, move them 1 space in the same direction. (This will trigger me again.)",
+	"effects":[
+		{
+			"blurb":"Speed Shoes",
+			"triggerCondition":"Move",
+			"triggerRestriction":{
+				"elements": [
+					{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+					{
+						"$type": "Core.TriggerRestriction:CardsMatch:",
+						"card": { "$type": "Cards:CardBefore:" },
+						"other": {
+							"$type": "Cards:AugmentedCard:",
+							"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+						}
+					}
+				]
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type":"Subeffect:SpaceTarget:",
+					"spaceRestriction":
+					{
+						"blurb":"where for speed victim to move",
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.SpaceRestriction:CanMoveCard:",
+								"toMove": { "$type": "Cards:TargetIndex:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:CompareDistance:",
+								"distanceTo": { "$type": "Cards:TargetIndex:" },
+								"number": { "$type": "Numbers:Constant:", "constant": 1 }
+							},
+							{
+								"$type": "Core.SpaceRestriction:Direction:",
+								"from": { "$type": "Cards:ThisCardNow:" },
+								"directionToMatch": {
+									"$type": "Spaces:Direction:",
+									"from": { "$type": "Cards:CardBefore:" },
+									"to": { "$type": "Cards:ThisCardNow:" }
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type":"Subeffect:Move:"
+				}
+			]
+		}	
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 4,
+	"subtypeText":"Shoes"
+}

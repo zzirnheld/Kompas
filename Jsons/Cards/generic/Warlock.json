@@ -1,0 +1,63 @@
+{
+	"cardType":67,
+	"cardName":"Warlock",
+	"effText":"The first time each turn you play another card that costs exactly 1, gain 1 pip.",
+	"effects":[
+		{
+			"triggerData":
+			{
+				"orderPriority": 5,
+				"triggerCondition":"Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{
+										"$type": "Core.CardRestriction:Not:",
+										"negated": {
+											"$type": "Core.CardRestriction:CardsMatch:",
+											"card": { "$type": "Cards:ThisCardNow:" }
+										}
+									},
+									{
+										"$type": "Core.CardRestriction:CardValueFits:",
+										"cardValue": { "value": "Cost" },
+										"numberRestriction": {
+											"$type": "Core.NumberRestriction:Compare:",
+											"comparison": { "$type": "Relationships.Number:LessThan:" },
+											"other": { "$type": "Numbers:Constant:", "constant": 1 }
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects":[
+				{
+					"$type":"Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				}
+			]
+		}
+	],
+	"n":1,
+	"e":1,
+	"s":1,
+	"w":1,
+	"subtypeText":"Mage"
+}

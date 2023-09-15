@@ -1,0 +1,19 @@
+{
+	"cardType": 67,
+	"cardName": "Unmoving",
+	"effText": "Revenant.",
+	"effects": [],
+	"keywords": [
+		"Revenant Die",
+		"Revenant Revive"
+	],
+	"n": 0,
+	"e": 2,
+	"s": 4,
+	"w": 4,
+	"subtypes": [
+		"Ethereal",
+		"Revenant"
+	],
+	"subtypeText": "Ethereal Revenant"
+}

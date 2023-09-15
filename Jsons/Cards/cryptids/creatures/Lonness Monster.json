@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Lonness Monster",
+	"effText": "Aggressive.",
+	"effects": [],
+	"keywords": [ "Aggressive" ],
+	"n": 11,
+	"e": 7,
+	"s": 8,
+	"w": 6,
+	"spellTypes": [ "Radial" ],
+	"radius": 5,
+	"subtypeText": "Cryptid Fish"
+}

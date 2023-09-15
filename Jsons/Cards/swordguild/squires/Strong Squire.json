@@ -1,0 +1,11 @@
+{
+	"cardType": 67,
+	"cardName": "Strong Squire",
+	"effText": "",
+	"effects": [ ],
+	"n": 1,
+	"e": 1,
+	"s": 2,
+	"w": 3,
+	"subtypeText": "Warrior Squire"
+}

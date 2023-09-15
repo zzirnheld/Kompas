@@ -1,0 +1,21 @@
+{
+	"cardType": 67,
+	"cardName": "Hummingbird Hawkmoth",
+	"effText": "Stealth.\nSummon only in Shade.",
+	"effects": [],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Shade" ]
+			}
+		} ]
+	},
+	"n": 4,
+	"e": 2,
+	"s": 2,
+	"w": 4,
+	"subtypeText": "Flying Moth"
+}

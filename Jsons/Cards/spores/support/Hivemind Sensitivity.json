@@ -1,0 +1,43 @@
+{
+	"cardType": 65,
+	"cardName": "Hivemind Sensitivity",
+	"effText": "The first time each stack this character is pulsed, pulse them again.",
+	"effects": [
+		{
+			"blurb": "Pulsation",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerStack:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							},
+							"other": { "$type": "Cards:CardBefore:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				}
+			]
+		}
+	],
+	"PlayRestriction": { "$type": "Core.PlayRestriction:PlayRestriction:", "playAsAugment": true },
+	"a": 1,
+	"subtypeText": ""
+}

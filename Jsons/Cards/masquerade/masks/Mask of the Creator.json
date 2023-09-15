@@ -1,0 +1,60 @@
+{
+	"cardType": 65,
+	"cardName": "Mask of the Creator",
+	"effText": "Mask.\nWhen this character attacks an S X character, gain X pips.",
+	"effects": [
+		{
+			"blurb": "Dance of Creation",
+			"triggerData": {
+				"triggerCondition": "Attack",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": {
+								"$type": "Cards:AugmentedCard:",
+								"ofThisCard": { "$type": "Cards:ThisCardNow:" }
+							},
+							"other": { "$type": "Cards:CardBefore:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:",
+					"contextSecondaryCard":true
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:AddPips:"
+				}
+			]
+		}
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"playAsAugment": true,
+		"normalAndEffect": [ {
+			"$type": "Core.CardRestriction:Not:",
+			"negated": {
+				"$type": "Core.CardRestriction:HasAugment:",
+				"cardRestriction": {
+					"$type": "Core.CardRestriction:Name:",
+					"sameAs": { "$type": "Cards:ThisCardNow:" }
+				}
+			}
+		} ]
+	},
+	"a": 5,
+	"subtypeText": "Mask"
+}

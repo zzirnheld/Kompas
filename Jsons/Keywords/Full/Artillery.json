@@ -1,0 +1,34 @@
+{
+	"blurb": "Artillery",
+	"activationRestriction": {
+		"$type": "Core.PlayerRestriction:ActivationRestriction:",
+		"elements": [ { "$type": "Core.GamestateRestriction:MaxPerTurn:" } ]
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:CanResolve:",
+			"subeffIndices": [ 2 ]
+		},
+		{
+			"$type": "Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Board:" },
+			"cardRestriction": {
+				"blurb": "Pick a target to barrage",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Enemy:" },
+					{ "$type": "Core.CardRestriction:Character:" }
+				]
+			}
+		},
+		{
+			"$type": "Subeffect:PayPips:",
+			"xMultiplier": 0,
+			"xModifier": 1
+		},
+		{
+			"$type": "Subeffect:ChangeCardStats:",
+			"eModifier": "Arg",
+			"eMultiplier": -1
+		}
+	]
+}

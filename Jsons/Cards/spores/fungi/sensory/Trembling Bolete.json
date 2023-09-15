@@ -1,0 +1,83 @@
+{
+	"cardType": 67,
+	"cardName": "Trembling Bolete",
+	"effText": "Spores.\nWhen an enemy moves to or from an adjacent space, I pulse us.",
+	"effects": [
+		{
+			"blurb": "Tremble",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [ { "$type": "Core.CardRestriction:Enemy:" } ]
+							}
+						},
+						{
+							"$type": "Core.TriggerRestriction:AnyOf:",
+							"elements": [
+								{
+									"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+									"card": { "$type": "Cards:CardBefore:" },
+									"cardRestriction": {
+										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"card": { "$type": "Cards:ThisCardNow:" }
+									}
+								},
+								{
+									"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+									"card": { "$type": "Cards:CardAfter:" },
+									"cardRestriction": {
+										"$type": "Core.SpaceRestriction:AdjacentTo:",
+										"card": { "$type": "Cards:ThisCardNow:" }
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type":"Subeffect:Activate:"
+				},
+				{
+					"$type":"Subeffect:Activate:",
+					"activate":false
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Spores"
+	],
+	"n": 0,
+	"e": 1,
+	"s": 1,
+	"w": 0,
+	"subtypes": [
+		"Sensory",
+		"Fungus"
+	],
+	"subtypeText": "Sensory Fungus"
+}

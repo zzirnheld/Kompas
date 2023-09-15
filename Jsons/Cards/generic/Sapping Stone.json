@@ -1,0 +1,41 @@
+{
+	"cardType": 83,
+	"cardName": "Sapping Stone",
+	"effText": "When turns start, I give all characters here -1 EW.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:ChangeAllCardStats:",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{ "$type": "Core.CardRestriction:Character:" },
+							{
+								"$type": "Core.SpaceRestriction:InAOEOf:",
+								"card": { "$type": "Cards:ThisCardNow:" }
+							}
+						]
+					},
+					"eModifier": -1,
+					"wModifier": -1
+				}
+			]
+		}
+	],
+	"c": 1,
+	"spellTypes": [
+		"Radial"
+	],
+	"subtypes": [
+		"Radial"
+	],
+	"subtypeText": "Rune Radius",
+	"radius": 1
+}

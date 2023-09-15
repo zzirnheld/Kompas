@@ -1,0 +1,24 @@
+[
+	{
+		"$type": "Subeffect:CardTarget:",
+		"cardRestriction": {
+			"blurb": "Card to discard so you can draw",
+			"elements": [
+				{
+					"$type": "Core.CardRestriction:Location:",
+					"locations": [ "Hand" ]
+				},
+				{
+					"$type": "Core.PlayerRestriction:PlayersMatch:",
+					"player": { "$type": "Players:TargetIndex:" }
+				}
+			]
+		}
+	},
+	{
+		"$type": "Subeffect:Discard:"
+	},
+	{
+		"$type": "Subeffect:Draw:"
+	}
+]

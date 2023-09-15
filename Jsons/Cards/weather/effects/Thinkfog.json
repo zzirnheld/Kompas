@@ -1,0 +1,61 @@
+{
+	"cardType":83,
+	"cardName": "Thinkfog",
+	"effText": "Weather Condition: Their controller can pay 1 pip to draw 1 card.",
+	"effects": [
+		{
+			"triggerData":
+			{
+				"blurb":"Fog",
+				"triggerCondition":"Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.SpaceRestriction:InAOEOf:",
+							"card": { "$type": "Cards:ThisCardNow:" }
+						},
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:TargetTriggeringCard:"
+				},
+				{
+					"$type":"Subeffect:TargetTargetsController:"
+				},
+				{
+					"$type":"Subeffect:CanResolve:",
+					"subeffIndices":[4]
+				},
+				{
+					"$type":"Subeffect:ChooseOption:",
+					"choiceBlurb":"Pay 1 pip to draw?",
+					"optionBlurbs":["Yes","No"],
+					"jumpIndices":[4,100]
+				},
+				{
+					"$type":"Subeffect:PayPips:",
+					"xMultiplier":0,
+					"xModifier":1
+				},
+				{
+					"$type":"Subeffect:Draw:"
+				}
+			]	
+		}
+	],
+	"keywords":["Weather Condition Cast"],
+	"unique":true,
+	"c":6,
+	"spellTypes":["Radial"],
+	"subtypeText":"Weather Condition Radius",
+	"radius":1
+}

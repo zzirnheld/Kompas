@@ -1,0 +1,48 @@
+{
+	"blurb":"Waterdweller",
+	"triggerData":
+	{
+		"blurb":"Waterdweller",
+		"triggerCondition":"Stack End",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+					"card": { "$type": "Cards:CardBefore:" },
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+							{
+								"$type": "Core.CardRestriction:Location:",
+								"locations": [ "Board" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Not:",
+								"negated": { "$type": "Core.CardRestriction:Avatar:" }
+							},
+							{
+								"$type": "Core.SpaceRestriction:Not:",
+								"negated": {
+									"$type": "Core.SpaceRestriction:InAOEOf:",
+									"cardRestriction": {
+										"$type": "Core.CardRestriction:Subtypes:",
+										"subtypes": [ "Water" ]
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Discard:"
+		}
+	]	
+}

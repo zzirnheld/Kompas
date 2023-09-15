@@ -1,0 +1,50 @@
+{
+	"cardType": 67,
+	"cardName": "Heart Eater",
+	"effText": "When a friendly character dies, give me +1 EW.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Eat Heart",
+				"triggerCondition": "Discard",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							
+						"cardRestriction": {
+							"$type": "Core.CardRestriction:AllOf:",
+							"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{ "$type": "Core.CardRestriction:Friendly:" },
+									{
+										"$type": "Core.CardRestriction:Location:",
+										"locations": [ "Board" ]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1,
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 2,
+	"s": 3,
+	"w": 2,
+	"subtypeText": "Cultist Warrior"
+}

@@ -1,0 +1,85 @@
+{
+	"cardType": 67,
+	"cardName": "5H4P3R",
+	"effText": "Nimble Golem.\nWhen I move across X cards in a line, destroy them and give me -X E.",
+	"technicalEffText": "Nimble Golem.\nWhen I move, destroy all X cards on a line between my origin and destination, and give me -X E.",
+	"effects": [
+		{
+			"blurb": "D35TR0Y!!!",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{
+							"$type": "Core.TriggerRestriction:CardsMatch:",
+							"card": { "$type": "Cards:ThisCardNow:" },
+							"other": { "$type": "Cards:CardBefore:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"toSearch": {
+						"$type": "ManyCards:CardsInPositions:",
+						"positions": {
+							"$type": "ManySpaces:ThreeSpaceRelationship:",
+							"firstSpace": { "$type": "Cards:CardBefore:" },
+							"secondSpace": { "$type": "Spaces:ContextSpace:" },
+							"thirdSpaceRelationship": { "$type": "ThreeSpaceRelationships:Between:" }
+						}
+					}
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { "$type": "Numbers:TargetCount:" }
+				},
+				{
+					"$type": "Subeffect:Discard:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"delete": true,
+					"jumpIndices": [
+						2
+					]
+				},
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eMultiplier": -1
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"moveThroughCards": true,
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"n": 2,
+	"e": 4,
+	"s": 10,
+	"w": 4,
+	"subtypes": [
+		"Mech",
+		"Golem"
+	],
+	"subtypeText": "Mech Golem"
+}

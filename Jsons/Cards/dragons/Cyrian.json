@@ -1,0 +1,14 @@
+{
+	"cardType": 67,
+	"cardName": "Cyrian",
+	"effText": "Territorial.",
+	"effects": [],
+	"keywords": [
+		"Territorial"
+	],
+	"n": 8,
+	"e": 17,
+	"s": 16,
+	"w": 19,
+	"subtypeText": "Dragon"
+}

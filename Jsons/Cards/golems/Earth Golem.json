@@ -1,0 +1,76 @@
+{
+	"cardType": 67,
+	"cardName": "Earth Golem",
+	"effText": "Golem.\nWhen I become active, I give a character \u00b11 EW.",
+	"effects": [
+		{
+			"blurb": "++ or --",
+			"triggerData": {
+				"triggerCondition": "Activate",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "for Earth Golem to buff or debuff",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": { "$type": "Core.CardRestriction:Character:" }
+				},
+				{
+					"$type": "Subeffect:ChooseOption:",
+					"choiceBlurb": "Give +1 EW or -1 EW?",
+					"optionBlurbs": [
+						"+1 EW",
+						"-1 EW"
+					],
+					"jumpIndices": [
+						2,
+						4
+					],
+					"hasDefault": false
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": 1,
+					"wModifier": 1
+				},
+				{
+					"$type": "Subeffect:EndResolution:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"eModifier": -1,
+					"wModifier": -1
+				}
+			]
+		}
+	],
+	"attackingDefenderRestriction": {
+		"$type": "Core.CardRestriction:AttackingDefender:",
+		"elements": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"movementRestriction": {
+		"$type": "Core.SpaceRestriction:MovementRestriction:",
+		"normalOnly": [ {
+			"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+			"card": { "$type": "Cards:ThisCardNow:" },
+			"cardRestriction": { "$type": "Core.CardRestriction:Active:" }
+		} ]
+	},
+	"n": 3,
+	"e": 5,
+	"s": 4,
+	"w": 5,
+	"subtypes": [
+		"Golem"
+	],
+	"subtypeText": "Golem"
+}

@@ -1,0 +1,117 @@
+{
+	"cardType": 83,
+	"cardName": "Modular Golem Cores",
+	"effText": "The first time each turn something arrives adjacent to an augmented friendly Golem(s), swap each of their Cores for a Core in your hand.",
+	"effects": [
+		{
+			"blurb": "Swap Out Modules",
+			"triggerData": {
+				"triggerCondition": "Arrive",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:MaxPerTurn:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardAfter:" },
+							"cardRestriction": {
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:AllOf:",
+									"elements": [
+										{
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Golem" ]
+										},
+										{
+											"$type": "Core.CardRestriction:HasAugment:",
+											"cardRestriction": { "$type": "Core.GamestateRestriction:AlwaysValid:" }
+										}
+									]
+								}
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetAll:",
+					"blurb": "Golem to swap out modules",
+					"toSearch": { "$type": "ManyCards:Board:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem", "Core" ]
+							},
+							{
+								"$type": "Core.CardRestriction:Augments:",
+								"cardRestriction": {
+									"$type": "Core.CardRestriction:AllOf:",
+									"elements": [
+										{ "$type": "Core.CardRestriction:Friendly:" },
+										{
+											"$type": "Core.CardRestriction:Subtypes:",
+											"subtypes": [ "Golem" ]
+										},
+										{
+											"$type": "Core.SpaceRestriction:AdjacentTo:",
+											"space": { "$type": "Cards:CardBefore:" }
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:TargetAugmentedCard:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Golem core for Modular Golem Cores to attach",
+					"toSearch": { "$type": "ManyCards:Hand:" },
+					"cardRestriction": {
+						"$type": "Core.CardRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.CardRestriction:Augment:" },
+							{
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Golem", "Core" ]
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Hand:",
+					"targetIndex": -3
+				},
+				{
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": -2,
+					"targetIndex": -1
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:DeleteTarget:"
+				},
+				{
+					"$type": "Subeffect:LoopWhileHaveTargets:",
+					"jumpIndices": [ 1 ]
+				}
+			]
+		}
+	],
+	"c": 3,
+	"unique": true,
+	"spellTypes": [ "Enchant" ],
+	"subtypeText": ""
+}

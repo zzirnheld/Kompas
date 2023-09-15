@@ -1,0 +1,37 @@
+{
+	"blurb":"Aggressive",
+	"triggerData":
+	{
+		"triggerCondition": "Play",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:CardsMatch:",
+			"card": { "$type": "Cards:CardBefore:" },
+			"other": { "$type": "Cards:ThisCardNow:" }
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Board:" },
+			"cardRestriction":
+			{
+				"blurb": "to take out aggression on",
+				"elements": [
+					{ "$type": "Core.CardRestriction:Character:" },
+					{
+						"$type": "Core.SpaceRestriction:InAOEOf:",
+						"card": { "$type": "Cards:ThisCardNow:" }
+					}
+				]
+			}
+		},
+		{
+			"$type":"Subeffect:TargetThis:"
+		},
+		{
+			"$type":"Subeffect:Attack:",
+			"attackerIndex":-1,
+			"targetIndex":-2
+		}
+	]	
+}

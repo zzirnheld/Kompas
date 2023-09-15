@@ -1,0 +1,37 @@
+{
+	"blurb":"Instrument Dispel",
+	"triggerData":
+	{
+		"triggerCondition":"Play",
+		"triggerRestriction": {
+			"$type": "Core.TriggerRestriction:AllOf:",
+			"elements": [
+				{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+				{ "$type": "Core.CardRestriction:Friendly:" },
+				{
+					"$type": "Core.SpaceRestriction:AdjacentTo:",
+					"space": { "$type": "Cards:ThisCardNow:" }
+				},
+				{
+					"$type": "Core.CardRestriction:Subtypes:",
+					"subtypes": [ "Music" ]
+				}
+			]
+		}
+	},
+	"subeffects":[
+		{
+			"$type":"Subeffect:TargetTriggeringCard:"
+		},
+		{
+			"$type":"Subeffect:Hanging.Delay:",
+			"numTimesToDelay":0,
+			"jumpIndices":[2],
+			"fallOffCondition":"",
+			"endCondition":"Stack End"
+		},
+		{
+			"$type":"Subeffect:Dispel:"
+		}
+	]	
+}

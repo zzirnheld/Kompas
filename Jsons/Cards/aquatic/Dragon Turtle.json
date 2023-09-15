@@ -1,0 +1,25 @@
+{
+	"cardType": 67,
+	"cardName": "Dragon Turtle",
+	"effText": "Waterborn Waterdweller.",
+	"effects": [],
+	"keywords": [
+		"Waterdweller"
+	],
+	"PlayRestriction": {
+		"$type": "Core.PlayRestriction:PlayRestriction:",
+		"requireStandardAdjacency": false,
+		"normalAndEffect": [ {
+			"$type": "Core.SpaceRestriction:InAOEOf:",
+			"cardRestriction": {
+				"$type": "Core.CardRestriction:Subtypes:",
+				"subtypes": [ "Water" ]
+			}
+		} ]
+	},
+	"n": 11,
+	"e": 25,
+	"s": 13,
+	"w": 15,
+	"subtypeText": "Aquatic Monster"
+}

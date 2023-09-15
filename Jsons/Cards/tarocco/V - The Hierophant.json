@@ -1,0 +1,37 @@
+{
+	"cardType": 67,
+	"cardName": "V - The Hierophant",
+	"effText": "When you draw X cards, give me +X W.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Draw",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:PlayersMatch:",
+							"firstPlayer": { "$type": "Players:TriggeringPlayer:" },
+							"secondPlayer": { "$type": "Players:FriendlyPlayer:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wMultiplier": 1
+				}
+			]
+		}
+	],
+	"n": 2,
+	"e": 1,
+	"s": 2,
+	"w": 1,
+	"subtypeText": "Tarocco Mage"
+}

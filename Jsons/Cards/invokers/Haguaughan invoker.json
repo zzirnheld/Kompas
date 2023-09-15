@@ -1,0 +1,96 @@
+{
+	"cardType": 67,
+	"cardName": "Haguaughan Invoker",
+	"effText": "When I start turns adjacent to an enemy Avatar, I Invoke a character that costs less than me.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Invoke",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"cardRestriction": {
+								"$type": "Core.SpaceRestriction:AdjacentTo:",
+								"space": { "$type": "Cards:ThisCardNow:" }
+							},
+							"card": {
+								"$type": "Cards:Avatar:",
+								"player": { "$type": "Players:EnemyPlayer:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetXByNumberIdentity:",
+					"numberIdentity": { 
+						"$type": "Numbers:FromCardValue:",
+						"card": { "$type": "Cards:TargetIndex:" },
+						"cardValue": { "value": "S" }
+					}
+				},
+				{
+					"$type": "Subeffect:Mill:",
+					"xMultiplier": 0,
+					"xModifier": 1
+				},
+				{
+					"$type": "Subeffect:ConditionalJump:",
+					"jumpIfTrue": {
+						"$type": "Core.GamestateRestriction:Not:",
+						"negated": {
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:TargetIndex:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:AllOf:",
+								"elements": [
+									{ "$type": "Core.CardRestriction:Character:" },
+									{
+										"$type": "Core.CardRestriction:CardValueFits:",
+										"cardValue": { "value": "Cost" },
+										"numberRestriction": {
+											"$type": "Core.NumberRestriction:Compare:",
+											"comparison": { "$type": "Relationships.Number:LessThan:" },
+											"other": { "$type": "Numbers:EffectX:" }
+										}
+									}
+								]
+							}
+						}
+					},
+					"jumpIndices": [ 2 ]
+				},
+				{
+					"$type": "Subeffect:SpaceTarget:",
+					"blurb": "where to Invoke",
+					"spaceRestriction": {
+						"$type": "Core.SpaceRestriction:AllOf:",
+						"elements": [
+							{ "$type": "Core.SpaceRestriction:Empty:" },
+							{
+								"$type": "Core.SpaceRestriction:CanPlayCard:",
+								"toPlay": { "$type": "Cards:TargetIndex:" }
+							}
+						]
+					}
+				},
+				{
+					"$type": "Subeffect:Play:"
+				}
+			]
+		}
+	],
+	"n": 4,
+	"e": 4,
+	"s": 7,
+	"w": 0,
+	"subtypeText": "Invoker Mage"
+}

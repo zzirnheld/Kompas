@@ -1,0 +1,48 @@
+{
+	"cardType": 67,
+	"cardName": "UFO",
+	"effText": "When you play a Shadow in my area, gain 1 pip and draw 1 card.",
+	"effects": [
+		{
+			"blurb": "Mothership supplies",
+			"triggerData": {
+				"triggerCondition": "Play",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CardFitsRestriction:",
+							"card": { "$type": "Cards:CardBefore:" },
+							"cardRestriction": {
+								"$type": "Core.CardRestriction:Subtypes:",
+								"subtypes": [ "Shadow" ]
+							}
+						},
+						{
+							"$type": "Core.SpaceRestriction:InAOEOf:",
+							"card": { "$type": "Cards:ThisCardNow:" }
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type":"Subeffect:AddPips:",
+					"xMultiplier": 0,
+					"xModifier":1
+				},
+				{
+					"$type": "Subeffect:Draw:"
+				}
+			]
+		}
+	],
+	"n": 7,
+	"e": 7,
+	"s": 8,
+	"w": 1,
+	"spellTypes": [ "Radial" ],
+	"radius": 2,
+	"subtypeText": "Cryptid Machine"
+}

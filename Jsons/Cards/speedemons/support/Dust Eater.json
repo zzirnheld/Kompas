@@ -1,0 +1,47 @@
+{
+	"cardType": 67,
+	"cardName": "Dust Eater",
+	"effText": "When a character moves away from me, give me +1 W.",
+	"effects": [
+		{
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:AllOf:",
+					"elements": [
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{ "$type": "Core.GamestateRestriction:ThisCardInPlay:" },
+						{
+							"$type": "Core.TriggerRestriction:CompareNumbers:",
+							"firstNumber": {
+								"$type": "Numbers:Distance:",
+								"firstSpace": { "$type": "Cards:ThisCardNow:" },
+								"secondSpace": { "$type": "Cards:CardBefore:" }
+							},
+							"comparison": { "$type": "Relationships.Number:LessThan:" },
+							"secondNumber": {
+								"$type": "Numbers:Distance:",
+								"firstSpace": { "$type": "Cards:ThisCardNow:" },
+								"secondSpace": { "$type": "Cards:CardAfter:" }
+							}
+						}
+					]
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 1
+				}
+			]
+		}
+	],
+	"n": 3,
+	"e": 1,
+	"s": 3,
+	"w": 0,
+	"subtypeText": "Slowpoke"
+}

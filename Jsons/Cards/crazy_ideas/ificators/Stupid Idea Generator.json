@@ -1,0 +1,32 @@
+{
+	"cardType": 83,
+	"cardName": "Stupid Idea Generator",
+	"effText": "Ificate.\nWhen turns start, rummage.",
+	"effects": [
+		{
+			"triggerData": {
+				"blurb": "Generate Stupid Idea",
+				"triggerCondition": "Turn Start",
+				"triggerRestriction": { "$type": "Core.GamestateRestriction:ThisCardInPlay:" }
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:Keyword:",
+					"keyword": "Rummage"
+				}
+			]
+		}
+	],
+	"keywords": [
+		"Ificate"
+	],
+	"c": 3,
+	"spellTypes": [
+		"Enchant"
+	],
+	"subtypes": [
+		"Enchant",
+		"Crazy Idea"
+	],
+	"subtypeText": "Enchant Crazy Idea Ificator"
+}

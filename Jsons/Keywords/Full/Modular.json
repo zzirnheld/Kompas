@@ -1,0 +1,67 @@
+{
+	"triggerData": {
+		"triggerCondition": "Play",
+		"triggerRestriction": {
+			"elements": [
+				{
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			]
+		}
+	},
+	"subeffects": [
+		{
+			"$type": "Subeffect:SetXByNumberIdentity:",
+			"numberIdentity": {
+				"$type": "Numbers:Arg:",
+				"multiplier": 1
+			}
+		},
+		{
+			"$type": "Subeffect:TargetThis:"
+		},
+		{
+			"$type": "Subeffect:CardTarget:",
+			"toSearch": { "$type": "ManyCards:Hand:" },
+			"cardRestriction": {
+				"blurb": "Modules to attach",
+				"elements": [
+					{
+						"$type": "Core.CardRestriction:Subtypes:",
+						"subtypes": [ "Module" ]
+					}
+				]
+			},
+			"listRestriction": {
+				"$type": "Core.ListRestriction:Maximum:",
+				"bound": { "$type": "Numbers:EffectX:" }
+			}
+		},
+		{
+			"$type": "Subeffect:SetXByNumberIdentity:",
+			"numberIdentity": {
+				"$type": "Numbers:TargetCount:",
+				"multiplier": 1,
+				"modifier": -1
+			}
+		},
+		{
+			"$type": "Subeffect:Attach:",
+			"targetToAttachTo": 0,
+			"targetIndex": -1
+		},
+		{
+			"$type": "Subeffect:LoopWhileHaveTargets:",
+			"delete": true,
+			"remainingTargets": 1,
+			"jumpIndices": [
+				4
+			]
+		},
+		{
+			"$type": "Subeffect:DrawX:"
+		}
+	]
+}

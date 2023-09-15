@@ -1,0 +1,56 @@
+{
+	"cardType": 67,
+	"cardName": "Mach the Porcupine",
+	"effText": "Speedemon.\nWhen I move, give me +1 W.\nAfter I fight, set my W to 0.",
+	"effects": [
+		{
+			"blurb": "go fast (req'd)",
+			"triggerData": {
+				"triggerCondition": "Move",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:ChangeCardStats:",
+					"wModifier": 1
+				}
+			]
+		},
+		{
+			"blurb": "*drops rings*",
+			"triggerData": {
+				"triggerCondition": "Battle End",
+				"triggerRestriction": {
+					"$type": "Core.TriggerRestriction:CardsMatch:",
+					"card": { "$type": "Cards:CardBefore:" },
+					"other": { "$type": "Cards:ThisCardNow:" }
+				}
+			},
+			"subeffects": [
+				{
+					"$type": "Subeffect:TargetThis:"
+				},
+				{
+					"$type": "Subeffect:SetCardStatsOld:",
+					"wVal": 0
+				}
+			]
+		}
+	],
+	"unique": true,
+	"keywords": [
+		"Speedemon"
+	],
+	"n": 1,
+	"e": 4,
+	"s": 4,
+	"w": 0,
+	"subtypeText": "Speedemon"
+}
