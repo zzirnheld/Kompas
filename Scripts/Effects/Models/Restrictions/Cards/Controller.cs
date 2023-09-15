@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class Controller : CardRestrictionElement
+	public class Controller : CardRestrictionBase
 	{
 		[JsonProperty]
 		public IIdentity<Player> playerIdentity;

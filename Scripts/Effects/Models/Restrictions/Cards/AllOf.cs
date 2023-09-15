@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			$"\nRestriction Elements: {string.Join(", ", elements.Select(r => r))}";
 	}
 
-	public class Not : CardRestrictionElement
+	public class Not : CardRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<GameCardBase> negated;
@@ -37,7 +37,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			=> !negated.IsValid(item, context);
 	}
 
-	public class CardExists : CardRestrictionElement
+	public class CardExists : CardRestrictionBase
 	{
 		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
 			=> card != null;

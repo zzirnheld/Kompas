@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class CardType : CardRestrictionElement
+	public class CardType : CardRestrictionBase
 	{
 		[JsonProperty]
 		public char cardType;

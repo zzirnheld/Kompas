@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class Negated : CardRestrictionBase
+	public class Hidden : CardRestrictionBase
 	{
 		[JsonProperty]
-		public bool negated = true;
+		public bool hidden = true;
 
 		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> card.Negated == negated;
+			=> card.KnownToEnemy == !hidden;
 	}
 }

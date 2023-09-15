@@ -1,14 +1,10 @@
 using Kompas.Cards.Models;
-using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class Negated : CardRestrictionBase
+	public class Target : CardRestrictionBase
 	{
-		[JsonProperty]
-		public bool negated = true;
-
 		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> card.Negated == negated;
+			=> InitializationContext.effect.CardTargets.Contains(card.Card);
 	}
 }

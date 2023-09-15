@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class AtLocation : CardRestrictionElement
+	public class AtLocation : CardRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
 		public string[] locations;

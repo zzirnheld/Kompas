@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class Subtypes : CardRestrictionElement
+	public class Subtypes : CardRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
 		public string[] subtypes;
