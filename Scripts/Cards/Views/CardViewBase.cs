@@ -1,3 +1,4 @@
+using Godot;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInformationDisplayers;
 
@@ -36,10 +37,12 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		/// <param name="card"></param>
 		/// <param name="refresh"></param>
-		public virtual void Show(CardBase card, bool refresh = false)
+		public virtual void Show(CardType card, bool refresh = false)
 		{
 			//Unless explicitly refreshing card, if already showing that card, no-op.
 			if (card == ShownCard && !refresh) return;
+
+			ShownCard = card;
 
 			//If we're now showing nothing, hide the window and be done
 			if (ShownCard == null) DisplayNothing();

@@ -229,7 +229,7 @@ namespace Kompas.Cards.Loading
 
 		public static string FileNameFor(string cardName) => cardFileNames[cardName];
 
-		public static Texture2D LoadSprite(string cardFileName) => GD.Load<Texture2D>($"Card Face Images/{cardFileName}");
+		public static Texture2D LoadSprite(string cardFileName) => null; // GD.Load<Texture2D>($"Card Face Images/{cardFileName}");
 
 		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(SerializableCardFromJson).Where(c => c != null);
 	}

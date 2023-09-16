@@ -33,7 +33,7 @@ namespace Kompas.Cards.Views
 			Show(card);
 		}
 
-		public override void Show(CardBase card, bool refresh = false)
+		public override void Show(CardType card, bool refresh = false)
 		{
 			base.Show(card ?? FocusedCard, refresh);
 		}
