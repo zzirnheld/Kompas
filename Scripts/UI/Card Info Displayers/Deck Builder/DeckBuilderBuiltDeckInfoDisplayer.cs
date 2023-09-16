@@ -1,8 +1,7 @@
 using Godot;
 using Kompas.Cards.Models;
-using Kompas.UI.CardInformationDisplayers;
 
-namespace Kompas.UI.DeckBuilder
+namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 {
 	public partial class DeckBuilderBuiltDeckInfoDisplayer : TextureRect, ICardInfoDisplayer
 	{
@@ -13,7 +12,7 @@ namespace Kompas.UI.DeckBuilder
 			Texture = card.CardFaceImage;
 		}
 
-		public void DisplayCardNumericStats(CardBase card) { }
-		public void DisplayCardRulesText(CardBase card) { }
+		public virtual void DisplayCardNumericStats(CardBase card) { }
+		public virtual void DisplayCardRulesText(CardBase card) { }
 	}
 }

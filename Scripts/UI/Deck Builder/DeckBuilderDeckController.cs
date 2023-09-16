@@ -10,17 +10,18 @@ namespace Kompas.UI.DeckBuilder
 		[Export]
 		private PackedScene DeckBuilderInfoDisplayerPrefab { get; set; }
 
-		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
-			if (DeckBuilderInfoDisplayerPrefab.Instantiate() is not DeckBuilderBuiltDeckInfoDisplayer card)
-				throw new System.ArgumentNullException(nameof(DeckBuilderInfoDisplayerPrefab), "Was not the right type");
-			DeckNodesParent.AddChild(card);
-		}
-
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
-		public override void _Process(double delta)
-		{
+			foreach (var node in DeckNodesParent.GetChildren())
+			{
+				node.QueueFree();
+			}
+			for (int i = 0; i < 48; i++)
+			{
+				if (DeckBuilderInfoDisplayerPrefab.Instantiate() is not DeckBuilderBuiltDeckInfoDisplayer card)
+					throw new System.ArgumentNullException(nameof(DeckBuilderInfoDisplayerPrefab), "Was not the right type");
+				DeckNodesParent.AddChild(card);
+			}
 		}
 	}
 }

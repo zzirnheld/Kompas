@@ -1,7 +1,7 @@
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Views;
-using Kompas.UI.CardInformationDisplayers;
+using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.UI.DeckBuilder
 {

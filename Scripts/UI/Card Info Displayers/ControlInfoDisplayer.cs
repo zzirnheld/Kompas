@@ -1,7 +1,7 @@
 using Godot;
 using Kompas.Cards.Models;
 
-namespace Kompas.UI.CardInformationDisplayers
+namespace Kompas.UI.CardInfoDisplayers
 {
 	public partial class ControlInfoDisplayer : Control, ICardInfoDisplayer
 	{

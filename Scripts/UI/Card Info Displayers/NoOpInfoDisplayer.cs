@@ -1,6 +1,6 @@
 using Kompas.Cards.Models;
 
-namespace Kompas.UI.CardInformationDisplayers
+namespace Kompas.UI.CardInfoDisplayers
 {
 	public class NoOpInfoDisplayer : ICardInfoDisplayer
 	{

@@ -177,9 +177,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Deck View"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Deck View"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Deck View/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_l8goj")
+expand_mode = 3
+stretch_mode = 4
 
 [node name="Cards" type="Control" parent="HBoxContainer/Deck View"]
 layout_mode = 2
@@ -210,7 +224,151 @@ DeckBuilderInfoDisplayerPrefab = ExtResource("7_lxxb4")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 10
+columns = 8
+
+[node name="DeckBuilderPrefab" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab2" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab3" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab4" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab5" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab6" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab7" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab8" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab9" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab10" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab11" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab12" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab13" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab14" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab15" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab16" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab17" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab18" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab19" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab20" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab21" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab22" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab23" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab24" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab25" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab26" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab27" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab28" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab29" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab30" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab31" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab32" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab33" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab34" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab35" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab36" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab37" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab38" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab39" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab40" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab41" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab42" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab43" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab44" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab45" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab46" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab47" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="DeckBuilderPrefab48" parent="HBoxContainer/Deck View/Cards/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
 
 [node name="Card Search" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
