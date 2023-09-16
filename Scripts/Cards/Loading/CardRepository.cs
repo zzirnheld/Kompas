@@ -24,6 +24,7 @@ namespace Kompas.Cards.Loading
 		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List";
 
 		public static readonly string RemindersJsonPath = $"res://Reminder Text/Reminder Texts";
+		public static readonly string CardImagesPath = "res://Sprites";
 
 		private static readonly Regex subeffRegex = new(@"Subeffect:([^:]+):"); //Subeffect:*:
 		private const string subeffReplacement = @"KompasServer.Effects.Subeffects.$1, Kompas";
@@ -229,7 +230,7 @@ namespace Kompas.Cards.Loading
 
 		public static string FileNameFor(string cardName) => cardFileNames[cardName];
 
-		public static Texture2D LoadSprite(string cardFileName) => null; // GD.Load<Texture2D>($"Card Face Images/{cardFileName}");
+		public static Texture2D LoadSprite(string cardFileName) => GD.Load<Texture2D>($"{CardImagesPath}/{cardFileName}.png");
 
 		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(SerializableCardFromJson).Where(c => c != null);
 	}

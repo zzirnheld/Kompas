@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=9 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="3_cdmx8"]
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/ControlInfoDisplayer.cs" id="3_dc8x7"]
 [ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="4_c8rh7"]
+[ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderBuiltDeckAvatarInfoDisplayer.cs" id="6_53b6o"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
 [ext_resource type="PackedScene" uid="uid://b3pt42ghblw0j" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderPrefab.tscn" id="7_lxxb4"]
 
@@ -194,6 +195,7 @@ layout_mode = 2
 texture = ExtResource("2_l8goj")
 expand_mode = 3
 stretch_mode = 4
+script = ExtResource("6_53b6o")
 
 [node name="Cards" type="Control" parent="HBoxContainer/Deck View"]
 layout_mode = 2

@@ -2,7 +2,7 @@ using Kompas.Cards.Models;
 
 namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 {
-	public class DeckBuilderBuiltDeckAvatarInfoDisplayer : DeckBuilderBuiltDeckInfoDisplayer
+	public partial class DeckBuilderBuiltDeckAvatarInfoDisplayer : DeckBuilderBuiltDeckInfoDisplayer
 	{
 		public override void DisplayCardRulesText(CardBase card)
 		{
