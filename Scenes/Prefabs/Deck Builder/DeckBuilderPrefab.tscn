@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3pt42ghblw0j"]
+
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="1_d46xx"]
+[ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/DeckBuilderBuiltDeckInfoDisplayer.cs" id="2_gfll0"]
+
+[node name="DeckBuilderPrefab" type="TextureRect"]
+size_flags_horizontal = 3
+texture = ExtResource("1_d46xx")
+expand_mode = 5
+script = ExtResource("2_gfll0")
