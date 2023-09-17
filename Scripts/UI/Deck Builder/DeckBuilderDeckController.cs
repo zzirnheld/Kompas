@@ -22,7 +22,7 @@ namespace Kompas.UI.DeckBuilder
 		private Control DeckNodesParent { get; set; }
 
 		[Export]
-		private PackedScene DeckBuilderInfoDisplayerPrefab { get; set; }
+		private PackedScene DeckCardControllerPrefab { get; set; }
 		[Export]
 		private DeckBuilderBuiltDeckAvatarInfoDisplayer AvatarInfoDisplayer { get; set; }
 
@@ -105,7 +105,7 @@ namespace Kompas.UI.DeckBuilder
 			{
 				var avatar = DeckBuilderCardRepository.CreateDeckBuilderCard(decklist.avatarName);
 				var avatarView = new DeckBuilderCardView(AvatarInfoDisplayer);
-				var avatarCtrl = new DeckBuilderCardController(avatarView, avatar);
+				var avatarCtrl = new DirectCardController<DeckBuilderCard, DeckBuilderInfoDisplayer>(avatarView, avatar);
 				avatarCtrl.Display();
 			}
 
@@ -123,19 +123,17 @@ namespace Kompas.UI.DeckBuilder
 
 		private void AddToDeck(DeckBuilderCard card)
 		{
-			var infoDisplayer = CreateDeckInfoDisplayer();
-			var view = new DeckBuilderCardView(infoDisplayer);
-			var ctrl = new DeckBuilderCardController(view, card);
-			DeckNodesParent.AddChild(infoDisplayer);
-			ctrl.Display();
+			var ctrl = CreateCardController();
+			DeckNodesParent.AddChild(ctrl);
+			ctrl.Init(card, DeckBuilderController.CardView);
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
 		}
 
-		private DeckBuilderBuiltDeckInfoDisplayer CreateDeckInfoDisplayer()
+		private DeckBuilderCardController CreateCardController()
 		{
-			if (DeckBuilderInfoDisplayerPrefab.Instantiate() is not DeckBuilderBuiltDeckInfoDisplayer card)
-					throw new System.ArgumentNullException(nameof(DeckBuilderInfoDisplayerPrefab), "Was not the right type");
-			return card;
+			if (DeckCardControllerPrefab.Instantiate() is not DeckBuilderCardController controller)
+					throw new System.ArgumentNullException(nameof(DeckCardControllerPrefab), "Was not the right type");
+			return controller;
 		}
 
 		private static void EnsureDeckDirectory()

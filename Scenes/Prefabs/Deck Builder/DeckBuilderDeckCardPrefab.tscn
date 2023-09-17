@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3pt42ghblw0j"]
+[gd_scene load_steps=4 format=3 uid="uid://dnb8qb1ugcsl"]
 
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="1_d46xx"]
+[ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderDeckCardController.cs" id="1_m8bow"]
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderBuiltDeckInfoDisplayer.cs" id="2_gn108"]
 
-[node name="DeckBuilderPrefab" type="TextureRect"]
+[node name="VBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("InfoDisplayer")]
 size_flags_horizontal = 3
+script = ExtResource("1_m8bow")
+InfoDisplayer = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
 texture = ExtResource("1_d46xx")
 expand_mode = 5
 script = ExtResource("2_gn108")

@@ -175,12 +175,7 @@ namespace Kompas.Cards.Models
 
 			//set sprites if they aren't already set correctly 
 			//(check this by card name. cards should never have a pic that doesn't match their name)
-			if (cardName != CardName)
-			{
-				GD.Print($"Names are different, changing card pics to match name {FileName}");
-				CardFaceImage = CardRepository.LoadSprite(FileName);
-				GD.Print($"Did we find an image for {cardName}? {null != CardFaceImage}");
-			}
+			if (cardName != CardName) CardFaceImage = CardRepository.LoadSprite(FileName);
 			else GD.Print("Names match. Set Info not updating pics.");
 
 			Subtext = subtext; //TODO un-deprecate and use as an override for constructed subtype text from the subtypes array
@@ -189,8 +184,8 @@ namespace Kompas.Cards.Models
 			Radius = radius;
 			Duration = duration;
 			CardType = cardType;
-			CardName = cardName ?? throw new ArgumentNullException("cardName", $"A card is missing a name.");
-			EffText = effText ?? throw new ArgumentNullException("effText", $"Card {CardName} is missing effect text");
+			CardName = cardName ?? throw new ArgumentNullException(nameof(cardName), $"A card is missing a name.");
+			EffText = effText ?? throw new ArgumentNullException(nameof(effText), $"Card {CardName} is missing effect text");
 			SubtypeText = subtypeText ?? string.Empty;
 		}
 

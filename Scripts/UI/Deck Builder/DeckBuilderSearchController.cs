@@ -13,7 +13,7 @@ namespace Kompas.UI.DeckBuilder
 		[Export]
 		private DeckBuilderController DeckBuilderController { get; set; }
 		[Export]
-		private PackedScene SearchInfoDisplayerPrefab { get; set; }
+		private PackedScene SearchCardControllerPrefab { get; set; }
 		[Export]
 		private Control SearchGridParent { get; set; }
 
@@ -56,18 +56,16 @@ namespace Kompas.UI.DeckBuilder
 		//TODO - this is duplicated with DeckBuilderDeckController. consider deduplicating? (the logic around creating the view/controller)
 		private void ShowInSearch(DeckBuilderCard card)
 		{
-			var infoDisplayer = CreateDeckInfoDisplayer();
-			var view = new DeckBuilderCardView(infoDisplayer);
-			var ctrl = new DeckBuilderCardController(view, card);
-			SearchGridParent.AddChild(infoDisplayer);
-			ctrl.Display();
+			var ctrl = CreateCardController();
+			SearchGridParent.AddChild(ctrl);
+			ctrl.Init(card, DeckBuilderController.CardView);
 		}
 
-		private DeckBuilderSearchInfoDisplayer CreateDeckInfoDisplayer()
+		private DeckBuilderCardController CreateCardController()
 		{
-			if (SearchInfoDisplayerPrefab.Instantiate() is not DeckBuilderSearchInfoDisplayer card)
-				throw new System.ArgumentNullException(nameof(SearchInfoDisplayerPrefab), "Was not the right type");
-			return card;
+			if (SearchCardControllerPrefab.Instantiate() is not DeckBuilderCardController controller)
+					throw new System.ArgumentNullException(nameof(SearchCardControllerPrefab), "Was not the right type");
+			return controller;
 		}
 	}
 }

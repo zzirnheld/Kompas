@@ -1,19 +1,29 @@
+using Godot;
 using Kompas.Cards.Models;
 using Kompas.Cards.Views;
+using Kompas.UI.CardInfoDisplayers.DeckBuilder;
 
 namespace Kompas.Cards.Controllers
 {
-	public class DeckBuilderCardController
+	public partial class DeckBuilderCardController : Control
 	{
-		private DeckBuilderCardView view;
+		[Export]
+		public DeckBuilderInfoDisplayer InfoDisplayer { get; private set; }
+
+		private DeckBuilderCardView myView;
+		private DeckBuilderTopLeftCardView topLeftCardView;
+
 		private DeckBuilderCard card;
 
-		public DeckBuilderCardController(DeckBuilderCardView view, DeckBuilderCard card)
+		public void Init(DeckBuilderCard card, DeckBuilderTopLeftCardView topLeftCardView)
 		{
-			this.view = view;
 			this.card = card;
+			myView.Show(card);
+			this.topLeftCardView = topLeftCardView;
 		}
 
-		public void Display() => view.Show(card);
+		public override void _Ready() => myView = new DeckBuilderCardView(InfoDisplayer);
+
+		public void ShowInTopLeft() => topLeftCardView.Show(card);
 	}
 }
