@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
@@ -10,9 +11,11 @@ using Newtonsoft.Json;
 
 namespace Kompas.UI.DeckBuilder
 {
-	public partial class DeckBuilderDeckController : Node
+	public partial class DeckBuilderDeckController : Control
 	{
 		public const string DeckFolderPath = "user://Decks";
+
+		public enum Tab { Normal, NewDeck }
 
 		[Export]
 		private Control DeckNodesParent { get; set; }
@@ -24,6 +27,9 @@ namespace Kompas.UI.DeckBuilder
 
 		[Export]
 		private DeckBuilderController DeckBuilderController { get; set; }
+
+		[Export]
+		private Control[] Tabs { get; set; }
 
 		private Decklist currentDeck;
 
@@ -44,6 +50,21 @@ namespace Kompas.UI.DeckBuilder
 			ClearDeck();
 
 			LoadDeck("TEST");
+		}
+
+		public void ShowController(Tab toShow)
+		{
+			foreach (Tab tab in Enum.GetValues(typeof(Tab)))
+			{
+				Tabs[(int)tab].Visible = tab == toShow;
+			}
+		}
+
+		public void NewDeck(string name)
+		{
+			SaveDeck();
+			ClearDeck();
+			currentDeck = new() { deckName = name };
 		}
 
 		private void ClearDeck()

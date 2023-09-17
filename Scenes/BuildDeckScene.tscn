@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=10 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="4_c8rh7"]
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderBuiltDeckAvatarInfoDisplayer.cs" id="6_53b6o"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
 [ext_resource type="PackedScene" uid="uid://b3pt42ghblw0j" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderPrefab.tscn" id="7_lxxb4"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer")]
@@ -197,15 +198,24 @@ stretch_mode = 4
 script = ExtResource("6_53b6o")
 FallbackAvatarTexture = ExtResource("4_c8rh7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/Deck View/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer"]
+[node name="Normal Deck Controls VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
@@ -214,16 +224,16 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="New Deck Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 text = "New Deck"
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -233,9 +243,47 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Deck Select" type="OptionButton" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="Deck Select" type="OptionButton" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="New Deck VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control" node_paths=PackedStringArray("DeckBuilderDeckController", "DeckNameEdit")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_fm1fl")
+DeckBuilderDeckController = NodePath("../../../Cards/ScrollContainer")
+DeckNameEdit = NodePath("New Deck HBoxContainer/Deck Name LineEdit")
+
+[node name="Control" type="Control" parent="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="New Deck HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Deck Name LineEdit" type="LineEdit" parent="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.5
+placeholder_text = "Name your new deck..."
+
+[node name="Confirm Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirm"
+
+[node name="Cancel Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
 
 [node name="Cards" type="Control" parent="HBoxContainer/Deck View"]
 layout_mode = 2
@@ -250,7 +298,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarInfoDisplayer", "DeckBuilderController")]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarInfoDisplayer", "DeckBuilderController", "Tabs")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -263,6 +311,7 @@ DeckNodesParent = NodePath("GridContainer")
 DeckBuilderInfoDisplayerPrefab = ExtResource("7_lxxb4")
 AvatarInfoDisplayer = NodePath("../../HBoxContainer/Avatar MarginContainer/AvatarView")
 DeckBuilderController = NodePath("../../../..")
+Tabs = [NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../HBoxContainer/Control/New Deck VBoxContainer")]
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Deck View/Cards/ScrollContainer"]
 layout_mode = 2
@@ -418,3 +467,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
+
+[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer/New Deck Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
+[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
+[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
