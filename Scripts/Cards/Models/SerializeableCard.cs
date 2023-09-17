@@ -33,5 +33,7 @@ namespace Kompas.Cards.Models
 		public string subtext;
 
 		public CardStats Stats => (n, e, s, w, c, a);
+
+		public override string ToString() => $"{cardName}";
 	}
 }

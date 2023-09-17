@@ -49,8 +49,6 @@ namespace Kompas.UI.DeckBuilder
 				string deckName = deckFileName[..^5];
 				AddDeck(deckName);
 			}
-
-			if (deckNames.Count > 0) LoadDeck(deckNames[0]);
 		}
 
 		public void ShowController(Tab toShow)
@@ -88,7 +86,11 @@ namespace Kompas.UI.DeckBuilder
 			deck.StoreString(json);
 		}
 
-		public void LoadDeck(int index) => LoadDeck(deckNames[index]);
+		public void LoadDeck(int index)
+		{
+			if (deckNames.Count <= index) return;
+			LoadDeck(deckNames[index]);
+		}
 
 		private void LoadDeck(string deckName)
 		{

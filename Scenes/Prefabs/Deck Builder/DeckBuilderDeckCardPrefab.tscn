@@ -14,3 +14,5 @@ layout_mode = 2
 texture = ExtResource("1_d46xx")
 expand_mode = 5
 script = ExtResource("2_gn108")
+
+[connection signal="mouse_entered" from="." to="." method="ShowInTopLeft"]

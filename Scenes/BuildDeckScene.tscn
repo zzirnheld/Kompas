@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
 [ext_resource type="PackedScene" uid="uid://bakhj40q1h8xp" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderSearchCardPrefab.tscn" id="11_2nuur"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer")]
+[node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer", "DeckController")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vu5h4")
 CardInfoDisplayer = NodePath("HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)")
+DeckController = NodePath("HBoxContainer/Deck View/Cards/ScrollContainer")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.176471, 0.137255, 0.294118, 1)
@@ -50,11 +51,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_cdmx8")
 
-[node name="Not a Card (PLACEHOLDER)" type="VBoxContainer" parent="HBoxContainer/Card Info/MarginContainer"]
+[node name="Not a Card (PLACEHOLDER)" type="VBoxContainer" parent="HBoxContainer/Card Info/MarginContainer" node_paths=PackedStringArray("Image", "N", "E", "S", "W", "C", "A", "CardName", "Subtypes", "EffText")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 script = ExtResource("3_dc8x7")
+Image = NodePath("Card Face Image")
+N = NodePath("Stats/N/N Value")
+E = NodePath("Stats/E/E Value")
+S = NodePath("Stats/S/S Value")
+W = NodePath("Stats/W/W Value")
+C = NodePath("Stats/C/C Value")
+A = NodePath("Stats/A/A Value")
+CardName = NodePath("Card Name")
+Subtypes = NodePath("Subtypes")
+EffText = NodePath("Effect Text")
 
 [node name="Card Face Image" type="TextureRect" parent="HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
 layout_mode = 2

@@ -9,6 +9,8 @@ namespace Kompas.UI.DeckBuilder
 	{
 		[Export]
 		private ControlInfoDisplayer CardInfoDisplayer { get; set; }
+		[Export]
+		private DeckBuilderDeckController DeckController { get; set; }
 
 		public DeckBuilderCardRepository CardRepository { get; } = new DeckBuilderCardRepository();
 		public DeckBuilderTopLeftCardView CardView { get; private set; }
@@ -16,7 +18,8 @@ namespace Kompas.UI.DeckBuilder
 		public override void _Ready()
 		{
 			CardView = new DeckBuilderTopLeftCardView(CardInfoDisplayer);
-			CardView.Show(null);
+			CardView.Show(null, refresh: true);
+			DeckController.LoadDeck(0);
 		}
 	}
 }

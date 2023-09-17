@@ -2,8 +2,6 @@ using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
-using Kompas.Cards.Views;
-using Kompas.UI.CardInfoDisplayers.DeckBuilder;
 using System.Linq;
 
 namespace Kompas.UI.DeckBuilder
