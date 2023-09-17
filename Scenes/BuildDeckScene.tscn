@@ -24,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vu5h4")
 CardInfoDisplayer = NodePath("HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)")
-DeckController = NodePath("HBoxContainer/Deck View/Cards/ScrollContainer")
+DeckController = NodePath("HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.176471, 0.137255, 0.294118, 1)
@@ -279,7 +279,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_fm1fl")
-DeckBuilderDeckController = NodePath("../../../Cards/ScrollContainer")
+DeckBuilderDeckController = NodePath("../../../Cards/MarginContainer/ScrollContainer")
 DeckNameEdit = NodePath("New Deck HBoxContainer/Deck Name LineEdit")
 
 [node name="Control" type="Control" parent="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer"]
@@ -321,27 +321,225 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect")]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/Cards"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards/MarginContainer" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect")]
+layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_f63o8")
 DeckNodesParent = NodePath("GridContainer")
 DeckCardControllerPrefab = ExtResource("7_lxxb4")
-AvatarController = NodePath("../../HBoxContainer/Avatar MarginContainer")
-DeckBuilderController = NodePath("../../../..")
-Tabs = [NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../HBoxContainer/Control/New Deck VBoxContainer")]
-DeckNameSelect = NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select")
+AvatarController = NodePath("../../../HBoxContainer/Avatar MarginContainer")
+DeckBuilderController = NodePath("../../../../..")
+Tabs = [NodePath("../../../HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../../HBoxContainer/Control/New Deck VBoxContainer")]
+DeckNameSelect = NodePath("../../../HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select")
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Deck View/Cards/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 8
+
+[node name="VBoxContainer" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+
+[node name="VBoxContainer2" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer3" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer4" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer5" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer6" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer7" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer8" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer9" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer10" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer11" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer12" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer13" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer14" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer15" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer16" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer17" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer18" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer19" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer20" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer21" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer22" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer23" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer24" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer25" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer26" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer27" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer28" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer29" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer30" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer31" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer32" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer33" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer34" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer35" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer36" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer37" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer38" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer39" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer40" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer41" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer42" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer43" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer44" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer45" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer46" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer47" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
+
+[node name="VBoxContainer48" parent="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("7_lxxb4")]
+layout_mode = 2
+InfoDisplayer = NodePath("../VBoxContainer/TextureRect")
 
 [node name="Card Search" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -413,8 +611,8 @@ columns = 4
 
 [connection signal="mouse_entered" from="HBoxContainer/Deck View/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/Deck View/HBoxContainer/Avatar MarginContainer" method="ShowInTopLeft"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/New Deck Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
-[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/Save Deck Button" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="SaveDeck"]
-[connection signal="item_selected" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="LoadDeck"]
+[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/Save Deck Button" to="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer" method="SaveDeck"]
+[connection signal="item_selected" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select" to="HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer" method="LoadDeck"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
 [connection signal="text_changed" from="HBoxContainer/Card Search/Search Lower Half/Search HBoxContainer/Search Text MarginContainer/Search LineEdit" to="HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent" method="Search"]

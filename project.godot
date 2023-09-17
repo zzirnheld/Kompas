@@ -17,8 +17,6 @@ config/icon="res://Shame/icon.svg"
 
 [display]
 
-window/size/viewport_width=1024
-window/size/viewport_height=720
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
