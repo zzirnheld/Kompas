@@ -6,6 +6,6 @@ namespace Kompas.Shared
 	{
 		public string deckName;
 		public string avatarName;
-		public List<string> deck;
+		public List<string> deck = new();
 	}
 }

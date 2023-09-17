@@ -233,6 +233,10 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 text = "New Deck"
 
+[node name="Save Deck Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -298,7 +302,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarInfoDisplayer", "DeckBuilderController", "Tabs")]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarInfoDisplayer", "DeckBuilderController", "Tabs", "DeckNameSelect")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -312,6 +316,7 @@ DeckBuilderInfoDisplayerPrefab = ExtResource("7_lxxb4")
 AvatarInfoDisplayer = NodePath("../../HBoxContainer/Avatar MarginContainer/AvatarView")
 DeckBuilderController = NodePath("../../../..")
 Tabs = [NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../HBoxContainer/Control/New Deck VBoxContainer")]
+DeckNameSelect = NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer/Deck Select")
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Deck View/Cards/ScrollContainer"]
 layout_mode = 2
@@ -469,5 +474,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer/New Deck Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
+[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer/Save Deck Button" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="SaveDeck"]
+[connection signal="item_selected" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer/Deck Select" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="LoadDeck"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
