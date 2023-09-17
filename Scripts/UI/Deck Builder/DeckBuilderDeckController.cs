@@ -123,11 +123,11 @@ namespace Kompas.UI.DeckBuilder
 			AddToDeck(card);
 		}
 
-		private void AddToDeck(DeckBuilderCard card)
+		public void AddToDeck(DeckBuilderCard card)
 		{
 			var ctrl = CreateCardController();
 			DeckNodesParent.AddChild(ctrl);
-			ctrl.Init(card, DeckBuilderController.CardView);
+			ctrl.Init(card, DeckBuilderController.CardView, this);
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
 		}
 

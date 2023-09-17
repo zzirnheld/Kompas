@@ -56,7 +56,7 @@ namespace Kompas.UI.DeckBuilder
 		{
 			var ctrl = CreateCardController();
 			SearchGridParent.AddChild(ctrl);
-			ctrl.Init(card, DeckBuilderController.CardView);
+			ctrl.Init(card, DeckBuilderController.CardView, DeckBuilderController.DeckController);
 		}
 
 		private DeckBuilderCardController CreateCardController()

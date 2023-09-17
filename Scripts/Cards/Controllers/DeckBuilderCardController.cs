@@ -2,6 +2,7 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.Cards.Views;
 using Kompas.UI.CardInfoDisplayers.DeckBuilder;
+using Kompas.UI.DeckBuilder;
 
 namespace Kompas.Cards.Controllers
 {
@@ -10,20 +11,26 @@ namespace Kompas.Cards.Controllers
 		[Export]
 		public DeckBuilderInfoDisplayer InfoDisplayer { get; private set; }
 
-		private DeckBuilderCardView myView;
+		protected DeckBuilderDeckController DeckController { get; private set; }
+		protected DeckBuilderCard Card { get; private set; }
+
 		private DeckBuilderTopLeftCardView topLeftCardView;
 
-		private DeckBuilderCard card;
-
-		public void Init(DeckBuilderCard card, DeckBuilderTopLeftCardView topLeftCardView)
-		{
-			this.card = card;
-			myView.Show(card);
-			this.topLeftCardView = topLeftCardView;
-		}
+		private DeckBuilderCardView myView;
 
 		public override void _Ready() => myView = new DeckBuilderCardView(InfoDisplayer);
 
-		public void ShowInTopLeft() => topLeftCardView.Show(card);
+		public void Init(DeckBuilderCard card, DeckBuilderTopLeftCardView topLeftCardView, DeckBuilderDeckController deckController)
+		{
+			DeckController = deckController;
+			Card = card;
+
+			this.topLeftCardView = topLeftCardView;
+
+			myView.Show(card);
+		}
+
+
+		public void ShowInTopLeft() => topLeftCardView.Show(Card);
 	}
 }

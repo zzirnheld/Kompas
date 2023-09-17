@@ -10,7 +10,7 @@ namespace Kompas.UI.DeckBuilder
 		[Export]
 		private ControlInfoDisplayer CardInfoDisplayer { get; set; }
 		[Export]
-		private DeckBuilderDeckController DeckController { get; set; }
+		public DeckBuilderDeckController DeckController { get; private set; }
 
 		public DeckBuilderCardRepository CardRepository { get; } = new DeckBuilderCardRepository();
 		public DeckBuilderTopLeftCardView CardView { get; private set; }
