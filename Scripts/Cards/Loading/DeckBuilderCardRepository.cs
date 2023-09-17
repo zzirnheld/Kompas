@@ -33,11 +33,14 @@ namespace Kompas.Cards.Loading
 		}
 		*/
 
-		public DeckBuilderCard CreateDeckBuilderCard(string cardName)
+		public static DeckBuilderCard CreateDeckBuilderCard(string cardName)
 		{
 			var json = GetJsonFromName(cardName);
 			var serializableCard = SerializableCardFromJson(json);
-			return new DeckBuilderCard(serializableCard, cardFileNames[cardName]);
+			return CreateDeckBuilderCard(serializableCard);
 		}
+
+		public static DeckBuilderCard CreateDeckBuilderCard(SerializableCard serializableCard)
+			=> new(serializableCard, cardFileNames[serializableCard.cardName]);
 	}
 }

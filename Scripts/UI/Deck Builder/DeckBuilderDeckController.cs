@@ -53,21 +53,6 @@ namespace Kompas.UI.DeckBuilder
 			if (deckNames.Count > 0) LoadDeck(deckNames[0]);
 		}
 
-		private void AddDeck(string deckName)
-		{
-			deckNames.Add(deckName);
-			DeckNameSelect.AddItem(deckName);
-		}
-
-		private static void EnsureDeckDirectory()
-		{
-			if (!DirAccess.DirExistsAbsolute(DeckFolderPath))
-			{
-				using var folder = DirAccess.Open("user://");
-				folder.MakeDir(DeckFolderPath);
-			}
-		}
-
 		public void ShowController(Tab toShow)
 		{
 			foreach (Tab tab in Enum.GetValues(typeof(Tab)))
@@ -80,6 +65,7 @@ namespace Kompas.UI.DeckBuilder
 		{
 			SaveDeck();
 			ClearDeck();
+
 			currentDeck = new() { deckName = name };
 			AddDeck(name);
 			DeckNameSelect.Select(DeckNameSelect.ItemCount - 1);
@@ -117,7 +103,7 @@ namespace Kompas.UI.DeckBuilder
 
 			if (decklist.avatarName != null)
 			{
-				var avatar = DeckBuilderController.CardRepository.CreateDeckBuilderCard(decklist.avatarName);
+				var avatar = DeckBuilderCardRepository.CreateDeckBuilderCard(decklist.avatarName);
 				var avatarView = new DeckBuilderCardView(AvatarInfoDisplayer);
 				var avatarCtrl = new DeckBuilderCardController(avatarView, avatar);
 				avatarCtrl.Display();
@@ -131,7 +117,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private void AddToDeck(string cardName)
 		{
-			var card = DeckBuilderController.CardRepository.CreateDeckBuilderCard(cardName);
+			var card = DeckBuilderCardRepository.CreateDeckBuilderCard(cardName);
 			AddToDeck(card);
 		}
 
@@ -140,7 +126,7 @@ namespace Kompas.UI.DeckBuilder
 			var infoDisplayer = CreateDeckInfoDisplayer();
 			var view = new DeckBuilderCardView(infoDisplayer);
 			var ctrl = new DeckBuilderCardController(view, card);
-			DeckNodesParent.AddChild(view.InfoDisplayer);
+			DeckNodesParent.AddChild(infoDisplayer);
 			ctrl.Display();
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
 		}
@@ -150,6 +136,21 @@ namespace Kompas.UI.DeckBuilder
 			if (DeckBuilderInfoDisplayerPrefab.Instantiate() is not DeckBuilderBuiltDeckInfoDisplayer card)
 					throw new System.ArgumentNullException(nameof(DeckBuilderInfoDisplayerPrefab), "Was not the right type");
 			return card;
+		}
+
+		private static void EnsureDeckDirectory()
+		{
+			if (!DirAccess.DirExistsAbsolute(DeckFolderPath))
+			{
+				using var folder = DirAccess.Open("user://");
+				folder.MakeDir(DeckFolderPath);
+			}
+		}
+
+		private void AddDeck(string deckName)
+		{
+			deckNames.Add(deckName);
+			DeckNameSelect.AddItem(deckName);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=12 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderBuiltDeckAvatarInfoDisplayer.cs" id="6_53b6o"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
-[ext_resource type="PackedScene" uid="uid://b3pt42ghblw0j" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderPrefab.tscn" id="7_lxxb4"]
+[ext_resource type="PackedScene" uid="uid://b3pt42ghblw0j" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderDeckCardPrefab.tscn" id="7_lxxb4"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
+[ext_resource type="PackedScene" uid="uid://dn1rq54tn0c7a" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderSearchCardPrefab.tscn" id="11_2nuur"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer")]
 layout_mode = 3
@@ -215,7 +217,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
+[node name="Deck Buttons MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
@@ -224,20 +226,20 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="New Deck Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="New Deck Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "New Deck"
 
-[node name="Save Deck Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="Save Deck Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Save"
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
+[node name="Deck Select MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -247,7 +249,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Deck Select" type="OptionButton" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer"]
+[node name="Deck Select" type="OptionButton" parent="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -316,7 +318,7 @@ DeckBuilderInfoDisplayerPrefab = ExtResource("7_lxxb4")
 AvatarInfoDisplayer = NodePath("../../HBoxContainer/Avatar MarginContainer/AvatarView")
 DeckBuilderController = NodePath("../../../..")
 Tabs = [NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../HBoxContainer/Control/New Deck VBoxContainer")]
-DeckNameSelect = NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer/Deck Select")
+DeckNameSelect = NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select")
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Deck View/Cards/ScrollContainer"]
 layout_mode = 2
@@ -473,8 +475,72 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 
-[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer/New Deck Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
-[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer2/HBoxContainer/Save Deck Button" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="SaveDeck"]
-[connection signal="item_selected" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/MarginContainer/Deck Select" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="LoadDeck"]
+[node name="More Options MarginContainer" type="MarginContainer" parent="HBoxContainer/Card Search"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer/Card Search/More Options MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("2_l8goj")
+stretch_mode = 5
+
+[node name="Search Lower Half" type="VBoxContainer" parent="HBoxContainer/Card Search"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Search HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Card Search/Search Lower Half"]
+layout_mode = 2
+
+[node name="Search Text MarginContainer" type="MarginContainer" parent="HBoxContainer/Card Search/Search Lower Half/Search HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="Search LineEdit" type="LineEdit" parent="HBoxContainer/Card Search/Search Lower Half/Search HBoxContainer/Search Text MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search for cards..."
+
+[node name="Searched Cards Parent" type="Control" parent="HBoxContainer/Card Search/Search Lower Half" node_paths=PackedStringArray("DeckBuilderController", "SearchGridParent")]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("10_tq1we")
+DeckBuilderController = NodePath("../../../..")
+SearchInfoDisplayerPrefab = ExtResource("11_2nuur")
+SearchGridParent = NodePath("Searched Cards MarginContainer/Searched Cards ScrollContainer/Searched Cards GridContainer")
+
+[node name="Searched Cards MarginContainer" type="MarginContainer" parent="HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Searched Cards ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent/Searched Cards MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Searched Cards GridContainer" type="GridContainer" parent="HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent/Searched Cards MarginContainer/Searched Cards ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/New Deck Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
+[connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/Save Deck Button" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="SaveDeck"]
+[connection signal="item_selected" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="LoadDeck"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
+[connection signal="text_changed" from="HBoxContainer/Card Search/Search Lower Half/Search HBoxContainer/Search Text MarginContainer/Search LineEdit" to="HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent" method="Search"]
