@@ -13,13 +13,13 @@ namespace Kompas.UI.DeckBuilder
 		public DeckBuilderDeckController DeckController { get; private set; }
 
 		public DeckBuilderCardRepository CardRepository { get; } = new DeckBuilderCardRepository();
-		public DeckBuilderTopLeftCardView CardView { get; private set; }
+
+		private DeckBuilderTopLeftCardView cardView;
+		public DeckBuilderTopLeftCardView CardView => cardView ??= new DeckBuilderTopLeftCardView(CardInfoDisplayer);
 
 		public override void _Ready()
 		{
-			CardView = new DeckBuilderTopLeftCardView(CardInfoDisplayer);
 			CardView.Show(null, refresh: true);
-			DeckController.LoadDeck(0);
 		}
 	}
 }

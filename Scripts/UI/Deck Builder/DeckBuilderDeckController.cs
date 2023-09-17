@@ -4,10 +4,7 @@ using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
-using Kompas.Cards.Views;
 using Kompas.Shared;
-using Kompas.UI.CardInfoDisplayers;
-using Kompas.UI.CardInfoDisplayers.DeckBuilder;
 using Newtonsoft.Json;
 
 namespace Kompas.UI.DeckBuilder
@@ -24,7 +21,7 @@ namespace Kompas.UI.DeckBuilder
 		[Export]
 		private PackedScene DeckCardControllerPrefab { get; set; }
 		[Export]
-		private DeckBuilderBuiltDeckAvatarInfoDisplayer AvatarInfoDisplayer { get; set; }
+		private DeckBuilderAvatarController AvatarController { get; set; }
 
 		[Export]
 		private DeckBuilderController DeckBuilderController { get; set; }
@@ -49,6 +46,9 @@ namespace Kompas.UI.DeckBuilder
 				string deckName = deckFileName[..^5];
 				AddDeck(deckName);
 			}
+
+			AvatarController.Init(null, DeckBuilderController.CardView, this);
+			LoadDeck(0);
 		}
 
 		public void ShowController(Tab toShow)
@@ -73,7 +73,7 @@ namespace Kompas.UI.DeckBuilder
 		private void ClearDeck()
 		{
 			foreach (var node in DeckNodesParent.GetChildren()) node.QueueFree();
-			AvatarInfoDisplayer.Clear();
+			AvatarController.Clear();
 		}
 
 		private void SaveDeck()
@@ -106,9 +106,7 @@ namespace Kompas.UI.DeckBuilder
 			if (decklist.avatarName != null)
 			{
 				var avatar = DeckBuilderCardRepository.CreateDeckBuilderCard(decklist.avatarName);
-				var avatarView = new DeckBuilderCardView(AvatarInfoDisplayer);
-				var avatarCtrl = new DirectCardController<DeckBuilderCard, DeckBuilderInfoDisplayer>(avatarView, avatar);
-				avatarCtrl.Display();
+				AvatarController.UpdateAvatar(avatar);
 			}
 
 			if (decklist.deck != null)

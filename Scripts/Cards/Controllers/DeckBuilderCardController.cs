@@ -12,7 +12,17 @@ namespace Kompas.Cards.Controllers
 		public DeckBuilderInfoDisplayer InfoDisplayer { get; private set; }
 
 		protected DeckBuilderDeckController DeckController { get; private set; }
-		protected DeckBuilderCard Card { get; private set; }
+
+		private DeckBuilderCard card;
+		protected DeckBuilderCard Card
+		{
+			get => card;
+			set
+			{
+				card = value;
+				myView.Show(card);
+			}
+		}
 
 		private DeckBuilderTopLeftCardView topLeftCardView;
 
@@ -23,11 +33,10 @@ namespace Kompas.Cards.Controllers
 		public void Init(DeckBuilderCard card, DeckBuilderTopLeftCardView topLeftCardView, DeckBuilderDeckController deckController)
 		{
 			DeckController = deckController;
-			Card = card;
 
 			this.topLeftCardView = topLeftCardView;
 
-			myView.Show(card);
+			Card = card;
 		}
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=15 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
 [ext_resource type="PackedScene" uid="uid://dnb8qb1ugcsl" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderDeckCardPrefab.tscn" id="7_lxxb4"]
 [ext_resource type="Theme" uid="uid://cjrmtsdjr3js1" path="res://Themes/Shrinkable Label.tres" id="7_oqr5g"]
+[ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
 [ext_resource type="PackedScene" uid="uid://bakhj40q1h8xp" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderSearchCardPrefab.tscn" id="11_2nuur"]
 
@@ -191,12 +192,14 @@ size_flags_stretch_ratio = 5.0
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Avatar MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer"]
+[node name="Avatar MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer" node_paths=PackedStringArray("InfoDisplayer")]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("8_jhgvb")
+InfoDisplayer = NodePath("AvatarView")
 
 [node name="AvatarView" type="TextureRect" parent="HBoxContainer/Deck View/HBoxContainer/Avatar MarginContainer"]
 layout_mode = 2
@@ -204,7 +207,15 @@ texture = ExtResource("4_c8rh7")
 expand_mode = 3
 stretch_mode = 4
 script = ExtResource("6_53b6o")
-FallbackAvatarTexture = ExtResource("4_c8rh7")
+
+[node name="Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/Avatar MarginContainer/AvatarView"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Control" type="Control" parent="HBoxContainer/Deck View/HBoxContainer"]
 layout_mode = 2
@@ -310,7 +321,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarInfoDisplayer", "DeckBuilderController", "Tabs", "DeckNameSelect")]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -321,7 +332,7 @@ size_flags_vertical = 3
 script = ExtResource("6_f63o8")
 DeckNodesParent = NodePath("GridContainer")
 DeckCardControllerPrefab = ExtResource("7_lxxb4")
-AvatarInfoDisplayer = NodePath("../../HBoxContainer/Avatar MarginContainer/AvatarView")
+AvatarController = NodePath("../../HBoxContainer/Avatar MarginContainer")
 DeckBuilderController = NodePath("../../../..")
 Tabs = [NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../HBoxContainer/Control/New Deck VBoxContainer")]
 DeckNameSelect = NodePath("../../HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select")
@@ -400,6 +411,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 4
 
+[connection signal="mouse_entered" from="HBoxContainer/Deck View/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/Deck View/HBoxContainer/Avatar MarginContainer" method="ShowInTopLeft"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/New Deck Button" to="HBoxContainer/Deck View/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
 [connection signal="pressed" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/Save Deck Button" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="SaveDeck"]
 [connection signal="item_selected" from="HBoxContainer/Deck View/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select" to="HBoxContainer/Deck View/Cards/ScrollContainer" method="LoadDeck"]
