@@ -179,6 +179,7 @@ namespace Kompas.Cards.Models
 			{
 				GD.Print($"Names are different, changing card pics to match name {FileName}");
 				CardFaceImage = CardRepository.LoadSprite(FileName);
+				GD.Print($"Did we find an image for {cardName}? {null != CardFaceImage}");
 			}
 			else GD.Print("Names match. Set Info not updating pics.");
 

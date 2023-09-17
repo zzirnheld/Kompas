@@ -9,6 +9,7 @@ namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 
 		public void DisplayCardImage(CardBase card)
 		{
+			GD.Print($"{Name} Displaying image of {card}. does it have an image? {null != card.CardFaceImage}");
 			Texture = card.CardFaceImage;
 		}
 

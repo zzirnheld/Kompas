@@ -182,20 +182,60 @@ size_flags_stretch_ratio = 5.0
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer"]
+[node name="Avatar MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Deck View/HBoxContainer/MarginContainer"]
+[node name="AvatarView" type="TextureRect" parent="HBoxContainer/Deck View/HBoxContainer/Avatar MarginContainer"]
 layout_mode = 2
-texture = ExtResource("2_l8goj")
+texture = ExtResource("4_c8rh7")
 expand_mode = 3
 stretch_mode = 4
 script = ExtResource("6_53b6o")
+FallbackAvatarTexture = ExtResource("4_c8rh7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Button" type="Button" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+text = "New Deck"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Deck Select" type="OptionButton" parent="HBoxContainer/Deck View/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Cards" type="Control" parent="HBoxContainer/Deck View"]
 layout_mode = 2
@@ -210,7 +250,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent")]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Deck View/Cards" node_paths=PackedStringArray("DeckNodesParent", "AvatarInfoDisplayer", "DeckBuilderController")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -221,6 +261,8 @@ size_flags_vertical = 3
 script = ExtResource("6_f63o8")
 DeckNodesParent = NodePath("GridContainer")
 DeckBuilderInfoDisplayerPrefab = ExtResource("7_lxxb4")
+AvatarInfoDisplayer = NodePath("../../HBoxContainer/Avatar MarginContainer/AvatarView")
+DeckBuilderController = NodePath("../../../..")
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Deck View/Cards/ScrollContainer"]
 layout_mode = 2
