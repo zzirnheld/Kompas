@@ -21,6 +21,7 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Search(string basicText)
 		{
+			GD.Print($"Searching {basicText}");
 			if (basicText.Length < 3)
 			{
 				Clear();
@@ -33,9 +34,9 @@ namespace Kompas.UI.DeckBuilder
 
 			bool IsValid(SerializableCard sCard)
 			{
-				return sCard.cardName.Contains(basicText)
-					|| sCard.subtypeText.Contains(basicText)
-					|| sCard.effText.Contains(basicText);
+				return sCard.cardName.ToLower().Contains(basicText.ToLower())
+					|| sCard.subtypeText.ToLower().Contains(basicText.ToLower())
+					|| sCard.effText.ToLower().Contains(basicText.ToLower());
 			}
 			foreach (var sCard in CardRepository.SerializableCards.Where(IsValid)) ShowInSearch(sCard);
 		}
@@ -47,6 +48,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private void ShowInSearch(SerializableCard serializableCard)
 		{
+			GD.Print($"Showing {serializableCard}");
 			var card = DeckBuilderCardRepository.CreateDeckBuilderCard(serializableCard);
 			ShowInSearch(card);
 		}
