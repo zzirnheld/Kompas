@@ -1,5 +1,6 @@
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.UI.TextBehavior;
 
 namespace Kompas.UI.CardInfoDisplayers
 {
@@ -20,9 +21,9 @@ namespace Kompas.UI.CardInfoDisplayers
 		[Export]
 		private Label A { get; set; }
 		[Export]
-		private Label CardName { get; set; }
+		private ShrinkOnOverrun CardName { get; set; }
 		[Export]
-		private Label Subtypes { get; set; }
+		private ShrinkOnOverrun Subtypes { get; set; }
 		[Export]
 		private RichTextLabel EffText { get; set; }
 
@@ -45,8 +46,8 @@ namespace Kompas.UI.CardInfoDisplayers
 
 		public void DisplayCardRulesText(CardBase card)
 		{
-			CardName.Text = card.CardName;
-			Subtypes.Text = card.SubtypeText;
+			CardName.ShrinkableText = card.CardName;
+			Subtypes.ShrinkableText = card.SubtypeText;
 			EffText.Text = card.EffText;
 		}
 	}

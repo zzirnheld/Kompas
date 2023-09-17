@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=14 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -6,9 +6,11 @@
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/ControlInfoDisplayer.cs" id="3_dc8x7"]
 [ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="4_c8rh7"]
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderBuiltDeckAvatarInfoDisplayer.cs" id="6_53b6o"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkOnOverrun.cs" id="6_53ng8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
 [ext_resource type="PackedScene" uid="uid://dnb8qb1ugcsl" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderDeckCardPrefab.tscn" id="7_lxxb4"]
+[ext_resource type="Theme" uid="uid://cjrmtsdjr3js1" path="res://Themes/Shrinkable Label.tres" id="7_oqr5g"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
 [ext_resource type="PackedScene" uid="uid://bakhj40q1h8xp" path="res://Scenes/Prefabs/Deck Builder/DeckBuilderSearchCardPrefab.tscn" id="11_2nuur"]
 
@@ -77,11 +79,14 @@ stretch_mode = 4
 layout_mode = 2
 text = "This is a card's name"
 horizontal_alignment = 1
+script = ExtResource("6_53ng8")
 
 [node name="Subtypes" type="Label" parent="HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
 layout_mode = 2
-text = "Humanoid Idiot"
+theme = ExtResource("7_oqr5g")
+text = "Ethereal Shaper Idiot"
 horizontal_alignment = 1
+script = ExtResource("6_53ng8")
 
 [node name="Stats" type="HBoxContainer" parent="HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
 layout_mode = 2
