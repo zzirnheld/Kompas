@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://xe3swobex507"]
+
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="1_nsd27"]
+[ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderSearchCardController.cs" id="2_hmudd"]
+[ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderSearchInfoDisplayer.cs" id="3_gl52q"]
+[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="4_umisv"]
+
+[node name="TextureRect" type="TextureRect" node_paths=PackedStringArray("InfoDisplayer")]
+size_flags_horizontal = 3
+texture = ExtResource("1_nsd27")
+expand_mode = 4
+script = ExtResource("2_hmudd")
+InfoDisplayer = NodePath("Control")
+
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("CardFaceImage")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_gl52q")
+FallbackCardImageTexture = ExtResource("4_umisv")
+CardFaceImage = NodePath("..")
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="Button" to="." method="ShowInTopLeft"]
+[connection signal="pressed" from="Button" to="." method="AddToDeck"]

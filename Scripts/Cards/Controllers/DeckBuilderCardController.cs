@@ -6,7 +6,11 @@ using Kompas.UI.DeckBuilder;
 
 namespace Kompas.Cards.Controllers
 {
-	public partial class DeckBuilderCardController : Control
+	/// <summary>
+    /// Extends TextureRect because the TextureRect has to be the parent, otherwise the grid doesn't line up.
+    /// For some reason.
+    /// </summary>
+	public partial class DeckBuilderCardController : TextureRect
 	{
 		[Export]
 		public DeckBuilderInfoDisplayer InfoDisplayer { get; private set; }
