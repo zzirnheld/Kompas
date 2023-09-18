@@ -386,6 +386,68 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 8
 
+[node name="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("12_lr2s2")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_l8goj")
+expand_mode = 5
+
+[node name="invis" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="invis2" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="invis3" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="invis4" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="invis5" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="invis6" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="invis7" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="invis8" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
 [node name="Card Search" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
