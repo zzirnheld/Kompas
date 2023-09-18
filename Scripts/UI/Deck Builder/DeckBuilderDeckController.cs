@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
@@ -12,6 +13,7 @@ namespace Kompas.UI.DeckBuilder
 	public partial class DeckBuilderDeckController : Control
 	{
 		public const string DeckFolderPath = "user://Decks";
+		private const string CurrentDeckGroupName = "CurrentDeck";
 
 		public enum Tab { Normal, NewDeck }
 
@@ -31,6 +33,9 @@ namespace Kompas.UI.DeckBuilder
 
 		[Export]
 		private OptionButton DeckNameSelect { get; set; }
+
+		[Export]
+		private Control[] DeckSpacingPlaceholders { get; set; }
 
 		private readonly List<string> deckNames = new();
 
@@ -72,7 +77,9 @@ namespace Kompas.UI.DeckBuilder
 
 		private void ClearDeck()
 		{
-			foreach (var node in DeckNodesParent.GetChildren()) node.QueueFree();
+			static bool InCurrentDeck(Node child) => child.IsInGroup(CurrentDeckGroupName);
+			foreach (var node in DeckNodesParent.GetChildren().Where(InCurrentDeck)) node.QueueFree();
+
 			AvatarController.Clear();
 		}
 
@@ -113,6 +120,14 @@ namespace Kompas.UI.DeckBuilder
 				foreach (string cardName in decklist.deck) AddToDeck(cardName);
 
 			currentDeck = decklist;
+
+			ReevaluatePlaceholders();
+		}
+
+		private void ReevaluatePlaceholders()
+		{
+			bool active = (currentDeck?.deck?.Count ?? 0) < 9;
+			foreach (var placeholder in DeckSpacingPlaceholders) placeholder.Visible = active;
 		}
 
 		private void AddToDeck(string cardName)
@@ -125,8 +140,11 @@ namespace Kompas.UI.DeckBuilder
 		{
 			var ctrl = CreateCardController();
 			DeckNodesParent.AddChild(ctrl);
+			DeckNodesParent.MoveChild(ctrl, -1 - DeckSpacingPlaceholders.Length);
 			ctrl.Init(card, DeckBuilderController.CardView, this);
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
+			ctrl.AddToGroup(CurrentDeckGroupName);
+			ReevaluatePlaceholders();
 		}
 
 		private DeckBuilderCardController CreateCardController()

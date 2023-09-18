@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=16 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
+[ext_resource type="PackedScene" uid="uid://cfd3q5mmpaucw" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckInvisPrefab.tscn" id="13_wvcrl"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="14_j2qbw"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer", "DeckController")]
@@ -369,7 +370,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect")]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect", "DeckSpacingPlaceholders")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_f63o8")
@@ -379,6 +380,7 @@ AvatarController = NodePath("../../../VBoxContainer/HBoxContainer/Avatar MarginC
 DeckBuilderController = NodePath("../../../../../../..")
 Tabs = [NodePath("../../../VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../../VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer")]
 DeckNameSelect = NodePath("../../../VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select")
+DeckSpacingPlaceholders = [NodePath("GridContainer/Invis Placeholder For Grid Sizing"), NodePath("GridContainer/Invis Placeholder For Grid Sizing2"), NodePath("GridContainer/Invis Placeholder For Grid Sizing3"), NodePath("GridContainer/Invis Placeholder For Grid Sizing4"), NodePath("GridContainer/Invis Placeholder For Grid Sizing5"), NodePath("GridContainer/Invis Placeholder For Grid Sizing6"), NodePath("GridContainer/Invis Placeholder For Grid Sizing7"), NodePath("GridContainer/Invis Placeholder For Grid Sizing8")]
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer"]
 layout_mode = 2
@@ -386,67 +388,29 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 8
 
-[node name="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("12_lr2s2")]
+[node name="Invis Placeholder For Grid Sizing" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer"]
-visible = false
+[node name="Invis Placeholder For Grid Sizing2" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer/VBoxContainer"]
+[node name="Invis Placeholder For Grid Sizing3" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer/VBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_l8goj")
-expand_mode = 5
-
-[node name="invis" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
+[node name="Invis Placeholder For Grid Sizing4" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
 
-[node name="invis2" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
+[node name="Invis Placeholder For Grid Sizing5" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
 
-[node name="invis3" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
+[node name="Invis Placeholder For Grid Sizing6" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
 
-[node name="invis4" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
+[node name="Invis Placeholder For Grid Sizing7" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
 
-[node name="invis5" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
+[node name="Invis Placeholder For Grid Sizing8" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
 layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
-
-[node name="invis6" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
-
-[node name="invis7" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
-
-[node name="invis8" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Cards/MarginContainer/ScrollContainer/GridContainer" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("12_lr2s2")]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-InfoDisplayer = NodePath("../TextureRect/Control")
 
 [node name="Card Search" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

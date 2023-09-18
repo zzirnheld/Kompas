@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuyqctd230s4p"]
+
+[ext_resource type="PackedScene" uid="uid://cu5o05l0v0mye" path="res://Scenes/Prefabs/Test/grid_component.tscn" id="1_flpi6"]
+
+[node name="grid_test" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="grid_component" parent="GridContainer" instance=ExtResource("1_flpi6")]
+layout_mode = 2
+
+[node name="grid_component2" parent="GridContainer" instance=ExtResource("1_flpi6")]
+layout_mode = 2
+
+[node name="grid_component3" parent="GridContainer" instance=ExtResource("1_flpi6")]
+layout_mode = 2
+
+[node name="grid_component4" parent="GridContainer" instance=ExtResource("1_flpi6")]
+layout_mode = 2
+
+[node name="grid_component5" parent="GridContainer" instance=ExtResource("1_flpi6")]
+layout_mode = 2
+
+[node name="grid_component6" parent="GridContainer" instance=ExtResource("1_flpi6")]
+layout_mode = 2
+
+[node name="grid_component7" parent="GridContainer" instance=ExtResource("1_flpi6")]
+visible = false
+layout_mode = 2
+
+[node name="grid_component8" parent="GridContainer" instance=ExtResource("1_flpi6")]
+visible = false
+layout_mode = 2
+
+[node name="grid_component9" parent="GridContainer" instance=ExtResource("1_flpi6")]
+visible = false
+layout_mode = 2
+
+[node name="grid_component10" parent="GridContainer" instance=ExtResource("1_flpi6")]
+visible = false
+layout_mode = 2
+
+[node name="grid_component11" parent="GridContainer" instance=ExtResource("1_flpi6")]
+visible = false
+layout_mode = 2
+
+[node name="grid_component12" parent="GridContainer" instance=ExtResource("1_flpi6")]
+visible = false
+layout_mode = 2
+
+[node name="grid_component13" parent="GridContainer" instance=ExtResource("1_flpi6")]
+visible = false
+layout_mode = 2

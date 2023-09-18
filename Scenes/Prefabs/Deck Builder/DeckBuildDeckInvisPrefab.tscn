@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfd3q5mmpaucw"]
+
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="1_nxaj8"]
+
+[node name="TextureRect" type="TextureRect"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_nxaj8")
+expand_mode = 4
