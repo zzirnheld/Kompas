@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=17 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
 [ext_resource type="Theme" uid="uid://cjrmtsdjr3js1" path="res://Themes/Shrinkable Label.tres" id="7_oqr5g"]
+[ext_resource type="Texture2D" uid="uid://bfpsfa5jrx1ig" path="res://Icons/Kompas Spiral 2.png" id="8_5rhaf"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
@@ -92,7 +93,7 @@ EffText = NodePath("Effect Text")
 
 [node name="Card Face Image" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
 layout_mode = 2
-texture = ExtResource("4_c8rh7")
+texture = ExtResource("8_5rhaf")
 expand_mode = 4
 stretch_mode = 4
 
@@ -230,7 +231,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="AvatarView" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer" node_paths=PackedStringArray("InfoDisplayer")]
 layout_mode = 2
-texture = ExtResource("4_c8rh7")
+texture = ExtResource("8_5rhaf")
 expand_mode = 3
 stretch_mode = 4
 script = ExtResource("8_jhgvb")
@@ -241,7 +242,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_53b6o")
-FallbackCardImageTexture = ExtResource("4_c8rh7")
+FallbackCardImageTexture = ExtResource("8_5rhaf")
 CardFaceImage = NodePath("..")
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView"]
@@ -422,20 +423,31 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 2
 
-[node name="More Options MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer"]
-visible = false
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
-[node name="TextureButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/More Options MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("2_l8goj")
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.14159
+pivot_offset = Vector2(170, 97)
+texture = ExtResource("4_c8rh7")
+expand_mode = 1
 stretch_mode = 5
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Control/TextureRect"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Search HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer"]
 layout_mode = 2
