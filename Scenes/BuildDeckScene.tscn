@@ -424,6 +424,7 @@ size_flags_vertical = 3
 alignment = 2
 
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -434,7 +435,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -3.14159
 pivot_offset = Vector2(170, 97)
 texture = ExtResource("4_c8rh7")
 expand_mode = 1
@@ -523,6 +523,26 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+texture = ExtResource("4_c8rh7")
+expand_mode = 1
+stretch_mode = 4
 
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView" method="ShowInTopLeft"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/New Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
