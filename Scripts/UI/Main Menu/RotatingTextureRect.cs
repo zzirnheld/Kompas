@@ -46,7 +46,7 @@ namespace Kompas.UI.MainMenu
 
 		public void Resize()
 		{
-			GD.Print($"Resizing. Size is {Size}");
+			//GD.Print($"Resizing. Size is {Size}");
 			PivotOffset = Size / 2;
 		}
 
