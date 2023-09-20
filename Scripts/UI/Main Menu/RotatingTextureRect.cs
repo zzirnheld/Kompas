@@ -7,7 +7,7 @@ namespace Kompas.UI.MainMenu
 		[Export]
 		public Control center;
 
-		private float rotationDuration = 0.5f;
+		public float RotationDuration { get; set; } = 0.5f;
 		private float targetRotation;
 		private float startRotation;
 		private float time;
@@ -16,17 +16,17 @@ namespace Kompas.UI.MainMenu
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(double delta)
 		{
-			if (time > rotationDuration) return;
+			if (time > RotationDuration) return;
 
 			//The cubic that passes through (0,0) and (1,1) that is a dilation of the integral of the integral (-x - 1) is 6(x^2 / 2 - x^3 / 3)
 			time += (float) delta;
-			if (time >= rotationDuration)
+			if (time >= RotationDuration)
 			{
 				Rotation = targetRotation;
 				return;
 			}
 
-			float x = time / rotationDuration;
+			float x = time / RotationDuration;
 
 			Rotation = startRotation + ((targetRotation - startRotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
 		}

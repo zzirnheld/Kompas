@@ -12,6 +12,7 @@ namespace Kompas.UI.MainMenu
 
 		public override void _Ready()
 		{
+			RotatingTextureRect.RotationDuration = 2f;
 			RotatingTextureRect.RotateTowards((float)(-0.25f * Math.PI));
 		}
 
