@@ -2,7 +2,7 @@ using Godot;
 
 namespace Kompas.UI.MainMenu
 {
-	public partial class MainMenuKompasLogo : TextureRect
+	public partial class RotatingTextureRect : TextureRect
 	{
 		[Export]
 		public Control center;
@@ -39,8 +39,13 @@ namespace Kompas.UI.MainMenu
 
 		public void LookTowards(Vector2 targetPosition)
 		{
+			RotateTowards(RotationForVector(targetPosition));
+		}
+
+		public void RotateTowards(float angle)
+		{
 			startRotation = Rotation;
-			targetRotation = RotationForVector(targetPosition);
+			targetRotation = angle;
 			//GD.Print($"from {currentPosition} to {targetPosition}, {targetPosition.X - currentPosition.X} , {currentPosition.Y - targetPosition.Y}, so target rotation {targetRotation}");
 			time = 0f;
 		}
