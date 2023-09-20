@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuButton.cs" id="3_s7n5j"]
 [ext_resource type="Texture2D" uid="uid://btkgs1bawetv3" path="res://Icons/Main Menu/itdoesntmatterilljustrenameitwhenyougiveitbacktome_2.png" id="5_m8n8n"]
 [ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="7_qvr7y"]
-[ext_resource type="Script" path="res://Scripts/UI/Main Menu/SplashScreenLogo.cs" id="8_6vtcj"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/SplashScreenRotatingLogo.cs" id="8_466x3"]
 [ext_resource type="Theme" uid="uid://crqxt4wilagxb" path="res://Themes/Title.tres" id="8_cqwiq"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/RotatingTextureRect.cs" id="8_dv675"]
 [ext_resource type="Theme" uid="uid://c3rh5m2mgqkxm" path="res://Themes/Subtitle.tres" id="9_q4plg"]
@@ -31,7 +31,6 @@ grow_vertical = 2
 texture = ExtResource("2_pef7p")
 
 [node name="Horizontal Organizer" type="HBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -152,12 +151,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Control" type="Control" parent="Control/Horizontal Organizer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
+
 [node name="Contain Spinning Logo" type="Control" parent="Control/Horizontal Organizer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="Spinning Logo" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo" node_paths=PackedStringArray("center")]
+[node name="Spinning Logo" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo" node_paths=PackedStringArray("LeftSpacer", "center")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.1
@@ -169,7 +173,8 @@ pivot_offset = Vector2(1296, 1296)
 texture = ExtResource("7_qvr7y")
 expand_mode = 5
 stretch_mode = 4
-script = ExtResource("8_dv675")
+script = ExtResource("8_466x3")
+LeftSpacer = NodePath("../../Control")
 center = NodePath("Center of Spinning Logo")
 
 [node name="Center of Spinning Logo" type="Control" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo"]
@@ -182,7 +187,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo" node_paths=PackedStringArray("RotatingTextureRect")]
+[node name="Button" type="Button" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -190,8 +195,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("8_6vtcj")
-RotatingTextureRect = NodePath("..")
 
 [node name="Control" type="Control" parent="Control"]
 layout_mode = 1
@@ -252,4 +255,4 @@ vertical_alignment = 2
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Build Deck" to="." method="BuildDeck"]
 [connection signal="resized" from="Horizontal Organizer/Contain Spinning Logo/Spinning Logo" to="Horizontal Organizer/Contain Spinning Logo/Spinning Logo" method="Resize"]
 [connection signal="resized" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo" method="Resize"]
-[connection signal="pressed" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Button" method="SpinOut"]
+[connection signal="pressed" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo" method="SpinOut"]

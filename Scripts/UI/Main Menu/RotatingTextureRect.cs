@@ -19,16 +19,29 @@ namespace Kompas.UI.MainMenu
 			if (time > RotationDuration) return;
 
 			//The cubic that passes through (0,0) and (1,1) that is a dilation of the integral of the integral (-x - 1) is 6(x^2 / 2 - x^3 / 3)
-			time += (float) delta;
+			time += (float)delta;
 			if (time >= RotationDuration)
 			{
-				Rotation = targetRotation;
+				Arrive();
 				return;
 			}
 
 			float x = time / RotationDuration;
+			Progress(x);
+		}
 
+		/// <summary>
+        /// Progress the rotation towards its endpoint
+        /// </summary>
+        /// <param name="x">[0, 1] progress along duration</param>
+		protected virtual void Progress(float x)
+		{
 			Rotation = startRotation + ((targetRotation - startRotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
+		}
+
+		protected virtual void Arrive()
+		{
+			Rotation = targetRotation;
 		}
 
 		public void Resize()
