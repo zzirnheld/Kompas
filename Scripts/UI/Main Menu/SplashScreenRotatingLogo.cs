@@ -42,6 +42,7 @@ namespace Kompas.UI.MainMenu
 
 		protected override void Progress(float x)
 		{
+			//TODO disable top parent's collider only once it has come to rest
 			base.Progress(x);
 			if (!go) return;
 			
