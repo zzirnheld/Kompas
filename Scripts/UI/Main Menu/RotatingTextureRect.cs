@@ -52,6 +52,7 @@ namespace Kompas.UI.MainMenu
 
 		public void LookTowards(Vector2 targetPosition)
 		{
+			GD.Print($"{Name} looking towards {targetPosition}");
 			RotateTowards(RotationForVector(targetPosition));
 		}
 

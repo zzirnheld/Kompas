@@ -59,7 +59,7 @@ Server"
 icon_alignment = 2
 vertical_icon_alignment = 2
 script = ExtResource("3_s7n5j")
-SpinningLogo = NodePath("../../Contain Spinning Logo/Spinning Logo")
+SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
 [node name="Solo Mode" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
@@ -68,7 +68,7 @@ size_flags_vertical = 3
 theme = ExtResource("3_8vhcs")
 text = "VS \"AI\""
 script = ExtResource("3_s7n5j")
-SpinningLogo = NodePath("../../Contain Spinning Logo/Spinning Logo")
+SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
 [node name="Build Deck" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
@@ -77,7 +77,7 @@ size_flags_vertical = 3
 theme = ExtResource("3_8vhcs")
 text = "Build Deck"
 script = ExtResource("3_s7n5j")
-SpinningLogo = NodePath("../../Contain Spinning Logo/Spinning Logo")
+SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
 [node name="Host Server" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
@@ -86,7 +86,7 @@ size_flags_vertical = 3
 theme = ExtResource("3_8vhcs")
 text = "Host Server"
 script = ExtResource("3_s7n5j")
-SpinningLogo = NodePath("../../Contain Spinning Logo/Spinning Logo")
+SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
 [node name="Quit" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("SpinningLogo")]
 layout_mode = 2
@@ -95,7 +95,7 @@ size_flags_vertical = 3
 theme = ExtResource("3_8vhcs")
 text = "Quit"
 script = ExtResource("3_s7n5j")
-SpinningLogo = NodePath("../../Contain Spinning Logo/Spinning Logo")
+SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
 [node name="Contain Spinning Logo" type="Control" parent="Horizontal Organizer"]
 layout_mode = 2
@@ -206,18 +206,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="Control/Horizontal Organizer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
+mouse_filter = 2
 
 [node name="Contain Spinning Logo" type="Control" parent="Control/Horizontal Organizer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
+mouse_filter = 2
 
-[node name="Spinning Logo" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo" node_paths=PackedStringArray("LeftSpacer", "TopLeft", "TopRight", "BottomLeft", "BottomRight", "DisappearDuringTransition", "center")]
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo" node_paths=PackedStringArray("LeftSpacer", "TopLeft", "TopRight", "BottomLeft", "BottomRight", "DisappearDuringTransition", "center")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.1
@@ -238,7 +241,7 @@ BottomRight = NodePath("Control/Bottom Right")
 DisappearDuringTransition = [NodePath("../../../Background2"), NodePath("../../../Control")]
 center = NodePath("Center of Spinning Logo")
 
-[node name="Control" type="Control" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo"]
+[node name="Control" type="Control" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -247,7 +250,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Top Left" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Control"]
+[node name="Top Left" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Control"]
 visible = false
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
@@ -260,7 +263,7 @@ offset_right = 5.0
 offset_bottom = 5.0
 texture = ExtResource("2_pef7p")
 
-[node name="Top Right" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Control"]
+[node name="Top Right" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Control"]
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -272,7 +275,7 @@ offset_left = -5.0
 offset_bottom = 5.0
 texture = ExtResource("2_pef7p")
 
-[node name="Bottom Left" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Control"]
+[node name="Bottom Left" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Control"]
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -284,7 +287,7 @@ offset_top = -5.0
 offset_right = 5.0
 texture = ExtResource("2_pef7p")
 
-[node name="Bottom Right" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Control"]
+[node name="Bottom Right" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Control"]
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -296,7 +299,7 @@ offset_left = -5.0
 offset_top = -5.0
 texture = ExtResource("2_pef7p")
 
-[node name="Center of Spinning Logo" type="Control" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo"]
+[node name="Center of Spinning Logo" type="Control" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -306,7 +309,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo"]
+[node name="Button" type="Button" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -318,5 +321,5 @@ grow_vertical = 2
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Connect to Server" to="." method="ConnectToServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Build Deck" to="." method="BuildDeck"]
 [connection signal="resized" from="Horizontal Organizer/Contain Spinning Logo/Spinning Logo" to="Horizontal Organizer/Contain Spinning Logo/Spinning Logo" method="Resize"]
-[connection signal="resized" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo" method="Resize"]
-[connection signal="pressed" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo" method="SpinOut"]
+[connection signal="resized" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]
+[connection signal="pressed" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]
