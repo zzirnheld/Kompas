@@ -9,16 +9,18 @@ namespace Kompas.Cards.Controllers
 			//If clicked, remove
 			if (input is InputEventMouseButton mouseInput && mouseInput.Pressed)
 			{
-				if (mouseInput.ButtonIndex == MouseButton.Left)
-				{
-					DeckController.RemoveFromDeck(Card.CardName);
-					QueueFree();
-				}
+				if (mouseInput.ButtonIndex == MouseButton.Left) Delete();
 				else if (mouseInput.ButtonIndex == MouseButton.Right)
 				{
 					//TODO something probably. become avatar? duplicate?
 				}
 			}
+		}
+
+		public void Delete()
+		{
+			DeckController.RemoveFromDeck(this);
+			QueueFree();
 		}
 	}
 }

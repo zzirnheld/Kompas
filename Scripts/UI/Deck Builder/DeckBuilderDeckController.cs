@@ -15,6 +15,7 @@ namespace Kompas.UI.DeckBuilder
 		public const string DeckFolderPath = "user://Decks";
 		private const string CurrentDeckGroupName = "CurrentDeck";
 
+		//TODO factor out this tab ui behavior to make this class just responsible for CRUD-y stuff
 		public enum Tab { Normal, NewDeck }
 
 		[Export]
@@ -40,6 +41,8 @@ namespace Kompas.UI.DeckBuilder
 		private readonly List<string> deckNames = new();
 
 		private Decklist currentDeck;
+		//To maintain ordering of decks where copies of the same card aren't next to each other
+		private readonly List<DeckBuilderDeckCardController> currentDeckCards = new();
 
 		public override void _Ready()
 		{
@@ -77,10 +80,15 @@ namespace Kompas.UI.DeckBuilder
 
 		private void ClearDeck()
 		{
-			static bool InCurrentDeck(Node child) => child.IsInGroup(CurrentDeckGroupName);
-			foreach (var node in DeckNodesParent.GetChildren().Where(InCurrentDeck)) node.QueueFree();
+			foreach (var card in currentDeckCards.ToArray()) card.Delete();
 
 			AvatarController.Clear();
+			
+			if (currentDeckCards.Count > 0)
+			{
+				GD.PrintErr("Didnt' delete all cards succesfully!?");
+				currentDeckCards.Clear();
+			}
 		}
 
 		private void SaveDeck()
@@ -143,18 +151,23 @@ namespace Kompas.UI.DeckBuilder
 			DeckNodesParent.MoveChild(ctrl, -1 - DeckSpacingPlaceholders.Length);
 			ctrl.Init(card, DeckBuilderController.CardView, this);
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
+			currentDeckCards.Add(ctrl);
 			ctrl.AddToGroup(CurrentDeckGroupName);
 			ReevaluatePlaceholders();
 		}
 
-		public void RemoveFromDeck(string cardName)
+		public void RemoveFromDeck(DeckBuilderDeckCardController card)
 		{
-			currentDeck?.deck.Remove(cardName);
+			int index = currentDeckCards.IndexOf(card);
+			if (index < 0) return;
+
+			currentDeck?.deck.RemoveAt(index);
+			currentDeckCards.RemoveAt(index);
 		}
 
-		private DeckBuilderCardController CreateCardController()
+		private DeckBuilderDeckCardController CreateCardController()
 		{
-			if (DeckCardControllerPrefab.Instantiate() is not DeckBuilderCardController controller)
+			if (DeckCardControllerPrefab.Instantiate() is not DeckBuilderDeckCardController controller)
 					throw new System.ArgumentNullException(nameof(DeckCardControllerPrefab), "Was not the right type");
 			return controller;
 		}
