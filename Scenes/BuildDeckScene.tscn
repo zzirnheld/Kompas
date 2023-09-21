@@ -66,7 +66,7 @@ size_flags_stretch_ratio = 0.01
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 20
+theme_override_constants/separation = 30
 
 [node name="Card Info" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -217,27 +217,27 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View"]
+[node name="Deck Edit Buttons VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.75
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Avatar MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer"]
+[node name="Avatar MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="AvatarView" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer" node_paths=PackedStringArray("InfoDisplayer")]
+[node name="AvatarView" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer" node_paths=PackedStringArray("InfoDisplayer")]
 layout_mode = 2
 texture = ExtResource("2_l8goj")
 expand_mode = 3
@@ -245,7 +245,7 @@ stretch_mode = 4
 script = ExtResource("8_jhgvb")
 InfoDisplayer = NodePath("Control")
 
-[node name="Avatar Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView"]
+[node name="Avatar Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView"]
 self_modulate = Color(0.564706, 0.564706, 0.564706, 1)
 show_behind_parent = true
 layout_mode = 1
@@ -260,7 +260,7 @@ texture = ExtResource("9_ona11")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView" node_paths=PackedStringArray("CardFaceImage")]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" node_paths=PackedStringArray("CardFaceImage")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -268,7 +268,7 @@ script = ExtResource("6_53b6o")
 FallbackCardImageTexture = ExtResource("8_5rhaf")
 CardFaceImage = NodePath("..")
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView"]
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -277,12 +277,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Normal Deck Controls VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control"]
+[node name="Normal Deck Controls VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -291,11 +291,11 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Deck Buttons MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
+[node name="Deck Buttons MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
@@ -304,23 +304,23 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 10
 
-[node name="New Deck Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
+[node name="New Deck Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("11_jp0pa")
 text = "New"
 
-[node name="Save Deck Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
+[node name="Save Deck Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("11_jp0pa")
 text = "Save"
 
-[node name="Deck Select MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
+[node name="Deck Select MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -329,7 +329,7 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Deck Select" type="OptionButton" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer"]
+[node name="Deck Select" type="OptionButton" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("11_jp0pa")
@@ -338,7 +338,7 @@ selected = 0
 popup/item_0/text = "Placeholder"
 popup/item_0/id = 0
 
-[node name="New Deck VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control" node_paths=PackedStringArray("DeckBuilderDeckController", "DeckNameEdit")]
+[node name="New Deck VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control" node_paths=PackedStringArray("DeckBuilderDeckController", "DeckNameEdit")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -350,28 +350,28 @@ script = ExtResource("7_fm1fl")
 DeckBuilderDeckController = NodePath("../../../../Deck Cards Parent/MarginContainer/ScrollContainer")
 DeckNameEdit = NodePath("New Deck HBoxContainer/Deck Name LineEdit")
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="New Deck HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer"]
+[node name="New Deck HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Deck Name LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
+[node name="Deck Name LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.5
 placeholder_text = "Name your new deck..."
 
-[node name="Confirm Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
+[node name="Confirm Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Confirm"
 
-[node name="Cancel Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
+[node name="Cancel Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cancel"
@@ -379,7 +379,7 @@ text = "Cancel"
 [node name="Deck Cards Parent" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
+size_flags_stretch_ratio = 1.6
 
 [node name="Background Outline" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent"]
 self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
@@ -423,10 +423,10 @@ size_flags_vertical = 3
 script = ExtResource("6_f63o8")
 DeckNodesParent = NodePath("GridContainer")
 DeckCardControllerPrefab = ExtResource("12_lr2s2")
-AvatarController = NodePath("../../../VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView")
+AvatarController = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView")
 DeckBuilderController = NodePath("../../../../../../..")
-Tabs = [NodePath("../../../VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../../VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer")]
-DeckNameSelect = NodePath("../../../VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select")
+Tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer")]
+DeckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select")
 DeckSpacingPlaceholders = [NodePath("GridContainer/Invis Placeholder For Grid Sizing"), NodePath("GridContainer/Invis Placeholder For Grid Sizing2"), NodePath("GridContainer/Invis Placeholder For Grid Sizing3"), NodePath("GridContainer/Invis Placeholder For Grid Sizing4"), NodePath("GridContainer/Invis Placeholder For Grid Sizing5"), NodePath("GridContainer/Invis Placeholder For Grid Sizing6"), NodePath("GridContainer/Invis Placeholder For Grid Sizing7"), NodePath("GridContainer/Invis Placeholder For Grid Sizing8")]
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
@@ -462,20 +462,20 @@ layout_mode = 2
 [node name="Card Search" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.5
+size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search"]
+[node name="Search Options VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 2
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Control"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -487,7 +487,7 @@ texture = ExtResource("4_c8rh7")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Control/TextureRect"]
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox/Control/TextureRect"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -496,10 +496,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Search HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer"]
+[node name="Search HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox"]
 layout_mode = 2
 
-[node name="Search Text MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Search HBoxContainer"]
+[node name="Search Text MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox/Search HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
@@ -507,7 +507,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="Search LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Search HBoxContainer/Search Text MarginContainer"]
+[node name="Search LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox/Search HBoxContainer/Search Text MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("11_jp0pa")
@@ -516,7 +516,7 @@ placeholder_text = "Search for cards..."
 [node name="Search Lower Half" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
+size_flags_stretch_ratio = 1.6
 
 [node name="Searched Cards Parent" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half" node_paths=PackedStringArray("DeckBuilderController", "SearchGridParent")]
 layout_mode = 2
@@ -570,7 +570,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 4
+columns = 6
 
 [node name="Bottom Screen Margin" type="Control" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -617,10 +617,10 @@ texture = ExtResource("4_c8rh7")
 expand_mode = 1
 stretch_mode = 4
 
-[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView" method="ShowInTopLeft"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/New Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/Save Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="SaveDeck"]
-[connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="LoadDeck"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
-[connection signal="text_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Search HBoxContainer/Search Text MarginContainer/Search LineEdit" to="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent" method="Search"]
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" method="ShowInTopLeft"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/New Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/Save Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="SaveDeck"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer/Deck Select" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="LoadDeck"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
+[connection signal="text_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox/Search HBoxContainer/Search Text MarginContainer/Search LineEdit" to="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent" method="Search"]
