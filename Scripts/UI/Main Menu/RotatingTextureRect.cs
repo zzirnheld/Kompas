@@ -8,7 +8,7 @@ namespace Kompas.UI.MainMenu
 		public Control center;
 
 		public float RotationDuration { get; set; } = 0.5f;
-		private float targetRotation;
+		protected float targetRotation;
 		private float startRotation;
 		private float time;
 		//private float currentRotationalVelocity;

@@ -21,54 +21,70 @@ namespace Kompas.UI.MainMenu
 		private Control[] DisappearDuringTransition { get; set; }
 
 		private bool go = false;
+		private bool splashScreenOver = false;
+
+		private float startLeftAnchor;
+		private float startRightAnchor;
+		private const float EndLeftAnchor = 0f;
+		private const float EndRightAnchor = 2f;
+		private const float SplashScreenAnimationDuration = 2.5f;
+		private const float SplashScreenStartRadians = (float)(-0.25f * Math.PI);
+		private const float SplashScreenEndRadians = (float)(-2.75f * Math.PI);
 
 		public override void _Ready()
 		{
-			RotationDuration = 2.5f;
-			RotateTowards((float)(-0.25f * Math.PI));
+			startLeftAnchor = AnchorLeft;
+			startRightAnchor = AnchorRight;
+
+			RotationDuration = SplashScreenAnimationDuration;
+			RotateTowards(SplashScreenStartRadians);
 		}
 
 		public void SpinOut()
 		{
-			if (go) return;
 			go = true;
-
-			RotateTowards((float)(-3f * Math.PI));
+			RotateTowards(SplashScreenEndRadians);
 		}
 
-		private bool flag1 = false;
-		private bool flag2 = false;
-		private bool flag3 = false;
+		private bool coveredMainMenu = false;
+		private bool passedVertical = false;
+
+		protected override void Arrive()
+		{
+			if (!splashScreenOver)
+			{
+				splashScreenOver = true;
+				TopLeft.Visible = false;
+				BottomLeft.Visible = false;
+				Rotation = targetRotation = (float)(targetRotation + (2f * Math.PI));
+				AnchorLeft = EndLeftAnchor;
+				AnchorRight = EndRightAnchor;
+				RotationDuration = 0.5f;
+			}
+		}
 
 		protected override void Progress(float x)
 		{
 			//TODO disable top parent's collider only once it has come to rest
 			base.Progress(x);
-			if (!go) return;
+			if (!go || splashScreenOver) return;
 			
 			LeftSpacer.SizeFlagsStretchRatio = x;
+			AnchorLeft = startLeftAnchor + (EndLeftAnchor - startLeftAnchor) * x;
+			AnchorRight = startRightAnchor + (EndRightAnchor - startRightAnchor) * x;
 
-			if(!flag1 && Rotation <= -Math.PI)
+			if(!coveredMainMenu && Rotation <= -Math.PI)
 			{
-				GD.Print("one!");
-				flag1 = true;
+				coveredMainMenu = true;
 				TopLeft.Visible = true;
 
 				foreach(var ctrl in DisappearDuringTransition) ctrl.Visible = false;
 			}
-			else if (!flag2 && Rotation <= -2f * Math.PI)
+			else if (!passedVertical && Rotation <= -2f * Math.PI)
 			{
-				GD.Print("two!");
-				flag2 = true;
+				passedVertical = true;
 				TopRight.Visible = false;
 				BottomRight.Visible = false;
-			}
-			else if (!flag3 && Rotation <= -3f * Math.PI)
-			{
-				GD.Print("two!");
-				flag2 = true;
-				TopLeft.Visible = false;
-				BottomLeft.Visible = false;
 			}
 		}
 	}
