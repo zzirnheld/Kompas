@@ -5,6 +5,15 @@ namespace Kompas.UI.MainMenu
 {
 	public partial class SplashScreenRotatingLogo : RotatingTextureRect
 	{
+		private const float EndLeftAnchor = 0f;
+		private const float EndRightAnchor = 2f;
+		private const float SplashScreenAnimationDuration = 2.5f;
+		private const float SplashScreenStartRadians = (float)(-0.25f * Math.PI);
+		private const float SplashScreenEndRadians = (float)(-2.75f * Math.PI);
+		private const float MainMenuRotationDuration = 0.4f;
+		private const double UpsideDown = -Math.PI;
+		private const double SpunBackAround = -2f * Math.PI;
+
 		[Export]
 		private Control LeftSpacer { get; set; }
 
@@ -20,16 +29,11 @@ namespace Kompas.UI.MainMenu
 		[Export]
 		private Control[] DisappearDuringTransition { get; set; }
 
-		private bool go = false;
+		private bool splashScreenStarted = false;
 		private bool splashScreenOver = false;
 
 		private float startLeftAnchor;
 		private float startRightAnchor;
-		private const float EndLeftAnchor = 0f;
-		private const float EndRightAnchor = 2f;
-		private const float SplashScreenAnimationDuration = 2.5f;
-		private const float SplashScreenStartRadians = (float)(-0.25f * Math.PI);
-		private const float SplashScreenEndRadians = (float)(-2.75f * Math.PI);
 
 		public override void _Ready()
 		{
@@ -42,7 +46,8 @@ namespace Kompas.UI.MainMenu
 
 		public void SpinOut()
 		{
-			go = true;
+			//TODO: the top right and bottom left are blocking corners of the main menu from receiving clicks, so consider adding logic to disable their colliders until spin starts
+			splashScreenStarted = true;
 			RotateTowards(SplashScreenEndRadians);
 		}
 
@@ -59,28 +64,28 @@ namespace Kompas.UI.MainMenu
 				Rotation = targetRotation = (float)(targetRotation + (2f * Math.PI));
 				AnchorLeft = EndLeftAnchor;
 				AnchorRight = EndRightAnchor;
-				RotationDuration = 0.5f;
+				RotationDuration = MainMenuRotationDuration;
 			}
 		}
 
 		protected override void Progress(float x)
 		{
-			//TODO disable top parent's collider only once it has come to rest
 			base.Progress(x);
-			if (!go || splashScreenOver) return;
+			if (!splashScreenStarted || splashScreenOver) return;
 			
 			LeftSpacer.SizeFlagsStretchRatio = x;
 			AnchorLeft = startLeftAnchor + (EndLeftAnchor - startLeftAnchor) * x;
 			AnchorRight = startRightAnchor + (EndRightAnchor - startRightAnchor) * x;
 
-			if(!coveredMainMenu && Rotation <= -Math.PI)
+			// <= because negative angles
+			if(!coveredMainMenu && Rotation <= UpsideDown)
 			{
 				coveredMainMenu = true;
 				TopLeft.Visible = true;
 
 				foreach(var ctrl in DisappearDuringTransition) ctrl.Visible = false;
 			}
-			else if (!passedVertical && Rotation <= -2f * Math.PI)
+			else if (!passedVertical && Rotation <= SpunBackAround)
 			{
 				passedVertical = true;
 				TopRight.Visible = false;
