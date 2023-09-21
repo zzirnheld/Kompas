@@ -5,9 +5,9 @@
 [ext_resource type="Theme" uid="uid://c0p1gwi3hho7o" path="res://Themes/MainMenuButtonTheme.tres" id="3_ipls1"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuButton.cs" id="3_s7n5j"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/StartSpinningButton.cs" id="5_28mb5"]
-[ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="7_qvr7y"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/SplashScreenRotatingLogo.cs" id="8_466x3"]
 [ext_resource type="Theme" uid="uid://crqxt4wilagxb" path="res://Themes/Title.tres" id="8_cqwiq"]
+[ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="8_fityg"]
 [ext_resource type="Theme" uid="uid://c3rh5m2mgqkxm" path="res://Themes/Subtitle.tres" id="9_q4plg"]
 
 [node name="Control" type="Control"]
@@ -105,7 +105,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
 [node name="Control" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -226,7 +225,7 @@ grow_vertical = 2
 rotation = -0.785398
 pivot_offset = Vector2(1296, 1296)
 mouse_filter = 2
-texture = ExtResource("7_qvr7y")
+texture = ExtResource("8_fityg")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("8_466x3")
