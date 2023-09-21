@@ -147,6 +147,11 @@ namespace Kompas.UI.DeckBuilder
 			ReevaluatePlaceholders();
 		}
 
+		public void RemoveFromDeck(string cardName)
+		{
+			currentDeck?.deck.Remove(cardName);
+		}
+
 		private DeckBuilderCardController CreateCardController()
 		{
 			if (DeckCardControllerPrefab.Instantiate() is not DeckBuilderCardController controller)
