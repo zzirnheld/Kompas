@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=19 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -12,7 +12,9 @@
 [ext_resource type="Theme" uid="uid://cjrmtsdjr3js1" path="res://Themes/Shrinkable Label.tres" id="7_oqr5g"]
 [ext_resource type="Texture2D" uid="uid://bfpsfa5jrx1ig" path="res://Icons/Kompas Spiral 2.png" id="8_5rhaf"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
+[ext_resource type="Texture2D" uid="uid://cj61oorxnb25n" path="res://Icons/Kompas Spiral White.png" id="9_ona11"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="11_jp0pa"]
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
 [ext_resource type="PackedScene" uid="uid://cfd3q5mmpaucw" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckInvisPrefab.tscn" id="13_wvcrl"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="14_j2qbw"]
@@ -243,7 +245,8 @@ stretch_mode = 4
 script = ExtResource("8_jhgvb")
 InfoDisplayer = NodePath("Control")
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView"]
+[node name="Avatar Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Avatar MarginContainer/AvatarView"]
+self_modulate = Color(0.564706, 0.564706, 0.564706, 1)
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = -1
@@ -253,7 +256,7 @@ anchor_right = 1.25
 anchor_bottom = 1.25
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_5rhaf")
+texture = ExtResource("9_ona11")
 expand_mode = 1
 stretch_mode = 4
 
@@ -305,13 +308,16 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 10
 
 [node name="New Deck Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "New Deck"
+theme = ExtResource("11_jp0pa")
+text = "New"
 
 [node name="Save Deck Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("11_jp0pa")
 text = "Save"
 
 [node name="Deck Select MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer"]
@@ -320,13 +326,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Deck Select" type="OptionButton" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Select MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("11_jp0pa")
+item_count = 1
+selected = 0
+popup/item_0/text = "Placeholder"
+popup/item_0/id = 0
 
 [node name="New Deck VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/VBoxContainer/HBoxContainer/Control" node_paths=PackedStringArray("DeckBuilderDeckController", "DeckNameEdit")]
 visible = false
@@ -500,6 +510,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Search LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/VBoxContainer/Search HBoxContainer/Search Text MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("11_jp0pa")
 placeholder_text = "Search for cards..."
 
 [node name="Search Lower Half" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search"]

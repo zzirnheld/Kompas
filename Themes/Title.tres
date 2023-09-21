@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://crqxt4wilagxb"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://crqxt4wilagxb"]
 
 [ext_resource type="FontFile" uid="uid://bvk5tmot5f40r" path="res://Fonts/Century Normal.ttf" id="1_4b5hu"]
+[ext_resource type="FontFile" uid="uid://m66b4n68t4v7" path="res://Fonts/AlegreyaSC-Regular.otf" id="1_hclh4"]
 
 [resource]
 default_font = ExtResource("1_4b5hu")
 default_font_size = 100
 Label/colors/font_color = Color(0.886275, 0.607843, 0, 1)
-Label/fonts/font = ExtResource("1_4b5hu")
+Label/fonts/font = ExtResource("1_hclh4")

@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c3rh5m2mgqkxm"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c3rh5m2mgqkxm"]
 
 [ext_resource type="FontFile" uid="uid://bvk5tmot5f40r" path="res://Fonts/Century Normal.ttf" id="1_5bd83"]
+[ext_resource type="FontFile" uid="uid://dq8qgur736smt" path="res://Fonts/Poly-Regular.otf" id="1_csf8f"]
 
 [resource]
 default_font = ExtResource("1_5bd83")
 default_font_size = 30
 Label/colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
-Label/fonts/font = ExtResource("1_5bd83")
+Label/fonts/font = ExtResource("1_csf8f")
