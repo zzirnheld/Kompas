@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenu.cs" id="1_jcu2n"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_pef7p"]
-[ext_resource type="Theme" uid="uid://c0p1gwi3hho7o" path="res://Themes/MainMenuButtonTheme.tres" id="3_8vhcs"]
+[ext_resource type="Theme" uid="uid://c0p1gwi3hho7o" path="res://Themes/MainMenuButtonTheme.tres" id="3_ipls1"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuButton.cs" id="3_s7n5j"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/StartSpinningButton.cs" id="5_28mb5"]
 [ext_resource type="Texture2D" uid="uid://d2xipuek8ngqc" path="res://Icons/Main Menu/Kompas Logo.png" id="7_qvr7y"]
@@ -52,9 +52,9 @@ size_flags_stretch_ratio = 1.25
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("3_8vhcs")
-text = "Connect to
-Server"
+theme = ExtResource("3_ipls1")
+text = "Incarnate
+vs Player"
 icon_alignment = 2
 vertical_icon_alignment = 2
 script = ExtResource("3_s7n5j")
@@ -64,8 +64,9 @@ SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("3_8vhcs")
-text = "VS \"AI\""
+theme = ExtResource("3_ipls1")
+text = "Incarnate
+vs Artifice"
 script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
@@ -73,8 +74,9 @@ SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("3_8vhcs")
-text = "Build Deck"
+theme = ExtResource("3_ipls1")
+text = "Ponder
+Strategems"
 script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
@@ -82,8 +84,9 @@ SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("3_8vhcs")
-text = "Host Server"
+theme = ExtResource("3_ipls1")
+text = "Bind
+Others"
 script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
@@ -91,8 +94,8 @@ SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("3_8vhcs")
-text = "Quit"
+theme = ExtResource("3_ipls1")
+text = "Escape"
 script = ExtResource("3_s7n5j")
 SpinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
@@ -102,6 +105,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -309,6 +313,6 @@ grow_vertical = 2
 
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Connect to Server" to="." method="ConnectToServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Build Deck" to="." method="BuildDeck"]
-[connection signal="pressed" from="Control/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]
 [connection signal="pressed" from="Control/Button" to="Control/Button" method="BecomeInvisible"]
+[connection signal="pressed" from="Control/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]
 [connection signal="resized" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]

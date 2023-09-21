@@ -13,6 +13,7 @@ namespace Kompas.UI.MainMenu
 		private const float MainMenuRotationDuration = 0.4f;
 		private const double UpsideDown = -Math.PI;
 		private const double SpunBackAround = -2f * Math.PI;
+		private const double FullClockwiseRotation = 2f * Math.PI;
 
 		[Export]
 		private Control LeftSpacer { get; set; }
@@ -61,7 +62,7 @@ namespace Kompas.UI.MainMenu
 				splashScreenOver = true;
 				TopLeft.Visible = false;
 				BottomLeft.Visible = false;
-				Rotation = targetRotation = (float)(targetRotation + (2f * Math.PI));
+				Rotation = targetRotation = (float)(targetRotation + FullClockwiseRotation);
 				AnchorLeft = EndLeftAnchor;
 				AnchorRight = EndRightAnchor;
 				RotationDuration = MainMenuRotationDuration;
