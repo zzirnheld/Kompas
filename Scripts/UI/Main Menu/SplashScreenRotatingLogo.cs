@@ -57,7 +57,7 @@ namespace Kompas.UI.MainMenu
 
 		public override void RotateTowards(float angle)
 		{
-			if (splashScreenStarted && !splashScreenOver) return;
+			if (splashScreenStarted && !splashScreenOver) Arrive(); //TODO smooth out between this arrive and starting rotating?
 
 			base.RotateTowards(angle);
 		}
