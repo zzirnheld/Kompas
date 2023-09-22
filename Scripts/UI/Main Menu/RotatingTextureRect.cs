@@ -56,7 +56,7 @@ namespace Kompas.UI.MainMenu
 			RotateTowards(RotationForVector(targetPosition));
 		}
 
-		public void RotateTowards(float angle)
+		public virtual void RotateTowards(float angle)
 		{
 			startRotation = Rotation;
 			targetRotation = angle;

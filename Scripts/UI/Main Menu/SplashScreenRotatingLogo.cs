@@ -48,12 +48,19 @@ namespace Kompas.UI.MainMenu
 		public void SpinOut()
 		{
 			//TODO: the top right and bottom left are blocking corners of the main menu from receiving clicks, so consider adding logic to disable their colliders until spin starts
-			splashScreenStarted = true;
 			RotateTowards(SplashScreenEndRadians);
+			splashScreenStarted = true;
 		}
 
 		private bool coveredMainMenu = false;
 		private bool passedVertical = false;
+
+		public override void RotateTowards(float angle)
+		{
+			if (splashScreenStarted && !splashScreenOver) return;
+
+			base.RotateTowards(angle);
+		}
 
 		protected override void Arrive()
 		{

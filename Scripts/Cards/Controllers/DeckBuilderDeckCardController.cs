@@ -9,11 +9,9 @@ namespace Kompas.Cards.Controllers
 			//If clicked, remove
 			if (input is InputEventMouseButton mouseInput && mouseInput.Pressed)
 			{
-				if (mouseInput.ButtonIndex == MouseButton.Left) Delete();
-				else if (mouseInput.ButtonIndex == MouseButton.Right)
-				{
-					//TODO something probably. become avatar? duplicate?
-				}
+				//TODO make left button able to drag? and shouldn't make char avatar at end of drag
+				if (mouseInput.ButtonIndex == MouseButton.Left) { } //TODO avatar
+				else if (mouseInput.ButtonIndex == MouseButton.Right) Delete();
 			}
 		}
 
