@@ -5,8 +5,8 @@ namespace Kompas.UI.MainMenu
 {
 	public partial class SplashScreenRotatingLogo : RotatingTextureRect
 	{
-		private const float EndLeftAnchor = 0f;
-		private const float EndRightAnchor = 2f;
+		private const float EndSplashLeftAnchor = 0f;
+		private const float EndSplashRightAnchor = 2f;
 		private const float SplashScreenAnimationDuration = 2.5f;
 		private const float SplashScreenStartRadians = (float)(-0.25f * Math.PI);
 		private const float SplashScreenEndRadians = (float)(-2.75f * Math.PI);
@@ -43,6 +43,9 @@ namespace Kompas.UI.MainMenu
 		private float rotationDuration;
 		protected override float RotationDuration => rotationDuration;
 
+		private bool InSplashScreenRotation => splashScreenStarted && !splashScreenOver;
+		protected override bool ArriveBeforeStartingNext => InSplashScreenRotation;
+
 		public override void _Ready()
 		{
 			startLeftAnchor = AnchorLeft;
@@ -56,51 +59,29 @@ namespace Kompas.UI.MainMenu
 		{
 			//TODO: the top right and bottom left are blocking corners of the main menu from receiving clicks, so consider adding logic to disable their colliders until spin starts
 			GD.Print("Spin out!");
-			RotateTowards(SplashScreenEndRadians);
+			RotateTowards(SplashScreenEndRadians, targetLeftAnchor: EndSplashLeftAnchor, targetRightAnchor: EndSplashRightAnchor);
 			splashScreenStarted = true;
-		}
-
-		public override void RotateTowards(float angle)
-		{
-			if (splashScreenStarted && !splashScreenOver) Arrive(); //TODO smooth out between this arrive and starting rotating?
-
-			base.RotateTowards(angle);
 		}
 
 		protected override void Arrive()
 		{
 			base.Arrive();
-			if (splashScreenStarted && !splashScreenOver)
+			if (InSplashScreenRotation)
 			{
 				splashScreenOver = true;
 				TopLeft.Visible = false;
 				BottomLeft.Visible = false;
-				Rotation = targetRotation = (float)(targetRotation + FullClockwiseRotation);
-				AnchorLeft = EndLeftAnchor;
-				AnchorRight = EndRightAnchor;
 				rotationDuration = MainMenuRotationDuration;
 			}
 		}
-
-		public override void Resize()
-		{
-			base.Resize();
-			//if (!adjusting) Arrive();
-		}
-
-		private bool adjusting = false;
 
 		protected override void Progress(float x)
 		{
 			base.Progress(x);
 			if (!splashScreenStarted || splashScreenOver) return;
 			
-			adjusting = true;
 			LeftSpacer.SizeFlagsStretchRatio = x;
-			AnchorLeft = startLeftAnchor + (EndLeftAnchor - startLeftAnchor) * x;
-			AnchorRight = startRightAnchor + (EndRightAnchor - startRightAnchor) * x;
-			adjusting = false;
-
+			
 			// <= because negative angles
 			if(!coveredMainMenu && Rotation <= UpsideDown)
 			{
