@@ -14,3 +14,6 @@ Button/styles/normal = ExtResource("3_gtgcv")
 LineEdit/colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
 LineEdit/font_sizes/font_size = 20
 LineEdit/styles/normal = ExtResource("3_gtgcv")
+PopupMenu/font_sizes/font_size = 24
+PopupMenu/styles/hover = ExtResource("2_sv18r")
+PopupMenu/styles/panel = ExtResource("3_gtgcv")
