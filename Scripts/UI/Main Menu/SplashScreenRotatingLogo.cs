@@ -71,6 +71,7 @@ namespace Kompas.UI.MainMenu
 				splashScreenOver = true;
 				TopLeft.Visible = false;
 				BottomLeft.Visible = false;
+				LeftSpacer.SizeFlagsStretchRatio = 1f;
 				rotationDuration = MainMenuRotationDuration;
 			}
 		}
@@ -79,7 +80,7 @@ namespace Kompas.UI.MainMenu
 		{
 			base.Progress(x);
 			if (!splashScreenStarted || splashScreenOver) return;
-			
+
 			LeftSpacer.SizeFlagsStretchRatio = x;
 			
 			// <= because negative angles

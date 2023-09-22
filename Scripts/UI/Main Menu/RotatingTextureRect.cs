@@ -86,6 +86,8 @@ namespace Kompas.UI.MainMenu
 			Rotation = start.rotation + ((target.rotation - start.rotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
 			AnchorLeft = start.leftAnchor + (target.leftAnchor - start.leftAnchor) * x;
 			AnchorRight = start.rightAnchor + (target.rightAnchor - start.rightAnchor) * x;
+			AnchorTop = start.topAnchor + (target.topAnchor - start.topAnchor) * x;
+			AnchorBottom = start.bottomAnchor + (target.bottomAnchor - start.bottomAnchor) * x;
 		}
 
 		protected virtual void Arrive()
