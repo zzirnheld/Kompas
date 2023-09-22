@@ -7,11 +7,19 @@ namespace Kompas.UI.MainMenu
 		[Export]
 		public Control center;
 
-		public float RotationDuration { get; set; } = 0.5f;
+		protected virtual float InitialRotation => 0f;
+
+		protected virtual float RotationDuration => 0.5f;
 		protected float targetRotation;
 		private float startRotation;
 		private float time;
 		//private float currentRotationalVelocity;
+
+		public override void _Ready()
+		{
+			Rotation = targetRotation = startRotation = InitialRotation;
+			time = RotationDuration + 1f;
+		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(double delta)

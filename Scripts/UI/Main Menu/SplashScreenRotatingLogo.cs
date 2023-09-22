@@ -39,13 +39,17 @@ namespace Kompas.UI.MainMenu
 		private float startLeftAnchor;
 		private float startRightAnchor;
 
+		protected override float InitialRotation => SplashScreenStartRadians;
+		private float rotationDuration;
+		protected override float RotationDuration => rotationDuration;
+
 		public override void _Ready()
 		{
 			startLeftAnchor = AnchorLeft;
 			startRightAnchor = AnchorRight;
 
-			RotationDuration = SplashScreenAnimationDuration;
-			RotateTowards(SplashScreenStartRadians);
+			rotationDuration = SplashScreenAnimationDuration;
+			RotateTowards(SplashScreenStartRadians); //TODO figure out how to not need this call
 		}
 
 		public void SpinOut()
@@ -74,7 +78,7 @@ namespace Kompas.UI.MainMenu
 				Rotation = targetRotation = (float)(targetRotation + FullClockwiseRotation);
 				AnchorLeft = EndLeftAnchor;
 				AnchorRight = EndRightAnchor;
-				RotationDuration = MainMenuRotationDuration;
+				rotationDuration = MainMenuRotationDuration;
 			}
 		}
 
