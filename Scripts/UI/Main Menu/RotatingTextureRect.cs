@@ -26,8 +26,7 @@ namespace Kompas.UI.MainMenu
 				return;
 			}
 
-			float x = time / RotationDuration;
-			Progress(x);
+			Progress(time / RotationDuration);
 		}
 
 		/// <summary>
@@ -41,13 +40,14 @@ namespace Kompas.UI.MainMenu
 
 		protected virtual void Arrive()
 		{
+			GD.Print($"Arrived at {targetRotation}!");
 			Rotation = targetRotation;
 		}
 
-		public void Resize()
+		public virtual void Resize()
 		{
-			//GD.Print($"Resizing. Size is {Size}");
 			PivotOffset = Size / 2;
+			GD.Print($"Resizing. Size is {Size} and rotation is {Rotation}");
 		}
 
 		public void LookTowards(Vector2 targetPosition)
@@ -58,6 +58,7 @@ namespace Kompas.UI.MainMenu
 
 		public virtual void RotateTowards(float angle)
 		{
+			GD.Print($"Rotating from {Rotation} to {angle}");
 			startRotation = Rotation;
 			targetRotation = angle;
 			//GD.Print($"from {currentPosition} to {targetPosition}, {targetPosition.X - currentPosition.X} , {currentPosition.Y - targetPosition.Y}, so target rotation {targetRotation}");

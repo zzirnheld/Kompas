@@ -33,6 +33,9 @@ namespace Kompas.UI.MainMenu
 		private bool splashScreenStarted = false;
 		private bool splashScreenOver = false;
 
+		private bool coveredMainMenu = false;
+		private bool passedVertical = false;
+
 		private float startLeftAnchor;
 		private float startRightAnchor;
 
@@ -48,12 +51,10 @@ namespace Kompas.UI.MainMenu
 		public void SpinOut()
 		{
 			//TODO: the top right and bottom left are blocking corners of the main menu from receiving clicks, so consider adding logic to disable their colliders until spin starts
+			GD.Print("Spin out!");
 			RotateTowards(SplashScreenEndRadians);
 			splashScreenStarted = true;
 		}
-
-		private bool coveredMainMenu = false;
-		private bool passedVertical = false;
 
 		public override void RotateTowards(float angle)
 		{
@@ -64,7 +65,8 @@ namespace Kompas.UI.MainMenu
 
 		protected override void Arrive()
 		{
-			if (!splashScreenOver)
+			base.Arrive();
+			if (splashScreenStarted && !splashScreenOver)
 			{
 				splashScreenOver = true;
 				TopLeft.Visible = false;
@@ -76,14 +78,24 @@ namespace Kompas.UI.MainMenu
 			}
 		}
 
+		public override void Resize()
+		{
+			base.Resize();
+			//if (!adjusting) Arrive();
+		}
+
+		private bool adjusting = false;
+
 		protected override void Progress(float x)
 		{
 			base.Progress(x);
 			if (!splashScreenStarted || splashScreenOver) return;
 			
+			adjusting = true;
 			LeftSpacer.SizeFlagsStretchRatio = x;
 			AnchorLeft = startLeftAnchor + (EndLeftAnchor - startLeftAnchor) * x;
 			AnchorRight = startRightAnchor + (EndRightAnchor - startRightAnchor) * x;
+			adjusting = false;
 
 			// <= because negative angles
 			if(!coveredMainMenu && Rotation <= UpsideDown)

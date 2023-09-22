@@ -333,7 +333,6 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("11_jp0pa")
-selected = 0
 
 [node name="New Deck VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control" node_paths=PackedStringArray("DeckBuilderDeckController", "DeckNameEdit")]
 visible = false
