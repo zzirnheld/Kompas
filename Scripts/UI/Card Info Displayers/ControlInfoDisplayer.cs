@@ -25,7 +25,7 @@ namespace Kompas.UI.CardInfoDisplayers
 		[Export]
 		private ShrinkOnOverrun Subtypes { get; set; }
 		[Export]
-		private RichTextLabel EffText { get; set; }
+		private ShrinkRichTextOnOverrun EffText { get; set; }
 
 		public bool ShowingInfo { set => Visible = value; }
 
@@ -48,7 +48,7 @@ namespace Kompas.UI.CardInfoDisplayers
 		{
 			CardName.ShrinkableText = card.CardName;
 			Subtypes.ShrinkableText = card.SubtypeText;
-			EffText.Text = card.EffText;
+			EffText.ShrinkableText = card.EffText;
 		}
 	}
 }

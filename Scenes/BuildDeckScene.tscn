@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=24 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -12,8 +12,11 @@
 [ext_resource type="Theme" uid="uid://cjrmtsdjr3js1" path="res://Themes/Shrinkable Label.tres" id="7_oqr5g"]
 [ext_resource type="Texture2D" uid="uid://bfpsfa5jrx1ig" path="res://Icons/Kompas Spiral 2.png" id="8_5rhaf"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
+[ext_resource type="Texture2D" uid="uid://dgsbbw3q82cjt" path="res://Icons/Card Stuff/octagondifference.svg" id="8_l4pi7"]
+[ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="8_wdft3"]
 [ext_resource type="Texture2D" uid="uid://cj61oorxnb25n" path="res://Icons/Kompas Spiral White.png" id="9_ona11"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="10_ype88"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="11_jp0pa"]
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
 [ext_resource type="PackedScene" uid="uid://cfd3q5mmpaucw" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckInvisPrefab.tscn" id="13_wvcrl"]
@@ -29,7 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vu5h4")
-CardInfoDisplayer = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)")
+CardInfoDisplayer = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer")
 DeckController = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -85,6 +88,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
 [node name="Not a Card (PLACEHOLDER)" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer" node_paths=PackedStringArray("Image", "N", "E", "S", "W", "C", "A", "CardName", "Subtypes", "EffText")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -212,6 +216,231 @@ size_flags_vertical = 3
 bbcode_enabled = true
 text = "[center]This is an example of card effect text. I'm wondering how it supports the various things that I want it tos upport. We'll find out as we go on.[/center]
 "
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer" node_paths=PackedStringArray("Image", "N", "E", "S", "W", "C", "A", "CardName", "Subtypes", "EffText")]
+layout_mode = 2
+script = ExtResource("3_dc8x7")
+Image = NodePath("AspectRatioContainer/Card View/Card Image/Card Face Image")
+N = NodePath("AspectRatioContainer/Card View/Card Stats/N Value")
+E = NodePath("AspectRatioContainer/Card View/Card Stats/E Value")
+S = NodePath("AspectRatioContainer/Card View/Card Stats/S Value")
+W = NodePath("AspectRatioContainer/Card View/Card Stats/W Value")
+C = NodePath("AspectRatioContainer/Card View/Card Stats/C Value")
+A = NodePath("AspectRatioContainer/Card View/Card Stats/A Value")
+CardName = NodePath("AspectRatioContainer/Card View/Card Text/Name Label")
+Subtypes = NodePath("AspectRatioContainer/Card View/Card Text/Subtypes Label")
+EffText = NodePath("AspectRatioContainer/Card View/Card Text/RichTextLabel")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment_vertical = 0
+
+[node name="Card View" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Card Image" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card Face Image" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Image"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16
+anchor_top = 0.3
+anchor_right = 0.84
+anchor_bottom = 0.98
+offset_bottom = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_wdft3")
+expand_mode = 1
+
+[node name="Fade Card Image" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Image/Card Face Image"]
+self_modulate = Color(1, 1, 1, 0.737255)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_l8goj")
+
+[node name="cutoff image bot TODO replace with mask" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Image"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.84
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_l8goj")
+
+[node name="cutoff image top TODO replace with mask2" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Image"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.4
+texture = ExtResource("2_l8goj")
+
+[node name="Card Text" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19
+anchor_top = 0.17
+anchor_right = 0.81
+anchor_bottom = 0.3
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 20
+text = "naaaaaaaaaaame!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_53ng8")
+
+[node name="Subtypes Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.305
+anchor_right = 0.8
+anchor_bottom = 0.375
+offset_right = -1.52588e-05
+offset_bottom = -4.98001
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 13
+text = "s u b type"
+horizontal_alignment = 1
+script = ExtResource("6_53ng8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.42
+anchor_right = 0.8
+anchor_bottom = 0.8
+theme = ExtResource("11_jp0pa")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Card eff. Leverage fit content: if i spills beyond its borders, change font size "
+fit_content = true
+script = ExtResource("10_ype88")
+
+[node name="Card Stats" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="N Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = 0.02
+anchor_right = 0.56
+anchor_bottom = 0.15
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+
+[node name="E Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.85
+anchor_top = 0.412
+anchor_right = 1.0
+anchor_bottom = 0.56
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="S Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = 0.85
+anchor_right = 0.56
+anchor_bottom = 1.0
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+
+[node name="W Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.412
+anchor_right = 0.143
+anchor_bottom = 0.56
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = 0.85
+anchor_right = 0.56
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 20.0
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+
+[node name="A Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = 0.85
+anchor_right = 0.56
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
+theme = ExtResource("11_jp0pa")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+
+[node name="Frame" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View"]
+self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
+layout_mode = 2
+offset_right = 249.0
+offset_bottom = 607.0
+texture = ExtResource("8_l4pi7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Reminder Texts" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_l8goj")
 
 [node name="Deck View" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
