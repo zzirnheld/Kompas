@@ -13,7 +13,6 @@ namespace Kompas.UI.MainMenu
 		private const float MainMenuRotationDuration = 0.4f;
 		private const double UpsideDown = -Math.PI;
 		private const double SpunBackAround = -2f * Math.PI;
-		private const double FullClockwiseRotation = 2f * Math.PI;
 
 		[Export]
 		private Control LeftSpacer { get; set; }
@@ -59,7 +58,7 @@ namespace Kompas.UI.MainMenu
 		{
 			//TODO: the top right and bottom left are blocking corners of the main menu from receiving clicks, so consider adding logic to disable their colliders until spin starts
 			GD.Print("Spin out!");
-			RotateTowards(SplashScreenEndRadians, targetLeftAnchor: EndSplashLeftAnchor, targetRightAnchor: EndSplashRightAnchor);
+			RotateTowards(start => start.With(rotation: SplashScreenEndRadians, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor));
 			splashScreenStarted = true;
 		}
 

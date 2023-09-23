@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=21 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
 [ext_resource type="PackedScene" uid="uid://cfd3q5mmpaucw" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckInvisPrefab.tscn" id="13_wvcrl"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="14_j2qbw"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
+[ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer", "DeckController")]
 layout_mode = 3
@@ -602,6 +604,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -612,6 +615,72 @@ grow_horizontal = 0
 texture = ExtResource("4_c8rh7")
 expand_mode = 1
 stretch_mode = 4
+script = ExtResource("19_rydhv")
+
+[node name="Button" type="Button" parent="Control/TextureRect"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Contain Spinning Logo" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 2
+
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Control/Contain Spinning Logo" node_paths=PackedStringArray("center")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 100.0
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+mouse_filter = 2
+texture = ExtResource("20_xotc0")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("19_rydhv")
+center = NodePath("Center of Spinning Logo")
+
+[node name="Control" type="Control" parent="Control/Contain Spinning Logo/Spinning Logo On Splash"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="Control/Contain Spinning Logo/Spinning Logo On Splash/Control"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center of Spinning Logo" type="Control" parent="Control/Contain Spinning Logo/Spinning Logo On Splash"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" method="ShowInTopLeft"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Normal Deck Controls VBoxContainer/Deck Buttons MarginContainer/HBoxContainer/New Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Enable"]
@@ -620,3 +689,5 @@ stretch_mode = 4
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox/Search HBoxContainer/Search Text MarginContainer/Search LineEdit" to="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent" method="Search"]
+[connection signal="resized" from="Control/Contain Spinning Logo/Spinning Logo On Splash" to="Control/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]
+[connection signal="pressed" from="Control/Contain Spinning Logo/Spinning Logo On Splash/Control/Button" to="Control/Contain Spinning Logo/Spinning Logo On Splash" method="Toggle"]

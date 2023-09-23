@@ -1,11 +1,12 @@
 using System;
+using System.Text;
 using Godot;
 
 namespace Kompas.UI.MainMenu
 {
 	public partial class RotatingTextureRect : TextureRect
 	{
-		private const float FullClockwiseRotation = (float)(2f * Math.PI);
+		protected const float FullClockwiseRotation = (float)(2f * Math.PI);
 
 		[Export]
 		public Control center;
@@ -14,37 +15,60 @@ namespace Kompas.UI.MainMenu
 
 		protected virtual float RotationDuration => 0.5f;
 
-		protected struct Positioning
+		public readonly struct Positioning
 		{
-			public float rotation;
-			public float leftAnchor;
-			public float rightAnchor;
-			public float topAnchor;
-			public float bottomAnchor;
+			public float Rotation { get; init; }
+
+			public float LeftAnchor { get; init; }
+			public float RightAnchor { get; init; }
+			public float TopAnchor { get; init; }
+			public float BottomAnchor { get; init; }
+
+			public float LeftOffset { get; init; }
+			public float RightOffset { get; init; }
+			public float TopOffset { get; init; }
+			public float BottomOffset { get; init; }
 
 			public static Positioning Of(Control obj)
 			{
 				return new()
 				{
-					rotation = obj.Rotation,
-					leftAnchor = obj.AnchorLeft,
-					rightAnchor = obj.AnchorRight,
-					topAnchor = obj.AnchorTop,
-					bottomAnchor = obj.AnchorBottom,
+					Rotation = obj.Rotation,
+
+					LeftAnchor = obj.AnchorLeft,
+					RightAnchor = obj.AnchorRight,
+					TopAnchor = obj.AnchorTop,
+					BottomAnchor = obj.AnchorBottom,
+
+					LeftOffset = obj.OffsetLeft,
+					RightOffset = obj.OffsetRight,
+					TopOffset = obj.OffsetTop,
+					BottomOffset = obj.OffsetBottom,
 				};
 			}
 
-			public Positioning With(float? rotation, float? leftAnchor, float? rightAnchor, float? topAnchor, float? bottomAnchor)
+			public Positioning With(float? rotation = null,
+				float? leftAnchor = null, float? rightAnchor = null, float? topAnchor = null, float? bottomAnchor = null,
+				float? leftOffset = null, float? rightOffset = null, float? topOffset = null, float? bottomOffset = null)
 			{
 				return new()
 				{
-					rotation = rotation ?? this.rotation,
-					leftAnchor = leftAnchor ?? this.leftAnchor,
-					rightAnchor = rightAnchor ?? this.rightAnchor,
-					topAnchor = topAnchor ?? this.topAnchor,
-					bottomAnchor = bottomAnchor ?? this.bottomAnchor,
+					Rotation = rotation ?? Rotation,
+
+					LeftAnchor   = leftAnchor 	?? LeftAnchor,
+					RightAnchor  = rightAnchor 	?? RightAnchor,
+					TopAnchor 	 = topAnchor 	?? TopAnchor,
+					BottomAnchor = bottomAnchor ?? BottomAnchor,
+
+					LeftOffset   = leftOffset 	?? LeftOffset,
+					RightOffset  = rightOffset 	?? RightOffset,
+					TopOffset 	 = topOffset 	?? TopOffset,
+					BottomOffset = bottomOffset ?? BottomOffset,
 				};
 			}
+
+			public override string ToString() => $"Rotation {Rotation},"
+				+ $"{LeftAnchor}+{LeftOffset} / {RightAnchor}+{RightOffset} / {TopAnchor}+{TopOffset} / {BottomAnchor}+{BottomOffset}";
 		}
 		protected Positioning target = new();
 
@@ -57,7 +81,8 @@ namespace Kompas.UI.MainMenu
 
 		public override void _Ready()
 		{
-			Rotation = target.rotation = start.rotation = InitialRotation;
+			Rotation = InitialRotation;
+			start = target = Positioning.Of(this).With(rotation: InitialRotation);
 			time = RotationDuration + 1f;
 		}
 
@@ -83,17 +108,23 @@ namespace Kompas.UI.MainMenu
         /// <param name="x">[0, 1] progress along duration</param>
 		protected virtual void Progress(float x)
 		{
-			Rotation = start.rotation + ((target.rotation - start.rotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
-			AnchorLeft = start.leftAnchor + (target.leftAnchor - start.leftAnchor) * x;
-			AnchorRight = start.rightAnchor + (target.rightAnchor - start.rightAnchor) * x;
-			AnchorTop = start.topAnchor + (target.topAnchor - start.topAnchor) * x;
-			AnchorBottom = start.bottomAnchor + (target.bottomAnchor - start.bottomAnchor) * x;
+			Rotation = start.Rotation + ((target.Rotation - start.Rotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
+
+			AnchorLeft 	 = start.LeftAnchor   + (target.LeftAnchor   - start.LeftAnchor)   * x;
+			AnchorRight  = start.RightAnchor  + (target.RightAnchor  - start.RightAnchor)  * x;
+			AnchorTop 	 = start.TopAnchor	  + (target.TopAnchor 	 - start.TopAnchor)    * x;
+			AnchorBottom = start.BottomAnchor + (target.BottomAnchor - start.BottomAnchor) * x;
+
+			OffsetLeft 	 = start.LeftOffset   + (target.LeftOffset   - start.LeftOffset)   * x;
+			OffsetRight  = start.RightOffset  + (target.RightOffset  - start.RightOffset)  * x;
+			OffsetTop 	 = start.TopOffset	  + (target.TopOffset 	 - start.TopOffset)    * x;
+			OffsetBottom = start.BottomOffset + (target.BottomOffset - start.BottomOffset) * x;
 		}
 
 		protected virtual void Arrive()
 		{
-			GD.Print($"Arrived at {target.rotation}!");
-			Rotation = target.rotation;
+			GD.Print($"Arrived at {target.Rotation}!");
+			Rotation = target.Rotation;
 			if (NormalizeAngleOnArrival)
 			{
 				while (Rotation > Math.PI) Rotation -= FullClockwiseRotation;
@@ -113,23 +144,24 @@ namespace Kompas.UI.MainMenu
 			RotateTowards(RotationForVector(targetPosition));
 		}
 
-		public virtual void RotateTowards(float angle,
-			float? targetLeftAnchor = null, float? targetRightAnchor = null,
-			float? targetTopAnchor = null, float? targetBottomAnchor = null)
+		public void RotateTowards(float angle) => RotateTowards(start => start.With(rotation: angle));
+
+		public void RotateTowards(Positioning target) => RotateTowards(start => target);
+
+		public delegate Positioning From(Positioning start);
+
+		public void RotateTowards(From from)
 		{
 			if (ArriveBeforeStartingNext) Arrive();
-			GD.Print($"Rotating from {Rotation} to {angle}");
+
 			start = Positioning.Of(this);
-			target = start.With(angle, targetLeftAnchor, targetRightAnchor, targetTopAnchor, targetBottomAnchor);
-			//GD.Print($"from {currentPosition} to {targetPosition}, {targetPosition.X - currentPosition.X} , {currentPosition.Y - targetPosition.Y}, so target rotation {targetRotation}");
+			target = from(start);
+			GD.Print($"Rotating from {start} to {target}");
 			time = 0f;
 		}
 
 		private float RotationForVector(Vector2 targetPosition)
-		{
-			var currentPosition = center.GlobalPosition;
-			return Mathf.Atan2(targetPosition.X - currentPosition.X,
-							   currentPosition.Y - targetPosition.Y);
-		}
+			=> Mathf.Atan2(targetPosition.X - center.GlobalPosition.X,
+						   center.GlobalPosition.Y - targetPosition.Y);
 	}
 }
