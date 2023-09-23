@@ -103,23 +103,29 @@ namespace Kompas.UI.MainMenu
 		}
 
 		/// <summary>
-        /// Progress the rotation towards its endpoint
-        /// </summary>
-        /// <param name="x">[0, 1] progress along duration</param>
+		/// Progress the rotation towards its endpoint
+		/// </summary>
+		/// <param name="x">[0, 1] progress along duration</param>
 		protected virtual void Progress(float x)
 		{
 			Rotation = start.Rotation + ((target.Rotation - start.Rotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
 
-			AnchorLeft 	 = start.LeftAnchor   + (target.LeftAnchor   - start.LeftAnchor)   * x;
-			AnchorRight  = start.RightAnchor  + (target.RightAnchor  - start.RightAnchor)  * x;
-			AnchorTop 	 = start.TopAnchor	  + (target.TopAnchor 	 - start.TopAnchor)    * x;
-			AnchorBottom = start.BottomAnchor + (target.BottomAnchor - start.BottomAnchor) * x;
+			float anchorX = ManipulateAnchorTimeProportion(x);
+			AnchorLeft 	 = start.LeftAnchor   + (target.LeftAnchor   - start.LeftAnchor)   * anchorX;
+			AnchorRight  = start.RightAnchor  + (target.RightAnchor  - start.RightAnchor)  * anchorX;
+			AnchorTop 	 = start.TopAnchor	  + (target.TopAnchor 	 - start.TopAnchor)    * anchorX;
+			AnchorBottom = start.BottomAnchor + (target.BottomAnchor - start.BottomAnchor) * anchorX;
 
-			OffsetLeft 	 = start.LeftOffset   + (target.LeftOffset   - start.LeftOffset)   * x;
-			OffsetRight  = start.RightOffset  + (target.RightOffset  - start.RightOffset)  * x;
-			OffsetTop 	 = start.TopOffset	  + (target.TopOffset 	 - start.TopOffset)    * x;
-			OffsetBottom = start.BottomOffset + (target.BottomOffset - start.BottomOffset) * x;
+			float offsetX = ManipulateOffsetTimeProportion(x);
+			OffsetLeft 	 = start.LeftOffset   + (target.LeftOffset   - start.LeftOffset)   * offsetX;
+			OffsetRight  = start.RightOffset  + (target.RightOffset  - start.RightOffset)  * offsetX;
+			OffsetTop 	 = start.TopOffset	  + (target.TopOffset 	 - start.TopOffset)    * offsetX;
+			OffsetBottom = start.BottomOffset + (target.BottomOffset - start.BottomOffset) * offsetX;
 		}
+
+		protected virtual float ManipulateAnchorTimeProportion(float x) => x;
+
+		protected virtual float ManipulateOffsetTimeProportion(float x) => x;
 
 		protected virtual void Arrive()
 		{

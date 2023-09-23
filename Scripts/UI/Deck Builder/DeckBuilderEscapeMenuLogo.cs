@@ -32,6 +32,8 @@ namespace Kompas.UI.DeckBuilder
 			closed = Positioning.Of(this);
 		}
 
+		protected override float ManipulateAnchorTimeProportion(float x) => x * x;
+
 		public void Toggle()
 		{
 			if (open) Close();
