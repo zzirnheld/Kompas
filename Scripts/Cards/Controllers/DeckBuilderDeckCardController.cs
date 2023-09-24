@@ -49,17 +49,9 @@ namespace Kompas.Cards.Controllers
 			}
 		}
 
-		public void MouseEnter()
-		{
-			GD.Print($"Mouse entered {Name}");
-			DeckController.DragSwap(this);
-		}
+		public void MouseEnter() => DeckController.DragSwap(this);
 
-		public void MouseExit()
-		{
-			GD.Print($"Mouse exited {Name}");
-			leftClickStayedOnThisCard = rightClickStayedOnThisCard = false;
-		}
+		public void MouseExit() => leftClickStayedOnThisCard = rightClickStayedOnThisCard = false;
 
 		public void Delete()
 		{

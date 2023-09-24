@@ -1,3 +1,4 @@
+using Godot;
 using Kompas.UI.MainMenu;
 using System;
 
@@ -19,10 +20,14 @@ namespace Kompas.UI.DeckBuilder
 			TopOffset = 0f,
 			BottomOffset = 0f,
 		};
+		private Positioning closed;
+
+		[Export]
+		private Control EscapeMenuParent { get; set; }
+		private float initialEscapeMenuParentModulate;
+		private float TargetEscapeMenuParentModulate => open ? 1f : 0f;
 
 		protected override float RotationDuration => 1f;
-
-		private Positioning closed;
 
 		private bool open = false;
 
@@ -30,6 +35,12 @@ namespace Kompas.UI.DeckBuilder
 		{
 			base._Ready();
 			closed = Positioning.Of(this);
+		}
+
+		protected override void Progress(float x)
+		{
+			base.Progress(x);
+			EscapeMenuParent.Modulate = new Color(1f, 1f, 1f, initialEscapeMenuParentModulate + (x * x * (TargetEscapeMenuParentModulate - initialEscapeMenuParentModulate)));
 		}
 
 		protected override float ManipulateAnchorTimeProportion(float x) => x * x;
@@ -50,6 +61,19 @@ namespace Kompas.UI.DeckBuilder
 		{
 			RotateTowards(closed.With(rotation: FullClockwiseRotation));
 			open = false;
+		}
+
+		public override void RotateTowards(From from)
+		{
+			base.RotateTowards(from);
+			initialEscapeMenuParentModulate = EscapeMenuParent.Modulate.A;
+			EscapeMenuParent.Visible = true;
+		}
+
+		protected override void Arrive()
+		{
+			base.Arrive();
+			if (!open) EscapeMenuParent.Visible = false;
 		}
 	}
 }

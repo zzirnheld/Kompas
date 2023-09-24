@@ -691,7 +691,9 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Control" type="Control" parent="."]
+[node name="Escape Menu Stuff" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -700,30 +702,47 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -100.0
-offset_bottom = 100.0
-grow_horizontal = 0
-texture = ExtResource("4_c8rh7")
-expand_mode = 1
-stretch_mode = 4
-script = ExtResource("19_rydhv")
-
-[node name="Button" type="Button" parent="Control/TextureRect"]
-self_modulate = Color(1, 1, 1, 0)
+[node name="Background Haze" type="TextureRect" parent="Escape Menu Stuff"]
+self_modulate = Color(1, 1, 1, 0.611765)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_l8goj")
 
-[node name="Contain Spinning Logo" type="Control" parent="Control"]
+[node name="Escape Menu Buttons" type="Control" parent="Escape Menu Stuff/Background Haze"]
+layout_mode = 1
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Escape Menu Stuff/Background Haze/Escape Menu Buttons"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Escape Menu Buttons" type="VBoxContainer" parent="Escape Menu Stuff/Background Haze/Escape Menu Buttons/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Escape Menu Stuff/Background Haze/Escape Menu Buttons/MarginContainer/Escape Menu Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("11_jp0pa")
+text = "Back to
+Main Menu"
+
+[node name="Contain Spinning Logo" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -734,7 +753,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 
-[node name="Spinning Logo On Splash" type="TextureRect" parent="Control/Contain Spinning Logo" node_paths=PackedStringArray("center")]
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Contain Spinning Logo" node_paths=PackedStringArray("EscapeMenuParent", "center")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -748,9 +767,10 @@ texture = ExtResource("20_xotc0")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("19_rydhv")
+EscapeMenuParent = NodePath("../../Escape Menu Stuff")
 center = NodePath("Center of Spinning Logo")
 
-[node name="Control" type="Control" parent="Control/Contain Spinning Logo/Spinning Logo On Splash"]
+[node name="Control" type="Control" parent="Contain Spinning Logo/Spinning Logo On Splash"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -760,7 +780,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Button" type="Button" parent="Control/Contain Spinning Logo/Spinning Logo On Splash/Control"]
+[node name="Button" type="Button" parent="Contain Spinning Logo/Spinning Logo On Splash/Control"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -769,7 +789,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Center of Spinning Logo" type="Control" parent="Control/Contain Spinning Logo/Spinning Logo On Splash"]
+[node name="Center of Spinning Logo" type="Control" parent="Contain Spinning Logo/Spinning Logo On Splash"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -786,5 +806,5 @@ grow_vertical = 2
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Confirm"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBoxContainer" method="Cancel"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Options VBox/Search HBoxContainer/Search Text MarginContainer/Search LineEdit" to="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent" method="Search"]
-[connection signal="resized" from="Control/Contain Spinning Logo/Spinning Logo On Splash" to="Control/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]
-[connection signal="pressed" from="Control/Contain Spinning Logo/Spinning Logo On Splash/Control/Button" to="Control/Contain Spinning Logo/Spinning Logo On Splash" method="Toggle"]
+[connection signal="resized" from="Contain Spinning Logo/Spinning Logo On Splash" to="Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]
+[connection signal="pressed" from="Contain Spinning Logo/Spinning Logo On Splash/Control/Button" to="Contain Spinning Logo/Spinning Logo On Splash" method="Toggle"]

@@ -156,7 +156,7 @@ namespace Kompas.UI.MainMenu
 
 		public delegate Positioning From(Positioning start);
 
-		public void RotateTowards(From from)
+		public virtual void RotateTowards(From from)
 		{
 			if (ArriveBeforeStartingNext) Arrive();
 
