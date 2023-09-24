@@ -1,34 +1,32 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace Kompas.UI.TextBehavior
 {
 	public partial class ShrinkRichTextOnOverrun : RichTextLabel
 	{
-		private const string FontSizeName = "font_size";
+		private const string FontSizeName = "normal_font_size";
 
-		private float defaultHeight;
-
-		public override void _Ready()
-		{
-			defaultHeight = Size.Y;
-		}
-		//TODO also update on resize? if window size changes
+		private int fontSize;
 
 		public string ShrinkableText
 		{
 			set
 			{
 				RemoveThemeFontSizeOverride(FontSizeName);
-
-				int fontSize = GetThemeDefaultFontSize();
+				fontSize = GetThemeDefaultFontSize();
 				Text = value;
-				while (Size.Y > defaultHeight)
-				{
-					RemoveThemeFontSizeOverride(FontSizeName);
-					fontSize--;
-					AddThemeFontSizeOverride(FontSizeName, fontSize);
-					Text = value;
-				}
+				AddThemeFontSizeOverride(FontSizeName, fontSize);
+			}
+		}
+
+		public override void _Process(double delta)
+		{
+			if (GetVisibleLineCount() < GetLineCount())
+			{
+				RemoveThemeFontSizeOverride(FontSizeName);
+				fontSize--;
+				AddThemeFontSizeOverride(FontSizeName, fontSize);
 			}
 		}
 	}

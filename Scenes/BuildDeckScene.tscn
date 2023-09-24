@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=23 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkOnOverrun.cs" id="6_53ng8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
-[ext_resource type="Theme" uid="uid://cjrmtsdjr3js1" path="res://Themes/Shrinkable Label.tres" id="7_oqr5g"]
 [ext_resource type="Texture2D" uid="uid://bfpsfa5jrx1ig" path="res://Icons/Kompas Spiral 2.png" id="8_5rhaf"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
 [ext_resource type="Texture2D" uid="uid://dgsbbw3q82cjt" path="res://Icons/Card Stuff/octagondifference.svg" id="8_l4pi7"]
@@ -86,136 +85,6 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
-
-[node name="Not a Card (PLACEHOLDER)" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer" node_paths=PackedStringArray("Image", "N", "E", "S", "W", "C", "A", "CardName", "Subtypes", "EffText")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-script = ExtResource("3_dc8x7")
-Image = NodePath("Card Face Image")
-N = NodePath("Stats/N/N Value")
-E = NodePath("Stats/E/E Value")
-S = NodePath("Stats/S/S Value")
-W = NodePath("Stats/W/W Value")
-C = NodePath("Stats/C/C Value")
-A = NodePath("Stats/A/A Value")
-CardName = NodePath("Card Name")
-Subtypes = NodePath("Subtypes")
-EffText = NodePath("Effect Text")
-
-[node name="Card Face Image" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
-layout_mode = 2
-texture = ExtResource("8_5rhaf")
-expand_mode = 4
-stretch_mode = 4
-
-[node name="Card Name" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
-layout_mode = 2
-text = "This is a card's name"
-horizontal_alignment = 1
-script = ExtResource("6_53ng8")
-
-[node name="Subtypes" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
-layout_mode = 2
-theme = ExtResource("7_oqr5g")
-text = "Ethereal Shaper Idiot"
-horizontal_alignment = 1
-script = ExtResource("6_53ng8")
-
-[node name="Stats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
-layout_mode = 2
-
-[node name="N" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="N Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/N"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "N:"
-
-[node name="N Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/N"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "#"
-
-[node name="E" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="E Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/E"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "E:"
-
-[node name="E Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/E"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "#"
-
-[node name="S" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="S Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/S"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "S:"
-
-[node name="S Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/S"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "#"
-
-[node name="W" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="W Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/W"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "W:"
-
-[node name="W Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/W"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "#"
-
-[node name="C" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="C Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/C"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "C:"
-
-[node name="C Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/C"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "#"
-
-[node name="A" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="A Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/A"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "A:"
-
-[node name="A Value" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)/Stats/A"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "#"
-
-[node name="Effect Text" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Not a Card (PLACEHOLDER)"]
-layout_mode = 2
-size_flags_vertical = 3
-bbcode_enabled = true
-text = "[center]This is an example of card effect text. I'm wondering how it supports the various things that I want it tos upport. We'll find out as we go on.[/center]
-"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer" node_paths=PackedStringArray("Image", "N", "E", "S", "W", "C", "A", "CardName", "Subtypes", "EffText")]
 layout_mode = 2
@@ -334,7 +203,6 @@ anchor_bottom = 0.8
 theme = ExtResource("11_jp0pa")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Card eff. Leverage fit content: if i spills beyond its borders, change font size "
-fit_content = true
 script = ExtResource("10_ype88")
 
 [node name="Card Stats" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/VBoxContainer/AspectRatioContainer/Card View"]
