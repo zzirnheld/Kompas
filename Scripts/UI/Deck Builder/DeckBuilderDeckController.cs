@@ -175,7 +175,6 @@ namespace Kompas.UI.DeckBuilder
 
 		public void DragSwap(DeckBuilderDeckCardController card)
 		{
-			GD.Print($"Drag swap called for {card} and {Dragging}");
 			if (Dragging == null) return;
 
 			int argIndex = currentDeckCtrls.IndexOf(card);
@@ -183,14 +182,13 @@ namespace Kompas.UI.DeckBuilder
 
 			int draggingIndex = currentDeckCtrls.IndexOf(Dragging);
 
-			if (currentDeckCtrls.Remove(Dragging))
-			{
-				currentDeckCtrls.Insert(argIndex, Dragging);
+			if (!currentDeckCtrls.Remove(Dragging)) return;
+			currentDeckCtrls.Insert(argIndex, Dragging);
 
-				currentDeck.deck.RemoveAt(draggingIndex);
-				currentDeck.deck.Insert(argIndex, Dragging.Card.CardName);
-				DeckNodesParent.MoveChild(Dragging, argIndex);
-			}
+			currentDeck.deck.RemoveAt(draggingIndex);
+			currentDeck.deck.Insert(argIndex, Dragging.Card.CardName);
+
+			DeckNodesParent.MoveChild(Dragging, argIndex);
 		}
 
 		private DeckBuilderDeckCardController CreateCardController()
