@@ -27,7 +27,13 @@ namespace Kompas.UI.CardInfoDisplayers
 		[Export]
 		private ShrinkRichTextOnOverrun EffText { get; set; }
 
-		public bool ShowingInfo { set => Visible = value; }
+		public bool ShowingInfo
+		{
+			set
+			{
+				Visible = value;
+			}
+		}
 
 		public void DisplayCardImage(CardBase card)
 		{
