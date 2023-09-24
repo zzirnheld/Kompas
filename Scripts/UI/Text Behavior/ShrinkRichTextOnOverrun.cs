@@ -22,7 +22,7 @@ namespace Kompas.UI.TextBehavior
 
 		public override void _Process(double delta)
 		{
-			if (GetVisibleLineCount() < GetLineCount())
+			if (GetVScrollBar().Visible)
 			{
 				RemoveThemeFontSizeOverride(FontSizeName);
 				fontSize--;
