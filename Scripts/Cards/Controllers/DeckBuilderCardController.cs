@@ -18,10 +18,10 @@ namespace Kompas.Cards.Controllers
 		protected DeckBuilderDeckController DeckController { get; private set; }
 
 		private DeckBuilderCard card;
-		protected DeckBuilderCard Card
+		public DeckBuilderCard Card
 		{
 			get => card;
-			set
+			protected set
 			{
 				card = value;
 				myView.Show(card);
@@ -42,6 +42,25 @@ namespace Kompas.Cards.Controllers
 
 			Card = card;
 		}
+
+		public void Clicked(InputEvent input)
+		{
+			if (input is InputEventMouseButton mouseInput && mouseInput.Pressed)
+			{
+				//TODO make left button able to drag? and shouldn't make char avatar at end of drag
+				if (mouseInput.ButtonIndex == MouseButton.Left)
+				{
+					if (mouseInput.DoubleClick) DoubleLeftClick();
+					else LeftClickPressed(); //begin drag
+				}
+				else if (mouseInput.ButtonIndex == MouseButton.Right) RightClicked();
+			}
+		}
+
+		protected virtual void DoubleLeftClick() => DeckController.BecomeAvatar(this);
+		protected virtual void LeftClickPressed() { }
+		protected virtual void RightClicked() { }
+
 
 
 		public void ShowInTopLeft() => topLeftCardView.Show(Card);

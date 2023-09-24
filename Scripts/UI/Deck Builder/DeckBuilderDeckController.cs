@@ -165,6 +165,12 @@ namespace Kompas.UI.DeckBuilder
 			currentDeckCards.RemoveAt(index);
 		}
 
+		public void BecomeAvatar(DeckBuilderCardController card)
+		{
+			AvatarController.UpdateAvatar(card.Card);
+			currentDeck.avatarName = card.Card.CardName;
+		}
+
 		private DeckBuilderDeckCardController CreateCardController()
 		{
 			if (DeckCardControllerPrefab.Instantiate() is not DeckBuilderDeckCardController controller)
