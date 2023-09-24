@@ -45,23 +45,15 @@ namespace Kompas.Cards.Controllers
 
 		public void Clicked(InputEvent input)
 		{
-			if (input is InputEventMouseButton mouseInput && mouseInput.Pressed)
-			{
-				//TODO make left button able to drag? and shouldn't make char avatar at end of drag
-				if (mouseInput.ButtonIndex == MouseButton.Left)
-				{
-					if (mouseInput.DoubleClick) DoubleLeftClick();
-					else LeftClickPressed(); //begin drag
-				}
-				else if (mouseInput.ButtonIndex == MouseButton.Right) RightClicked();
-			}
+			if (input is InputEventMouseButton mouseInput) HandleMouseEvent(mouseInput);
+		}
+
+		protected virtual void HandleMouseEvent(InputEventMouseButton mouseInput)
+		{
+			if (mouseInput.ButtonIndex == MouseButton.Left && mouseInput.DoubleClick) DoubleLeftClick();
 		}
 
 		protected virtual void DoubleLeftClick() => DeckController.BecomeAvatar(this);
-		protected virtual void LeftClickPressed() { }
-		protected virtual void RightClicked() { }
-
-
 
 		public void ShowInTopLeft() => topLeftCardView.Show(Card);
 	}
