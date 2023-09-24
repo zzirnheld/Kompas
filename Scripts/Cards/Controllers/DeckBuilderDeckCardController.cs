@@ -22,12 +22,17 @@ namespace Kompas.Cards.Controllers
 		private void LeftClick(bool pressed)
 		{
 			// check if pressed and released on the same card TODO expand to have dragging capabilities
-			if (pressed) leftClickStayedOnThisCard = true;
+			if (pressed)
+			{
+				leftClickStayedOnThisCard = true;
+				DeckController.Dragging = this;
+			}
 			else
 			{
 				if (leftClickStayedOnThisCard) GD.Print($"Pressed and released on {Name}");
 
 				//regardless
+				DeckController.Dragging = null;
 				leftClickStayedOnThisCard = false;
 			}
 		}
@@ -44,8 +49,15 @@ namespace Kompas.Cards.Controllers
 			}
 		}
 
+		public void MouseEnter()
+		{
+			GD.Print($"Mouse entered {Name}");
+			DeckController.DragSwap(this);
+		}
+
 		public void MouseExit()
 		{
+			GD.Print($"Mouse exited {Name}");
 			leftClickStayedOnThisCard = rightClickStayedOnThisCard = false;
 		}
 

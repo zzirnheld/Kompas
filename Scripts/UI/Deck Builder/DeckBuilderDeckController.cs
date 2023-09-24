@@ -42,7 +42,9 @@ namespace Kompas.UI.DeckBuilder
 
 		private Decklist currentDeck;
 		//To maintain ordering of decks where copies of the same card aren't next to each other
-		private readonly List<DeckBuilderDeckCardController> currentDeckCards = new();
+		private readonly List<DeckBuilderDeckCardController> currentDeckCtrls = new();
+
+		public DeckBuilderDeckCardController Dragging { get; set; }
 
 		public override void _Ready()
 		{
@@ -80,14 +82,14 @@ namespace Kompas.UI.DeckBuilder
 
 		private void ClearDeck()
 		{
-			foreach (var card in currentDeckCards.ToArray()) card.Delete();
+			foreach (var card in currentDeckCtrls.ToArray()) card.Delete();
 
 			AvatarController.Clear();
 			
-			if (currentDeckCards.Count > 0)
+			if (currentDeckCtrls.Count > 0)
 			{
 				GD.PrintErr("Didnt' delete all cards succesfully!?");
-				currentDeckCards.Clear();
+				currentDeckCtrls.Clear();
 			}
 		}
 
@@ -151,24 +153,42 @@ namespace Kompas.UI.DeckBuilder
 			DeckNodesParent.MoveChild(ctrl, -1 - DeckSpacingPlaceholders.Length);
 			ctrl.Init(card, DeckBuilderController.CardView, this);
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
-			currentDeckCards.Add(ctrl);
+			currentDeckCtrls.Add(ctrl);
 			ctrl.AddToGroup(CurrentDeckGroupName);
 			ReevaluatePlaceholders();
 		}
 
 		public void RemoveFromDeck(DeckBuilderDeckCardController card)
 		{
-			int index = currentDeckCards.IndexOf(card);
+			int index = currentDeckCtrls.IndexOf(card);
 			if (index < 0) return;
 
 			currentDeck?.deck.RemoveAt(index);
-			currentDeckCards.RemoveAt(index);
+			currentDeckCtrls.RemoveAt(index);
 		}
 
 		public void BecomeAvatar(DeckBuilderCardController card)
 		{
 			AvatarController.UpdateAvatar(card.Card);
 			currentDeck.avatarName = card.Card.CardName;
+		}
+
+		public void DragSwap(DeckBuilderDeckCardController card)
+		{
+			GD.Print($"Drag swap called for {card} and {Dragging}");
+			if (Dragging == null) return;
+
+			int argIndex = currentDeckCtrls.IndexOf(card);
+			if (argIndex < 0) { GD.Print($"{card} not in deck"); return; }
+
+			int draggingIndex = currentDeckCtrls.IndexOf(Dragging);
+			if (draggingIndex < 0) { GD.Print($"{Dragging} not in deck"); return; }
+
+			GD.Print($"Swapping {argIndex} and {draggingIndex}");
+			(currentDeckCtrls[argIndex], currentDeckCtrls[draggingIndex]) = (currentDeckCtrls[draggingIndex], currentDeckCtrls[argIndex]);
+			(currentDeck.deck[argIndex], currentDeck.deck[draggingIndex]) = (currentDeck.deck[draggingIndex], currentDeck.deck[argIndex]);
+			DeckNodesParent.MoveChild(Dragging, argIndex);
+			DeckNodesParent.MoveChild(card, draggingIndex);
 		}
 
 		private DeckBuilderDeckCardController CreateCardController()
