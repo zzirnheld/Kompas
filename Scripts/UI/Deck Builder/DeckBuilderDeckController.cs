@@ -182,13 +182,15 @@ namespace Kompas.UI.DeckBuilder
 			if (argIndex < 0) { GD.Print($"{card} not in deck"); return; }
 
 			int draggingIndex = currentDeckCtrls.IndexOf(Dragging);
-			if (draggingIndex < 0) { GD.Print($"{Dragging} not in deck"); return; }
 
-			GD.Print($"Swapping {argIndex} and {draggingIndex}");
-			(currentDeckCtrls[argIndex], currentDeckCtrls[draggingIndex]) = (currentDeckCtrls[draggingIndex], currentDeckCtrls[argIndex]);
-			(currentDeck.deck[argIndex], currentDeck.deck[draggingIndex]) = (currentDeck.deck[draggingIndex], currentDeck.deck[argIndex]);
-			DeckNodesParent.MoveChild(Dragging, argIndex);
-			DeckNodesParent.MoveChild(card, draggingIndex);
+			if (currentDeckCtrls.Remove(Dragging))
+			{
+				currentDeckCtrls.Insert(argIndex, Dragging);
+
+				currentDeck.deck.RemoveAt(draggingIndex);
+				currentDeck.deck.Insert(argIndex, Dragging.Card.CardName);
+				DeckNodesParent.MoveChild(Dragging, argIndex);
+			}
 		}
 
 		private DeckBuilderDeckCardController CreateCardController()
