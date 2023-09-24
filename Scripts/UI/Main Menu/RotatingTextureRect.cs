@@ -73,7 +73,7 @@ namespace Kompas.UI.MainMenu
 		protected Positioning target = new();
 
 		private Positioning start;
-		private float time;
+		protected float Time { get; private set; } = 0f;
 
 		protected virtual bool ArriveBeforeStartingNext => false;
 		protected virtual bool NormalizeAngleOnArrival => true;
@@ -83,23 +83,23 @@ namespace Kompas.UI.MainMenu
 		{
 			Rotation = InitialRotation;
 			start = target = Positioning.Of(this).With(rotation: InitialRotation);
-			time = RotationDuration + 1f;
+			Time = RotationDuration + 1f;
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(double delta)
 		{
-			if (time > RotationDuration) return;
+			if (Time > RotationDuration) return;
 
 			//The cubic that passes through (0,0) and (1,1) that is a dilation of the integral of the integral (-x - 1) is 6(x^2 / 2 - x^3 / 3)
-			time += (float)delta;
-			if (time >= RotationDuration)
+			Time += (float)delta;
+			if (Time >= RotationDuration)
 			{
 				Arrive();
 				return;
 			}
 
-			Progress(time / RotationDuration);
+			Progress(Time / RotationDuration);
 		}
 
 		/// <summary>
@@ -163,7 +163,7 @@ namespace Kompas.UI.MainMenu
 			start = Positioning.Of(this);
 			target = from(start);
 			GD.Print($"Rotating from {start} to {target}");
-			time = 0f;
+			Time = 0f;
 		}
 
 		private float RotationForVector(Vector2 targetPosition)

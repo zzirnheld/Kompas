@@ -7,6 +7,8 @@ namespace Kompas.UI.DeckBuilder
 {
 	public partial class DeckBuilderController : Control
 	{
+		private const string MainMenuPath = "res://Scenes/MainMenuScene.tscn";
+
 		[Export]
 		private ControlInfoDisplayer CardInfoDisplayer { get; set; }
 		[Export]
@@ -21,5 +23,7 @@ namespace Kompas.UI.DeckBuilder
 		{
 			CardView.Show(null, refresh: true);
 		}
+
+		private void ToMainMenu() => GetTree().ChangeSceneToFile(MainMenuPath);
 	}
 }

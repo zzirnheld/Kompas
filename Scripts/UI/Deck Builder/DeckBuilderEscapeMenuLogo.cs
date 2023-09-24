@@ -6,6 +6,8 @@ namespace Kompas.UI.DeckBuilder
 {
 	public partial class DeckBuilderEscapeMenuLogo : RotatingTextureRect
 	{
+		private const float BaseRotationDuration = 1f;
+
 		private readonly Positioning Opened = new()
 		{
 			Rotation = (float)(-(6f / 4f) * Math.PI),
@@ -23,11 +25,17 @@ namespace Kompas.UI.DeckBuilder
 		private Positioning closed;
 
 		[Export]
-		private Control EscapeMenuParent { get; set; }
-		private float initialEscapeMenuParentModulate;
-		private float TargetEscapeMenuParentModulate => open ? 1f : 0f;
+		private Control EscapeMenuHaze { get; set; }
+		[Export]
+		private Control EscapeMenuButtons { get; set; }
+		[Export]
+		private Control EscapeMenuParentToSetVisibility { get; set; }
+		private float initialHazeVisibility;
+		private float initialButtonVisibility;
+		private float TargetVisibility => open ? 1f : 0f;
 
-		protected override float RotationDuration => 1f;
+		private float rotationDuration = BaseRotationDuration;
+		protected override float RotationDuration => rotationDuration;
 
 		private bool open = false;
 
@@ -40,8 +48,14 @@ namespace Kompas.UI.DeckBuilder
 		protected override void Progress(float x)
 		{
 			base.Progress(x);
-			EscapeMenuParent.Modulate = new Color(1f, 1f, 1f, initialEscapeMenuParentModulate + (x * x * (TargetEscapeMenuParentModulate - initialEscapeMenuParentModulate)));
+			EscapeMenuHaze.Modulate = Visibility(x * x, initialHazeVisibility);
+			EscapeMenuButtons.Modulate = Visibility(ButtonTimeProportion(x), initialButtonVisibility);
 		}
+
+		private Color Visibility(float x, float initialVisibility)
+			=> new(1f, 1f, 1f, initialVisibility + (x * (TargetVisibility - initialVisibility)));
+
+		private static float ButtonTimeProportion(float x) => (float)Math.Cbrt(x);
 
 		protected override float ManipulateAnchorTimeProportion(float x) => x * x;
 
@@ -66,14 +80,17 @@ namespace Kompas.UI.DeckBuilder
 		public override void RotateTowards(From from)
 		{
 			base.RotateTowards(from);
-			initialEscapeMenuParentModulate = EscapeMenuParent.Modulate.A;
-			EscapeMenuParent.Visible = true;
+			//GD.Print($"Starting rotation when time is {Time}, rotation duration was {rotationDuration}");
+			//rotationDuration = (Time / rotationDuration) * BaseRotationDuration;
+			initialHazeVisibility = EscapeMenuHaze.Modulate.A;
+			initialButtonVisibility = EscapeMenuButtons.Modulate.A;
+			EscapeMenuParentToSetVisibility.Visible = true;
 		}
 
 		protected override void Arrive()
 		{
 			base.Arrive();
-			if (!open) EscapeMenuParent.Visible = false;
+			if (!open) EscapeMenuParentToSetVisibility.Visible = false;
 		}
 	}
 }
