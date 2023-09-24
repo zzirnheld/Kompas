@@ -7,26 +7,23 @@ namespace Kompas.UI.TextBehavior
 	{
 		private const string FontSizeName = "normal_font_size";
 
-		private int fontSize;
-
 		public string ShrinkableText
 		{
 			set
 			{
 				RemoveThemeFontSizeOverride(FontSizeName);
-				fontSize = GetThemeDefaultFontSize();
-				Text = value;
-				AddThemeFontSizeOverride(FontSizeName, fontSize);
-			}
-		}
+				Font font = GetThemeDefaultFont();
+				int nextFontSizeToTry = GetThemeDefaultFontSize();
+				float height = float.MaxValue;
 
-		public override void _Process(double delta)
-		{
-			if (GetVScrollBar().Visible)
-			{
-				RemoveThemeFontSizeOverride(FontSizeName);
-				fontSize--;
-				AddThemeFontSizeOverride(FontSizeName, fontSize);
+				while (height > Size.Y)
+				{
+					height = font.GetMultilineStringSize(value, width: Size.X, fontSize: nextFontSizeToTry).Y;
+					AddThemeFontSizeOverride(FontSizeName, nextFontSizeToTry);
+					nextFontSizeToTry--;
+				}
+
+				Text = value;
 			}
 		}
 	}
