@@ -59,6 +59,11 @@ namespace Kompas.UI.DeckBuilder
 
 		protected override float ManipulateAnchorTimeProportion(float x) => x * x;
 
+		public override void _Input(InputEvent inputEvent)
+		{
+			if (inputEvent is InputEventKey keyEvent && keyEvent.Keycode == Key.Escape && !keyEvent.Pressed) Toggle();
+		}
+
 		public void Toggle()
 		{
 			if (open) Close();
@@ -75,7 +80,9 @@ namespace Kompas.UI.DeckBuilder
 		{
 			//If haven't arrived yet, didn't normalize the angle, so no reason to add the full clockwise rotation
 			//I'd not normalize the angle on arrival, except that otherwise selecting the escape menu buttons wouldn't work.
-			var target = Time >= RotationDuration ? closed.With(FullClockwiseRotation) : closed;
+			//If rotation is backwards but not about to be normalized, it means we interrupted the main spin out and should go back to normal without the bonus spin
+			//TODO make this more robust, possibly with some flag if it successfully arrived?
+			var target = Rotation < 0 && Rotation > -Math.PI ? closed : closed.With(FullClockwiseRotation);
 			RotateTowards(target);
 			open = false;
 		}
