@@ -73,18 +73,29 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Close()
 		{
-			RotateTowards(closed.With(rotation: FullClockwiseRotation));
+			//If haven't arrived yet, didn't normalize the angle, so no reason to add the full clockwise rotation
+			//I'd not normalize the angle on arrival, except that otherwise selecting the escape menu buttons wouldn't work.
+			var target = Time >= RotationDuration ? closed.With(FullClockwiseRotation) : closed;
+			RotateTowards(target);
 			open = false;
 		}
 
 		public override void RotateTowards(From from)
 		{
+			rotationDuration = DetermineRotationDuration();
+			NormalizeAngle();
 			base.RotateTowards(from);
-			//GD.Print($"Starting rotation when time is {Time}, rotation duration was {rotationDuration}");
-			//rotationDuration = (Time / rotationDuration) * BaseRotationDuration;
 			initialHazeVisibility = EscapeMenuHaze.Modulate.A;
 			initialButtonVisibility = EscapeMenuButtons.Modulate.A;
 			EscapeMenuParentToSetVisibility.Visible = true;
+		}
+
+		private float DetermineRotationDuration()
+		{
+			GD.Print($"Starting escape menu rotation when time is {Time}, rotation duration was {rotationDuration}");
+			if (Time > rotationDuration) return BaseRotationDuration;
+			else if (Time == 0f) return BaseRotationDuration;
+			else return Time;
 		}
 
 		protected override void Arrive()

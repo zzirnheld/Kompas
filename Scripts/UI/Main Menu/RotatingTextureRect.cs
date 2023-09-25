@@ -131,11 +131,24 @@ namespace Kompas.UI.MainMenu
 		{
 			GD.Print($"Arrived at {target.Rotation}!");
 			Rotation = target.Rotation;
-			if (NormalizeAngleOnArrival)
-			{
-				while (Rotation > Math.PI) Rotation -= FullClockwiseRotation;
-				while (Rotation < -Math.PI) Rotation += FullClockwiseRotation;
-			}
+
+			AnchorTop = target.TopAnchor;
+			AnchorBottom = target.BottomAnchor;
+			AnchorLeft = target.LeftAnchor;
+			AnchorRight = target.RightAnchor;
+
+			OffsetTop = target.TopOffset;
+			OffsetBottom = target.BottomOffset;
+			OffsetLeft = target.LeftOffset;
+			OffsetRight = target.RightOffset;
+
+			if (NormalizeAngleOnArrival) NormalizeAngle();
+		}
+
+		protected void NormalizeAngle()
+		{
+			while (Rotation > Math.PI) Rotation -= FullClockwiseRotation;
+			while (Rotation < -Math.PI) Rotation += FullClockwiseRotation;
 		}
 
 		public virtual void Resize()
