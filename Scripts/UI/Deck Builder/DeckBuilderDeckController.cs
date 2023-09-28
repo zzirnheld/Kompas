@@ -16,7 +16,7 @@ namespace Kompas.UI.DeckBuilder
 		private const string CurrentDeckGroupName = "CurrentDeck";
 
 		//TODO factor out this tab ui behavior to make this class just responsible for CRUD-y stuff
-		public enum Tab { Normal, NewDeck }
+		public enum Tab { Normal, NewDeck, SaveAs }
 
 		[Export]
 		private Control DeckNodesParent { get; set; }
