@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=24 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
 [ext_resource type="PackedScene" uid="uid://cfd3q5mmpaucw" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckInvisPrefab.tscn" id="13_wvcrl"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="14_j2qbw"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/SaveAsController.cs" id="15_gjys2"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
@@ -382,7 +383,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="Deck Edit VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -428,6 +428,11 @@ text = "Save"
 layout_mode = 2
 theme = ExtResource("11_jp0pa")
 text = "As"
+
+[node name="Delete Deck Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Buttons Margin/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_jp0pa")
+text = "Delete"
 
 [node name="Deck Select Margin" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"]
 layout_mode = 2
@@ -502,15 +507,16 @@ theme = ExtResource("11_jp0pa")
 text = "Cancel"
 
 [node name="Save As VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control" node_paths=PackedStringArray("DeckBuilderDeckController", "DeckNameEdit")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("7_fm1fl")
+script = ExtResource("15_gjys2")
 DeckBuilderDeckController = NodePath("../../../../Deck Cards Parent/MarginContainer/ScrollContainer")
-DeckNameEdit = NodePath("../New Deck VBox/Deck Buttons MarginContainer2/Deck Name LineEdit")
+DeckNameEdit = NodePath("Deck Buttons MarginContainer2/Deck Name LineEdit")
 
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox"]
 layout_mode = 2
@@ -607,7 +613,7 @@ DeckNodesParent = NodePath("GridContainer")
 DeckCardControllerPrefab = ExtResource("12_lr2s2")
 AvatarController = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView")
 DeckBuilderController = NodePath("../../../../../../..")
-Tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox")]
+Tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox")]
 DeckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select")
 DeckSpacingPlaceholders = [NodePath("GridContainer/Invis Placeholder For Grid Sizing"), NodePath("GridContainer/Invis Placeholder For Grid Sizing2"), NodePath("GridContainer/Invis Placeholder For Grid Sizing3"), NodePath("GridContainer/Invis Placeholder For Grid Sizing4"), NodePath("GridContainer/Invis Placeholder For Grid Sizing5"), NodePath("GridContainer/Invis Placeholder For Grid Sizing6"), NodePath("GridContainer/Invis Placeholder For Grid Sizing7"), NodePath("GridContainer/Invis Placeholder For Grid Sizing8")]
 
@@ -892,7 +898,8 @@ grow_vertical = 2
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" method="ShowInTopLeft"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Buttons Margin/HBoxContainer/New Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox" method="Enable"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Buttons Margin/HBoxContainer/Save Buttons HBox/Save Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="SaveDeck"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Buttons Margin/HBoxContainer/Save Buttons HBox/Save Deck As Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="SaveDeck"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Buttons Margin/HBoxContainer/Save Buttons HBox/Save Deck As Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox" method="Enable"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Buttons Margin/HBoxContainer/Delete Deck Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="DeleteSelectedDeck"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer" method="LoadDeck"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox/Deck Buttons MarginContainer/New Deck HBoxContainer/Confirm Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox" method="Confirm"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox/Deck Buttons MarginContainer/New Deck HBoxContainer/Cancel Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox" method="Cancel"]

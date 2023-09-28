@@ -13,12 +13,12 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Enable()
 		{
-			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.NewDeck);
+			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.SaveAs);
 		}
 
 		public void Confirm()
 		{
-			DeckBuilderDeckController.NewDeck(DeckNameEdit.Text);
+			DeckBuilderDeckController.SaveAs(DeckNameEdit.Text);
 			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
 		}
 

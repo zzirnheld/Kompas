@@ -54,11 +54,12 @@ namespace Kompas.UI.DeckBuilder
 			{
 				if (deckFileName[^5..] != ".json") return; // GD.Print($"{deckFileName[^5..]}");
 				string deckName = deckFileName[..^5];
-				AddDeck(deckName);
+				AddDeckName(deckName);
 			}
 
 			AvatarController.Init(null, DeckBuilderController.CardView, this);
-			LoadDeck(0);
+			if (deckNames.Count == 0) ShowController(Tab.NewDeck);
+			else LoadDeck(0);
 		}
 
 		public void ShowController(Tab toShow)
@@ -75,9 +76,21 @@ namespace Kompas.UI.DeckBuilder
 			ClearDeck();
 
 			currentDeck = new() { deckName = name };
-			AddDeck(name);
-			DeckNameSelect.Select(DeckNameSelect.ItemCount - 1);
+			AddDeckNameAndSelect(name);
 			SaveDeck();
+		}
+
+		public void SaveAs(string name)
+		{
+			currentDeck = currentDeck.Copy(name);
+			AddDeckNameAndSelect(name);
+			SaveDeck();
+		}
+
+		private void AddDeckNameAndSelect(string name)
+		{
+			AddDeckName(name);
+			DeckNameSelect.Select(DeckNameSelect.ItemCount - 1);
 		}
 
 		private void ClearDeck()
@@ -95,12 +108,32 @@ namespace Kompas.UI.DeckBuilder
 
 		private void SaveDeck()
 		{
+			if (currentDeck == null) return;
+			
 			EnsureDeckDirectory();
 
 			using var deck = FileAccess.Open($"{DeckFolderPath}/{currentDeck.deckName}.json", FileAccess.ModeFlags.Write);
 			if (deck == null) GD.Print(FileAccess.GetOpenError());
 			string json = JsonConvert.SerializeObject(currentDeck);
 			deck.StoreString(json);
+		}
+
+		public void DeleteSelectedDeck()
+		{
+			using var deckFolder = DirAccess.Open(DeckFolderPath);
+			if (deckFolder == null) GD.Print(DirAccess.GetOpenError());
+
+			deckFolder.Remove($"{currentDeck.deckName}.json");
+
+			int deckIndex = deckNames.IndexOf(currentDeck.deckName);
+			DeckNameSelect.RemoveItem(deckIndex);
+			deckNames.RemoveAt(deckIndex);
+
+			//TODO handle deleting last deck. maybe force user onto the "create first deck" code path?
+			//TODO create first deck code path that's new deck but you can't cancel out (forcing you to have at least 1 deck)
+			int indexToSelect = deckIndex == 0 ? 0 : deckIndex - 1;
+			LoadDeck(indexToSelect);
+			DeckNameSelect.Select(indexToSelect);
 		}
 
 		public void LoadDeck(int index)
@@ -207,7 +240,7 @@ namespace Kompas.UI.DeckBuilder
 			}
 		}
 
-		private void AddDeck(string deckName)
+		private void AddDeckName(string deckName)
 		{
 			deckNames.Add(deckName);
 			DeckNameSelect.AddItem(deckName);
