@@ -591,7 +591,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_f63o8")
-DeckNodesParent = NodePath("Deck Cards Parent")
+DeckNodesParent = NodePath("Container")
 DeckCardControllerPrefab = ExtResource("12_lr2s2")
 AvatarController = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView")
 DeckBuilderController = NodePath("../../../../../../..")
@@ -599,9 +599,6 @@ Tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edi
 DeckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select")
 
 [node name="Container" type="Container" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
-layout_mode = 2
-
-[node name="Deck Cards Parent" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

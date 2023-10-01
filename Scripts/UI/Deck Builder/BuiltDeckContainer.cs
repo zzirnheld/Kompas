@@ -3,7 +3,7 @@ using Godot;
 namespace Kompas.UI.DeckBuilder
 {
 	//IMPL NOTE: I can't override the AddChild methods 1) because they take in nodes, not controls and 2) because they're not virtual
-	public partial class BuiltDeckContainer : Control
+	public partial class BuiltDeckContainer : Container
 	{
 		private const int PositionalLayoutMode = 0;
 
@@ -23,6 +23,7 @@ namespace Kompas.UI.DeckBuilder
 		{
 			base.AddChild(child);
 			ResizeChild(child);
+			ScaleCustomMinimumSize();
 		}
 
 		public void MoveChild(Control childNode, int toIndex)
@@ -43,6 +44,18 @@ namespace Kompas.UI.DeckBuilder
 			{
 				if (child is Control ctrl) ResizeChild(ctrl);
 			}
+			ScaleCustomMinimumSize();
+		}
+
+		private bool scalingCustomMin = false;
+		private void ScaleCustomMinimumSize()
+		{
+			if (scalingCustomMin) return;
+			scalingCustomMin = true;
+			var y = (Size.X / ColumnCount) * (Mathf.Ceil((GetChildCount() - 1) / ColumnCount) + 1);
+			CustomMinimumSize = new(Size.X, y);
+			GD.Print($"Custom minimum size from {Size} to {CustomMinimumSize}");
+			scalingCustomMin = false;
 		}
 
 		private void ResizeChild(Control child)
