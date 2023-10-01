@@ -18,9 +18,9 @@
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="10_ype88"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="11_jp0pa"]
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
-[ext_resource type="PackedScene" uid="uid://cfd3q5mmpaucw" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckInvisPrefab.tscn" id="13_wvcrl"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="14_j2qbw"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/SaveAsController.cs" id="15_gjys2"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/BuiltDeckContainer.cs" id="18_fwsbl"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
@@ -572,47 +572,22 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect", "DeckSpacingPlaceholders")]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_f63o8")
-DeckNodesParent = NodePath("GridContainer")
+DeckNodesParent = NodePath("Deck Cards Parent")
 DeckCardControllerPrefab = ExtResource("12_lr2s2")
 AvatarController = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView")
 DeckBuilderController = NodePath("../../../../../../..")
 Tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox")]
 DeckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select")
-DeckSpacingPlaceholders = [NodePath("GridContainer/Invis Placeholder For Grid Sizing"), NodePath("GridContainer/Invis Placeholder For Grid Sizing2"), NodePath("GridContainer/Invis Placeholder For Grid Sizing3"), NodePath("GridContainer/Invis Placeholder For Grid Sizing4"), NodePath("GridContainer/Invis Placeholder For Grid Sizing5"), NodePath("GridContainer/Invis Placeholder For Grid Sizing6"), NodePath("GridContainer/Invis Placeholder For Grid Sizing7"), NodePath("GridContainer/Invis Placeholder For Grid Sizing8")]
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
+[node name="Deck Cards Parent" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 8
-
-[node name="Invis Placeholder For Grid Sizing" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
-
-[node name="Invis Placeholder For Grid Sizing2" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
-
-[node name="Invis Placeholder For Grid Sizing3" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
-
-[node name="Invis Placeholder For Grid Sizing4" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
-
-[node name="Invis Placeholder For Grid Sizing5" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
-
-[node name="Invis Placeholder For Grid Sizing6" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
-
-[node name="Invis Placeholder For Grid Sizing7" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
-
-[node name="Invis Placeholder For Grid Sizing8" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("13_wvcrl")]
-layout_mode = 2
+script = ExtResource("18_fwsbl")
 
 [node name="Card Search" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

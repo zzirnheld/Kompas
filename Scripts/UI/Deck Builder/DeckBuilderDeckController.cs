@@ -19,7 +19,7 @@ namespace Kompas.UI.DeckBuilder
 		public enum Tab { Normal, NewDeck, SaveAs }
 
 		[Export]
-		private Control DeckNodesParent { get; set; }
+		private BuiltDeckContainer DeckNodesParent { get; set; }
 
 		[Export]
 		private PackedScene DeckCardControllerPrefab { get; set; }
@@ -34,9 +34,6 @@ namespace Kompas.UI.DeckBuilder
 
 		[Export]
 		private OptionButton DeckNameSelect { get; set; }
-
-		[Export]
-		private Control[] DeckSpacingPlaceholders { get; set; }
 
 		private readonly List<string> deckNames = new();
 
@@ -176,7 +173,7 @@ namespace Kompas.UI.DeckBuilder
 			if (active == placeholdersWereActive) return;
 
 			placeholdersWereActive = active;
-			foreach (var placeholder in DeckSpacingPlaceholders) placeholder.Visible = active;
+			//foreach (var placeholder in DeckSpacingPlaceholders) placeholder.Visible = active;
 		}
 
 		private void AddToDeck(string cardName)
@@ -189,7 +186,7 @@ namespace Kompas.UI.DeckBuilder
 		{
 			var ctrl = CreateCardController();
 			DeckNodesParent.AddChild(ctrl);
-			DeckNodesParent.MoveChild(ctrl, -1 - DeckSpacingPlaceholders.Length);
+			//DeckNodesParent.MoveChild(ctrl, -1 - DeckSpacingPlaceholders.Length);
 			ctrl.Init(card, DeckBuilderController.CardView, this);
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
 			currentDeckCtrls.Add(ctrl);
