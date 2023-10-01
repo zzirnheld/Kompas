@@ -14,6 +14,8 @@ namespace Kompas.UI.TextBehavior
 		[Export]
 		private int StartingFontSize { get; set; } = 19;
 
+		private bool currentlyResizingText = false;
+
 
 		public override void _Ready()
 		{
@@ -23,7 +25,11 @@ namespace Kompas.UI.TextBehavior
 
 		public void ReshowText()
 		{
+			//Guard against infinite recursion
+			if (currentlyResizingText) return;
+			currentlyResizingText = true;
 			ShrinkableText = Text;
+			currentlyResizingText = false;
 		}
 
 		public string ShrinkableText
