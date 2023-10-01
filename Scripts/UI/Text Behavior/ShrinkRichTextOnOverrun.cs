@@ -8,6 +8,12 @@ namespace Kompas.UI.TextBehavior
 
 		private const string FontSizeName = "normal_font_size";
 
+		[Export]
+		private bool UseThemeDefaultFontSize { get; set; } = false;
+
+		[Export]
+		private int StartingFontSize { get; set; } = 19;
+
 
 		public override void _Ready()
 		{
@@ -24,17 +30,17 @@ namespace Kompas.UI.TextBehavior
 		{
 			set
 			{
-				GD.Print($"Shrinkable rich text set to {Text}");
+				//GD.Print($"Shrinkable rich text set to {Text}");
 				if (!IsVisibleInTree() || Size.Y == 0)
 				{
-					GD.Print("Not properly visible yet, not resizing rich text for overrun");
+					GD.Print($"Not properly visible yet, not resizing rich text {Name} for overrun");
 					Text = value;
 					return;
 				}
 
 				RemoveThemeFontSizeOverride(FontSizeName);
 				Font font = GetThemeDefaultFont();
-				int nextFontSizeToTry = GetThemeDefaultFontSize();
+				int nextFontSizeToTry = UseThemeDefaultFontSize ? GetThemeDefaultFontSize() : StartingFontSize;
 				float height = float.MaxValue;
 				float targetHeight = Size.Y;
 
