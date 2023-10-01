@@ -151,10 +151,10 @@ namespace Kompas.UI.MainMenu
 			while (Rotation < -Math.PI) Rotation += FullClockwiseRotation;
 		}
 
-		public virtual void Resize()
+		public void Resize()
 		{
-			PivotOffset = Size / 2;
 			GD.Print($"Resizing. Size is {Size} and rotation is {Rotation}");
+			PivotOffset = Size / 2;
 		}
 
 		public void LookTowards(Vector2 targetPosition)

@@ -10,6 +10,9 @@ namespace Kompas.Cards.Loading
 {
 	public abstract class CardRepository
 	{
+		private const string CharCardFramePath = "res://Icons/Card Stuff/Char Frame.svg";
+		private const string NonCharCardFramePath = "res://Icons/Card Stuff/NonChar Frame.svg";
+
 		public const string JsonsFolderPath = "res://Jsons";
 		public const string CardJsonsFolderPath = $"{JsonsFolderPath}/Cards";
 		public const string CardListFilePath = $"{CardJsonsFolderPath}/Card List.txt";
@@ -63,6 +66,12 @@ namespace Kompas.Cards.Loading
 
 		private static bool initalized = false;
 		private static readonly object initializationLock = new();
+
+		private static Texture2D charCardFrameTexture;
+		public static Texture2D CharCardFrameTexture => charCardFrameTexture ??= ResourceLoader.Load<Texture2D>(CharCardFramePath);
+
+		private static Texture2D noncharCardFrameTexture;
+		public static Texture2D NoncharCardFrameTexture => noncharCardFrameTexture ??= ResourceLoader.Load<Texture2D>(NonCharCardFramePath);
 
 		/*
 		public Game game;

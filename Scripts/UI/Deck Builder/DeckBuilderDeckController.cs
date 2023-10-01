@@ -46,6 +46,9 @@ namespace Kompas.UI.DeckBuilder
 
 		public DeckBuilderDeckCardController Dragging { get; set; }
 
+
+		private bool placeholdersWereActive;
+
 		public override void _Ready()
 		{
 			EnsureDeckDirectory();
@@ -101,7 +104,7 @@ namespace Kompas.UI.DeckBuilder
 			
 			if (currentDeckCtrls.Count > 0)
 			{
-				GD.PrintErr("Didnt' delete all cards succesfully!?");
+				GD.PrintErr("Didn't delete all cards succesfully!?");
 				currentDeckCtrls.Clear();
 			}
 		}
@@ -170,6 +173,9 @@ namespace Kompas.UI.DeckBuilder
 		private void ReevaluatePlaceholders()
 		{
 			bool active = (currentDeck?.deck?.Count ?? 0) < 9;
+			if (active == placeholdersWereActive) return;
+
+			placeholdersWereActive = active;
 			foreach (var placeholder in DeckSpacingPlaceholders) placeholder.Visible = active;
 		}
 
@@ -187,7 +193,6 @@ namespace Kompas.UI.DeckBuilder
 			ctrl.Init(card, DeckBuilderController.CardView, this);
 			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
 			currentDeckCtrls.Add(ctrl);
-			ctrl.AddToGroup(CurrentDeckGroupName);
 			ReevaluatePlaceholders();
 		}
 

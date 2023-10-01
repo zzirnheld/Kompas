@@ -13,6 +13,12 @@ namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 
 		public bool ShowingInfo { set => Visible = value; }
 
+		public override void _Ready()
+		{
+			base._Ready();
+			Resized += () => GD.Print($"Resizing {Name}");
+		}
+
 		public void Clear()
 		{
 			CardFaceImage.Texture = FallbackCardImageTexture;

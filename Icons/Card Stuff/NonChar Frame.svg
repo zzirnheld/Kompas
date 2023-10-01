@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256mm"
+   height="256mm"
+   viewBox="0 0 256 256"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (1:1.3+202307231459+0e150ed6c4)"
+   sodipodi:docname="Kompas Spell Card merged.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#000000"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.49684079"
+     inkscape:cx="396.50528"
+     inkscape:cy="332.09833"
+     inkscape:window-width="2490"
+     inkscape:window-height="1376"
+     inkscape:window-x="1920"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <path
+       id="path2"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.264583;stroke-dasharray:none"
+       d="M 7.0103429 -150.42459 L -104.31811 -104.31101 L -150.4317 7.0174524 L -104.31811 118.34591 L 7.0103429 164.4595 L 118.3388 118.34591 L 164.45239 7.0174524 L 118.3388 -104.31101 L 7.0103429 -150.42459 z M -95.081158 -98.148585 L 109.10184 -98.148585 L 109.10184 -55.09809 L 96.801794 -30.620665 L -82.781108 -30.620665 L -95.081158 -55.09809 L -95.081158 -98.148585 z M -95.081158 -21.725041 L 109.10184 -21.725041 L 109.10184 108.77525 L -95.081158 108.77525 L -95.081158 -21.725041 z M -9.6443999 119.33177 L -9.6418574 119.33304 L -9.6418574 119.33177 L 23.660636 119.33177 L 23.660636 119.33304 L 23.66445 119.33177 L 35.441378 147.76344 L 7.0103429 159.53973 L -21.421328 147.76344 L -9.6443999 119.33177 z "
+       transform="matrix(0.81299717,0,0,0.81299717,122.30055,122.29477)" />
+    <path
+       id="rect3-2-4"
+       style="display:none;stroke-width:0.274831"
+       transform="rotate(90,-0.01250142,0.01250142)"
+       d="m 114.43652,-36.689354 h 27.07486 v 18.114597 h -27.07486 z m -0.002,2.98e-4 23.11465,9.574401 -9.5744,23.1146475 L 104.86,-13.574409 Z m 3.9656,9.574413 23.11464,-9.574399 9.5744,23.114647 -23.11464,9.5743992 z" />
+    <path
+       id="rect6"
+       style="display:none;stroke-width:0.274831"
+       transform="rotate(-90,255.9872,-0.01316176)"
+       d="m 114.43652,-36.689354 h 27.07486 v 18.114597 h -27.07486 z m -0.002,2.98e-4 23.11465,9.574401 -9.5744,23.1146475 L 104.86,-13.574409 Z m 3.9656,9.574413 23.11464,-9.574399 9.5744,23.114647 -23.11464,9.5743992 z" />
+    <path
+       id="rect9"
+       style="display:none;stroke-width:0.274831"
+       transform="rotate(180,127.98702,5e-6)"
+       d="m 114.43652,-36.689354 h 27.07486 v 18.114597 h -27.07486 z m -0.002,2.98e-4 23.11465,9.574401 -9.5744,23.1146475 L 104.86,-13.574409 Z m 3.9656,9.574413 23.11464,-9.574399 9.5744,23.114647 -23.11464,9.5743992 z" />
+    <rect
+       style="display:none;fill:#000000;stroke-width:0.170999"
+       id="rect1"
+       width="22.869509"
+       height="21.049999"
+       x="89.47718"
+       y="-20.360146"
+       transform="matrix(0.50964052,0.86038744,-0.87148563,0.49042103,0,0)" />
+  </g>
+</svg>

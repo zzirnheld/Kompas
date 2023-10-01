@@ -56,7 +56,7 @@ namespace Kompas.Cards.Controllers
 		public void Delete()
 		{
 			DeckController.RemoveFromDeck(this);
-			QueueFree();
+			Free();
 		}
 	}
 }

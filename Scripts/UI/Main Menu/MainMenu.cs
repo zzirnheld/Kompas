@@ -10,5 +10,11 @@ namespace Kompas.UI.MainMenu
 
 		private void ConnectToServer() => GetTree().ChangeSceneToFile(ClientScenePath);
 		private void BuildDeck() => GetTree().ChangeSceneToFile(BuildDeckPath);
+
+		public override void _Ready()
+		{
+			base._Ready();
+			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
+		}
 	}
 }

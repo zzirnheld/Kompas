@@ -24,6 +24,7 @@ namespace Kompas.UI.TextBehavior
 		{
 			set
 			{
+				GD.Print($"Shrinkable rich text set to {Text}");
 				if (!IsVisibleInTree() || Size.Y == 0)
 				{
 					GD.Print("Not properly visible yet, not resizing rich text for overrun");
