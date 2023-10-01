@@ -1,3 +1,4 @@
+using System.Collections;
 using Godot;
 
 namespace Kompas.Cards.Controllers
@@ -56,7 +57,7 @@ namespace Kompas.Cards.Controllers
 		public void Delete()
 		{
 			DeckController.RemoveFromDeck(this);
-			Free();
+			QueueFree();
 		}
 	}
 }

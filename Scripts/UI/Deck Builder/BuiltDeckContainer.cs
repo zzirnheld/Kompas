@@ -31,6 +31,12 @@ namespace Kompas.UI.DeckBuilder
 			Resize();
 		}
 
+		public void RemoveChild(Control child)
+		{
+			base.RemoveChild(child);
+			Resize();
+		}
+
 		private void Resize()
 		{
 			foreach (var child in GetChildren())

@@ -198,6 +198,7 @@ namespace Kompas.UI.DeckBuilder
 			int index = currentDeckCtrls.IndexOf(card);
 			if (index < 0) return;
 
+			DeckNodesParent.RemoveChild(card);
 			currentDeck?.deck.RemoveAt(index);
 			currentDeckCtrls.RemoveAt(index);
 		}

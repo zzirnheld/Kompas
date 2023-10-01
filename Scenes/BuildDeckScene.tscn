@@ -598,6 +598,9 @@ DeckBuilderController = NodePath("../../../../../../..")
 Tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox")]
 DeckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select")
 
+[node name="Container" type="Container" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
 [node name="Deck Cards Parent" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
