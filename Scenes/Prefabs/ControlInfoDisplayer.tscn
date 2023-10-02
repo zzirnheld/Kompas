@@ -1,0 +1,204 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxkbv05n6jj3a"]
+
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="1_ookky"]
+[ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/ControlInfoDisplayer.cs" id="2_ah84u"]
+[ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="3_g5hdm"]
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="4_chhut"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkOnOverrun.cs" id="5_nx2og"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="6_4g4hh"]
+[ext_resource type="Texture2D" uid="uid://dm3yu3wrg22fx" path="res://Icons/Card Stuff/Char Frame.svg" id="7_45e0j"]
+
+[node name="Card Info Dimensions" type="TextureRect" node_paths=PackedStringArray("Image", "N", "E", "Cost", "W", "CardName", "Subtypes", "EffText", "FrameImage")]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_ookky")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("2_ah84u")
+Image = NodePath("")
+N = NodePath("")
+E = NodePath("")
+Cost = NodePath("")
+W = NodePath("")
+CardName = NodePath("")
+Subtypes = NodePath("")
+EffText = NodePath("")
+FrameImage = NodePath("")
+
+[node name="Card View" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="Card Image" type="Control" parent="Card View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card Face Image" type="TextureRect" parent="Card View/Card Image"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16
+anchor_top = 0.3
+anchor_right = 0.84
+anchor_bottom = 0.98
+offset_bottom = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_g5hdm")
+expand_mode = 1
+
+[node name="Fade Card Image" type="TextureRect" parent="Card View/Card Image/Card Face Image"]
+self_modulate = Color(1, 1, 1, 0.886275)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ookky")
+
+[node name="cutoff image bot TODO replace with mask" type="TextureRect" parent="Card View/Card Image"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.84
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("1_ookky")
+
+[node name="cutoff image top TODO replace with mask2" type="TextureRect" parent="Card View/Card Image"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.4
+texture = ExtResource("1_ookky")
+
+[node name="Card Text" type="Control" parent="Card View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name Label" type="Label" parent="Card View/Card Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19
+anchor_top = 0.17
+anchor_right = 0.81
+anchor_bottom = 0.3
+theme = ExtResource("4_chhut")
+theme_override_font_sizes/font_size = 22
+text = "Animancer"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_nx2og")
+
+[node name="Subtypes Label" type="Label" parent="Card View/Card Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.3
+anchor_right = 0.8
+anchor_bottom = 0.375
+offset_right = -1.52588e-05
+offset_bottom = -4.98001
+theme = ExtResource("4_chhut")
+theme_override_font_sizes/font_size = 13
+text = "s u b type"
+horizontal_alignment = 1
+script = ExtResource("5_nx2og")
+StartingFontSize = 13
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Card View/Card Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.42
+anchor_right = 0.8
+anchor_bottom = 0.81
+theme = ExtResource("4_chhut")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 19
+text = "Golem.
+When I become active, I give a character +-1 EW."
+script = ExtResource("6_4g4hh")
+
+[node name="Card Stats" type="Control" parent="Card View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="N Value" type="Label" parent="Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = 0.02
+anchor_right = 0.56
+anchor_bottom = 0.15
+theme = ExtResource("4_chhut")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+
+[node name="E Value" type="Label" parent="Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.85
+anchor_top = 0.412
+anchor_right = 1.0
+anchor_bottom = 0.56
+theme = ExtResource("4_chhut")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="S Value" type="Label" parent="Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = 0.85
+anchor_right = 0.56
+anchor_bottom = 1.0
+theme = ExtResource("4_chhut")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+
+[node name="W Value" type="Label" parent="Card View/Card Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.412
+anchor_right = 0.143
+anchor_bottom = 0.56
+theme = ExtResource("4_chhut")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Frame" type="TextureRect" parent="Card View"]
+self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_45e0j")
+expand_mode = 1
+stretch_mode = 4

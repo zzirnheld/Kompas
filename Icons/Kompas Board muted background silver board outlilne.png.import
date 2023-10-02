@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfpsfa5jrx1ig"
-path.s3tc="res://.godot/imported/Kompas Spiral 2.png-e80fa813038be88e5e218eebbcded04b.s3tc.ctex"
+uid="uid://bq4arsx8p3dmi"
+path.s3tc="res://.godot/imported/Kompas Board muted background silver board outlilne.png-85bac5668161738b7c12669877dd213e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Icons/Kompas Spiral 2.png"
-dest_files=["res://.godot/imported/Kompas Spiral 2.png-e80fa813038be88e5e218eebbcded04b.s3tc.ctex"]
+source_file="res://Icons/Kompas Board muted background silver board outlilne.png"
+dest_files=["res://.godot/imported/Kompas Board muted background silver board outlilne.png-85bac5668161738b7c12669877dd213e.s3tc.ctex"]
 
 [params]
 

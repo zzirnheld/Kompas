@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c8ak7quhecu3f"]
+
+[ext_resource type="Texture2D" uid="uid://swdd65dbfhrx" path="res://Icons/Kompas Board.png" id="1_haqlx"]
+
+[resource]
+albedo_texture = ExtResource("1_haqlx")

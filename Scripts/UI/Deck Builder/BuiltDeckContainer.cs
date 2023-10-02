@@ -52,6 +52,7 @@ namespace Kompas.UI.DeckBuilder
 		{
 			if (scalingCustomMin) return;
 			scalingCustomMin = true;
+			//FUTURE: test edge cases with non-exact multiples
 			var y = (Size.X / ColumnCount) * (Mathf.Ceil((GetChildCount() - 1) / ColumnCount) + 1);
 			CustomMinimumSize = new(Size.X, y);
 			GD.Print($"Custom minimum size from {Size} to {CustomMinimumSize}");
