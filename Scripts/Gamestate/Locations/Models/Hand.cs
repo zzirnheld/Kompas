@@ -9,16 +9,19 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public abstract class Hand : OwnedLocationModel
 	{
-		public HandController HandController { get; init; }
-
-		public override Location Location => Location.Hand;
+		private readonly List<GameCard> hand = new();
 		public override IEnumerable<GameCard> Cards => hand;
 
-		protected readonly List<GameCard> hand = new();
+		public override Location Location => Location.Hand;
+
+		private readonly HandController handController;
 
 		public int HandSize => hand.Count;
 
-		protected Hand(IPlayer owner) : base(owner) { }
+		protected Hand(IPlayer owner, HandController handController) : base(owner)
+		{
+			this.handController = handController;
+		}
 
 		public override int IndexOf(GameCard card) => hand.IndexOf(card);
 
@@ -26,7 +29,7 @@ namespace Kompas.Gamestate.Locations.Models
 		{
 			if (index.HasValue) hand.Insert(index.Value, card);
 			else hand.Add(card);
-			HandController.Refresh();
+			handController.Refresh();
 		}
 
 		public override void Remove(GameCard card)
@@ -35,7 +38,7 @@ namespace Kompas.Gamestate.Locations.Models
 				$"Hand of \n{string.Join(", ", hand.Select(c => c.CardName))}\n doesn't contain {card}, can't remove it!");
 
 			hand.Remove(card);
-			HandController.Refresh();
+			handController.Refresh();
 		}
 	}
 }

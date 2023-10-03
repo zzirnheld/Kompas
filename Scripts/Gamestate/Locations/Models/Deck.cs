@@ -4,6 +4,7 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
 
@@ -11,15 +12,17 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public abstract class Deck : OwnedLocationModel
 	{
-		public override Location Location => Location.Deck;
-
-		//rng for shuffling
-
 		private readonly List<GameCard> deck = new();
-
 		public override IEnumerable<GameCard> Cards => deck;
 
-		protected Deck(IPlayer owner) : base(owner) { }
+		public override Location Location => Location.Deck;
+
+		private readonly DeckController deckController;
+
+		protected Deck(IPlayer owner, DeckController deckController) : base(owner)
+		{
+			this.deckController = deckController;
+		}
 
 		public override int IndexOf(GameCard card) => deck.IndexOf(card);
 		public int DeckSize => deck.Count;

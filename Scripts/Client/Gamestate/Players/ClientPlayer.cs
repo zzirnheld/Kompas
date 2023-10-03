@@ -35,14 +35,14 @@ namespace Kompas.Client.Gamestate.Players
 			Index = index;
 		}
 
-		public static ClientPlayer Create(ClientGame game, int index)
+		public static ClientPlayer Create(ClientGame game, int index, PlayerController playerController)
 		{
 			var ret = new ClientPlayer(game, index);
 
-			ret.Deck = new ClientDeck(ret);
-			ret.Hand = new ClientHand(ret);
-			ret.Discard = new ClientDiscard(ret);
-			ret.Annihilation = new ClientAnnihilation(ret);
+			ret.Deck = new ClientDeck(ret, playerController.DeckController);
+			ret.Hand = new ClientHand(ret, playerController.HandController);
+			ret.Discard = new ClientDiscard(ret, playerController.DiscardController);
+			ret.Annihilation = new ClientAnnihilation(ret, playerController.AnnihilationController);
 
 			return ret;
 		}
