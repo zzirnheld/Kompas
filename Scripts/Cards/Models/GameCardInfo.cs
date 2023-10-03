@@ -19,8 +19,8 @@ namespace Kompas.Cards.Models
 		public Game Game { get; }
 
 		public int IndexInList { get; }
-		public Player OwningPlayer { get; }
-		public Player ControllingPlayer { get; }
+		public IPlayer OwningPlayer { get; }
+		public IPlayer ControllingPlayer { get; }
 		public override bool Summoned { get; }
 		public override bool IsAvatar { get; }
 

@@ -7,7 +7,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 	public class Is : PlayerRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Player> player;
+		public IIdentity<IPlayer> player;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 			player.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Player item, IResolutionContext context)
+		protected override bool IsValidLogic(IPlayer item, IResolutionContext context)
 		 => item == player.From(context);
 	}
 }

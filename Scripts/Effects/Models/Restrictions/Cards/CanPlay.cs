@@ -12,7 +12,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public IIdentity<Space> destination;
 		[JsonProperty]
-		public IIdentity<Player> player = new Identities.Players.TargetIndex();
+		public IIdentity<IPlayer> player = new Identities.Players.TargetIndex();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

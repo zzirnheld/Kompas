@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public class Controller : CardRestrictionBase
 	{
 		[JsonProperty]
-		public IIdentity<Player> playerIdentity;
+		public IIdentity<IPlayer> playerIdentity;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

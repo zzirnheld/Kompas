@@ -13,11 +13,16 @@ namespace Kompas.Gamestate.Locations.Models
 	/// </summary>
 	public abstract class OwnedLocationModel : ILocationModel
 	{
-		public abstract Player Owner { get; }
+		public IPlayer Owner { get; }
 
 		public abstract Location Location { get; }
 
 		public abstract IEnumerable<GameCard> Cards { get; }
+
+		public OwnedLocationModel(IPlayer owner)
+		{
+			Owner = owner;
+		}
 
 		public abstract int IndexOf(GameCard card);
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
@@ -10,6 +11,8 @@ namespace Kompas.Gamestate.Locations.Models
 		public AnnihilationController AnnihilationController { get; init; }
 
 		private readonly List<GameCard> cards = new();
+
+		protected Annihilation(IPlayer owner) : base(owner) { }
 
 		public override Location Location => Location.Annihilation;
 		public override IEnumerable<GameCard> Cards => cards;

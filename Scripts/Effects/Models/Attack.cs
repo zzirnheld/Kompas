@@ -5,19 +5,19 @@ namespace Kompas.Effects.Models
 {
 	public abstract class Attack : IStackable
 	{
-		public readonly Player controller;
+		public readonly IPlayer controller;
 		public readonly GameCard attacker;
 		public readonly GameCard defender;
 
 		public GameCard Source => attacker;
-		public Player ControllingPlayer => controller;
+		public IPlayer ControllingPlayer => controller;
 
 		/// <summary>
 		/// Constructor should be called when the attack is declared
 		/// </summary>
 		/// <param name="attacker"></param>
 		/// <param name="defender"></param>
-		public Attack(Player controller, GameCard attacker, GameCard defender)
+		public Attack(IPlayer controller, GameCard attacker, GameCard defender)
 		{
 			this.controller = controller ?? throw new System.ArgumentNullException(nameof(controller), "Cannot have null controller of attack");
 			this.attacker = attacker ?? throw new System.ArgumentNullException(nameof(attacker), "Cannot have null attacker");

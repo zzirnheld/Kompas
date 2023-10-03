@@ -47,7 +47,7 @@ namespace Kompas.Effects.Models
 		/// </summary>
 		public readonly IStackable stackableEvent;
 
-		public readonly Player player;
+		public readonly IPlayer player;
 		public readonly int? x;
 		public readonly Space space;
 
@@ -79,7 +79,7 @@ namespace Kompas.Effects.Models
 								  GameCardInfo cardCause,
 								  IStackable stackableCause,
 								  IStackable stackableEvent,
-								  Player player,
+								  IPlayer player,
 								  int? x,
 								  Space space)
 		{
@@ -100,7 +100,7 @@ namespace Kompas.Effects.Models
 			if (cardCause != null) sb.Append($"Card cause: {cardCause.CardName}, ");
 			if (stackableEvent != null) sb.Append($"Stackable Event: {stackableEvent}, ");
 			if (stackableCause != null) sb.Append($"Stackable Cause: {stackableCause}, ");
-			if (player != null) sb.Append($"Triggerer: {player.index}, ");
+			if (player != null) sb.Append($"Triggerer: {player.Index}, ");
 			if (x != null) sb.Append($"X: {x}, ");
 			if (space != null) sb.Append($"Space: {space}, ");
 
@@ -113,7 +113,7 @@ namespace Kompas.Effects.Models
 								 GameCard eventCauseOverride = null,
 								 IStackable stackableCause = null,
 								 IStackable stackableEvent = null,
-								 Player player = null,
+								 IPlayer player = null,
 								 int? x = null,
 								 Space space = null)
 			: this(game: game,

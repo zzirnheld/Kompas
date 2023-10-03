@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 		[JsonProperty]
 		public string[] locations = { Location.Board.StringVersion() };
 
-		protected override IEnumerable<IRestriction<Player>> DefaultElements
+		protected override IEnumerable<IRestriction<IPlayer>> DefaultElements
 		{
 			get
 			{

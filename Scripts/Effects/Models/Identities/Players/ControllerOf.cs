@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Players
 {
-	public class ControllerOf : ContextualParentIdentityBase<Player>
+	public class ControllerOf : ContextualParentIdentityBase<IPlayer>
 	{
 		[JsonProperty]
 		public IIdentity<IGameCard> card;
@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Identities.Players
 			if (AllNull(card, stackable)) throw new System.ArgumentException($"Must provide something to check controller of");
 		}
 
-		protected override Player AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IPlayer AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			if (card != null) return card.From(context, secondaryContext).ControllingPlayer;
 			if (stackable != null) return stackable.From(context, secondaryContext).ControllingPlayer;

@@ -18,7 +18,6 @@ namespace Kompas.Gamestate.Locations.Models
 		public const int NoPathExists = 50;
 
 		public Location Location => Location.Board;
-		public abstract Game Game { get; }
 
 		protected readonly GameCard[,] board = new GameCard[SpacesInGrid, SpacesInGrid];
 		public IEnumerable<GameCard> Cards { get { foreach (var card in board) yield return card; } }
@@ -217,7 +216,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <param name="toPlay">Card to be played</param>
 		/// <param name="toX">X coordinate to play the card to</param>
 		/// <param name="toY">Y coordinate to play the card to</param>
-		public void Play(GameCard toPlay, Space to, Player player, IStackable stackSrc = null)
+		public void Play(GameCard toPlay, Space to, IPlayer player, IStackable stackSrc = null)
 		{
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");

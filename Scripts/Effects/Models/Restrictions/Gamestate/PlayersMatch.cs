@@ -7,9 +7,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	public class PlayersMatch : TriggerGamestateRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Player> firstPlayer;
+		public IIdentity<IPlayer> firstPlayer;
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Player> secondPlayer;
+		public IIdentity<IPlayer> secondPlayer;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

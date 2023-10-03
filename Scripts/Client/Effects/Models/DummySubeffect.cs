@@ -12,7 +12,7 @@ namespace Kompas.Client.Effects.Models
 	public class DummySubeffect : Subeffect
 	{
 		public override Effect Effect => ClientEffect;
-		public override Player Controller => Effect.ControllingPlayer;
+		public override IPlayer Controller => Effect.ControllingPlayer;
 		public override Game Game => ClientEffect.Game;
 
 		public ClientEffect ClientEffect { get; private set; }

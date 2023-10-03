@@ -3,6 +3,7 @@ using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
@@ -16,6 +17,9 @@ namespace Kompas.Gamestate.Locations.Models
 		protected readonly List<GameCard> hand = new();
 
 		public int HandSize => hand.Count;
+
+		protected Hand(IPlayer owner) : base(owner) { }
+
 		public override int IndexOf(GameCard card) => hand.IndexOf(card);
 
 		protected override void PerformAdd(GameCard card, int? index)

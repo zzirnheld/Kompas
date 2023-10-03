@@ -3,11 +3,11 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Players
 {
-	public class TargetIndex : ContextlessLeafIdentityBase<Player>
+	public class TargetIndex : ContextlessLeafIdentityBase<IPlayer>
 	{
 		[JsonProperty]
 		public int index = -1;
 
-		protected override Player AbstractItem => InitializationContext.effect.GetPlayer(index);
+		protected override IPlayer AbstractItem => InitializationContext.effect.GetPlayer(index);
 	}
 }

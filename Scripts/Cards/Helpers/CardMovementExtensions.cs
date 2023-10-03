@@ -10,28 +10,28 @@ namespace Kompas.Cards.Movement
 		public static void Discard(this GameCard card, IStackable stackSrc = null)
 			=> card.ControllingPlayer.Discard.Add(card, stackableCause: stackSrc);
 
-		public static void Hand(this GameCard card, Player controllingPlayer, IStackable stackSrc = null)
+		public static void Hand(this GameCard card, IPlayer controllingPlayer, IStackable stackSrc = null)
 			=> controllingPlayer.Hand.Add(card, stackableCause: stackSrc);
 		public static void Rehand(this GameCard card, IStackable stackSrc = null) => card.Hand(card.OwningPlayer, stackSrc);
 
-		public static void Reshuffle(this GameCard card, Player controllingPlayer, IStackable stackSrc = null)
+		public static void Reshuffle(this GameCard card, IPlayer controllingPlayer, IStackable stackSrc = null)
 			=> controllingPlayer.Deck.ShuffleIn(card, stackSrc);
 		public static void Reshuffle(this GameCard card, IStackable stackSrc = null) => card.Reshuffle(card.OwningPlayer, stackSrc);
 
-		public static void Topdeck(this GameCard card, Player controllingPlayer, IStackable stackSrc = null)
+		public static void Topdeck(this GameCard card, IPlayer controllingPlayer, IStackable stackSrc = null)
 			=> controllingPlayer.Deck.PushTopdeck(card, stackSrc);
 		public static void Topdeck(this GameCard card, IStackable stackSrc = null) => card.Topdeck(card.OwningPlayer, stackSrc);
 
-		public static void Bottomdeck(this GameCard card, Player controllingPlayer, IStackable stackSrc = null)
+		public static void Bottomdeck(this GameCard card, IPlayer controllingPlayer, IStackable stackSrc = null)
 			=> controllingPlayer.Deck.PushBottomdeck(card, stackSrc);
 		public static void Bottomdeck(this GameCard card, IStackable stackSrc = null) => card.Bottomdeck(card.OwningPlayer, stackSrc);
 
-		public static void Annihilate(this GameCard card, Player controllingPlayer, IStackable stackSrc = null)
+		public static void Annihilate(this GameCard card, IPlayer controllingPlayer, IStackable stackSrc = null)
 			=> controllingPlayer.Annihilation.Add(card, stackableCause: stackSrc);
 		public static void Annihilate(this GameCard card, IStackable stackSrc = null) => card.Annihilate(card.OwningPlayer, stackSrc);
 
 		//If you're looking for this, you'll need to do it more manually by the client/server version of the thing, to maintain the knowledge of what kind of controller you need
-		public static void Play(this GameCard card, Space to, Player controllingPlayer, IStackable stackSrc = null, bool payCost = false)
+		public static void Play(this GameCard card, Space to, IPlayer controllingPlayer, IStackable stackSrc = null, bool payCost = false)
 		{
 			var costToPay = card.Cost;
 			card.Game.Board.Play(card, to, controllingPlayer, stackSrc);

@@ -127,10 +127,10 @@ namespace Kompas.Cards.Models
 		public override IPlayRestriction PlayRestriction { get; }
 
 		//controller/owners
-		public Player ControllingPlayer { get; set; }
-		public Player OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
-		public int ControllerIndex => ControllingPlayer?.index ?? 0;
-		public int OwnerIndex => OwningPlayer?.index ?? -1;
+		public IPlayer ControllingPlayer { get; set; }
+		public IPlayer OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
+		public int ControllerIndex => ControllingPlayer?.Index ?? 0;
+		public int OwnerIndex => OwningPlayer?.Index ?? -1;
 
 		//misc
 		private Location location;
@@ -189,7 +189,7 @@ namespace Kompas.Cards.Models
 			ID = id;
 		}
 
-		protected GameCard(SerializableCard serializeableCard, int id, Game game, Player owningPlayer)
+		protected GameCard(SerializableCard serializeableCard, int id, Game game, IPlayer owningPlayer)
 			: base(serializeableCard.Stats,
 					   serializeableCard.subtext, serializeableCard.spellTypes,
 					   serializeableCard.unique,
@@ -222,7 +222,7 @@ namespace Kompas.Cards.Models
 		/// <summary>
 		/// Resets anything that needs to be reset for the start of the turn.
 		/// </summary>
-		public virtual void ResetForTurn(Player turnPlayer)
+		public virtual void ResetForTurn(IPlayer turnPlayer)
 		{
 			foreach (Effect eff in Effects) eff.ResetForTurn(turnPlayer);
 

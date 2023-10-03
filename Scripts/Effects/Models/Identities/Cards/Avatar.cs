@@ -6,7 +6,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 
 	public class Avatar : ContextualParentIdentityBase<IGameCard>
 	{
-		public IIdentity<Player> player;
+		public IIdentity<IPlayer> player;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

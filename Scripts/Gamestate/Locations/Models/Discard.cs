@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
@@ -13,6 +14,8 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public override Location Location => Location.Discard;
 		public override IEnumerable<GameCard> Cards => discard;
+
+		protected Discard(IPlayer owner) : base(owner) { }
 
 		protected override void PerformAdd(GameCard card, int? index)
 		{

@@ -2,8 +2,8 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models.Identities.Players
 {
-	public class EnemyPlayer : ContextlessLeafIdentityBase<Player>
+	public class EnemyPlayer : ContextlessLeafIdentityBase<IPlayer>
 	{
-		protected override Player AbstractItem => InitializationContext.Controller.Enemy;
+		protected override IPlayer AbstractItem => InitializationContext.Controller.Enemy;
 	}
 }

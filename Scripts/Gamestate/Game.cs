@@ -28,9 +28,9 @@ namespace Kompas.Gamestate
 		//game mechanics
 		public abstract Board Board { get; }
 
-		public abstract Player[] Players { get; }
+		public abstract IPlayer[] Players { get; }
 		public int TurnPlayerIndex { get; protected set; } = 0;
-		public Player TurnPlayer => Players[TurnPlayerIndex];
+		public IPlayer TurnPlayer => Players[TurnPlayerIndex];
 		public int FirstTurnPlayer { get; protected set; }
 
 		//game data
@@ -54,7 +54,7 @@ namespace Kompas.Gamestate
 
 		public bool IsValidSpellSpaceFor(GameCard card, Space space) => Board.ValidSpellSpaceFor(card, space);
 
-		public bool IsValidStandardPlaySpace(Space space, Player player)
+		public bool IsValidStandardPlaySpace(Space space, IPlayer player)
 		{
 			/*GD.Print($"Checking whether player {player?.index} can play a card to {space}. Cards adjacent to that space are" +
 				$"{string.Join(",", space.AdjacentSpaces.Select(BoardController.GetCardAt).Where(c => c != null).Select(c => c.CardName))}");*/

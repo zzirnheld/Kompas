@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models
 	public abstract class Effect : IStackable
 	{
 		public abstract Game Game { get; }
-		public abstract Player ControllingPlayer { get; }
+		public abstract IPlayer ControllingPlayer { get; }
 
 		public int EffectIndex { get; private set; }
 		public GameCard Source { get; private set; }
@@ -36,7 +36,7 @@ namespace Kompas.Effects.Models
 		protected readonly List<CardLink> cardLinks = new();
 
 		//we don't care about informing players of the contents of these. yet. but we might later
-		public readonly List<Player> playerTargets = new();
+		public readonly List<IPlayer> playerTargets = new();
 		public readonly List<GameCard> rest = new();
 
 		public IdentityOverrides identityOverrides = new();
@@ -77,7 +77,7 @@ namespace Kompas.Effects.Models
 		/// </summary>
 		public string Keyword { get; set; }
 
-		protected virtual void SetInfo(GameCard source, int effIndex, Player owner)
+		protected virtual void SetInfo(GameCard source, int effIndex, IPlayer owner)
 		{
 			GD.Print($"Trying to init eff {effIndex} of {source}, with game {Game}");
 			Source = source ?? throw new System.ArgumentNullException(nameof(source), "Effect cannot be attached to null card");
@@ -88,7 +88,7 @@ namespace Kompas.Effects.Models
 			TimesUsedThisTurn = 0;
 		}
 
-		public void ResetForTurn(Player turnPlayer)
+		public void ResetForTurn(IPlayer turnPlayer)
 		{
 			TimesUsedThisTurn = 0;
 			if (turnPlayer == Source.ControllingPlayer) TimesUsedThisRound = 0;
@@ -100,15 +100,15 @@ namespace Kompas.Effects.Models
 			TimesUsedThisTurn = 0;
 		}
 
-		public virtual bool CanBeActivatedBy(Player controller)
+		public virtual bool CanBeActivatedBy(IPlayer controller)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game));
 
-		public virtual bool CanBeActivatedAtAllBy(Player activator)
+		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
 
 		public GameCard GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
 		public Space GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
-		public Player GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
+		public IPlayer GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 
 
 		public virtual void AddTarget(GameCard card) {

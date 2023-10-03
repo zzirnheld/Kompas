@@ -1,3 +1,4 @@
+using Kompas.Cards.Models;
 using Kompas.Client.Gamestate.Locations.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
@@ -5,37 +6,45 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Client.Gamestate.Players
 {
-	public class ClientPlayer : Player
+	public class ClientPlayer : IPlayer
 	{
-		private readonly ClientPlayer enemy;
-		public override Player Enemy => enemy;
+		public IPlayer Enemy { get; set; }
 
+		//TODO reconsider whether I'll ever need to have an IPlayer be aware of the type of its Game
 		private readonly ClientGame game;
-		public override Game Game => game;
+		public Game Game => game;
 
-		//TODO pips. does it even need a model? i guess it's insurance in case i add "gain some pips next turn only" but i'd just do that as a delayed...
+		public Deck Deck { get; private set; }
+		public Hand Hand { get; private set; }
+		public Discard Discard { get; private set; }
+		public Annihilation Annihilation { get; private set; }
 
-		private readonly ClientDeck deck;
-		public override Deck Deck => deck;
-		
-		private readonly ClientHand hand;
-		public override Hand Hand => hand;
+		public int Index { get; }
+		public GameCard Avatar { get; set; }
 
-		private readonly ClientDiscard discard;
-		public override Discard Discard => discard;
+		public bool Friendly => Index == 0;
 
-		private readonly ClientAnnihilation annihilation;
-		public override Annihilation Annihilation => annihilation;
+		public int Pips { get; set; } //Replace auto-property with value or possibly a hit on the controller/model?
 
-		public override bool Friendly => index == 0;
-
-		public override int Pips
+		/// <summary>
+		/// Private constructor to enforce factory to initialize game locations without leaking this
+		/// </summary>
+		private ClientPlayer(ClientGame game, int index)
 		{
-			get => base.Pips;
-			set
-			{
-				base.Pips = value;
-			}
+			this.game = game;
+			Index = index;
+		}
+
+		public static ClientPlayer Create(ClientGame game, int index)
+		{
+			var ret = new ClientPlayer(game, index);
+
+			ret.Deck = new ClientDeck(ret);
+			ret.Hand = new ClientHand(ret);
+			ret.Discard = new ClientDiscard(ret);
+			ret.Annihilation = new ClientAnnihilation(ret);
+
+			return ret;
 		}
 	}
 }

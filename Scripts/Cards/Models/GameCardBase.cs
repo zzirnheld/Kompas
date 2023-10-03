@@ -58,7 +58,7 @@ namespace Kompas.Cards.Models
 		public IPlayRestriction PlayRestriction { get; }
 		public IMovementRestriction MovementRestriction { get; }
 
-		public Player ControllingPlayer { get; }
+		public IPlayer ControllingPlayer { get; }
 		public Space SubjectivePosition => ControllingPlayer.SubjectiveCoords(Position);
 	}
 

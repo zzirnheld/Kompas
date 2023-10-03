@@ -28,7 +28,8 @@ namespace Kompas.Client.Gamestate
 		private readonly ClientCardRepository cardRepository;
 		public override CardRepository CardRepository => cardRepository;
 
-		//Stored for lazy loading of ClientNetworkController - avoid leaking this
+		//TODO: move these to GameController
+		/*
 		private readonly TcpClient tcpClient;
 		private ClientNetworkController _clientNetworkController;
 		protected ClientNetworkController ClientNetworkController
@@ -36,6 +37,7 @@ namespace Kompas.Client.Gamestate
 		private ClientNotifier _clientNotifier;
 		public ClientNotifier ClientNotifier
 			=> _clientNotifier ??= new ClientNotifier(ClientNetworkController);
+			*/
 
 		private readonly ClientBoard board;
 		public override Board Board => board;
@@ -43,7 +45,7 @@ namespace Kompas.Client.Gamestate
 		public ClientStackController StackController { get; }
 
 		private readonly ClientPlayer[] clientPlayers;
-		public override Player[] Players => clientPlayers;
+		public override IPlayer[] Players => clientPlayers;
 		public ClientPlayer FriendlyPlayer => clientPlayers[0];
 
 		private readonly ClientUIController uiController;
@@ -110,10 +112,25 @@ namespace Kompas.Client.Gamestate
 			}
 		}
 
-		public ClientGame(TcpClient tcpClient, ClientUIController uiController)
+		private ClientGame(ClientUIController uiController)
 		{
-			this.tcpClient = tcpClient;
 			this.uiController = uiController;
+
+			board = new ClientBoard();
+			clientPlayers = new ClientPlayer[2];
+		}
+
+		public static ClientGame Create(ClientUIController uiController)
+		{
+			var ret = new ClientGame(uiController);
+
+			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0);
+			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1);
+
+			ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
+			ret.clientPlayers[1].Enemy = ret.clientPlayers[0];
+
+			return ret;
 		}
 
 		public bool GameOver { get; private set; }

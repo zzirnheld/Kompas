@@ -4,6 +4,7 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Players;
 using Kompas.Shared;
 
 namespace Kompas.Gamestate.Locations.Models
@@ -15,7 +16,10 @@ namespace Kompas.Gamestate.Locations.Models
 		//rng for shuffling
 
 		private readonly List<GameCard> deck = new();
+
 		public override IEnumerable<GameCard> Cards => deck;
+
+		protected Deck(IPlayer owner) : base(owner) { }
 
 		public override int IndexOf(GameCard card) => deck.IndexOf(card);
 		public int DeckSize => deck.Count;

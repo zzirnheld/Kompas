@@ -70,7 +70,7 @@ namespace Kompas.Effects.Subeffects
 		};
 
 		public virtual Effect Effect { get; }
-		public virtual Player Controller { get; }
+		public virtual IPlayer Controller { get; }
 		public virtual Game Game { get; }
 
 		public int SubeffIndex { get; protected set; }
@@ -155,14 +155,14 @@ namespace Kompas.Effects.Subeffects
 		public GameCard CardTarget => Effect.GetTarget(targetIndex);
 		public Space SpaceTarget => Effect.GetSpace(spaceIndex);
 		public GameCardInfo CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex);
-		public Player PlayerTarget => Effect.GetPlayer(playerIndex);
+		public IPlayer PlayerTarget => Effect.GetPlayer(playerIndex);
 		public IStackable StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
 		public GameCard GetCardTarget(TargetingContext overrideContext = null)
 			=> Effect.GetTarget(overrideContext.OrElse(CurrTargetingContext).cardTargetIndex.Value);
 		public Space GetSpaceTarget(TargetingContext overrideContext = null)
 			=> Effect.GetSpace(overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex.Value);
-		public Player GetPlayerTarget(TargetingContext overrideContext = null)
+		public IPlayer GetPlayerTarget(TargetingContext overrideContext = null)
 			=> Effect.GetPlayer(overrideContext.OrElse(CurrTargetingContext).playerTargetIndex.Value);
 		public IStackable GetStackableTarget(TargetingContext overrideContext = null)
 			=> EffectHelper.GetItem(Effect.StackableTargets, overrideContext.OrElse(CurrTargetingContext).stackableTargetIndex.Value);

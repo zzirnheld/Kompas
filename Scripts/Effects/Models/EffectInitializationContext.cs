@@ -18,18 +18,18 @@ namespace Kompas.Effects.Models
 		public readonly Trigger trigger;
 		public readonly Subeffect subeffect;
 
-		private readonly Player controllerOverride;
-		public readonly Player Controller => controllerOverride ?? effect?.ControllingPlayer ?? source?.ControllingPlayer;
+		private readonly IPlayer controllerOverride;
+		public readonly IPlayer Controller => controllerOverride ?? effect?.ControllingPlayer ?? source?.ControllingPlayer;
 
 		public readonly IContextInitializeable parent;
 
 		public EffectInitializationContext(Game game, GameCard source, 
-			Effect effect = default, Trigger trigger = default, Subeffect subeffect = default, Player controller = default)
+			Effect effect = default, Trigger trigger = default, Subeffect subeffect = default, IPlayer controller = default)
 			: this (game, source, effect, trigger, subeffect, controller, default)
 		{ }
 
 		private EffectInitializationContext(Game game, GameCard source,
-			Effect effect, Trigger trigger, Subeffect subeffect, Player controller, IContextInitializeable parent)
+			Effect effect, Trigger trigger, Subeffect subeffect, IPlayer controller, IContextInitializeable parent)
 		{
 			this.game = game;
 			this.source = source;

@@ -6,7 +6,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 	public class Pips : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Player> player;
+		public IIdentity<IPlayer> player;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

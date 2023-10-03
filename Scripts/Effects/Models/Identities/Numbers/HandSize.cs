@@ -6,7 +6,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 	public class HandSize : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty]
-		public IIdentity<Player> player = new Players.TargetIndex();
+		public IIdentity<IPlayer> player = new Players.TargetIndex();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 	public class HandSizeLimit : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty]
-		public IIdentity<Player> player = new Players.TargetIndex();
+		public IIdentity<IPlayer> player = new Players.TargetIndex();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

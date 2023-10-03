@@ -12,7 +12,7 @@ namespace Kompas.Client.Effects.Models
 	public class ClientEffect : Effect, IClientStackable
 	{
 		private ClientPlayer controllingPlayer;
-		public override Player ControllingPlayer => controllingPlayer;
+		public override IPlayer ControllingPlayer => controllingPlayer;
 
 		public ClientGame ClientGame { get; private set; }
 		public override Game Game => ClientGame;
