@@ -4,9 +4,9 @@ namespace Kompas.Client.Networking
 {
 	public class ClientNotifier
 	{
-		private readonly ClientNetworkController networkController;
+		private readonly ClientNetworker networkController;
 
-		public ClientNotifier(ClientNetworkController networkController)
+		public ClientNotifier(ClientNetworker networkController)
 		{
 			this.networkController = networkController;
 		}

@@ -9,12 +9,12 @@ using Newtonsoft.Json;
 
 namespace Kompas.Client.Networking
 {
-	public class ClientNetworkController : NetworkController
+	public class ClientNetworker : NetworkController
 	{
 		private readonly ClientGame game;
 		private static bool connecting = false;
 
-		public ClientNetworkController(TcpClient tcpClient, ClientGame game)
+		public ClientNetworker(TcpClient tcpClient, ClientGame game)
 			: base(tcpClient)
 		{
 			this.game = game;
@@ -32,26 +32,11 @@ namespace Kompas.Client.Networking
 			if (connecting) return null;
 
 			connecting = true;
+			
 			var address = IPAddress.Parse(ip);
 			TcpClient tcpClient = new();
-			try
-			{
-				await tcpClient.ConnectAsync(address, port);
-			}
-			catch (System.Net.Sockets.SocketException e)
-			{
-				GD.PrintErr($"Failed to connect to {ip}. Stack trace:\n{e.StackTrace}");
-				//TODO client connection workflow
-				//ClientGame.clientUIController.connectionUIController.Show(ConnectionState.ChooseServer);
-			}
+			await tcpClient.ConnectAsync(address, port);
 			
-			if (tcpClient.Connected)
-			{
-				GD.Print("Connected");
-				//ClientGame.clientUIController.connectionUIController.Show(ConnectionState.WaitingForPlayer);
-			}
-			//else ClientGame.clientUIController.connectionUIController.Show(ConnectionState.ChooseServer);
-
 			connecting = false;
 			return tcpClient;
 		}

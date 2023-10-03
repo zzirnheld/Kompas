@@ -24,17 +24,6 @@ namespace Kompas.Client.Gamestate
 		private readonly ClientCardRepository cardRepository;
 		public CardRepository CardRepository => cardRepository;
 
-		//TODO: move these to GameController
-		/*
-		private readonly TcpClient tcpClient;
-		private ClientNetworkController _clientNetworkController;
-		protected ClientNetworkController ClientNetworkController
-			=> _clientNetworkController ??= new ClientNetworkController(tcpClient, this);
-		private ClientNotifier _clientNotifier;
-		public ClientNotifier ClientNotifier
-			=> _clientNotifier ??= new ClientNotifier(ClientNetworkController);
-			*/
-
 		public Board Board { get; private set; }
 
 		public ClientStackController StackController { get; }
