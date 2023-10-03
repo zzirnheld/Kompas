@@ -22,7 +22,12 @@ namespace Kompas.Gamestate.Locations.Models
 		protected readonly GameCard[,] board = new GameCard[SpacesInGrid, SpacesInGrid];
 		public IEnumerable<GameCard> Cards { get { foreach (var card in board) yield return card; } }
 
-		public BoardController boardUIController;
+		private readonly BoardController boardController;
+
+		protected Board(BoardController boardController)
+		{
+			this.boardController = boardController;
+		}
 
 		//helper methods
 		#region helper methods

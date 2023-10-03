@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models
 	/// </summary>
 	public abstract class Effect : IStackable
 	{
-		public abstract Game Game { get; }
+		public abstract IGame Game { get; }
 		public abstract IPlayer ControllingPlayer { get; }
 
 		public int EffectIndex { get; private set; }

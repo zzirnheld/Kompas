@@ -1,4 +1,5 @@
 using Kompas.Effects.Models.Identities;
+using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models.Restrictions.Gamestate
@@ -15,18 +16,18 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		}
 
 		protected override bool IsValidLogic(IResolutionContext context)
-			=> InitializationContext.game.TurnPlayer == TurnPlayer.From(context);
+			=> InitializationContext.game.TurnPlayer() == TurnPlayer.From(context);
 	}
 
 	public class FriendlyTurn : Turn
 	{
-		private IIdentity<IPlayer> turnPlayer = new Identities.Players.FriendlyPlayer();
+		private readonly IIdentity<IPlayer> turnPlayer = new Identities.Players.FriendlyPlayer();
 		protected override IIdentity<IPlayer> TurnPlayer => turnPlayer;
 	}
 
 	public class EnemyTurn : Turn
 	{
-		private IIdentity<IPlayer> turnPlayer = new Identities.Players.EnemyPlayer();
+		private readonly IIdentity<IPlayer> turnPlayer = new Identities.Players.EnemyPlayer();
 		protected override IIdentity<IPlayer> TurnPlayer => turnPlayer;
 	}
 }

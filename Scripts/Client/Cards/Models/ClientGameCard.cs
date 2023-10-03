@@ -17,7 +17,7 @@ namespace Kompas.Client.Cards.Models
 	public class ClientGameCard : GameCard
 	{
 		public ClientGame ClientGame { get; protected set; }
-		public override Game Game => ClientGame;
+		public override IGame Game => ClientGame;
 
 		public override Location Location
 		{

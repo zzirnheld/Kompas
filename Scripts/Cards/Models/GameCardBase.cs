@@ -12,7 +12,7 @@ namespace Kompas.Cards.Models
 	public interface IGameCard
 	{
 		public GameCard Card { get; }
-		public Game Game { get; }
+		public IGame Game { get; }
 
 		public string CardName { get; }
 

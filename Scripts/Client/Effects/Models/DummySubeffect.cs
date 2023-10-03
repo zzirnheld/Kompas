@@ -13,7 +13,7 @@ namespace Kompas.Client.Effects.Models
 	{
 		public override Effect Effect => ClientEffect;
 		public override IPlayer Controller => Effect.ControllingPlayer;
-		public override Game Game => ClientEffect.Game;
+		public override IGame Game => ClientEffect.Game;
 
 		public ClientEffect ClientEffect { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Kompas.Gamestate.Players
 	{
 		public int HandSizeLimit => 7;
 
-		public Game Game { get; }
+		public IGame Game { get; }
 
 		public IPlayer Enemy { get; }
 

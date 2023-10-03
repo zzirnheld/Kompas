@@ -15,7 +15,7 @@ namespace Kompas.Client.Effects.Models
 		public override IPlayer ControllingPlayer => controllingPlayer;
 
 		public ClientGame ClientGame { get; private set; }
-		public override Game Game => ClientGame;
+		public override IGame Game => ClientGame;
 		public DummySubeffect[] DummySubeffects { get; }
 		public ClientTrigger ClientTrigger { get; private set; }
 

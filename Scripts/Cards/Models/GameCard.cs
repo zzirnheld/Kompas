@@ -16,7 +16,7 @@ namespace Kompas.Cards.Models
 	public abstract class GameCard : GameCardBase, IGameCard
 	{
 		public abstract CardController CardController { get; }
-		public abstract Game Game { get; }
+		public abstract IGame Game { get; }
 
 		public int ID { get; private set; }
 		public GameCard Card => this;
@@ -75,7 +75,7 @@ namespace Kompas.Cards.Models
 		}
 
 		public int IndexInList => LocationModel?.IndexOf(this) ?? -1;
-		public bool InHiddenLocation => Game.IsHiddenLocation(Location);
+		public bool InHiddenLocation => IGame.IsHiddenLocation(Location);
 
 		public override IReadOnlyCollection<GameCard> AdjacentCards
 			=> Game?.Board.CardsAdjacentTo(Position) ?? new List<GameCard>();
@@ -189,7 +189,7 @@ namespace Kompas.Cards.Models
 			ID = id;
 		}
 
-		protected GameCard(SerializableCard serializeableCard, int id, Game game, IPlayer owningPlayer)
+		protected GameCard(SerializableCard serializeableCard, int id, IGame game, IPlayer owningPlayer)
 			: base(serializeableCard.Stats,
 					   serializeableCard.subtext, serializeableCard.spellTypes,
 					   serializeableCard.unique,

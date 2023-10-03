@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models
 
 		public int X { get; set; }
 
-		public static ResolutionContext PlayerTrigger(Effect effect, Game game)
+		public static ResolutionContext PlayerTrigger(Effect effect, IGame game)
 			=> new ResolutionContext(new TriggeringEventContext(game: game, stackableEvent: effect));
 
 		public ResolutionContext(TriggeringEventContext triggerContext)

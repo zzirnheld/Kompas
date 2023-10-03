@@ -1,3 +1,5 @@
+using Kompas.Gamestate;
+
 namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public class NoUniqueCopyExists : GamestateRestrictionBase

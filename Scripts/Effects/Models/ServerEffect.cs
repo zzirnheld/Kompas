@@ -6,7 +6,7 @@ namespace Kompas.Effects.Models
 {
 	public class ServerEffect : Effect
 	{
-		public override Game Game => throw new System.NotImplementedException();
+		public override IGame Game => throw new System.NotImplementedException();
 
 		public override IPlayer ControllingPlayer { get => throw new System.NotImplementedException(); }
 

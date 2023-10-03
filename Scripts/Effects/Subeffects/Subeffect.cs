@@ -71,7 +71,7 @@ namespace Kompas.Effects.Subeffects
 
 		public virtual Effect Effect { get; }
 		public virtual IPlayer Controller { get; }
-		public virtual Game Game { get; }
+		public virtual IGame Game { get; }
 
 		public int SubeffIndex { get; protected set; }
 

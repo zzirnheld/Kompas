@@ -16,7 +16,7 @@ namespace Kompas.Cards.Models
 	{
 		#region immutable aspects
 		public GameCard Card { get; }
-		public Game Game { get; }
+		public IGame Game { get; }
 
 		public int IndexInList { get; }
 		public IPlayer OwningPlayer { get; }

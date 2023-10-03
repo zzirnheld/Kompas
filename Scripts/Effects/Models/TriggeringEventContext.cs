@@ -6,7 +6,7 @@ namespace Kompas.Effects.Models
 {
 	public class TriggeringEventContext
 	{
-		public readonly Game game;
+		public readonly IGame game;
 
 		// Information about the relevant triggering situation
 		/// <summary>
@@ -73,7 +73,7 @@ namespace Kompas.Effects.Models
 
 		private readonly string cachedToString;
 
-		private TriggeringEventContext(Game game,
+		private TriggeringEventContext(IGame game,
 								  GameCardInfo mainCardInfoBefore,
 								  GameCardInfo secondaryCardInfoBefore,
 								  GameCardInfo cardCause,
@@ -107,7 +107,7 @@ namespace Kompas.Effects.Models
 			cachedToString = sb.ToString();
 		}
 
-		public TriggeringEventContext(Game game,
+		public TriggeringEventContext(IGame game,
 								 GameCard CardBefore = null,
 								 GameCard secondaryCardBefore = null,
 								 GameCard eventCauseOverride = null,

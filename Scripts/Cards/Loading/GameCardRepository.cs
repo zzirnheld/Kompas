@@ -20,7 +20,7 @@ namespace Kompas.Cards.Loading
 		[Export]
 		private PackedScene CardPrefab { get; set; }
 
-		private TCardController GetCardController(CardControllerController ccc)
+		private static TCardController GetCardController(CardControllerController ccc)
 		{
 			TCardController ret = null;
 			foreach (var c in ccc.CardControllers)
@@ -33,7 +33,7 @@ namespace Kompas.Cards.Loading
 			return ret;
 		}
 
-		private IList<TEffect> GetKeywordEffects(SerializableCard card)
+		private static IList<TEffect> GetKeywordEffects(SerializableCard card)
 		{
 			var effects = new List<TEffect>();
 			foreach (var (index, keyword) in card.keywords.Enumerate())

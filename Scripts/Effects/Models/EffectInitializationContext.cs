@@ -10,7 +10,7 @@ namespace Kompas.Effects.Models
 	/// </summary>
 	public readonly struct EffectInitializationContext
 	{
-		public readonly Game game;
+		public readonly IGame game;
 		public readonly GameCard source;
 
 		public readonly Effect effect;
@@ -23,12 +23,12 @@ namespace Kompas.Effects.Models
 
 		public readonly IContextInitializeable parent;
 
-		public EffectInitializationContext(Game game, GameCard source, 
+		public EffectInitializationContext(IGame game, GameCard source, 
 			Effect effect = default, Trigger trigger = default, Subeffect subeffect = default, IPlayer controller = default)
 			: this (game, source, effect, trigger, subeffect, controller, default)
 		{ }
 
-		private EffectInitializationContext(Game game, GameCard source,
+		private EffectInitializationContext(IGame game, GameCard source,
 			Effect effect, Trigger trigger, Subeffect subeffect, IPlayer controller, IContextInitializeable parent)
 		{
 			this.game = game;

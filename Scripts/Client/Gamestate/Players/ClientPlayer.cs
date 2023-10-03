@@ -12,7 +12,7 @@ namespace Kompas.Client.Gamestate.Players
 
 		//TODO reconsider whether I'll ever need to have an IPlayer be aware of the type of its Game
 		private readonly ClientGame game;
-		public Game Game => game;
+		public IGame Game => game;
 
 		public Deck Deck { get; private set; }
 		public Hand Hand { get; private set; }

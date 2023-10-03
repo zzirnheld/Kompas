@@ -1,8 +1,6 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
@@ -12,21 +10,19 @@ using Kompas.Client.Effects.Controllers;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate.Locations.Models;
 using Kompas.Client.Gamestate.Players;
-using Kompas.Client.Networking;
-using Kompas.Client.UI;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
-using Kompas.UI;
 
 namespace Kompas.Client.Gamestate
 {
-	public class ClientGame : Game
+	public class ClientGame : IGame
 	{
+		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
 		private readonly ClientCardRepository cardRepository;
-		public override CardRepository CardRepository => cardRepository;
+		public CardRepository CardRepository => cardRepository;
 
 		//TODO: move these to GameController
 		/*
@@ -39,27 +35,28 @@ namespace Kompas.Client.Gamestate
 			=> _clientNotifier ??= new ClientNotifier(ClientNetworkController);
 			*/
 
-		private readonly ClientBoard board;
-		public override Board Board => board;
+		public Board Board { get; private set; }
 
 		public ClientStackController StackController { get; }
 
 		private readonly ClientPlayer[] clientPlayers;
-		public override IPlayer[] Players => clientPlayers;
+		public IPlayer[] Players => clientPlayers;
 		public ClientPlayer FriendlyPlayer => clientPlayers[0];
 
-		private readonly ClientUIController uiController;
-		public override GameUIController UIController => uiController;
+		public GameController GameController { get; }
 
 		private readonly Dictionary<int, ClientGameCard> cardsByID = new();
-		public override IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
+		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
+
+		public bool GameOver { get; private set; }
+		public int TurnPlayerIndex { get; set; }
+		public int FirstTurnPlayer { get; set; } //TODO
+		public int RoundCount { get; set; } = 1;
+		public int TurnCount { get; set; } = 1;
 
 		//public ClientSettings ClientSettings => uiController.clientUISettingsController.ClientSettings;
 		private ClientSettings settings; //TODO consider moving this to its own controller that Game references?
-		public override Settings Settings => settings;
-
-		//turn players?
-		public bool FriendlyTurn => TurnPlayer == FriendlyPlayer;
+		public Settings Settings => settings;
 
 		//search
 		public ClientSearch search;
@@ -91,20 +88,22 @@ namespace Kompas.Client.Gamestate
 			}
 		}*/
 
-		public override bool NothingHappening => !StackController.StackEntries.Any();
-		public override IEnumerable<IStackable> StackEntries => StackController.StackEntries;
+		public IStackable CurrStackEntry => null; //TODO
+		public bool NothingHappening => !StackController.StackEntries.Any();
+		public IEnumerable<IStackable> StackEntries => StackController.StackEntries;
 
 		public bool canZoom = false;
 
 		//dirty card set
 		private readonly HashSet<GameCard> dirtyCardList = new();
 
-		public override int Leyload
+		private int leyload;
+		public int Leyload
 		{
-			get => base.Leyload;
+			get => leyload;
 			set
 			{
-				base.Leyload = value;
+				leyload = value;
 				//TODO refresh leyload shown + "next turn pips" shown
 				//uiController.Leyload = Leyload;
 				//Refresh next turn pips shown.
@@ -112,17 +111,18 @@ namespace Kompas.Client.Gamestate
 			}
 		}
 
-		private ClientGame(ClientUIController uiController)
+		private ClientGame(GameController gameController)
 		{
-			this.uiController = uiController;
+			GameController = gameController;
 
-			board = new ClientBoard();
 			clientPlayers = new ClientPlayer[2];
 		}
 
-		public static ClientGame Create(ClientUIController uiController)
+		public static ClientGame Create(ClientGameController gameController)
 		{
-			var ret = new ClientGame(uiController);
+			var ret = new ClientGame(gameController);
+
+			ret.Board = new ClientBoard(gameController.BoardController);
 
 			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0);
 			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1);
@@ -132,8 +132,6 @@ namespace Kompas.Client.Gamestate
 
 			return ret;
 		}
-
-		public bool GameOver { get; private set; }
 
 		public void GameEnded(bool victory)
 		{
@@ -210,7 +208,7 @@ namespace Kompas.Client.Gamestate
 		public void SetTurn(int index)
 		{
 			TurnPlayerIndex = index;
-			ResetCardsForTurn();
+			foreach (var c in Cards) c.ResetForTurn(this.TurnPlayer());
 			//TODO move to GameController:
 			//uiController.ChangeTurn(TurnPlayerIndex);
 			if (TurnPlayerIndex == FirstTurnPlayer) RoundCount++;
@@ -219,7 +217,7 @@ namespace Kompas.Client.Gamestate
 			//foreach (var player in Players) player.Pips = player.Pips;
 		}
 
-		public override GameCard GetCardWithID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
+		public GameCard LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
 
 		//TODO move to GameController:
 		/*
