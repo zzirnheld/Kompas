@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public string nameIncludes;
 
 		[JsonProperty]
-		public IIdentity<GameCardBase> sameAs;
+		public IIdentity<IGameCard> sameAs;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			sameAs.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 		{
 			if (nameIs != null && card.CardName != nameIs) return false;
 			if (nameIncludes != null && !card.CardName.Contains(nameIncludes)) return false;
@@ -34,8 +34,8 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class DistinctName : CardRestrictionBase
 	{
-		public IIdentity<GameCardBase> from = new Identities.Cards.ThisCardNow();
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cards;
+		public IIdentity<IGameCard> from = new Identities.Cards.ThisCardNow();
+		public IIdentity<IReadOnlyCollection<IGameCard>> cards;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			cards?.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 		{
 			if (cards == default) return from.From(context).CardName != card.CardName;
 
@@ -56,7 +56,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Unique : CardRestrictionBase
 	{
-		protected override bool IsValidLogic(GameCardBase item, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard item, IResolutionContext context)
 			=> item.Unique;
 	}
 }

@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions
 	/// That is, deciding whether a valid target exists is more complicated than checking whether any one option fulfills the requirements.
 	/// For instance, a "can pay costs" restriction must also take into account that you can't just pay for 4 copies of a 1 cost, if the "distinct names" requirement is also specified.
 	/// </summary>
-	public interface IListRestriction : IRestriction<IEnumerable<GameCardBase>>
+	public interface IListRestriction : IRestriction<IEnumerable<IGameCard>>
 	{
 		public static IListRestriction SingleElement => ConstantCount(1);
 
@@ -25,16 +25,16 @@ namespace Kompas.Effects.Models.Restrictions
 			};
 		} 
 
-		public bool AllowsValidChoice(IEnumerable<GameCardBase> options, IResolutionContext context);
+		public bool AllowsValidChoice(IEnumerable<IGameCard> options, IResolutionContext context);
 
-		public bool IsValidClientSide(IEnumerable<GameCardBase> options, IResolutionContext context);
+		public bool IsValidClientSide(IEnumerable<IGameCard> options, IResolutionContext context);
 
 		/// <summary>
 		/// If you don't specifically want to constrain the list (i.e. by deduplicating on a particular value),
 		/// have this just return the source sequence.
 		/// This will be overridden by restrictions like "distinct names" and "distinct costs"
 		/// </summary>
-		public IEnumerable<GameCardBase> Deduplicate(IEnumerable<GameCardBase> options);
+		public IEnumerable<IGameCard> Deduplicate(IEnumerable<IGameCard> options);
 
 		/// <summary>
         /// Get the current minimum for this resolution context.
@@ -52,7 +52,7 @@ namespace Kompas.Effects.Models.Restrictions
 
 	public static class ListRestrictionExtensions
 	{
-		public static readonly JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+		public static readonly JsonSerializerSettings jsonSerializerSettings = new()
 		{
 			TypeNameHandling = TypeNameHandling.All
 		};

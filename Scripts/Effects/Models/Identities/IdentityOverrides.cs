@@ -5,10 +5,10 @@ namespace Kompas.Effects.Models.Identities
 {
 	public class IdentityOverrides
 	{
-		private readonly Stack<GameCardBase> targetOverrides = new();
-		public GameCardBase TargetCardOverride => targetOverrides.Count > 0 ? targetOverrides.Peek() : null;
+		private readonly Stack<IGameCard> targetOverrides = new();
+		public IGameCard TargetCardOverride => targetOverrides.Count > 0 ? targetOverrides.Peek() : null;
 
-		public T WithTargetCardOverride<T> (GameCardBase targetOverride, System.Func<T> action)
+		public T WithTargetCardOverride<T> (IGameCard targetOverride, System.Func<T> action)
 		{
 			targetOverrides.Push(targetOverride);
 			var t = action();

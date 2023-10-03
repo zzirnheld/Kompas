@@ -4,12 +4,12 @@ using Kompas.Gamestate;
 
 namespace Kompas.Effects.Models.Identities
 {
-	public abstract class ContextlessLeafCardIdentityBase : ContextlessLeafIdentityBase<GameCardBase>, IIdentity<Space>, IIdentity<IReadOnlyCollection<GameCardBase>>
+	public abstract class ContextlessLeafCardIdentityBase : ContextlessLeafIdentityBase<IGameCard>, IIdentity<Space>, IIdentity<IReadOnlyCollection<IGameCard>>
 	{
 		Space IIdentity<Space>.From(IResolutionContext context, IResolutionContext secondaryContext)
 			=> Item.Position;
 
-		IReadOnlyCollection<GameCardBase> IIdentity<IReadOnlyCollection<GameCardBase>>.From(IResolutionContext context, IResolutionContext secondaryContext)
+		IReadOnlyCollection<IGameCard> IIdentity<IReadOnlyCollection<IGameCard>>.From(IResolutionContext context, IResolutionContext secondaryContext)
 			=> new [] { Item };
 	}
 }

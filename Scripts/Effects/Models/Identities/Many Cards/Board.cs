@@ -4,9 +4,9 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class Board : ContextlessLeafIdentityBase<IReadOnlyCollection<GameCardBase>>
+	public class Board : ContextlessLeafIdentityBase<IReadOnlyCollection<IGameCard>>
 	{
-		protected override IReadOnlyCollection<GameCardBase> AbstractItem
+		protected override IReadOnlyCollection<IGameCard> AbstractItem
 			=> InitializationContext.game.Board.Cards.ToArray();
 	}
 }

@@ -7,7 +7,7 @@ namespace Kompas.Effects.Models.Identities.Players
 	public class ControllerOf : ContextualParentIdentityBase<Player>
 	{
 		[JsonProperty]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCard> card;
 		[JsonProperty]
 		public IIdentity<IStackable> stackable;
 

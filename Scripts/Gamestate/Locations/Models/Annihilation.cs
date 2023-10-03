@@ -14,7 +14,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public override Location Location => Location.Annihilation;
 		public override IEnumerable<GameCard> Cards => cards;
 
-		protected override void Add(GameCard card, int? index)
+		protected override void PerformAdd(GameCard card, int? index)
 		{
 			if (index.HasValue) cards.Insert(index.Value, card);
 			else cards.Add(card);

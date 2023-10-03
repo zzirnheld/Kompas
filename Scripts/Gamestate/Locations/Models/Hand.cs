@@ -18,7 +18,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public int HandSize => hand.Count;
 		public override int IndexOf(GameCard card) => hand.IndexOf(card);
 
-		protected override void Add(GameCard card, int? index)
+		protected override void PerformAdd(GameCard card, int? index)
 		{
 			if (index.HasValue) hand.Insert(index.Value, card);
 			else hand.Add(card);

@@ -13,13 +13,13 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class AdjacentTo : SpaceRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<GameCardBase> cardRestriction;
+		public IRestriction<IGameCard> cardRestriction;
 		[JsonProperty]
 		public IIdentity<int> cardRestrictionMinimum = Identities.Numbers.Constant.One;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> anyOfTheseCards;
+		public IIdentity<IReadOnlyCollection<IGameCard>> anyOfTheseCards;
 		[JsonProperty]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCard> card;
 		[JsonProperty]
 		public IIdentity<Space> space;
 

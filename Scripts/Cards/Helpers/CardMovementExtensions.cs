@@ -31,14 +31,13 @@ namespace Kompas.Cards.Movement
 		public static void Annihilate(this GameCard card, IStackable stackSrc = null) => card.Annihilate(card.OwningPlayer, stackSrc);
 
 		//If you're looking for this, you'll need to do it more manually by the client/server version of the thing, to maintain the knowledge of what kind of controller you need
-		/*
 		public static void Play(this GameCard card, Space to, Player controllingPlayer, IStackable stackSrc = null, bool payCost = false)
 		{
 			var costToPay = card.Cost;
 			card.Game.Board.Play(card, to, controllingPlayer, stackSrc);
 
 			if (payCost) controllingPlayer.Pips -= costToPay;
-		}*/
+		}
 
 		public static void Move(this GameCard card, Space to, bool normalMove, IStackable stackSrc = null)
 			=> card.Game.Board.Move(card, to, normalMove, stackSrc);

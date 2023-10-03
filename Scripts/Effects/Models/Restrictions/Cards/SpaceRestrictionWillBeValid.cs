@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty(Required = Required.Always)]
 		public int subeffectIndex;
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 			=> InitializationContext.effect.Subeffects[subeffectIndex] is SpaceTarget spaceTgtSubeff
 					&& spaceTgtSubeff.WillBePossibleIfCardTargeted(theoreticalTarget: card?.Card);
 	}

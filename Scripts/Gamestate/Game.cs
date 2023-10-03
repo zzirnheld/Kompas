@@ -59,7 +59,7 @@ namespace Kompas.Gamestate
 			/*GD.Print($"Checking whether player {player?.index} can play a card to {space}. Cards adjacent to that space are" +
 				$"{string.Join(",", space.AdjacentSpaces.Select(BoardController.GetCardAt).Where(c => c != null).Select(c => c.CardName))}");*/
 
-			bool cardAtSpaceIsFriendly(GameCardBase card)
+			bool cardAtSpaceIsFriendly(IGameCard card)
 			{
 				bool isFriendly = card?.ControllingPlayer == player;
 				//if (isFriendly) GD.Print($"{card} is at {card?.Position} adjacent and friendy to {space}");

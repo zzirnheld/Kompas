@@ -8,6 +8,6 @@ namespace Kompas.Effects.Models
 		Player ControllingPlayer { get; }
 		GameCard Source { get; }
 
-		GameCard GetCause (GameCardBase withRespectTo);
+		GameCard GetCause (IGameCard withRespectTo);
 	}
 }

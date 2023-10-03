@@ -35,12 +35,6 @@ namespace Kompas.Client.Cards.Models
 			}
 		}
 
-		public ClientPlayer ControllingClientPlayer { get; set; }
-		public override Player ControllingPlayer => ControllingClientPlayer;
-
-		private readonly ClientPlayer owningPlayer;
-		public override Player OwningPlayer => owningPlayer;
-
 		private readonly bool isAvatar;
 		public override bool IsAvatar => isAvatar;
 
@@ -62,7 +56,7 @@ namespace Kompas.Client.Cards.Models
 
 		public ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
 			ClientPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
-			: base (serializedCard, id, game)
+			: base (serializedCard, id, game, owningPlayer)
 		{
 			//TODO: game should add card after creating it
 			//owner.Game.AddCard(this);
@@ -73,7 +67,6 @@ namespace Kompas.Client.Cards.Models
 			this.isAvatar = isAvatar;
 
 			ClientGame = game;
-			ControllingClientPlayer = this.owningPlayer = owningPlayer;
 			ClientEffects = effects;
 			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(this, ClientGame, index, owningPlayer);
 
@@ -82,7 +75,8 @@ namespace Kompas.Client.Cards.Models
 
 		public override void Remove(IStackable stackSrc = null)
 		{
-			ClientGame.MarkCardDirty(this);
+			//TODO GameController
+			//ClientGame.MarkCardDirty(this);
 			base.Remove(stackSrc);
 		}
 

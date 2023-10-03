@@ -4,7 +4,7 @@ using Kompas.Gamestate.Players;
 namespace Kompas.Effects.Models.Identities.Cards
 {
 
-	public class Avatar : ContextualParentIdentityBase<GameCardBase>
+	public class Avatar : ContextualParentIdentityBase<IGameCard>
 	{
 		public IIdentity<Player> player;
 
@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 			player.Initialize(initializationContext);
 		}
 
-		protected override GameCardBase AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IGameCard AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 			=> player.From(context, secondaryContext).Avatar;
 	}
 }

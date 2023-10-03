@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class CanPlayCard : SpaceRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<GameCardBase> toPlay;
+		public IIdentity<IGameCard> toPlay;
 
 		[JsonProperty]
 		public bool ignoreAdjacency;

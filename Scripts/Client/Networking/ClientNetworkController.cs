@@ -153,7 +153,7 @@ namespace Kompas.Client.Networking
 
 			//clean up any visual differences after the latest packet.
 			//TODO make this more efficient, probably with dirty lists
-			game.Refresh();
+			//game.Refresh();
 			return Task.CompletedTask;
 		}
 	}

@@ -8,15 +8,15 @@ using System.Linq;
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	//TODO: this can probably be merged with/generalized to a "card is" sort of restriction,
-	// where there's an additional IIdentity<GameCardBase> that defines the card to actually be tested in terms of the incoming card?
+	// where there's an additional IIdentity<IGameCard> that defines the card to actually be tested in terms of the incoming card?
 	public abstract class AugmentRestrictionBase : CardRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<GameCardBase> cardRestriction;
+		public IRestriction<IGameCard> cardRestriction;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> manyCards;
+		public IIdentity<IReadOnlyCollection<IGameCard>> manyCards;
 		[JsonProperty]
-		public IIdentity<GameCardBase> singleCard;
+		public IIdentity<IGameCard> singleCard;
 
 		/// <summary>
 		/// Returns a predicate that tests the test card with the following order of priorities:
@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		/// If no CardRestriction is defined, but a list of cards is defined, checks if the test card is one of those cards.
 		/// If neither is defined, but a single card identity is defined, checks if the test card is that card.
 		/// </summary>
-		protected Func<GameCardBase, bool> IsValidAug(IResolutionContext context) => card =>
+		protected Func<IGameCard, bool> IsValidAug(IResolutionContext context) => card =>
 		{
 			if (cardRestriction != null) return cardRestriction.IsValid(card, context);
 			if (manyCards != null) return manyCards.From(context, null).Contains(card);
@@ -56,7 +56,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool all = false; //default to any
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context) 
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context) 
 			=> all
 				? card.Augments.All(IsValidAug(context))
 				: card.Augments.Any(IsValidAug(context));
@@ -64,7 +64,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Augments : AugmentRestrictionBase
 	{
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 			=> IsValidAug(context)(card.AugmentedCard);
 	}
 }

@@ -29,13 +29,13 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 
 	public class Minimum : CountBound
 	{
-		protected override bool IsValidLogic(IEnumerable<GameCardBase> item, IResolutionContext context)
+		protected override bool IsValidLogic(IEnumerable<IGameCard> item, IResolutionContext context)
 			=> item.Count() >= bound.From(context);
 
-		public override bool AllowsValidChoice(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public override bool AllowsValidChoice(IEnumerable<IGameCard> options, IResolutionContext context)
 			=> options.Count() >= bound.From(context);
 
-		public override bool IsValidClientSide(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public override bool IsValidClientSide(IEnumerable<IGameCard> options, IResolutionContext context)
 			=> options.Count() >= stashedBound;
 
 		public override int GetMinimum(IResolutionContext context)
@@ -46,13 +46,13 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 
 	public class Maximum : CountBound
 	{
-		protected override bool IsValidLogic(IEnumerable<GameCardBase> item, IResolutionContext context)
+		protected override bool IsValidLogic(IEnumerable<IGameCard> item, IResolutionContext context)
 			=> item.Count() <= bound.From(context);
 
-		public override bool AllowsValidChoice(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public override bool AllowsValidChoice(IEnumerable<IGameCard> options, IResolutionContext context)
 			=> true;
 
-		public override bool IsValidClientSide(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public override bool IsValidClientSide(IEnumerable<IGameCard> options, IResolutionContext context)
 			=> options.Count() <= stashedBound;
 
 		public override int GetMaximum(IResolutionContext context)

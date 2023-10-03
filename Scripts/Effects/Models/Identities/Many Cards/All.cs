@@ -3,8 +3,8 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class All : ContextlessLeafIdentityBase<IReadOnlyCollection<GameCardBase>>
+	public class All : ContextlessLeafIdentityBase<IReadOnlyCollection<IGameCard>>
 	{
-		protected override IReadOnlyCollection<GameCardBase> AbstractItem => InitializationContext.game.Cards;
+		protected override IReadOnlyCollection<IGameCard> AbstractItem => InitializationContext.game.Cards;
 	}
 }

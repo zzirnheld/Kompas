@@ -15,11 +15,5 @@ namespace Kompas.Client.Gamestate.Locations.Models
 		{
 			this.game = game;
 		}
-
-		public void Play(ClientGameCard card, Space to, ClientPlayer player, IStackable stackableCause)
-		{
-			Play(card, to, stackableCause);
-			card.ControllingPlayer = player;
-		}
 	}
 }

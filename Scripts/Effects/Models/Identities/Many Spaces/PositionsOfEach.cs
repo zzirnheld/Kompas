@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 	public class PositionsOfEach : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cards;
+		public IIdentity<IReadOnlyCollection<IGameCard>> cards;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

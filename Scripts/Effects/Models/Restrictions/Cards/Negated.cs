@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool negated = true;
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 			=> card.Negated == negated;
 	}
 }

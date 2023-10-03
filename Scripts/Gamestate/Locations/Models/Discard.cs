@@ -14,7 +14,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public override Location Location => Location.Discard;
 		public override IEnumerable<GameCard> Cards => discard;
 
-		protected override void Add(GameCard card, int? index)
+		protected override void PerformAdd(GameCard card, int? index)
 		{
 			if (index.HasValue) discard.Insert(index.Value, card);
 			else discard.Add(card);

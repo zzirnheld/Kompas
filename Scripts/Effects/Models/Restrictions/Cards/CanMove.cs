@@ -30,7 +30,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			}
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 		{
 			bool IsValidMoveSpace(Space space) => card.MovementRestriction.IsValid(space, context);
 

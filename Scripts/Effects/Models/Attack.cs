@@ -19,14 +19,14 @@ namespace Kompas.Effects.Models
 		/// <param name="defender"></param>
 		public Attack(Player controller, GameCard attacker, GameCard defender)
 		{
-			this.controller = controller != null ? controller : throw new System.ArgumentNullException("controller", "Cannot have null controller of attack");
-			this.attacker = attacker != null ? attacker : throw new System.ArgumentNullException("attacker", "Cannot have null attacker");
-			this.defender = defender != null ? defender : throw new System.ArgumentNullException("defender", "Cannot have null defender");
+			this.controller = controller ?? throw new System.ArgumentNullException(nameof(controller), "Cannot have null controller of attack");
+			this.attacker = attacker ?? throw new System.ArgumentNullException(nameof(attacker), "Cannot have null attacker");
+			this.defender = defender ?? throw new System.ArgumentNullException(nameof(defender), "Cannot have null defender");
 		}
 
-		public GameCard GetCause(GameCardBase withRespectTo)
+		public GameCard GetCause(IGameCard withRespectTo)
 		{
-			if (withRespectTo == null) throw new System.ArgumentNullException("Why did you try and get the cause of an attack w/r/t a null card?");
+			if (withRespectTo == null) throw new System.ArgumentNullException(nameof(withRespectTo), "Why did you try and get the cause of an attack w/r/t a null card?");
 			else if (attacker == withRespectTo.Card) return defender;
 			else if (defender == withRespectTo.Card) return attacker;
 			else if (attacker == withRespectTo.AugmentedCard) return defender;

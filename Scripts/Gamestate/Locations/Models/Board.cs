@@ -107,19 +107,19 @@ namespace Kompas.Gamestate.Locations.Models
 			return list;
 		}
 
-		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<GameCardBase> restriction, IResolutionContext context)
+		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<IGameCard> restriction, IResolutionContext context)
 			=> AreConnectedBySpaces(source, destination, c => restriction.IsValid(c, context));
 
 		public bool AreConnectedBySpaces(Space source, Space destination, Func<GameCard, bool> throughPredicate)
 			=> AreConnectedBySpaces(source, destination, s => throughPredicate(GetCardAt(s)));
 
-		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<Space> restriction, IResolutionContext context)
+		public static bool AreConnectedBySpaces(Space source, Space destination, IRestriction<Space> restriction, IResolutionContext context)
 			=> AreConnectedBySpaces(source, destination, s => restriction.IsValid(s, context));
 
-		public bool AreConnectedBySpaces(Space source, Space destination, Func<Space, bool> predicate)
+		public static bool AreConnectedBySpaces(Space source, Space destination, Func<Space, bool> predicate)
 			=> destination.AdjacentSpaces.Any(destAdj => ShortestPath(source, destAdj, predicate) < NoPathExists);
 
-		public bool AreConnectedByNumberOfSpacesFittingPredicate
+		public static bool AreConnectedByNumberOfSpacesFittingPredicate
 			(Space source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
 			=> destination.AdjacentSpaces.Any(destAdj => distancePredicate(ShortestPath(source, destAdj, spacePredicate)));
 
@@ -129,10 +129,10 @@ namespace Kompas.Gamestate.Locations.Models
 		public int ShortestEmptyPath(Space src, Space dest)
 			=> board[dest.x, dest.y] == null ? ShortestPath(src, dest, IsEmpty) : NoPathExists;
 
-		public int ShortestPath(GameCard src, Space space, IRestriction<GameCardBase> restriction, IResolutionContext context)
+		public int ShortestPath(GameCard src, Space space, IRestriction<IGameCard> restriction, IResolutionContext context)
 			=> ShortestPath(src.Position, space, c => restriction.IsValid(c, context));
 
-		public int ShortestPath(Space src, Space dest, Predicate<GameCard> throughPredicate)
+		public int ShortestPath(Space src, Space dest, Predicate<IGameCard> throughPredicate)
 			=> ShortestPath(src, dest, s => throughPredicate(GetCardAt(s)));
 
 		/// <summary>
@@ -217,7 +217,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <param name="toPlay">Card to be played</param>
 		/// <param name="toX">X coordinate to play the card to</param>
 		/// <param name="toY">Y coordinate to play the card to</param>
-		protected void Play(GameCard toPlay, Space to, Player player, IStackable stackSrc = null)
+		public void Play(GameCard toPlay, Space to, Player player, IStackable stackSrc = null)
 		{
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");
@@ -238,6 +238,8 @@ namespace Kompas.Gamestate.Locations.Models
 					?? throw new NullCardException($"Can't play an augment to empty space at {to}");
 				//assuming there is a card there, try and add the augment. if it don't work, it borked.
 				augmented.AddAugment(toPlay, stackSrc);
+
+				toPlay.ControllingPlayer = player;
 			}
 			//otherwise, put a card to the requested space
 			else
@@ -248,6 +250,8 @@ namespace Kompas.Gamestate.Locations.Models
 				board[toX, toY] = toPlay;
 				toPlay.Position = to;
 				toPlay.LocationModel = this;
+
+				toPlay.ControllingPlayer = player;
 			}
 		}
 

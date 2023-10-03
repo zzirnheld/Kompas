@@ -62,7 +62,8 @@ namespace Kompas.Client.Effects.Models
 			TimesUsedThisRound++;
 			TimesUsedThisStack++;
 
-			ClientGame.EffectActivated(this);
+			//TODO controller
+			//ClientGame.EffectActivated(this);
 			ClientGame.StackController.Add(this, context);
 		}
 
@@ -74,7 +75,8 @@ namespace Kompas.Client.Effects.Models
 
 			//in case any cards are still showing targets from the last effect, which they will if this happens after another effect in the stack.
 			//TODO move this behavior to a "effect end" packet and stuff?
-			ClientGame.ShowNoTargets();
+			//TODO GameController
+			//ClientGame.ShowNoTargets();
 		}
 	}
 }

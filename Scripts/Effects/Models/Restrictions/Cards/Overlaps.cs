@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public class Overlaps : CardRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<GameCardBase> other;
+		public IIdentity<IGameCard> other;
 		/// <summary>
 		/// An optional override to check if the card to be tested overlaps another, if that second one is at this specified space.
 		/// Example: If card to test is at (0, 0) with a radius of 2,
@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			overrideOtherSpace?.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 		{
 			var otherCard = other.From(context);
 			var otherSpace = overrideOtherSpace?.From(context) ?? otherCard.Position;

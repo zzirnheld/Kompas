@@ -6,7 +6,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 	{
 		public bool secondaryCard;
 
-		protected override GameCardBase AbstractItemFrom(TriggeringEventContext context)
+		protected override IGameCard AbstractItemFrom(TriggeringEventContext context)
 			=> secondaryCard
 				? context.SecondaryCardInfoAfter
 				: context.MainCardInfoAfter;

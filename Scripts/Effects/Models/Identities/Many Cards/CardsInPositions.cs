@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class CardsInPositions : ContextualParentIdentityBase<IReadOnlyCollection<GameCardBase>>
+	public class CardsInPositions : ContextualParentIdentityBase<IReadOnlyCollection<IGameCard>>
 	{
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IReadOnlyCollection<Space>> positions;
@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			positions.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<GameCardBase> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<IGameCard> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			var spaces = positions.From(context, secondaryContext);
 			return spaces.Select(InitializationContext.game.Board.GetCardAt).Where(s => s != null).ToArray();

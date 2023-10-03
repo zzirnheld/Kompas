@@ -13,12 +13,13 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
-	public abstract class GameCard : GameCardBase
+	public abstract class GameCard : GameCardBase, IGameCard
 	{
 		public abstract CardController CardController { get; }
 		public abstract Game Game { get; }
+
 		public int ID { get; private set; }
-		public override GameCard Card => this;
+		public GameCard Card => this;
 
 		protected SerializableCard InitialCardValues { get; private set; }
 
@@ -73,7 +74,7 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public override int IndexInList => LocationModel?.IndexOf(this) ?? -1;
+		public int IndexInList => LocationModel?.IndexOf(this) ?? -1;
 		public bool InHiddenLocation => Game.IsHiddenLocation(Location);
 
 		public override IReadOnlyCollection<GameCard> AdjacentCards
@@ -122,11 +123,12 @@ namespace Kompas.Cards.Models
 
 		//restrictions
 		public override IMovementRestriction MovementRestriction { get; }
-		public override IRestriction<GameCardBase> AttackingDefenderRestriction { get; }
+		public override IRestriction<IGameCard> AttackingDefenderRestriction { get; }
 		public override IPlayRestriction PlayRestriction { get; }
 
 		//controller/owners
-		public override Player ControllingPlayer { get; set; }
+		public Player ControllingPlayer { get; set; }
+		public Player OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
 		public int ControllerIndex => ControllingPlayer?.index ?? 0;
 		public int OwnerIndex => OwningPlayer?.index ?? -1;
 
@@ -194,9 +196,11 @@ namespace Kompas.Cards.Models
 					   serializeableCard.radius, serializeableCard.duration,
 					   serializeableCard.cardType, serializeableCard.cardName, CardRepository.FileNameFor(serializeableCard.cardName),
 					   serializeableCard.effText,
-					   serializeableCard.subtypeText, owningPlayer)
+					   serializeableCard.subtypeText)
 		{
 			CardLinkHandler = new GameCardLinksModel(this);
+
+			ControllingPlayer = OwningPlayer = owningPlayer;
 
 			ID = id;
 			InitialCardValues = serializeableCard;

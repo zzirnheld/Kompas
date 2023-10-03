@@ -24,7 +24,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected override bool AllowAlreadyHereWhenAdd => true;
 
-		protected override void Add(GameCard card, int? index)
+		protected override void PerformAdd(GameCard card, int? index)
 		{
 			if (index.HasValue) deck.Insert(index.Value, card);
 			else deck.Add(card);
@@ -64,7 +64,7 @@ namespace Kompas.Gamestate.Locations.Models
 			foreach (var card in toShuffleInOrder) PushBottomdeck(card, stackSrc);
 		}
 
-		public List<GameCard> CardsThatFitRestriction(IRestriction<GameCardBase> cardRestriction, ResolutionContext context)
+		public List<GameCard> CardsThatFitRestriction(IRestriction<IGameCard> cardRestriction, ResolutionContext context)
 		{
 			List<GameCard> cards = new List<GameCard>();
 			foreach (GameCard c in deck)

@@ -11,13 +11,13 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class InAOEOf : SpaceRestrictionBase
 	{
 		[JsonProperty]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCard> card;
 		[JsonProperty]
-		public IRestriction<GameCardBase> cardRestriction; //Used to restrict anyOf. If non-null, but anyOf is null, will make anyOf default to All()
+		public IRestriction<IGameCard> cardRestriction; //Used to restrict anyOf. If non-null, but anyOf is null, will make anyOf default to All()
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> anyOf;
+		public IIdentity<IReadOnlyCollection<IGameCard>> anyOf;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> allOf;
+		public IIdentity<IReadOnlyCollection<IGameCard>> allOf;
 
 		[JsonProperty]
 		public IIdentity<int> minAnyOfCount = Identities.Numbers.Constant.One;
@@ -52,7 +52,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		protected override bool IsValidLogic(Space space, IResolutionContext context)
 		{
 			var alsoInAOE = this.alsoInAOE?.From(context);
-			bool IsValidAOE(GameCardBase card)
+			bool IsValidAOE(IGameCard card)
 			{
 				return card.SpaceInAOE(space)
 					&& (alsoInAOE == null || card.SpaceInAOE(alsoInAOE));
@@ -63,18 +63,18 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			return true;
 		}
 
-		private bool ValidateCard(Func<GameCardBase, bool> isValidCard, IResolutionContext context)
+		private bool ValidateCard(Func<IGameCard, bool> isValidCard, IResolutionContext context)
 			=> isValidCard(card.From(context));
 
-		private bool ValidateAnyOf(Func<GameCardBase, bool> isValidCard, IResolutionContext context) 
+		private bool ValidateAnyOf(Func<IGameCard, bool> isValidCard, IResolutionContext context) 
 		{
-			IEnumerable<GameCardBase> cards = anyOf.From(context);
+			IEnumerable<IGameCard> cards = anyOf.From(context);
 			if (cardRestriction != null) cards = cards.Where(c => cardRestriction.IsValid(c, context));
 
 			return minAnyOfCount.From(context) <= cards.Count(c => isValidCard(c));
 		}
 
-		private bool ValidateAllOf(Func<GameCardBase, bool> isValidCard, IResolutionContext context)
+		private bool ValidateAllOf(Func<IGameCard, bool> isValidCard, IResolutionContext context)
 			=> allOf.From(context).All(isValidCard);
 	}
 }

@@ -5,7 +5,6 @@ namespace Kompas.Gamestate.Locations
 {
 	public interface ILocationModel
 	{
-		public Game Game { get; }
 		public Location Location { get; }
 
 		public IEnumerable<GameCard> Cards { get; }

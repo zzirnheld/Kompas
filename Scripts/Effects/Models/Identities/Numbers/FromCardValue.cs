@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 	public class FromCardValue : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCard> card;
 		[JsonProperty(Required = Required.Always)]
 		public CardValue cardValue;
 
@@ -54,7 +54,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		//FUTURE: Make this more definitive
 		public string DisplayName => value;
 
-		public int GetValueOf(GameCardBase card)
+		public int GetValueOf(IGameCard card)
 		{
 			ComplainIfNotInitialized();
 			if (card == null) throw new NullCardException("Cannot get value of null card");

@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			player.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
 		{
 			var controller = player.From(context);
 			bool IsValidEffectPlay(Space space) => card.PlayRestriction.IsValid((space, controller), context);

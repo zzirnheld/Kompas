@@ -4,16 +4,16 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Effects.Models.Restrictions.ManyCards
 {
-	public class AllOf : AllOfBase<IEnumerable<GameCardBase>, IListRestriction>, IListRestriction
+	public class AllOf : AllOfBase<IEnumerable<IGameCard>, IListRestriction>, IListRestriction
 	{
 		private bool clientSide;
 
-		protected override bool Validate(IListRestriction element, IEnumerable<GameCardBase> item, IResolutionContext context)
+		protected override bool Validate(IListRestriction element, IEnumerable<IGameCard> item, IResolutionContext context)
 			=> clientSide
 			? element.IsValidClientSide(item, context)
 			: element.IsValid(item, context);
 
-		public bool AllowsValidChoice(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public bool AllowsValidChoice(IEnumerable<IGameCard> options, IResolutionContext context)
 		{
 			ComplainIfNotInitialized();
 			return GetMinimum(context) <= GetMaximum(context)	//There exists a number of cards that both the min and max permit
@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 				&& elements.All(elem => elem.AllowsValidChoice(options, context));
 		}
 
-		public bool IsValidClientSide(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public bool IsValidClientSide(IEnumerable<IGameCard> options, IResolutionContext context)
 		{
 			clientSide = true;
 			bool ret = IsValid(options, context);
@@ -30,7 +30,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 			return ret;
 		}
 
-		public IEnumerable<GameCardBase> Deduplicate(IEnumerable<GameCardBase> options)
+		public IEnumerable<IGameCard> Deduplicate(IEnumerable<IGameCard> options)
 		{
 			var localOptions = options;
 			foreach (var elem in elements) localOptions = elem.Deduplicate(localOptions);

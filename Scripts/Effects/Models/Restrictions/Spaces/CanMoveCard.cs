@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class CanMoveCard : SpaceRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<GameCardBase> toMove;
+		public IIdentity<IGameCard> toMove;
 
 		/// <summary>
 		/// Describes any restriction on the spaces between the card and where it needs to go (the space being tested)
@@ -33,13 +33,13 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			distanceRestriction?.Initialize(initializationContext);
 		}
 
-		private bool FitsMovementRestriction(GameCardBase card, Space space, IResolutionContext context)
+		private bool FitsMovementRestriction(IGameCard card, Space space, IResolutionContext context)
 			=> normalMove 
 				? card.MovementRestriction.IsValid(space, ResolutionContext.PlayerTrigger(InitializationContext.effect, InitializationContext.game))
 				: card.MovementRestriction.IsValid(space, context);
 
 		private bool FitsThroughRestriction(Space source, Space dest, IResolutionContext context)
-			=> InitializationContext.game.Board.AreConnectedByNumberOfSpacesFittingPredicate(source, dest,
+			=> Kompas.Gamestate.Locations.Models.Board.AreConnectedByNumberOfSpacesFittingPredicate(source, dest,
 				s => throughRestriction.IsValid(s, context), d => distanceRestriction.IsValid(d, context));
 
 		protected override bool IsValidLogic(Space space, IResolutionContext context)

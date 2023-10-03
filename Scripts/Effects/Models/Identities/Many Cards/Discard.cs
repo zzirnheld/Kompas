@@ -4,18 +4,18 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class Discard : ContextlessLeafIdentityBase<IReadOnlyCollection<GameCardBase>>
+	public class Discard : ContextlessLeafIdentityBase<IReadOnlyCollection<IGameCard>>
 	{
 		[JsonProperty]
 		public bool friendly = true;
 		[JsonProperty]
 		public bool enemy = true;
 
-		protected override IReadOnlyCollection<GameCardBase> AbstractItem
+		protected override IReadOnlyCollection<IGameCard> AbstractItem
 		{
 			get
 			{
-				var cards = new List<GameCardBase>();
+				var cards = new List<IGameCard>();
 				if (friendly) cards.AddRange(InitializationContext.Controller.Discard.Cards);
 				if (enemy) cards.AddRange(InitializationContext.Controller.Enemy.Discard.Cards);
 				return cards;

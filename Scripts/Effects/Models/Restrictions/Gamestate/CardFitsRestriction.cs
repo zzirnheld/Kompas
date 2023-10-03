@@ -9,12 +9,12 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	public class CardFitsRestriction : TriggerGamestateRestrictionBase
 	{
 		[JsonProperty]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCard> card;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> anyOf;
+		public IIdentity<IReadOnlyCollection<IGameCard>> anyOf;
 		
 		[JsonProperty(Required = Required.Always)]
-		public IRestriction<GameCardBase> cardRestriction;
+		public IRestriction<IGameCard> cardRestriction;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -35,7 +35,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
 		{
 			var contextToConsider = ContextToConsider(context, secondaryContext);
-			bool IsValidCard(GameCardBase c) => cardRestriction.IsValid(c, contextToConsider);
+			bool IsValidCard(IGameCard c) => cardRestriction.IsValid(c, contextToConsider);
 
 			if (card != null && !IsValidCard(FromIdentity(card, context, secondaryContext))) return false;
 			if (anyOf != null && !FromIdentity(anyOf, context, secondaryContext).Any(IsValidCard)) return false;

@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
@@ -12,7 +13,7 @@ namespace Kompas.Gamestate.Locations.Models
 	/// </summary>
 	public abstract class OwnedLocationModel : ILocationModel
 	{
-		public abstract Game Game { get; }
+		public abstract Player Owner { get; }
 
 		public abstract Location Location { get; }
 
@@ -24,14 +25,13 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected virtual bool AllowAlreadyHereWhenAdd => false;
 
-		protected abstract void Add(GameCard card, int? index);
-		protected abstract void TakeControl(GameCard card);
+		protected abstract void PerformAdd(GameCard card, int? index);
 
 		/// <summary>
         /// Adds the card to this owned game location at the relevant index.
         /// DOES NOT set the controller (that will need to be done manually by the implementer)
         /// </summary>
-		protected void Add(GameCard card, int? index = null, IStackable stackableCause = null)
+		public void Add(GameCard card, int? index = null, IStackable stackableCause = null)
 		{
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
 			if (!AllowAlreadyHereWhenAdd && this == card.LocationModel) throw new AlreadyHereException(Location);
@@ -43,7 +43,8 @@ namespace Kompas.Gamestate.Locations.Models
 
 			card.LocationModel = this;
 			card.Position = null;
-			Add(card, index);
+			card.ControllingPlayer = Owner;
+			PerformAdd(card, index);
 		}
 	}
 }

@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class Limit : ContextualParentIdentityBase<IReadOnlyCollection<GameCardBase>>
+	public class Limit : ContextualParentIdentityBase<IReadOnlyCollection<IGameCard>>
 	{
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<int> limit;
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cards;
+		public IIdentity<IReadOnlyCollection<IGameCard>> cards;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cards.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<GameCardBase> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<IGameCard> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 			=> CollectionsHelper.Shuffle(cards.From(context, secondaryContext))
 				.Take(limit.From(context, secondaryContext))
 				.ToArray();

@@ -4,6 +4,6 @@ namespace Kompas.Effects.Models.Identities.Cards
 {
 	public class ThisCardNow : ContextlessLeafCardIdentityBase
 	{
-		protected override GameCardBase AbstractItem => InitializationContext.source;
+		protected override IGameCard AbstractItem => InitializationContext.source;
 	}
 }

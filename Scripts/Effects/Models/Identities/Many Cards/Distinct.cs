@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class Distinct : ContextualParentIdentityBase<IReadOnlyCollection<GameCardBase>>
+	public class Distinct : ContextualParentIdentityBase<IReadOnlyCollection<IGameCard>>
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cards;
+		public IIdentity<IReadOnlyCollection<IGameCard>> cards;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -16,7 +16,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cards.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<GameCardBase> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<IGameCard> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 			=> cards.From(context, secondaryContext)
 				.GroupBy(c => c.CardName)
 				.Select(group => group.First())
