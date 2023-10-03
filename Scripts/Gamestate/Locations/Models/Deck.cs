@@ -14,7 +14,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		//rng for shuffling
 
-		private readonly List<GameCard> deck = new List<GameCard>();
+		private readonly List<GameCard> deck = new();
 		public override IEnumerable<GameCard> Cards => deck;
 
 		public override int IndexOf(GameCard card) => deck.IndexOf(card);

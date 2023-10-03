@@ -13,7 +13,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public override Location Location => Location.Hand;
 		public override IEnumerable<GameCard> Cards => hand;
 
-		protected readonly List<GameCard> hand = new List<GameCard>();
+		protected readonly List<GameCard> hand = new();
 
 		public int HandSize => hand.Count;
 		public override int IndexOf(GameCard card) => hand.IndexOf(card);

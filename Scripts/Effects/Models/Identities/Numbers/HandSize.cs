@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		}
 
 		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> player.From(context, secondaryContext).hand.HandSize;
+			=> player.From(context, secondaryContext).Hand.HandSize;
 	}
 	
 	public class HandSizeLimit : ContextualParentIdentityBase<int>

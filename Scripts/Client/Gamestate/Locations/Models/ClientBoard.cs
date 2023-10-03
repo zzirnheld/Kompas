@@ -1,3 +1,6 @@
+using Kompas.Client.Cards.Models;
+using Kompas.Client.Gamestate.Players;
+using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 
@@ -11,6 +14,12 @@ namespace Kompas.Client.Gamestate.Locations.Models
 		public ClientBoard(ClientGame game)
 		{
 			this.game = game;
+		}
+
+		public void Play(ClientGameCard card, Space to, ClientPlayer player, IStackable stackableCause)
+		{
+			Play(card, to, stackableCause);
+			card.ControllingPlayer = player;
 		}
 	}
 }

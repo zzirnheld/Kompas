@@ -1,6 +1,8 @@
 
 using System.Collections.Generic;
+using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
+using Kompas.Client.Cards.Controllers;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Players;
@@ -8,6 +10,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Client.Cards.Models
 {
@@ -32,15 +35,17 @@ namespace Kompas.Client.Cards.Models
 			}
 		}
 
-		private ClientPlayer controllingPlayer;
-		public override Player ControllingPlayer => controllingPlayer;
+		public ClientPlayer ControllingClientPlayer { get; set; }
+		public override Player ControllingPlayer => ControllingClientPlayer;
 
-		public ClientPlayer ClientOwner { get; private set; }
-		public override Player OwningPlayer => ClientOwner;
+		private readonly ClientPlayer owningPlayer;
+		public override Player OwningPlayer => owningPlayer;
+
+		private readonly bool isAvatar;
+		public override bool IsAvatar => isAvatar;
 
 		public ClientEffect[] ClientEffects { get; private set; }
 		public override IReadOnlyCollection<Effect> Effects => ClientEffects;
-		public override bool IsAvatar => false;
 		public ClientCardController ClientCardController { get; private set; }
 		public override CardController CardController => ClientCardController;
 
@@ -55,48 +60,37 @@ namespace Kompas.Client.Cards.Models
 			}
 		}
 
-		protected ClientGameCard(int id, ClientPlayer owner, ClientCardController clientCardController)
-			: base(id)
+		public ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
+			ClientPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
+			: base (serializedCard, id, game)
 		{
-			owner.game.AddCard(this);
+			//TODO: game should add card after creating it
+			//owner.Game.AddCard(this);
 
-			ClientCardController = clientCardController;
-			clientCardController.ClientCard = this;
+			ClientCardController = cardController;
+			cardController.ClientCard = this;
 
-			ClientGame = owner.game;
-			ClientController = ClientOwner = owner;
-		}
+			this.isAvatar = isAvatar;
 
-		public ClientGameCard(SerializableCard serializedCard, int id, ClientPlayer owner, ClientEffect[] effects, ClientCardController clientCardController)
-			: base (serializedCard, id, owner.game)
-		{
-			owner.game.AddCard(this);
-
-			ClientCardController = clientCardController;
-			clientCardController.ClientCard = this;
-
-			ClientGame = owner.game;
-			ClientController = ClientOwner = owner;
+			ClientGame = game;
+			ControllingClientPlayer = this.owningPlayer = owningPlayer;
 			ClientEffects = effects;
-			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(this, ClientGame, index, owner);
+			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(this, ClientGame, index, owningPlayer);
 
-			clientCardController.gameCardViewController.Focus(this);
+			//cardController.gameCardViewController.Focus(this);
 		}
 
-		//Factory, because apparently c# doesn't let you pass constructors?
-		public static ClientGameCard Create(SerializableCard serializedCard, int id, ClientPlayer owner, ClientEffect[] effects, ClientCardController clientCardController)
-			=> new ClientGameCard(serializedCard, id, owner, effects, clientCardController);
-
-		public override bool Remove(IStackable stackSrc = null)
+		public override void Remove(IStackable stackSrc = null)
 		{
 			ClientGame.MarkCardDirty(this);
-			return base.Remove(stackSrc);
+			base.Remove(stackSrc);
 		}
 
 		public override void SetN(int n, IStackable stackSrc = null, bool notify = true)
 		{
 			base.SetN(n, stackSrc, notify);
-			ClientGame?.clientUIController.CardViewController.Refresh();
+			//TODO refresh space indicators for spaces can move
+			//ClientGame?.clientUIController.CardViewController.Refresh();
 		}
 
 		/// <summary>

@@ -143,7 +143,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <param name="y">The y coordinate you want a distance to</param>
 		/// <param name="throughPredicate">What all cards you go through must fit</param>
 		/// <returns></returns>
-		public int ShortestPath(Space start, Space destination, Func<Space, bool> throughPredicate)
+		public static int ShortestPath(Space start, Space destination, Func<Space, bool> throughPredicate)
 		{
 			if (start == destination) return 0;
 			if (start == null || destination == null) return 50;
@@ -211,12 +211,13 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 
 		/// <summary>
-		/// Puts the card on the board
+		/// Puts the card on the board.
+        /// DOES NOT change the card's controller
 		/// </summary>
 		/// <param name="toPlay">Card to be played</param>
 		/// <param name="toX">X coordinate to play the card to</param>
 		/// <param name="toY">Y coordinate to play the card to</param>
-		public virtual void Play(GameCard toPlay, Space to, Player controller, IStackable stackSrc = null)
+		protected void Play(GameCard toPlay, Space to, Player player, IStackable stackSrc = null)
 		{
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");
@@ -237,8 +238,6 @@ namespace Kompas.Gamestate.Locations.Models
 					?? throw new NullCardException($"Can't play an augment to empty space at {to}");
 				//assuming there is a card there, try and add the augment. if it don't work, it borked.
 				augmented.AddAugment(toPlay, stackSrc);
-
-				toPlay.ControllingPlayer = controller;
 			}
 			//otherwise, put a card to the requested space
 			else
@@ -249,8 +248,6 @@ namespace Kompas.Gamestate.Locations.Models
 				board[toX, toY] = toPlay;
 				toPlay.Position = to;
 				toPlay.LocationModel = this;
-
-				toPlay.ControllingPlayer = controller;
 			}
 		}
 

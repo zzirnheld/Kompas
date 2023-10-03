@@ -5,12 +5,11 @@ using Kompas.Gamestate.Locations.Controllers;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	//Not abstract because Client uses this base class
 	public abstract class Annihilation : OwnedLocationModel
 	{
 		public AnnihilationController AnnihilationController { get; init; }
 
-		private readonly List<GameCard> cards = new List<GameCard>();
+		private readonly List<GameCard> cards = new();
 
 		public override Location Location => Location.Annihilation;
 		public override IEnumerable<GameCard> Cards => cards;

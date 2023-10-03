@@ -1,14 +1,35 @@
 
 using Kompas.Cards.Controllers;
+using Kompas.Client.Cards.Models;
 
 namespace Kompas.Client.Cards.Controllers
 {
-	public class ClientCardController : CardController
+	public partial class ClientCardController : CardController
 	{
+		private ClientGameCard card;
+		public ClientGameCard ClientCard
+		{
+			get => card;
+			set
+			{
+				if (card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
+				card = value;
+				//TODO make view do its thing
+			}
+		}
+
+		public bool Revealed
+		{
+			set
+			{
+				throw new System.NotImplementedException();
+			}
+		}
+
+		/*
 
 		public GameObject revealedImage;
 
-		[Header("Dependent MonoBehaviours")]
 		public ClientCardMouseController mouseController;
 
 		public ClientGameCard ClientCard { get; set; }
@@ -35,6 +56,6 @@ namespace Kompas.Client.Cards.Controllers
 		{
 			//Debug.Log("Destroying a client card ctrl. Destroying this ctrl's mouse ctrl.");
 			Destroy(mouseController);
-		}
+		}*/
 	}
 }

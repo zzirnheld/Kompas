@@ -126,6 +126,7 @@ namespace Kompas.Cards.Models
 		public override IPlayRestriction PlayRestriction { get; }
 
 		//controller/owners
+		public override Player ControllingPlayer { get; set; }
 		public int ControllerIndex => ControllingPlayer?.index ?? 0;
 		public int OwnerIndex => OwningPlayer?.index ?? -1;
 
@@ -186,14 +187,14 @@ namespace Kompas.Cards.Models
 			ID = id;
 		}
 
-		protected GameCard(SerializableCard serializeableCard, int id, Game game)
+		protected GameCard(SerializableCard serializeableCard, int id, Game game, Player owningPlayer)
 			: base(serializeableCard.Stats,
 					   serializeableCard.subtext, serializeableCard.spellTypes,
 					   serializeableCard.unique,
 					   serializeableCard.radius, serializeableCard.duration,
 					   serializeableCard.cardType, serializeableCard.cardName, CardRepository.FileNameFor(serializeableCard.cardName),
 					   serializeableCard.effText,
-					   serializeableCard.subtypeText)
+					   serializeableCard.subtypeText, owningPlayer)
 		{
 			CardLinkHandler = new GameCardLinksModel(this);
 

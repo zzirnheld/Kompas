@@ -16,8 +16,8 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			get
 			{
 				var cards = new List<GameCardBase>();
-				if (friendly) cards.AddRange(InitializationContext.Controller.discard.Cards);
-				if (enemy) cards.AddRange(InitializationContext.Controller.Enemy.discard.Cards);
+				if (friendly) cards.AddRange(InitializationContext.Controller.Discard.Cards);
+				if (enemy) cards.AddRange(InitializationContext.Controller.Enemy.Discard.Cards);
 				return cards;
 			}
 		}

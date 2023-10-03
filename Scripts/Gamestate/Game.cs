@@ -9,6 +9,7 @@ using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
 using Kompas.Gamestate.Locations.Models;
+using Kompas.UI;
 
 namespace Kompas.Gamestate
 {
@@ -21,7 +22,7 @@ namespace Kompas.Gamestate
 			new Location[] { Location.Nowhere, Location.Deck, Location.Hand };
 
 		//other scripts
-		//public abstract UIController UIController { get; }
+		public abstract GameUIController UIController { get; }
 		public abstract Settings Settings { get; }
 
 		//game mechanics
@@ -80,7 +81,7 @@ namespace Kompas.Gamestate
 			}
 		}
 
-		public bool ExistsEffectPlaySpace(IPlayRestriction restriction, Effect eff)
+		public static bool ExistsEffectPlaySpace(IPlayRestriction restriction, Effect eff)
 			=> Space.Spaces.Any(s => restriction.IsValid((s, eff.ControllingPlayer), eff.CurrentResolutionContext));
 
 

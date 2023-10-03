@@ -9,9 +9,142 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
+	public interface IGameCard
+	{
+		public GameCard Card { get; }
+		public int IndexInList { get; }
+		public Location Location { get; }
+		public Space Position { get; }
+
+		public string[] SpellSubtypes { get; }
+		public int Radius { get; }
+	}
+
+	public static class GameCardExtensions
+	{
+		public static int RadiusDistanceTo(this IGameCard card, Space space)
+			=> card.Location == Location.Board ? card.Position.RadiusDistanceTo(space) : int.MaxValue;
+		public static int DistanceTo(this IGameCard card, Space space)
+			=> card.Location == Location.Board ? card.Position.DistanceTo(space) : int.MaxValue;
+		public static int DistanceTo(this IGameCard card, GameCardBase other) => card.DistanceTo(other.Position);
+
+		public static bool WithinSpaces(this IGameCard card, int numSpaces, GameCardBase other)
+			=> card.Location == Location.Board
+			&& other?.Location == Location.Board
+			&& card.DistanceTo(other) <= numSpaces;
+
+		public static bool IsAdjacentTo(this IGameCard card, GameCardBase other)
+			=> card.Location == Location.Board
+			&& other?.Location == Location.Board
+			&& card.Position.IsAdjacentTo(other.Position);
+		public static bool IsAdjacentTo(this IGameCard card, Space space)
+			=> card.Location == Location.Board
+			&& card.Position.IsAdjacentTo(space);
+
+		/// <summary>
+		/// Whether <paramref name="space"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
+		/// </summary>
+		public static bool SpaceInAOE(this IGameCard card, Space space, Space mySpace)
+			=> space != null
+			&& mySpace != null
+			&& card.SpellSubtypes != null
+			&& card.SpellSubtypes.Any(s => s switch
+			{
+				CardBase.RadialSubtype => mySpace.DistanceTo(space) <= card.Radius,
+				_ => false
+			});
+		public static bool SpaceInAOE(Space space) => SpaceInAOE(space, Position);
+		/// <summary>
+		/// Whether <paramref name="c"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
+		/// </summary>
+		public static bool CardInAOE(GameCardBase c, Space mySpace) => SpaceInAOE(c.Position, mySpace);
+		/// <summary>
+		/// Whether <paramref name="c"/> is in the aoe of <see cref="this"/> card.
+		/// </summary>
+		public static bool CardInAOE(GameCardBase c) => CardInAOE(c, Position);
+		/// <summary>
+		/// Whether <paramref name="c"/> and this card have any spaces shared between their AOEs,
+		/// if this card is at <paramref name="mySpace"/>
+		/// </summary>
+		public static bool Overlaps(GameCardBase c, Space mySpace) => Space.Spaces.Any(s => SpaceInAOE(s, mySpace) && c.SpaceInAOE(s));
+		/// <summary>
+		/// Whether <paramref name="c"/> and this card have any spaces shared between their AOEs
+		/// </summary>
+		public static bool Overlaps(GameCardBase c) => Overlaps(c, Position);
+
+		public static bool SameColumn(Space space) => Location == Location.Board && Position.SameColumn(space);
+		public static bool SameColumn(GameCardBase c) => c.Location == Location.Board && SameColumn(c.Position);
+
+		/// <summary>
+		/// Returns whether the <paramref name="space"/> passed in is in front of this card
+		/// </summary>
+		/// <param name="space">The space to check if it's in front of this card</param>
+		/// <returns><see langword="true"/> if <paramref name="space"/> is in front of this, <see langword="false"/> otherwise.</returns>
+		public static bool SpaceInFront(Space space) => ControllingPlayer.SubjectiveCoords(space).NorthOf(SubjectivePosition);
+
+		/// <summary>
+		/// Returns whether the card passed in is in front of this card
+		/// </summary>
+		/// <param name="card">The card to check if it's in front of this one</param>
+		/// <returns><see langword="true"/> if <paramref name="card"/> is in front of this, <see langword="false"/> otherwise.</returns>
+		public static bool CardInFront(GameCardBase card) => SpaceInFront(card.Position);
+
+		/// <summary>
+		/// Returns whether the <paramref name="space"/> passed in is behind this card
+		/// </summary>
+		/// <param name="space">The space to check if it's behind this card</param>
+		/// <returns><see langword="true"/> if <paramref name="space"/> is behind this, <see langword="false"/> otherwise.</returns>
+		public static bool SpaceBehind(Space space) => SubjectivePosition.NorthOf(ControllingPlayer.SubjectiveCoords(space));
+
+		/// <summary>
+		/// Returns whether the card passed in is behind this card
+		/// </summary>
+		/// <param name="card">The card to check if it's behind this one</param>
+		/// <returns><see langword="true"/> if <paramref name="card"/> is behind this, <see langword="false"/> otherwise.</returns>
+		public static bool CardBehind(GameCardBase card) => SpaceBehind(card.Position);
+
+		public static bool SpaceDirectlyInFront(Space space)
+			=> Location == Location.Board && ControllingPlayer.SubjectiveCoords(space) == SubjectivePosition.DueNorth;
+
+		public static bool CardDirectlyInFront(GameCardBase card)
+			=> card.Location == Location.Board && SpaceDirectlyInFront(card.Position);
+
+		public static bool SameDiagonal(Space space) => Location == Location.Board && Position.SameDiagonal(space);
+		public static bool SameDiagonal(GameCardBase card) => card?.Location == Location.Board && SameDiagonal(card.Position);
+
+		public static bool InCorner() => Location == Location.Board && Position.IsCorner;
+
+		/// <summary>
+		/// Refers to this situation: <br></br>
+		/// | <paramref name="space"/> | <br></br>
+		/// | this card | <br></br>
+		/// | <paramref name="card"/> param | <br></br>
+		/// </summary>
+		/// <param name="space">The space in the same axis as this card and <paramref name="card"/> param</param>
+		/// <param name="card">The card in the same axis as this card and the <paramref name="space"/> param.</param>
+		/// <returns></returns>
+		public static bool SpaceDirectlyAwayFrom((int x, int y) space, GameCardBase card)
+		{
+			if (card.Location != Location.Board || Location != Location.Board) return false;
+			int xDiffCard = card.Position.x - Position.x;
+			int yDiffCard = card.Position.y - Position.y;
+			int xDiffSpace = space.x - Position.x;
+			int yDiffSpace = space.y - Position.y;
+
+			return (xDiffCard == 0 && xDiffSpace == 0)
+				|| (yDiffCard == 0 && yDiffSpace == 0)
+				|| (xDiffCard == yDiffCard && xDiffSpace == yDiffSpace);
+		}
+
+		public static int ShortestPath(Space space, Predicate<GameCard> throughPredicate)
+			=> Card.Game.Board.ShortestPath(Card.Position, space, throughPredicate);
+	}
+
 	/// <summary>
     /// Base class for card information relevant to a game.
     /// Could be the actual card itself, or a stashed copy of that card's information.
+    /// Doesn't implement IGameCard because children should be able to decide whether these things have set accessors,
+    /// and things that just want an IGameCard shouldn't assume that these have set accessors
     /// </summary>
 	public abstract class GameCardBase : CardBase
 	{
@@ -87,114 +220,6 @@ namespace Kompas.Cards.Models
 
 		#region distance/adjacency
 		public Space SubjectivePosition => ControllingPlayer.SubjectiveCoords(Position);
-
-		public int RadiusDistanceTo(Space space)
-			=> Location == Location.Board ? Position.RadiusDistanceTo(space) : int.MaxValue;
-		public int DistanceTo(Space space)
-			=> Location == Location.Board ? Position.DistanceTo(space) : int.MaxValue;
-		public int DistanceTo(GameCardBase card) => DistanceTo(card.Position);
-
-		public bool WithinSpaces(int numSpaces, GameCardBase card)
-			=> card != null && card.Location == Location.Board && Location == Location.Board && DistanceTo(card) <= numSpaces;
-
-		public bool IsAdjacentTo(GameCardBase card) => Location == Location.Board && card != null
-			&& card.Location == Location.Board && Position.IsAdjacentTo(card.Position);
-		public bool IsAdjacentTo(Space space) => Location == Location.Board && Position.IsAdjacentTo(space);
-
-		/// <summary>
-		/// Whether <paramref name="space"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
-		/// </summary>
-		public bool SpaceInAOE(Space space, Space mySpace)
-			=> space != null && mySpace != null && SpellSubtypes != null && SpellSubtypes.Any(s => s switch
-			{
-				RadialSubtype => mySpace.DistanceTo(space) <= Radius,
-				_ => false
-			});
-		public bool SpaceInAOE(Space space) => SpaceInAOE(space, Position);
-		/// <summary>
-		/// Whether <paramref name="c"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
-		/// </summary>
-		public bool CardInAOE(GameCardBase c, Space mySpace) => SpaceInAOE(c.Position, mySpace);
-		/// <summary>
-		/// Whether <paramref name="c"/> is in the aoe of <see cref="this"/> card.
-		/// </summary>
-		public bool CardInAOE(GameCardBase c) => CardInAOE(c, Position);
-		/// <summary>
-		/// Whether <paramref name="c"/> and this card have any spaces shared between their AOEs,
-		/// if this card is at <paramref name="mySpace"/>
-		/// </summary>
-		public bool Overlaps(GameCardBase c, Space mySpace) => Space.Spaces.Any(s => SpaceInAOE(s, mySpace) && c.SpaceInAOE(s));
-		/// <summary>
-		/// Whether <paramref name="c"/> and this card have any spaces shared between their AOEs
-		/// </summary>
-		public bool Overlaps(GameCardBase c) => Overlaps(c, Position);
-
-		public bool SameColumn(Space space) => Location == Location.Board && Position.SameColumn(space);
-		public bool SameColumn(GameCardBase c) => c.Location == Location.Board && SameColumn(c.Position);
-
-		/// <summary>
-		/// Returns whether the <paramref name="space"/> passed in is in front of this card
-		/// </summary>
-		/// <param name="space">The space to check if it's in front of this card</param>
-		/// <returns><see langword="true"/> if <paramref name="space"/> is in front of this, <see langword="false"/> otherwise.</returns>
-		public bool SpaceInFront(Space space) => ControllingPlayer.SubjectiveCoords(space).NorthOf(SubjectivePosition);
-
-		/// <summary>
-		/// Returns whether the card passed in is in front of this card
-		/// </summary>
-		/// <param name="card">The card to check if it's in front of this one</param>
-		/// <returns><see langword="true"/> if <paramref name="card"/> is in front of this, <see langword="false"/> otherwise.</returns>
-		public bool CardInFront(GameCardBase card) => SpaceInFront(card.Position);
-
-		/// <summary>
-		/// Returns whether the <paramref name="space"/> passed in is behind this card
-		/// </summary>
-		/// <param name="space">The space to check if it's behind this card</param>
-		/// <returns><see langword="true"/> if <paramref name="space"/> is behind this, <see langword="false"/> otherwise.</returns>
-		public bool SpaceBehind(Space space) => SubjectivePosition.NorthOf(ControllingPlayer.SubjectiveCoords(space));
-
-		/// <summary>
-		/// Returns whether the card passed in is behind this card
-		/// </summary>
-		/// <param name="card">The card to check if it's behind this one</param>
-		/// <returns><see langword="true"/> if <paramref name="card"/> is behind this, <see langword="false"/> otherwise.</returns>
-		public bool CardBehind(GameCardBase card) => SpaceBehind(card.Position);
-
-		public bool SpaceDirectlyInFront(Space space)
-			=> Location == Location.Board && ControllingPlayer.SubjectiveCoords(space) == SubjectivePosition.DueNorth;
-
-		public bool CardDirectlyInFront(GameCardBase card)
-			=> card.Location == Location.Board && SpaceDirectlyInFront(card.Position);
-
-		public bool SameDiagonal(Space space) => Location == Location.Board && Position.SameDiagonal(space);
-		public bool SameDiagonal(GameCardBase card) => card?.Location == Location.Board && SameDiagonal(card.Position);
-
-		public bool InCorner() => Location == Location.Board && Position.IsCorner;
-
-		/// <summary>
-		/// Refers to this situation: <br></br>
-		/// | <paramref name="space"/> | <br></br>
-		/// | this card | <br></br>
-		/// | <paramref name="card"/> param | <br></br>
-		/// </summary>
-		/// <param name="space">The space in the same axis as this card and <paramref name="card"/> param</param>
-		/// <param name="card">The card in the same axis as this card and the <paramref name="space"/> param.</param>
-		/// <returns></returns>
-		public bool SpaceDirectlyAwayFrom((int x, int y) space, GameCardBase card)
-		{
-			if (card.Location != Location.Board || Location != Location.Board) return false;
-			int xDiffCard = card.Position.x - Position.x;
-			int yDiffCard = card.Position.y - Position.y;
-			int xDiffSpace = space.x - Position.x;
-			int yDiffSpace = space.y - Position.y;
-
-			return (xDiffCard == 0 && xDiffSpace == 0)
-				|| (yDiffCard == 0 && yDiffSpace == 0)
-				|| (xDiffCard == yDiffCard && xDiffSpace == yDiffSpace);
-		}
-
-		public int ShortestPath(Space space, Predicate<GameCard> throughPredicate)
-			=> Card.Game.Board.ShortestPath(Card.Position, space, throughPredicate);
 		#endregion distance/adjacency
 
 		public bool HasSubtype(string subtype) => SubtypeText.ToLower().Contains(subtype.ToLower());
@@ -208,16 +233,6 @@ namespace Kompas.Cards.Models
 							string effText,
 							string subtypeText)
 			: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText)
-		{ }
-
-		protected GameCardBase(SerializableCard card, string fileName)
-			: this((card.n, card.e, card.s, card.w, card.c, card.a),
-					   card.subtext, card.spellTypes,
-					   card.unique,
-					   card.radius, card.duration,
-					   card.cardType, card.cardName, fileName,
-					   card.effText,
-					   card.subtypeText)
 		{ }
 
 		/* This must happen through setters, not properties, so that notifications and stack sending

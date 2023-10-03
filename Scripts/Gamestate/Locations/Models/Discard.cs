@@ -9,7 +9,7 @@ namespace Kompas.Gamestate.Locations.Models
 	{
 		public DiscardController DiscardController { get; init; }
 
-		protected readonly IList<GameCard> discard = new List<GameCard>();
+		protected readonly List<GameCard> discard = new();
 
 		public override Location Location => Location.Discard;
 		public override IEnumerable<GameCard> Cards => discard;

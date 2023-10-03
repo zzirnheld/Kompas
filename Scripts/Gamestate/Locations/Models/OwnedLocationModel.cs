@@ -8,12 +8,11 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	/// <summary>
 	/// Base class for ILocationModels owned by a player (from whom we can infer what game they're in).
-    /// Must have an ordering to the list.
+	/// Must have an ordering to the list.
 	/// </summary>
 	public abstract class OwnedLocationModel : ILocationModel
 	{
-		public abstract Player Owner { get; }
-		public virtual Game Game => Owner.Game;
+		public abstract Game Game { get; }
 
 		public abstract Location Location { get; }
 
@@ -23,13 +22,16 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public abstract void Remove(GameCard card);
 
-		public override string ToString() => $"{GetType()} owned by {Owner}";
-
 		protected virtual bool AllowAlreadyHereWhenAdd => false;
 
 		protected abstract void Add(GameCard card, int? index);
+		protected abstract void TakeControl(GameCard card);
 
-		public void Add(GameCard card, int? index = null, IStackable stackableCause = null)
+		/// <summary>
+        /// Adds the card to this owned game location at the relevant index.
+        /// DOES NOT set the controller (that will need to be done manually by the implementer)
+        /// </summary>
+		protected void Add(GameCard card, int? index = null, IStackable stackableCause = null)
 		{
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
 			if (!AllowAlreadyHereWhenAdd && this == card.LocationModel) throw new AlreadyHereException(Location);
@@ -40,7 +42,6 @@ namespace Kompas.Gamestate.Locations.Models
 			catch (AvatarRetreatedException) { return; }
 
 			card.LocationModel = this;
-			card.ControllingPlayer = Owner;
 			card.Position = null;
 			Add(card, index);
 		}

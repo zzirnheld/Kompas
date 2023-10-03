@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 
 namespace Kompas.Cards.Models
@@ -24,7 +26,7 @@ namespace Kompas.Cards.Models
 		public int s;
 		public int w;
 		public int c;
-		public string[] spellTypes = { };
+		public string[] spellTypes = System.Array.Empty<string>();
 		public int radius;
 		public int duration;
 		public int a;
@@ -35,5 +37,10 @@ namespace Kompas.Cards.Models
 		public CardStats Stats => (n, e, s, w, c, a);
 
 		public override string ToString() => $"{cardName}";
+	}
+
+	public abstract class SerializableGameCard : SerializableCard
+	{
+		public abstract IEnumerable<Effect> Effects { get; }
 	}
 }
