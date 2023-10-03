@@ -18,7 +18,7 @@ namespace Kompas.Cards.Models
 		public override GameCard Card { get; }
 
 		public override int IndexInList { get; }
-		public override Player Owner { get; }
+		public override Player OwningPlayer { get; }
 		public override bool Summoned { get; }
 		public override bool IsAvatar { get; }
 
@@ -77,7 +77,7 @@ namespace Kompas.Cards.Models
 			Location = card.Location;
 			IndexInList = card.IndexInList;
 			ControllingPlayer = card.ControllingPlayer;
-			Owner = card.Owner;
+			OwningPlayer = card.OwningPlayer;
 			Summoned = card.Summoned;
 			IsAvatar = card.IsAvatar;
 			AugmentedCard = card.AugmentedCard;

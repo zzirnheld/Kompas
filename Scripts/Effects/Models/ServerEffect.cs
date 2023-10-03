@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models
 	{
 		public override Game Game => throw new System.NotImplementedException();
 
-		public override Player Controller { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+		public override Player ControllingPlayer { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
 		public override Subeffect[] Subeffects => throw new System.NotImplementedException();
 

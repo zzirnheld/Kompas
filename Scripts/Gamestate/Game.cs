@@ -81,7 +81,7 @@ namespace Kompas.Gamestate
 		}
 
 		public bool ExistsEffectPlaySpace(IPlayRestriction restriction, Effect eff)
-			=> Space.Spaces.Any(s => restriction.IsValid((s, eff.Controller), eff.CurrentResolutionContext));
+			=> Space.Spaces.Any(s => restriction.IsValid((s, eff.ControllingPlayer), eff.CurrentResolutionContext));
 
 
 		protected void ResetCardsForTurn()

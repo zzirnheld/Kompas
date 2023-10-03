@@ -24,7 +24,6 @@ namespace Kompas.Gamestate.Locations.Models
 		public IEnumerable<GameCard> Cards { get { foreach (var card in board) yield return card; } }
 
 		public BoardController boardUIController;
-		public void Refresh() => boardUIController.Refresh();
 
 		//helper methods
 		#region helper methods
@@ -234,9 +233,8 @@ namespace Kompas.Gamestate.Locations.Models
 			if (toPlay.CardType == 'A')
 			{
 				//augments therefore just get put on whatever card is on that space rn.
-				var augmented = GetCardAt(to);
-				//if there isn't a card, well, you can't do that.
-				if (augmented == null) throw new NullCardException($"Can't play an augment to empty space at {to}");
+				var augmented = GetCardAt(to)
+					?? throw new NullCardException($"Can't play an augment to empty space at {to}");
 				//assuming there is a card there, try and add the augment. if it don't work, it borked.
 				augmented.AddAugment(toPlay, stackSrc);
 

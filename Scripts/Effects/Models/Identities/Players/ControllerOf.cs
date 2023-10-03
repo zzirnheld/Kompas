@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Identities.Players
 		protected override Player AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			if (card != null) return card.From(context, secondaryContext).ControllingPlayer;
-			if (stackable != null) return stackable.From(context, secondaryContext).Controller;
+			if (stackable != null) return stackable.From(context, secondaryContext).ControllingPlayer;
 			throw new System.ArgumentException("huh?");
 		}
 	}

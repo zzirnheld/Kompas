@@ -84,7 +84,7 @@ namespace Kompas.Effects.Models
 
 		public TriggerData TriggerData { get; }
 		public abstract GameCard Source { get; }
-		public abstract Effect Effect { get; protected set; }
+		public abstract Effect Effect { get; }
 
 		public string TriggerCondition => TriggerData.triggerCondition;
 		public IRestriction<TriggeringEventContext> TriggerRestriction => TriggerData.triggerRestriction;
@@ -93,11 +93,11 @@ namespace Kompas.Effects.Models
 
 		public Trigger(TriggerData triggerData, Effect effect)
 		{
+			var initializationContext = new EffectInitializationContext(game: effect.Game, source: effect.Source, effect: effect, trigger: this);
 			TriggerData = triggerData;
-			Effect = effect;
 			try
 			{
-				triggerData.triggerRestriction.Initialize(new EffectInitializationContext(game: effect.Game, source: effect.Source, effect: effect, trigger: this));
+				triggerData.triggerRestriction.Initialize(initializationContext);
 			}
 			catch (NullReferenceException)
 			{

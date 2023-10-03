@@ -10,7 +10,7 @@ namespace Kompas.Effects.Models
 		public readonly GameCard defender;
 
 		public GameCard Source => attacker;
-		public Player Controller => controller;
+		public Player ControllingPlayer => controller;
 
 		/// <summary>
 		/// Constructor should be called when the attack is declared

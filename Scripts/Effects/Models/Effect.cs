@@ -15,10 +15,10 @@ namespace Kompas.Effects.Models
 	public abstract class Effect : IStackable
 	{
 		public abstract Game Game { get; }
+		public abstract Player ControllingPlayer { get; }
 
 		public int EffectIndex { get; private set; }
 		public GameCard Source { get; private set; }
-		public abstract Player Controller { get; set; }
 
 		//subeffects
 		public abstract Subeffect[] Subeffects { get; }
@@ -77,12 +77,11 @@ namespace Kompas.Effects.Models
 		/// </summary>
 		public string Keyword { get; set; }
 
-		protected void SetInfo(GameCard source, int effIndex, Player owner)
+		protected virtual void SetInfo(GameCard source, int effIndex, Player owner)
 		{
 			GD.Print($"Trying to init eff {effIndex} of {source}, with game {Game}");
 			Source = source ?? throw new System.ArgumentNullException(nameof(source), "Effect cannot be attached to null card");
 			EffectIndex = effIndex;
-			Controller = owner;
 
 			blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {source.CardName}" : blurb;
 			activationRestriction?.Initialize(new EffectInitializationContext(game: Game, source: Source, effect: this));

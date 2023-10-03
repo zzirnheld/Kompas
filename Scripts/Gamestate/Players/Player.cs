@@ -31,14 +31,14 @@ namespace Kompas.Gamestate.Players
 		//this is not a property so it can be assigned in the inspector for client players
 		public int index;
 
-		public bool HandFull => hand.HandSize >= HandSizeLimit;
+		public bool HandFull => Hand.HandSize >= HandSizeLimit;
 		public Space AvatarCorner => index == 0 ? Space.NearCorner : Space.FarCorner;
 
 		//friendly
-		public Deck deck;
-		public Discard discard;
-		public Hand hand;
-		public Annihilation annihilation;
+		public abstract Deck Deck { get; }
+		public abstract Discard Discard { get; }
+		public abstract Hand Hand { get; }
+		public abstract Annihilation Annihilation { get; }
 
 		public TcpClient TcpClient { get; private set; }
 

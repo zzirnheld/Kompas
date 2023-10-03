@@ -19,7 +19,8 @@ namespace Kompas.Cards.Models
 		public abstract GameCard Card { get; }
 
 		public abstract int IndexInList { get; }
-		public abstract Player Owner { get; }
+		public abstract Player OwningPlayer { get; }
+		public abstract Player ControllingPlayer { get; }
 		public abstract bool Summoned { get; }
 		public abstract bool IsAvatar { get; }
 
@@ -66,7 +67,6 @@ namespace Kompas.Cards.Models
 		}
 
 		public abstract Location Location { get; protected set; }
-		public abstract Player ControllingPlayer { get; set; }
 		public abstract GameCard AugmentedCard { get; protected set; }
 		public abstract IReadOnlyCollection<GameCard> Augments { get; protected set; }
 		/// <summary>

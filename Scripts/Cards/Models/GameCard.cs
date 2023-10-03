@@ -127,7 +127,7 @@ namespace Kompas.Cards.Models
 
 		//controller/owners
 		public int ControllerIndex => ControllingPlayer?.index ?? 0;
-		public int OwnerIndex => Owner?.index ?? -1;
+		public int OwnerIndex => OwningPlayer?.index ?? -1;
 
 		//misc
 		private Location location;
