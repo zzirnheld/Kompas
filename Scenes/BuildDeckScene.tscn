@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer", "DeckController")]
+[node name="Control" type="Control" node_paths=PackedStringArray("DeckController")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vu5h4")
-CardInfoDisplayer = NodePath("")
 DeckController = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer")
 
 [node name="TextureRect" type="TextureRect" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2n0g87isnee8"]
+[gd_scene load_steps=6 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
 [ext_resource type="Script" path="res://Scripts/Gamestate/Locations/Controllers/Client/ClientBoardController.cs" id="1_l7n64"]
@@ -7,27 +7,43 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node" type="Node"]
 
-[node name="Engine Stuff" type="Node3D" parent="."]
+[node name="3D" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="Engine Stuff"]
+[node name="Engine Stuff" type="Node3D" parent="3D"]
+
+[node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Engine Stuff"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)
 
-[node name="Board" type="Node3D" parent="."]
+[node name="Board" type="Node3D" parent="3D"]
 script = ExtResource("1_l7n64")
 
-[node name="Kompas Board Beeg (Low Quality)" type="CSGMesh3D" parent="Board"]
+[node name="Kompas Board Beeg (Low Quality)" type="CSGMesh3D" parent="3D/Board"]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("1_k7cme")
 
-[node name="Kompas Board Smol (High Quality)" type="CSGMesh3D" parent="Board"]
+[node name="Kompas Board Smol (High Quality)" type="CSGMesh3D" parent="3D/Board"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("2_wywm4")
 
-[node name="Space Area" parent="Board" instance=ExtResource("3_126rd")]
+[node name="Space Area" parent="3D/Board" instance=ExtResource("3_126rd")]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Teeeeeeeeeeeeeeeeeeeeeeest"
