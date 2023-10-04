@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=10 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
 [ext_resource type="Script" path="res://Scripts/Gamestate/Locations/Controllers/Client/ClientBoardController.cs" id="1_l7n64"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
 [ext_resource type="Script" path="res://Scenes/RightJustifiedOptionButton.cs" id="7_e0jlx"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/BuiltDeckContainer.cs" id="10_skdfn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -46,6 +47,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="UI"]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -69,29 +71,50 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_i20x8")
 
-[node name="Choose Host" type="Control" parent="UI/Connection"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Connection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Connection Tabs" type="Control" parent="UI/Connection/MarginContainer"]
+layout_mode = 2
+
+[node name="Choose Host" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
 visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Choose Host"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.4
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 theme_override_constants/separation = 5
 
-[node name="Title" type="Control" parent="UI/Connection/Choose Host/VBoxContainer"]
+[node name="Title" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.0
+size_flags_stretch_ratio = 3.0
 
-[node name="Title Label" type="Label" parent="UI/Connection/Choose Host/VBoxContainer/Title"]
+[node name="Title Label" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Title"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -104,12 +127,12 @@ text = "Connect to Server"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Control" type="Control" parent="UI/Connection/Choose Host/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Choose Host/VBoxContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,32 +140,37 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="Buffer" type="Control" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="Buffer" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.3
 
-[node name="LineEdit" type="LineEdit" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_5db68")
 text = "888.888.888.888"
 alignment = 2
 
-[node name="Button" type="Button" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer"]
+[node name="Button" type="Button" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_5db68")
 text = "Connect"
 
-[node name="Control" type="Control" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Waiting on Server" type="Control" parent="UI/Connection"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Waiting on Server" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -151,21 +179,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Waiting on Server"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.4
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 theme_override_constants/separation = 5
 
-[node name="Title" type="Control" parent="UI/Connection/Waiting on Server/VBoxContainer"]
+[node name="Title" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.0
+size_flags_stretch_ratio = 3.0
 
-[node name="Title Label" type="Label" parent="UI/Connection/Waiting on Server/VBoxContainer/Title"]
+[node name="Title Label" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server/HBoxContainer/VBoxContainer/Title"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -178,12 +211,12 @@ text = "Connect to Server"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Control" type="Control" parent="UI/Connection/Waiting on Server/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="Waiting for Connection" type="Label" parent="UI/Connection/Waiting on Server/VBoxContainer/Control"]
+[node name="Waiting for Connection" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server/HBoxContainer/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -196,7 +229,12 @@ theme_override_font_sizes/font_size = 28
 text = "Trying to connect..."
 horizontal_alignment = 2
 
-[node name="Connected to Server" type="Control" parent="UI/Connection"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Connected to Server" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -205,21 +243,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Connected to Server"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.4
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 theme_override_constants/separation = 5
 
-[node name="Title" type="Control" parent="UI/Connection/Connected to Server/VBoxContainer"]
+[node name="Title" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.0
+size_flags_stretch_ratio = 3.0
 
-[node name="Title Label" type="Label" parent="UI/Connection/Connected to Server/VBoxContainer/Title"]
+[node name="Title Label" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer/VBoxContainer/Title"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -232,12 +275,12 @@ text = "Connected to Server"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Control" type="Control" parent="UI/Connection/Connected to Server/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="Waiting for Connection" type="Label" parent="UI/Connection/Connected to Server/VBoxContainer/Control"]
+[node name="Waiting for Connection" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -250,7 +293,12 @@ theme_override_font_sizes/font_size = 28
 text = "Waiting for other player..."
 horizontal_alignment = 2
 
-[node name="Select Deck" type="Control" parent="UI/Connection"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Select Deck" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -258,21 +306,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Select Deck"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.4
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("6_5db68")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 theme_override_constants/separation = 5
 
-[node name="Title" type="Control" parent="UI/Connection/Select Deck/VBoxContainer"]
+[node name="Title" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.0
+size_flags_stretch_ratio = 3.0
 
-[node name="Title Label" type="Label" parent="UI/Connection/Select Deck/VBoxContainer/Title"]
+[node name="Title Label" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Title"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -285,12 +339,12 @@ text = "Select Deck"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Control" type="Control" parent="UI/Connection/Select Deck/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Select Deck/VBoxContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -298,14 +352,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="Buffer" type="Control" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="Buffer" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OptionButton" type="OptionButton" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_5db68")
@@ -315,17 +369,78 @@ popup/item_0/text = "Placeholder"
 popup/item_0/id = 0
 script = ExtResource("7_e0jlx")
 
-[node name="Select Deck" type="Button" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer"]
+[node name="Select Deck" type="Button" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_5db68")
 text = "Confirm"
 
-[node name="Control" type="Control" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Starting Game" type="Control" parent="UI/Connection"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Control2" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Background Outline" type="TextureRect" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2"]
+self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
+[node name="Background Image" type="TextureRect" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2/Background Outline"]
+self_modulate = Color(0.196078, 0.156863, 0.352941, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Container" type="Container" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2/MarginContainer2/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("10_skdfn")
+
+[node name="Starting Game" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
