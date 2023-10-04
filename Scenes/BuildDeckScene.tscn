@@ -15,8 +15,8 @@
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="11_jp0pa"]
 [ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_lr2s2"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="14_j2qbw"]
+[ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="14_uu30b"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/SaveAsController.cs" id="15_gjys2"]
-[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/BuiltDeckContainer.cs" id="18_fwsbl"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
@@ -404,7 +404,7 @@ DeckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("18_fwsbl")
+script = ExtResource("14_uu30b")
 
 [node name="Card Search" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

@@ -1,6 +1,7 @@
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
+using Kompas.Client.Cards.Loading;
 using Kompas.Client.Networking;
 using Kompas.Gamestate;
 
@@ -8,6 +9,8 @@ namespace Kompas.Client.Gamestate
 {
 	public partial class ClientGameController : GameController
 	{
+		public ClientCardRepository CardRepository { get; } = new ClientCardRepository();
+
 		private ClientGame game;
 
 		//TODO: aggressive nullable warning? encourage user to use null propagation?
@@ -29,7 +32,7 @@ namespace Kompas.Client.Gamestate
 
 		public async Task AttemptConnect(string ip)
 		{
-			TcpClient tcpClient = null;
+			TcpClient tcpClient;
 			try
 			{
 				tcpClient = await ClientNetworker.Connect(ip);

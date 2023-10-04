@@ -90,15 +90,14 @@ namespace Kompas.Cards.Loading
 		{
 			GD.Print(JsonConvert.SerializeObject(new PlayRestriction(), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All }));
 
-			InitializeCardJsons(); //TODO replace with what's currently in Awake()
+			Initialize();
 		}
 
-		protected virtual void Awake()
+		private void Initialize()
 		{
 			lock (initializationLock)
 			{
 				if (initalized) return;
-				initalized = true;
 
 				InitializeCardJsons();
 
@@ -106,10 +105,11 @@ namespace Kompas.Cards.Loading
 				InitializeMapFromJsons(PartialKeywordListFilePath, PartialKeywordFolderPath, partialKeywordJsons);
 				InitializeMapFromJsons(TriggerKeywordListFilePath, TriggerKeywordFolderPath, triggerKeywordJsons);
 
-				var reminderJsonAsset = LoadFileAsText(RemindersJsonPath);
+				//var reminderJsonAsset = LoadFileAsText(RemindersJsonPath);
 				//Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset);
 				//Reminders.Initialize();
-				Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
+				//Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
+				initalized = true;
 			}
 		}
 

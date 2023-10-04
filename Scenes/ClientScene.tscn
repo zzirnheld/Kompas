@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=11 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
 [ext_resource type="Script" path="res://Scripts/Gamestate/Locations/Controllers/Client/ClientBoardController.cs" id="1_l7n64"]
@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
 [ext_resource type="Script" path="res://Scenes/RightJustifiedOptionButton.cs" id="7_e0jlx"]
-[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/BuiltDeckContainer.cs" id="10_skdfn"]
+[ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/SelectDeckController.cs" id="7_l46dw"]
+[ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="8_50pmk"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -305,6 +306,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("7_l46dw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck"]
 layout_mode = 1
@@ -315,18 +317,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_5db68")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer"]
+[node name="Left VBox" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 theme_override_constants/separation = 5
 
-[node name="Title" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer"]
+[node name="Title" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="Title Label" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Title"]
+[node name="Title Label" type="Label" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Title"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -339,12 +341,12 @@ text = "Select Deck"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -352,14 +354,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="Buffer" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="Buffer" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OptionButton" type="OptionButton" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_5db68")
@@ -369,32 +371,32 @@ popup/item_0/text = "Placeholder"
 popup/item_0/id = 0
 script = ExtResource("7_e0jlx")
 
-[node name="Select Deck" type="Button" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
+[node name="Select Deck" type="Button" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_5db68")
 text = "Confirm"
 
-[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer"]
+[node name="Right VBox" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2"]
+[node name="Buffer" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Right VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="Control2" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2"]
+[node name="Selected Deck Parent" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Right VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="Background Outline" type="TextureRect" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2"]
+[node name="Deck Bkgd Outline" type="TextureRect" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Right VBox/Selected Deck Parent"]
 self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -404,7 +406,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_i20x8")
 
-[node name="Background Image" type="TextureRect" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2/Background Outline"]
+[node name="Deck Bkgd Image" type="TextureRect" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Right VBox/Selected Deck Parent/Deck Bkgd Outline"]
 self_modulate = Color(0.196078, 0.156863, 0.352941, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -418,7 +420,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_i20x8")
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2"]
+[node name="Deck Margin" type="MarginContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Right VBox/Selected Deck Parent"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -430,15 +432,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2/MarginContainer2"]
+[node name="Deck Scroll" type="ScrollContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Right VBox/Selected Deck Parent/Deck Margin"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Container" type="Container" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/VBoxContainer2/Control2/MarginContainer2/ScrollContainer"]
+[node name="Deck Container" type="Container" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Right VBox/Selected Deck Parent/Deck Margin/Deck Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("10_skdfn")
+script = ExtResource("8_50pmk")
 
 [node name="Starting Game" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
 visible = false

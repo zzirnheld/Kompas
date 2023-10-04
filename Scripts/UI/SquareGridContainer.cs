@@ -1,9 +1,9 @@
 using Godot;
 
-namespace Kompas.UI.DeckBuilder
+namespace Kompas.UI
 {
 	//IMPL NOTE: I can't override the AddChild methods 1) because they take in nodes, not controls and 2) because they're not virtual
-	public partial class BuiltDeckContainer : Container
+	public partial class SquareGridContainer : Container
 	{
 		private const int PositionalLayoutMode = 0;
 

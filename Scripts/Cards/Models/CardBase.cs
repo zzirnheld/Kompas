@@ -76,13 +76,12 @@ namespace Kompas.Cards.Models
 			protected set => a = value;
 		}
 
-		public abstract int BaseN { get; }
-		public abstract int BaseE { get; }
-		public abstract int BaseS { get; }
-		public abstract int BaseW { get; }
-		public abstract int BaseC { get; }
-		public abstract int BaseA { get; }
-
+		public virtual int BaseN => N;
+		public virtual int BaseE => E;
+		public virtual int BaseS => S;
+		public virtual int BaseW => W;
+		public virtual int BaseC => C;
+		public virtual int BaseA => A;
 		public CardStats Stats => (N, E, S, W, C, A);
 
 		public bool Unique { get; private set; }

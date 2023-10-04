@@ -7,6 +7,7 @@ using Kompas.Client.Cards.Models;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Players;
+using Newtonsoft.Json;
 
 namespace Kompas.Client.Cards.Loading
 {
@@ -53,22 +54,23 @@ namespace Kompas.Client.Cards.Loading
 			return card;
 		}
 
-		/*
-		public DeckSelectCardController InstantiateDeckSelectCard(string json, Transform parent, DeckSelectCardController prefab, DeckSelectUIController uiCtrl)
+		
+		public SelectDeckCard InstantiateDeckSelectCard(string json)
 		{
 			try
 			{
-				SerializableCard serializableCard = JsonConvert.DeserializeObject<SerializableCard>(json, cardLoadingSettings);
-				DeckSelectCardController card = Instantiate(prefab, parent);
-				card.SetInfo(serializableCard, uiCtrl, cardFileNames[serializableCard.cardName]);
-				return card;
+				SerializableCard serializableCard = JsonConvert.DeserializeObject<SerializableCard>(json, CardLoadingSettings);
+				return new SelectDeckCard(serializableCard.Stats, serializableCard.subtext, serializableCard.spellTypes, serializableCard.unique,
+				serializableCard.radius, serializableCard.duration, serializableCard.cardType, serializableCard.cardName,
+				null, // FUTURE: does this matter?
+				serializableCard.effText, serializableCard.subtypeText);
 			}
 			catch (System.ArgumentException argEx)
 			{
 				//Catch JSON parse error
-				Debug.LogError($"Failed to load {json}, argument exception with message {argEx.Message}");
+				GD.PrintErr($"Failed to load {json}, argument exception with message {argEx.Message}");
 				return null;
 			}
-		}*/
+		}
 	}
 }
