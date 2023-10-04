@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=9 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
 [ext_resource type="Script" path="res://Scripts/Gamestate/Locations/Controllers/Client/ClientBoardController.cs" id="1_l7n64"]
 [ext_resource type="Material" uid="uid://c8ak7quhecu3f" path="res://Materials/Gameboard HighQ Center.tres" id="2_wywm4"]
 [ext_resource type="PackedScene" uid="uid://rccou1fb3usa" path="res://Scenes/Prefabs/Client Game/Space.tscn" id="3_126rd"]
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
+[ext_resource type="Script" path="res://Scenes/RightJustifiedOptionButton.cs" id="7_e0jlx"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -47,3 +50,283 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Teeeeeeeeeeeeeeeeeeeeeeest"
+
+[node name="Connection" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Connection Background" type="TextureRect" parent="UI/Connection"]
+self_modulate = Color(0.196078, 0.196078, 0.352941, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
+[node name="Choose Host" type="Control" parent="UI/Connection"]
+visible = false
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Choose Host"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.4
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Control" parent="UI/Connection/Choose Host/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Title Label" type="Label" parent="UI/Connection/Choose Host/VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 48
+text = "Connect to Server"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Control" type="Control" parent="UI/Connection/Choose Host/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Choose Host/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Buffer" type="Control" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.3
+
+[node name="LineEdit" type="LineEdit" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_5db68")
+text = "888.888.888.888"
+alignment = 2
+
+[node name="Button" type="Button" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("6_5db68")
+text = "Connect"
+
+[node name="Control" type="Control" parent="UI/Connection/Choose Host/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Waiting on Server" type="Control" parent="UI/Connection"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Waiting on Server"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.4
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Control" parent="UI/Connection/Waiting on Server/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Title Label" type="Label" parent="UI/Connection/Waiting on Server/VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 48
+text = "Connect to Server"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Control" type="Control" parent="UI/Connection/Waiting on Server/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Waiting for Connection" type="Label" parent="UI/Connection/Waiting on Server/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+theme_override_font_sizes/font_size = 28
+text = "Trying to connect..."
+horizontal_alignment = 2
+
+[node name="Connected to Server" type="Control" parent="UI/Connection"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Connected to Server"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.4
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Control" parent="UI/Connection/Connected to Server/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Title Label" type="Label" parent="UI/Connection/Connected to Server/VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 48
+text = "Connected to Server"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Control" type="Control" parent="UI/Connection/Connected to Server/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Waiting for Connection" type="Label" parent="UI/Connection/Connected to Server/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+theme_override_font_sizes/font_size = 28
+text = "Waiting for other player..."
+horizontal_alignment = 2
+
+[node name="Select Deck" type="Control" parent="UI/Connection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Select Deck"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.4
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Control" parent="UI/Connection/Select Deck/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Title Label" type="Label" parent="UI/Connection/Select Deck/VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 48
+text = "Select Deck"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Control" type="Control" parent="UI/Connection/Select Deck/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/Select Deck/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Buffer" type="Control" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptionButton" type="OptionButton" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_5db68")
+item_count = 1
+selected = 0
+popup/item_0/text = "Placeholder"
+popup/item_0/id = 0
+script = ExtResource("7_e0jlx")
+
+[node name="Select Deck" type="Button" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("6_5db68")
+text = "Confirm"
+
+[node name="Control" type="Control" parent="UI/Connection/Select Deck/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Starting Game" type="Control" parent="UI/Connection"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
