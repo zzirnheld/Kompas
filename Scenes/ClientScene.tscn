@@ -144,6 +144,7 @@ grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("6_5db68")
 
 [node name="Buffer" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -157,7 +158,7 @@ theme = ExtResource("6_5db68")
 text = "888.888.888.888"
 alignment = 2
 
-[node name="Button" type="Button" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer"]
+[node name="Button" type="Button" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_5db68")

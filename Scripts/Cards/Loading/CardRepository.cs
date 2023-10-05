@@ -18,13 +18,13 @@ namespace Kompas.Cards.Loading
 		public const string CardListFilePath = $"{CardJsonsFolderPath}/Card List.txt";
 
 		public const string KeywordJsonsFolderPath = $"{JsonsFolderPath}/Keywords/Full";
-		public const string keywordListFilePath = $"{KeywordJsonsFolderPath}/Keyword List";
+		public const string keywordListFilePath = $"{KeywordJsonsFolderPath}/Keyword List.txt";
 
 		public const string PartialKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Partial";
-		public const string PartialKeywordListFilePath = $"{PartialKeywordFolderPath}/Keyword List";
+		public const string PartialKeywordListFilePath = $"{PartialKeywordFolderPath}/Keyword List.txt";
 
 		public const string TriggerKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Trigger";
-		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List";
+		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List.txt";
 
 		public static readonly string RemindersJsonPath = $"res://Reminder Text/Reminder Texts";
 		public static readonly string CardImagesPath = "res://Sprites";
@@ -189,12 +189,14 @@ namespace Kompas.Cards.Loading
 		private static void InitializeMapFromJsons(string filePath, string folderPath, Dictionary<string, string> dict)
 		{
 			string keywordList = LoadFileAsText(filePath);
-			var keywords = keywordList.Replace('\r', '\n').Split('\n').Where(s => !string.IsNullOrEmpty(s));
+			var keywords = keywordList.Replace('\r', '\n')
+				.Split('\n')
+				.Where(s => !string.IsNullOrEmpty(s));
 			GD.Print($"Keywords list: \n{string.Join("\n", keywords.Select(keyword => $"{keyword} length {keyword.Length}"))}");
 			foreach (string keyword in keywords)
 			{
 				GD.Print($"Loading {keyword} from {folderPath}/{keyword}");
-				string json = LoadFileAsText($"{folderPath}/{keyword}");
+				string json = LoadFileAsText($"{folderPath}/{keyword}.json");
 				json = ReplacePlaceholders(json);
 				dict.Add(keyword, json);
 			}
