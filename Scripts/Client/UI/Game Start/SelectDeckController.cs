@@ -17,7 +17,7 @@ namespace Kompas.Client.UI.GameStart
 		private SquareGridContainer DeckContainer { get; set; }
 
 		[Export]
-		private ControlInfoDisplayer AvatarInfoDisplayer { get; set; }
+		private SelectDeckCardController AvatarController { get; set; }
 
 		[Export]
 		private PackedScene MainDeckCardPrefab { get; set; }
