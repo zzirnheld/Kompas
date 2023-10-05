@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=12 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
 [ext_resource type="Script" path="res://Scripts/Gamestate/Locations/Controllers/Client/ClientBoardController.cs" id="1_l7n64"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://rccou1fb3usa" path="res://Scenes/Prefabs/Client Game/Space.tscn" id="3_126rd"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
+[ext_resource type="Theme" uid="uid://dvc6btd0pcm5f" path="res://Themes/Deck Select HBox.tres" id="6_ruf62"]
 [ext_resource type="Script" path="res://Scenes/RightJustifiedOptionButton.cs" id="7_e0jlx"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/SelectDeckController.cs" id="7_l46dw"]
 [ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="8_50pmk"]
@@ -88,7 +89,6 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="Choose Host" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,6 +103,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("6_ruf62")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Choose Host/HBoxContainer"]
 layout_mode = 2
@@ -123,8 +124,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_5db68")
-theme_override_font_sizes/font_size = 48
-text = "Connect to Server"
+theme_override_font_sizes/font_size = 72
+text = "Choose Host"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -207,8 +208,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_5db68")
-theme_override_font_sizes/font_size = 48
-text = "Connect to Server"
+theme_override_font_sizes/font_size = 72
+text = "Connecting..."
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -227,7 +228,7 @@ grow_vertical = 2
 theme = ExtResource("6_5db68")
 theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
 theme_override_font_sizes/font_size = 28
-text = "Trying to connect..."
+text = "We're really tryin' here..."
 horizontal_alignment = 2
 
 [node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Waiting on Server/HBoxContainer"]
@@ -251,6 +252,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("6_ruf62")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer"]
 layout_mode = 2
@@ -271,8 +273,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_5db68")
-theme_override_font_sizes/font_size = 48
-text = "Connected to Server"
+theme_override_font_sizes/font_size = 72
+text = "Connected!"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -291,7 +293,7 @@ grow_vertical = 2
 theme = ExtResource("6_5db68")
 theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
 theme_override_font_sizes/font_size = 28
-text = "Waiting for other player..."
+text = "Waiting for another player..."
 horizontal_alignment = 2
 
 [node name="Control" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs/Connected to Server/HBoxContainer"]
@@ -300,6 +302,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
 [node name="Select Deck" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -317,7 +320,7 @@ offset_top = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_5db68")
+theme = ExtResource("6_ruf62")
 alignment = 2
 
 [node name="Left VBox" type="VBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer"]
@@ -339,7 +342,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_5db68")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 72
 text = "Select Deck"
 horizontal_alignment = 2
 vertical_alignment = 2
