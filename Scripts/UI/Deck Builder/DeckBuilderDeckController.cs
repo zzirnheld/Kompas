@@ -12,9 +12,6 @@ namespace Kompas.UI.DeckBuilder
 {
 	public partial class DeckBuilderDeckController : Control
 	{
-		public const string DeckFolderPath = "user://Decks";
-		private const string CurrentDeckGroupName = "CurrentDeck";
-
 		//TODO factor out this tab ui behavior to make this class just responsible for CRUD-y stuff
 		public enum Tab { Normal, NewDeck, SaveAs }
 
@@ -48,14 +45,7 @@ namespace Kompas.UI.DeckBuilder
 
 		public override void _Ready()
 		{
-			EnsureDeckDirectory();
-			using var folder = DirAccess.Open(DeckFolderPath);
-			foreach (string deckFileName in folder.GetFiles())
-			{
-				if (deckFileName[^5..] != ".json") return; // GD.Print($"{deckFileName[^5..]}");
-				string deckName = deckFileName[..^5];
-				AddDeckName(deckName);
-			}
+			foreach (var deckName in DeckAccess.GetDeckNames()) AddDeckName(deckName);
 
 			AvatarController.Init(null, DeckBuilderController.CardView, this);
 			if (deckNames.Count == 0) ShowController(Tab.NewDeck);
@@ -109,21 +99,12 @@ namespace Kompas.UI.DeckBuilder
 		private void SaveDeck()
 		{
 			if (currentDeck == null) return;
-			
-			EnsureDeckDirectory();
-
-			using var deck = FileAccess.Open($"{DeckFolderPath}/{currentDeck.deckName}.json", FileAccess.ModeFlags.Write);
-			if (deck == null) GD.Print(FileAccess.GetOpenError());
-			string json = JsonConvert.SerializeObject(currentDeck);
-			deck.StoreString(json);
+			DeckAccess.Save(currentDeck);
 		}
 
 		public void DeleteSelectedDeck()
 		{
-			using var deckFolder = DirAccess.Open(DeckFolderPath);
-			if (deckFolder == null) GD.Print(DirAccess.GetOpenError());
-
-			deckFolder.Remove($"{currentDeck.deckName}.json");
+			DeckAccess.Delete(currentDeck);
 
 			int deckIndex = deckNames.IndexOf(currentDeck.deckName);
 			DeckNameSelect.RemoveItem(deckIndex);
@@ -144,15 +125,15 @@ namespace Kompas.UI.DeckBuilder
 
 		private void LoadDeck(string deckName)
 		{
-			var path = $"{DeckFolderPath}/{deckName}.json";
-			if (!FileAccess.FileExists(path)) return;
+			var decklist = DeckAccess.Load(deckName);
+			if (decklist == null)
+			{
+				GD.PrintErr($"Failed to load deck {deckName} in deck edit");
+				return;
+			}
 
 			ClearDeck();
-			using var deck = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-			string json = deck.GetAsText();
-			GD.Print($"Loading {json}");
-			Decklist decklist = JsonConvert.DeserializeObject<Decklist>(json);
-
+			
 			if (decklist.avatarName != null)
 			{
 				var avatar = DeckBuilderCardRepository.CreateDeckBuilderCard(decklist.avatarName);
@@ -220,15 +201,6 @@ namespace Kompas.UI.DeckBuilder
 			if (DeckCardControllerPrefab.Instantiate() is not DeckBuilderDeckCardController controller)
 					throw new System.ArgumentNullException(nameof(DeckCardControllerPrefab), "Was not the right type");
 			return controller;
-		}
-
-		private static void EnsureDeckDirectory()
-		{
-			if (!DirAccess.DirExistsAbsolute(DeckFolderPath))
-			{
-				using var folder = DirAccess.Open("user://");
-				folder.MakeDir(DeckFolderPath);
-			}
 		}
 
 		private void AddDeckName(string deckName)

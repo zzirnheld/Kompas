@@ -22,13 +22,12 @@ namespace Kompas.Cards.Controllers
 			protected set
 			{
 				card = value;
-				myView.Show(card);
+				MyView.Show(card);
 			}
 		}
 
-		private SelectDeckCardView myView;
-
-		public override void _Ready() => myView = new SelectDeckCardView(InfoDisplayer);
+		private SelectDeckCardView _myView;
+		private SelectDeckCardView MyView => _myView ??= new SelectDeckCardView(InfoDisplayer);
 
 		public void Init(CardBase card)
 		{

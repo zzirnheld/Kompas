@@ -311,7 +311,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="Select Deck" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs" node_paths=PackedStringArray("DeckSelect", "DeckContainer", "AvatarInfoDisplayer", "GameController")]
+[node name="Select Deck" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs" node_paths=PackedStringArray("DeckSelect", "DeckContainer", "GameController")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -321,9 +321,8 @@ grow_vertical = 2
 script = ExtResource("7_l46dw")
 DeckSelect = NodePath("HBoxContainer/Left VBox/Control/VBoxContainer/HBoxContainer/OptionButton")
 DeckContainer = NodePath("HBoxContainer/Right VBox/AspectRatioContainer/Selected Deck Parent/Deck Margin/Deck Scroll/Deck Container")
-AvatarInfoDisplayer = NodePath("HBoxContainer/Right VBox/Buffer/Avatar")
 MainDeckCardPrefab = ExtResource("10_iqpkk")
-GameController = NodePath("../../../../..")
+GameController = NodePath("../../../../../Game Controller")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck"]
 layout_mode = 1

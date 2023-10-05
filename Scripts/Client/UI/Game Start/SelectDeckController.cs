@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
@@ -25,14 +26,39 @@ namespace Kompas.Client.UI.GameStart
 		[Export]
 		private ClientGameController GameController { get; set; }
 
+		private readonly IList<string> deckNames = new List<string>();
+
+		public override void _Ready()
+		{
+			foreach (var deckName in DeckAccess.GetDeckNames()) AddDeckName(deckName);
+
+			//TODO handle having no decks and trying to enter client - error and boot back to main menu
+
+			Load(0);
+		}
+
+		private void AddDeckName(string deckName)
+		{
+			deckNames.Add(deckName);
+			DeckSelect.AddItem(deckName);
+		}
+
+		private void Load(int index)
+		{
+			var decklist = DeckAccess.Load(deckNames[index]);
+			ShowDeck(decklist);
+		}
+
 		private void ShowDeck(Decklist decklist)
 		{
-			ClearDeck();
+			//ClearDeck();
 			foreach (var cardName in decklist.deck)
 			{
-				var card = GameController.CardRepository.InstantiateDeckSelectCard(CardRepository.GetJsonFromName(cardName));
+				var card = GameController.CardRepository.InstantiateDeckSelectCard(cardName);
 				var ctrl = CreateCardController();
 				ctrl.Init(card);
+
+				GD.Print($"Loaded {cardName}");
 
 				DeckContainer.AddChild(ctrl);
 			}

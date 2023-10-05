@@ -70,6 +70,10 @@ namespace Kompas.UI
 			float column = child.GetIndex() % ColumnCount;
 			float row = child.GetIndex() / ColumnCount;
 			child.Position = new(offset * column, offset * row); //todo padding?
+
+			child.Visible = true;
+
+			GD.Print($"Sclaing {child} to {child.Size} at {child.Position}");
 		}
 	}
 }

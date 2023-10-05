@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 namespace Kompas.UI.DeckBuilder
 {
@@ -18,9 +19,14 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Confirm()
 		{
+			string deckName = DeckNameEdit.Text;
+			DeckNameEdit.Text = null;
+			if (!AllowedDeckName(deckName)) return;
 			DeckBuilderDeckController.NewDeck(DeckNameEdit.Text);
 			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
 		}
+
+		private static bool AllowedDeckName(string name) => name != string.Empty && name.All(char.IsLetterOrDigit);
 
 		public void Cancel()
 		{

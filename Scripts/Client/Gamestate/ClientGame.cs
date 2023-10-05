@@ -113,11 +113,13 @@ namespace Kompas.Client.Gamestate
 
 			ret.Board = new ClientBoard(gameController.BoardController);
 
+			/*
 			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, gameController.PlayerControllers[0]);
 			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, gameController.PlayerControllers[1]);
 
 			ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
 			ret.clientPlayers[1].Enemy = ret.clientPlayers[0];
+			*/ //TODO uncomment once player controllers are set up
 
 			return ret;
 		}

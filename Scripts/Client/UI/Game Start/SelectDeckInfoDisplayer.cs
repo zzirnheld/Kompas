@@ -4,7 +4,7 @@ using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.UI.GameStart
 {
-	public partial class SelectDeckInfoDisplayer : Control, ICardInfoDisplayer
+	public partial class SelectDeckInfoDisplayer : TextureRect, ICardInfoDisplayer
 	{
 		[Export]
 		private TextureRect Image { get; set; }

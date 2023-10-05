@@ -54,16 +54,18 @@ namespace Kompas.Client.Cards.Loading
 			return card;
 		}
 
-		
-		public SelectDeckCard InstantiateDeckSelectCard(string json)
+		public SelectDeckCard InstantiateDeckSelectCard(string cardName)
+			=> InstantiateDeckSelectCard(GetJsonFromName(cardName), FileNameFor(cardName));
+
+		public SelectDeckCard InstantiateDeckSelectCard(string json, string fileName)
 		{
 			try
 			{
 				SerializableCard serializableCard = JsonConvert.DeserializeObject<SerializableCard>(json, CardLoadingSettings);
 				return new SelectDeckCard(serializableCard.Stats, serializableCard.subtext, serializableCard.spellTypes, serializableCard.unique,
-				serializableCard.radius, serializableCard.duration, serializableCard.cardType, serializableCard.cardName,
-				null, // FUTURE: does this matter?
-				serializableCard.effText, serializableCard.subtypeText);
+					serializableCard.radius, serializableCard.duration, serializableCard.cardType, serializableCard.cardName,
+					fileName, //TODO signature that takes in serializablecard, TODO signature in card base for the same, TODO fileName
+					serializableCard.effText, serializableCard.subtypeText);
 			}
 			catch (System.ArgumentException argEx)
 			{
