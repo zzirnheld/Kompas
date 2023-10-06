@@ -11,7 +11,7 @@ namespace Kompas.Client.Effects.Models
 {
 	public class ClientEffect : Effect, IClientStackable
 	{
-		private ClientPlayer controllingPlayer;
+		private IPlayer controllingPlayer;
 		public override IPlayer ControllingPlayer => controllingPlayer;
 
 		public ClientGame ClientGame { get; private set; }
@@ -34,7 +34,7 @@ namespace Kompas.Client.Effects.Models
 
 		public string StackableBlurb => blurb;
 
-		public void SetInfo(GameCard thisCard, ClientGame clientGame, int effectIndex, ClientPlayer owner)
+		public void SetInfo(GameCard thisCard, ClientGame clientGame, int effectIndex, IPlayer owner)
 		{
 			this.ClientGame = clientGame;
 			controllingPlayer = owner;

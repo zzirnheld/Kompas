@@ -62,7 +62,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Teeeeeeeeeeeeeeeeeeeeeeest"
 
-[node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
+[node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("GameController", "ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,6 +70,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_qshp1")
+GameController = NodePath("../../Game Controller")
 ConnectToServer = NodePath("MarginContainer/Connection Tabs/Choose Host")
 WaitingForServer = NodePath("MarginContainer/Connection Tabs/Waiting on Server")
 WaitingForPlayer = NodePath("MarginContainer/Connection Tabs/Connected to Server")

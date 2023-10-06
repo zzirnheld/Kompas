@@ -7,6 +7,7 @@ using Kompas.Client.Cards.Models;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Players;
+using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
 namespace Kompas.Client.Cards.Loading
@@ -31,7 +32,7 @@ namespace Kompas.Client.Cards.Loading
 			return InstantiateGameCard(json, ConstructAvatar, validation);
 		}
 
-		public ClientGameCard InstantiateClientNonAvatar(string json, ClientPlayer owner, int id, ClientGame game)
+		public ClientGameCard InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
 		{
 			var card = InstantiateGameCard(json,
 				(cardInfo, effects, ctrl) => new ClientGameCard(cardInfo, id, game, owner, effects, ctrl));

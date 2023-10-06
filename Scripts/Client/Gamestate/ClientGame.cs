@@ -21,8 +21,8 @@ namespace Kompas.Client.Gamestate
 	public class ClientGame : IGame
 	{
 		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
-		private readonly ClientCardRepository cardRepository;
-		public CardRepository CardRepository => cardRepository;
+		public ClientCardRepository ClientCardRepository { get; private set; }
+		public CardRepository CardRepository => ClientCardRepository;
 
 		public Board Board { get; private set; }
 
@@ -163,7 +163,7 @@ namespace Kompas.Client.Gamestate
 			if (player >= 2) throw new ArgumentException("Can only handle 2-player games!", nameof(player));
 
 			var owner = clientPlayers[player];
-			var avatar = cardRepository.InstantiateClientAvatar(json, owner, avatarID, this);
+			var avatar = ClientCardRepository.InstantiateClientAvatar(json, owner, avatarID, this);
 			avatar.KnownToEnemy = true;
 			owner.Avatar = avatar;
 			Space to = player == 0 ? Space.NearCorner : Space.FarCorner;
@@ -260,7 +260,7 @@ namespace Kompas.Client.Gamestate
 		/// </summary>
 		public void SetPotentialTargets(int[] ids, IListRestriction listRestriction)
 		{
-			CurrentPotentialTargets = ids?.Select(i => GetCardWithID(i)).Where(c => c != null).ToArray();
+			CurrentPotentialTargets = ids?.Select(i => LookupCardByID(i)).Where(c => c != null).ToArray();
 			searchCtrl.StartSearch(CurrentPotentialTargets, listRestriction);
 		}
 
