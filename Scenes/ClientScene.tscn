@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=13 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
 [ext_resource type="Theme" uid="uid://dvc6btd0pcm5f" path="res://Themes/Deck Select HBox.tres" id="6_ruf62"]
-[ext_resource type="Script" path="res://Scenes/RightJustifiedOptionButton.cs" id="7_e0jlx"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/SelectDeckController.cs" id="7_l46dw"]
 [ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="8_50pmk"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
@@ -311,7 +310,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="Select Deck" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs" node_paths=PackedStringArray("DeckSelect", "DeckContainer", "GameController")]
+[node name="Select Deck" type="Control" parent="UI/Connection/MarginContainer/Connection Tabs" node_paths=PackedStringArray("DeckSelect", "DeckContainer", "AvatarController", "GameController")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -321,6 +320,7 @@ grow_vertical = 2
 script = ExtResource("7_l46dw")
 DeckSelect = NodePath("HBoxContainer/Left VBox/Control/VBoxContainer/HBoxContainer/OptionButton")
 DeckContainer = NodePath("HBoxContainer/Right VBox/AspectRatioContainer/Selected Deck Parent/Deck Margin/Deck Scroll/Deck Container")
+AvatarController = NodePath("HBoxContainer/Right VBox/Buffer/Avatar")
 MainDeckCardPrefab = ExtResource("10_iqpkk")
 GameController = NodePath("../../../../../Game Controller")
 
@@ -388,7 +388,6 @@ item_count = 1
 selected = 0
 popup/item_0/text = "Placeholder"
 popup/item_0/id = 0
-script = ExtResource("7_e0jlx")
 
 [node name="Select Deck" type="Button" parent="UI/Connection/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer"]
 layout_mode = 2

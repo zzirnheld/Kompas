@@ -244,7 +244,11 @@ namespace Kompas.Cards.Loading
 		public static Texture2D LoadSprite(string cardFileName)
 		{
 			string path = $"{CardImagesPath}/{cardFileName}.png";
-			if (!ResourceLoader.Exists(path)) return null;
+			if (!ResourceLoader.Exists(path))
+			{
+				GD.Print($"Warning: texture not found at {cardFileName}");
+				return null;
+			}
 			else return ResourceLoader.Load<Texture2D>(path);
 		}
 

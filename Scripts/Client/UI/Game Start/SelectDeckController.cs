@@ -30,6 +30,7 @@ namespace Kompas.Client.UI.GameStart
 
 		public override void _Ready()
 		{
+			DeckSelect.Clear();
 			foreach (var deckName in DeckAccess.GetDeckNames()) AddDeckName(deckName);
 
 			//TODO handle having no decks and trying to enter client - error and boot back to main menu
@@ -51,7 +52,7 @@ namespace Kompas.Client.UI.GameStart
 
 		private void ShowDeck(Decklist decklist)
 		{
-			//ClearDeck();
+			ClearDeck();
 			foreach (var cardName in decklist.deck)
 			{
 				var card = GameController.CardRepository.InstantiateDeckSelectCard(cardName);
@@ -62,6 +63,9 @@ namespace Kompas.Client.UI.GameStart
 
 				DeckContainer.AddChild(ctrl);
 			}
+
+			var avatar = GameController.CardRepository.InstantiateDeckSelectCard(decklist.avatarName);
+			AvatarController.Init(avatar);
 		}
 
 		private void ClearDeck()
