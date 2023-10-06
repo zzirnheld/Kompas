@@ -30,10 +30,8 @@ namespace Kompas.Client.Gamestate
 			game = ClientGame.Create(this);
 		}
 
-		private void SuccessfullyConnected(TcpClient tcpClient)
+		public void SuccessfullyConnected(TcpClient tcpClient)
 		{
-			//ClientGame.clientUIController.connectionUIController.Show(ConnectionState.WaitingForPlayer);
-
 			clientNetworker = new ClientNetworker(tcpClient, game);
 			clientNotifier = new ClientNotifier(clientNetworker);
 		}

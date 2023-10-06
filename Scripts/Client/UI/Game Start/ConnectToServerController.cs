@@ -1,3 +1,4 @@
+using System.Net;
 using Godot;
 
 namespace Kompas.Client.UI.GameStart
@@ -13,7 +14,9 @@ namespace Kompas.Client.UI.GameStart
 		public void Connect()
 		{
 			string ip = IP.Text;
-			if (ip == string.Empty) ip = "127.0.0.1";
+			if (string.IsNullOrEmpty(ip)) ip = "127.0.0.1";
+			else if (!IPAddress.TryParse(ip, out _)) return;
+
 			GameStart.TryConnect(ip);
 		}
 	}

@@ -1,12 +1,18 @@
+using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
+using Godot.Collections;
+using Kompas.Client.Gamestate;
 using Kompas.Client.Networking;
 
 namespace Kompas.Client.UI.GameStart
 {
 	public partial class GameStartController : Control
 	{
+		[Export]
+		private ClientGameController GameController { get; set; }
+
 		[Export]
 		private ConnectToServerController ConnectToServer { get; set; }
 
@@ -18,30 +24,50 @@ namespace Kompas.Client.UI.GameStart
 		[Export]
 		private SelectDeckController SelectDeck { get; set; }
 
-		private Task connectionTask; //Can't be awaited because Godot doesn't let you modify 
+		private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck }
+		private Dictionary<State, Control> Tabs = new();
 
-		public override void _Process(double delta)
+		private Task connectionTask; //Awaited in TryConnect. not sure if this or a boolean is the better anti-reentrant mechanism
+
+		public override void _Ready()
 		{
-			base._Process(delta);
-			if (connectionTask?.IsCompleted ?? false)
+			base._Ready();
+
+			Tabs[State.ChooseHost] = ConnectToServer;
+			Tabs[State.WaitingForServer] = WaitingForServer;
+			Tabs[State.WaitingForPlayer] = WaitingForPlayer;
+			Tabs[State.SelectDeck] = SelectDeck;
+
+			foreach (State s in Enum.GetValues(typeof(State)))
 			{
-				connectionTask = null;
+				if (!Tabs.ContainsKey(s)) GD.PrintErr($"No tab defined for game start state {s}");
 			}
+
+			ChangeState(State.ChooseHost);
 		}
 
-		public void TryConnect(string ip)
+		/// <summary>
+        /// Tries to connect to the given IP.
+        /// Doesn't allow trying to connect while you're already trying to connect.
+        /// Fire and forget. Async void isn't great but I don't want to hang the app on a button press by awaiting it in Process
+        /// </summary>
+        /// <param name="ip"></param>
+		public async void TryConnect(string ip)
 		{
 			if (connectionTask != null)
 			{
-				GD.Print("Already connecting");
+				GD.Print("Already trying to connect!");
 				return;
 			}
 
 			connectionTask = Connect(ip);
+			await connectionTask;
+			connectionTask = null;
 		}
 
-		public async Task Connect(string ip)
+		private async Task Connect(string ip)
 		{
+			ChangeState(State.WaitingForServer);
 			TcpClient tcpClient;
 			try
 			{
@@ -61,20 +87,22 @@ namespace Kompas.Client.UI.GameStart
 		private void FailedToConnect()
 		{
 			GD.Print("Failed!");
-			WaitingForPlayer.Visible = false;
 
-			//TODO client connection workflow
-			//ClientGame.clientUIController.connectionUIController.Show(ConnectionState.ChooseServer);
+			ChangeState(State.ChooseHost);
 		}
 
 		private void SuccessfullyConnected(TcpClient tcpClient)
 		{
 			GD.Print("Succeeded!");
-			WaitingForPlayer.Visible = true;
 
-			//TODO tell GameStartController to new up the connections
+			ChangeState(State.WaitingForPlayer);
+			GameController.SuccessfullyConnected(tcpClient);
+		}
 
-			//TODO function for deck select
+		private void ChangeState(State state)
+		{
+			foreach (State s in Enum.GetValues(typeof(State)))
+				Tabs[s].Visible = s == state;
 		}
 	}
 }
