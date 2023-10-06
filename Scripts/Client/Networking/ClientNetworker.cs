@@ -29,13 +29,16 @@ namespace Kompas.Client.Networking
 		*/
 		public static async Task<TcpClient> Connect(string ip)
 		{
+			GD.Print($"Connect to {ip}?");
 			if (connecting) return null;
 
 			connecting = true;
 			
+			GD.Print($"Try to connect to {ip}");
 			var address = IPAddress.Parse(ip);
 			TcpClient tcpClient = new();
 			await tcpClient.ConnectAsync(address, port);
+			GD.Print($"Connect to {ip} succeeded or failed");
 			
 			connecting = false;
 			return tcpClient;

@@ -30,30 +30,6 @@ namespace Kompas.Client.Gamestate
 			game = ClientGame.Create(this);
 		}
 
-		public async Task AttemptConnect(string ip)
-		{
-			TcpClient tcpClient;
-			try
-			{
-				tcpClient = await ClientNetworker.Connect(ip);
-			}
-			catch (System.Net.Sockets.SocketException e)
-			{
-				GD.PrintErr($"Failed to connect to {ip}. Stack trace:\n{e.StackTrace}");
-				FailedToConnect();
-				return;
-			}
-
-			if (tcpClient == null || !tcpClient.Connected) FailedToConnect();
-			else SuccessfullyConnected(tcpClient);
-		}
-
-		private void FailedToConnect()
-		{
-			//TODO client connection workflow
-			//ClientGame.clientUIController.connectionUIController.Show(ConnectionState.ChooseServer);
-		}
-
 		private void SuccessfullyConnected(TcpClient tcpClient)
 		{
 			//ClientGame.clientUIController.connectionUIController.Show(ConnectionState.WaitingForPlayer);
