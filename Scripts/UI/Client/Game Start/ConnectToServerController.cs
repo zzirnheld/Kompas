@@ -1,7 +1,7 @@
 using System.Net;
 using Godot;
 
-namespace Kompas.Client.UI.GameStart
+namespace Kompas.UI.Client.GameStart
 {
 	public partial class ConnectToServerController : Control
 	{

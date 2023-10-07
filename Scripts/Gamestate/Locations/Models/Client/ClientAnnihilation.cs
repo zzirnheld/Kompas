@@ -2,7 +2,7 @@ using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Client.Gamestate.Locations.Models
+namespace Kompas.Gamestate.Locations.Models.Client
 {
 	public class ClientAnnihilation : Annihilation
 	{

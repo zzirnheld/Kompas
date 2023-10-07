@@ -1,11 +1,9 @@
 using System.Net.Sockets;
-using System.Threading.Tasks;
-using Godot;
-using Kompas.Client.Cards.Loading;
-using Kompas.Client.Networking;
-using Kompas.Gamestate;
+using Kompas.Cards.Loading.Client;
+using Kompas.Networking.Client;
+using Kompas.Scripts.Gamestate.Client;
 
-namespace Kompas.Client.Gamestate
+namespace Kompas.Gamestate.Client
 {
 	public partial class ClientGameController : GameController
 	{

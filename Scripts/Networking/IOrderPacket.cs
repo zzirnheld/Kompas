@@ -1,8 +1,12 @@
-using Kompas.Client.Gamestate;
+using System.Threading.Tasks;
+using Kompas.Gamestate.Client;
+using Kompas.Gamestate.Players.Server;
+using Kompas.Gamestate.Server;
+using Kompas.Networking.Server;
 
 //TODO: move these to the relevant places. figure out where to put them in the folder structure - for convenience, they should probably stay in their own area,
 //since the server and client packets' neutral versions need to be visible to the other
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public interface IClientOrderPacket
 	{
@@ -14,7 +18,7 @@ namespace Kompas.Client.Networking
 	}
 }
 
-namespace Kompas.Server.Networking
+namespace Kompas.Networking.Server
 {
 	public interface IServerOrderPacket
 	{
@@ -24,7 +28,6 @@ namespace Kompas.Server.Networking
 		/// </summary>
 		/// <param name="serverGame">The server game to apply the packet to.</param>
 		/// <param name="player">The player who this packet came from.</param>
-		//TODO server
-		//Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter);
+		Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter);
 	}
 }

@@ -4,19 +4,19 @@ using System.Linq;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
-using Kompas.Client.Cards.Loading;
-using Kompas.Client.Cards.Models;
-using Kompas.Client.Effects.Controllers;
-using Kompas.Client.Effects.Models;
-using Kompas.Client.Gamestate.Locations.Models;
-using Kompas.Client.Gamestate.Players;
+using Kompas.Client;
+using Kompas.Cards.Loading.Client;
+using Kompas.Cards.Models.Client;
+using Kompas.Effects.Models.Client;
+using Kompas.Gamestate.Locations.Models.Client;
+using Kompas.Gamestate.Players.Client;
 using Kompas.Effects.Models;
-using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
+using Kompas.Effects.Controllers.Client;
 
-namespace Kompas.Client.Gamestate
+namespace Kompas.Gamestate.Client
 {
 	public class ClientGame : IGame
 	{

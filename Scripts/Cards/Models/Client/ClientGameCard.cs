@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
-using Kompas.Client.Cards.Controllers;
-using Kompas.Client.Effects.Models;
-using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Players;
+using Kompas.Cards.Controllers.Client;
+using Kompas.Effects.Models.Client;
+using Kompas.Gamestate.Client;
+using Kompas.Gamestate.Players.Client;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Shared.Enumerable;
 
-namespace Kompas.Client.Cards.Models
+namespace Kompas.Cards.Models.Client
 {
 	public class ClientGameCard : GameCard
 	{

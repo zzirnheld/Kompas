@@ -1,8 +1,8 @@
 ﻿using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
-using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Players;
-using Kompas.Client.Networking;
+using Kompas.Gamestate.Client;
+using Kompas.Gamestate.Players.Client;
+using Kompas.Networking.Client;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
 using Kompas.Networking.Packets;
@@ -72,7 +72,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class AddCardClientPacket : AddCardPacket, IClientOrderPacket
 	{

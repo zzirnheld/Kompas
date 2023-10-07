@@ -1,15 +1,15 @@
 
 using Godot;
 using Kompas.Cards.Models;
-using Kompas.Client.Cards.Views;
-using Kompas.Client.UI.GameStart;
+using Kompas.Cards.Views.Client;
+using Kompas.UI.Client.GameStart;
 
-namespace Kompas.Cards.Controllers
+namespace Kompas.Cards.Controllers.Client
 {
 	/// <summary>
-    /// Extends TextureRect because the TextureRect has to be the parent, otherwise the grid doesn't line up.
-    /// For some reason.
-    /// </summary>
+	/// Extends TextureRect because the TextureRect has to be the parent, otherwise the grid doesn't line up.
+	/// For some reason.
+	/// </summary>
 	public partial class SelectDeckCardController : Control
 	{
 		[Export]

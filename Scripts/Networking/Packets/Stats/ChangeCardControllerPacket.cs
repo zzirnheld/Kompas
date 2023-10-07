@@ -1,5 +1,5 @@
 ﻿using Kompas.Networking.Packets;
-using Kompas.Client.Gamestate;
+using Kompas.Gamestate.Client;
 using UnityEngine;
 
 namespace Kompas.Networking.Packets
@@ -24,7 +24,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class ChangeCardControllerClientPacket : ChangeCardControllerPacket, IClientOrderPacket
 	{

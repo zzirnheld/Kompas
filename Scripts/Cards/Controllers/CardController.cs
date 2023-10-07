@@ -1,5 +1,4 @@
 using Godot;
-using Kompas.Gamestate.Locations;
 
 namespace Kompas.Cards.Controllers
 {

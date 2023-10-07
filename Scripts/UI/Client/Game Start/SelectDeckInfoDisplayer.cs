@@ -2,7 +2,7 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
 
-namespace Kompas.Client.UI.GameStart
+namespace Kompas.UI.Client.GameStart
 {
 	public partial class SelectDeckInfoDisplayer : TextureRect, ICardInfoDisplayer
 	{

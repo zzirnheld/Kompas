@@ -1,6 +1,6 @@
 using Kompas.Cards.Models;
 
-namespace Kompas.Client.Cards.Models
+namespace Kompas.Cards.Models.Client
 {
 	public class SelectDeckCard : CardBase
 	{

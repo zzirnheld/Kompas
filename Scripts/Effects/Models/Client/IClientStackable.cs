@@ -1,7 +1,7 @@
 using Godot;
 using Kompas.Effects.Models;
 
-namespace Kompas.Client.Effects.Models
+namespace Kompas.Effects.Models.Client
 {
 	public interface IClientStackable : IStackable
 	{

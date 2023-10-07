@@ -3,11 +3,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
-using Kompas.Client.Gamestate;
-using Kompas.Networking;
+using Kompas.Scripts.Gamestate.Client;
 using Newtonsoft.Json;
 
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class ClientNetworker : NetworkController
 	{

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Kompas.Client.Effects.Views
+namespace Kompas.Effects.Views.Client
 {
 	public partial class ClientStackView : Node 
 	{

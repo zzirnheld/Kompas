@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Kompas.Client.Effects.Models;
-using Kompas.Client.Effects.Views;
-using Kompas.Effects;
+using Kompas.Effects.Models.Client;
 using Kompas.Effects.Models;
+using Kompas.Effects.Views.Client;
 
-namespace Kompas.Client.Effects.Controllers
+namespace Kompas.Effects.Controllers.Client
 {
 	public class ClientStackController
 	{

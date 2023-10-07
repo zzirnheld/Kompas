@@ -1,4 +1,4 @@
-﻿using Kompas.Client.Gamestate;
+﻿using Kompas.Gamestate.Client;
 using Kompas.Networking.Packets;
 
 namespace Kompas.Networking.Packets
@@ -20,7 +20,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class GetHandSizeChoicesClientPacket : GetHandSizeChoicesOrderPacket, IClientOrderPacket
 	{

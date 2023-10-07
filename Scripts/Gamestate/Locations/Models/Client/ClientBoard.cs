@@ -1,7 +1,7 @@
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 
-namespace Kompas.Client.Gamestate.Locations.Models
+namespace Kompas.Gamestate.Locations.Models.Client
 {
 	public class ClientBoard : Board
 	{

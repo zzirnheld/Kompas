@@ -1,8 +1,8 @@
 
 using Kompas.Cards.Controllers;
-using Kompas.Client.Cards.Models;
+using Kompas.Cards.Models.Client;
 
-namespace Kompas.Client.Cards.Controllers
+namespace Kompas.Cards.Controllers.Client
 {
 	public partial class ClientCardController : CardController
 	{

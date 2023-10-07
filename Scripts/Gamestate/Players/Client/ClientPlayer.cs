@@ -1,10 +1,10 @@
 using Kompas.Cards.Models;
-using Kompas.Client.Gamestate.Locations.Models;
+using Kompas.Gamestate.Locations.Models.Client;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Client.Gamestate.Players
+namespace Kompas.Gamestate.Players.Client
 {
 	public class ClientPlayer : IPlayer
 	{

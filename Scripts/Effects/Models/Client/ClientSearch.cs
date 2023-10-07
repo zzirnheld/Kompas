@@ -1,4 +1,4 @@
-namespace Kompas.Client.Effects.Models
+namespace Kompas.Effects.Models.Client
 {
 	public class ClientSearch
 	{

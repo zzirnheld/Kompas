@@ -1,5 +1,5 @@
 ﻿using Kompas.Networking.Packets;
-using Kompas.Client.Gamestate;
+using Kompas.Gamestate.Client;
 using KompasClient.UI;
 using KompasCore.UI;
 
@@ -30,7 +30,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class GetEffectOptionClientPacket : GetEffectOptionPacket, IClientOrderPacket
 	{

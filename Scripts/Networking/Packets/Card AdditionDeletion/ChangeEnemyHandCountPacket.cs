@@ -1,5 +1,5 @@
-﻿using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Locations.Models;
+﻿using Kompas.Gamestate.Client;
+using Kompas.Gamestate.Locations.Models.Client;
 using Kompas.Networking.Packets;
 
 namespace Kompas.Networking.Packets
@@ -19,7 +19,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class ChangeEnemyHandCountClientPacket : ChangeEnemyHandCountPacket, IClientOrderPacket
 	{

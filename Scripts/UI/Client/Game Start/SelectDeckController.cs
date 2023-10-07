@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
+using Kompas.Cards.Controllers.Client;
 using Kompas.Cards.Loading;
-using Kompas.Client.Gamestate;
+using Kompas.Gamestate.Client;
 using Kompas.Shared;
 using Kompas.UI;
 using Kompas.UI.CardInfoDisplayers;
 
-namespace Kompas.Client.UI.GameStart
+namespace Kompas.UI.Client.GameStart
 {
 	public partial class SelectDeckController : Control
 	{

@@ -1,6 +1,4 @@
-using Kompas.Networking;
-
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class ClientNotifier
 	{

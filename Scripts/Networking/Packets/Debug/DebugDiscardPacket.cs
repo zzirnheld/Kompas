@@ -1,5 +1,9 @@
-﻿using Kompas.Cards.Movement;
+﻿using Godot;
+using Kompas.Cards.Movement;
+using Kompas.Gamestate.Players.Server;
+using Kompas.Gamestate.Server;
 using Kompas.Networking.Packets;
+using Kompas.Networking.Server;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -28,7 +32,7 @@ namespace KompasServer.Networking
 			var card = serverGame.LookupCardByID(cardId);
 			if (card == null)
 				return Task.CompletedTask;
-			else if (serverGame.UIController.DebugMode)
+			else if (serverGame.DebugMode)
 			{
 				GD.PrintErr($"Debug discarding card with id {cardId}");
 				card.Discard();

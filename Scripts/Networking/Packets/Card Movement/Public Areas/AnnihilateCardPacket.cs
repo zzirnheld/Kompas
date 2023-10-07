@@ -1,5 +1,5 @@
 ﻿using Kompas.Networking.Packets;
-using Kompas.Client.Gamestate;
+using Kompas.Gamestate.Client;
 using Kompas.Cards.Movement;
 using Kompas.Gamestate.Locations;
 
@@ -30,7 +30,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace Kompas.Client.Networking
+namespace Kompas.Networking.Client
 {
 	public class AnnihilateCardClientPacket : AnnihilateCardPacket, IClientOrderPacket
 	{

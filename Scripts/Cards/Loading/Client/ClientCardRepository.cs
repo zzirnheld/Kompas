@@ -2,15 +2,15 @@ using System.Linq;
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
-using Kompas.Client.Cards.Controllers;
-using Kompas.Client.Cards.Models;
-using Kompas.Client.Effects.Models;
-using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Players;
+using Kompas.Cards.Controllers.Client;
+using Kompas.Cards.Models.Client;
+using Kompas.Effects.Models.Client;
+using Kompas.Gamestate.Client;
+using Kompas.Gamestate.Players.Client;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
-namespace Kompas.Client.Cards.Loading
+namespace Kompas.Cards.Loading.Client
 {
 	public class ClientCardRepository : GameCardRepository<ClientSerializableCard, ClientEffect, ClientCardController>
 	{

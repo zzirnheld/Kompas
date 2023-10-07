@@ -1,8 +1,8 @@
 using Kompas.Cards.Models;
 using Kompas.Cards.Views;
-using Kompas.Client.UI.GameStart;
+using Kompas.UI.Client.GameStart;
 
-namespace Kompas.Client.Cards.Views
+namespace Kompas.Cards.Views.Client
 {
 	public class SelectDeckCardView : FocusableCardViewBase<CardBase, SelectDeckInfoDisplayer>
 	{

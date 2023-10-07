@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Kompas.Cards.Models;
-using Kompas.Client.Effects.Models;
+using Kompas.Effects.Models.Client;
 using Kompas.Effects.Models;
 
-namespace Kompas.Client.Cards.Models
+namespace Kompas.Cards.Models.Client
 {
 	public class ClientSerializableCard : SerializableGameCard
 	{

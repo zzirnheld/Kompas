@@ -3,10 +3,10 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
-using Kompas.Client.Gamestate;
-using Kompas.Client.Networking;
+using Kompas.Gamestate.Client;
+using Kompas.Networking.Client;
 
-namespace Kompas.Client.UI.GameStart
+namespace Kompas.UI.Client.GameStart
 {
 	public partial class GameStartController : Control
 	{
