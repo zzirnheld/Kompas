@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ts4wscqk2wrc"]
 
-[ext_resource type="Script" path="res://Scripts/Client/Cards/Controllers/SelectDeckCardController.cs" id="1_3keyu"]
+[ext_resource type="Script" path="res://Scripts/Cards/Controllers/Client/SelectDeckCardController.cs" id="1_3keyu"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="1_te3ue"]
-[ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/SelectDeckInfoDisplayer.cs" id="3_4kakw"]
+[ext_resource type="Script" path="res://Scripts/UI/Client/Game Start/SelectDeckInfoDisplayer.cs" id="3_4kakw"]
 
 [node name="Select Deck Card" type="Control" node_paths=PackedStringArray("InfoDisplayer")]
 layout_mode = 3
