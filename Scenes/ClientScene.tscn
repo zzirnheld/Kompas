@@ -18,8 +18,9 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("PlayerControllers")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "PlayerControllers")]
 script = ExtResource("1_6rnfv")
+GameStartController = NodePath("../UI/Game Start")
 PlayerControllers = []
 
 [node name="3D" type="Node3D" parent="."]
@@ -319,7 +320,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="Select Deck" type="Control" parent="UI/Game Start/MarginContainer/Connection Tabs" node_paths=PackedStringArray("DeckSelect", "DeckContainer", "AvatarController", "GameController")]
+[node name="Select Deck" type="Control" parent="UI/Game Start/MarginContainer/Connection Tabs" node_paths=PackedStringArray("DeckSelect", "DeckContainer", "AvatarController", "GameStartController")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -332,7 +333,7 @@ DeckSelect = NodePath("HBoxContainer/Left VBox/Control/VBoxContainer/HBoxContain
 DeckContainer = NodePath("HBoxContainer/Right VBox/AspectRatioContainer/Selected Deck Parent/Deck Margin/Deck Scroll/Deck Container")
 AvatarController = NodePath("HBoxContainer/Right VBox/Buffer/Avatar")
 MainDeckCardPrefab = ExtResource("10_iqpkk")
-GameController = NodePath("../../../../../Game Controller")
+GameStartController = NodePath("../../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Game Start/MarginContainer/Connection Tabs/Select Deck"]
 layout_mode = 1
@@ -494,3 +495,4 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
+[connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]

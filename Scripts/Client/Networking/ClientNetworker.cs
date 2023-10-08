@@ -44,9 +44,9 @@ namespace Kompas.Client.Networking
 			return tcpClient;
 		}
 
-		protected override void Update()
+		public override void Tick()
 		{
-			base.Update();
+			base.Tick();
 			if (connecting) return;
 			if (packets.Count != 0) ProcessPacket(packets.Dequeue());
 
@@ -55,7 +55,6 @@ namespace Kompas.Client.Networking
 
 		private static readonly Dictionary<string, System.Type> jsonTypes = new()
 		{
-			/*
 			//game start
 			{ Packet.GetDeck, typeof(GetDeckClientPacket)},
 			{ Packet.DeckAccepted, typeof(DeckAcceptedClientPacket)},
@@ -117,10 +116,9 @@ namespace Kompas.Client.Networking
 			{ Packet.ToggleAllowResponses, typeof(ToggleAllowResponsesClientPacket)},
 			{ Packet.GetTriggerOrder, typeof(GetTriggerOrderClientPacket)},
 			{ Packet.EditCardLink, typeof(EditCardLinkClientPacket)},
-			*/
 		}; //TODO a unit test that asserts that all types in this map extend IClientOrderPacket
 
-		private IClientOrderPacket FromJson(string command, string json)
+		private static IClientOrderPacket FromJson(string command, string json)
 		{
 			if (!jsonTypes.ContainsKey(command)) throw new System.ArgumentException($"Unrecognized command {command} in packet sent to client");
 
@@ -136,7 +134,7 @@ namespace Kompas.Client.Networking
 			}
 
 			var p = FromJson(packetInfo.command, packetInfo.json);
-			//GD.Print($"Parsing packet {p}");
+			GD.Print($"Parsing packet {p}");
 			p.Execute(game);
 
 			//clean up any visual differences after the latest packet.

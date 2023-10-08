@@ -32,7 +32,8 @@ namespace Kompas.Client.Gamestate
 		public IPlayer[] Players => clientPlayers;
 		public ClientPlayer FriendlyPlayer => clientPlayers[0];
 
-		public GameController GameController { get; }
+		public ClientGameController ClientGameController { get; private set; }
+		public GameController GameController => ClientGameController;
 
 		private readonly Dictionary<int, ClientGameCard> cardsByID = new();
 		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
@@ -100,9 +101,9 @@ namespace Kompas.Client.Gamestate
 			}
 		}
 
-		private ClientGame(GameController gameController)
+		private ClientGame(ClientGameController gameController)
 		{
-			GameController = gameController;
+			this.ClientGameController = gameController;
 
 			clientPlayers = new ClientPlayer[2];
 		}

@@ -62,10 +62,10 @@ namespace Kompas.Server.Networking
 			};
 		}
 
-		protected override async void Update()
+		public override async void Tick()
 		{
 			//GD.Print("SERVER NET CTRL UPDATE");
-			base.Update();
+			base.Tick();
 			if (packets.Count != 0) await ProcessPacket(packets.Dequeue());
 			//if (sGame.Players.Any(p => p.TcpClient != null && !p.TcpClient.Connected)) Destroy(sGame.gameObject); //TODO notify player that no
 		}

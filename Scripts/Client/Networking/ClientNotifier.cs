@@ -1,4 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
+using Godot;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Networking;
+using Kompas.Networking.Packets;
+using Kompas.Shared;
 
 namespace Kompas.Client.Networking
 {
@@ -17,7 +24,7 @@ namespace Kompas.Client.Networking
 			networkController.SendPacket(packet);
 		}
 
-		/*
+		
 		#region Normal Request Actions
 		public void RequestPlay(GameCard card, int toX, int toY)
 		{
@@ -32,7 +39,7 @@ namespace Kompas.Client.Networking
 		public void RequestAttack(GameCard attacker, GameCard defender)
 			=> Send(new AttackActionPacket(attacker.ID, defender.ID));
 
-		public void RequestDecklistImport(string decklist)
+		public void RequestDecklistImport(Decklist decklist)
 			=> Send(new SetDeckPacket(decklist));
 
 		public void RequestEndTurn() => Send(new EndTurnActionPacket());
@@ -75,6 +82,6 @@ namespace Kompas.Client.Networking
 
 		public void DeclineResponse() => Send(new PassPriorityPacket());
 		#endregion
-		*/
+		
 	}
 }

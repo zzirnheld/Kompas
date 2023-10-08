@@ -11,7 +11,7 @@ namespace Kompas.Client.UI.GameStart
 	public partial class GameStartController : Control
 	{
 		[Export]
-		private ClientGameController GameController { get; set; }
+		public ClientGameController GameController { get; private set; }
 
 		[Export]
 		private ConnectToServerController ConnectToServer { get; set; }
@@ -46,12 +46,14 @@ namespace Kompas.Client.UI.GameStart
 			ChangeState(State.ChooseHost);
 		}
 
+		public void GetDeck() => ChangeState(State.SelectDeck);
+
 		/// <summary>
-        /// Tries to connect to the given IP.
-        /// Doesn't allow trying to connect while you're already trying to connect.
-        /// Fire and forget. Async void isn't great but I don't want to hang the app on a button press by awaiting it in Process
-        /// </summary>
-        /// <param name="ip"></param>
+		/// Tries to connect to the given IP.
+		/// Doesn't allow trying to connect while you're already trying to connect.
+		/// Fire and forget. Async void isn't great but I don't want to hang the app on a button press by awaiting it in Process
+		/// </summary>
+		/// <param name="ip"></param>
 		public async void TryConnect(string ip)
 		{
 			if (connectionTask != null)
@@ -73,7 +75,7 @@ namespace Kompas.Client.UI.GameStart
 			{
 				tcpClient = await ClientNetworker.Connect(ip);
 			}
-			catch (System.Net.Sockets.SocketException e)
+			catch (SocketException e)
 			{
 				GD.PrintErr($"Failed to connect to {ip}. Stack trace:\n{e.StackTrace}");
 				FailedToConnect();
@@ -101,6 +103,8 @@ namespace Kompas.Client.UI.GameStart
 
 		private void ChangeState(State state)
 		{
+			GD.Print($"Changing state to {state}");
+
 			foreach (State s in Enum.GetValues(typeof(State)))
 				Tabs[s].Visible = s == state;
 		}

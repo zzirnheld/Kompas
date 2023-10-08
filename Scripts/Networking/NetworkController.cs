@@ -31,7 +31,7 @@ namespace Kompas.Networking
 
 		public abstract Task ProcessPacket((string command, string json) packetInfo);
 
-		protected virtual void Update()
+		public virtual void Tick()
 		{
 			if (tcpClient == null || !tcpClient.Connected) return;
 			NetworkStream networkStream = tcpClient.GetStream();

@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
-using Kompas.Cards.Loading;
 using Kompas.Client.Gamestate;
 using Kompas.Shared;
 using Kompas.UI;
-using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.UI.GameStart
 {
@@ -24,7 +22,7 @@ namespace Kompas.Client.UI.GameStart
 		private PackedScene MainDeckCardPrefab { get; set; }
 
 		[Export]
-		private ClientGameController GameController { get; set; }
+		private GameStartController GameStartController { get; set; }
 
 		private readonly IList<string> deckNames = new List<string>();
 
@@ -55,7 +53,7 @@ namespace Kompas.Client.UI.GameStart
 			ClearDeck();
 			foreach (var cardName in decklist.deck)
 			{
-				var card = GameController.CardRepository.InstantiateDeckSelectCard(cardName);
+				var card = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(cardName);
 				var ctrl = CreateCardController();
 				ctrl.Init(card);
 
@@ -64,7 +62,7 @@ namespace Kompas.Client.UI.GameStart
 				DeckContainer.AddChild(ctrl);
 			}
 
-			var avatar = GameController.CardRepository.InstantiateDeckSelectCard(decklist.avatarName);
+			var avatar = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(decklist.avatarName);
 			AvatarController.Init(avatar);
 		}
 
@@ -73,12 +71,17 @@ namespace Kompas.Client.UI.GameStart
 			foreach (var child in DeckContainer.GetChildren()) child.QueueFree();
 		}
 
-
 		private SelectDeckCardController CreateCardController()
 		{
 			if (MainDeckCardPrefab.Instantiate() is not SelectDeckCardController controller)
 					throw new System.ArgumentNullException(nameof(MainDeckCardPrefab), "Was not the right type");
 			return controller;
+		}
+
+		public void SelectDeck()
+		{
+			var decklist = DeckAccess.Load(deckNames[DeckSelect.Selected]);
+			GameStartController.GameController.Notifier.RequestDecklistImport(decklist);
 		}
 	}
 }

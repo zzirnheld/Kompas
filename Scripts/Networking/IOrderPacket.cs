@@ -13,7 +13,7 @@ namespace Kompas.Client.Networking
 		/// Executes the packet for the given client game.
 		/// </summary>
 		/// <param name="clientGame">The client game to execute the packet from.</param>
-		void Execute(ClientGame clientGame);
+		void Execute(ClientGame clientGame); //TODO consider passing in the ClientGameController
 	}
 }
 
