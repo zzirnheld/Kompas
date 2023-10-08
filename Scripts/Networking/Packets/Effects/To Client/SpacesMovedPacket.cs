@@ -26,12 +26,15 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			throw new System.NotImplementedException();
+			/*
 			var card = clientGame.LookupCardByID(cardId);
 			if (card != null)
 			{
 				card.SpacesMoved = spacesMoved;
 				clientGame.UIController.CardViewController.Refresh();
 			}
+			*/
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
+using Kompas.Cards.Models;
 
 namespace Kompas.Networking.Packets
 {

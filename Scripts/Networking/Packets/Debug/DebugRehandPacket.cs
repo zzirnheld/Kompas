@@ -1,6 +1,7 @@
-﻿using Kompas.Cards.Movement;
+﻿using Godot;
 using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -20,7 +21,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class DebugRehandServerPacket : DebugRehandPacket, IServerOrderPacket
 	{
@@ -29,7 +30,10 @@ namespace KompasServer.Networking
 			var card = serverGame.LookupCardByID(cardId);
 			if (card == null)
 				return Task.CompletedTask;
-			else if (serverGame.UIController.DebugMode)
+
+			throw new System.NotImplementedException();
+			/*
+			else if (serverGame.DebugMode)
 			{
 				GD.PrintErr($"Debug rehanding card with id {cardId}");
 				card.Rehand();
@@ -40,6 +44,7 @@ namespace KompasServer.Networking
 				player.notifier.NotifyPutBack();
 			}
 			return Task.CompletedTask;
+			*/
 		}
 	}
 }

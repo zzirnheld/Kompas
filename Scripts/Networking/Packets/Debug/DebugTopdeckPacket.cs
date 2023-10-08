@@ -1,6 +1,7 @@
-﻿using Kompas.Cards.Movement;
+﻿using Godot;
 using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -20,16 +21,19 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class DebugTopdeckServerPacket : DebugTopdeckPacket, IServerOrderPacket
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
+
+			throw new System.NotImplementedException();
+			/*
 			var card = serverGame.LookupCardByID(cardId);
 			if (card == null)
 				return Task.CompletedTask;
-			else if (serverGame.UIController.DebugMode)
+			else if (serverGame.DebugMode)
 			{
 				GD.PrintErr($"Debug topdecking card with id {cardId}");
 				card.Topdeck();
@@ -40,6 +44,7 @@ namespace KompasServer.Networking
 				player.notifier.NotifyPutBack();
 			}
 			return Task.CompletedTask;
+			*/
 		}
 	}
 }

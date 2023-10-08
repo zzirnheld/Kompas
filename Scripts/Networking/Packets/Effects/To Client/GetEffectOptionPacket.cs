@@ -1,7 +1,5 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
-using KompasClient.UI;
-using KompasCore.UI;
 
 namespace Kompas.Networking.Packets
 {
@@ -36,11 +34,14 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			throw new System.NotImplementedException();
+			/*
 			if (hasDefault && clientGame.clientUIController.effectsUIController.OptionalEffAutoResponse == EffectsUIController.OptionalEffYes)
 				clientGame.clientNotifier.RequestChooseEffectOption(0);
 			else if (hasDefault && clientGame.clientUIController.effectsUIController.OptionalEffAutoResponse == EffectsUIController.OptionalEffNo)
 				clientGame.clientNotifier.RequestChooseEffectOption(1);
 			else clientGame.clientUIController.effectsUIController.ShowEffectOptions(choiceBlurb, optionBlurbs, showX, x);
+			*/
 		}
 	}
 }

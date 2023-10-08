@@ -1,6 +1,5 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
-using KompasCore.GameCore;
 using System.Linq;
 
 namespace Kompas.Networking.Packets
@@ -30,10 +29,13 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			throw new System.NotImplementedException();
+			/*
 			clientGame.clientUIController.TargetMode = TargetMode.SpaceTarget;
 			//TODO check whether client setting says "yes recommendations" or not
 			clientGame.CurrentPotentialSpaces = recommendedSpaces.Select(s => (s / 7, s % 7)).ToArray();
 			clientGame.clientUIController.currentStateUIController.ChooseSpaceTarget(cardName, targetBlurb);
+			*/
 		}
 	}
 }

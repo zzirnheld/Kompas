@@ -1,8 +1,5 @@
 ﻿using Kompas.Client.Gamestate;
-using KompasCore.Effects;
 using Kompas.Networking.Packets;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Kompas.Networking.Packets
 {
@@ -29,7 +26,9 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			List<Trigger> triggers = new List<Trigger>();
+			throw new System.NotImplementedException();
+			/*
+			List<Trigger> triggers = new();
 			for (int i = 0; i < sourceCardIds.Length; i++)
 			{
 				var card = clientGame.LookupCardByID(sourceCardIds[i]);
@@ -37,6 +36,7 @@ namespace Kompas.Client.Networking
 				if (trigger != null) triggers.Add(trigger);
 			}
 			clientGame.clientUIController.effectsUIController.triggerOrderUI.OrderTriggers(triggers);
+			*/
 		}
 	}
 }

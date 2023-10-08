@@ -1,8 +1,9 @@
+using Kompas.Effects.Models;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Effects.Models
+namespace Kompas.Server.Effects.Models
 {
 	public class ServerEffect : Effect
 	{

@@ -1,16 +1,18 @@
 ﻿using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
+using Kompas.Shared;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
 {
 	public class SetDeckPacket : Packet
 	{
-		public string decklist = "";
+		public Decklist decklist;
 
 		public SetDeckPacket() : base(SetDeck) { }
 
-		public SetDeckPacket(string decklist) : this()
+		public SetDeckPacket(Decklist decklist) : this()
 		{
 			this.decklist = decklist;
 		}
@@ -19,7 +21,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class SetDeckServerPacket : SetDeckPacket, IServerOrderPacket
 	{

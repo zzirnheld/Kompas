@@ -28,7 +28,8 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			clientGame.clientPlayers[playerIndex].deckController.DeckCount = count;
+			throw new System.NotImplementedException();
+			//clientGame.clientPlayers[playerIndex].deckController.DeckCount = count;
 		}
 	}
 }

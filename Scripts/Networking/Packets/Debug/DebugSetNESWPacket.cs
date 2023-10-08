@@ -1,5 +1,7 @@
-﻿using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+﻿using Godot;
+using Kompas.Networking.Packets;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -27,16 +29,19 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class DebugSetNESWServerPacket : DebugSetNESWPacket, IServerOrderPacket
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
+
+			throw new System.NotImplementedException();
+			/*
 			var card = serverGame.LookupCardByID(cardId);
 			if (card == null)
 				return Task.CompletedTask;
-			else if (serverGame.UIController.DebugMode)
+			else if (serverGame.DebugMode)
 			{
 				GD.PrintErr($"Debug setting NESW to {n}, {e}, {s}, {w} of card with id {cardId}");
 				card.SetCharStats(n, e, s, w);
@@ -47,6 +52,7 @@ namespace KompasServer.Networking
 				card.CardController.PutBack();
 			}
 			return Task.CompletedTask;
+			*/
 		}
 	}
 }

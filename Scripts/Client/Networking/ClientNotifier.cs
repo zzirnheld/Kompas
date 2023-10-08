@@ -13,7 +13,7 @@ namespace Kompas.Client.Networking
 
 		private void Send(Packet packet)
 		{
-			//if (packet != null) Debug.Log($"Sending packet {packet}");
+			//if (packet != null) GD.Print($"Sending packet {packet}");
 			networkController.SendPacket(packet);
 		}
 
@@ -21,7 +21,7 @@ namespace Kompas.Client.Networking
 		#region Normal Request Actions
 		public void RequestPlay(GameCard card, int toX, int toY)
 		{
-			Debug.Log($"Requesting to play {card} to {toX}, {toY}");
+			GD.Print($"Requesting to play {card} to {toX}, {toY}");
 			if (card.CardType == 'A') Send(new AugmentActionPacket(card.ID, toX, toY));
 			else Send(new PlayActionPacket(card.ID, toX, toY));
 		}

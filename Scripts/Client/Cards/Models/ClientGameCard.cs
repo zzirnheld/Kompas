@@ -5,7 +5,6 @@ using Kompas.Cards.Models;
 using Kompas.Client.Cards.Controllers;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Players;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;

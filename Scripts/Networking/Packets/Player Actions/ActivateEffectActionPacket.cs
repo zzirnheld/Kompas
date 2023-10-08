@@ -1,6 +1,7 @@
 ﻿using Kompas.Networking.Packets;
-using KompasServer.Effects;
-using KompasServer.GameCore;
+using Kompas.Server.Effects;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,18 +24,18 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class ActivateEffectActionServerPacket : ActivateEffectActionPacket, IServerOrderPacket
 	{
 		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
-			var card = serverGame.LookupCardByID(cardId);
+			var card = serverGame.LookupServerCardByID(cardId);
 			if (card == null) return;
-			var eff = card.Effects.ElementAt(effIndex);
+			var eff = card.ServerEffects[effIndex];
 			if (eff == null) return;
 
-			await player.TryActivateEffect(eff as ServerEffect);
+			await player.TryActivateEffect(eff);
 		}
 	}
 }

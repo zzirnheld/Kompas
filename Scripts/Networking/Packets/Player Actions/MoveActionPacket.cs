@@ -1,5 +1,6 @@
 ﻿using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -23,13 +24,13 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class MoveActionServerPacket : MoveActionPacket, IServerOrderPacket
 	{
 		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
-			if (player.index == 1)
+			if (player.Index == 1)
 			{
 				x = 6 - x;
 				y = 6 - y;

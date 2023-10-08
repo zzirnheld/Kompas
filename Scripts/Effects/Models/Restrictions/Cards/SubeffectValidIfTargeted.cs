@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.InitializationRequirements;
+using Kompas.Server.Effects.Models;
 using Newtonsoft.Json;
 
-//TODO: move this to the KompasServer package?
+//TODO: move this to the Kompas.Server package?
 //If I do, I'd probably want to have some tyupe of "server-only restriction" thing, where it just always returns true if it's client side.
 //That could create some crustiness if I ever for some reason want to check a CardRestriction client side that includes this,
 //but considering it should only ever be part of a subeffect, that shouldn't happen.

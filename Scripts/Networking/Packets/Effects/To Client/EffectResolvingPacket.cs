@@ -1,7 +1,7 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using System.Linq;
-using KompasClient.Effects;
+using Kompas.Client.Effects;
 
 namespace Kompas.Networking.Packets
 {
@@ -32,11 +32,14 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			throw new System.NotImplementedException();
+			/*
 			var card = clientGame.LookupCardByID(sourceCardId);
 			if (card == null) return;
 			var eff = card.Effects.ElementAt(effIndex) as ClientEffect;
 			eff.Controller = clientGame.Players[controllerIndex];
 			eff.StartResolution(default); //TODO eventually make this be real
+			*/
 		}
 	}
 }

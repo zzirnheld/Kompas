@@ -1,9 +1,10 @@
 ﻿using Kompas.Cards.Models;
 using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+using Kompas.Server.Gamestate;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Networking.Packets
 {
@@ -24,7 +25,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class ListChoicesServerPacket : ListChoicesPacket, IServerOrderPacket
 	{

@@ -1,5 +1,7 @@
-﻿using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+﻿using Godot;
+using Kompas.Networking.Packets;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -19,19 +21,23 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class DebugSetPipsServerPacket : DebugSetPipsPacket, IServerOrderPacket
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
-			if (serverGame.UIController.DebugMode)
+
+			throw new System.NotImplementedException();
+			/*
+			if (serverGame.DebugMode)
 			{
-				GD.PrintErr($"Debug setting player {player.index} pips to {numPips}");
+				GD.PrintErr($"Debug setting player {Player.Index} pips to {numPips}");
 				player.Pips = numPips;
 			}
-			else GD.PrintErr($"Tried to debug set pips of player {player.index} to {numPips} while NOT in debug mode!");
+			else GD.PrintErr($"Tried to debug set pips of player {Player.Index} to {numPips} while NOT in debug mode!");
 			return Task.CompletedTask;
+			*/
 		}
 	}
 }

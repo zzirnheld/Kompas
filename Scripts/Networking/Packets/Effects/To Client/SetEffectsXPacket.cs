@@ -1,7 +1,7 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using System.Linq;
-using UnityEngine;
+using Godot;
 
 namespace Kompas.Networking.Packets
 {
@@ -35,7 +35,7 @@ namespace Kompas.Client.Networking
 			var card = clientGame.LookupCardByID(sourceCardId);
 			if (card != null)
 			{
-				Debug.Log($"{card} ;;;;\n {card?.Effects} ;;;;\n {card?.Effects?.ElementAt(effIndex)}");
+				GD.Print($"{card} ;;;;\n {card?.Effects} ;;;;\n {card?.Effects?.ElementAt(effIndex)}");
 				card.Effects.ElementAt(effIndex).X = x;
 			}
 		}

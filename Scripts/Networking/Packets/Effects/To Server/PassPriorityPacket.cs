@@ -1,5 +1,6 @@
 ﻿using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -12,14 +13,15 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class PassPriorityServerPacket : PassPriorityPacket, IServerOrderPacket
 	{
 		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
+			throw new System.NotImplementedException();
 			//player.PassedPriority = true;
-			await serverGame.effectsController.CheckForResponse(reset: false);
+			//await serverGame.EffectsController.CheckForResponse(reset: false);
 		}
 	}
 }

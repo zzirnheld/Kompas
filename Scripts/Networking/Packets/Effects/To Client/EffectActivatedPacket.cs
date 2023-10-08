@@ -1,8 +1,7 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using System.Linq;
-using KompasClient.Effects;
-using UnityEngine;
+using Godot;
 
 namespace Kompas.Networking.Packets
 {
@@ -32,10 +31,12 @@ namespace Kompas.Client.Networking
 		public void Execute(ClientGame clientGame)
 		{
 			var card = clientGame.LookupCardByID(sourceCardId);
-			Debug.Log($"Trying to activate effect of {sourceCardId}, which is {card}. its effect{effIndex} is {card?.Effects?.ElementAt(effIndex)}");
+			GD.Print($"Trying to activate effect of {sourceCardId}, which is {card}. its effect{effIndex} is {card?.Effects?.ElementAt(effIndex)}");
 			if (card == null) return;
-			var eff = card.Effects.ElementAt(effIndex) as ClientEffect;
-			eff?.Activated();
+			throw new System.NotImplementedException();
+			//TODO have a method on ClientGame that takes in an effect? since this shouldn't be a polymorphic method in ClientEffect/Effect
+			/*var eff = card.Effects.ElementAt(effIndex) as ClientEffect;
+			eff?.Activated();*/
 		}
 	}
 }

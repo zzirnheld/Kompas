@@ -1,5 +1,7 @@
-﻿using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+﻿using Godot;
+using Kompas.Networking.Packets;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -12,19 +14,23 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class DebugDrawServerPacket : DebugDrawPacket, IServerOrderPacket
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
-			if (serverGame.UIController.DebugMode)
+
+			throw new System.NotImplementedException();
+			/*
+			if (serverGame.DebugMode)
 			{
 				GD.PrintErr($"Debug drawing");
 				serverGame.Draw(player);
 			}
 			else GD.PrintErr($"Tried to debug draw while NOT in debug mode!");
 			return Task.CompletedTask;
+			*/
 		}
 	}
 }

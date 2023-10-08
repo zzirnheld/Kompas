@@ -1,10 +1,6 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
-using KompasCore.Effects;
-using KompasCore.GameCore;
-using UnityEngine;
 using Newtonsoft.Json;
-using KompasCore.Effects.Restrictions;
 
 namespace Kompas.Networking.Packets
 {
@@ -37,6 +33,8 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			throw new System.NotImplementedException();
+			/*
 			clientGame.clientUIController.TargetMode = list ? TargetMode.CardTargetList : TargetMode.CardTarget;
 			IListRestriction listRestriction = null;
 
@@ -49,12 +47,13 @@ namespace Kompas.Client.Networking
 			}
 			catch (System.ArgumentException)
 			{
-				Debug.LogError($"Error loading list restriction from json: {listRestrictionJson}");
+				GD.PrintError($"Error loading list restriction from json: {listRestrictionJson}");
 			}
 
 			clientGame.SetPotentialTargets(potentialTargetIds, listRestriction);
 			//TODO make the blurb plural if asking for multiple targets
 			clientGame.clientUIController.currentStateUIController.ChooseCardTarget(sourceCardName, targetBlurb);
+			*/
 		}
 	}
 }

@@ -27,11 +27,7 @@ namespace Kompas.Client.Networking
 		public void Execute(ClientGame clientGame)
 		{
 			var card = clientGame.LookupCardByID(attackerId);
-			if (card != null)
-			{
-				card.AttacksThisTurn = attacksThisTurn;
-				clientGame.UIController.CardViewController.Refresh();
-			}
+			if (card != null) card.AttacksThisTurn = attacksThisTurn;
 		}
 	}
 }

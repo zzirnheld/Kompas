@@ -1,4 +1,7 @@
+using System.Threading.Tasks;
 using Kompas.Client.Gamestate;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 
 //TODO: move these to the relevant places. figure out where to put them in the folder structure - for convenience, they should probably stay in their own area,
 //since the server and client packets' neutral versions need to be visible to the other
@@ -25,6 +28,6 @@ namespace Kompas.Server.Networking
 		/// <param name="serverGame">The server game to apply the packet to.</param>
 		/// <param name="player">The player who this packet came from.</param>
 		//TODO server
-		//Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter);
+		Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter);
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Kompas.Networking.Packets;
-using KompasServer.GameCore;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -21,13 +22,13 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class SpaceTargetServerPacket : SpaceTargetPacket, IServerOrderPacket
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
-			if (player.index != 0)
+			if (player.Index != 0)
 			{
 				x = 6 - x;
 				y = 6 - y;

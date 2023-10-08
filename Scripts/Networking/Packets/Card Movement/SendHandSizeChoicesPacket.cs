@@ -1,5 +1,7 @@
 ﻿using Godot;
 using Kompas.Networking.Packets;
+using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets
@@ -20,7 +22,7 @@ namespace Kompas.Networking.Packets
 	}
 }
 
-namespace KompasServer.Networking
+namespace Kompas.Server.Networking
 {
 	public class SendHandSizeChoicesServerPacket : SendHandSizeChoicesPacket, IServerOrderPacket
 	{

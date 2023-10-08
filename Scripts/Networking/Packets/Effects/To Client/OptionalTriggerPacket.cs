@@ -1,8 +1,5 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
-using System.Linq;
-using KompasClient.Effects;
-using UnityEngine;
 
 namespace Kompas.Networking.Packets
 {
@@ -39,16 +36,19 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			throw new System.NotImplementedException();
+			/*
 			var card = clientGame.LookupCardByID(sourceCardId);
 			if (card == null)
 			{
-				Debug.LogWarning($"Could not find card with id {sourceCardId}");
+				GD.PrintWarning($"Could not find card with id {sourceCardId}");
 				return;
 			}
 			if (card.Effects.ElementAt(effIndex).Trigger is not ClientTrigger trigger) return;
 
 			trigger.ClientEffect.ClientController = clientGame.clientPlayers[playerBeingAsked];
 			clientGame.clientUIController.effectsUIController.ShowOptionalTrigger(trigger, showX, x);
+			*/
 		}
 	}
 }

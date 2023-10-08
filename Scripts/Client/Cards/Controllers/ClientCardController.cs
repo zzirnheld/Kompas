@@ -54,7 +54,7 @@ namespace Kompas.Client.Cards.Controllers
 
 		private void OnDestroy()
 		{
-			//Debug.Log("Destroying a client card ctrl. Destroying this ctrl's mouse ctrl.");
+			//GD.Print("Destroying a client card ctrl. Destroying this ctrl's mouse ctrl.");
 			Destroy(mouseController);
 		}*/
 	}

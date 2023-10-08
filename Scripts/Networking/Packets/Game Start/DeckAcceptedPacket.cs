@@ -16,6 +16,7 @@ namespace Kompas.Client.Networking
 	public class DeckAcceptedClientPacket : DeckAcceptedPacket, IClientOrderPacket
 	{
 		public void Execute(ClientGame clientGame)
-			=> clientGame.clientUIController.connectionUIController.DeckAccepted();
+			=> throw new System.NotImplementedException();
+			//=> clientGame.clientUIController.connectionUIController.DeckAccepted();
 	}
 }
