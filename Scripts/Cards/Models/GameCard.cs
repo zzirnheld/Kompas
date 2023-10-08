@@ -15,7 +15,7 @@ namespace Kompas.Cards.Models
 {
 	public abstract class GameCard : GameCardBase, IGameCard
 	{
-		public abstract CardController CardController { get; }
+		public abstract ICardController CardController { get; }
 		public abstract IGame Game { get; }
 
 		public int ID { get; private set; }
@@ -189,7 +189,7 @@ namespace Kompas.Cards.Models
 			ID = id;
 		}
 
-		protected GameCard(SerializableCard serializeableCard, int id, IGame game, IPlayer owningPlayer)
+		protected GameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer)
 			: base(serializeableCard.Stats,
 					   serializeableCard.subtext, serializeableCard.spellTypes,
 					   serializeableCard.unique,
@@ -205,7 +205,7 @@ namespace Kompas.Cards.Models
 			ID = id;
 			InitialCardValues = serializeableCard;
 
-			var initContext = new EffectInitializationContext(game, this); //Can't use property because constructor hasn't gotten there yet
+			var initContext = new EffectInitializationContext(owningPlayer.Game, this); //Can't use property because constructor hasn't gotten there yet
 
 			MovementRestriction = serializeableCard.movementRestriction ?? IMovementRestriction.CreateDefault();
 			MovementRestriction.Initialize(initContext);

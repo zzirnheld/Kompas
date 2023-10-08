@@ -40,7 +40,7 @@ namespace Kompas.Client.Cards.Models
 		public ClientEffect[] ClientEffects { get; private set; }
 		public override IReadOnlyCollection<Effect> Effects => ClientEffects;
 		public ClientCardController ClientCardController { get; private set; }
-		public override CardController CardController => ClientCardController;
+		public override ICardController CardController => ClientCardController;
 
 		private bool knownToEnemy = false;
 		public override bool KnownToEnemy

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
@@ -22,7 +23,7 @@ namespace Kompas.Effects.Models
 		public int X { get; set; }
 
 		public static ResolutionContext PlayerTrigger(Effect effect, IGame game)
-			=> new ResolutionContext(new TriggeringEventContext(game: game, stackableEvent: effect));
+			=> new(new TriggeringEventContext(game: game, stackableEvent: effect));
 
 		public ResolutionContext(TriggeringEventContext triggerContext)
 		: this(triggerContext, 0,
@@ -56,7 +57,7 @@ namespace Kompas.Effects.Models
 			X = TriggerContext?.x ?? 0;
 		}
 
-		private List<T> Clone<T>(IEnumerable<T> list)
+		private static List<T> Clone<T>(IEnumerable<T> list)
 		{
 			if (list == null) return new List<T>();
 			else return new List<T>(list);

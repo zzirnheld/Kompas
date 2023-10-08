@@ -33,7 +33,7 @@ namespace Kompas.Server.Gamestate.Players
 
 
 		//If the player tries to do something, it goes here to check if it's ok, then do it if it is ok.
-		#region Player Control Methods
+		#region IPlayer Control Methods
 		/// <summary>
 		/// x and y here are from playerIndex's perspective
 		/// </summary>
@@ -54,7 +54,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 			catch (KompasException ke)
 			{
-				Debug.LogError(ke);
+				GD.PrintErr(ke);
 				notifier.NotifyPutBack();
 			}*/
 		}
@@ -78,7 +78,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 			catch (KompasException ke)
 			{
-				Debug.LogError($"Player {index} attempted an invalid play of {card} to {space}. Resulting exception:\n{ke}");
+				GD.PrintErr($"Player {index} attempted an invalid play of {card} to {space}. Resulting exception:\n{ke}");
 				notifier.NotifyPutBack();
 			}*/
 		}
@@ -99,7 +99,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 			catch (KompasException ke)
 			{
-				Debug.LogError(ke);
+				GD.PrintErr(ke);
 				notifier.NotifyPutBack();
 			}*/
 		}
@@ -144,6 +144,6 @@ namespace Kompas.Server.Gamestate.Players
 				await game.SwitchTurn();
 				*/
 		}
-		#endregion Player Control Methods
+		#endregion IPlayer Control Methods
 	}
 }

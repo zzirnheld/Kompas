@@ -50,7 +50,7 @@ namespace Kompas.Effects.Subeffects
 			public int? playerTargetIndex;
 			public int? stackableTargetIndex;
 
-			public TargetingContext OrElse(TargetingContext other) => new TargetingContext()
+			public TargetingContext OrElse(TargetingContext other) => new()
 			{
 				cardTargetIndex = cardTargetIndex ?? other.cardTargetIndex,
 				spaceTargetIndex = spaceTargetIndex ?? other.spaceTargetIndex,
@@ -60,7 +60,7 @@ namespace Kompas.Effects.Subeffects
 			};
 		}
 
-		public TargetingContext CurrTargetingContext => new TargetingContext()
+		public TargetingContext CurrTargetingContext => new()
 		{
 			cardTargetIndex = targetIndex,
 			spaceTargetIndex = spaceIndex,
@@ -70,7 +70,6 @@ namespace Kompas.Effects.Subeffects
 		};
 
 		public virtual Effect Effect { get; }
-		public virtual IPlayer Controller { get; }
 		public virtual IGame Game { get; }
 
 		public int SubeffIndex { get; protected set; }

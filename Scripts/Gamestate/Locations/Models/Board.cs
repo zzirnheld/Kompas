@@ -214,14 +214,15 @@ namespace Kompas.Gamestate.Locations.Models
 				throw new CardNotHereException(Location, toRemove, $"Card thinks it's at {toRemove.Position}, but {board[x, y]} is there");
 		}
 
+		//TODO: client/server versions should expose a method that takes in a client/server card
+
 		/// <summary>
 		/// Puts the card on the board.
-        /// DOES NOT change the card's controller
 		/// </summary>
 		/// <param name="toPlay">Card to be played</param>
 		/// <param name="toX">X coordinate to play the card to</param>
 		/// <param name="toY">Y coordinate to play the card to</param>
-		public void Play(GameCard toPlay, Space to, IPlayer player, IStackable stackSrc = null)
+		protected void Play(GameCard toPlay, Space to, IPlayer player, IStackable stackSrc = null)
 		{
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");

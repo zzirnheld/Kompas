@@ -14,7 +14,7 @@ namespace Kompas.Cards.Loading
 	public partial class GameCardRepository<TSerializableCard, TEffect, TCardController> : CardRepository
 		where TSerializableCard : SerializableGameCard
 		where TEffect : Effect
-		where TCardController : CardController
+		where TCardController : class, ICardController
 	{
 
 		[Export]
@@ -26,7 +26,7 @@ namespace Kompas.Cards.Loading
 			foreach (var c in ccc.CardControllers)
 			{
 				if (c is TCardController cc) ret = cc;
-				else c.QueueFree();
+				else c.Delete();
 			}
 
 			if (ret == null) throw new System.NotImplementedException($"None of the card controllers were a {typeof(TCardController)}");

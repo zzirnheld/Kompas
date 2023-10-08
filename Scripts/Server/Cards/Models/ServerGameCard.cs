@@ -3,6 +3,8 @@ using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
+using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
 
@@ -13,17 +15,20 @@ namespace Kompas.Server.Cards.Models
 		public ServerGame ServerGame { get; private set; }
 		public override IGame Game => ServerGame;
 
-		public ServerEffect[] ServerEffects { get; private set; }
+		public ServerEffect[] ServerEffects { get; init; }
 		public override IReadOnlyCollection<Effect> Effects => ServerEffects;
 
-		public override bool IsAvatar => throw new System.NotImplementedException();
+		public override bool IsAvatar { get; }
 
-		public override CardController CardController => throw new System.NotImplementedException();
+		public override ICardController CardController { get; }
 
 		public override bool KnownToEnemy { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-		public ServerGameCard(int id) : base(id)
+		public ServerGameCard(SerializableCard serializeableCard, int id, ServerCardController cardController, IPlayer owningPlayer, ServerEffect[] effects, bool isAvatar)
+			: base(serializeableCard, id, owningPlayer)
 		{
+			CardController = cardController;
+			IsAvatar = isAvatar;
 		}
 
 		/*
@@ -45,14 +50,14 @@ namespace Kompas.Server.Cards.Models
 				foreach (var eff in Effects) eff.Controller = value;
 			}
 		}
-		public override Player Controller
+		public override IPlayer Controller
 		{
 			get => ServerController;
 			set => ServerController = value as ServerPlayer;
 		}
 
 		public ServerPlayer ServerOwner { get; private set; }
-		public override Player Owner => ServerOwner;
+		public override IPlayer Owner => ServerOwner;
 
 		public override int SpacesMoved {
 			get => base.SpacesMoved;

@@ -32,10 +32,7 @@ namespace Kompas.Client.Cards.Loading
 			return InstantiateGameCard(SanitizeJson(json), ConstructAvatar, validation);
 		}
 
-		private string SanitizeJson(string json)
-		{
-			return json.Replace(", Assembly-CSharp", ", Kompas");
-		}
+		private string SanitizeJson(string json) => json; //TODO
 
 		public ClientGameCard InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
 		{

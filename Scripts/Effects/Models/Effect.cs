@@ -15,7 +15,6 @@ namespace Kompas.Effects.Models
 	public abstract class Effect : IStackable
 	{
 		public abstract IGame Game { get; }
-		public abstract IPlayer ControllingPlayer { get; }
 
 		public int EffectIndex { get; private set; }
 		public GameCard Source { get; private set; }
@@ -59,12 +58,7 @@ namespace Kompas.Effects.Models
 		public string blurb;
 		public int arg; //used for keyword arguments, and such
 
-		private IResolutionContext resolutionContext;
-		public virtual IResolutionContext CurrentResolutionContext
-		{
-			get => resolutionContext;
-			protected set => resolutionContext = value;
-		}
+		public abstract IResolutionContext CurrentResolutionContext { get; }
 		public TriggeringEventContext CurrTriggerContext => CurrentResolutionContext.TriggerContext;
 		public int TimesUsedThisTurn { get; protected set; }
 		public int TimesUsedThisRound { get; protected set; }
@@ -101,7 +95,7 @@ namespace Kompas.Effects.Models
 		}
 
 		public virtual bool CanBeActivatedBy(IPlayer controller)
-			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game));
+			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game, controller));
 
 		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);

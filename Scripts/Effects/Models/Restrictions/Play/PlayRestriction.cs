@@ -104,7 +104,7 @@ namespace Kompas.Effects.Models.Restrictions.Play
 		}
 
 		public bool IsRecommendedNormalPlay((Space s, IPlayer p) item)
-			=> IsRecommendedPlay(item, ResolutionContext.PlayerTrigger(null, InitializationContext.game));
+			=> IsRecommendedPlay(item, ResolutionContext.PlayerTrigger(null, InitializationContext.game, InitializationContext.Controller));
 
 		public bool IsRecommendedPlay((Space s, IPlayer p) item, IResolutionContext context)
 			=> IsValid(item, context)

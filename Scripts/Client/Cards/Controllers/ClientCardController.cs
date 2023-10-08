@@ -1,10 +1,12 @@
 
+using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Cards.Models;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Client.Cards.Controllers
 {
-	public partial class ClientCardController : CardController
+	public partial class ClientCardController : Node, ICardController
 	{
 		private ClientGameCard card;
 		public ClientGameCard ClientCard
@@ -24,6 +26,23 @@ namespace Kompas.Client.Cards.Controllers
 			{
 				throw new System.NotImplementedException();
 			}
+		}
+
+		public void Delete() => QueueFree();
+
+		public void RefreshLinks()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void RefreshStats()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void SetPhysicalLocation(Location location)
+		{
+			throw new System.NotImplementedException();
 		}
 
 		/*

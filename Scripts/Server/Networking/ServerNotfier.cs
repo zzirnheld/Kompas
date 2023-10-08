@@ -74,7 +74,7 @@ namespace Kompas.Server.Networking
 			=> SendToBothInverting(new AttachCardPacket(toAttach, space.x, space.y, invert: Player.Index != 0), wasKnown);
 
 		/// <summary>
-		/// Notifies that the Player corresponding to this notifier played a given card
+		/// Notifies that the IPlayer corresponding to this notifier played a given card
 		/// </summary>
 		public void NotifyPlay(GameCard toPlay, Space space, bool wasKnown)
 		{
