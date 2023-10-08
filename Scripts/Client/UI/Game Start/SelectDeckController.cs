@@ -82,6 +82,7 @@ namespace Kompas.Client.UI.GameStart
 		{
 			var decklist = DeckAccess.Load(deckNames[DeckSelect.Selected]);
 			GameStartController.GameController.Notifier.RequestDecklistImport(decklist);
+			GameStartController.DeckSubmitted();
 		}
 	}
 }

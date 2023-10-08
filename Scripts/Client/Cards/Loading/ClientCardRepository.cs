@@ -29,12 +29,17 @@ namespace Kompas.Client.Cards.Loading
 			ClientGameCard ConstructAvatar(ClientSerializableCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
 				=> new(cardInfo, id, game, owner, effects, ctrl, isAvatar: true);
 
-			return InstantiateGameCard(json, ConstructAvatar, validation);
+			return InstantiateGameCard(SanitizeJson(json), ConstructAvatar, validation);
+		}
+
+		private string SanitizeJson(string json)
+		{
+			return json.Replace(", Assembly-CSharp", ", Kompas");
 		}
 
 		public ClientGameCard InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
 		{
-			var card = InstantiateGameCard(json,
+			var card = InstantiateGameCard(SanitizeJson(json),
 				(cardInfo, effects, ctrl) => new ClientGameCard(cardInfo, id, game, owner, effects, ctrl));
 
 			//TODO set materials - should happen elsewhere based on ClientSettings? or maybe as a callback after controller is instantiated
@@ -62,7 +67,7 @@ namespace Kompas.Client.Cards.Loading
 		{
 			try
 			{
-				SerializableCard serializableCard = JsonConvert.DeserializeObject<SerializableCard>(json, CardLoadingSettings);
+				SerializableCard serializableCard = JsonConvert.DeserializeObject<SerializableCard>(SanitizeJson(json), CardLoadingSettings);
 				return new SelectDeckCard(serializableCard.Stats, serializableCard.subtext, serializableCard.spellTypes, serializableCard.unique,
 					serializableCard.radius, serializableCard.duration, serializableCard.cardType, serializableCard.cardName,
 					fileName, //TODO signature that takes in serializablecard, TODO signature in card base for the same, TODO fileName

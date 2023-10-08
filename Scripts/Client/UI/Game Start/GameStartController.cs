@@ -46,8 +46,6 @@ namespace Kompas.Client.UI.GameStart
 			ChangeState(State.ChooseHost);
 		}
 
-		public void GetDeck() => ChangeState(State.SelectDeck);
-
 		/// <summary>
 		/// Tries to connect to the given IP.
 		/// Doesn't allow trying to connect while you're already trying to connect.
@@ -100,6 +98,9 @@ namespace Kompas.Client.UI.GameStart
 			ChangeState(State.WaitingForPlayer);
 			GameController.SuccessfullyConnected(tcpClient);
 		}
+
+		public void GetDeck() => ChangeState(State.SelectDeck);
+		public void DeckSubmitted() => ChangeState(State.WaitingForServer);
 
 		private void ChangeState(State state)
 		{
