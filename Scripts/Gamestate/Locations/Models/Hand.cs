@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
@@ -25,7 +26,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public override int IndexOf(GameCard card) => hand.IndexOf(card);
 
-		protected override void PerformAdd(GameCard card, int? index)
+		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)
 		{
 			if (index.HasValue) hand.Insert(index.Value, card);
 			else hand.Add(card);

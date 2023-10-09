@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
@@ -20,7 +21,7 @@ namespace Kompas.Gamestate.Locations.Models
 			this.annihilationController = annihilationController;
 		}
 
-		protected override void PerformAdd(GameCard card, int? index)
+		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)
 		{
 			if (index.HasValue) cards.Insert(index.Value, card);
 			else cards.Add(card);

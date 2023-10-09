@@ -19,12 +19,6 @@ namespace Kompas.Server.Gamestate.Players
 
 		public IPlayer Enemy { get; private set; }
 
-		public static void Enemies(ServerPlayer a, ServerPlayer b)
-		{
-			a.Enemy = b;
-			b.Enemy = a;
-		}
-
 		public int Pips { get; set; }
 
 		private GameCard _avatar;
@@ -57,11 +51,29 @@ namespace Kompas.Server.Gamestate.Players
 			Index = index;
 		}
 
-		public ServerPlayer Create(ServerGameController gameController, int index)
+		//Factory methods, so we can initialize the location models with the player
+		private static ServerPlayer Create(ServerGame game, PlayerController controller, int index)
 		{
-			ServerPlayer ret = new(gameController.ServerGame, index);
+			ServerPlayer ret = new(game, index);
 
-			ret.Deck = new ServerDeck(ret, new ServerDeckController(), gameController.ServerGame);
+			ret.Deck = new ServerDeck(ret, controller.DeckController, game);
+			ret.Discard = new ServerDiscard(ret, controller.DiscardController, game);
+			ret.Hand = new ServerHand(ret, controller.HandController, game);
+			ret.Annihilation = new ServerAnnihilation(ret, controller.AnnihilationController, game);
+
+			return ret;
+		}
+
+		public static ServerPlayer[] Create(ServerGameController gameController)
+		{
+			ServerPlayer[] ret =
+			{
+				Create(gameController.ServerGame, gameController.PlayerControllers[0], 0),
+				Create(gameController.ServerGame, gameController.PlayerControllers[1], 1),
+			};
+
+			ret[0].Enemy = ret[1];
+			ret[1].Enemy = ret[0];
 
 			return ret;
 		}
