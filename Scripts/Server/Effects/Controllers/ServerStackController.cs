@@ -168,7 +168,7 @@ namespace Kompas.Server.Effects.Controllers
 			{
 				//GD.Print($"Resolving next stack entry: {stackable}, {context}");
 				//inform the players that they no longer can respond, in case they were somehow still thinking they could
-				foreach (var p in ServerGame.serverPlayers) ServerGame.Notifier.RequestNoResponse(p);
+				foreach (var p in ServerGame.Players) ServerGame.Notifier.RequestNoResponse(p);
 
 				//set the current stack entry to the appropriate value. this is used to check if something is currently resolving.
 				CurrStackEntry = stackable;
@@ -261,7 +261,7 @@ namespace Kompas.Server.Effects.Controllers
 			{
 				//create a list to hold the tasks, so you can get trigger orderings from both players at once.
 				List<Task> triggerOrderings = new();
-				foreach (var p in ServerGame.serverPlayers)
+				foreach (var p in ServerGame.Players)
 				{
 					var thisPlayers = confirmed.Where(t => t.serverEffect.OwningPlayer == p);
 					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(ServerGame.Awaiter.GetTriggerOrder(p, thisPlayers));

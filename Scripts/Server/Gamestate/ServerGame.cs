@@ -43,8 +43,8 @@ namespace Kompas.Server.Gamestate
 		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
 
 		//Players
-		public readonly ServerPlayer[] serverPlayers; //TODO these should be init'd in the GameController, then passed into here?
-		public IPlayer[] Players => serverPlayers;
+		private ServerPlayer[] ServerPlayers { get; set; }
+		public IPlayer[] Players => ServerPlayers;
 		public IPlayer TurnPlayer { get; private set; }
 		private int cardCount = 0;
 
@@ -86,13 +86,19 @@ namespace Kompas.Server.Gamestate
 
 		public void AddCard(ServerGameCard card) => cardsByID.Add(card.ID, card);
 
-		public ServerGame(ServerGameController gameController, ServerCardRepository cardRepo, ServerPlayer[] players)
+		public ServerGame(ServerGameController gameController, ServerCardRepository cardRepo)
 		{
 			ServerGameController = gameController;
 			this.serverCardRepository = cardRepo;
-			serverPlayers = players;
+		}
 
-			foreach (ServerPlayer p in serverPlayers) GetDeckFrom(p);
+		public void SetPlayers(ServerPlayer[] players)
+		{
+			if (players.Length != 2) throw new System.ArgumentException("Games support only exactly 2 players!", nameof(players));
+
+			ServerPlayers = players;
+			foreach (ServerPlayer p in ServerPlayers) GetDeckFrom(p);
+
 		}
 
 		#region players and game starting
@@ -167,7 +173,7 @@ namespace Kompas.Server.Gamestate
 			TurnPlayer = Players[FirstTurnPlayer];
 			Notifier.SetFirstTurnPlayer(TurnPlayer);
 
-			foreach (var p in serverPlayers)
+			foreach (var p in ServerPlayers)
 			{
 				p.Avatar.SetN(0, stackSrc: null);
 				p.Avatar.SetE(p.Avatar.E + AvatarEBonus, stackSrc: null);
@@ -197,7 +203,7 @@ namespace Kompas.Server.Gamestate
 			if (notFirstTurn) Draw(TurnPlayer);
 
 			//do hand size
-			serverStackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), serverPlayers[TurnPlayer.Index], default);
+			serverStackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
 
 			//trigger turn start effects
 			var context = new TriggeringEventContext(game: this, player: TurnPlayer);
@@ -260,7 +266,7 @@ namespace Kompas.Server.Gamestate
 
 		public GameCard LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
 
-		public ServerPlayer ServerControllerOf(GameCard card) => serverPlayers[card.ControllerIndex];
+		public ServerPlayer ServerControllerOf(GameCard card) => ServerPlayers[card.ControllerIndex];
 
 		public void DumpGameInfo()
 		{
