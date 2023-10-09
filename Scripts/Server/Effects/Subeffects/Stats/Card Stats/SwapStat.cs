@@ -1,5 +1,7 @@
 ﻿using Kompas.Effects.Models;
+using Kompas.Effects.Models.Identities.Numbers;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -22,12 +24,12 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			var secondTarget = Effect.GetTarget(secondTargetIndex);
 			if (CardTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != CardLocation.Board)
+			else if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
 
 			if (secondTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != CardLocation.Board)
+			else if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(secondTarget.Location, secondTarget, ChangedStatsOfCardOffBoard);
 
 			var firstStat = firstTargetStat.GetValueOf(CardTarget);

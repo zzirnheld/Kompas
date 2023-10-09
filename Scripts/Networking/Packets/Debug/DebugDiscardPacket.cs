@@ -40,7 +40,7 @@ namespace Kompas.Server.Networking
 			else
 			{
 				GD.PrintErr($"Tried to debug discard card with id {cardId} while NOT in debug mode!");
-				player.notifier.NotifyPutBack();
+				Notifier.NotifyPutBack();
 			}
 			return Task.CompletedTask;
 		}

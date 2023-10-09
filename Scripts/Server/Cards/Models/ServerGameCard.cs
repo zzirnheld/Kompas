@@ -25,9 +25,6 @@ namespace Kompas.Server.Cards.Models
 
 		public override bool KnownToEnemy { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-		public ServerPlayer ControllingServerPlayer { get; init; }
-		public override IPlayer ControllingPlayer => ControllingServerPlayer;
-
 		public ServerGameCard(SerializableCard serializeableCard, int id, ServerCardController cardController, IPlayer owningPlayer, ServerEffect[] effects, bool isAvatar)
 			: base(serializeableCard, id, owningPlayer)
 		{
@@ -82,12 +79,12 @@ namespace Kompas.Server.Cards.Models
 			}
 		}
 
-		public override CardLocation Location
+		public override Location Location
 		{
 			get => base.Location;
 			protected set
 			{
-				if (Location == CardLocation.Hand && value != CardLocation.Hand && !KnownToEnemy)
+				if (Location == Location.Hand && value != Location.Hand && !KnownToEnemy)
 					ServerController.enemy.notifier.NotifyDecrementHand();
 
 				if (Location != value) ResetCard();
@@ -95,12 +92,12 @@ namespace Kompas.Server.Cards.Models
 				base.Location = value;
 				switch (Location)
 				{
-					case CardLocation.Discard:
-					case CardLocation.Board:
-					case CardLocation.Annihilation:
+					case Location.Discard:
+					case Location.Board:
+					case Location.Annihilation:
 						KnownToEnemy = true;
 						break;
-					case CardLocation.Deck:
+					case Location.Deck:
 						KnownToEnemy = false;
 						break;
 						//Otherwise, KnownToEnemy doesn't change, if it's been added to the hand
@@ -211,7 +208,7 @@ namespace Kompas.Server.Cards.Models
 			var player = stackSrc?.Controller ?? Controller;
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: player);
 
-			var cardsThisLeft = Location == CardLocation.Board ?
+			var cardsThisLeft = Location == Location.Board ?
 				Game.BoardController.CardsAndAugsWhere(c => c != null && c.CardInAOE(this)).ToList() :
 				new List<GameCard>();
 			var leaveContexts = cardsThisLeft.Select(c =>
@@ -268,7 +265,7 @@ namespace Kompas.Server.Cards.Models
 
 			//kill if applicable
 			GD.Print($"E changed from {oldE} to {E}. Should it die?");
-			if (E <= 0 && CardType == 'C' && Summoned && Location != CardLocation.Nowhere && Location != CardLocation.Discard) this.Discard(stackSrc);
+			if (E <= 0 && CardType == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
 		}
 
 		public override void SetS(int s, IStackable stackSrc, bool onlyStatBeingSet = true)

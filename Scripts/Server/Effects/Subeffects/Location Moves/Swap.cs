@@ -1,7 +1,7 @@
-﻿using KompasCore.Cards;
-using KompasCore.Cards.Movement;
+﻿using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -16,12 +16,12 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			if (CardTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != CardLocation.Board)
+			else if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, MovedCardOffBoard);
 
 			if (SecondTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && SecondTarget.Location != CardLocation.Board)
+			else if (forbidNotBoard && SecondTarget.Location != Location.Board)
 				throw new InvalidLocationException(SecondTarget.Location, SecondTarget, MovedCardOffBoard);
 
 			CardTarget.Move(SecondTarget.Position, false, ServerEffect);

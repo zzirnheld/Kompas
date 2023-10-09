@@ -70,7 +70,7 @@ namespace Kompas.Server.Gamestate
 			set
 			{
 				_leyload = value;
-				serverPlayers[0].notifier.NotifyLeyload(Leyload);
+				Notifier.NotifyLeyload(Leyload);
 			}
 		}
 
@@ -96,7 +96,7 @@ namespace Kompas.Server.Gamestate
 		}
 
 		#region players and game starting
-		private void GetDeckFrom(ServerPlayer player) => player.notifier.GetDecklist();
+		private void GetDeckFrom(ServerPlayer player) => Notifier.GetDecklist(player);
 
 		//TODO for future logic like limited cards, etc.
 		private bool ValidDeck(List<string> deck)
@@ -133,7 +133,7 @@ namespace Kompas.Server.Gamestate
 		{
 			List<string> deck = SanitizeDeck(decklist);
 
-			if (ValidDeck(deck)) player.notifier.DeckAccepted();
+			if (ValidDeck(deck)) Notifier.DeckAccepted(player);
 			else
 			{
 				GetDeckFrom(player);
@@ -154,7 +154,7 @@ namespace Kompas.Server.Gamestate
 				cardCount++;
 				GD.Print($"Adding new card {card.CardName} with id {card.ID}");
 				player.Deck.ShuffleIn(card);
-				player.notifier.NotifyCreateCard(card, wasKnown: false);
+				Notifier.NotifyCreateCard(player, card, wasKnown: false);
 			}
 
 			player.Avatar = avatar;
@@ -173,7 +173,7 @@ namespace Kompas.Server.Gamestate
 			//determine who goes first and tell the players
 			FirstTurnPlayer = new System.Random().NextDouble() > 0.5f ? 0 : 1;
 			TurnPlayerIndex = FirstTurnPlayer;
-			Notifier.SetFirstTurnPlayer(FirstTurnPlayer);
+			Notifier.SetFirstTurnPlayer(Players[FirstTurnPlayer]);
 
 			foreach (var p in serverPlayers)
 			{
@@ -198,7 +198,7 @@ namespace Kompas.Server.Gamestate
 				TurnCount++;
 			}
 
-			TurnServerPlayer.notifier.NotifyYourTurn();
+			Notifier.NotifyYourTurn(TurnServerPlayer);
 			ResetCardsForTurn();
 
 			this.TurnPlayer().Pips += Leyload;
@@ -284,7 +284,7 @@ namespace Kompas.Server.Gamestate
 		public void Lose(ServerPlayer player)
 		{
 			Winner = player.Enemy;
-			Notifier.NotifyWin();
+			Notifier.NotifyWin(player);
 		}
 	}
 }

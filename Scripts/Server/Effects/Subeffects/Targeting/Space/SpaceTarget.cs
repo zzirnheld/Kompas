@@ -1,10 +1,12 @@
-﻿using KompasCore.Cards;
+﻿using Kompas.Cards.Models;
 using Kompas.Effects.Models;
-using Kompas.Effects.Models.Restrictions.SpaceRestrictionElements;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Gamestate;
+using Kompas.Effects.Models.Restrictions.Spaces;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -27,7 +29,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				.Select(s => PlayerTarget.SubjectiveCoords(s));
 
 		public override bool IsImpossible(TargetingContext overrideContext = null)
-			=> ValidSpaces.Count() == 0;
+			=> !ValidSpaces.Any();
 
 		/// <summary>
 		/// Whether this space target subeffect will be valid if the given theoretical target is targeted.
@@ -67,7 +69,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			}
 			else
 			{
-				GD.Print($"No valid coords exist for {ThisCard.CardName} effect");
+				GD.Print($"No valid coords exist for {Effect.Card.CardName} effect");
 				return ResolutionInfo.Impossible(NoValidSpaceTarget);
 			}
 		}
@@ -80,7 +82,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			{
 				GD.Print($"Adding {x}, {y} as coords");
 				ServerEffect.AddSpace(space);
-				ServerPlayer.notifier.AcceptTarget();
+				ServerGame.Notifier.AcceptTarget(PlayerTarget);
 				return true;
 			}
 			//else GD.PrintErr($"{x}, {y} not valid for restriction {spaceRestriction}");

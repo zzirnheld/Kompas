@@ -1,9 +1,12 @@
-﻿using KompasCore.Cards;
-using Kompas.Effects.Models;
+﻿using Kompas.Effects.Models;
 using Kompas.Server.Gamestate;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Kompas.Server.Gamestate.Players;
+using Kompas.Cards.Models;
+using Kompas.Gamestate;
+using Kompas.Effects.Models.Restrictions;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
@@ -33,7 +36,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 												 numTimesToDelay: numTimesToDelay,
 												 toResume: ServerEffect,
 												 indexToResumeResolution: JumpIndex,
-												 controller: EffectController,
+												 controller: ServerEffect.CurrentServerResolutionContext.ControllingPlayer,
 												 targets: Effect.CardTargets,
 												 cardInfoTargets: Effect.CardInfoTargets,
 												 spaces: Effect.SpaceTargets,
@@ -91,7 +94,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 			public override void Resolve(TriggeringEventContext context)
 			{
-				var myContext = new ResolutionContext(context, indexToResumeResolution, targets, default, cardInfoTargets, spaces, default, default, default);
+				var myContext = new ServerResolutionContext(context, controller, indexToResumeResolution, targets, default, cardInfoTargets, spaces, default, default, default);
 				serverGame.effectsController.PushToStack(toResume, controller, myContext);
 			}
 		}

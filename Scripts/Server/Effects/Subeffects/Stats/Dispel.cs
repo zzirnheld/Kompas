@@ -1,4 +1,4 @@
-﻿using KompasCore.Cards.Movement;
+﻿using Kompas.Cards.Movement;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects

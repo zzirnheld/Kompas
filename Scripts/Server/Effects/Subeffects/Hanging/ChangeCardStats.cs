@@ -1,9 +1,11 @@
-﻿using KompasCore.Cards;
-using Kompas.Effects.Models;
+﻿using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Gamestate;
 using System.Collections.Generic;
 using Godot;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Cards.Models;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
@@ -46,7 +48,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		{
 			if (CardTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != CardLocation.Board)
+			else if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
 
 			GD.Print($"Creating temp NESW buff effect during context {ResolutionContext}");

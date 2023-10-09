@@ -1,4 +1,4 @@
-﻿using KompasCore.Cards;
+﻿using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Cards;
 

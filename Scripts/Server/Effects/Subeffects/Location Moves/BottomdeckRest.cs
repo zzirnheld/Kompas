@@ -1,5 +1,4 @@
-﻿using KompasCore.GameCore;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -7,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			DeckController.BottomdeckMany(Effect.rest);
+			PlayerTarget.Deck.BottomdeckMany(Effect.rest);
 
 			return Task.FromResult(ResolutionInfo.Next);
 		}

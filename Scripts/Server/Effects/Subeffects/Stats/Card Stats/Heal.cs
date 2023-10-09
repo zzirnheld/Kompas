@@ -10,7 +10,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			if (CardTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != CardLocation.Board)
+			else if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
 			else if (CardTarget.E >= CardTarget.BaseE)
 				throw new InvalidCardException(CardTarget, TooMuchEForHeal);

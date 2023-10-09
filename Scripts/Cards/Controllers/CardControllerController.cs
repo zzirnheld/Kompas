@@ -8,6 +8,6 @@ namespace Kompas.Cards.Controllers
 	public partial class CardControllerController : Node
 	{
 		[Export]
-		public ICardController[] CardControllers { get; private set; }
+		public Node[] CardControllers { get; private set; }
 	}
 }

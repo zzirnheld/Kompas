@@ -16,12 +16,12 @@ namespace Kompas.Gamestate.Locations
 				"Discard" 			=> Location.Discard,
 				"Annihilation"		=> Location.Annihilation,
 				"Deck" 				=> Location.Deck,
-				_ => throw new System.NotImplementedException($"Unknown string to convert to CardLocation {str}"),
+				_ => throw new System.NotImplementedException($"Unknown string to convert to Location {str}"),
 			};
 		}
 
 		/// <summary>
-		/// Should reflect the CardLocationHelpers.FromString function
+		/// Should reflect the LocationHelpers.FromString function
 		/// </summary>
 		public static string StringVersion(this Location cardLocation) => cardLocation switch
 		{
@@ -32,7 +32,7 @@ namespace Kompas.Gamestate.Locations
 			Location.Annihilation => "Annihilation",
 			Location.Deck 		=> "Deck",
 
-			_ => throw new System.NotImplementedException($"Unknown CardLocation {cardLocation} to convert to string")
+			_ => throw new System.NotImplementedException($"Unknown Location {cardLocation} to convert to string")
 		};
 	}
 }

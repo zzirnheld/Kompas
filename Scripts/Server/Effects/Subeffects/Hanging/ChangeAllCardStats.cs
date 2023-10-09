@@ -1,9 +1,10 @@
-﻿using KompasCore.Cards;
-using Kompas.Effects.Models;
-using Kompas.Effects.Models.Restrictions.CardRestrictionElements;
-using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Gamestate.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Cards;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
@@ -38,7 +39,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			{
 				if (card == null)
 					throw new NullCardException(TargetWasNull);
-				else if (forbidNotBoard && card.Location != CardLocation.Board)
+				else if (forbidNotBoard && card.Location != Location.Board)
 					throw new InvalidLocationException(card.Location, card, ChangedStatsOfCardOffBoard);
 			}
 

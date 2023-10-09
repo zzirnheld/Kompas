@@ -1,7 +1,7 @@
-﻿using KompasCore.Cards;
+﻿using Kompas.Cards.Models;
 using Kompas.Effects.Models;
-using Kompas.Effects.Models.Restrictions.GamestateRestrictionElements;
-using KompasCore.GameCore;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Restrictions.Gamestate;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -25,9 +25,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			foreach (var c in Game.BoardController.CardsWhere(c => cardRestriction.IsValid(c, ResolutionContext)))
+			foreach (var c in Game.Board.CardsWhere(c => cardRestriction.IsValid(c, ResolutionContext)))
 			{
-				var ctxt = new TriggeringEventContext(game: ServerGame, CardBefore: c, stackableCause: Effect, player: EffectController, space: c.Position);
+				var ctxt = new TriggeringEventContext(game: ServerGame, CardBefore: c, stackableCause: Effect, player: PlayerTarget, space: c.Position);
 				ctxt.CacheCardInfoAfter();
 				ServerEffect.EffectsController.TriggerForCondition(Trigger.Play, ctxt);
 				ServerEffect.EffectsController.TriggerForCondition(Trigger.Arrive, ctxt);

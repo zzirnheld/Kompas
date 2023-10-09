@@ -1,12 +1,13 @@
-﻿using KompasCore.Cards;
-using KompasCore.Cards.Movement;
+﻿using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Cards.Movement;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Discard : ChangeGameLocation
 	{
-		protected override CardLocation Destination => CardLocation.Discard;
+		protected override Location Destination => Location.Discard;
 
 		protected override void ChangeLocation(GameCard card) => card.Discard(Effect);
 	}
@@ -15,7 +16,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		protected override void ChangeLocation(GameCard card)
 		{
-			TriggeringEventContext context = new TriggeringEventContext(game: ServerGame, CardBefore: card);
+			TriggeringEventContext context = new(game: ServerGame, CardBefore: card);
 			base.ChangeLocation(card);
 			context.CacheCardInfoAfter();
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Vanish, context);

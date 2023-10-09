@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using KompasCore.Cards;
-using KompasCore.Cards.Movement;
 using Kompas.Effects.Models;
 using Kompas.Server.Gamestate;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Cards.Models;
+using Kompas.Cards.Movement;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {

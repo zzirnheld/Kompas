@@ -1,4 +1,4 @@
-﻿using Kompas.Effects.Models;
+﻿using Kompas.Effects.Models.Restrictions;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects

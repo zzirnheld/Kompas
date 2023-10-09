@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models
 		public readonly GameCard attacker;
 		public readonly GameCard defender;
 
-		public GameCard Source => attacker;
+		public GameCard Card => attacker;
 		public IPlayer ControllingPlayer => controller;
 
 		/// <summary>

@@ -29,6 +29,8 @@ namespace Kompas.Client.Gamestate
 
 		public ClientStackController StackController { get; }
 
+		IStackController IGame.StackController => StackController;
+
 		private readonly ClientPlayer[] clientPlayers;
 		public IPlayer[] Players => clientPlayers;
 		public ClientPlayer FriendlyPlayer => clientPlayers[0];
@@ -78,10 +80,6 @@ namespace Kompas.Client.Gamestate
 				else uiController.boardUIController.ShowSpaceTargets(_ => false);
 			}
 		}*/
-
-		public IStackable CurrStackEntry => null; //TODO
-		public bool NothingHappening => !StackController.StackEntries.Any();
-		public IEnumerable<IStackable> StackEntries => StackController.StackEntries;
 
 		public bool canZoom = false;
 

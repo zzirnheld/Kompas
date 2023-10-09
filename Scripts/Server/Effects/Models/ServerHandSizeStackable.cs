@@ -22,7 +22,7 @@ namespace KompasServer.Effects
 		{
 			this.serverGame = serverGame;
 			//tell the players this is here now
-			serverGame.Notifier.NotifyHandSizeToStack();
+			serverGame.Notifier.NotifyHandSizeToStack(controller);
 		}
 		public async Task StartResolution(IServerResolutionContext context) => await RequestTargets();
 

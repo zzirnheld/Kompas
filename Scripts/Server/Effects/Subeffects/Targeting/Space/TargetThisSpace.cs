@@ -6,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			if (ThisCard.Location != CardLocation.Board)
+			if (ThisCard.Location != Location.Board)
 				return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
 			ServerEffect.AddSpace(ThisCard.Position);

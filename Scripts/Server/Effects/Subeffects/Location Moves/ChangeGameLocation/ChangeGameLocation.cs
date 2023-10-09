@@ -12,11 +12,11 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override bool IsImpossible(TargetingContext overrideContext = null)
 		{
-			var currLocation = GetCardTarget(overrideContext)?.LocationModel;
+			var currLocation = GetCardTarget(overrideContext)?.Location; //TODO allow moving from ex. one hand to another. needs to somehow be aware of which location will end up in
 			return currLocation == null || currLocation == Destination;
 		}
 
-		protected abstract ILocationModel Destination { get; }
+		protected abstract Location Destination { get; }
 
 		public override Task<ResolutionInfo> Resolve()
 		{

@@ -14,8 +14,8 @@ namespace Kompas.Server.Networking
 	{
 		[Export]
 		private PackedScene GamePrefab { get; set; }
-		[Export]
-		private ServerCardRepository CardRepo { get; set; }
+
+		private ServerCardRepository CardRepo { get; } = new ServerCardRepository();
 
 		private TcpListener listener;
 		private readonly IList<ServerGameController> games = new List<ServerGameController>();

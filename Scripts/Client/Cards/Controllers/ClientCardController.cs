@@ -59,7 +59,7 @@ namespace Kompas.Client.Cards.Controllers
 
 		protected override Transform BoardTransform => ClientUIController.boardUIController.spaceCueCubesParent;
 
-		public override void SetPhysicalLocation(CardLocation location)
+		public override void SetPhysicalLocation(Location location)
 		{
 			base.SetPhysicalLocation(location);
 			ClientUIController.cardInfoViewUIController.Refresh();

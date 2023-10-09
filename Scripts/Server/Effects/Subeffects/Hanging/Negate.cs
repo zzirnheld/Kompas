@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using KompasCore.Cards;
+using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Server.Gamestate;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging

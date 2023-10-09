@@ -1,4 +1,4 @@
-using KompasCore.Cards;
+using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 

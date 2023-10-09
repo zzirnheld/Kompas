@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using KompasCore.Cards;
 using Kompas.Effects.Models;
 using Kompas.Server.Gamestate;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
@@ -31,7 +32,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				Effect sourceEff, IResolutionContext resolutionContext, GameCard target, ServerSubeffect source)
 				: base(serverGame, triggerRestriction, endCondition, fallOffCondition, fallOffRestriction, sourceEff, resolutionContext, removeIfEnd: true)
 			{
-				this.target = target != null ? target : throw new System.ArgumentNullException(nameof(target), "Cannot target a null card for a hanging activation");
+				this.target = target ?? throw new System.ArgumentNullException(nameof(target), "Cannot target a null card for a hanging activation");
 				this.source = source ?? throw new System.ArgumentNullException(nameof(source), "Cannot make a hanging activation effect from no subeffect");
 				target.SetActivated(true, source.ServerEffect);
 			}

@@ -1,4 +1,4 @@
-﻿using KompasCore.Cards.Movement;
+﻿using Kompas.Cards.Movement;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -9,7 +9,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			for (int i = 0; i < Count; i++)
 			{
-				var card = PlayerTarget.deckCtrl.Topdeck;
+				var card = PlayerTarget.Deck.Topdeck;
 				if (card == null) return Task.FromResult(ResolutionInfo.Impossible(CouldntMillAllX));
 				ServerEffect.AddTarget(card);
 				card.Discard(ServerEffect);
