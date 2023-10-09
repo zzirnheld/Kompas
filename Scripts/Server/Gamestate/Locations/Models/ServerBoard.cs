@@ -18,7 +18,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 	{
 		private readonly ServerGame serverGame;
 
-		private ServerStackController EffectsController => serverGame.effectsController;
+		private ServerStackController EffectsController => serverGame.serverStackController;
 
 		public ServerBoard(BoardController boardController, ServerGame serverGame) : base(boardController)
 		{

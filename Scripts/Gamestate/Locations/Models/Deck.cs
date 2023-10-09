@@ -31,7 +31,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected override bool AllowAlreadyHereWhenAdd => true;
 
-		protected override void PerformAdd(GameCard card, int? index)
+		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)
 		{
 			if (index.HasValue) deck.Insert(index.Value, card);
 			else deck.Add(card);

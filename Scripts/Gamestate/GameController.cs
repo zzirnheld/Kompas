@@ -5,7 +5,7 @@ using Kompas.UI;
 
 namespace Kompas.Gamestate
 {
-	public partial class GameController : Node
+	public abstract partial class GameController : Node
 	{
 
 		[Export]
@@ -16,5 +16,7 @@ namespace Kompas.Gamestate
 
 		[Export]
 		public GameUIController UIController { get; private set; }
+
+		public abstract IGame Game { get; }
 	}
 }

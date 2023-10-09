@@ -16,7 +16,7 @@ namespace Kompas.Server.Effects.Models
 
 		public IPlayer ServerController { get; init; }
 
-		private ServerStackController EffCtrl => ServerGame.effectsController;
+		private ServerStackController EffCtrl => ServerGame.serverStackController;
 		private readonly Space attackerInitialSpace;
 		private readonly Space defenderInitialSpace;
 

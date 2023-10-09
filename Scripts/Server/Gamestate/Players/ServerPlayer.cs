@@ -4,6 +4,8 @@ using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Models;
+using Kompas.Server.Gamestate.Locations.Controllers;
+using Kompas.Server.Gamestate.Locations.Models;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Players
@@ -12,28 +14,57 @@ namespace Kompas.Server.Gamestate.Players
 	{
 		//TODO encapsulate
 		public ServerNetworker Networker { get; init; }
-		public ServerAwaiter awaiter;
 
-		public IGame Game => throw new System.NotImplementedException();
+		public IGame Game { get; }
 
-		public IPlayer Enemy => throw new System.NotImplementedException();
+		public IPlayer Enemy { get; private set; }
 
-		public int Pips { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-		public GameCard Avatar { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+		public static void Enemies(ServerPlayer a, ServerPlayer b)
+		{
+			a.Enemy = b;
+			b.Enemy = a;
+		}
 
-		public bool Friendly => throw new System.NotImplementedException();
+		public int Pips { get; set; }
 
-		public int Index => throw new System.NotImplementedException();
+		private GameCard _avatar;
+		public GameCard Avatar
+		{
+			get => _avatar;
+			set
+			{
+				if (_avatar != null)
+					throw new System.InvalidOperationException($"Tried to set {Index}'s avatar to {value} when it was already {_avatar}!");
 
-		public Deck Deck => throw new System.NotImplementedException();
+				_avatar = value;
+			}
+		}
 
-		public Discard Discard => throw new System.NotImplementedException();
+		public bool Friendly => false; //no such thing in the hostile lands of "the server"
 
-		public Hand Hand => throw new System.NotImplementedException();
+		public int Index { get; }
 
-		public Annihilation Annihilation => throw new System.NotImplementedException();
+		public Deck Deck { get; private set; }
+		public Discard Discard { get; private set; }
+		public Hand Hand { get; private set; }
+		public Annihilation Annihilation { get; private set; }
 
 		public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
+
+		private ServerPlayer(ServerGame game, int index)
+		{
+			Game = game;
+			Index = index;
+		}
+
+		public ServerPlayer Create(ServerGameController gameController, int index)
+		{
+			ServerPlayer ret = new(gameController.ServerGame, index);
+
+			ret.Deck = new ServerDeck(ret, new ServerDeckController(), gameController.ServerGame);
+
+			return ret;
+		}
 
 
 		//If the player tries to do something, it goes here to check if it's ok, then do it if it is ok.

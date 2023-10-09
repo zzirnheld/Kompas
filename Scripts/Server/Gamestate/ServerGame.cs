@@ -28,7 +28,7 @@ namespace Kompas.Server.Gamestate
 
 		private readonly ServerCardRepository serverCardRepository;
 		public CardRepository CardRepository => serverCardRepository;
-		public readonly ServerStackController effectsController;
+		public readonly ServerStackController serverStackController;
 
 		public Board Board { get; init; }
 
@@ -199,13 +199,13 @@ namespace Kompas.Server.Gamestate
 			if (notFirstTurn) Draw(this.TurnPlayer());
 
 			//do hand size
-			effectsController.PushToStack(new ServerHandSizeStackable(this, TurnServerPlayer), serverPlayers[TurnPlayerIndex], default);
+			serverStackController.PushToStack(new ServerHandSizeStackable(this, TurnServerPlayer), serverPlayers[TurnPlayerIndex], default);
 
 			//trigger turn start effects
 			var context = new TriggeringEventContext(game: this, player: TurnServerPlayer);
-			effectsController.TriggerForCondition(Trigger.TurnStart, context);
+			serverStackController.TriggerForCondition(Trigger.TurnStart, context);
 
-			await effectsController.CheckForResponse();
+			await serverStackController.CheckForResponse();
 		}
 		
 		protected void ResetCardsForTurn()
@@ -235,12 +235,12 @@ namespace Kompas.Server.Gamestate
 				var eachDrawContext = new TriggeringEventContext(game: this, CardBefore: toDraw, stackableCause: stackSrc, player: controller);
 				toDraw.Hand(controller, stackSrc);
 				eachDrawContext.CacheCardInfoAfter();
-				effectsController.TriggerForCondition(Trigger.EachDraw, eachDrawContext);
+				serverStackController.TriggerForCondition(Trigger.EachDraw, eachDrawContext);
 
 				drawn.Add(toDraw);
 			}
 			var context = new TriggeringEventContext(game: this, stackableCause: stackSrc, player: controller, x: cardsDrawn);
-			effectsController.TriggerForCondition(Trigger.DrawX, context);
+			serverStackController.TriggerForCondition(Trigger.DrawX, context);
 			return drawn;
 		}
 		public GameCard Draw(IPlayer player, IStackable stackSrc = null)
@@ -253,7 +253,7 @@ namespace Kompas.Server.Gamestate
 			GD.Print($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
 			//push the attack to the stack, then check if any player wants to respond before resolving it
 			var attack = new ServerAttack(this, instigator, attacker, defender);
-			effectsController.PushToStack(attack, instigator, new TriggeringEventContext(game: this, stackableCause: stackSrc, stackableEvent: attack, player: instigator));
+			serverStackController.PushToStack(attack, instigator, new TriggeringEventContext(game: this, stackableCause: stackSrc, stackableEvent: attack, player: instigator));
 			//check for triggers related to the attack (if this were in the constructor, the triggers would go on the stack under the attack
 			attack.Declare(stackSrc);
 			if (manual) attacker.AttacksThisTurn++;
@@ -272,7 +272,7 @@ namespace Kompas.Server.Gamestate
 
 			GD.Print($"Cards on board:\n{Board}");
 
-			GD.Print(effectsController.ToString());
+			GD.Print(serverStackController.ToString());
 		}
 
 		public void Lose(ServerPlayer player)

@@ -30,7 +30,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected virtual bool AllowAlreadyHereWhenAdd => false;
 
-		protected abstract void PerformAdd(GameCard card, int? index);
+		protected abstract void PerformAdd(GameCard card, int? index, IStackable stackableCause);
 
 		/// <summary>
         /// Adds the card to this owned game location at the relevant index.
@@ -49,7 +49,7 @@ namespace Kompas.Gamestate.Locations.Models
 			card.LocationModel = this;
 			card.Position = null;
 			card.ControllingPlayer = Owner;
-			PerformAdd(card, index);
+			PerformAdd(card, index, stackableCause);
 		}
 	}
 }
