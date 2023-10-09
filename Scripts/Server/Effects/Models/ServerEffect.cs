@@ -8,6 +8,7 @@ using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
@@ -22,6 +23,12 @@ namespace Kompas.Server.Effects.Models
 		public ServerGame serverGame;
 		public override IGame Game => serverGame;
 		public ServerStackController EffectsController => serverGame.effectsController;
+
+		public ServerGameCard ServerCard { get; private set; }
+		public override GameCard Card => ServerCard;
+
+		public ServerPlayer OwningServerPlayer { get; private set; }
+		public override IPlayer OwningPlayer => OwningServerPlayer;
 
 		public IServerResolutionContext CurrentServerResolutionContext { get; private set; }
 		public override IResolutionContext CurrentResolutionContext => CurrentServerResolutionContext;
@@ -45,10 +52,11 @@ namespace Kompas.Server.Effects.Models
 			}
 		}
 
-		public void SetInfo(GameCard thisCard, ServerGame serverGame, ServerPlayer controller, int effectIndex)
+		public void SetInfo(ServerGameCard card, ServerGame game, ServerPlayer controller, int effectIndex)
 		{
-			this.serverGame = serverGame;
-			base.SetInfo(thisCard, effectIndex, controller);
+			ServerCard = card;
+			this.serverGame = game;
+			base.SetInfo(effectIndex);
 
 			if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
 				ServerTrigger = new ServerTrigger(triggerData, this);

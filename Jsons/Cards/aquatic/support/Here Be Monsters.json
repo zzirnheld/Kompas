@@ -17,7 +17,7 @@
 					"$type": "Subeffect:SetXByNumberIdentity:",
 					"numberIdentity": {
 						"$type": "Identify.Numbers:Operation:",
-						"operation": { "$type": "KompasCore.Effects.Identities.NumberOperations.Sum, Kompas" },
+						"operation": { "$type": "Kompas.Effects.Models.Identities.NumberOperations.Sum, Kompas" },
 						"numbers": {
 							"$type": "Identify.ManyNumbers:FromCardValue:",
 							"cardValue": { "value": "Cost" },

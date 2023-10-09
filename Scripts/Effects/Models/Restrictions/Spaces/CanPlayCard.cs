@@ -27,8 +27,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			var restriction = toPlay.From(context).PlayRestriction;
 		
 			return ignoreAdjacency
-				? restriction.IsValidIgnoringAdjacency((space, InitializationContext.Controller), context)
-				: restriction.IsValid((space, InitializationContext.Controller), context);
+				? restriction.IsValidIgnoringAdjacency((space, InitializationContext.Owner), context)
+				: restriction.IsValid((space, InitializationContext.Owner), context);
 		}
 	}
 }

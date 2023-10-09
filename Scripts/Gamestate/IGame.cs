@@ -101,8 +101,5 @@ namespace Kompas.Gamestate
 
 		//game mechanics
 		public static bool IsHiddenLocation(Location l) => HiddenLocations.Contains(l);
-
-		public static bool ExistsEffectPlaySpace(IPlayRestriction restriction, Effect eff)
-			=> Space.Spaces.Any(s => restriction.IsValid((s, eff.ControllingPlayer), eff.CurrentResolutionContext));
 	}
 }

@@ -1,5 +1,6 @@
 
 using Kompas.Cards.Models;
+using Kompas.Client.Cards.Models;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Players;
 using Kompas.Effects.Models;
@@ -11,7 +12,9 @@ namespace Kompas.Client.Effects.Models
 {
 	public class ClientEffect : Effect, IClientStackable
 	{
-		private IPlayer owner;
+		private IPlayer owningPlayer;
+
+		public override IPlayer OwningPlayer => owningPlayer;
 
 		public ClientGame ClientGame { get; private set; }
 		public override IGame Game => ClientGame;
@@ -22,16 +25,21 @@ namespace Kompas.Client.Effects.Models
 		public override Trigger Trigger => ClientTrigger;
 
 		private IResolutionContext currentResolutionContext;
-		public override IResolutionContext CurrentResolutionContext => currentResolutionContext ??= ResolutionContext.PlayerTrigger(this, Game, owner);
+		public override IResolutionContext CurrentResolutionContext
+			=> currentResolutionContext ??= ResolutionContext.PlayerTrigger(this, Game);
 		//TODO controller? should have some way to track it client-side otherwise if effects ever can be activated by not the card's ocntroller something will break
 
 		public string StackableBlurb => blurb;
 
-		public void SetInfo(GameCard thisCard, ClientGame clientGame, int effectIndex, IPlayer owner)
+		private ClientGameCard card;
+		public override GameCard Card => card;
+
+		public void SetInfo(ClientGameCard card, ClientGame clientGame, int effectIndex, IPlayer owningPlayer)
 		{
-			this.ClientGame = clientGame;
-			this.owner = owner;
-			base.SetInfo(thisCard, effectIndex, owner);
+			this.card = card;
+			ClientGame = clientGame;
+			this.owningPlayer = owningPlayer;
+			base.SetInfo(effectIndex);
 			if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
 				ClientTrigger = new ClientTrigger(triggerData, this);
 		}

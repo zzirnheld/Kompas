@@ -45,8 +45,8 @@ namespace Kompas.Effects.Models.Identities.Spaces
 
 			if (subjective)
 			{
-				origin = InitializationContext.Controller.SubjectiveCoords(origin);
-				destination = InitializationContext.Controller.SubjectiveCoords(destination);
+				origin = InitializationContext.Owner.SubjectiveCoords(origin);
+				destination = InitializationContext.Owner.SubjectiveCoords(destination);
 			}
 
 			return origin.DisplacementTo(destination);

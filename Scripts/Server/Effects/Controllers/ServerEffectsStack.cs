@@ -7,6 +7,7 @@ using Kompas.Effects.Models;
 using Kompas.Effects;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
+using Godot;
 
 namespace Kompas.Server.Effects.Controllers
 {
@@ -24,23 +25,18 @@ namespace Kompas.Server.Effects.Controllers
 			}
 		}
 
-		private readonly object triggerStackLock = new object();
-
 		private readonly ServerGame ServerGame;
 
 		private readonly EffectStack<IServerStackable, IServerResolutionContext> stack = new();
 		public IEnumerable<IServerStackable> StackEntries => stack.StackEntries;
 
 		//queue of triggers triggered throughout the resolution of the effect, to be ordered after the effect resolves
-		private readonly Queue<TriggersTriggered> triggeredTriggers = new Queue<TriggersTriggered>();
+		private readonly Queue<TriggersTriggered> triggeredTriggers = new();
 
 		//trigger maps
-		private readonly Dictionary<string, List<ServerTrigger>> triggerMap
-			= new Dictionary<string, List<ServerTrigger>>();
-		private readonly Dictionary<string, List<HangingEffect>> hangingEffectMap
-			= new Dictionary<string, List<HangingEffect>>();
-		private readonly Dictionary<string, List<HangingEffect>> hangingEffectFallOffMap
-			= new Dictionary<string, List<HangingEffect>>();
+		private readonly Dictionary<string, List<ServerTrigger>> triggerMap = new();
+		private readonly Dictionary<string, List<HangingEffect>> hangingEffectMap = new();
+		private readonly Dictionary<string, List<HangingEffect>> hangingEffectFallOffMap = new();
 
 		private bool currentlyCheckingResponses = false;
 		private bool currentlyCheckingOptionals = false;
@@ -65,7 +61,7 @@ namespace Kompas.Server.Effects.Controllers
 		{
 			if (CurrStackEntry == null) return string.Empty;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 			sb.AppendLine("Stack:");
 			foreach (var s in stack.StackEntries)
 			{
@@ -114,7 +110,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		private async Task StackEmptied()
 		{
-			//Debug.Log($"Stack is emptied");
+			//GD.Print($"Stack is emptied");
 			//stack ends
 			foreach (var c in ServerGame.Cards) c.ResetForStack();
 			ServerGame.serverBoardController.ClearSpells();
@@ -130,7 +126,7 @@ namespace Kompas.Server.Effects.Controllers
 			if (stackable == null) await StackEmptied();
 			else
 			{
-				//Debug.Log($"Resolving next stack entry: {stackable}, {context}");
+				//GD.Print($"Resolving next stack entry: {stackable}, {context}");
 				//inform the players that they no longer can respond, in case they were somehow still thinking they could
 				foreach (var p in ServerGame.serverPlayers) p.notifier.RequestNoResponse();
 
@@ -181,19 +177,6 @@ namespace Kompas.Server.Effects.Controllers
 				}
 			}
 		}
-
-		/// <summary>
-		/// Clears the passed priority flag for all players
-		/// NOTE: DOESN'T DO ANYTHING RIGHT NOW, since fast effects have been removed from the game,
-		/// so to save time, we don't ask players if they have a response.
-		/// IF I ever add back fast effects, have it be smarter and allow players
-		/// to tell the server in advance if they want to respond,
-		/// to avoid having to go back and forth constantly in big stacks
-		/// </summary>
-		public void ResetPassingPriority()
-		{
-			foreach (var player in ServerGame.serverPlayers) player.ResetPassedPriority();
-		}
 		#endregion the stack
 
 		/// <summary>
@@ -209,7 +192,7 @@ namespace Kompas.Server.Effects.Controllers
 			//if there's no triggers, skip all this logic
 			if (!stillValid.Any())
 			{
-				Debug.Log($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
+				GD.Print($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
 				return;
 			}
 
@@ -219,7 +202,7 @@ namespace Kompas.Server.Effects.Controllers
 			foreach (var t in stillValid)
 			{
 				//TODO this doesn't stop any subsequent calls to CheckTriggers
-				if (!t.Responded) await t.Ask(triggered.context.x ?? 0);
+				if (!t.Responded) await t.Ask(triggered.context);
 			}
 			currentlyCheckingOptionals = false;
 
@@ -227,7 +210,7 @@ namespace Kompas.Server.Effects.Controllers
 			//if a player only has one trigger, don't bother asking them for an order.
 			foreach (var p in ServerGame.Players)
 			{
-				var thisPlayers = stillValid.Where(t => t.serverEffect.Controller == p && t.Confirmed);
+				var thisPlayers = stillValid.Where(t => t.serverEffect.OwningPlayer == p && t.Confirmed);
 				if (thisPlayers.Count() == 1) thisPlayers.First().Order = 1;
 			}
 
@@ -237,20 +220,20 @@ namespace Kompas.Server.Effects.Controllers
 			if (!confirmed.All(t => t.Ordered))
 			{
 				//create a list to hold the tasks, so you can get trigger orderings from both players at once.
-				List<Task> triggerOrderings = new List<Task>();
+				List<Task> triggerOrderings = new();
 				foreach (var p in ServerGame.serverPlayers)
 				{
-					var thisPlayers = confirmed.Where(t => t.serverEffect.Controller == p);
+					var thisPlayers = confirmed.Where(t => t.serverEffect.OwningPlayer == p);
 					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(p.awaiter.GetTriggerOrder(thisPlayers));
 				}
 				await Task.WhenAll(triggerOrderings);
 			}
 
 			//finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
-			foreach (var t in confirmed.Where(t => t.serverEffect.Controller == turnPlayer).OrderBy(t => t.Order))
-				PushToStack(t.serverEffect, t.serverEffect.ServerController, triggered.context);
-			foreach (var t in confirmed.Where(t => t.serverEffect.Controller == turnPlayer.Enemy).OrderBy(t => t.Order))
-				PushToStack(t.serverEffect, t.serverEffect.ServerController, triggered.context);
+			foreach (var t in confirmed.Where(t => t.serverEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
+				PushToStack(t.serverEffect, t.serverEffect.OwningPlayer, triggered.context);
+			foreach (var t in confirmed.Where(t => t.serverEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
+				PushToStack(t.serverEffect, t.serverEffect.OwningPlayer, triggered.context);
 		}
 
 		/// <summary>
@@ -279,7 +262,7 @@ namespace Kompas.Server.Effects.Controllers
 			//then dequeue twice, which would not consider that set of triggers.
 			if (currentlyCheckingResponses || CurrStackEntry != null)
 			{
-				Debug.Log($"Checked response while currently checking for response {currentlyCheckingResponses} " +
+				GD.Print($"Checked response while currently checking for response {currentlyCheckingResponses} " +
 					$"or curr stack entry not null {CurrStackEntry != null}");
 				return;
 			}
@@ -344,7 +327,7 @@ namespace Kompas.Server.Effects.Controllers
 		{
 			if (!ServerGame.GameHasStarted) return;
 
-			Debug.Log($"Triggering for condition {condition}, context {context}");
+			GD.Print($"Triggering for condition {condition}, context {context}");
 			//first resolve any hanging effects
 			ResolveHangingEffects(condition, context);
 
@@ -357,7 +340,7 @@ namespace Kompas.Server.Effects.Controllers
 					.ToArray();
 				if (!validTriggers.Any()) return;
 				var triggers = new TriggersTriggered(triggers: validTriggers, context: context);
-				Debug.Log($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Source.ID + t.Blurb))}");
+				GD.Print($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Source.ID + t.Blurb))}");
 				lock (triggerStackLock)
 				{
 					triggeredTriggers.Enqueue(triggers);
@@ -370,7 +353,7 @@ namespace Kompas.Server.Effects.Controllers
 		#region register to trigger condition
 		public void RegisterTrigger(string condition, ServerTrigger trigger)
 		{
-			Debug.Log($"Registering a new trigger from card {trigger.serverEffect.Source.CardName} to condition {condition}");
+			GD.Print($"Registering a new trigger from card {trigger.serverEffect.Source.CardName} to condition {condition}");
 			if (!triggerMap.ContainsKey(condition))
 				triggerMap.Add(condition, new List<ServerTrigger>());
 
@@ -379,7 +362,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string fallOffCondition = default)
 		{
-			Debug.Log($"Registering a new hanging effect to condition {condition}");
+			GD.Print($"Registering a new hanging effect to condition {condition}");
 			if (!hangingEffectMap.ContainsKey(condition))
 				hangingEffectMap.Add(condition, new List<HangingEffect>());
 
@@ -390,7 +373,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		private void RegisterHangingEffectFallOff(string condition, HangingEffect hangingEff)
 		{
-			Debug.Log($"Registering a new hanging effect to condition {condition}");
+			GD.Print($"Registering a new hanging effect to condition {condition}");
 			if (!hangingEffectFallOffMap.ContainsKey(condition))
 				hangingEffectFallOffMap.Add(condition, new List<HangingEffect>());
 

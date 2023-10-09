@@ -17,7 +17,8 @@ namespace Kompas.Effects.Models
 		public abstract IGame Game { get; }
 
 		public int EffectIndex { get; private set; }
-		public GameCard Source { get; private set; }
+		public abstract GameCard Card { get; }
+		public abstract IPlayer OwningPlayer { get; }
 
 		//subeffects
 		public abstract Subeffect[] Subeffects { get; }
@@ -71,21 +72,22 @@ namespace Kompas.Effects.Models
 		/// </summary>
 		public string Keyword { get; set; }
 
-		protected virtual void SetInfo(GameCard source, int effIndex, IPlayer owner)
+		protected void SetInfo(int effIndex)
 		{
-			GD.Print($"Trying to init eff {effIndex} of {source}, with game {Game}");
-			Source = source ?? throw new System.ArgumentNullException(nameof(source), "Effect cannot be attached to null card");
 			EffectIndex = effIndex;
 
-			blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {source.CardName}" : blurb;
-			activationRestriction?.Initialize(new EffectInitializationContext(game: Game, source: Source, effect: this));
+			//TODO go back to a SerializableEffect model. The Subeffects will still be specified "manually" but that's the cross I'll have to bear, I think,
+			//unless I want to make a Serializable version of every subeffect. Which might be a good idea anyway (I'd just put them in the same file for convenience)
+			if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
+			blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {Card.CardName}" : blurb;
+			activationRestriction?.Initialize(new EffectInitializationContext(game: Game, source: Card, effect: this));
 			TimesUsedThisTurn = 0;
 		}
 
 		public void ResetForTurn(IPlayer turnPlayer)
 		{
 			TimesUsedThisTurn = 0;
-			if (turnPlayer == Source.ControllingPlayer) TimesUsedThisRound = 0;
+			if (turnPlayer == Card.ControllingPlayer) TimesUsedThisRound = 0;
 		}
 
 		public void Reset()
@@ -95,7 +97,7 @@ namespace Kompas.Effects.Models
 		}
 
 		public virtual bool CanBeActivatedBy(IPlayer controller)
-			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game, controller));
+			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game));
 
 		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
@@ -121,11 +123,11 @@ namespace Kompas.Effects.Models
 		}
 
 
-		public override string ToString() => $"Effect of {(Source == null ? "Nothing???" : Source.CardName)}";
+		public override string ToString() => $"Effect of {(Card == null ? "Nothing???" : Card.CardName)}";
 
-		public GameCard GetCause(IGameCard withRespectTo) => Source;
+		public GameCard GetCause(IGameCard withRespectTo) => Card;
 
 		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger trigger)
-			=> new(game: Game, source: Source, effect: this, trigger: trigger, subeffect: subeffect);
+			=> new(game: Game, source: Card, effect: this, trigger: trigger, subeffect: subeffect);
 	}
 }

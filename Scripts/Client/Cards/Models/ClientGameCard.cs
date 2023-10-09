@@ -55,7 +55,7 @@ namespace Kompas.Client.Cards.Models
 
 		public ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
 			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
-			: base (serializedCard, id, game, owningPlayer)
+			: base (serializedCard, id, owningPlayer)
 		{
 			//TODO: game should add card after creating it
 			//owner.Game.AddCard(this);

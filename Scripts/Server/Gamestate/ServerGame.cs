@@ -87,7 +87,7 @@ namespace Kompas.Server.Gamestate
 		#region players and game starting
 		public int AddPlayer(TcpClient tcpClient)
 		{
-			Debug.Log($"Adding player #{currPlayerCount}");
+			GD.Print($"Adding player #{currPlayerCount}");
 			if (currPlayerCount >= 2) return -1;
 
 			Players[currPlayerCount].SetInfo(tcpClient, currPlayerCount);
@@ -110,17 +110,17 @@ namespace Kompas.Server.Gamestate
 			//first name should be that of the Avatar
 			if (!cardRepo.CardNameIsCharacter(deck[0]))
 			{
-				Debug.LogError($"{deck[0]} isn't a character, so it can't be the Avatar");
+				GD.PrintErr($"{deck[0]} isn't a character, so it can't be the Avatar");
 				return false;
 			}
 			if (ServerUIController.DebugMode)
 			{
-				Debug.LogWarning("Debug mode enabled, always accepting a decklist");
+				GD.PushWarning("Debug mode enabled, always accepting a decklist");
 				return true;
 			}
 			if (deck.Count < MinDeckSize)
 			{
-				Debug.LogError($"Deck {deck} too small");
+				GD.PrintErr($"Deck {deck} too small");
 				return false;
 			}
 
@@ -163,7 +163,7 @@ namespace Kompas.Server.Gamestate
 					if (card == null) continue;
 					cardCount++;
 				}
-				Debug.Log($"Adding new card {card.CardName} with id {card.ID}");
+				GD.Print($"Adding new card {card.CardName} with id {card.ID}");
 				player.deckCtrl.ShuffleIn(card);
 				player.notifier.NotifyCreateCard(card, wasKnown: false);
 			}
@@ -180,7 +180,7 @@ namespace Kompas.Server.Gamestate
 		public async Task StartGame()
 		{
 			//set initial pips to 0
-			Debug.Log($"Starting game. IPlayer 0 avatar is null? {Players[0].Avatar == null}. IPlayer 1 is null? {Players[1].Avatar == null}.");
+			GD.Print($"Starting game. IPlayer 0 avatar is null? {Players[0].Avatar == null}. IPlayer 1 is null? {Players[1].Avatar == null}.");
 			Players[0].Pips = 0;
 			Players[1].Pips = 0;
 
@@ -232,7 +232,7 @@ namespace Kompas.Server.Gamestate
 		public async Task SwitchTurn()
 		{
 			TurnPlayerIndex = 1 - TurnPlayerIndex;
-			Debug.Log($"Turn swapping to the turn of index {TurnPlayerIndex}");
+			GD.Print($"Turn swapping to the turn of index {TurnPlayerIndex}");
 
 			await TurnStartOperations();
 		}
@@ -265,7 +265,7 @@ namespace Kompas.Server.Gamestate
 		/// <returns>The Attack object created by starting this attack</returns>
 		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable stackSrc, bool manual = false)
 		{
-			Debug.Log($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
+			GD.Print($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
 			//push the attack to the stack, then check if any player wants to respond before resolving it
 			var attack = new ServerAttack(this, instigator, attacker, defender);
 			effectsController.PushToStack(attack, new TriggeringEventContext(game: this, stackableCause: stackSrc, stackableEvent: attack, player: instigator));
@@ -281,13 +281,13 @@ namespace Kompas.Server.Gamestate
 
 		public void DumpGameInfo()
 		{
-			Debug.Log("BEGIN GAME INFO DUMP");
-			Debug.Log("Cards:");
-			foreach (var c in Cards) Debug.Log(c.ToString());
+			GD.Print("BEGIN GAME INFO DUMP");
+			GD.Print("Cards:");
+			foreach (var c in Cards) GD.Print(c.ToString());
 
-			Debug.Log($"Cards on board:\n{BoardController}");
+			GD.Print($"Cards on board:\n{BoardController}");
 
-			Debug.Log(effectsController.ToString());
+			GD.Print(effectsController.ToString());
 		}
 
 		public override bool IsCurrentTarget(GameCard card) => false;

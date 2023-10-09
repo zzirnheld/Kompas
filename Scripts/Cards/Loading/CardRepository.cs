@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Play;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models;
 
 namespace Kompas.Cards.Loading
 {
@@ -253,5 +255,23 @@ namespace Kompas.Cards.Loading
 		}
 
 		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(SerializableCardFromJson).Where(c => c != null);
+		
+		public static IRestriction<TriggeringEventContext>[] InstantiateTriggerKeyword(string keyword)
+		{
+			if (!triggerKeywordJsons.ContainsKey(keyword))
+			{
+				GD.PrintErr($"No trigger keyword json found for {keyword}");
+				return System.Array.Empty<IRestriction<TriggeringEventContext>>();
+			}
+			try
+			{
+				return JsonConvert.DeserializeObject<IRestriction<TriggeringEventContext>[]>(triggerKeywordJsons[keyword], CardLoadingSettings);
+			}
+			catch (JsonReaderException)
+			{
+				GD.PrintErr($"Failed to instantiate {keyword}");
+				throw;
+			}
+		}
 	}
 }

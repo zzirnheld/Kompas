@@ -7,7 +7,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 	public class ControllerCanPayCost : ListRestrictionElementBase
 	{
 		protected override bool IsValidLogic(IEnumerable<IGameCard> item, IResolutionContext context)
-			=> item.Select(c => c.Cost).Sum() <= InitializationContext.Controller.Pips;
+			=> item.Select(c => c.Cost).Sum() <= InitializationContext.Owner.Pips;
 
 		public override bool AllowsValidChoice(IEnumerable<IGameCard> options, IResolutionContext context)
 		{
@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 				.Select(c => c.Cost)
 				.OrderBy(c => c)
 				.Take(parent.GetMinimum(context))
-				.Sum() <= InitializationContext.Controller.Pips;
+				.Sum() <= InitializationContext.Owner.Pips;
 		}
 	}
 }

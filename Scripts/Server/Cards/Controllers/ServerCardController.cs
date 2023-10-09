@@ -14,19 +14,9 @@ namespace Kompas.Server.Cards.Controllers
 			this.serverCard = serverCard;
 		}
 
-		public void RefreshLinks()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void RefreshStats()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void SetPhysicalLocation(Location location)
-		{
-			throw new System.NotImplementedException();
-		}
+		public void Delete() { }
+		public void RefreshLinks() { }
+		public void RefreshStats() { }
+		public void SetPhysicalLocation(Location location) { }
 	}
 }

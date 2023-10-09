@@ -18,8 +18,8 @@ namespace Kompas.Effects.Models
 		public readonly Trigger trigger;
 		public readonly Subeffect subeffect;
 
-		private readonly IPlayer controllerOverride;
-		public readonly IPlayer Controller => controllerOverride ?? effect?.ControllingPlayer ?? source?.ControllingPlayer;
+		private readonly IPlayer ownerOverride;
+		public readonly IPlayer Owner => ownerOverride ?? effect?.OwningPlayer ?? source?.ControllingPlayer;
 
 		public readonly IContextInitializeable parent;
 
@@ -39,13 +39,13 @@ namespace Kompas.Effects.Models
 			this.trigger = trigger;
 			this.subeffect = subeffect;
 
-			this.controllerOverride = controller;
+			this.ownerOverride = controller;
 
 			this.parent = parent;
 		}
 
 		public EffectInitializationContext Child(IContextInitializeable parent)
-			=> new(game, source, effect, trigger, subeffect, controllerOverride, parent);
+			=> new(game, source, effect, trigger, subeffect, ownerOverride, parent);
 
 		public override string ToString()
 		{

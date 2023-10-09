@@ -158,7 +158,7 @@ namespace Kompas.Server.Cards.Models
 		{
 			if (InitialCardValues == null)
 			{
-				Debug.Log("Tried to reset card whose info was never set! This should only be the case at game start");
+				GD.Print("Tried to reset card whose info was never set! This should only be the case at game start");
 				return;
 			}
 
@@ -201,7 +201,7 @@ namespace Kompas.Server.Cards.Models
 
 		public override bool Remove(IStackable stackSrc = null)
 		{
-			//Debug.Log($"Trying to remove {CardName} from {Location}");
+			//GD.Print($"Trying to remove {CardName} from {Location}");
 
 			//proc the trigger before actually removing anything
 			var player = stackSrc?.Controller ?? Controller;
@@ -263,7 +263,7 @@ namespace Kompas.Server.Cards.Models
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(this);
 
 			//kill if applicable
-			Debug.Log($"E changed from {oldE} to {E}. Should it die?");
+			GD.Print($"E changed from {oldE} to {E}. Should it die?");
 			if (E <= 0 && CardType == 'C' && Summoned && Location != CardLocation.Nowhere && Location != CardLocation.Discard) this.Discard(stackSrc);
 		}
 

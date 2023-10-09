@@ -5,7 +5,7 @@ namespace Kompas.Effects.Models
 {
 	public interface IStackable
 	{
-		GameCard Source { get; }
+		GameCard Card { get; }
 
 		GameCard GetCause (IGameCard withRespectTo);
 	}

@@ -34,10 +34,11 @@ namespace Kompas.Cards.Movement
 		//If you're looking for this, you'll need to do it more manually by the client/server version of the thing, to maintain the knowledge of what kind of controller you need
 		public static void Play(this ClientGameCard card, Space to, IPlayer controllingPlayer, IStackable stackSrc = null, bool payCost = false)
 		{
-			var costToPay = card.Cost;
-			card.Game.Board.Play(card, to, controllingPlayer, stackSrc);
+			//TODO move this to server-side
+			//var costToPay = card.Cost;
+			card.ClientGame.ClientBoard.Play(card, to, controllingPlayer);
 
-			if (payCost) controllingPlayer.Pips -= costToPay;
+			//if (payCost) controllingPlayer.Pips -= costToPay;
 		}
 
 		public static void Move(this ClientGameCard card, Space to, bool normalMove, IStackable stackSrc = null)

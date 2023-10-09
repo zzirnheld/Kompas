@@ -10,7 +10,9 @@ namespace Kompas.Server.Gamestate.Players
 {
 	public class ServerPlayer : IPlayer
 	{
+		//TODO encapsulate
 		public ServerNotifier notifier;
+		public ServerAwaiter awaiter;
 
 		public IGame Game => throw new System.NotImplementedException();
 
@@ -72,7 +74,7 @@ namespace Kompas.Server.Gamestate.Players
 				}
 				else
 				{
-					Debug.LogWarning($"Player {index} attempted an invalid play of {card} to {space}.");
+					GD.PushWarning($"Player {index} attempted an invalid play of {card} to {space}.");
 					notifier.NotifyPutBack();
 				}
 			}
@@ -113,7 +115,7 @@ namespace Kompas.Server.Gamestate.Players
 		{
 			throw new System.NotImplementedException();
 			/*
-			Debug.Log($"Player {index} trying to activate effect of {effect?.Source?.CardName}");
+			GD.Print($"Player {index} trying to activate effect of {effect?.Source?.CardName}");
 			if (effect.CanBeActivatedBy(this))
 			{
 				var context = ResolutionContext.PlayerTrigger(effect, game);

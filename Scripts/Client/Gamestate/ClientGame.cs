@@ -24,7 +24,8 @@ namespace Kompas.Client.Gamestate
 		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
 		public CardRepository CardRepository => ClientCardRepository;
 
-		public Board Board { get; private set; }
+		public ClientBoard ClientBoard { get; private set; }
+		public Board Board => ClientBoard;
 
 		public ClientStackController StackController { get; }
 
@@ -112,7 +113,7 @@ namespace Kompas.Client.Gamestate
 		{
 			var ret = new ClientGame(gameController);
 
-			ret.Board = new ClientBoard(gameController.BoardController);
+			ret.ClientBoard = new ClientBoard(gameController.BoardController);
 
 			/*
 			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, gameController.PlayerControllers[0]);
@@ -178,7 +179,7 @@ namespace Kompas.Client.Gamestate
 		{
 			card.Remove();
 			cardsByID.Remove(card.ID);
-			card.CardController.QueueFree(); //TODO consider moving to GameController
+			card.CardController.Delete(); //TODO consider moving to GameController
 		}
 
 		//requesting

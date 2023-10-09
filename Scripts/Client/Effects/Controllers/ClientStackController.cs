@@ -10,7 +10,7 @@ namespace Kompas.Client.Effects.Controllers
 	{
 		public ClientStackView clientStackPanelCtrl;
 
-		private readonly EffectStack<IClientStackable> stack = new EffectStack<IClientStackable>();
+		private readonly EffectStack<IClientStackable, IResolutionContext> stack = new();
 
 		public IEnumerable<IClientStackable> StackEntries => stack.StackEntries;
 
