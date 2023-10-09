@@ -3,6 +3,6 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	public class NothingHappening : GamestateRestrictionBase
 	{
 		protected override bool IsValidLogic(IResolutionContext context)
-			=> InitializationContext.game.NothingHappening;
+			=> InitializationContext.game.StackController.NothingHappening;
 	}
 }

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Gamestate.Players;
 using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Effects.Models
@@ -10,7 +11,7 @@ namespace Kompas.Server.Effects.Models
 	{
 		public ServerEffect serverEffect;
 
-		public override GameCard Source => serverEffect.Card;
+		public override GameCard Card => serverEffect.Card;
 		public override Effect Effect => serverEffect;
 
 		private bool responded = false;
@@ -64,7 +65,7 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="stackTrigger">The effect or attack that triggered this, if any.</param>
 		/// <param name="x">If the action that triggered this has a value of x, it goes here. Otherwise, null.</param>
 		/// <returns>Whether all restrictions of the trigger are fulfilled.</returns>
-		public bool ValidForTriggeringContext(TriggeringEventContext context) => !Source.Negated && TriggerRestriction.IsValid(context, default);
+		public bool ValidForTriggeringContext(TriggeringEventContext context) => !Card.Negated && TriggerRestriction.IsValid(context, default);
 
 		/// <summary>
 		/// Rechecks any trigger restrictions that might have changed between the trigger triggering and being ordered.
@@ -85,11 +86,11 @@ namespace Kompas.Server.Effects.Models
 			order = -1;
 		}
 
-		public async Task Ask(TriggeringEventContext context)
+		public async Task Ask(IPlayer player, TriggeringEventContext context)
 		{
 			int x = context?.x ?? 0;
 			//Assume for now that optional triggers are always asked to the card's owner
-			Confirmed = await serverEffect.OwningServerPlayer.awaiter.GetOptionalTriggerChoice(this, x, TriggerData.showX);
+			Confirmed = await serverEffect.serverGame.Awaiter.GetOptionalTriggerChoice(player, this, x, TriggerData.showX);
 			Responded = true;
 		}
 	}

@@ -31,7 +31,7 @@ namespace Kompas.Networking.Packets
 		}
 
 		public EditCardLinkPacket(IEnumerable<int> cardIDs, Effect eff, bool add)
-			: this(cardIDs.ToArray(), eff.EffectIndex, eff.Source.ID, add, CardLink.DefaultColor)
+			: this(cardIDs.ToArray(), eff.EffectIndex, eff.Card.ID, add, CardLink.DefaultColor)
 		{ }
 
 		public EditCardLinkPacket(CardLink cardLink, bool add)

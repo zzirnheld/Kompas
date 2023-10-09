@@ -1,5 +1,6 @@
 ﻿using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -17,7 +18,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 			int healedFor = CardTarget.BaseE - CardTarget.E;
 			CardTarget.SetE(CardTarget.BaseE, stackSrc: ServerEffect);
-			ServerEffect.EffectsController.TriggerForCondition(Trigger.Healed, new TriggeringEventContext(Game, CardBefore: CardTarget, stackableCause: Effect, player: EffectController, x: healedFor));
+			ServerEffect.EffectsController.TriggerForCondition(Trigger.Healed, new TriggeringEventContext(Game, CardBefore: CardTarget, stackableCause: Effect, player: PlayerTarget, x: healedFor));
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

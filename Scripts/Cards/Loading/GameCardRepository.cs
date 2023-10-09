@@ -26,7 +26,7 @@ namespace Kompas.Cards.Loading
 			foreach (var c in ccc.CardControllers)
 			{
 				if (c is TCardController cc) ret = cc;
-				else c.Delete();
+				else c.QueueFree();
 			}
 
 			if (ret == null) throw new System.NotImplementedException($"None of the card controllers were a {typeof(TCardController)}");

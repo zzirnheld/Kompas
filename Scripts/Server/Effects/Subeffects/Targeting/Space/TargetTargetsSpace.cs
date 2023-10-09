@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {

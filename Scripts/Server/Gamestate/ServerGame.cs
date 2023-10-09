@@ -35,6 +35,8 @@ namespace Kompas.Server.Gamestate
 		public ServerNotifier Notifier { get; init; }
 		public ServerAwaiter Awaiter { get; init; }
 
+		public bool DebugMode => false;
+
 
 		//Dictionary of cards, and the forwardings to make that convenient
 		private readonly Dictionary<int, ServerGameCard> cardsByID = new();
@@ -122,18 +124,11 @@ namespace Kompas.Server.Gamestate
 			return true;
 		}
 
-		private List<string> SanitizeDeck(string decklist)
+		public async Task SetDeck(ServerPlayer player, Decklist decklist)
 		{
-			return decklist.Split('\n')
-				.Where(c => !string.IsNullOrWhiteSpace(c) && CardRepository.CardExists(c))
-				.ToList();
-		}
+			//TODO sanitize
 
-		public async Task SetDeck(ServerPlayer player, string decklist)
-		{
-			List<string> deck = SanitizeDeck(decklist);
-
-			if (ValidDeck(deck)) Notifier.DeckAccepted(player);
+			if (ValidDeck(decklist.deck)) Notifier.DeckAccepted(player);
 			else
 			{
 				GetDeckFrom(player);
@@ -142,11 +137,10 @@ namespace Kompas.Server.Gamestate
 
 			ServerGameCard avatar;
 			//otherwise, set the avatar and rest of the deck
-			avatar = serverCardRepository.InstantiateServerCard(deck[0], player, cardCount++) ??
-				throw new System.ArgumentException($"Failed to load avatar for card {deck[0]}");
-			deck.RemoveAt(0); //take out avatar before telling player to add the rest of the deck
+			avatar = serverCardRepository.InstantiateServerCard(decklist.avatarName, player, cardCount++) ??
+				throw new System.ArgumentException($"Failed to load avatar for card {decklist.avatarName}");
 
-			foreach (string name in deck)
+			foreach (string name in decklist.deck)
 			{
 				ServerGameCard card;
 				card = serverCardRepository.InstantiateServerCard(name, player, cardCount);

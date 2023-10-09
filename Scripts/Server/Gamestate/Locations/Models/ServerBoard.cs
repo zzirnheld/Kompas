@@ -34,7 +34,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			EffectsController.TriggerForCondition(Trigger.Play, context);
 			EffectsController.TriggerForCondition(Trigger.Arrive, context);
 
-			if (!toPlay.IsAvatar) controller.notifier.NotifyPlay(toPlay, to, wasKnown);
+			if (!toPlay.IsAvatar) serverGame.Notifier.NotifyPlay(controller, toPlay, to, wasKnown);
 		}
 
 		private (IEnumerable<TriggeringEventContext> moveContexts, IEnumerable<TriggeringEventContext> leaveContexts)
@@ -111,7 +111,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			EffectsController.TriggerForCondition(Trigger.LeaveAOE, leaveContexts.ToArray());
 
 			//notify the players
-			serverGame.Notifier.NotifyMove(card, to);
+			serverGame.Notifier.NotifyMove(mover, card, to);
 		}
 	}
 }

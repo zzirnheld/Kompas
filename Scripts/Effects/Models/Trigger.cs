@@ -83,7 +83,7 @@ namespace Kompas.Effects.Models
 		};
 
 		public TriggerData TriggerData { get; }
-		public abstract GameCard Source { get; }
+		public abstract GameCard Card { get; }
 		public abstract Effect Effect { get; }
 
 		public string TriggerCondition => TriggerData.triggerCondition;
@@ -93,7 +93,7 @@ namespace Kompas.Effects.Models
 
 		public Trigger(TriggerData triggerData, Effect effect)
 		{
-			var initializationContext = new EffectInitializationContext(game: effect.Game, source: effect.Source, effect: effect, trigger: this);
+			var initializationContext = new EffectInitializationContext(game: effect.Game, source: effect.Card, effect: effect, trigger: this);
 			TriggerData = triggerData;
 			try
 			{
@@ -101,7 +101,7 @@ namespace Kompas.Effects.Models
 			}
 			catch (NullReferenceException)
 			{
-				GD.PrintErr($"Issue initializing {Blurb} trigger of {effect.Source}");
+				GD.PrintErr($"Issue initializing {Blurb} trigger of {effect.Card}");
 				throw;
 			}
 		}

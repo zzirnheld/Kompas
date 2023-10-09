@@ -1,4 +1,5 @@
 ﻿using Kompas.Networking.Packets;
+using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
@@ -30,9 +31,9 @@ namespace Kompas.Server.Networking
 	{
 		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
 		{
-			var card = serverGame.LookupServerCardByID(cardId);
-			if (card == null) return;
-			var eff = card.ServerEffects[effIndex];
+			var card = serverGame.LookupCardByID(cardId);
+			if (card is not ServerGameCard serverGameCard) return;
+			var eff = serverGameCard.ServerEffects[effIndex];
 			if (eff == null) return;
 
 			await player.TryActivateEffect(eff);

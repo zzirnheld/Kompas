@@ -1,4 +1,5 @@
 ﻿using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects

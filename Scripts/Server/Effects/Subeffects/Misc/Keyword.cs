@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
+using Kompas.Cards.Loading;
+using Kompas.Server.Cards.Loading;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -14,7 +16,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
-			var subeffects = ServerGame.cardRepo.InstantiateServerPartialKeyword(keyword);
+			var subeffects = ServerCardRepository.InstantiateServerPartialKeyword(keyword);
 			foreach (var s in subeffects)
 			{
 				GD.Print($"Loaded subeff with jump indices {s.jumpIndices}");

@@ -62,7 +62,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				var (a, b) = (-1, -1);
 				while (!SetTargetIfValid(a, b))
 				{
-					(a, b) = await ServerPlayer.awaiter.GetSpaceTarget(Source.CardName, blurb, spaces, recommendedSpaces);
+					(a, b) = await ServerGame.Awaiter.GetSpaceTarget(PlayerTarget, Card.CardName, blurb, spaces, recommendedSpaces);
 					if ((a, b) == (-1, -1) && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
 				}
 				return ResolutionInfo.Next;

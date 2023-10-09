@@ -167,7 +167,7 @@ namespace Kompas.Server.Effects.Controllers
 			{
 				//GD.Print($"Resolving next stack entry: {stackable}, {context}");
 				//inform the players that they no longer can respond, in case they were somehow still thinking they could
-				foreach (var p in ServerGame.serverPlayers) p.notifier.RequestNoResponse();
+				foreach (var p in ServerGame.serverPlayers) ServerGame.Notifier.RequestNoResponse(p);
 
 				//set the current stack entry to the appropriate value. this is used to check if something is currently resolving.
 				CurrStackEntry = stackable;
@@ -176,7 +176,7 @@ namespace Kompas.Server.Effects.Controllers
 				await stackable.StartResolution(context);
 
 				//after it resolves, tell the clients it's done resolving
-				ServerGame.serverPlayers.First().notifier.RemoveStackEntry(currStackIndex);
+				ServerGame.Notifier.RemoveStackEntry(currStackIndex);
 				//take note that nothing is resolving
 				CurrStackEntry = null;
 				//and see if there's antyhing to resolve next.
@@ -204,7 +204,7 @@ namespace Kompas.Server.Effects.Controllers
 				if (stack.StackEntries.ElementAt(i) == eff)
 				{
 					stack.Cancel(i);
-					ServerGame.serverPlayers.First().notifier.RemoveStackEntry(i - 1);
+					ServerGame.Notifier.RemoveStackEntry(i - 1);
 				}
 			}
 			//Remove effect from hanging/delayed
@@ -241,7 +241,7 @@ namespace Kompas.Server.Effects.Controllers
 			foreach (var t in stillValid)
 			{
 				//TODO this doesn't stop any subsequent calls to CheckTriggers
-				if (!t.Responded) await t.Ask(triggered.context);
+				if (!t.Responded) await t.Ask(t.Effect.OwningPlayer, triggered.context);
 			}
 			currentlyCheckingOptionals = false;
 
@@ -263,7 +263,7 @@ namespace Kompas.Server.Effects.Controllers
 				foreach (var p in ServerGame.serverPlayers)
 				{
 					var thisPlayers = confirmed.Where(t => t.serverEffect.OwningPlayer == p);
-					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(p.awaiter.GetTriggerOrder(thisPlayers));
+					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(p.awaiter.GetTriggerOrder(p, thisPlayers));
 				}
 				await Task.WhenAll(triggerOrderings);
 			}
@@ -361,7 +361,7 @@ namespace Kompas.Server.Effects.Controllers
 					.ToArray();
 				if (!validTriggers.Any()) return;
 				var triggers = new TriggersTriggered(triggers: validTriggers, context: context);
-				GD.Print($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Source.ID + t.Blurb))}");
+				GD.Print($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Card.ID + t.Blurb))}");
 				triggeredTriggers.Enqueue(triggers);
 			}
 

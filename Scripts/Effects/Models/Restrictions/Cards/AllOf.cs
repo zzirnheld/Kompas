@@ -16,9 +16,9 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			if (blurb != null) GD.PrintErr($"{GetType()} blurb is on the card restriction. move it to the card target of {initializationContext.source}");
 		}
 
-		public GameCard Source => InitializationContext.source;
+		public GameCard Card => InitializationContext.source;
 
-		public override string ToString() => $"Card Restriction of {Source?.CardName}." +
+		public override string ToString() => $"Card Restriction of {Card?.CardName}." +
 			$"\nRestriction Elements: {string.Join(", ", elements.Select(r => r))}";
 	}
 

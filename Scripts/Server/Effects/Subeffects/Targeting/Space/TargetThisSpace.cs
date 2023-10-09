@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -6,10 +7,10 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			if (ThisCard.Location != Location.Board)
+			if (Card.Location != Location.Board)
 				return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
-			ServerEffect.AddSpace(ThisCard.Position);
+			ServerEffect.AddSpace(Card.Position);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

@@ -56,6 +56,6 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		}
 
 		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
-			=> InitializationContext.game.StackEntries.Any(stackEntry => IsValidFight(card, context, stackEntry));
+			=> InitializationContext.game.StackController.StackEntries.Any(stackEntry => IsValidFight(card, context, stackEntry));
 	}
 }

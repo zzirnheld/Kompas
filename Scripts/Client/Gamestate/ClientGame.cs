@@ -232,7 +232,7 @@ namespace Kompas.Client.Gamestate
 
 		public void EffectActivated(ClientEffect eff)
 		{
-			uiController.SetCurrState($"{(eff.ControllingPlayer.Friendly ? "Friendly" : "Enemy")} {eff.Source.CardName} Effect Activated",
+			uiController.SetCurrState($"{(eff.ControllingPlayer.Friendly ? "Friendly" : "Enemy")} {eff.Card.CardName} Effect Activated",
 				eff.blurb);
 		}*/
 

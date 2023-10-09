@@ -1,5 +1,6 @@
 ﻿using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -14,7 +15,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, "Target not on board :(");
 
 			var ctxt = new TriggeringEventContext(game: ServerGame, CardBefore: CardTarget, 
-				stackableCause: Effect, player: EffectController, space: CardTarget.Position);
+				stackableCause: Effect, player: PlayerTarget, space: CardTarget.Position);
 			ctxt.CacheCardInfoAfter();
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Play, ctxt);
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Arrive, ctxt);

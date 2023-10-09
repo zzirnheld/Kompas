@@ -117,7 +117,7 @@ namespace Kompas.Server.Gamestate.Players
 		{
 			throw new System.NotImplementedException();
 			/*
-			GD.Print($"Player {index} trying to activate effect of {effect?.Source?.CardName}");
+			GD.Print($"Player {index} trying to activate effect of {effect?.Card?.CardName}");
 			if (effect.CanBeActivatedBy(this))
 			{
 				var context = ResolutionContext.PlayerTrigger(effect, game);

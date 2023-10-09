@@ -2,6 +2,7 @@
 using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 using Kompas.Gamestate.Locations;
+using Kompas.Cards.Movement;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -24,7 +25,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			else if (forbidNotBoard && SecondTarget.Location != Location.Board)
 				throw new InvalidLocationException(SecondTarget.Location, SecondTarget, MovedCardOffBoard);
 
-			CardTarget.Move(SecondTarget.Position, false, ServerEffect);
+			CardTarget.Move(SecondTarget.Position, false, PlayerTarget, ServerEffect);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

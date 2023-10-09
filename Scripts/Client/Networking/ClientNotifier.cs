@@ -72,7 +72,7 @@ namespace Kompas.Client.Networking
 			int i = 0;
 			foreach (var (t, o) in triggers)
 			{
-				cardIds[i] = t.Source.ID;
+				cardIds[i] = t.Card.ID;
 				effIndices[i] = t.Effect.EffectIndex;
 				orders[i] = o;
 				i++;

@@ -23,7 +23,7 @@ namespace Kompas.Server.Cards.Loading
 			return card.cardType == 'C';
 		}
 
-		public ServerSubeffect[] InstantiateServerPartialKeyword(string keyword)
+		public static ServerSubeffect[] InstantiateServerPartialKeyword(string keyword)
 		{
 			if (!partialKeywordJsons.ContainsKey(keyword))
 			{

@@ -71,7 +71,7 @@ namespace Kompas.Client.Effects.Models
 		public void StartResolution(TriggeringEventContext context)
 		{
 			//TODO
-			//ClientGame.clientUIController.SetCurrState($"Resolving Effect of {Source.CardName}", $"{blurb}");
+			//ClientGame.clientUIController.SetCurrState($"Resolving Effect of {Card.CardName}", $"{blurb}");
 			CardTargets.Clear();
 
 			//in case any cards are still showing targets from the last effect, which they will if this happens after another effect in the stack.

@@ -5,6 +5,7 @@ using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
@@ -50,7 +51,7 @@ namespace KompasServer.Effects
 			int[] choices = null;
 			while (!TryAnswer(choices))
 			{
-				choices = await serverGame.Awaiter.GetHandSizeChoices(cardIds, listRestrictionJson);
+				choices = await serverGame.Awaiter.GetHandSizeChoices(player, cardIds, listRestrictionJson);
 			}
 		}
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Models;
 
 namespace Kompas.Server.Networking
@@ -44,9 +45,9 @@ namespace Kompas.Server.Networking
 		#endregion awaited values
 
 		#region trigger things
-		public async Task<bool> GetOptionalTriggerChoice(ServerTrigger trigger, int x, bool showX)
+		public async Task<bool> GetOptionalTriggerChoice(IPlayer toAsk, ServerTrigger trigger, int x, bool showX)
 		{
-			serverNotifier.AskForTrigger(trigger, x, showX);
+			serverNotifier.AskForTrigger(toAsk, trigger, x, showX);
 			//TODO later use a semaphore or something to signal once packet is available
 			while (true)
 			{
@@ -61,9 +62,9 @@ namespace Kompas.Server.Networking
 			}
 		}
 
-		public async Task GetTriggerOrder(IEnumerable<ServerTrigger> triggers)
+		public async Task GetTriggerOrder(IPlayer toAsk, IEnumerable<ServerTrigger> triggers)
 		{
-			serverNotifier.GetTriggerOrder(triggers);
+			serverNotifier.GetTriggerOrder(toAsk, triggers);
 			while (true)
 			{
 				if (TriggerOrders.HasValue)
@@ -75,8 +76,7 @@ namespace Kompas.Server.Networking
 						var card = serverNetCtrl.sGame.LookupCardByID(cardIds[i]);
 						if (card == null) continue;
 						if (card.Effects.ElementAt(effIndices[i]).Trigger is ServerTrigger trigger)
-							throw new System.NotImplementedException();
-							//trigger.Order = orders[i];
+							trigger.Order = orders[i];
 					}
 
 					TriggerOrders = null;
@@ -89,9 +89,9 @@ namespace Kompas.Server.Networking
 		#endregion trigger things
 
 		#region effect flow control
-		public async Task<int> GetEffectOption(string cardName, string choiceBlurb, string[] optionBlurbs, bool hasDefault, bool showX, int x)
+		public async Task<int> GetEffectOption(IPlayer toAsk, string cardName, string choiceBlurb, string[] optionBlurbs, bool hasDefault, bool showX, int x)
 		{
-			serverNotifier.ChooseEffectOption(cardName, choiceBlurb, optionBlurbs, hasDefault, showX, x);
+			serverNotifier.ChooseEffectOption(toAsk, cardName, choiceBlurb, optionBlurbs, hasDefault, showX, x);
 			while (true)
 			{
 				if (EffOption.HasValue)
@@ -105,9 +105,9 @@ namespace Kompas.Server.Networking
 			}
 		}
 
-		public async Task<int> GetPlayerXValue()
+		public async Task<int> GetPlayerXValue(IPlayer toAsk)
 		{
-			serverNotifier.GetXForEffect();
+			serverNotifier.GetXForEffect(toAsk);
 			while (true)
 			{
 				if (PlayerXChoice.HasValue)
@@ -133,9 +133,9 @@ namespace Kompas.Server.Networking
 		/// <returns>The cards the person chose and false if they chose targets;<br></br>
 		/// null and true if they declined to choose targets</returns>
 		public async Task<IEnumerable<GameCard>> GetCardListTargets
-			(string sourceCardName, string blurb, int[] ids, string listRestructionJson)
+			(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, string listRestructionJson)
 		{
-			serverNotifier.GetCardTarget(sourceCardName, blurb, ids, listRestructionJson, list: true);
+			serverNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestructionJson, list: true);
 			while (true)
 			{
 				if (CardListTargets != null)
@@ -163,9 +163,9 @@ namespace Kompas.Server.Networking
 		/// <returns>The space and false if the player chose a space<br></br>
 		/// default and true if the player declined to choose a space</returns>
 		public async Task<(int, int)> GetSpaceTarget
-			(string cardName, string blurb, (int, int)[] spaces, (int, int)[] recommendedSpaces)
+			(IPlayer toAsk, string cardName, string blurb, (int, int)[] spaces, (int, int)[] recommendedSpaces)
 		{
-			serverNotifier.GetSpaceTarget(cardName, blurb, spaces, recommendedSpaces);
+			serverNotifier.GetSpaceTarget(toAsk, cardName, blurb, spaces, recommendedSpaces);
 			while (true)
 			{
 				if (SpaceTarget.HasValue)
@@ -186,9 +186,9 @@ namespace Kompas.Server.Networking
 		#endregion targeting
 
 		#region misc get stuff
-		public async Task<int[]> GetHandSizeChoices(int[] cardIds, string listRestrictionJson)
+		public async Task<int[]> GetHandSizeChoices(IPlayer toAsk, int[] cardIds, string listRestrictionJson)
 		{
-			serverNotifier.GetHandSizeChoices(cardIds, listRestrictionJson);
+			serverNotifier.GetHandSizeChoices(toAsk, cardIds, listRestrictionJson);
 			while (true)
 			{
 				if (HandSizeChoices != null)

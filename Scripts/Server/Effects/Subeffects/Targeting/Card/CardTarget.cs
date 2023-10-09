@@ -66,8 +66,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		private IEnumerable<GameCard> ClosestCards(IEnumerable<GameCard> possibleTargets)
 		{
-			int minDist = possibleTargets.Min(c => c.DistanceTo(Source));
-			return possibleTargets.Where(c => c.DistanceTo(Source) == minDist);
+			int minDist = possibleTargets.Min(c => c.DistanceTo(Card));
+			return possibleTargets.Where(c => c.DistanceTo(Card) == minDist);
 		}
 
 		protected virtual Task<ResolutionInfo> NoPossibleTargets()
@@ -110,10 +110,10 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		protected async Task<IEnumerable<GameCard>> RequestTargets()
 		{
-			string name = Source.CardName;
+			string name = Card.CardName;
 			int[] targetIds = stashedPotentialTargets.Select(c => c.ID).ToArray();
 			GD.Print($"Potential targets {string.Join(", ", targetIds)}");
-			return await ServerPlayer.awaiter.GetCardListTargets(name, blurb, targetIds, listRestriction.SerializeToJSON(ResolutionContext));
+			return await ServerGame.Awaiter.GetCardListTargets(PlayerTarget, name, blurb, targetIds, listRestriction.SerializeToJSON(ResolutionContext));
 		}
 
 		public bool AddListIfLegal(IEnumerable<GameCard> choices)
@@ -127,7 +127,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			//add all cards in the chosen list to targets
 			AddList(choices);
 			//everything's cool
-			ServerPlayer.notifier.AcceptTarget();
+			ServerGame.Notifier.AcceptTarget(PlayerTarget);
 			return true;
 		}
 
@@ -146,8 +146,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			var cardToLinkWith = toLinkWith?.From(ResolutionContext, default)?.Card;
 			foreach (var c in choices)
 			{
-				ServerEffect.AddTarget(c, secretTarget);
-				if (cardToLinkWith != null) ServerEffect.CreateCardLink(linkColor, secretTarget, c, cardToLinkWith);
+				ServerEffect.AddTarget(c, secretTarget ? PlayerTarget : null);
+				if (cardToLinkWith != null) ServerEffect.CreateCardLink(linkColor, secretTarget ? PlayerTarget : null, c, cardToLinkWith);
 			}
 		}
 	}

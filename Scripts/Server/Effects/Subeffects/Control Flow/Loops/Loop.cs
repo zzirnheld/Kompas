@@ -13,8 +13,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			//make the "no other targets" button disappear
 			if (canDecline)
 			{
-				ServerPlayer.notifier.DisableDecliningTarget();
-				ServerPlayer.notifier.AcceptTarget(); // otherwise it keeps them in the now-irrelevant target mode
+				//TODO - do this for both players? in case loop contained something setting target. or maybe store the player that's in a can decline loop?
+				ServerGame.Notifier.DisableDecliningTarget(PlayerTarget);
+				ServerGame.Notifier.AcceptTarget(PlayerTarget); // otherwise it keeps them in the now-irrelevant target mode
 			}
 		}
 
@@ -29,7 +30,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				//tell the client to enable the button to exit the loop
 				if (canDecline)
 				{
-					ServerPlayer.notifier.EnableDecliningTarget();
+					ServerGame.Notifier.EnableDecliningTarget(PlayerTarget);
 					ServerEffect.OnImpossible = this;
 					ServerEffect.CanDeclineTarget = true;
 				}

@@ -49,7 +49,7 @@ namespace Kompas.Effects.Models
 
 		public override string ToString()
 		{
-			string str = $"Game {game}, Source card {source}";
+			string str = $"Game {game}, Card card {source}";
 
 			if (effect != null) str += $", Effect {effect}";
 			if (trigger != null) str += $", Trigger {trigger}";

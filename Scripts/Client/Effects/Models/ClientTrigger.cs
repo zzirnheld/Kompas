@@ -8,7 +8,7 @@ namespace Kompas.Client.Effects.Models
 	{
 		private readonly ClientEffect effect;
 
-		public override GameCard Source => effect.Source;
+		public override GameCard Card => effect.Card;
 		public override Effect Effect => effect;
 
 		public ClientTrigger(TriggerData triggerData, ClientEffect effect) : base(triggerData, effect)

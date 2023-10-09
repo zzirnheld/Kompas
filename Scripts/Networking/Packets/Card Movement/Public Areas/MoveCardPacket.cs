@@ -31,7 +31,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			clientGame.LookupCardByID(cardId)?.Move((x, y), false);
+			clientGame.LookupCardByID(cardId)?.Move((x, y), false, null);
 			//TODO have move in client call refresh. for that matter, position change
 		}
 	}

@@ -74,7 +74,7 @@ namespace Kompas.Effects.Subeffects
 
 		public int SubeffIndex { get; protected set; }
 
-		public GameCard Source => Effect.Source;
+		public GameCard Card => Effect.Card;
 		public IResolutionContext ResolutionContext => Effect.CurrentResolutionContext;
 		public TriggeringEventContext CurrentTriggerContext => Effect.CurrTriggerContext;
 

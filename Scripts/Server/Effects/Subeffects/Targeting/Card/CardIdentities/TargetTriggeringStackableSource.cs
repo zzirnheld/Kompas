@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
-	public class TargetTriggeringStackableSource : ServerSubeffect
+	public class TargetTriggeringStackableCard : ServerSubeffect
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{

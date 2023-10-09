@@ -3,6 +3,7 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
+using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
@@ -13,13 +14,13 @@ namespace Kompas.Server.Effects.Models
 	{
 		public ServerGame ServerGame { get; init; }
 
-		public ServerPlayer ServerController { get; init; }
+		public IPlayer ServerController { get; init; }
 
 		private ServerStackController EffCtrl => ServerGame.effectsController;
 		private readonly Space attackerInitialSpace;
 		private readonly Space defenderInitialSpace;
 
-		public ServerAttack(ServerGame serverGame, ServerPlayer controller, GameCard attacker, GameCard defender)
+		public ServerAttack(ServerGame serverGame, IPlayer controller, GameCard attacker, GameCard defender)
 			: base(controller, attacker, defender)
 		{
 			this.ServerGame = serverGame != null ? serverGame : throw new System.ArgumentNullException("serverGame", "Server game cannot be null for attack");
@@ -34,7 +35,7 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		public void Declare(IStackable stackSrc)
 		{
-			ServerController.notifier.NotifyAttackStarted(attacker, defender, controller);
+			ServerGame.Notifier.NotifyAttackStarted(ServerController, attacker, defender, controller);
 
 			var attackerContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender, 
 				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: ControllingPlayer);

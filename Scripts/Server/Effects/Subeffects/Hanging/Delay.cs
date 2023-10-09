@@ -30,7 +30,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 												 triggerRestriction: triggerRestriction,
 												 endCondition: endCondition,
 												 fallOffCondition: fallOffCondition,
-												 fallOffRestriction: CreateFallOffRestriction(Source),
+												 fallOffRestriction: CreateFallOffRestriction(Card),
 												 sourceEff: Effect,
 												 currentContext: ResolutionContext,
 												 numTimesToDelay: numTimesToDelay,

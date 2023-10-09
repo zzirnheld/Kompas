@@ -35,7 +35,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 
 		public const string Cost = "Cost";
 		public const string NumberOfAugments = "Number of Augments";
-		public const string DistanceToSource = "Distance to Source";
+		public const string DistanceToCard = "Distance to Card";
 		public const string Index = "Index";
 		public const string SpacesCanMove = "Spaces Can Move";
 		#endregion values
@@ -49,7 +49,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public int modifier = 0;
 
-		public GameCard Source => InitializationContext.source;
+		public GameCard Card => InitializationContext.source;
 
 		//FUTURE: Make this more definitive
 		public string DisplayName => value;
@@ -70,7 +70,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 
 				Cost => card.Cost,
 				NumberOfAugments => card.Augments.Count,
-				DistanceToSource => card.DistanceTo(Source),
+				DistanceToCard => card.DistanceTo(Card),
 				Index => card.IndexInList,
 				SpacesCanMove => card.SpacesCanMove,
 				

@@ -10,8 +10,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public bool showX = false;
 
 		private async Task<int> AskForOptionChoice()
-			=> await ServerPlayer.awaiter
-				.GetEffectOption(cardName: Source.CardName,
+			=> await ServerGame.Awaiter
+				.GetEffectOption(PlayerTarget,
+								 cardName: Card.CardName,
 								 choiceBlurb: choiceBlurb,
 								 optionBlurbs: optionBlurbs,
 								 hasDefault: hasDefault,

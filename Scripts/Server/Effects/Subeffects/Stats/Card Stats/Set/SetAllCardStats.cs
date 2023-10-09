@@ -11,13 +11,13 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public IRestriction<IGameCard> cardRestriction = new Character();
 
-		public IIdentity<IReadOnlyCollection<IGameCard>> cardsSource = new Board();
+		public IIdentity<IReadOnlyCollection<IGameCard>> cardsCard = new Board();
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			cards ??= new Restricted() {
 				cardRestriction = cardRestriction,
-				cards = cardsSource
+				cards = cardsCard
 			};
 			base.Initialize(eff, subeffIndex);
 		}
