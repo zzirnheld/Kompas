@@ -16,11 +16,17 @@ namespace Kompas.Client.Gamestate
 		public GameStartController GameStartController { get; private set; }
 
 		private ClientGame game;
+		public override IGame Game => game;
 
 		//TODO: aggressive nullable warning? encourage user to use null propagation?
 		/// <summary>
-        /// Singleton? which actually sends and receives communication.
-        /// </summary>
+		/// Singleton? which actually sends and receives communication.
+
+
+		//TODO: aggressive nullable warning? encourage user to use null propagation?
+		/// <summary>
+		/// Singleton? which actually sends and receives communication.
+		/// </summary>
 		private ClientNetworker networker;
 		/// <summary>
         /// Singleton? which assembles packets to be sent via the Networker.

@@ -263,7 +263,7 @@ namespace Kompas.Server.Effects.Controllers
 				foreach (var p in ServerGame.serverPlayers)
 				{
 					var thisPlayers = confirmed.Where(t => t.serverEffect.OwningPlayer == p);
-					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(p.awaiter.GetTriggerOrder(p, thisPlayers));
+					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(ServerGame.Awaiter.GetTriggerOrder(p, thisPlayers));
 				}
 				await Task.WhenAll(triggerOrderings);
 			}

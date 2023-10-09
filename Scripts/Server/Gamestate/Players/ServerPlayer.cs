@@ -1,9 +1,14 @@
 using System.Threading.Tasks;
+using Godot;
 using Kompas.Cards.Models;
+using Kompas.Cards.Movement;
+using Kompas.Effects.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Models;
+using Kompas.Server.Gamestate.Extensions;
 using Kompas.Server.Gamestate.Locations.Controllers;
 using Kompas.Server.Gamestate.Locations.Models;
 using Kompas.Server.Networking;
@@ -15,7 +20,8 @@ namespace Kompas.Server.Gamestate.Players
 		//TODO encapsulate
 		public ServerNetworker Networker { get; init; }
 
-		public IGame Game { get; }
+		public ServerGame ServerGame { get; }
+		public IGame Game => ServerGame;
 
 		public IPlayer Enemy { get; private set; }
 
@@ -47,7 +53,7 @@ namespace Kompas.Server.Gamestate.Players
 
 		private ServerPlayer(ServerGame game, int index)
 		{
-			Game = game;
+			ServerGame = game;
 			Index = index;
 		}
 
@@ -88,67 +94,61 @@ namespace Kompas.Server.Gamestate.Players
 		/// <param name="y"></param>
 		public async Task TryAugment(GameCard aug, Space space)
 		{
-			throw new System.NotImplementedException();
-			/*
 			try
 			{
-				if (Game.IsValidNormalAttach(aug, space, this))
+				if (ServerGame.IsValidNormalAttach(aug, space, this))
 				{
 					aug.Play(space, this, payCost: true);
-					await game.effectsController.CheckForResponse();
+					await ServerGame.serverStackController.CheckForResponse();
 				}
-				else notifier.NotifyPutBack();
+				else ServerGame.Notifier.NotifyPutBack(this);
 			}
 			catch (KompasException ke)
 			{
 				GD.PrintErr(ke);
-				notifier.NotifyPutBack();
-			}*/
+				ServerGame.Notifier.NotifyPutBack(this);
+			}
 		}
 
 		public async Task TryPlay(GameCard card, Space space)
 		{
-			throw new System.NotImplementedException();
-			/*
 			try
 			{
-				if (game.IsValidNormalPlay(card, space, this))
+				if (ServerGame.IsValidNormalPlay(card, space, this))
 				{
 					card.Play(space, this, payCost: true);
-					await game.effectsController.CheckForResponse();
+					await ServerGame.serverStackController.CheckForResponse();
 				}
 				else
 				{
-					GD.PushWarning($"Player {index} attempted an invalid play of {card} to {space}.");
-					notifier.NotifyPutBack();
+					GD.PushWarning($"Player {Index} attempted an invalid play of {card} to {space}.");
+					ServerGame.Notifier.NotifyPutBack(this);
 				}
 			}
 			catch (KompasException ke)
 			{
-				GD.PrintErr($"Player {index} attempted an invalid play of {card} to {space}. Resulting exception:\n{ke}");
-				notifier.NotifyPutBack();
-			}*/
+				GD.PrintErr($"Player {Index} attempted an invalid play of {card} to {space}. Resulting exception:\n{ke}");
+				ServerGame.Notifier.NotifyPutBack(this);
+			}
 		}
 
 		public async Task TryMove(GameCard toMove, Space space)
 		{
-			throw new System.NotImplementedException();
-			/*
 			//if it's not a valid place to do, put the cards back
 			try
 			{
-				if (game.IsValidNormalMove(toMove, space, this))
+				if (ServerGame.IsValidNormalMove(toMove, space, this))
 				{
-					toMove.Move(space, true);
-					await game.effectsController.CheckForResponse();
+					toMove.Move(space, true, this);
+					await ServerGame.serverStackController.CheckForResponse();
 				}
-				else notifier.NotifyPutBack();
+				else ServerGame.Notifier.NotifyPutBack(this);
 			}
 			catch (KompasException ke)
 			{
 				GD.PrintErr(ke);
-				notifier.NotifyPutBack();
-			}*/
+				ServerGame.Notifier.NotifyPutBack(this);
+			}
 		}
 
 		/// <summary>
@@ -158,38 +158,30 @@ namespace Kompas.Server.Gamestate.Players
 		/// <param name="controller"></param>
 		public async Task TryActivateEffect(ServerEffect effect)
 		{
-			throw new System.NotImplementedException();
-			/*
-			GD.Print($"Player {index} trying to activate effect of {effect?.Card?.CardName}");
+			GD.Print($"Player {Index} trying to activate effect of {effect?.Card?.CardName}");
 			if (effect.CanBeActivatedBy(this))
 			{
-				var context = ResolutionContext.PlayerTrigger(effect, game);
-				game.effectsController.PushToStack(effect, this, context);
-				await game.effectsController.CheckForResponse();
+				var context = ServerResolutionContext.PlayerTrigger(effect, Game, this);
+				ServerGame.serverStackController.PushToStack(effect, this, context);
+				await ServerGame.serverStackController.CheckForResponse();
 			}
-			*/
 		}
 
 		public async Task TryAttack(GameCard attacker, GameCard defender)
 		{
-			throw new System.NotImplementedException();
-			/*
-			notifier.NotifyBothPutBack();
+			ServerGame.Notifier.NotifyBothPutBack();
 
-			if (game.IsValidNormalAttack(attacker, defender, this))
+			if (ServerGame.IsValidNormalAttack(attacker, defender, this))
 			{
-				game.Attack(attacker, defender, this, stackSrc: default, manual: true);
-				await game.effectsController.CheckForResponse();
-			}*/
+				ServerGame.Attack(attacker, defender, this, stackSrc: default, manual: true);
+				await ServerGame.serverStackController.CheckForResponse();
+			}
 		}
 
 		public async Task TryEndTurn()
 		{
-			throw new System.NotImplementedException();
-			/*
-			if (game.NothingHappening && game.TurnPlayer == this)
-				await game.SwitchTurn();
-				*/
+			if (Game.StackController.NothingHappening && ServerGame.TurnPlayer() == this)
+				await ServerGame.SwitchTurn();
 		}
 		#endregion IPlayer Control Methods
 	}
