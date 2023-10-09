@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace Kompas.Server.Effects.Subeffects.Hanging
+namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
 	public class Delay : HangingEffectSubeffect
 	{

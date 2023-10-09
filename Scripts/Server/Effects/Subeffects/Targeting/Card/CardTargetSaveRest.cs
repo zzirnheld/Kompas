@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class CardTargetSaveRest : CardTarget
 	{
-		public IRestriction<GameCardBase> restRestriction;
+		public IRestriction<IGameCard> restRestriction;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

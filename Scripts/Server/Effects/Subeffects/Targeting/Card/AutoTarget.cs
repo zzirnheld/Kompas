@@ -1,14 +1,16 @@
-﻿using KompasCore.Cards;
-using Kompas.Effects.Models;
+﻿using Kompas.Effects.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.ManyCards;
-using Kompas.Effects.Models.Restrictions.GamestateRestrictionElements;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Identities.Numbers;
+using Kompas.Effects.Models.Restrictions.Gamestate;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class AutoTarget : ServerSubeffect
 	{
@@ -16,8 +18,8 @@ namespace Kompas.Server.Effects.Subeffects
 		public const string Any = "Any";
 		public const string RandomCard = "Random";
 
-		public IIdentity<IReadOnlyCollection<GameCardBase>> toSearch = new All();
-		public IRestriction<GameCardBase> cardRestriction;
+		public IIdentity<IReadOnlyCollection<IGameCard>> toSearch = new All();
+		public IRestriction<IGameCard> cardRestriction;
 		public CardValue tiebreakerValue;
 		public string tiebreakerDirection;
 
@@ -39,7 +41,7 @@ namespace Kompas.Server.Effects.Subeffects
 		public override bool IsImpossible(TargetingContext overrideContext = null)
 			=> !Game.Cards.Any(c => cardRestriction.IsValid(c, ResolutionContext));
 
-		private GameCard GetRandomCard(GameCard[] cards)
+		private static GameCard GetRandomCard(GameCard[] cards)
 		{
 			var random = new System.Random();
 			return cards[random.Next(cards.Length)];

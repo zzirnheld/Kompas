@@ -1,7 +1,7 @@
 ﻿using Kompas.Effects.Models;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class PlayerChooseX : ServerSubeffect
 	{

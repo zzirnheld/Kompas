@@ -2,11 +2,11 @@
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Cards;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class TargetTargetsAugmentedCard : AutoTargetCardIdentity
 	{
-		public IIdentity<GameCardBase> card = new TargetIndex();
+		public IIdentity<IGameCard> card = new TargetIndex();
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

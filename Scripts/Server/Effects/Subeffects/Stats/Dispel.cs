@@ -1,7 +1,7 @@
 ﻿using KompasCore.Cards.Movement;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Dispel : ServerSubeffect
 	{

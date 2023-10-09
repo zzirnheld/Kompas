@@ -1,6 +1,6 @@
 ﻿using Kompas.Effects.Models.Identities.Cards;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class TargetAttacker : AutoTargetCardIdentity
 	{

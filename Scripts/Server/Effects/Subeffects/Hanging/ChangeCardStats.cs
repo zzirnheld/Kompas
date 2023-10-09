@@ -1,11 +1,11 @@
 ﻿using KompasCore.Cards;
 using Kompas.Effects.Models;
-using KompasCore.Exceptions;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Gamestate;
 using System.Collections.Generic;
 using Godot;
 
-namespace Kompas.Server.Effects.Subeffects.Hanging
+namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
 	public class ChangeCardStats : HangingEffectSubeffect
 	{

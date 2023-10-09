@@ -4,7 +4,7 @@ using KompasCore.Cards.Movement;
 using Kompas.Effects.Models;
 using Kompas.Server.Gamestate;
 
-namespace Kompas.Server.Effects.Subeffects.Hanging
+namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
 	public class Discard : HangingEffectSubeffect
 	{

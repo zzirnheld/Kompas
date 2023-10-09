@@ -1,8 +1,8 @@
-using KompasCore.Exceptions;
+using Kompas.Gamestate.Exceptions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class SetCardStats : ChangeCardStatsBase
 	{

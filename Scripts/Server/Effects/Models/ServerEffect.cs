@@ -122,7 +122,7 @@ namespace Kompas.Server.Effects.Models
 		#region resolution
 		public async Task StartResolution(IServerResolutionContext context)
 		{
-			GD.Print($"Resolving effect {EffectIndex} of {Source.CardName} in context {context}");
+			GD.Print($"Resolving effect {EffectIndex} of {Card.CardName} in context {context}");
 			serverGame.CurrEffect = this;
 
 			//set context parameters
@@ -134,7 +134,7 @@ namespace Kompas.Server.Effects.Models
 			if (context.TriggerContext.stackableCause != null) StackableTargets.Add(context.TriggerContext.stackableCause);
 
 			//notify relevant to this effect starting
-			context.ControllingPlayer.notifier.NotifyEffectX(Source, EffectIndex, X);
+			context.ControllingPlayer.notifier.NotifyEffectX(Card, EffectIndex, X);
 			context.ControllingPlayer.notifier.EffectResolving(this);
 
 			//resolve the effect if possible
@@ -169,12 +169,12 @@ namespace Kompas.Server.Effects.Models
 						else resolve = false; //stop if that subeffect index is out of bounds
 						break;
 					case ResolutionResult.Impossible:
-						GD.Print($"Effect of {Source.CardName} was impossible at index {index} because {result.reason}. Going to OnImpossible if applicable");
+						GD.Print($"Effect of {Card.CardName} was impossible at index {index} because {result.reason}. Going to OnImpossible if applicable");
 						result = await EffectImpossible(result.reason);
 						break;
 					case ResolutionResult.End:
 						//TODO send to player why resolution ended (including "[cardname] effect finished resolving")
-						GD.Print($"Finished resolution of effect of {Source.CardName} because {result.reason}");
+						GD.Print($"Finished resolution of effect of {Card.CardName} because {result.reason}");
 						resolve = false;
 						break;
 					default:
@@ -191,7 +191,7 @@ namespace Kompas.Server.Effects.Models
 			}
 			GD.Print($"Resolving subeffect of type {subeffects[index].GetType()}");
 			SubeffectIndex = index;
-			CurrentServerResolutionContext.ControllingPlayer.notifier.NotifyEffectX(Source, EffectIndex, X);
+			CurrentServerResolutionContext.ControllingPlayer.notifier.NotifyEffectX(Card, EffectIndex, X);
 			try
 			{
 				return await subeffects[index].Resolve();
@@ -223,7 +223,7 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		public async Task<ResolutionInfo> EffectImpossible(string why)
 		{
-			GD.Print($"Effect of {Source.CardName} is being declared impossible at subeffect {subeffects[SubeffectIndex].GetType()} because {why}");
+			GD.Print($"Effect of {Card.CardName} is being declared impossible at subeffect {subeffects[SubeffectIndex].GetType()} because {why}");
 			if (OnImpossible == null)
 			{
 				//TODO make the notifier tell the client why the effect was impossible
@@ -249,14 +249,14 @@ namespace Kompas.Server.Effects.Models
 		private void NotifyAddCardTarget(GameCard card, bool secret = false)
 		{
 			var notifier = serverGame.ServerControllerOf(card).notifier;
-			if (secret) notifier.AddHiddenTarget(Source, EffectIndex, card);
-			else notifier.AddTarget(Source, EffectIndex, card);
+			if (secret) notifier.AddHiddenTarget(Card, EffectIndex, card);
+			else notifier.AddTarget(Card, EffectIndex, card);
 		}
 
 		public override void RemoveTarget(GameCard card)
 		{
 			base.RemoveTarget(card);
-			serverGame.ServerControllerOf(card).notifier.RemoveTarget(Source, EffectIndex, card);
+			serverGame.ServerControllerOf(card).notifier.RemoveTarget(Card, EffectIndex, card);
 		}
 
 		public void CreateCardLink(Color linkColor, bool hidden, params GameCard[] cards)
@@ -279,6 +279,6 @@ namespace Kompas.Server.Effects.Models
 			}
 		}
 
-		public override string ToString() => $"Effect {EffectIndex} of {Source?.CardName}";
+		public override string ToString() => $"Effect {EffectIndex} of {Card?.CardName}";
 	}
 }

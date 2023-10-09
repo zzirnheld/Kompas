@@ -7,6 +7,7 @@ using Kompas.Gamestate.Players;
 using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
+using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Cards.Models
 {
@@ -23,6 +24,9 @@ namespace Kompas.Server.Cards.Models
 		public override ICardController CardController { get; }
 
 		public override bool KnownToEnemy { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+		public ServerPlayer ControllingServerPlayer { get; init; }
+		public override IPlayer ControllingPlayer => ControllingServerPlayer;
 
 		public ServerGameCard(SerializableCard serializeableCard, int id, ServerCardController cardController, IPlayer owningPlayer, ServerEffect[] effects, bool isAvatar)
 			: base(serializeableCard, id, owningPlayer)

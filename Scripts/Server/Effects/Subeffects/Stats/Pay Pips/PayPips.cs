@@ -2,7 +2,7 @@
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Numbers;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class PayPips : ServerSubeffect
 	{

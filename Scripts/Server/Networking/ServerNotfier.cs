@@ -12,9 +12,9 @@ using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Networking
 {
+	//TODO this should be by game and take in the player to be sent to
 	public class ServerNotifier
 	{
-		public ServerPlayer Player;
 		public ServerNetworker ServerNetworkCtrl;
 		public ServerNotifier OtherNotifier;
 

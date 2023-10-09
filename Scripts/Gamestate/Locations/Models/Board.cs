@@ -222,7 +222,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <param name="toPlay">Card to be played</param>
 		/// <param name="toX">X coordinate to play the card to</param>
 		/// <param name="toY">Y coordinate to play the card to</param>
-		protected void Play(GameCard toPlay, Space to, IPlayer player, IStackable stackSrc = null)
+		public virtual void Play(GameCard toPlay, Space to, IPlayer player, IStackable stackSrc = null)
 		{
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");
@@ -261,7 +261,7 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 
 		//movement
-		protected virtual void Swap(GameCard card, Space to, bool playerInitiated, IStackable stackSrc = null)
+		protected virtual void Swap(GameCard card, Space to, bool normal, IPlayer mover, IStackable stackSrc = null)
 		{
 			GD.Print($"Swapping {card?.CardName} to {to}");
 
@@ -286,7 +286,7 @@ namespace Kompas.Gamestate.Locations.Models
 			if (!ValidSpellSpaceFor(temp, from)) throw new InvalidSpaceException(from, $"{swapDesc}, but the start is an invalid spell space");
 
 			//then let the cards know they've been moved, but before moving them, so you can count properly
-			if (playerInitiated)
+			if (normal)
 			{
 				card.CountSpacesMovedTo((toX, toY));
 				temp?.CountSpacesMovedTo((tempX, tempY));
@@ -299,7 +299,7 @@ namespace Kompas.Gamestate.Locations.Models
 			if (temp != null) temp.Position = from;
 		}
 
-		public void Move(GameCard card, Space to, bool playerInitiated, IStackable stackSrc = null)
+		public void Move(GameCard card, Space to, bool normal, IPlayer mover, IStackable stackSrc = null)
 		{
 			if (card.Attached)
 			{
@@ -312,7 +312,7 @@ namespace Kompas.Gamestate.Locations.Models
 				var (toX, toY) = to;
 				board[toX, toY].AddAugment(card, stackSrc);
 			}
-			else Swap(card, to, playerInitiated, stackSrc);
+			else Swap(card, to, normal, mover, stackSrc);
 		}
 		#endregion game mechanics
 

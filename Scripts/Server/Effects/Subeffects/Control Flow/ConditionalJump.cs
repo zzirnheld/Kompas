@@ -1,7 +1,7 @@
 ﻿using Kompas.Effects.Models.Restrictions;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class ConditionalJump : ServerSubeffect
 	{

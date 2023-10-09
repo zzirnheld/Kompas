@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Godot;
+using Kompas.Server.Effects.Models;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Loop : ServerSubeffect
 	{

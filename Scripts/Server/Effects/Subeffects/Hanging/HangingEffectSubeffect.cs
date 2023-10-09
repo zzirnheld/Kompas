@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Kompas.Effects.Models;
-using KompasCore.Cards;
 using System.Threading.Tasks;
 using System.Linq;
-using Kompas.Effects.Models.Restrictions.TriggerRestrictionElements;
 using Kompas.Effects.Models.Restrictions;
-using Kompas.Effects.Models.Restrictions.GamestateRestrictionElements;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Gamestate;
+using Kompas.Effects.Models.Restrictions.Triggering;
 
-namespace Kompas.Server.Effects.Subeffects.Hanging
+namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
 	public abstract class HangingEffectSubeffect : ServerSubeffect
 	{
@@ -23,13 +23,10 @@ namespace Kompas.Server.Effects.Subeffects.Hanging
 		protected IRestriction<TriggeringEventContext> CreateFallOffRestriction(GameCard card)
 		{
 			//conditions for falling off
-			IRestriction<TriggeringEventContext> triggerRest = fallOffRestriction;
-			if (triggerRest == null)
-			{
-				triggerRest = fallOffCondition == Trigger.Remove ?
+			IRestriction<TriggeringEventContext> triggerRest = fallOffRestriction
+			?? (fallOffCondition == Trigger.Remove ?
 					TriggerRestrictionBase.AllOf(TriggerRestrictionBase.DefaultFallOffRestrictions) :
-					new AlwaysValid();
-			}
+					new AlwaysValid());
 			triggerRest.Initialize(DefaultInitializationContext);
 			return triggerRest;
 		}

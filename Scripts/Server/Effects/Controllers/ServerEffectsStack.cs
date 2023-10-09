@@ -101,7 +101,6 @@ namespace Kompas.Server.Effects.Controllers
 
 		public void PushToStack(IServerStackable eff, IServerResolutionContext context)
 		{
-			ResetPassingPriority();
 			stack.Push((eff, context));
 		}
 
@@ -231,9 +230,9 @@ namespace Kompas.Server.Effects.Controllers
 
 			//finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
 			foreach (var t in confirmed.Where(t => t.serverEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
-				PushToStack(t.serverEffect, t.serverEffect.OwningPlayer, triggered.context);
+				PushToStack(t.serverEffect, t.serverEffect.OwningServerPlayer, triggered.context);
 			foreach (var t in confirmed.Where(t => t.serverEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
-				PushToStack(t.serverEffect, t.serverEffect.OwningPlayer, triggered.context);
+				PushToStack(t.serverEffect, t.serverEffect.OwningServerPlayer, triggered.context);
 		}
 
 		/// <summary>
@@ -255,7 +254,7 @@ namespace Kompas.Server.Effects.Controllers
 			}
 		}
 
-		public async Task CheckForResponse(bool reset = true)
+		public async Task CheckForResponse()
 		{
 			//if we're already checking for response, don't check again.
 			//checking again could cause us to consider the same set of triggers twice,
@@ -268,52 +267,34 @@ namespace Kompas.Server.Effects.Controllers
 			}
 			currentlyCheckingResponses = true;
 
-			if (reset) ResetPassingPriority();
-
 			await CheckAllTriggers(ServerGame.TurnServerPlayer);
 
-			var playersHoldingPriority = ServerGame.serverPlayers
-				.Where(player => !player.PassedPriority)
-				.ToArray(); //call toArray so that we don't create the collection twice.
-
-			//for any player that is holding priority, request a response from them
-			if (playersHoldingPriority.Any())
-			{
-				foreach (var p in playersHoldingPriority) p.notifier.RequestResponse();
-				//after asking for responses, then we're done with this CheckForResponse call. 
-				//now, if any more response-inducing events come in, we won't ask for responses an extra time,
-				//nor will we check for triggers an extra time.
-				currentlyCheckingResponses = false;
-			}
-			//if no one holds priority, move on to the next effect
-			else
-			{
-				//ResolveNextStackEntry eventually calls CheckForResponse again.
-				//turn the flag off so that we can reenter CheckForResponse by the time that happens.
-				currentlyCheckingResponses = false;
-				await ResolveNextStackEntry();
-			}
+			//ResolveNextStackEntry eventually calls CheckForResponse again.
+			//turn the flag off so that we can reenter CheckForResponse by the time that happens.
+			currentlyCheckingResponses = false;
+			await ResolveNextStackEntry();
 		}
 
 		private void ResolveHangingEffects(string condition, TriggeringEventContext context)
 		{
 			if (hangingEffectMap.ContainsKey(condition))
 			{
-				foreach (var toEnd in hangingEffectMap[condition].ToArray())
+				foreach (var toEnd in hangingEffectMap[condition]
+					.Where(toEnd => toEnd.ShouldResolve(context))
+					.ToArray())
 				{
-					if (toEnd.ShouldResolve(context))
-					{
-						if (toEnd.RemoveIfEnd) RemoveHangingEffect(toEnd);
-						toEnd.Resolve(context);
-					} 
+					if (toEnd.RemoveIfEnd) RemoveHangingEffect(toEnd);
+					toEnd.Resolve(context);
 				}
 			}
 
 			if (hangingEffectFallOffMap.ContainsKey(condition))
 			{
-				foreach (var toRemove in hangingEffectFallOffMap[condition].ToArray())
+				foreach (var toRemove in hangingEffectFallOffMap[condition]
+					.Where(toRemove => toRemove.ShouldBeCanceled(context))
+					.ToArray())
 				{
-					if (toRemove.ShouldBeCanceled(context)) RemoveHangingEffect(toRemove);
+					RemoveHangingEffect(toRemove);
 				}
 			}
 		}
@@ -341,10 +322,7 @@ namespace Kompas.Server.Effects.Controllers
 				if (!validTriggers.Any()) return;
 				var triggers = new TriggersTriggered(triggers: validTriggers, context: context);
 				GD.Print($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Source.ID + t.Blurb))}");
-				lock (triggerStackLock)
-				{
-					triggeredTriggers.Enqueue(triggers);
-				}
+				triggeredTriggers.Enqueue(triggers);
 			}
 
 			if (condition != Trigger.Anything) TriggerForCondition(Trigger.Anything, context);
@@ -353,7 +331,7 @@ namespace Kompas.Server.Effects.Controllers
 		#region register to trigger condition
 		public void RegisterTrigger(string condition, ServerTrigger trigger)
 		{
-			GD.Print($"Registering a new trigger from card {trigger.serverEffect.Source.CardName} to condition {condition}");
+			GD.Print($"Registering a new trigger from card {trigger.serverEffect.Card.CardName} to condition {condition}");
 			if (!triggerMap.ContainsKey(condition))
 				triggerMap.Add(condition, new List<ServerTrigger>());
 

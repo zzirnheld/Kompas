@@ -5,13 +5,13 @@ using Kompas.Effects.Models.Identities.ManyCards;
 using Kompas.Effects.Models.Restrictions.CardRestrictionElements;
 using System.Collections.Generic;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class SetAllCardStats : SetCardStatsOld
 	{
-		public IRestriction<GameCardBase> cardRestriction = new Character();
+		public IRestriction<IGameCard> cardRestriction = new Character();
 
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cardsSource = new Board();
+		public IIdentity<IReadOnlyCollection<IGameCard>> cardsSource = new Board();
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

@@ -4,11 +4,11 @@ using Kompas.Effects.Models.Restrictions.GamestateRestrictionElements;
 using KompasCore.GameCore;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class ResummonAll : ServerSubeffect
 	{
-		public IRestriction<GameCardBase> cardRestriction;
+		public IRestriction<IGameCard> cardRestriction;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

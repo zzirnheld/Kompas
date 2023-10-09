@@ -1,9 +1,11 @@
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Identities;
-using Kompas.Effects.Models.Restrictions.GamestateRestrictionElements;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Restrictions.Gamestate;
+using Kompas.Gamestate;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class AutoTargetSpaceIdentity : ServerSubeffect
 	{

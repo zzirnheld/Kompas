@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Kompas.Effects.Models.Identities.Numbers;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class UpdateCardStats : ChangeCardStatsBase
 	{

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using KompasCore.Cards;
-using KompasCore.Exceptions;
+using Kompas.Gamestate.Exceptions;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	/// <summary>
 	/// Moves cards between discard/field/etc

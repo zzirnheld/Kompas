@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	public class AllOf : GamestateRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IList<IGamestateRestriction> elements = new IGamestateRestriction[] { };
+		public IList<IGamestateRestriction> elements = System.Array.Empty<IGamestateRestriction>();
 
 		protected virtual bool LogSoloElements => true;
 

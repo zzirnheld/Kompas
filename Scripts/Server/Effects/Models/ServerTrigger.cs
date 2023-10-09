@@ -52,7 +52,7 @@ namespace Kompas.Server.Effects.Models
 		public ServerTrigger(TriggerData triggerData, ServerEffect parent) : base(triggerData, parent)
 		{
 			if (!TriggerConditions.Contains(triggerData.triggerCondition))
-				throw new System.ArgumentNullException(nameof(triggerData), $"invalid trigger condition for effect of {parent.Source.CardName}");
+				throw new System.ArgumentNullException(nameof(triggerData), $"invalid trigger condition for effect of {parent.Card.CardName}");
 
 			parent.serverGame.effectsController.RegisterTrigger(TriggerCondition, this);
 		}
@@ -89,8 +89,7 @@ namespace Kompas.Server.Effects.Models
 		{
 			int x = context?.x ?? 0;
 			//Assume for now that optional triggers are always asked to the card's owner
-			ServerPlayer owner = serverEffect.
-			Confirmed = await serverEffect.server.awaiter.GetOptionalTriggerChoice(this, x, TriggerData.showX);
+			Confirmed = await serverEffect.OwningServerPlayer.awaiter.GetOptionalTriggerChoice(this, x, TriggerData.showX);
 			Responded = true;
 		}
 	}

@@ -2,16 +2,16 @@ using KompasCore.Cards;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Cards;
 using Kompas.Effects.Models.Identities.ManyCards;
-using KompasCore.Exceptions;
+using Kompas.Gamestate.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public abstract class ChangeCardStatsBase : ServerSubeffect
 	{
-		public IIdentity<GameCardBase> card;
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cards;
+		public IIdentity<IGameCard> card;
+		public IIdentity<IReadOnlyCollection<IGameCard>> cards;
 
 		public IIdentity<int> n;
 		public IIdentity<int> e;
@@ -32,7 +32,7 @@ namespace Kompas.Server.Effects.Subeffects
 			base.Initialize(eff, subeffIndex);
 
 			card ??= new TargetIndex() { index = targetIndex };
-			cards ??= new Concat() { cards = new IIdentity<GameCardBase>[] { card } };
+			cards ??= new Concat() { cards = new IIdentity<IGameCard>[] { card } };
 
 			var initContext = DefaultInitializationContext;
 			cards.Initialize(initContext);

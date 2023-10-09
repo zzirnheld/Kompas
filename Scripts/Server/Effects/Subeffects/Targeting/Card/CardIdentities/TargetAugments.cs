@@ -1,8 +1,8 @@
 ﻿using Kompas.Effects.Models.Identities.Cards;
 using Kompas.Effects.Models.Identities.ManyCards;
-using Kompas.Effects.Models.Restrictions.GamestateRestrictionElements;
+using Kompas.Effects.Models.Restrictions.Gamestate;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class TargetAugments : TargetAll
 	{

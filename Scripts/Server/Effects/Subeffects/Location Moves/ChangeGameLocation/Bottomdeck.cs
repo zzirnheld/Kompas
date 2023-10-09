@@ -1,7 +1,7 @@
 ﻿using KompasCore.Cards;
 using KompasCore.Cards.Movement;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Bottomdeck : ChangeGameLocation
 	{

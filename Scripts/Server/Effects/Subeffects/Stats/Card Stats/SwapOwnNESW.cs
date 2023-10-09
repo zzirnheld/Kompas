@@ -1,7 +1,7 @@
-﻿using KompasCore.Exceptions;
+﻿using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	/// <summary>
 	/// Swaps two values among one card's own NESW. E for W, for example.

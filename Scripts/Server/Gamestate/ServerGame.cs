@@ -9,7 +9,9 @@ using Kompas.Gamestate.Players;
 using Kompas.Server.Cards.Loading;
 using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Controllers;
+using Kompas.Server.Gamestate.Locations.Models;
 using Kompas.Server.Gamestate.Players;
+using Kompas.Server.Networking;
 using Kompas.Shared;
 
 namespace Kompas.Server.Gamestate
@@ -23,8 +25,10 @@ namespace Kompas.Server.Gamestate
 		public CardRepository CardRepository => cardRepo;
 		public readonly ServerStackController effectsController;
 		public readonly ServerPlayer[] serverPlayers; //TODO these should be init'd from TcpClients passed into the GameController, then passed into here
-		public ServerBoardController serverBoardController;
-		public override BoardController BoardController => serverBoardController;
+
+		public Board Board { get; init; }
+
+		public ServerNotifier Notifier { get; init; }
 
 		//UI
 		public ServerUIController ServerUIController { get; private set; }

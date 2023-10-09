@@ -16,7 +16,6 @@ namespace Kompas.Server.Effects.Models
 
 		public ServerEffect ServerEffect { get; protected set; }
 		public ServerGame ServerGame => ServerEffect.serverGame;
-		public GameCard ThisCard => ServerEffect.Source;
 
 		public ServerPlayer ServerPlayer => PlayerTarget as ServerPlayer;
 

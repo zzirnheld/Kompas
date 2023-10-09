@@ -1,28 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KompasCore.Cards;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.ManyCards;
 using Kompas.Effects.Models.Restrictions;
-using Kompas.Effects.Models.Restrictions.GamestateRestrictionElements;
-using KompasCore.GameCore;
 using Godot;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Gamestate;
+using Kompas.Gamestate.Locations;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class CardTarget : ServerSubeffect
 	{
 		public string blurb;
 		public bool secretTarget = false;
 
-		public IIdentity<IReadOnlyCollection<GameCardBase>> toSearch = new All();
+		public IIdentity<IReadOnlyCollection<IGameCard>> toSearch = new All();
 
 		/// <summary>
 		/// Restriction that each card must fulfill
 		/// </summary>
-		public IRestriction<GameCardBase> cardRestriction = new AlwaysValid();
+		public IRestriction<IGameCard> cardRestriction = new AlwaysValid();
 
 		/// <summary>
 		/// Restriction that the list collectively must fulfill
@@ -33,9 +33,8 @@ namespace Kompas.Server.Effects.Subeffects
 		/// Identifies a card that this target should be linked with.
 		/// Usually null, but if you plan on having a delay later, probably a good idea
 		/// </summary>
-		public IIdentity<GameCardBase> toLinkWith;
-		public Color32 linkColor = CardLink.DefaultColor; // "r": #, "g" ... etc
-
+		public IIdentity<IGameCard> toLinkWith;
+		public Color linkColor = CardLink.DefaultColor; // "r": #, "g" ... etc
 
 		protected IReadOnlyCollection<GameCard> stashedPotentialTargets;
 
@@ -134,10 +133,11 @@ namespace Kompas.Server.Effects.Subeffects
 
 		private static void ShuffleIfAppropriate(IEnumerable<GameCard> potentialTargets)
 		{
-			var decksViewed = potentialTargets.Where(c => c.Location == CardLocation.Deck)
-							.GroupBy(c => c.GameLocation)
+			//TODO replace with polymorphic "shuffle if appropriate" method
+			var decksViewed = potentialTargets.Where(c => c.Location == Location.Deck)
+							.GroupBy(c => c.LocationModel)
 							.Select(grouping => grouping.Key)
-							.Cast<DeckController>(); //If this cast fails, we have a non-deck controller trying to act like one. If you do this, make it an interface
+							.Cast<Kompas.Gamestate.Locations.Models.Deck>(); //If this cast fails, we have a non-deck controller trying to act like one. If you do this, make it an interface
 			foreach (var deck in decksViewed) deck.Shuffle();
 		}
 

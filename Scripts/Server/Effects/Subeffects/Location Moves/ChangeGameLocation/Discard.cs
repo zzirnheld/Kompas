@@ -2,7 +2,7 @@
 using KompasCore.Cards.Movement;
 using Kompas.Effects.Models;
 
-namespace Kompas.Server.Effects.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Discard : ChangeGameLocation
 	{
