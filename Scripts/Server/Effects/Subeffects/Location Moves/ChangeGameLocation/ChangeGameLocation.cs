@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
-using KompasCore.Cards;
+using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -11,11 +12,11 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override bool IsImpossible(TargetingContext overrideContext = null)
 		{
-			var currLocation = GetCardTarget(overrideContext)?.Location;
-			return currLocation == null || currLocation == destination;
+			var currLocation = GetCardTarget(overrideContext)?.LocationModel;
+			return currLocation == null || currLocation == Destination;
 		}
 
-		protected abstract CardLocation destination { get; }
+		protected abstract ILocationModel Destination { get; }
 
 		public override Task<ResolutionInfo> Resolve()
 		{

@@ -1,9 +1,10 @@
 using Godot;
+using Kompas.Gamestate;
 using System;
 
 namespace Kompas.Server.Gamestate
 {
-	public partial class ServerGameController : Node
+	public partial class ServerGameController : GameController
 	{
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()

@@ -32,10 +32,10 @@ namespace Kompas.Server.Networking
 			/*
 			if (serverGame.DebugMode)
 			{
-				GD.PrintErr($"Debug setting player {Player.Index} pips to {numPips}");
+				GD.PrintErr($"Debug setting player {player.Index} pips to {numPips}");
 				player.Pips = numPips;
 			}
-			else GD.PrintErr($"Tried to debug set pips of player {Player.Index} to {numPips} while NOT in debug mode!");
+			else GD.PrintErr($"Tried to debug set pips of player {player.Index} to {numPips} while NOT in debug mode!");
 			return Task.CompletedTask;
 			*/
 		}

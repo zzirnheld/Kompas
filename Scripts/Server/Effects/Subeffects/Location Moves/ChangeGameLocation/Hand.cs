@@ -5,7 +5,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Hand : ChangeGameLocation
 	{
-		protected override CardLocation destination => CardLocation.Hand;
+		protected override CardLocation Destination => CardLocation.Hand;
 
 		protected override void ChangeLocation(GameCard card) => card.Hand(card.Owner, Effect);
 	}

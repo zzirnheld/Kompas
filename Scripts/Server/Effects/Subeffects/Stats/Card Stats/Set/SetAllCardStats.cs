@@ -1,8 +1,8 @@
-﻿using KompasCore.Cards;
-using Kompas.Effects.Models;
+﻿using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.ManyCards;
-using Kompas.Effects.Models.Restrictions.CardRestrictionElements;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Restrictions.Cards;
 using System.Collections.Generic;
 
 namespace Kompas.Server.Effects.Models.Subeffects

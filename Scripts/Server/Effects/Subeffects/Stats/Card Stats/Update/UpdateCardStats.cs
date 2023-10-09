@@ -30,7 +30,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			int? spacesMovedChange	  = spacesMoved?.From(ResolutionContext, default);
 			int? durationChange		 = duration?.From(ResolutionContext, default);
 
-			foreach (var card in cardsToAffect)
+			foreach (var card in CardsToAffect)
 			{
 				ValidateCardOnBoard(card);
 

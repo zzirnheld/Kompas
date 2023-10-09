@@ -95,11 +95,16 @@ namespace Kompas.Gamestate
 
 		public GameCard LookupCardByID(int id);
 
-		public IStackable CurrStackEntry { get; }
-		public IEnumerable<IStackable> StackEntries { get; }
-		public bool NothingHappening { get; }
+		public IStackController StackController { get; }
 
 		//game mechanics
 		public static bool IsHiddenLocation(Location l) => HiddenLocations.Contains(l);
+	}
+
+	public interface IStackController
+	{
+		public IStackable CurrStackEntry { get; }
+		public IEnumerable<IStackable> StackEntries { get; }
+		public bool NothingHappening { get; }
 	}
 }

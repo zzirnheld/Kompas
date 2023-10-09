@@ -6,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Discard : ChangeGameLocation
 	{
-		protected override CardLocation destination => CardLocation.Discard;
+		protected override CardLocation Destination => CardLocation.Discard;
 
 		protected override void ChangeLocation(GameCard card) => card.Discard(Effect);
 	}

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Godot;
 using Kompas.Networking;
 using Kompas.Server.Cards.Loading;
+using Kompas.Server.Gamestate;
 
 namespace Kompas.Server.Networking
 {
-	public class ServerController : Node
+	public partial class ServerController : Node
 	{
 		[Export]
 		private PackedScene GamePrefab { get; set; }

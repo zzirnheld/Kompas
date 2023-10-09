@@ -1,10 +1,11 @@
-using KompasCore.Cards;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Cards;
 using Kompas.Effects.Models.Identities.ManyCards;
 using Kompas.Gamestate.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
+using Kompas.Cards.Models;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -25,7 +26,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public IIdentity<int> spacesMoved;
 		public IIdentity<int> duration;
 
-		protected IEnumerable<GameCard> cardsToAffect => cards.From(ResolutionContext, default).Select(c => c.Card);
+		protected IEnumerable<GameCard> CardsToAffect => cards.From(ResolutionContext, default).Select(c => c.Card);
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
@@ -52,7 +53,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		protected void ValidateCardOnBoard(GameCard card)
 		{
-			if (forbidNotBoard && card.Location != CardLocation.Board)
+			if (forbidNotBoard && card.Location != Location.Board)
 				throw new InvalidLocationException(card.Location, card, ChangedStatsOfCardOffBoard);
 		}
 	}

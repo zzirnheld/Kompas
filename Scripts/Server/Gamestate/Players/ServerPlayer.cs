@@ -11,7 +11,7 @@ namespace Kompas.Server.Gamestate.Players
 	public class ServerPlayer : IPlayer
 	{
 		//TODO encapsulate
-		public ServerNotifier notifier;
+		public ServerNetworker Networker { get; init; }
 		public ServerAwaiter awaiter;
 
 		public IGame Game => throw new System.NotImplementedException();
@@ -32,6 +32,8 @@ namespace Kompas.Server.Gamestate.Players
 		public Hand Hand => throw new System.NotImplementedException();
 
 		public Annihilation Annihilation => throw new System.NotImplementedException();
+
+		public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
 
 
 		//If the player tries to do something, it goes here to check if it's ok, then do it if it is ok.

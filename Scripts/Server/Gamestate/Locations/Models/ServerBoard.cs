@@ -113,33 +113,5 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			//notify the players
 			serverGame.Notifier.NotifyMove(card, to);
 		}
-
-		public void ClearSpells()
-		{
-			foreach (GameCard c in Cards)
-			{
-				if (c == null) continue;
-
-				foreach (string s in c.SpellSubtypes)
-				{
-					switch (s)
-					{
-						case CardBase.SimpleSubtype:
-							c.Discard();
-							break;
-						case CardBase.DelayedSubtype:
-						case CardBase.VanishingSubtype:
-							if (c.TurnsOnBoard >= c.Duration)
-							{
-								TriggeringEventContext context = new(game: serverGame, CardBefore: c);
-								c.Discard();
-								context.CacheCardInfoAfter();
-								EffectsController.TriggerForCondition(Trigger.Vanish, context);
-							}
-							break;
-					}
-				}
-			}
-		}
 	}
 }

@@ -8,10 +8,13 @@ using Kompas.Effects;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using Godot;
+using Kompas.Gamestate;
+using Kompas.Cards.Models;
+using Kompas.Cards.Movement;
 
 namespace Kompas.Server.Effects.Controllers
 {
-	public class ServerStackController
+	public class ServerStackController : IStackController
 	{
 		private struct TriggersTriggered
 		{
@@ -29,6 +32,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		private readonly EffectStack<IServerStackable, IServerResolutionContext> stack = new();
 		public IEnumerable<IServerStackable> StackEntries => stack.StackEntries;
+		IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
 
 		//queue of triggers triggered throughout the resolution of the effect, to be ordered after the effect resolves
 		private readonly Queue<TriggersTriggered> triggeredTriggers = new();
@@ -41,21 +45,25 @@ namespace Kompas.Server.Effects.Controllers
 		private bool currentlyCheckingResponses = false;
 		private bool currentlyCheckingOptionals = false;
 		private int currStackIndex;
-		private IServerStackable currStackEntry;
+		private IServerStackable _currStackEntry;
 		public IServerStackable CurrStackEntry
 		{
-			get => currStackEntry;
+			get => _currStackEntry;
 			private set
 			{
-				currStackEntry = value;
+				_currStackEntry = value;
 				currStackIndex = stack.Count;
 			}
 		}
+		IStackable IStackController.CurrStackEntry => CurrStackEntry;
 
 		//nothing is happening if nothing is in the stack, nothing is currently resolving, and no one is waiting to add something to the stack.
-		public bool NothingHappening => stack.Empty && CurrStackEntry == null
-			&& !currentlyCheckingResponses && !currentlyCheckingOptionals
-			&& ServerGame.Players.All(s => s.PassedPriority);
+		public bool NothingHappening
+			=> stack.Empty
+			&& CurrStackEntry == null
+			&& !currentlyCheckingResponses
+			&& !currentlyCheckingOptionals;
+
 
 		public override string ToString()
 		{
@@ -88,6 +96,13 @@ namespace Kompas.Server.Effects.Controllers
 		}
 
 		#region the stack
+		//TODO fix these signatures
+
+		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext triggerContext)
+		{
+			PushToStack(atk, new ServerResolutionContext(triggerContext, controller));
+		}
+
 		public void PushToStack(ServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext)
 		{
 			PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
@@ -96,7 +111,7 @@ namespace Kompas.Server.Effects.Controllers
 		public void PushToStack(ServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
 		{
 			eff.PushedToStack(ServerGame, controller);
-			PushToStack(eff as IServerStackable, context);
+			PushToStack(eff, context);
 		}
 
 		public void PushToStack(IServerStackable eff, IServerResolutionContext context)
@@ -104,19 +119,44 @@ namespace Kompas.Server.Effects.Controllers
 			stack.Push((eff, context));
 		}
 
-		public void PushToStack(ServerEffect eff, IServerResolutionContext context)
-			=> PushToStack(eff, context.ControllingPlayer, context);
-
 		private async Task StackEmptied()
 		{
 			//GD.Print($"Stack is emptied");
 			//stack ends
 			foreach (var c in ServerGame.Cards) c.ResetForStack();
-			ServerGame.serverBoardController.ClearSpells();
-			ServerGame.serverPlayers.First().notifier.StackEmpty();
+			ClearSpells();
+			ServerGame.Notifier.StackEmpty();
 			TriggerForCondition(Trigger.StackEnd, new TriggeringEventContext(game: ServerGame));
 			//Must check whether I *should* check for response to avoid an infinite loop
 			if (!stack.Empty || triggeredTriggers.Any()) await CheckForResponse();
+		}
+
+		private void ClearSpells()
+		{
+			foreach (var c in ServerGame.Board.Cards)
+			{
+				if (c == null) continue;
+
+				foreach (string s in c.SpellSubtypes)
+				{
+					switch (s)
+					{
+						case CardBase.SimpleSubtype:
+							c.Discard();
+							break;
+						case CardBase.DelayedSubtype:
+						case CardBase.VanishingSubtype:
+							if (c.TurnsOnBoard >= c.Duration)
+							{
+								TriggeringEventContext context = new(game: ServerGame, CardBefore: c);
+								c.Discard();
+								context.CacheCardInfoAfter();
+								TriggerForCondition(Trigger.Vanish, context);
+							}
+							break;
+					}
+				}
+			}
 		}
 
 		public async Task ResolveNextStackEntry()
