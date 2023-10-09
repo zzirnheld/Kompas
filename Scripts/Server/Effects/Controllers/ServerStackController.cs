@@ -11,6 +11,7 @@ using Godot;
 using Kompas.Gamestate;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Server.Effects.Controllers
 {
@@ -222,7 +223,7 @@ namespace Kompas.Server.Effects.Controllers
 		/// Accounts for optional triggers and ordering triggers, then pushes appropriate triggers to the stack.
 		/// </summary>
 		/// <param name="turnPlayer">The turn player, whose effects get pushed to the stack first.</param>
-		private async Task CheckTriggers(ServerPlayer turnPlayer)
+		private async Task CheckTriggers(IPlayer turnPlayer)
 		{
 			//get the list of triggers, and see if they're all still valid
 			var triggered = triggeredTriggers.Dequeue();
@@ -280,7 +281,7 @@ namespace Kompas.Server.Effects.Controllers
 		/// </summary>
 		/// <param name="turnPlayer">The current turn player, who gets the first chance to accept or decline their triggers.</param>
 		/// <returns></returns>
-		private async Task CheckAllTriggers(ServerPlayer turnPlayer)
+		private async Task CheckAllTriggers(IPlayer turnPlayer)
 		{
 			//note: you cannot use .Any(t => CheckTriggers(t)) because the collection would be modified while iterating
 			//instead, just .Any() checks the queue after each time it's modified
@@ -307,7 +308,7 @@ namespace Kompas.Server.Effects.Controllers
 			}
 			currentlyCheckingResponses = true;
 
-			await CheckAllTriggers(ServerGame.TurnServerPlayer);
+			await CheckAllTriggers(ServerGame.TurnPlayer);
 
 			//ResolveNextStackEntry eventually calls CheckForResponse again.
 			//turn the flag off so that we can reenter CheckForResponse by the time that happens.

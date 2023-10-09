@@ -4,19 +4,15 @@ using System.Linq;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
-using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
 using Kompas.Gamestate.Locations.Models;
-using Kompas.UI;
 
 namespace Kompas.Gamestate
 {
 	public static class GameExtensions
 	{
-		public static IPlayer TurnPlayer(this IGame game) => game.Players[game.TurnPlayerIndex];
-
 		public static bool BoardHasCopyOf(this IGame game, GameCard card)
 			=> game.Board.Cards.Any(copy
 				=> copy?.Location == Location.Board
@@ -70,7 +66,7 @@ namespace Kompas.Gamestate
 		public Board Board { get; }
 
 		public IPlayer[] Players { get; }
-		public int TurnPlayerIndex { get; } //Consider making the IPlayer reference the ground-truth
+		public IPlayer TurnPlayer { get; }
 		public int FirstTurnPlayer { get; }
 
 		//game data

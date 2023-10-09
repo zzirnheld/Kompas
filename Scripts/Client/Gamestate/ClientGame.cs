@@ -43,6 +43,7 @@ namespace Kompas.Client.Gamestate
 
 		public bool GameOver { get; private set; }
 		public int TurnPlayerIndex { get; set; }
+		public IPlayer TurnPlayer => Players[TurnPlayerIndex];
 		public int FirstTurnPlayer { get; set; } //TODO
 		public int RoundCount { get; set; } = 1;
 		public int TurnCount { get; set; } = 1;
@@ -199,7 +200,7 @@ namespace Kompas.Client.Gamestate
 		public void SetTurn(int index)
 		{
 			TurnPlayerIndex = index;
-			foreach (var c in Cards) c.ResetForTurn(this.TurnPlayer());
+			foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
 			//TODO move to GameController:
 			//uiController.ChangeTurn(TurnPlayerIndex);
 			if (TurnPlayerIndex == FirstTurnPlayer) RoundCount++;

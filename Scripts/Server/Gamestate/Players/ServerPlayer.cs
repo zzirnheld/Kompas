@@ -180,7 +180,7 @@ namespace Kompas.Server.Gamestate.Players
 
 		public async Task TryEndTurn()
 		{
-			if (Game.StackController.NothingHappening && ServerGame.TurnPlayer() == this)
+			if (Game.StackController.NothingHappening && ServerGame.TurnPlayer == this)
 				await ServerGame.SwitchTurn();
 		}
 		#endregion IPlayer Control Methods

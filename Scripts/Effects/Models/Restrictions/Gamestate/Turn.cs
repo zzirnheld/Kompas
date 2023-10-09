@@ -16,7 +16,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		}
 
 		protected override bool IsValidLogic(IResolutionContext context)
-			=> InitializationContext.game.TurnPlayer() == TurnPlayer.From(context);
+			=> InitializationContext.game.TurnPlayer == TurnPlayer.From(context);
 	}
 
 	public class FriendlyTurn : Turn

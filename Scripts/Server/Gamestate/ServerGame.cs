@@ -45,10 +45,8 @@ namespace Kompas.Server.Gamestate
 		//Players
 		public readonly ServerPlayer[] serverPlayers; //TODO these should be init'd in the GameController, then passed into here?
 		public IPlayer[] Players => serverPlayers;
-		public int TurnPlayerIndex { get; set; }
-		public ServerPlayer TurnServerPlayer => serverPlayers[TurnPlayerIndex];
+		public IPlayer TurnPlayer { get; private set; }
 		private int cardCount = 0;
-		private int currPlayerCount = 0; //current number of players. shouldn't exceed 2
 
 		public bool GameHasStarted { get; private set; } = false;
 
@@ -166,8 +164,8 @@ namespace Kompas.Server.Gamestate
 
 			//determine who goes first and tell the players
 			FirstTurnPlayer = new System.Random().NextDouble() > 0.5f ? 0 : 1;
-			TurnPlayerIndex = FirstTurnPlayer;
-			Notifier.SetFirstTurnPlayer(Players[FirstTurnPlayer]);
+			TurnPlayer = Players[FirstTurnPlayer];
+			Notifier.SetFirstTurnPlayer(TurnPlayer);
 
 			foreach (var p in serverPlayers)
 			{
@@ -188,21 +186,21 @@ namespace Kompas.Server.Gamestate
 		{
 			if (notFirstTurn)
 			{
-				if (TurnPlayerIndex == FirstTurnPlayer) RoundCount++;
+				if (TurnPlayer.Index == FirstTurnPlayer) RoundCount++;
 				TurnCount++;
 			}
 
-			Notifier.NotifyYourTurn(TurnServerPlayer);
+			Notifier.NotifyYourTurn(TurnPlayer);
 			ResetCardsForTurn();
 
-			this.TurnPlayer().Pips += Leyload;
-			if (notFirstTurn) Draw(this.TurnPlayer());
+			TurnPlayer.Pips += Leyload;
+			if (notFirstTurn) Draw(TurnPlayer);
 
 			//do hand size
-			serverStackController.PushToStack(new ServerHandSizeStackable(this, TurnServerPlayer), serverPlayers[TurnPlayerIndex], default);
+			serverStackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), serverPlayers[TurnPlayer.Index], default);
 
 			//trigger turn start effects
-			var context = new TriggeringEventContext(game: this, player: TurnServerPlayer);
+			var context = new TriggeringEventContext(game: this, player: TurnPlayer);
 			serverStackController.TriggerForCondition(Trigger.TurnStart, context);
 
 			await serverStackController.CheckForResponse();
@@ -210,14 +208,14 @@ namespace Kompas.Server.Gamestate
 		
 		protected void ResetCardsForTurn()
 		{
-			foreach (var c in Cards) c.ResetForTurn(this.TurnPlayer());
+			foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
 		}
 
 
 		public async Task SwitchTurn()
 		{
-			TurnPlayerIndex = 1 - TurnPlayerIndex;
-			GD.Print($"Turn swapping to the turn of index {TurnPlayerIndex}");
+			TurnPlayer = TurnPlayer.Enemy;
+			GD.Print($"Turn swapping to the turn of index {TurnPlayer.Index}");
 
 			await TurnStartOperations();
 		}
