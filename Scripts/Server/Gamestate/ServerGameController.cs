@@ -24,7 +24,7 @@ namespace Kompas.Server.Gamestate
 			ServerGame = ServerGame.Create(this, CardRepository);
 			
 			var players = ServerPlayer.Create(this,
-				(player, index) => new ServerNetworker(tcpClients[index], ServerGame));
+				(player, index) => new ServerNetworker(tcpClients[index], player, ServerGame));
 			Networkers = players.Select(p => p.Networker).ToArray();
 			ServerGame.SetPlayers(players);
 		}

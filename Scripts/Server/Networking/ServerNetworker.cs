@@ -17,13 +17,13 @@ namespace Kompas.Server.Networking
 			Packet.PassPriority
 		};
 
-		public ServerPlayer Player { get; set; }
-
+		private readonly ServerPlayer player;
 		private readonly ServerGame game;
 
-		public ServerNetworker(TcpClient tcpClient, ServerGame game)
+		public ServerNetworker(TcpClient tcpClient, ServerPlayer player, ServerGame game)
 			: base(tcpClient)
 		{
+			this.player = player;
 			this.game = game;
 		}
 
@@ -66,7 +66,7 @@ namespace Kompas.Server.Networking
 		{
 			//GD.Print("SERVER NET CTRL UPDATE");
 			base.Tick();
-			if (packets.Count != 0 && Player != null) await ProcessPacket(packets.Dequeue());
+			if (packets.Count != 0) await ProcessPacket(packets.Dequeue());
 			//if (sGame.Players.Any(p => p.TcpClient != null && !p.TcpClient.Connected)) Destroy(sGame.gameObject); //TODO notify player that no
 		}
 
@@ -78,10 +78,10 @@ namespace Kompas.Server.Networking
 				return;
 			}
 
-			if (!DontLogThesePackets.Contains(packetInfo.command)) GD.Print($"Processing {packetInfo.json} from {Player}");
+			GD.Print($"Processing {packetInfo.json} from {player}");
 
 			var packet = FromJson(packetInfo.command, packetInfo.json);
-			await packet.Execute(game, Player);
+			await packet.Execute(game, player);
 		}
 	}
 }

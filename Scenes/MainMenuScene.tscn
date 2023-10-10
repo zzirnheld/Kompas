@@ -312,6 +312,7 @@ grow_vertical = 2
 
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Connect to Server" to="." method="ConnectToServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Build Deck" to="." method="BuildDeck"]
+[connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Host Server" to="." method="HostServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Quit" to="." method="Quit"]
 [connection signal="pressed" from="Control/Button" to="Control/Button" method="BecomeInvisible"]
 [connection signal="pressed" from="Control/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]

@@ -31,7 +31,7 @@ namespace Kompas.Client.Gamestate
 
 		IStackController IGame.StackController => StackController;
 
-		private readonly ClientPlayer[] clientPlayers;
+		private readonly ClientPlayer[] clientPlayers = new ClientPlayer[2];
 		public IPlayer[] Players => clientPlayers;
 		public ClientPlayer FriendlyPlayer => clientPlayers[0];
 
