@@ -34,7 +34,7 @@ namespace Kompas.Server.Networking
 				y = 6 - y;
 			}
 
-			awaiter.SpaceTarget = (x, y);
+			serverGame.Awaiter.SpaceTarget = (x, y);
 			return Task.CompletedTask;
 		}
 	}

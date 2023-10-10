@@ -167,8 +167,8 @@ namespace Kompas.Server.Networking
 			=> SendPacket(player, new GetSpaceTargetPacket(cardName, targetBlurb, spaces, recommendedSpaces));
 		#endregion request targets
 
-		public static void NotifyAttackStarted(IPlayer player, GameCard atk, GameCard def, IPlayer initiator)
-			=> SendToAll(new AttackStartedPacket(atk.ID, def.ID, initiator.Index), new IPlayer[] {player, player.Enemy});
+		public static void NotifyAttackStarted(IPlayer instigator, GameCard atk, GameCard def)
+			=> SendToAll(new AttackStartedPacket(atk.ID, def.ID, instigator.Index), new IPlayer[] {instigator, instigator.Enemy});
 
 		#region other effect stuff
 		public static void ChooseEffectOption(IPlayer player, string cardName, string choiceBlurb, string[] optionBlurbs, bool hasDefault, bool showX, int x)

@@ -8,6 +8,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
+using Kompas.Server.Networking;
 
 namespace KompasServer.Effects
 {

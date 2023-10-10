@@ -79,8 +79,6 @@ namespace Kompas.Client.Networking
 			}
 			Send(new TriggerOrderResponsePacket(cardIds, effIndices, orders));
 		}
-
-		public void DeclineResponse() => Send(new PassPriorityPacket());
 		#endregion
 		
 	}

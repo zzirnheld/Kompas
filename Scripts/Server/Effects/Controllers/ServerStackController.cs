@@ -12,6 +12,7 @@ using Kompas.Gamestate;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Controllers
 {
@@ -126,7 +127,7 @@ namespace Kompas.Server.Effects.Controllers
 			//stack ends
 			foreach (var c in ServerGame.Cards) c.ResetForStack();
 			ClearSpells();
-			ServerNotifier.StackEmpty();
+			ServerNotifier.StackEmpty(ServerGame.Players);
 			TriggerForCondition(Trigger.StackEnd, new TriggeringEventContext(game: ServerGame));
 			//Must check whether I *should* check for response to avoid an infinite loop
 			if (!stack.Empty || triggeredTriggers.Any()) await CheckForResponse();
@@ -177,7 +178,7 @@ namespace Kompas.Server.Effects.Controllers
 				await stackable.StartResolution(context);
 
 				//after it resolves, tell the clients it's done resolving
-				ServerNotifier.RemoveStackEntry(currStackIndex);
+				ServerNotifier.RemoveStackEntry(currStackIndex, ServerGame.Players);
 				//take note that nothing is resolving
 				CurrStackEntry = null;
 				//and see if there's antyhing to resolve next.
@@ -205,7 +206,7 @@ namespace Kompas.Server.Effects.Controllers
 				if (stack.StackEntries.ElementAt(i) == eff)
 				{
 					stack.Cancel(i);
-					ServerNotifier.RemoveStackEntry(i - 1);
+					ServerNotifier.RemoveStackEntry(i - 1, ServerGame.Players);
 				}
 			}
 			//Remove effect from hanging/delayed

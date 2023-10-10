@@ -49,7 +49,6 @@ namespace Kompas.Server.Networking
 				Packet.ListChoicesChosen => JsonConvert.DeserializeObject<ListChoicesServerPacket>(json),
 				Packet.OptionalTriggerResponse => JsonConvert.DeserializeObject<OptionalTriggerAnswerServerPacket>(json),
 				Packet.ChooseEffectOption => JsonConvert.DeserializeObject<EffectOptionResponseServerPacket>(json),
-				Packet.PassPriority => JsonConvert.DeserializeObject<PassPriorityServerPacket>(json),
 				Packet.ChooseTriggerOrder => JsonConvert.DeserializeObject<TriggerOrderResponseServerPacket>(json),
 				//debug
 				Packet.DebugTopdeck => JsonConvert.DeserializeObject<DebugTopdeckServerPacket>(json),

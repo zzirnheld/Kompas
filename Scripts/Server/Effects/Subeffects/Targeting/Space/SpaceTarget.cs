@@ -7,6 +7,7 @@ using Godot;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Effects.Models.Restrictions.Spaces;
+using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {

@@ -12,6 +12,7 @@ using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
+using Kompas.Server.Networking;
 using Kompas.Shared.Enumerable;
 
 namespace Kompas.Server.Effects.Models
@@ -133,7 +134,7 @@ namespace Kompas.Server.Effects.Models
 			if (context.TriggerContext.stackableCause != null) StackableTargets.Add(context.TriggerContext.stackableCause);
 
 			//notify relevant to this effect starting
-			ServerNotifier.NotifyEffectX(Card, EffectIndex, X);
+			ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);
 			ServerNotifier.EffectResolving(context.ControllingPlayer,this);
 
 			//resolve the effect if possible
@@ -190,7 +191,7 @@ namespace Kompas.Server.Effects.Models
 			}
 			GD.Print($"Resolving subeffect of type {subeffects[index].GetType()}");
 			SubeffectIndex = index;
-			ServerNotifier.NotifyEffectX(Card, EffectIndex, X);
+			ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);
 			try
 			{
 				return await subeffects[index].Resolve();
@@ -213,7 +214,7 @@ namespace Kompas.Server.Effects.Models
 			CardTargets.Clear();
 			rest.Clear();
 			OnImpossible = null;
-			Networking.ServerNotifier.NotifyBothPutBack();
+			Networking.ServerNotifier.NotifyBothPutBack(Game.Players);
 		}
 
 		/// <summary>
@@ -226,7 +227,7 @@ namespace Kompas.Server.Effects.Models
 			if (OnImpossible == null)
 			{
 				//TODO make the notifier tell the client why the effect was impossible
-				ServerNotifier.EffectImpossible();
+				ServerNotifier.EffectImpossible(Game.Players);
 				return ResolutionInfo.End(ResolutionInfo.EndedBecauseImpossible);
 			}
 			else
@@ -247,15 +248,14 @@ namespace Kompas.Server.Effects.Models
 
 		private void NotifyAddCardTarget(GameCard card, IPlayer onlyOneToKnow = null)
 		{
-			var notifier = ServerNotifier;
-			if (onlyOneToKnow != null) notifier.AddHiddenTarget(onlyOneToKnow, Card, EffectIndex, card);
-			else notifier.AddTarget(Card, EffectIndex, card);
+			if (onlyOneToKnow != null) ServerNotifier.AddHiddenTarget(onlyOneToKnow, Card, EffectIndex, card);
+			else ServerNotifier.AddTarget(Card, EffectIndex, card, Game.Players);
 		}
 
 		public override void RemoveTarget(GameCard card)
 		{
 			base.RemoveTarget(card);
-			ServerNotifier.RemoveTarget(Card, EffectIndex, card);
+			ServerNotifier.RemoveTarget(Card, EffectIndex, card, Game.Players);
 		}
 
 		public void CreateCardLink(Color linkColor, IPlayer onlyPlayerToKnow = null, params GameCard[] cards)
@@ -266,7 +266,7 @@ namespace Kompas.Server.Effects.Models
 			var link = new CardLink(new HashSet<int>(validCards.Select(c => c.ID)), this, linkColor);
 			cardLinks.Add(link);
 			if (onlyPlayerToKnow != null) ServerNotifier.AddHiddenCardLink(onlyPlayerToKnow, link);
-			else ServerNotifier.AddCardLink(link);
+			else ServerNotifier.AddCardLink(link, Game.Players);
 		}
 
 		public void DestroyCardLink(int index)
@@ -274,7 +274,7 @@ namespace Kompas.Server.Effects.Models
 			var link = cardLinks.ElementAtWrapped(index);
 			if (cardLinks.Remove(link))
 			{
-				ServerNotifier.RemoveCardLink(link);
+				ServerNotifier.RemoveCardLink(link, Game.Players);
 			}
 		}
 

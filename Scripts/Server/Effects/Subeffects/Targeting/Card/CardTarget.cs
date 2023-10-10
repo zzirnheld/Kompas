@@ -9,6 +9,7 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.Gamestate.Locations;
+using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {

@@ -30,7 +30,7 @@ namespace Kompas.Server.Networking
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
-			awaiter.TriggerOrders = (cardIds, effIndices, orders);
+			serverGame.Awaiter.TriggerOrders = (cardIds, effIndices, orders);
 			return Task.CompletedTask;
 		}
 	}

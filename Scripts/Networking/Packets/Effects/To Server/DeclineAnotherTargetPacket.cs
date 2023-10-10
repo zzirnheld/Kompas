@@ -19,7 +19,7 @@ namespace Kompas.Server.Networking
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
-			awaiter.DeclineTarget = true;
+			serverGame.Awaiter.DeclineTarget = true;
 			return Task.CompletedTask;
 		}
 	}

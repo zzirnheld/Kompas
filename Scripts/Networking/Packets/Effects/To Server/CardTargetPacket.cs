@@ -26,7 +26,7 @@ namespace Kompas.Server.Networking
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
-			awaiter.CardTarget = serverGame.LookupCardByID(cardId);
+			serverGame.Awaiter.CardTarget = serverGame.LookupCardByID(cardId);
 			return Task.CompletedTask;
 		}
 	}

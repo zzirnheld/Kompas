@@ -33,7 +33,7 @@ namespace Kompas.Server.Networking
 		{
 			var choices = cardIds.Select(c => serverGame.LookupCardByID(c)).Where(c => c != null).Distinct();
 
-			awaiter.CardListTargets = choices;
+			serverGame.Awaiter.CardListTargets = choices;
 			return Task.CompletedTask;
 		}
 	}

@@ -6,7 +6,7 @@ using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Gamestate;
-using Kompas.Server.Gamestate.Players;
+using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models
 {
@@ -14,17 +14,14 @@ namespace Kompas.Server.Effects.Models
 	{
 		public ServerGame ServerGame { get; init; }
 
-		public IPlayer ServerController { get; init; }
-
 		private ServerStackController EffCtrl => ServerGame.serverStackController;
 		private readonly Space attackerInitialSpace;
 		private readonly Space defenderInitialSpace;
 
-		public ServerAttack(ServerGame serverGame, IPlayer controller, GameCard attacker, GameCard defender)
-			: base(controller, attacker, defender)
+		public ServerAttack(ServerGame serverGame, IPlayer instigator, GameCard attacker, GameCard defender)
+			: base(instigator, attacker, defender)
 		{
-			this.ServerGame = serverGame != null ? serverGame : throw new System.ArgumentNullException("serverGame", "Server game cannot be null for attack");
-			this.ServerController = controller != null ? controller : throw new System.ArgumentNullException("controller", "Attack must have a non-null controller");
+			ServerGame = serverGame ?? throw new System.ArgumentNullException(nameof(serverGame), "Server game cannot be null for attack");
 			attackerInitialSpace = attacker.Position;
 			defenderInitialSpace = defender.Position;
 		}
@@ -35,12 +32,12 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		public void Declare(IStackable stackSrc)
 		{
-			ServerNotifier.NotifyAttackStarted(ServerController, attacker, defender, controller);
+			ServerNotifier.NotifyAttackStarted(instigator, attacker, defender);
 
 			var attackerContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender, 
-				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: ControllingPlayer);
+				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
 			var defenderContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker, 
-				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: ControllingPlayer);
+				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
 			attackerContext.CacheCardInfoAfter();
 			defenderContext.CacheCardInfoAfter();
 			EffCtrl.TriggerForCondition(Trigger.Attacks, attackerContext);
@@ -60,9 +57,9 @@ namespace Kompas.Server.Effects.Models
 		public Task StartResolution(IServerResolutionContext context)
 		{
 			var attackerContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender, 
-				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: ControllingPlayer);
+				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
 			var defenderContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker, 
-				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: ControllingPlayer);
+				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
 			if (StillValidAttack)
 			{
 				//deal the damage
@@ -81,13 +78,13 @@ namespace Kompas.Server.Effects.Models
 			int attackerDmg = attacker.CombatDamage;
 			int defenderDmg = defender.CombatDamage;
 			var attackerDealContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender,
-				stackableCause: this, stackableEvent: this, player: ControllingPlayer, x: attackerDmg);
+				stackableCause: this, stackableEvent: this, player: instigator, x: attackerDmg);
 			var defenderDealContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker,
-				stackableCause: this, stackableEvent: this, player: ControllingPlayer, x: defenderDmg);
+				stackableCause: this, stackableEvent: this, player: instigator, x: defenderDmg);
 			var attackerTakeContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender,
-				stackableCause: this, stackableEvent: this, player: ControllingPlayer, x: defenderDmg);
+				stackableCause: this, stackableEvent: this, player: instigator, x: defenderDmg);
 			var defenderTakeContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker,
-				stackableCause: this, stackableEvent: this, player: ControllingPlayer, x: attackerDmg);
+				stackableCause: this, stackableEvent: this, player: instigator, x: attackerDmg);
 			//deal the damage
 			defender.TakeDamage(attackerDmg, stackSrc: this);
 			attacker.TakeDamage(defenderDmg, stackSrc: this);

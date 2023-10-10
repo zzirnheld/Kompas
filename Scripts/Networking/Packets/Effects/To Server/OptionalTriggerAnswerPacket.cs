@@ -26,7 +26,7 @@ namespace Kompas.Server.Networking
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
-			awaiter.OptionalTriggerAnswer = answer;
+			serverGame.Awaiter.OptionalTriggerAnswer = answer;
 			return Task.CompletedTask;
 		}
 	}

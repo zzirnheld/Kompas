@@ -176,7 +176,7 @@ namespace Kompas.Server.Gamestate.Players
 
 		public async Task TryAttack(GameCard attacker, GameCard defender)
 		{
-			ServerNotifier.NotifyBothPutBack();
+			ServerNotifier.NotifyBothPutBack(new IPlayer[] {this, Enemy});
 
 			if (ServerGame.IsValidNormalAttack(attacker, defender, this))
 			{
