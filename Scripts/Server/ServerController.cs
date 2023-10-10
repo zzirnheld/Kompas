@@ -44,8 +44,10 @@ namespace Kompas.Server.Networking
 				if (currentlyWaitingTcpClient == null) currentlyWaitingTcpClient = client;
 				else
 				{
-					var gameController = GamePrefab.Instantiate() as ServerGameController ?? throw new System.NotSupportedException();
-					//TODO init curr game?
+					var gameController = GamePrefab.Instantiate() as ServerGameController
+						?? throw new System.NotSupportedException("Server Game prefab wasn't a ServerGameController!");
+					AddChild(gameController);
+					gameController.Init(new TcpClient[] { currentlyWaitingTcpClient, client });
 					games.Add(gameController);
 					currentlyWaitingTcpClient = null;
 				}

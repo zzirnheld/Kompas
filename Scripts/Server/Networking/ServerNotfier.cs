@@ -18,7 +18,7 @@ namespace Kompas.Server.Networking
 	{
 		public static void SendPacket(IPlayer player, Packet packet)
 		{
-			//if (packet != null) GD.Print($"Sending packet to {player.Index} with info {packet}");
+			if (packet != null) GD.Print($"Sending packet to {player.Index} with info {packet}");
 			player.Networker.SendPacket(packet);
 		}
 

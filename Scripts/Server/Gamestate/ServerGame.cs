@@ -90,9 +90,9 @@ namespace Kompas.Server.Gamestate
 			this.serverCardRepository = cardRepo;
 		}
 
-		public ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo)
+		public static ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo)
 		{
-			ServerGame ret = new ServerGame(gameController, cardRepo);
+			ServerGame ret = new(gameController, cardRepo);
 
 			ret.Board = new ServerBoard(gameController.BoardController, ret);
 			ret.Awaiter = new ServerAwaiter(ret);

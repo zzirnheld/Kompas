@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://duk3w4245el7w"]
+
+[ext_resource type="Script" path="res://Scripts/Gamestate/Players/PlayerController.cs" id="1_4vh3p"]
+[ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerHandController.cs" id="2_0eg1b"]
+[ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerAnnihilationController.cs" id="3_4i5xf"]
+[ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerDeckController.cs" id="4_nlgx2"]
+[ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerDiscardController.cs" id="5_3thf0"]
+
+[node name="ServerPlayerController" type="Node" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
+script = ExtResource("1_4vh3p")
+HandController = NodePath("Hand")
+DiscardController = NodePath("Discard")
+DeckController = NodePath("Deck")
+AnnihilationController = NodePath("Annihilation")
+
+[node name="Hand" type="Node" parent="."]
+script = ExtResource("2_0eg1b")
+
+[node name="Annihilation" type="Node" parent="."]
+script = ExtResource("3_4i5xf")
+
+[node name="Deck" type="Node" parent="."]
+script = ExtResource("4_nlgx2")
+
+[node name="Discard" type="Node" parent="."]
+script = ExtResource("5_3thf0")

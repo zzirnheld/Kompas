@@ -90,8 +90,6 @@ namespace Kompas.Cards.Loading
 
 		protected CardRepository()
 		{
-			GD.Print(JsonConvert.SerializeObject(new PlayRestriction(), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All }));
-
 			Initialize();
 		}
 

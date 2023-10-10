@@ -3,7 +3,6 @@ using Kompas.Gamestate;
 using Kompas.Server.Cards.Loading;
 using Kompas.Server.Gamestate.Players;
 using Kompas.Server.Networking;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -20,18 +19,14 @@ namespace Kompas.Server.Gamestate
 		public ServerAwaiter Awaiter { get; private set; }
 		public IReadOnlyCollection<ServerNetworker> Networkers { get; private set; }
 
-
-		public override void _Ready()
+		public void Init(TcpClient[] tcpClients)
 		{
-			base._Ready();
 			ServerGame = ServerGame.Create(this, CardRepository);
-		}
-
-		public void InitPlayers(TcpClient[] tcpClients)
-		{
+			
 			var players = ServerPlayer.Create(this,
 				(player, index) => new ServerNetworker(tcpClients[index], ServerGame));
 			Networkers = players.Select(p => p.Networker).ToArray();
+			ServerGame.SetPlayers(players);
 		}
 
 		public override void _Process(double delta)

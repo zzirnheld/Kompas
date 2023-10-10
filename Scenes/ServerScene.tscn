@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5wlhy60m8vyv"]
+[gd_scene load_steps=3 format=3 uid="uid://b5wlhy60m8vyv"]
 
-[ext_resource type="Script" path="res://Scripts/Server/Gamestate/ServerGameController.cs" id="1_has8n"]
+[ext_resource type="Script" path="res://Scripts/Server/ServerController.cs" id="1_1e66d"]
+[ext_resource type="PackedScene" uid="uid://cfx5khx5vsd52" path="res://Scenes/Prefabs/Server Game/ServerGame.tscn" id="2_f5puq"]
 
 [node name="ServerScene" type="Node"]
-script = ExtResource("1_has8n")
+script = ExtResource("1_1e66d")
+GamePrefab = ExtResource("2_f5puq")
