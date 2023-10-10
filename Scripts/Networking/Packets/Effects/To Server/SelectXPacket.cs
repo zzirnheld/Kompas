@@ -24,7 +24,7 @@ namespace Kompas.Server.Networking
 {
 	public class SelectXServerPacket : SelectXPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			awaiter.PlayerXChoice = x;
 			return Task.CompletedTask;

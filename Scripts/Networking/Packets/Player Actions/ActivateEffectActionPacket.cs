@@ -29,7 +29,7 @@ namespace Kompas.Server.Networking
 {
 	public class ActivateEffectActionServerPacket : ActivateEffectActionPacket, IServerOrderPacket
 	{
-		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public async Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			var card = serverGame.LookupCardByID(cardId);
 			if (card is not ServerGameCard serverGameCard) return;

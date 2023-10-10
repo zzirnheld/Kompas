@@ -127,7 +127,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			//add all cards in the chosen list to targets
 			AddList(choices);
 			//everything's cool
-			ServerGame.Notifier.AcceptTarget(PlayerTarget);
+			ServerNotifier.AcceptTarget(PlayerTarget);
 			return true;
 		}
 

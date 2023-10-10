@@ -25,7 +25,7 @@ namespace Kompas.Server.Networking
 {
 	public class SetDeckServerPacket : SetDeckPacket, IServerOrderPacket
 	{
-		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public async Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			await serverGame.SetDeck(player, decklist);
 		}

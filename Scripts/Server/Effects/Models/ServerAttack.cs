@@ -35,7 +35,7 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		public void Declare(IStackable stackSrc)
 		{
-			ServerGame.Notifier.NotifyAttackStarted(ServerController, attacker, defender, controller);
+			ServerNotifier.NotifyAttackStarted(ServerController, attacker, defender, controller);
 
 			var attackerContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender, 
 				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: ControllingPlayer);

@@ -5,6 +5,7 @@ using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Models;
+using Kompas.Server.Gamestate;
 
 namespace Kompas.Server.Networking
 {
@@ -13,8 +14,12 @@ namespace Kompas.Server.Networking
 		private const int DefaultDelay = 100;
 		private const int TargetCheckDelay = 100;
 
-		public ServerNotifier serverNotifier;
-		public ServerNetworker serverNetCtrl;
+		private readonly ServerGame game;
+
+		public ServerAwaiter(ServerGame game)
+		{
+			this.game = game;
+		}
 
 		#region awaited values
 		/*the following are properties so that later i can override the setter to 
@@ -47,7 +52,7 @@ namespace Kompas.Server.Networking
 		#region trigger things
 		public async Task<bool> GetOptionalTriggerChoice(IPlayer toAsk, ServerTrigger trigger, int x, bool showX)
 		{
-			serverNotifier.AskForTrigger(toAsk, trigger, x, showX);
+			ServerNotifier.AskForTrigger(toAsk, trigger, x, showX);
 			//TODO later use a semaphore or something to signal once packet is available
 			while (true)
 			{
@@ -64,7 +69,7 @@ namespace Kompas.Server.Networking
 
 		public async Task GetTriggerOrder(IPlayer toAsk, IEnumerable<ServerTrigger> triggers)
 		{
-			serverNotifier.GetTriggerOrder(toAsk, triggers);
+			ServerNotifier.GetTriggerOrder(toAsk, triggers);
 			while (true)
 			{
 				if (TriggerOrders.HasValue)
@@ -73,7 +78,7 @@ namespace Kompas.Server.Networking
 					for (int i = 0; i < effIndices.Length; i++)
 					{
 						//TODO deal with garbage values here
-						var card = serverNetCtrl.sGame.LookupCardByID(cardIds[i]);
+						var card = game.LookupCardByID(cardIds[i]);
 						if (card == null) continue;
 						if (card.Effects.ElementAt(effIndices[i]).Trigger is ServerTrigger trigger)
 							trigger.Order = orders[i];
@@ -91,7 +96,7 @@ namespace Kompas.Server.Networking
 		#region effect flow control
 		public async Task<int> GetEffectOption(IPlayer toAsk, string cardName, string choiceBlurb, string[] optionBlurbs, bool hasDefault, bool showX, int x)
 		{
-			serverNotifier.ChooseEffectOption(toAsk, cardName, choiceBlurb, optionBlurbs, hasDefault, showX, x);
+			ServerNotifier.ChooseEffectOption(toAsk, cardName, choiceBlurb, optionBlurbs, hasDefault, showX, x);
 			while (true)
 			{
 				if (EffOption.HasValue)
@@ -107,7 +112,7 @@ namespace Kompas.Server.Networking
 
 		public async Task<int> GetPlayerXValue(IPlayer toAsk)
 		{
-			serverNotifier.GetXForEffect(toAsk);
+			ServerNotifier.GetXForEffect(toAsk);
 			while (true)
 			{
 				if (PlayerXChoice.HasValue)
@@ -135,7 +140,7 @@ namespace Kompas.Server.Networking
 		public async Task<IEnumerable<GameCard>> GetCardListTargets
 			(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, string listRestructionJson)
 		{
-			serverNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestructionJson, list: true);
+			ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestructionJson, list: true);
 			while (true)
 			{
 				if (CardListTargets != null)
@@ -165,7 +170,7 @@ namespace Kompas.Server.Networking
 		public async Task<(int, int)> GetSpaceTarget
 			(IPlayer toAsk, string cardName, string blurb, (int, int)[] spaces, (int, int)[] recommendedSpaces)
 		{
-			serverNotifier.GetSpaceTarget(toAsk, cardName, blurb, spaces, recommendedSpaces);
+			ServerNotifier.GetSpaceTarget(toAsk, cardName, blurb, spaces, recommendedSpaces);
 			while (true)
 			{
 				if (SpaceTarget.HasValue)
@@ -188,7 +193,7 @@ namespace Kompas.Server.Networking
 		#region misc get stuff
 		public async Task<int[]> GetHandSizeChoices(IPlayer toAsk, int[] cardIds, string listRestrictionJson)
 		{
-			serverNotifier.GetHandSizeChoices(toAsk, cardIds, listRestrictionJson);
+			ServerNotifier.GetHandSizeChoices(toAsk, cardIds, listRestrictionJson);
 			while (true)
 			{
 				if (HandSizeChoices != null)

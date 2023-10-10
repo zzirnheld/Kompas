@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Models;
@@ -7,6 +8,7 @@ using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Networking;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate.Extensions;
 using Kompas.Server.Gamestate.Locations.Controllers;
@@ -18,7 +20,8 @@ namespace Kompas.Server.Gamestate.Players
 	public class ServerPlayer : IPlayer
 	{
 		//TODO encapsulate
-		public ServerNetworker Networker { get; init; }
+		public ServerNetworker Networker { get; private set; }
+		Networker IPlayer.Networker => Networker;
 
 		public ServerGame ServerGame { get; }
 		public IGame Game => ServerGame;
@@ -51,6 +54,7 @@ namespace Kompas.Server.Gamestate.Players
 
 		public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
 
+
 		private ServerPlayer(ServerGame game, int index)
 		{
 			ServerGame = game;
@@ -58,7 +62,7 @@ namespace Kompas.Server.Gamestate.Players
 		}
 
 		//Factory methods, so we can initialize the location models with the player
-		private static ServerPlayer Create(ServerGame game, PlayerController controller, int index)
+		private static ServerPlayer Create(ServerGame game, PlayerController controller, int index, GetNetworker getNetworker)
 		{
 			ServerPlayer ret = new(game, index);
 
@@ -66,16 +70,17 @@ namespace Kompas.Server.Gamestate.Players
 			ret.Discard = new ServerDiscard(ret, controller.DiscardController, game);
 			ret.Hand = new ServerHand(ret, controller.HandController, game);
 			ret.Annihilation = new ServerAnnihilation(ret, controller.AnnihilationController, game);
+			ret.Networker = getNetworker(ret, index);
 
 			return ret;
 		}
 
-		public static ServerPlayer[] Create(ServerGameController gameController)
+		public static ServerPlayer[] Create(ServerGameController gameController, GetNetworker getNetworker)
 		{
 			ServerPlayer[] ret =
 			{
-				Create(gameController.ServerGame, gameController.PlayerControllers[0], 0),
-				Create(gameController.ServerGame, gameController.PlayerControllers[1], 1),
+				Create(gameController.ServerGame, gameController.PlayerControllers[0], 0, getNetworker),
+				Create(gameController.ServerGame, gameController.PlayerControllers[1], 1, getNetworker),
 			};
 
 			ret[0].Enemy = ret[1];
@@ -83,6 +88,8 @@ namespace Kompas.Server.Gamestate.Players
 
 			return ret;
 		}
+
+		public delegate ServerNetworker GetNetworker(ServerPlayer player, int index);
 
 
 		//If the player tries to do something, it goes here to check if it's ok, then do it if it is ok.
@@ -101,12 +108,12 @@ namespace Kompas.Server.Gamestate.Players
 					aug.Play(space, this, payCost: true);
 					await ServerGame.serverStackController.CheckForResponse();
 				}
-				else ServerGame.Notifier.NotifyPutBack(this);
+				else ServerNotifier.NotifyPutBack(this);
 			}
 			catch (KompasException ke)
 			{
 				GD.PrintErr(ke);
-				ServerGame.Notifier.NotifyPutBack(this);
+				ServerNotifier.NotifyPutBack(this);
 			}
 		}
 
@@ -122,13 +129,13 @@ namespace Kompas.Server.Gamestate.Players
 				else
 				{
 					GD.PushWarning($"Player {Index} attempted an invalid play of {card} to {space}.");
-					ServerGame.Notifier.NotifyPutBack(this);
+					ServerNotifier.NotifyPutBack(this);
 				}
 			}
 			catch (KompasException ke)
 			{
 				GD.PrintErr($"Player {Index} attempted an invalid play of {card} to {space}. Resulting exception:\n{ke}");
-				ServerGame.Notifier.NotifyPutBack(this);
+				ServerNotifier.NotifyPutBack(this);
 			}
 		}
 
@@ -142,12 +149,12 @@ namespace Kompas.Server.Gamestate.Players
 					toMove.Move(space, true, this);
 					await ServerGame.serverStackController.CheckForResponse();
 				}
-				else ServerGame.Notifier.NotifyPutBack(this);
+				else ServerNotifier.NotifyPutBack(this);
 			}
 			catch (KompasException ke)
 			{
 				GD.PrintErr(ke);
-				ServerGame.Notifier.NotifyPutBack(this);
+				ServerNotifier.NotifyPutBack(this);
 			}
 		}
 
@@ -169,7 +176,7 @@ namespace Kompas.Server.Gamestate.Players
 
 		public async Task TryAttack(GameCard attacker, GameCard defender)
 		{
-			ServerGame.Notifier.NotifyBothPutBack();
+			ServerNotifier.NotifyBothPutBack();
 
 			if (ServerGame.IsValidNormalAttack(attacker, defender, this))
 			{

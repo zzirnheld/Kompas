@@ -11,7 +11,7 @@ namespace Kompas.Networking
     /// Handles serializing, sending, deserializing, and receiving packets.
     /// Usage: Call Update() each frame, or each interval at which you want to check packets
     /// </summary>
-	public abstract class NetworkController
+	public abstract class Networker
 	{
 		public const int port = 8448;
 
@@ -24,7 +24,7 @@ namespace Kompas.Networking
 
 		private readonly TcpClient tcpClient;
 
-		protected NetworkController(TcpClient tcpClient)
+		protected Networker(TcpClient tcpClient)
 		{
 			this.tcpClient = tcpClient;
 		}

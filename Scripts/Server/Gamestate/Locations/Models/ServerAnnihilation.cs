@@ -3,6 +3,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
@@ -24,7 +25,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			
 			context.CacheCardInfoAfter();
 			game.serverStackController.TriggerForCondition(Trigger.Annhilate, context);
-			game.Notifier.NotifyAnnhilate(Owner, card, wasKnown);
+			ServerNotifier.NotifyAnnhilate(Owner, card, wasKnown);
 		}
 	}
 }

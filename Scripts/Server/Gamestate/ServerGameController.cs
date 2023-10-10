@@ -1,7 +1,12 @@
 using Godot;
 using Kompas.Gamestate;
 using Kompas.Server.Cards.Loading;
+using Kompas.Server.Gamestate.Players;
+using Kompas.Server.Networking;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 
 namespace Kompas.Server.Gamestate
 {
@@ -12,19 +17,29 @@ namespace Kompas.Server.Gamestate
 
 		public ServerCardRepository CardRepository = new();
 
-		//TODO networker, TODO awaiter, TODO notifier
+		public ServerAwaiter Awaiter { get; private set; }
+		public IReadOnlyCollection<ServerNetworker> Networkers { get; private set; }
 
 
 		public override void _Ready()
 		{
 			base._Ready();
-			ServerGame = new ServerGame(this, CardRepository);
+			ServerGame = ServerGame.Create(this, CardRepository);
+		}
+
+		public void InitPlayers(TcpClient[] tcpClients)
+		{
+			var players = ServerPlayer.Create(this,
+				(player, index) => new ServerNetworker(tcpClients[index], ServerGame));
+			Networkers = players.Select(p => p.Networker).ToArray();
 		}
 
 		public override void _Process(double delta)
 		{
 			base._Process(delta);
-			networker?.Tick();
+
+			if (Networkers == null) return;
+			foreach (var networker in Networkers) networker.Tick();
 		}
 	}
 }

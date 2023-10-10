@@ -26,7 +26,7 @@ namespace Kompas.Server.Networking
 {
 	public class AttackActionServerPacket : AttackActionPacket, IServerOrderPacket
 	{
-		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public async Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			var attacker = serverGame.LookupCardByID(attackerId);
 			var defender = serverGame.LookupCardByID(defenderId);

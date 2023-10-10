@@ -24,7 +24,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			
 			context.CacheCardInfoAfter();
 			game.serverStackController.TriggerForCondition(Trigger.Rehand, context);
-			game.Notifier.NotifyRehand(Owner, card, wasKnown);
+			Networking.ServerNotifier.NotifyRehand(Owner, card, wasKnown);
 		}
 	}
 }

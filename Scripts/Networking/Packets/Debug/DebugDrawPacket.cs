@@ -18,7 +18,7 @@ namespace Kompas.Server.Networking
 {
 	public class DebugDrawServerPacket : DebugDrawPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 
 			throw new System.NotImplementedException();

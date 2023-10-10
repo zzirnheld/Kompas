@@ -17,7 +17,7 @@ namespace Kompas.Server.Networking
 {
 	public class PassPriorityServerPacket : PassPriorityPacket, IServerOrderPacket
 	{
-		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public async Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			throw new System.NotImplementedException();
 			//player.PassedPriority = true;

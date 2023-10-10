@@ -25,7 +25,7 @@ namespace Kompas.Server.Networking
 {
 	public class DebugRehandServerPacket : DebugRehandPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			var card = serverGame.LookupCardByID(cardId);
 			if (card == null)

@@ -26,7 +26,7 @@ namespace Kompas.Server.Networking
 {
 	public class SendHandSizeChoicesServerPacket : SendHandSizeChoicesPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			awaiter.HandSizeChoices = cardIds;
 			return Task.CompletedTask;

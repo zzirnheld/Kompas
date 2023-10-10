@@ -17,7 +17,7 @@ namespace Kompas.Server.Networking
 {
 	public class EndTurnActionServerPacket : EndTurnActionPacket, IServerOrderPacket
 	{
-		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public async Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			await player.TryEndTurn();
 		}

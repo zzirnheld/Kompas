@@ -29,7 +29,7 @@ namespace Kompas.Server.Networking
 {
 	public class ListChoicesServerPacket : ListChoicesPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			var choices = cardIds.Select(c => serverGame.LookupCardByID(c)).Where(c => c != null).Distinct();
 

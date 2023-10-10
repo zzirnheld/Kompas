@@ -82,7 +82,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			{
 				GD.Print($"Adding {x}, {y} as coords");
 				ServerEffect.AddSpace(space);
-				ServerGame.Notifier.AcceptTarget(PlayerTarget);
+				ServerNotifier.AcceptTarget(PlayerTarget);
 				return true;
 			}
 			//else GD.PrintErr($"{x}, {y} not valid for restriction {spaceRestriction}");

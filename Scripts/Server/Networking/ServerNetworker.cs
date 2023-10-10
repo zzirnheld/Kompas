@@ -10,23 +10,24 @@ using System.Threading.Tasks;
 namespace Kompas.Server.Networking
 {
 	//handles networking and such for a server game
-	public class ServerNetworker : NetworkController
+	public class ServerNetworker : Networker
 	{
 		public static readonly string[] DontLogThesePackets =
 		{
 			Packet.PassPriority
 		};
 
-		public ServerPlayer Player;
-		public ServerGame sGame;
-		public ServerNotifier ServerNotifier;
-		public ServerAwaiter serverAwaiter;
+		public ServerPlayer Player { get; set; }
 
-		public ServerNetworker(TcpClient tcpClient) : base(tcpClient)
+		private readonly ServerGame game;
+
+		public ServerNetworker(TcpClient tcpClient, ServerGame game)
+			: base(tcpClient)
 		{
+			this.game = game;
 		}
 
-		private IServerOrderPacket FromJson(string command, string json)
+		private static IServerOrderPacket FromJson(string command, string json)
 		{
 			return command switch
 			{
@@ -66,7 +67,7 @@ namespace Kompas.Server.Networking
 		{
 			//GD.Print("SERVER NET CTRL UPDATE");
 			base.Tick();
-			if (packets.Count != 0) await ProcessPacket(packets.Dequeue());
+			if (packets.Count != 0 && Player != null) await ProcessPacket(packets.Dequeue());
 			//if (sGame.Players.Any(p => p.TcpClient != null && !p.TcpClient.Connected)) Destroy(sGame.gameObject); //TODO notify player that no
 		}
 
@@ -81,7 +82,7 @@ namespace Kompas.Server.Networking
 			if (!DontLogThesePackets.Contains(packetInfo.command)) GD.Print($"Processing {packetInfo.json} from {Player}");
 
 			var packet = FromJson(packetInfo.command, packetInfo.json);
-			await packet.Execute(sGame, Player, serverAwaiter);
+			await packet.Execute(game, Player);
 		}
 	}
 }

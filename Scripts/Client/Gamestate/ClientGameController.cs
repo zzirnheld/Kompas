@@ -27,11 +27,11 @@ namespace Kompas.Client.Gamestate
 		/// <summary>
 		/// Singleton? which actually sends and receives communication.
 		/// </summary>
-		private ClientNetworker networker;
+		public ClientNetworker Networker { get; private set; }
 		/// <summary>
-        /// Singleton? which assembles packets to be sent via the Networker.
-        /// TODO consider changing the name to reflect this role
-        /// </summary>
+		/// Singleton? which assembles packets to be sent via the Networker.
+		/// TODO consider changing the name to reflect this role
+		/// </summary>
 		public ClientNotifier Notifier { get; private set; }
 
 		public override void _Ready()
@@ -43,13 +43,13 @@ namespace Kompas.Client.Gamestate
 		public override void _Process(double delta)
 		{
 			base._Process(delta);
-			networker?.Tick();
+			Networker?.Tick();
 		}
 
 		public void SuccessfullyConnected(TcpClient tcpClient)
 		{
-			networker = new ClientNetworker(tcpClient, game);
-			Notifier = new ClientNotifier(networker);
+			Networker = new ClientNetworker(tcpClient, game);
+			Notifier = new ClientNotifier(Networker);
 		}
 	}
 }

@@ -28,6 +28,6 @@ namespace Kompas.Server.Networking
 		/// <param name="serverGame">The server game to apply the packet to.</param>
 		/// <param name="player">The player who this packet came from.</param>
 		//TODO server
-		Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter);
+		Task Execute(ServerGame serverGame, ServerPlayer player);
 	}
 }

@@ -30,10 +30,8 @@ namespace Kompas.Server.Gamestate
 		public CardRepository CardRepository => serverCardRepository;
 		public readonly ServerStackController serverStackController;
 
-		public Board Board { get; init; }
-
-		public ServerNotifier Notifier { get; init; }
-		public ServerAwaiter Awaiter { get; init; }
+		public Board Board { get; private set; }
+		public ServerAwaiter Awaiter { get; private set; }
 
 		public bool DebugMode => false;
 
@@ -70,7 +68,7 @@ namespace Kompas.Server.Gamestate
 			set
 			{
 				_leyload = value;
-				Notifier.NotifyLeyload(Leyload);
+				ServerNotifier.NotifyLeyload(Leyload, Players);
 			}
 		}
 
@@ -86,10 +84,20 @@ namespace Kompas.Server.Gamestate
 
 		public void AddCard(ServerGameCard card) => cardsByID.Add(card.ID, card);
 
-		public ServerGame(ServerGameController gameController, ServerCardRepository cardRepo)
+		private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo)
 		{
 			ServerGameController = gameController;
 			this.serverCardRepository = cardRepo;
+		}
+
+		public ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo)
+		{
+			ServerGame ret = new ServerGame(gameController, cardRepo);
+
+			ret.Board = new ServerBoard(gameController.BoardController, ret);
+			ret.Awaiter = new ServerAwaiter(ret);
+
+			return ret;
 		}
 
 		public void SetPlayers(ServerPlayer[] players)
@@ -102,7 +110,7 @@ namespace Kompas.Server.Gamestate
 		}
 
 		#region players and game starting
-		private void GetDeckFrom(ServerPlayer player) => Notifier.GetDecklist(player);
+		private void GetDeckFrom(ServerPlayer player) => ServerNotifier.GetDecklist(player);
 
 		//TODO for future logic like limited cards, etc.
 		private bool ValidDeck(List<string> deck)
@@ -132,7 +140,7 @@ namespace Kompas.Server.Gamestate
 		{
 			//TODO sanitize
 
-			if (ValidDeck(decklist.deck)) Notifier.DeckAccepted(player);
+			if (ValidDeck(decklist.deck)) ServerNotifier.DeckAccepted(player);
 			else
 			{
 				GetDeckFrom(player);
@@ -152,7 +160,7 @@ namespace Kompas.Server.Gamestate
 				cardCount++;
 				GD.Print($"Adding new card {card.CardName} with id {card.ID}");
 				player.Deck.ShuffleIn(card);
-				Notifier.NotifyCreateCard(player, card, wasKnown: false);
+				ServerNotifier.NotifyCreateCard(player, card, wasKnown: false);
 			}
 
 			player.Avatar = avatar;
@@ -171,7 +179,7 @@ namespace Kompas.Server.Gamestate
 			//determine who goes first and tell the players
 			FirstTurnPlayer = new System.Random().NextDouble() > 0.5f ? 0 : 1;
 			TurnPlayer = Players[FirstTurnPlayer];
-			Notifier.SetFirstTurnPlayer(TurnPlayer);
+			ServerNotifier.SetFirstTurnPlayer(TurnPlayer);
 
 			foreach (var p in ServerPlayers)
 			{
@@ -196,7 +204,7 @@ namespace Kompas.Server.Gamestate
 				TurnCount++;
 			}
 
-			Notifier.NotifyYourTurn(TurnPlayer);
+			ServerNotifier.NotifyYourTurn(TurnPlayer);
 			ResetCardsForTurn();
 
 			TurnPlayer.Pips += Leyload;
@@ -282,7 +290,7 @@ namespace Kompas.Server.Gamestate
 		public void Lose(ServerPlayer player)
 		{
 			Winner = player.Enemy;
-			Notifier.NotifyWin(player);
+			ServerNotifier.NotifyWin(player);
 		}
 	}
 }

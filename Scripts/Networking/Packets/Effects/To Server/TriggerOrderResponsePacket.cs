@@ -28,7 +28,7 @@ namespace Kompas.Server.Networking
 {
 	public class TriggerOrderResponseServerPacket : TriggerOrderResponsePacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			awaiter.TriggerOrders = (cardIds, effIndices, orders);
 			return Task.CompletedTask;

@@ -19,12 +19,12 @@ namespace Kompas.Server.Networking
 
 		private TcpListener listener;
 		private readonly IList<ServerGameController> games = new List<ServerGameController>();
-		private TcpClient currentlyWaitingPlayer = null;
+		private TcpClient currentlyWaitingTcpClient = null;
 		private Task<TcpClient> currTcpClient;
 
 		public override void _Ready()
 		{
-			try { listener = new TcpListener(IPAddress.Any, NetworkController.port); }
+			try { listener = new TcpListener(IPAddress.Any, Networker.port); }
 			catch (System.Exception e)
 			{
 				GD.PrintErr(e.Message);
@@ -41,13 +41,13 @@ namespace Kompas.Server.Networking
 			{
 				var client = currTcpClient.Result;
 
-				if (currentlyWaitingPlayer == null) currentlyWaitingPlayer = client;
+				if (currentlyWaitingTcpClient == null) currentlyWaitingTcpClient = client;
 				else
 				{
 					var gameController = GamePrefab.Instantiate() as ServerGameController ?? throw new System.NotSupportedException();
 					//TODO init curr game?
 					games.Add(gameController);
-					currentlyWaitingPlayer = null;
+					currentlyWaitingTcpClient = null;
 				}
 
 				currTcpClient = listener.AcceptTcpClientAsync();

@@ -27,7 +27,7 @@ namespace Kompas.Server.Networking
 {
 	public class DebugDiscardServerPacket : DebugDiscardPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			var card = serverGame.LookupCardByID(cardId);
 			if (card == null)
@@ -40,7 +40,7 @@ namespace Kompas.Server.Networking
 			else
 			{
 				GD.PrintErr($"Tried to debug discard card with id {cardId} while NOT in debug mode!");
-				serverGame.Notifier.NotifyPutBack(player);
+				ServerNotifier.NotifyPutBack(player);
 			}
 			return Task.CompletedTask;
 		}

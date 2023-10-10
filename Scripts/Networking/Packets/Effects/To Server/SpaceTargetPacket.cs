@@ -26,7 +26,7 @@ namespace Kompas.Server.Networking
 {
 	public class SpaceTargetServerPacket : SpaceTargetPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			if (player.Index != 0)
 			{

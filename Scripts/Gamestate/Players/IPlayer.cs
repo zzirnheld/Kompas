@@ -1,5 +1,6 @@
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations.Models;
+using Kompas.Networking;
 
 namespace Kompas.Gamestate.Players
 {
@@ -8,6 +9,7 @@ namespace Kompas.Gamestate.Players
 		public int HandSizeLimit => 7;
 
 		public IGame Game { get; }
+		public Networker Networker { get; }
 
 		public IPlayer Enemy { get; }
 

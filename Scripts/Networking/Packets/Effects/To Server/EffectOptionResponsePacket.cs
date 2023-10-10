@@ -24,7 +24,7 @@ namespace Kompas.Server.Networking
 {
 	public class EffectOptionResponseServerPacket : EffectOptionResponsePacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			awaiter.EffOption = option;
 			return Task.CompletedTask;

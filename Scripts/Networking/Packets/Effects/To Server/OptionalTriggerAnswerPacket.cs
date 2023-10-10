@@ -24,7 +24,7 @@ namespace Kompas.Server.Networking
 {
 	public class OptionalTriggerAnswerServerPacket : OptionalTriggerAnswerPacket, IServerOrderPacket
 	{
-		public Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			awaiter.OptionalTriggerAnswer = answer;
 			return Task.CompletedTask;

@@ -11,6 +11,7 @@ using Kompas.Gamestate.Players;
 using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Gamestate.Players;
+using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
@@ -34,7 +35,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			EffectsController.TriggerForCondition(Trigger.Play, context);
 			EffectsController.TriggerForCondition(Trigger.Arrive, context);
 
-			if (!toPlay.IsAvatar) serverGame.Notifier.NotifyPlay(controller, toPlay, to, wasKnown);
+			if (!toPlay.IsAvatar) ServerNotifier.NotifyPlay(controller, toPlay, to, wasKnown);
 		}
 
 		private (IEnumerable<TriggeringEventContext> moveContexts, IEnumerable<TriggeringEventContext> leaveContexts)
@@ -111,7 +112,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			EffectsController.TriggerForCondition(Trigger.LeaveAOE, leaveContexts.ToArray());
 
 			//notify the players
-			serverGame.Notifier.NotifyMove(mover, card, to);
+			ServerNotifier.NotifyMove(mover, card, to);
 		}
 	}
 }

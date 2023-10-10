@@ -28,7 +28,7 @@ namespace Kompas.Server.Networking
 {
 	public class AugmentActionServerPacket : AugmentActionPacket, IServerOrderPacket
 	{
-		public async Task Execute(ServerGame serverGame, ServerPlayer player, ServerAwaiter awaiter)
+		public async Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
 			if (player.Index == 1)
 			{

@@ -4,6 +4,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
@@ -24,7 +25,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 			context.CacheCardInfoAfter();
 			game.serverStackController.TriggerForCondition(Trigger.ToDeck, context);
-			game.Notifier.NotifyDeckCount(Owner, Cards.Count());
+			Networking.ServerNotifier.NotifyDeckCount(Owner, Cards.Count());
 		}
 
 		public override void PushBottomdeck(GameCard card, IStackable stackSrc = null)
@@ -36,7 +37,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			
 			context.CacheCardInfoAfter();
 			game.serverStackController.TriggerForCondition(Trigger.Bottomdeck, context);
-			game.Notifier.NotifyBottomdeck(Owner, card, wasKnown);
+			ServerNotifier.NotifyBottomdeck(Owner, card, wasKnown);
 		}
 
 		public override void PushTopdeck(GameCard card, IStackable stackSrc = null)
@@ -47,7 +48,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			
 			context.CacheCardInfoAfter();
 			game.serverStackController.TriggerForCondition(Trigger.Topdeck, context);
-			game.Notifier.NotifyTopdeck(Owner, card, wasKnown);
+			ServerNotifier.NotifyTopdeck(Owner, card, wasKnown);
 		}
 
 		public override void ShuffleIn(GameCard card, IStackable stackSrc = null)
@@ -58,13 +59,13 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			
 			context.CacheCardInfoAfter();
 			game.serverStackController.TriggerForCondition(Trigger.Reshuffle, context);
-			game.Notifier.NotifyReshuffle(Owner, card, wasKnown);
+			ServerNotifier.NotifyReshuffle(Owner, card, wasKnown);
 		}
 
 		public override void Remove(GameCard card)
 		{
 			base.Remove(card);
-			game.Notifier.NotifyDeckCount(Owner, Cards.Count());
+			Networking.ServerNotifier.NotifyDeckCount(Owner, Cards.Count());
 		}
 	}
 }

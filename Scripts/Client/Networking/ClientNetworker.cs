@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Client.Networking
 {
-	public class ClientNetworker : NetworkController
+	public class ClientNetworker : Networker
 	{
 		private readonly ClientGame game;
 		private static bool connecting = false;
