@@ -30,6 +30,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="Kompas"
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [memory]
 
 limits/message_queue/max_size_mb=64
