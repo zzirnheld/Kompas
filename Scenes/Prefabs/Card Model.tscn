@@ -1,7 +1,11 @@
-[gd_scene load_steps=125 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=129 format=3 uid="uid://dq50o17h7ceai"]
 
+[ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
 [ext_resource type="Material" uid="uid://dbtupu4std1o3" path="res://Materials/Card Frame Material.tres" id="1_om3yx"]
 [ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card Image Material.tres" id="1_y7vb5"]
+[ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedIn3DCardInfoDisplayer.cs" id="2_0v3lq"]
+[ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedOut3DCardInfoDisplayer.cs" id="2_cdddr"]
+[ext_resource type="FontFile" uid="uid://dq8qgur736smt" path="res://Fonts/Poly-Regular.otf" id="3_hjjow"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1239,227 +1243,305 @@ shadow_mesh = SubResource("ArrayMesh_w3jxq")
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Kompas Char Zoomed Out" type="Node3D" parent="."]
+[node name="Card" type="Node3D" parent="." node_paths=PackedStringArray("ZoomedOut", "ZoomedIn")]
+script = ExtResource("1_8duf6")
+ZoomedOut = NodePath("Zoomed Out")
+ZoomedIn = NodePath("Zoomed In No Text")
 
-[node name="Zoomed Out" type="Node3D" parent="Kompas Char Zoomed Out"]
+[node name="Zoomed Out" type="Node3D" parent="Card"]
+visible = false
+script = ExtResource("2_cdddr")
+CardImageMaterial = ExtResource("1_y7vb5")
+
+[node name="Char" type="Node3D" parent="Card/Zoomed Out"]
 visible = false
 
-[node name="Char" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed Out"]
-visible = false
-
-[node name="ZO Char Frame Stats" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/Char"]
+[node name="ZO Char Frame Stats" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 mesh = SubResource("ArrayMesh_2vcfb")
 skeleton = NodePath("")
 
-[node name="ZO Char Baseplate Image" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/Char"]
+[node name="ZO Char Baseplate Image" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35494e-06, 0.025, 0)
 mesh = SubResource("ArrayMesh_pjruw")
 skeleton = NodePath("")
 
-[node name="ZO Char Baseplate E" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/Char"]
+[node name="ZO Char Baseplate E" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
 mesh = SubResource("ArrayMesh_n41tf")
 skeleton = NodePath("")
 
-[node name="ZO Char Baseplate W" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/Char"]
+[node name="ZO Char Baseplate W" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
 mesh = SubResource("ArrayMesh_nnbsc")
 skeleton = NodePath("")
 
-[node name="ZO Char Baseplate N" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/Char"]
+[node name="ZO Char Baseplate N" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
 mesh = SubResource("ArrayMesh_hlwaj")
 skeleton = NodePath("")
 
-[node name="NonChar" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed Out"]
+[node name="NonChar" type="Node3D" parent="Card/Zoomed Out"]
 
-[node name="ZO NonChar Frame Stats" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/NonChar"]
+[node name="ZO NonChar Frame Stats" type="MeshInstance3D" parent="Card/Zoomed Out/NonChar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 mesh = SubResource("ArrayMesh_w6apk")
 skeleton = NodePath("")
 
-[node name="ZO NonChar Baseplate Image" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/NonChar"]
+[node name="ZO NonChar Baseplate Image" type="MeshInstance3D" parent="Card/Zoomed Out/NonChar"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2.35494e-06, 0.025, 0)
+material_override = ExtResource("1_y7vb5")
 mesh = SubResource("ArrayMesh_ad83p")
 skeleton = NodePath("")
 
-[node name="All" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed Out"]
+[node name="All" type="Node3D" parent="Card/Zoomed Out"]
 
-[node name="ZO All Frame Cost" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/All"]
+[node name="ZO All Frame Cost" type="MeshInstance3D" parent="Card/Zoomed Out/All"]
 transform = Transform3D(0.34202, 0, -0.939693, 0, 1, 0, 0.939693, 0, 0.34202, -5.56707e-05, 0.054607, 0.783985)
 mesh = SubResource("ArrayMesh_2spfv")
 skeleton = NodePath("")
 
-[node name="ZO All Frame Corners" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/All"]
+[node name="ZO All Frame Corners" type="MeshInstance3D" parent="Card/Zoomed Out/All"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 mesh = SubResource("ArrayMesh_lbq8h")
 skeleton = NodePath("")
 
-[node name="ZO All Baseplate Cost" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/All"]
+[node name="ZO All Baseplate Cost" type="MeshInstance3D" parent="Card/Zoomed Out/All"]
 mesh = SubResource("ArrayMesh_j5726")
 skeleton = NodePath("")
 
-[node name="ZO All Baseplate" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed Out/All"]
+[node name="ZO All Baseplate" type="MeshInstance3D" parent="Card/Zoomed Out/All"]
 mesh = SubResource("ArrayMesh_eddle")
 skeleton = NodePath("")
 
-[node name="Zoomed In With Text" type="Node3D" parent="Kompas Char Zoomed Out"]
+[node name="Zoomed In With Text" type="Node3D" parent="Card"]
 visible = false
 
-[node name="Node3D" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed In With Text"]
+[node name="Node3D" type="Node3D" parent="Card/Zoomed In With Text"]
 
-[node name="ZI WT Char Frame E" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D"]
+[node name="ZI WT Char Frame E" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_b8hei")
 skeleton = NodePath("")
 
-[node name="ZI WT Char Frame W" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D"]
+[node name="ZI WT Char Frame W" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D"]
 transform = Transform3D(-0.563816, 0, -0.205212, 0, 1, 0, 0.205212, 0, -0.563816, -0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_pcxjm")
 skeleton = NodePath("")
 
-[node name="ZI WT Char Frame N" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D"]
+[node name="ZI WT Char Frame N" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, 0, 0.055, -0.84575)
 mesh = SubResource("ArrayMesh_n1n0k")
 skeleton = NodePath("")
 
-[node name="Node3D2" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed In With Text"]
+[node name="Node3D2" type="Node3D" parent="Card/Zoomed In With Text"]
 
-[node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D2"]
+[node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D2"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_117l4")
 skeleton = NodePath("")
 
-[node name="ZI WT NonChar Frame Stat Caps_001" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D2"]
+[node name="ZI WT NonChar Frame Stat Caps_001" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D2"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_drlhj")
 skeleton = NodePath("")
 
-[node name="Node3D3" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed In With Text"]
+[node name="Node3D3" type="Node3D" parent="Card/Zoomed In With Text"]
 
-[node name="ZI WT All Frame Bars and Outside" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Frame Bars and Outside" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, 3.56138e-06, 0.0503252, 0)
 mesh = SubResource("ArrayMesh_3pma3")
 skeleton = NodePath("")
 
-[node name="ZI WT All Frame Cost" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Frame Cost" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 transform = Transform3D(0.205212, 0, -0.563816, 0, 1, 0, 0.563816, 0, 0.205212, 0, 0.055, 0.84575)
 mesh = SubResource("ArrayMesh_ga6ad")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_dvjk5")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate Cost" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate Cost" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_so1x2")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate E" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate E" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_f5ggq")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate N" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate N" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_rm0dm")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate W" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate W" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_f7si1")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate Name" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate Name" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_2fgsm")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate Subtypes" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate Subtypes" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_30dif")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate Eff Text" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate Eff Text" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 mesh = SubResource("ArrayMesh_okr8o")
 skeleton = NodePath("")
 
-[node name="ZI WT All Baseplate Image" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In With Text/Node3D3"]
+[node name="ZI WT All Baseplate Image" type="MeshInstance3D" parent="Card/Zoomed In With Text/Node3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -0.213323)
 mesh = SubResource("ArrayMesh_78r2k")
 skeleton = NodePath("")
 
-[node name="Zoomed In No Text" type="Node3D" parent="Kompas Char Zoomed Out"]
+[node name="Zoomed In No Text" type="Node3D" parent="Card" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes")]
+script = ExtResource("2_0v3lq")
+CardImageMaterial = ExtResource("1_y7vb5")
+N = NodePath("Char/N Label")
+E = NodePath("Char/E Label")
+Cost = NodePath("All/S Label")
+W = NodePath("Char/W Label")
+CardName = NodePath("All/Name Label")
+Subtypes = NodePath("All/Subtypes Label")
 
-[node name="All" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed In No Text"]
+[node name="All" type="Node3D" parent="Card/Zoomed In No Text"]
 
-[node name="ZI NT All Frame Cost" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All"]
+[node name="ZI NT All Frame Cost" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
 transform = Transform3D(0.205212, 0, -0.563816, 0, 1, 0, 0.563816, 0, 0.205212, 0, 0.055, 0.84575)
 mesh = SubResource("ArrayMesh_d3pdc")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate W" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All"]
+[node name="ZI NT All Baseplate W" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
 mesh = SubResource("ArrayMesh_wmouu")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate N" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All"]
+[node name="ZI NT All Baseplate N" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
 mesh = SubResource("ArrayMesh_uomet")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate E" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All"]
+[node name="ZI NT All Baseplate E" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
 mesh = SubResource("ArrayMesh_bvhvj")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate Cost" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All"]
+[node name="ZI NT All Baseplate Cost" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
 mesh = SubResource("ArrayMesh_hog5p")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All"]
+[node name="ZI NT All Baseplate" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
 mesh = SubResource("ArrayMesh_dvjk5")
 skeleton = NodePath("")
 
-[node name="Node3D" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All"]
+[node name="Node3D" type="Node3D" parent="Card/Zoomed In No Text/All"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="ZI NT All Frame Bottom Half " type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All/Node3D"]
+[node name="ZI NT All Frame Bottom Half " type="MeshInstance3D" parent="Card/Zoomed In No Text/All/Node3D"]
 transform = Transform3D(0.205212, 0, -0.563816, 0, 1, 0, 0.563816, 0, 0.205212, 0, 0.055, 0.84575)
+material_override = ExtResource("1_om3yx")
 mesh = SubResource("ArrayMesh_sq14u")
 skeleton = NodePath("")
 
-[node name="ZI NT All Frame Top Half" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All/Node3D"]
+[node name="ZI NT All Frame Top Half" type="MeshInstance3D" parent="Card/Zoomed In No Text/All/Node3D"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, 3.56138e-06, 0.0503252, 0.42347)
 material_override = ExtResource("1_om3yx")
 mesh = SubResource("ArrayMesh_xhxrs")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate Subtypes" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All/Node3D"]
+[node name="ZI NT All Baseplate Subtypes" type="MeshInstance3D" parent="Card/Zoomed In No Text/All/Node3D"]
 mesh = SubResource("ArrayMesh_phyg0")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate Name" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All/Node3D"]
+[node name="ZI NT All Baseplate Name" type="MeshInstance3D" parent="Card/Zoomed In No Text/All/Node3D"]
 mesh = SubResource("ArrayMesh_hq28y")
 skeleton = NodePath("")
 
-[node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/All/Node3D"]
+[node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Card/Zoomed In No Text/All/Node3D"]
 transform = Transform3D(-1.01, 0, -8.8297e-08, 0, 1.01, 0, 8.8297e-08, 0, -1.01, 9.87244e-09, 0, 0.177072)
 material_override = ExtResource("1_y7vb5")
 mesh = SubResource("ArrayMesh_5ubt0")
 skeleton = NodePath("")
 
-[node name="Char" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed In No Text"]
+[node name="Name Label" type="Label3D" parent="Card/Zoomed In No Text/All"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, -0.585298)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "Some the Guy"
+font = ExtResource("3_hjjow")
+font_size = 80
+outline_size = 0
+width = 300.0
 
-[node name="ZI NT Char E" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/Char"]
+[node name="Subtypes Label" type="Label3D" parent="Card/Zoomed In No Text/All"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 0.614595)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "Veritable Dude Mage Tbh"
+font = ExtResource("3_hjjow")
+font_size = 30
+outline_size = 0
+width = 300.0
+
+[node name="S Label" type="Label3D" parent="Card/Zoomed In No Text/All"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 0.86)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 72
+outline_size = 0
+width = 300.0
+
+[node name="Char" type="Node3D" parent="Card/Zoomed In No Text"]
+
+[node name="ZI NT Char E" type="MeshInstance3D" parent="Card/Zoomed In No Text/Char"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_lis0v")
 skeleton = NodePath("")
 
-[node name="ZI NT Char N" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/Char"]
+[node name="ZI NT Char N" type="MeshInstance3D" parent="Card/Zoomed In No Text/Char"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, 0, 0.055, -0.84575)
 mesh = SubResource("ArrayMesh_kusej")
 skeleton = NodePath("")
 
-[node name="ZI NT Char W" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/Char"]
+[node name="ZI NT Char W" type="MeshInstance3D" parent="Card/Zoomed In No Text/Char"]
 transform = Transform3D(-0.563816, 0, -0.205212, 0, 1, 0, 0.205212, 0, -0.563816, -0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_n4u3k")
 skeleton = NodePath("")
 
-[node name="NonChar" type="Node3D" parent="Kompas Char Zoomed Out/Zoomed In No Text"]
+[node name="N Label" type="Label3D" parent="Card/Zoomed In No Text/Char"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, -0.86)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 72
+outline_size = 0
+width = 300.0
+
+[node name="E Label" type="Label3D" parent="Card/Zoomed In No Text/Char"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.86, 0.05, 0)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 80
+outline_size = 0
+width = 300.0
+
+[node name="W Label" type="Label3D" parent="Card/Zoomed In No Text/Char"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.86, 0.05, 0)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 80
+outline_size = 0
+width = 300.0
+
+[node name="NonChar" type="Node3D" parent="Card/Zoomed In No Text"]
 visible = false
 
-[node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Kompas Char Zoomed Out/Zoomed In No Text/NonChar"]
+[node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Card/Zoomed In No Text/NonChar"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_31y6g")
 skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0223384, 0.99975, 0, -0.99975, -0.0223384, 0, 1.62336, 0)
