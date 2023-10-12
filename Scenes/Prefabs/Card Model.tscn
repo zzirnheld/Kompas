@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=134 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedIn3DCardInfoDisplayer.cs" id="2_0v3lq"]
@@ -7,6 +7,10 @@
 [ext_resource type="Material" uid="uid://r1a713u8xli" path="res://Materials/Card/Friendly Card Frame Material.tres" id="3_rhqch"]
 [ext_resource type="Material" uid="uid://dhedqe6keah3g" path="res://Materials/Card/Enemy Card Frame Material.tres" id="4_knvjy"]
 [ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card/Card Image Material.tres" id="5_6tu2s"]
+[ext_resource type="Material" uid="uid://dkd0qgkeen7w0" path="res://Materials/Card/Stat Backgrounds/E Background.tres" id="6_xuxe3"]
+[ext_resource type="Material" uid="uid://b02ylrhas2aul" path="res://Materials/Card/Stat Backgrounds/W Background.tres" id="7_1bm8q"]
+[ext_resource type="Material" uid="uid://cowloouoef00i" path="res://Materials/Card/Stat Backgrounds/N Background.tres" id="8_o3qnh"]
+[ext_resource type="Material" uid="uid://bjf0vhv75bu0g" path="res://Materials/Card/Stat Backgrounds/S Background.tres" id="9_f6kxx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1270,14 +1274,17 @@ mesh = SubResource("ArrayMesh_pjruw")
 skeleton = NodePath("")
 
 [node name="ZO Char Baseplate E" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
+material_override = ExtResource("6_xuxe3")
 mesh = SubResource("ArrayMesh_n41tf")
 skeleton = NodePath("")
 
 [node name="ZO Char Baseplate W" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
+material_override = ExtResource("7_1bm8q")
 mesh = SubResource("ArrayMesh_nnbsc")
 skeleton = NodePath("")
 
 [node name="ZO Char Baseplate N" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
+material_override = ExtResource("8_o3qnh")
 mesh = SubResource("ArrayMesh_hlwaj")
 skeleton = NodePath("")
 
@@ -1308,6 +1315,7 @@ mesh = SubResource("ArrayMesh_lbq8h")
 skeleton = NodePath("")
 
 [node name="ZO All Baseplate Cost" type="MeshInstance3D" parent="Card/Zoomed Out/All"]
+material_override = ExtResource("9_f6kxx")
 mesh = SubResource("ArrayMesh_j5726")
 skeleton = NodePath("")
 
@@ -1434,18 +1442,22 @@ mesh = SubResource("ArrayMesh_xhxrs")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate W" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
+material_override = ExtResource("7_1bm8q")
 mesh = SubResource("ArrayMesh_wmouu")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate N" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
+material_override = ExtResource("8_o3qnh")
 mesh = SubResource("ArrayMesh_uomet")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate E" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
+material_override = ExtResource("6_xuxe3")
 mesh = SubResource("ArrayMesh_bvhvj")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Cost" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
+material_override = ExtResource("9_f6kxx")
 mesh = SubResource("ArrayMesh_hog5p")
 skeleton = NodePath("")
 

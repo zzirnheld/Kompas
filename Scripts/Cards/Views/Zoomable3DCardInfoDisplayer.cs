@@ -20,12 +20,14 @@ namespace Kompas.Cards.Views
 		[Export]
 		private MeshCardInfoDisplayerBase ZoomedIn { get; set; }
 
+		[Export]
+		private BaseMaterial3D CardImageMaterial { get; set; }
+
 		public bool ShowingInfo { set { } }
 
 		public void DisplayCardImage(CardBase card)
 		{
-			ZoomedOut.DisplayCardImage(card);
-			ZoomedIn.DisplayCardImage(card);
+			CardImageMaterial.AlbedoTexture = card.CardFaceImage;
 		}
 
 		public void DisplayCardNumericStats(CardBase card)
