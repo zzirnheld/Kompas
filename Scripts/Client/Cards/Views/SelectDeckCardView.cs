@@ -9,5 +9,7 @@ namespace Kompas.Client.Cards.Views
 		public SelectDeckCardView(SelectDeckInfoDisplayer infoDisplayer)
 			: base(infoDisplayer)
 		{ }
+
+		public void Show(CardBase card) => base.Show(card);
 	}
 }

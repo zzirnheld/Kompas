@@ -37,7 +37,7 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		/// <param name="card"></param>
 		/// <param name="refresh"></param>
-		public virtual void Show(CardType card, bool refresh = false)
+		protected virtual void Show(CardType card, bool refresh = false)
 		{
 			//Unless explicitly refreshing card, if already showing that card, no-op.
 			if (card == ShownCard && !refresh) return;

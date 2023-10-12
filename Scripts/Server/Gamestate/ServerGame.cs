@@ -274,7 +274,7 @@ namespace Kompas.Server.Gamestate
 
 		public GameCard LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
 
-		public ServerPlayer ServerControllerOf(GameCard card) => ServerPlayers[card.ControllerIndex];
+		public ServerPlayer ServerControllerOf(GameCard card) => ServerPlayers[card.ControllingPlayerIndex];
 
 		public void DumpGameInfo()
 		{

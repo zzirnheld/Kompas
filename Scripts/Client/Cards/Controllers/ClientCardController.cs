@@ -1,22 +1,38 @@
 
 using Godot;
 using Kompas.Cards.Controllers;
+using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
+using Kompas.Client.Cards.Views;
 using Kompas.Gamestate.Locations;
 
 namespace Kompas.Client.Cards.Controllers
 {
 	public partial class ClientCardController : Node, ICardController
 	{
-		private ClientGameCard card;
-		public ClientGameCard ClientCard
+		[Export]
+		private Zoomable3DCardInfoDisplayer InfoDisplayer { get; set; }
+
+		private ClientCardView _cardView;
+		private ClientCardView CardView
 		{
-			get => card;
+			get => CardView;
 			set
 			{
-				if (card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
-				card = value;
-				//TODO make view do its thing
+				if (_cardView != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card view!");
+				_cardView = value;
+			}
+		}
+
+		private ClientGameCard _card;
+		public ClientGameCard Card
+		{
+			get => _card;
+			set
+			{
+				if (_card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
+				_card = value;
+				CardView = new (InfoDisplayer ?? throw new System.InvalidOperationException("You didn't populate the client card ctrl's info displayer"), Card);
 			}
 		}
 
@@ -50,9 +66,6 @@ namespace Kompas.Client.Cards.Controllers
 		public GameObject revealedImage;
 
 		public ClientCardMouseController mouseController;
-
-		public ClientGameCard ClientCard { get; set; }
-		public override GameCard Card => ClientCard;
 
 		public ClientGame ClientGame => ClientCard.ClientGame;
 		public ClientUIController ClientUIController => ClientGame.clientUIController;

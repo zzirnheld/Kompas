@@ -4,15 +4,9 @@ using Kompas.Server.Cards.Models;
 
 namespace Kompas.Server.Cards.Controllers
 {
-	//[RequireComponent(typeof(ServerGameCard))]
 	public class ServerCardController : ICardController
 	{
-		private readonly ServerGameCard serverCard;
-
-		public ServerCardController(ServerGameCard serverCard)
-		{
-			this.serverCard = serverCard;
-		}
+		//FUTURE: when I want to display the card server side, have it store the card
 
 		public void Delete() { }
 		public void RefreshLinks() { }

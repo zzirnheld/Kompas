@@ -37,9 +37,9 @@ namespace Kompas.Client.Cards.Models
 		private readonly bool isAvatar;
 		public override bool IsAvatar => isAvatar;
 
-		public ClientEffect[] ClientEffects { get; private set; }
+		public ClientEffect[] ClientEffects { get; }
 		public override IReadOnlyCollection<Effect> Effects => ClientEffects;
-		public ClientCardController ClientCardController { get; private set; }
+		public ClientCardController ClientCardController { get; }
 		public override ICardController CardController => ClientCardController;
 
 		private bool knownToEnemy = false;
@@ -53,23 +53,34 @@ namespace Kompas.Client.Cards.Models
 			}
 		}
 
-		public ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
-			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
+		private ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
+			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar)
 			: base (serializedCard, id, owningPlayer)
 		{
 			//TODO: game should add card after creating it
 			//owner.Game.AddCard(this);
 
 			ClientCardController = cardController;
-			cardController.ClientCard = this;
+			ClientGame = game;
+			ClientEffects = effects;
 
 			this.isAvatar = isAvatar;
 
-			ClientGame = game;
-			ClientEffects = effects;
-			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(this, ClientGame, index, owningPlayer);
-
 			//cardController.gameCardViewController.Focus(this);
+		}
+
+		/// <summary>
+        /// Factory method to create card and initialize the relevant things with a non-leaked this instance
+        /// </summary>
+		public static ClientGameCard Create(SerializableCard serializedCard, int id, ClientGame game,
+			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
+		{
+			ClientGameCard ret = new(serializedCard, id, game, owningPlayer, effects, cardController, isAvatar);
+
+			cardController.Card = ret;
+			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index, owningPlayer);
+
+			return ret;
 		}
 
 		public override void Remove(IStackable stackSrc = null)

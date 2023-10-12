@@ -10,5 +10,7 @@ namespace Kompas.Cards.Views
 		public DeckBuilderTopLeftCardView(ControlInfoDisplayer infoDisplayer)
 			: base(infoDisplayer)
 		{ }
+
+		public void Show(DeckBuilderCard card) => base.Show(card);
 	}
 }

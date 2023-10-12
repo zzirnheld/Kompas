@@ -86,7 +86,7 @@ namespace Kompas.Server.Networking
 			if (toPlay.CardType == 'A') return;
 
 			//tell everyone to do it
-			var p = new PlayCardPacket(toPlay.ID, toPlay.BaseJson, toPlay.ControllerIndex, space.x, space.y, invert: player.Index != 0);
+			var p = new PlayCardPacket(toPlay.ID, toPlay.BaseJson, toPlay.ControllingPlayerIndex, space.x, space.y, invert: player.Index != 0);
 			var q = p.GetInversion(wasKnown);
 			SendPackets(player, p, player.Enemy, q);
 		}
@@ -103,7 +103,7 @@ namespace Kompas.Server.Networking
 		public static void NotifyDecrementHand(IPlayer player) => SendPacket(player, new ChangeEnemyHandCountPacket(-1));
 
 		public static void NotifyAnnhilate(IPlayer player, GameCard toAnnhilate, bool wasKnown)
-			=> SendToBothInverting(player, new AnnihilateCardPacket(toAnnhilate.ID, toAnnhilate.BaseJson, toAnnhilate.ControllerIndex, invert: player.Index != 0),
+			=> SendToBothInverting(player, new AnnihilateCardPacket(toAnnhilate.ID, toAnnhilate.BaseJson, toAnnhilate.ControllingPlayerIndex, invert: player.Index != 0),
 				known: wasKnown);
 
 		public static void NotifyTopdeck(IPlayer player, GameCard card, bool wasKnown)

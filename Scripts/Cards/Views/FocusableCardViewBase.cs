@@ -27,13 +27,13 @@ namespace Kompas.Cards.Views
 		/// If we're not currently doing something like hovering over another card, this is the one we should be showing
 		/// </summary>
 		/// <param name="card"></param>
-		public virtual void Focus(CardType card)
+		protected virtual void Focus(CardType card)
 		{
 			FocusedCard = card;
 			Show(card);
 		}
 
-		public override void Show(CardType card, bool refresh = false)
+		protected override void Show(CardType card, bool refresh = false)
 		{
 			base.Show(card ?? FocusedCard, refresh);
 		}

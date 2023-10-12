@@ -50,7 +50,7 @@ namespace Kompas.Networking.Packets
 		{ }
 
 		public AddCardPacket(GameCard card, bool known, bool invert = false)
-			: this(cardId: card.ID, json: card.BaseJson, location: card.Location, controllerIndex: card.ControllerIndex,
+			: this(cardId: card.ID, json: card.BaseJson, location: card.Location, controllerIndex: card.ControllingPlayerIndex,
 				  x: card.Position?.x ?? 0, y: card.Position?.y ?? 0, attached: card.Attached, known: known, invert: invert)
 		{ }
 

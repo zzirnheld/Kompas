@@ -27,7 +27,7 @@ namespace Kompas.Client.Cards.Loading
 			}
 
 			ClientGameCard ConstructAvatar(ClientSerializableCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
-				=> new(cardInfo, id, game, owner, effects, ctrl, isAvatar: true);
+				=> ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl, isAvatar: true);
 
 			return InstantiateGameCard(SanitizeJson(json), ConstructAvatar, validation);
 		}
@@ -37,7 +37,7 @@ namespace Kompas.Client.Cards.Loading
 		public ClientGameCard InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
 		{
 			var card = InstantiateGameCard(SanitizeJson(json),
-				(cardInfo, effects, ctrl) => new ClientGameCard(cardInfo, id, game, owner, effects, ctrl));
+				(cardInfo, effects, ctrl) => ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl));
 
 			//TODO set materials - should happen elsewhere based on ClientSettings? or maybe as a callback after controller is instantiated
 			/*

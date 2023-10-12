@@ -22,7 +22,7 @@ namespace Kompas.Networking.Packets
 		}
 
 		public DiscardCardPacket(GameCard card, bool invert = false)
-			: this(card.ID, card.BaseJson, card.ControllerIndex, invert: invert)
+			: this(card.ID, card.BaseJson, card.ControllingPlayerIndex, invert: invert)
 		{ }
 
 		public override Packet Copy() => new DiscardCardPacket(cardId, json, controllerIndex, invert: false);

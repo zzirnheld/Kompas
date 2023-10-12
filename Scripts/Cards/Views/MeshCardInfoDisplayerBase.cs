@@ -40,10 +40,10 @@ namespace Kompas.Cards.Views
 		public override void _Ready()
 		{
 			base._Ready();
-			DisplayCardController(true);
+			DisplayFrame(true);
 		} //*/
 
-		public void DisplayCardController(bool friendly)
+		public void DisplayFrame(bool friendly)
 		{
 			var material = friendly
 				? FriendlyCardFrameMaterial

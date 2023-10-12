@@ -20,7 +20,7 @@ namespace Kompas.Cards.Loading
 		[Export]
 		private PackedScene CardPrefab { get; set; }
 
-		private static TCardController GetCardController(CardControllerController ccc)
+		protected virtual TCardController GetCardController(CardControllerController ccc)
 		{
 			TCardController ret = null;
 			foreach (var c in ccc.CardControllers)

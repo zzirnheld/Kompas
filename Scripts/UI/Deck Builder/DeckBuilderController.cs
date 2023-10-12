@@ -21,7 +21,7 @@ namespace Kompas.UI.DeckBuilder
 
 		public override void _Ready()
 		{
-			CardView.Show(null, refresh: true);
+			CardView.Refresh();
 		}
 
 		private void ToMainMenu() => GetTree().ChangeSceneToFile(MainMenuPath);

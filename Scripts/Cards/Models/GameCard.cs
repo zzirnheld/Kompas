@@ -129,8 +129,9 @@ namespace Kompas.Cards.Models
 		//controller/owners
 		public IPlayer ControllingPlayer { get; set; }
 		public IPlayer OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
-		public int ControllerIndex => ControllingPlayer?.Index ?? 0;
+		public int ControllingPlayerIndex => ControllingPlayer?.Index ?? 0;
 		public int OwnerIndex => OwningPlayer?.Index ?? -1;
+		public bool Friendly => ControllingPlayerIndex == 0;
 
 		//misc
 		private Location location;
@@ -169,7 +170,7 @@ namespace Kompas.Cards.Models
 		{
 			var sb = new StringBuilder();
 			sb.Append(base.ToString());
-			sb.Append($", ID={ID}, Controlled by {ControllerIndex}, Owned by {OwnerIndex}, In Location {location}, Position {Position}, ");
+			sb.Append($", ID={ID}, Controlled by {ControllingPlayerIndex}, Owned by {OwnerIndex}, In Location {location}, Position {Position}, ");
 			if (Attached) sb.Append($"Augmenting {AugmentedCard.CardName} ID={AugmentedCard.ID}, ");
 			if (Augments.Count > 0) sb.Append($"Augments are {string.Join(", ", Augments.Select(c => $"{c.CardName} ID={c.ID}"))}");
 			return sb.ToString();

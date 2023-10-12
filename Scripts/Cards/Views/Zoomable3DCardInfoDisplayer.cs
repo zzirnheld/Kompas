@@ -23,7 +23,7 @@ namespace Kompas.Cards.Views
 		[Export]
 		private BaseMaterial3D CardImageMaterial { get; set; }
 
-		public bool ShowingInfo { set { } }
+		public bool ShowingInfo { set => Visible = value; }
 
 		public void DisplayCardImage(CardBase card)
 		{
@@ -40,6 +40,19 @@ namespace Kompas.Cards.Views
 		{
 			ZoomedOut.DisplayCardRulesText(card);
 			ZoomedIn.DisplayCardRulesText(card);
+		}
+
+		public void DisplayFrame(bool friendly)
+		{
+			ZoomedOut.DisplayFrame(friendly);
+			ZoomedIn.DisplayFrame(friendly);
+		}
+
+		//FUTURE: replace with enum?
+		public void DisplayZoomed(bool zoomedIn)
+		{
+			ZoomedOut.ShowingInfo = !zoomedIn;
+			ZoomedIn.ShowingInfo = zoomedIn;
 		}
 	}
 }
