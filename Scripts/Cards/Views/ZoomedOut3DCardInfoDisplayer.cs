@@ -5,20 +5,10 @@ using System;
 
 namespace Kompas.Cards.Views
 {
-	public partial class ZoomedOut3DCardInfoDisplayer : Node3D, ICardInfoDisplayer
+	public partial class ZoomedOut3DCardInfoDisplayer : MeshCardInfoDisplayerBase, ICardInfoDisplayer
 	{
-		[Export]
-		private BaseMaterial3D CardImageMaterial { get; set; }
-
-		public bool ShowingInfo { set { } } //Always active - TODO should this hide the card? possibly?
-
-		public void DisplayCardImage(CardBase card)
-		{
-			CardImageMaterial.AlbedoTexture = card.CardFaceImage;
-		}
-
 		//Text is a noop
-		public void DisplayCardNumericStats(CardBase card) { }
-		public void DisplayCardRulesText(CardBase card) { }
+		public override void DisplayCardNumericStats(CardBase card) { }
+		public override void DisplayCardRulesText(CardBase card) { }
 	}
 }

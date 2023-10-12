@@ -211,8 +211,7 @@ namespace Kompas.Cards.Models
 		{
 			if (obj == null) return 1;
 
-			var other = obj as CardBase;
-			if (other == null) throw new ArgumentException("Other object is not a CardBase!");
+			if (obj is not CardBase other) throw new ArgumentException("Other object is not a CardBase!");
 
 			int compare = CardName.CompareTo(other.CardName);
 			if (compare != 0) return compare;

@@ -5,11 +5,8 @@ using System;
 
 namespace Kompas.Cards.Views
 {
-	public partial class ZoomedIn3DCardInfoDisplayer : Node3D, ICardInfoDisplayer
+	public partial class ZoomedIn3DCardInfoDisplayer : MeshCardInfoDisplayerBase, ICardInfoDisplayer
 	{
-		[Export]
-		private BaseMaterial3D CardImageMaterial { get; set; }
-
 		[Export]
 		private Label3D N { get; set; }
 		[Export]
@@ -24,14 +21,7 @@ namespace Kompas.Cards.Views
 		[Export]
 		private Label3D Subtypes { get; set; }
 
-		public bool ShowingInfo { set { } } //Always active - TODO should this hide the card? possibly?
-
-		public void DisplayCardImage(CardBase card)
-		{
-			CardImageMaterial.AlbedoTexture = card.CardFaceImage;
-		}
-
-		public void DisplayCardNumericStats(CardBase card)
+		public override void DisplayCardNumericStats(CardBase card)
 		{
 			N.Text = $"{card.N}";
 			E.Text = $"{card.E}";
@@ -39,7 +29,7 @@ namespace Kompas.Cards.Views
 			W.Text = $"{card.W}";
 		}
 
-		public void DisplayCardRulesText(CardBase card)
+		public override void DisplayCardRulesText(CardBase card)
 		{
 			CardName.Text = card.CardName;
 			Subtypes.Text = card.SubtypeText;

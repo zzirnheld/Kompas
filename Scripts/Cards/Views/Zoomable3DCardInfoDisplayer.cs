@@ -15,10 +15,10 @@ namespace Kompas.Cards.Views
 	public partial class Zoomable3DCardInfoDisplayer : Node3D, ICardInfoDisplayer
 	{
 		[Export]
-		private ZoomedOut3DCardInfoDisplayer ZoomedOut { get; set; }
+		private MeshCardInfoDisplayerBase ZoomedOut { get; set; }
 
 		[Export]
-		private ZoomedIn3DCardInfoDisplayer ZoomedIn { get; set; }
+		private MeshCardInfoDisplayerBase ZoomedIn { get; set; }
 
 		public bool ShowingInfo { set { } }
 
