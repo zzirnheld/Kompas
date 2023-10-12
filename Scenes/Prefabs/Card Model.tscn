@@ -1,12 +1,12 @@
 [gd_scene load_steps=130 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
-[ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card Image Material.tres" id="1_y7vb5"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedIn3DCardInfoDisplayer.cs" id="2_0v3lq"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedOut3DCardInfoDisplayer.cs" id="2_cdddr"]
 [ext_resource type="FontFile" uid="uid://dq8qgur736smt" path="res://Fonts/Poly-Regular.otf" id="3_hjjow"]
-[ext_resource type="Material" uid="uid://r1a713u8xli" path="res://Materials/Friendly Card Frame Material.tres" id="5_08urx"]
-[ext_resource type="Material" uid="uid://dhedqe6keah3g" path="res://Materials/Enemy Card Frame Material.tres" id="6_myhaf"]
+[ext_resource type="Material" uid="uid://r1a713u8xli" path="res://Materials/Card/Friendly Card Frame Material.tres" id="3_rhqch"]
+[ext_resource type="Material" uid="uid://dhedqe6keah3g" path="res://Materials/Card/Enemy Card Frame Material.tres" id="4_knvjy"]
+[ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card/Card Image Material.tres" id="5_6tu2s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1251,9 +1251,9 @@ ZoomedIn = NodePath("Zoomed In No Text")
 
 [node name="Zoomed Out" type="Node3D" parent="Card" node_paths=PackedStringArray("FrameObjects")]
 script = ExtResource("2_cdddr")
-FriendlyCardFrameMaterial = ExtResource("5_08urx")
-EnemyCardFrameMaterial = ExtResource("6_myhaf")
-CardImageMaterial = ExtResource("1_y7vb5")
+FriendlyCardFrameMaterial = ExtResource("3_rhqch")
+EnemyCardFrameMaterial = ExtResource("4_knvjy")
+CardImageMaterial = ExtResource("5_6tu2s")
 FrameObjects = [NodePath("Char/ZO Char Frame Stats"), NodePath("NonChar/ZO NonChar Frame Stats"), NodePath("All/ZO All Frame Cost"), NodePath("All/ZO All Frame Corners"), NodePath("All/ZO All Baseplate")]
 
 [node name="Char" type="Node3D" parent="Card/Zoomed Out"]
@@ -1265,7 +1265,7 @@ skeleton = NodePath("")
 
 [node name="ZO Char Baseplate Image" type="MeshInstance3D" parent="Card/Zoomed Out/Char"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35494e-06, 0.025, 0)
-material_override = ExtResource("1_y7vb5")
+material_override = ExtResource("5_6tu2s")
 mesh = SubResource("ArrayMesh_pjruw")
 skeleton = NodePath("")
 
@@ -1291,7 +1291,7 @@ skeleton = NodePath("")
 
 [node name="ZO NonChar Baseplate Image" type="MeshInstance3D" parent="Card/Zoomed Out/NonChar"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2.35494e-06, 0.025, 0)
-material_override = ExtResource("1_y7vb5")
+material_override = ExtResource("5_6tu2s")
 mesh = SubResource("ArrayMesh_ad83p")
 skeleton = NodePath("")
 
@@ -1405,9 +1405,9 @@ Cost = NodePath("All/S Label")
 W = NodePath("Char/W Label")
 CardName = NodePath("All/Name Label")
 Subtypes = NodePath("All/Subtypes Label")
-FriendlyCardFrameMaterial = ExtResource("5_08urx")
-EnemyCardFrameMaterial = ExtResource("6_myhaf")
-CardImageMaterial = ExtResource("1_y7vb5")
+FriendlyCardFrameMaterial = ExtResource("3_rhqch")
+EnemyCardFrameMaterial = ExtResource("4_knvjy")
+CardImageMaterial = ExtResource("5_6tu2s")
 FrameObjects = [NodePath("All/Frame Objects/ZI NT All Frame Cost"), NodePath("All/Frame Objects/ZI NT All Baseplate"), NodePath("All/Frame Objects/ZI NT All Frame Bottom Half "), NodePath("All/Frame Objects/ZI NT All Frame Top Half"), NodePath("Char/Frame Objects/ZI NT Char E"), NodePath("Char/Frame Objects/ZI NT Char N"), NodePath("Char/Frame Objects/ZI NT Char W"), NodePath("NonChar/ZI NT NonChar Frame Stat Caps")]
 
 [node name="All" type="Node3D" parent="Card/Zoomed In No Text"]
@@ -1461,7 +1461,7 @@ skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Card/Zoomed In No Text/All"]
 transform = Transform3D(1.01, 0, 1.76594e-07, 0, 1.01, 0, -1.76594e-07, 0, 1.01, -2.53526e-08, 0, -0.177072)
-material_override = ExtResource("1_y7vb5")
+material_override = ExtResource("5_6tu2s")
 mesh = SubResource("ArrayMesh_5ubt0")
 skeleton = NodePath("")
 

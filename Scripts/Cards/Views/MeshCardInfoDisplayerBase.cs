@@ -26,11 +26,12 @@ namespace Kompas.Cards.Views
 			CardImageMaterial.AlbedoTexture = card.CardFaceImage;
 		}
 
+		/* Testing */
 		public override void _Ready()
 		{
 			base._Ready();
 			DisplayCardController(true);
-		}
+		} //*/
 
 		public void DisplayCardController(bool friendly)
 		{
