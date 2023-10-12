@@ -36,15 +36,19 @@ namespace Kompas.Client.Cards.Controllers
 			}
 		}
 
-		public bool Revealed
-		{
-			set
-			{
-				throw new System.NotImplementedException();
-			}
-		}
-
 		public void Delete() => QueueFree();
+
+		/// <summary>
+        /// TODO reimpl for godot
+		/// Updates the model to show the little revealed eye iff the card:<br/>
+		/// - is known to enemy<br/>
+		/// - is in an otherwise hidden location<br/>
+		/// - is controlled by an enemy<br/>
+		/// </summary>
+		public void RefreshRevealed()
+		{
+			//Revealed = Card.KnownToEnemy && Card.InHiddenLocation && !Card.OwningPlayer.Friendly;
+		}
 
 		public void RefreshLinks()
 		{
@@ -60,34 +64,5 @@ namespace Kompas.Client.Cards.Controllers
 		{
 			throw new System.NotImplementedException();
 		}
-
-		/*
-
-		public GameObject revealedImage;
-
-		public ClientCardMouseController mouseController;
-
-		public ClientGame ClientGame => ClientCard.ClientGame;
-		public ClientUIController ClientUIController => ClientGame.clientUIController;
-
-		protected override Transform BoardTransform => ClientUIController.boardUIController.spaceCueCubesParent;
-
-		public override void SetPhysicalLocation(Location location)
-		{
-			base.SetPhysicalLocation(location);
-			ClientUIController.cardInfoViewUIController.Refresh();
-		}
-
-
-		public bool Revealed
-		{
-			set => revealedImage.SetActive(value);
-		}
-
-		private void OnDestroy()
-		{
-			//GD.Print("Destroying a client card ctrl. Destroying this ctrl's mouse ctrl.");
-			Destroy(mouseController);
-		}*/
 	}
 }

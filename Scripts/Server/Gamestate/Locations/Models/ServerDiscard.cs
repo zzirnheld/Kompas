@@ -35,7 +35,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			base.PerformAdd(card, index, stackSrc);
 			
 			context.CacheCardInfoAfter();
-			game.serverStackController.TriggerForCondition(Trigger.Discard, context);
+			game.StackController.TriggerForCondition(Trigger.Discard, context);
 			Networking.ServerNotifier.NotifyDiscard(Owner, card, wasKnown);
 		}
 	}

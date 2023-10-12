@@ -23,7 +23,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			base.PerformAdd(card, index, stackSrc);
 			
 			context.CacheCardInfoAfter();
-			game.serverStackController.TriggerForCondition(Trigger.Rehand, context);
+			game.StackController.TriggerForCondition(Trigger.Rehand, context);
 			Networking.ServerNotifier.NotifyRehand(Owner, card, wasKnown);
 		}
 	}

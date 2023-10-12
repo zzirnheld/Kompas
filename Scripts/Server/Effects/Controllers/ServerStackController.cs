@@ -30,7 +30,7 @@ namespace Kompas.Server.Effects.Controllers
 			}
 		}
 
-		private readonly ServerGame ServerGame;
+		private readonly ServerGame game;
 
 		private readonly EffectStack<IServerStackable, IServerResolutionContext> stack = new();
 		public IEnumerable<IServerStackable> StackEntries => stack.StackEntries;
@@ -65,6 +65,11 @@ namespace Kompas.Server.Effects.Controllers
 			&& CurrStackEntry == null
 			&& !currentlyCheckingResponses
 			&& !currentlyCheckingOptionals;
+
+		public ServerStackController(ServerGame serverGame)
+		{
+			game = serverGame;
+		}
 
 
 		public override string ToString()
@@ -112,7 +117,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		public void PushToStack(ServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
 		{
-			eff.PushedToStack(ServerGame, controller);
+			eff.PushedToStack(game, controller);
 			PushToStack(eff, context);
 		}
 
@@ -125,17 +130,17 @@ namespace Kompas.Server.Effects.Controllers
 		{
 			//GD.Print($"Stack is emptied");
 			//stack ends
-			foreach (var c in ServerGame.Cards) c.ResetForStack();
+			foreach (var c in game.Cards) c.ResetForStack();
 			ClearSpells();
-			ServerNotifier.StackEmpty(ServerGame.Players);
-			TriggerForCondition(Trigger.StackEnd, new TriggeringEventContext(game: ServerGame));
+			ServerNotifier.StackEmpty(game.Players);
+			TriggerForCondition(Trigger.StackEnd, new TriggeringEventContext(game: game));
 			//Must check whether I *should* check for response to avoid an infinite loop
 			if (!stack.Empty || triggeredTriggers.Any()) await CheckForResponse();
 		}
 
 		private void ClearSpells()
 		{
-			foreach (var c in ServerGame.Board.Cards)
+			foreach (var c in game.Board.Cards)
 			{
 				if (c == null) continue;
 
@@ -150,7 +155,7 @@ namespace Kompas.Server.Effects.Controllers
 						case CardBase.VanishingSubtype:
 							if (c.TurnsOnBoard >= c.Duration)
 							{
-								TriggeringEventContext context = new(game: ServerGame, CardBefore: c);
+								TriggeringEventContext context = new(game: game, CardBefore: c);
 								c.Discard();
 								context.CacheCardInfoAfter();
 								TriggerForCondition(Trigger.Vanish, context);
@@ -169,7 +174,7 @@ namespace Kompas.Server.Effects.Controllers
 			{
 				//GD.Print($"Resolving next stack entry: {stackable}, {context}");
 				//inform the players that they no longer can respond, in case they were somehow still thinking they could
-				foreach (var p in ServerGame.Players) ServerNotifier.RequestNoResponse(p);
+				foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
 
 				//set the current stack entry to the appropriate value. this is used to check if something is currently resolving.
 				CurrStackEntry = stackable;
@@ -178,7 +183,7 @@ namespace Kompas.Server.Effects.Controllers
 				await stackable.StartResolution(context);
 
 				//after it resolves, tell the clients it's done resolving
-				ServerNotifier.RemoveStackEntry(currStackIndex, ServerGame.Players);
+				ServerNotifier.RemoveStackEntry(currStackIndex, game.Players);
 				//take note that nothing is resolving
 				CurrStackEntry = null;
 				//and see if there's antyhing to resolve next.
@@ -206,7 +211,7 @@ namespace Kompas.Server.Effects.Controllers
 				if (stack.StackEntries.ElementAt(i) == eff)
 				{
 					stack.Cancel(i);
-					ServerNotifier.RemoveStackEntry(i - 1, ServerGame.Players);
+					ServerNotifier.RemoveStackEntry(i - 1, game.Players);
 				}
 			}
 			//Remove effect from hanging/delayed
@@ -249,7 +254,7 @@ namespace Kompas.Server.Effects.Controllers
 
 			//now that all optional triggers have been answered, time to deal with ordering.
 			//if a player only has one trigger, don't bother asking them for an order.
-			foreach (var p in ServerGame.Players)
+			foreach (var p in game.Players)
 			{
 				var thisPlayers = stillValid.Where(t => t.serverEffect.OwningPlayer == p && t.Confirmed);
 				if (thisPlayers.Count() == 1) thisPlayers.First().Order = 1;
@@ -262,10 +267,10 @@ namespace Kompas.Server.Effects.Controllers
 			{
 				//create a list to hold the tasks, so you can get trigger orderings from both players at once.
 				List<Task> triggerOrderings = new();
-				foreach (var p in ServerGame.Players)
+				foreach (var p in game.Players)
 				{
 					var thisPlayers = confirmed.Where(t => t.serverEffect.OwningPlayer == p);
-					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(ServerGame.Awaiter.GetTriggerOrder(p, thisPlayers));
+					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(game.Awaiter.GetTriggerOrder(p, thisPlayers));
 				}
 				await Task.WhenAll(triggerOrderings);
 			}
@@ -309,7 +314,7 @@ namespace Kompas.Server.Effects.Controllers
 			}
 			currentlyCheckingResponses = true;
 
-			await CheckAllTriggers(ServerGame.TurnPlayer);
+			await CheckAllTriggers(game.TurnPlayer);
 
 			//ResolveNextStackEntry eventually calls CheckForResponse again.
 			//turn the flag off so that we can reenter CheckForResponse by the time that happens.
@@ -348,7 +353,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		public void TriggerForCondition(string condition, TriggeringEventContext context)
 		{
-			if (!ServerGame.GameHasStarted) return;
+			if (!game.GameHasStarted) return;
 
 			GD.Print($"Triggering for condition {condition}, context {context}");
 			//first resolve any hanging effects

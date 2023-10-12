@@ -14,7 +14,7 @@ namespace Kompas.Server.Effects.Models
 	{
 		public ServerGame ServerGame { get; init; }
 
-		private ServerStackController EffCtrl => ServerGame.serverStackController;
+		private ServerStackController EffCtrl => ServerGame.StackController;
 		private readonly Space attackerInitialSpace;
 		private readonly Space defenderInitialSpace;
 

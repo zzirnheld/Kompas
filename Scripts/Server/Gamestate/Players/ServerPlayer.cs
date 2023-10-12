@@ -106,7 +106,7 @@ namespace Kompas.Server.Gamestate.Players
 				if (ServerGame.IsValidNormalAttach(aug, space, this))
 				{
 					aug.Play(space, this, payCost: true);
-					await ServerGame.serverStackController.CheckForResponse();
+					await ServerGame.StackController.CheckForResponse();
 				}
 				else ServerNotifier.NotifyPutBack(this);
 			}
@@ -124,7 +124,7 @@ namespace Kompas.Server.Gamestate.Players
 				if (ServerGame.IsValidNormalPlay(card, space, this))
 				{
 					card.Play(space, this, payCost: true);
-					await ServerGame.serverStackController.CheckForResponse();
+					await ServerGame.StackController.CheckForResponse();
 				}
 				else
 				{
@@ -147,7 +147,7 @@ namespace Kompas.Server.Gamestate.Players
 				if (ServerGame.IsValidNormalMove(toMove, space, this))
 				{
 					toMove.Move(space, true, this);
-					await ServerGame.serverStackController.CheckForResponse();
+					await ServerGame.StackController.CheckForResponse();
 				}
 				else ServerNotifier.NotifyPutBack(this);
 			}
@@ -169,8 +169,8 @@ namespace Kompas.Server.Gamestate.Players
 			if (effect.CanBeActivatedBy(this))
 			{
 				var context = ServerResolutionContext.PlayerTrigger(effect, Game, this);
-				ServerGame.serverStackController.PushToStack(effect, this, context);
-				await ServerGame.serverStackController.CheckForResponse();
+				ServerGame.StackController.PushToStack(effect, this, context);
+				await ServerGame.StackController.CheckForResponse();
 			}
 		}
 
@@ -181,7 +181,7 @@ namespace Kompas.Server.Gamestate.Players
 			if (ServerGame.IsValidNormalAttack(attacker, defender, this))
 			{
 				ServerGame.Attack(attacker, defender, this, stackSrc: default, manual: true);
-				await ServerGame.serverStackController.CheckForResponse();
+				await ServerGame.StackController.CheckForResponse();
 			}
 		}
 

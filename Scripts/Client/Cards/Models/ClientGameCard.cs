@@ -97,18 +97,6 @@ namespace Kompas.Client.Cards.Models
 			//ClientGame?.clientUIController.CardViewController.Refresh();
 		}
 
-		/// <summary>
-		/// Updates the clientCardCtrl to show the little revealed eye iff the card:<br/>
-		/// - is known to enemy<br/>
-		/// - is in an otherwise hidden location<br/>
-		/// - is controlled by an enemy<br/>
-		/// </summary>
-		private void UpdateRevealed()
-		{
-			if (ClientCardController != null)
-			{
-				ClientCardController.Revealed = KnownToEnemy && InHiddenLocation && !OwningPlayer.Friendly;
-			}
-		}
+		private void UpdateRevealed() => ClientCardController.RefreshRevealed();
 	}
 }

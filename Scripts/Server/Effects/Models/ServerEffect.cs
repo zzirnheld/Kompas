@@ -23,7 +23,7 @@ namespace Kompas.Server.Effects.Models
 
 		public ServerGame serverGame;
 		public override IGame Game => serverGame;
-		public ServerStackController EffectsController => serverGame.serverStackController;
+		public ServerStackController EffectsController => serverGame.StackController;
 
 		public ServerGameCard ServerCard { get; private set; }
 		public override GameCard Card => ServerCard;

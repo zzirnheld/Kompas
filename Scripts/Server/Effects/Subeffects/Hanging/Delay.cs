@@ -95,7 +95,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			public override void Resolve(TriggeringEventContext context)
 			{
 				var myContext = new ServerResolutionContext(context, controller, indexToResumeResolution, targets, default, cardInfoTargets, spaces, default, default, default);
-				serverGame.serverStackController.PushToStack(toResume, controller, myContext);
+				serverGame.StackController.PushToStack(toResume, controller, myContext);
 			}
 		}
 	}

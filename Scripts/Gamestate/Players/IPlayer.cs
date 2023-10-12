@@ -18,6 +18,9 @@ namespace Kompas.Gamestate.Players
 		public GameCard Avatar { get; set; }
 
 		//other game data
+		/// <summary>
+        /// Whether the player represented by this IPlayer is the POV player.
+        /// </summary>
 		public bool Friendly { get; }
 		public int Index { get; }
 

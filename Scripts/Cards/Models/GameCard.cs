@@ -131,7 +131,6 @@ namespace Kompas.Cards.Models
 		public IPlayer OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
 		public int ControllingPlayerIndex => ControllingPlayer?.Index ?? 0;
 		public int OwnerIndex => OwningPlayer?.Index ?? -1;
-		public bool Friendly => ControllingPlayerIndex == 0;
 
 		//misc
 		private Location location;
