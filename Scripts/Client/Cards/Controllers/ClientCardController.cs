@@ -38,8 +38,19 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void Delete() => QueueFree();
 
+		public void ShowInTopLeft()
+		{
+			//TODO: initialize a GameController or some such that includes a reference to the top left view (once top left view exists)
+			throw new System.NotImplementedException();
+		}
+
+		public void FocusInTopLeft()
+		{
+			throw new System.NotImplementedException();
+		}
+
 		/// <summary>
-        /// TODO reimpl for godot
+		/// TODO reimpl for godot
 		/// Updates the model to show the little revealed eye iff the card:<br/>
 		/// - is known to enemy<br/>
 		/// - is in an otherwise hidden location<br/>
