@@ -14,8 +14,10 @@ namespace Kompas.Server.Networking
 	{
 		[Export]
 		private PackedScene GamePrefab { get; set; }
+		[Export]
+		private PackedScene CardPrefab { get; set; }
 
-		private ServerCardRepository CardRepo { get; } = new ServerCardRepository();
+		private ServerCardRepository CardRepo { get; set; }
 
 		private TcpListener listener;
 		private readonly IList<ServerGameController> games = new List<ServerGameController>();
@@ -33,6 +35,7 @@ namespace Kompas.Server.Networking
 
 			listener.Start();
 			currTcpClient = listener.AcceptTcpClientAsync();
+			CardRepo = new ServerCardRepository(CardPrefab);
 		}
 
 		public override void _Process(double delta)
@@ -47,7 +50,7 @@ namespace Kompas.Server.Networking
 					var gameController = GamePrefab.Instantiate() as ServerGameController
 						?? throw new System.NotSupportedException("Server Game prefab wasn't a ServerGameController!");
 					AddChild(gameController);
-					gameController.Init(new TcpClient[] { currentlyWaitingTcpClient, client });
+					gameController.Init(new TcpClient[] { currentlyWaitingTcpClient, client }, CardRepo);
 					games.Add(gameController);
 					currentlyWaitingTcpClient = null;
 				}

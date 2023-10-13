@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=20 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -7,22 +7,27 @@
 [ext_resource type="PackedScene" uid="uid://rccou1fb3usa" path="res://Scenes/Prefabs/Client Game/Space.tscn" id="3_126rd"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
-[ext_resource type="PackedScene" uid="uid://60p2fhffuyhl" path="res://Models/Kompas Card Fusing Objects.blend" id="6_ldp8n"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/GameStartController.cs" id="6_qshp1"]
 [ext_resource type="Theme" uid="uid://dvc6btd0pcm5f" path="res://Themes/Deck Select HBox.tres" id="6_ruf62"]
+[ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientHandController.cs" id="7_hs3e0"]
+[ext_resource type="Script" path="res://Scripts/Client/Gamestate/Players/ClientPlayerController.cs" id="7_ju5wt"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/SelectDeckController.cs" id="7_l46dw"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/ConnectToServerController.cs" id="7_w446t"]
+[ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientAnnihilationController.cs" id="8_4q2k2"]
 [ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="8_50pmk"]
+[ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
+[ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "PlayerControllers")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "PlayerControllers", "BoardController")]
 script = ExtResource("1_6rnfv")
 GameStartController = NodePath("../UI/Game Start")
-PlayerControllers = []
+PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
+BoardController = NodePath("../3D/Board")
 
 [node name="3D" type="Node3D" parent="."]
 
@@ -49,7 +54,43 @@ material = ExtResource("2_wywm4")
 
 [node name="Space Area" parent="3D/Board" instance=ExtResource("3_126rd")]
 
-[node name="Kompas Card Fusing Objects" parent="3D/Board" instance=ExtResource("6_ldp8n")]
+[node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
+script = ExtResource("7_ju5wt")
+HandController = NodePath("Hand")
+DiscardController = NodePath("Discard")
+DeckController = NodePath("Deck")
+AnnihilationController = NodePath("Annihilation")
+
+[node name="Hand" type="Node3D" parent="3D/Friendly Player"]
+script = ExtResource("7_hs3e0")
+
+[node name="Annihilation" type="Node3D" parent="3D/Friendly Player"]
+script = ExtResource("8_4q2k2")
+
+[node name="Deck" type="Node3D" parent="3D/Friendly Player"]
+script = ExtResource("9_u740w")
+
+[node name="Discard" type="Node3D" parent="3D/Friendly Player"]
+script = ExtResource("10_pkr2w")
+
+[node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
+script = ExtResource("7_ju5wt")
+HandController = NodePath("../Friendly Player/Hand")
+DiscardController = NodePath("../Friendly Player/Discard")
+DeckController = NodePath("../Friendly Player/Deck")
+AnnihilationController = NodePath("../Friendly Player/Annihilation")
+
+[node name="Hand" type="Node3D" parent="3D/Enemy Player"]
+script = ExtResource("7_hs3e0")
+
+[node name="Annihilation" type="Node3D" parent="3D/Enemy Player"]
+script = ExtResource("8_4q2k2")
+
+[node name="Deck" type="Node3D" parent="3D/Enemy Player"]
+script = ExtResource("9_u740w")
+
+[node name="Discard" type="Node3D" parent="3D/Enemy Player"]
+script = ExtResource("10_pkr2w")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

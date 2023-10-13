@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
@@ -11,14 +9,17 @@ using Newtonsoft.Json;
 
 namespace Kompas.Cards.Loading
 {
-	public partial class GameCardRepository<TSerializableCard, TEffect, TCardController> : CardRepository
+	public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCardController> : CardRepository
 		where TSerializableCard : SerializableGameCard
 		where TEffect : Effect
 		where TCardController : class, ICardController
 	{
+		private PackedScene CardPrefab { get; }
 
-		[Export]
-		private PackedScene CardPrefab { get; set; }
+		protected GameCardRepository(PackedScene cardPrefab)
+		{
+			CardPrefab = cardPrefab;
+		}
 
 		protected virtual TCardController GetCardController(CardControllerController ccc)
 		{

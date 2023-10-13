@@ -14,13 +14,14 @@ namespace Kompas.Server.Gamestate
 		public ServerGame ServerGame { get; private set; }
 		public override IGame Game => ServerGame;
 
-		public ServerCardRepository CardRepository = new();
+		public ServerCardRepository CardRepository { get; private set; }
 
 		public ServerAwaiter Awaiter { get; private set; }
 		public IReadOnlyCollection<ServerNetworker> Networkers { get; private set; }
 
-		public void Init(TcpClient[] tcpClients)
+		public void Init(TcpClient[] tcpClients, ServerCardRepository cardRepository)
 		{
+			CardRepository = cardRepository;
 			ServerGame = ServerGame.Create(this, CardRepository);
 			
 			var players = ServerPlayer.Create(this,

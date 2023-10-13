@@ -34,7 +34,7 @@ namespace Kompas.Server.Gamestate
 		public Board Board { get; private set; }
 		public ServerAwaiter Awaiter { get; private set; }
 
-		public bool DebugMode => false;
+		public bool DebugMode => true;
 
 
 		//Dictionary of cards, and the forwardings to make that convenient
@@ -121,12 +121,11 @@ namespace Kompas.Server.Gamestate
 				GD.PrintErr($"{deck[0]} isn't a character, so it can't be the Avatar");
 				return false;
 			}
-			/*
-			if (ServerUIController.DebugMode)
+			if (DebugMode)
 			{
 				GD.PushWarning("Debug mode enabled, always accepting a decklist");
 				return true;
-			}*/
+			}
 			if (deck.Count < MinDeckSize)
 			{
 				GD.PrintErr($"Deck {deck} too small");

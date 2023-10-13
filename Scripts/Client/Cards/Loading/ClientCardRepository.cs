@@ -19,6 +19,11 @@ namespace Kompas.Client.Cards.Loading
 		public Material friendlyCardMaterial;
 		public Material enemyCardMaterial;
 
+		public ClientCardRepository(PackedScene cardPrefab)
+			: base(cardPrefab)
+		{
+		}
+
 		public ClientGameCard InstantiateClientAvatar(string json, ClientPlayer owner, int id, ClientGame game)
 		{
 			void validation(SerializableCard cardInfo)
