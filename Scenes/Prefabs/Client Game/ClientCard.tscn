@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c312rohu62amq"]
+
+[ext_resource type="PackedScene" uid="uid://dq50o17h7ceai" path="res://Scenes/Prefabs/Card Model.tscn" id="1_e7upk"]
+[ext_resource type="Script" path="res://Scripts/Client/Cards/Controllers/ClientCardController.cs" id="1_rjf3w"]
+[ext_resource type="Texture2D" uid="uid://ctlgq3gf0rbta" path="res://Sprites/tarocco/I - The Magician 1.png" id="2_n2png"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20a84"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("2_n2png")
+
+[node name="Client Card" type="Node3D" node_paths=PackedStringArray("InfoDisplayer", "MouseController")]
+script = ExtResource("1_rjf3w")
+InfoDisplayer = NodePath("Node3D/Actual Card Model")
+MouseController = NodePath("Node3D/Mouse Controller")
+
+[node name="Node3D" parent="." instance=ExtResource("1_e7upk")]
+
+[node name="ZO Char Baseplate Image" parent="Node3D/Actual Card Model/Zoomed Out/Char" index="1"]
+material_override = SubResource("StandardMaterial3D_20a84")
+
+[node name="ZO NonChar Baseplate Image" parent="Node3D/Actual Card Model/Zoomed Out/NonChar" index="1"]
+material_override = SubResource("StandardMaterial3D_20a84")
+
+[node name="ZI NT All Baseplate Image" parent="Node3D/Actual Card Model/Zoomed In No Text/All" index="7"]
+material_override = SubResource("StandardMaterial3D_20a84")
+
+[editable path="Node3D"]

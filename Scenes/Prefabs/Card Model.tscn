@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=136 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedIn3DCardInfoDisplayer.cs" id="2_0v3lq"]
@@ -11,8 +11,7 @@
 [ext_resource type="Material" uid="uid://b02ylrhas2aul" path="res://Materials/Card/Stat Backgrounds/W Background.tres" id="7_1bm8q"]
 [ext_resource type="Material" uid="uid://cowloouoef00i" path="res://Materials/Card/Stat Backgrounds/N Background.tres" id="8_o3qnh"]
 [ext_resource type="Material" uid="uid://bjf0vhv75bu0g" path="res://Materials/Card/Stat Backgrounds/S Background.tres" id="9_f6kxx"]
-[ext_resource type="Script" path="res://Scripts/Client/Cards/Controllers/ClientCardController.cs" id="12_61swm"]
-[ext_resource type="Script" path="res://Scripts/Client/Cards/Controllers/CardMouseController.cs" id="13_jbwb5"]
+[ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardMouseController.cs" id="12_fpypf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1252,7 +1251,7 @@ shadow_mesh = SubResource("ArrayMesh_w3jxq")
 height = 0.1
 radius = 1.0
 
-[node name="Node3D" type="Node3D"]
+[node name="Card Model Controller" type="Node3D"]
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("ZoomedOut", "ZoomedIn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
@@ -1569,12 +1568,8 @@ transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 
 mesh = SubResource("ArrayMesh_31y6g")
 skeleton = NodePath("")
 
-[node name="Client Card Controller" type="Node3D" parent="." node_paths=PackedStringArray("InfoDisplayer")]
-script = ExtResource("12_61swm")
-InfoDisplayer = NodePath("../Actual Card Model")
+[node name="Mouse Controller" type="Area3D" parent="."]
+script = ExtResource("12_fpypf")
 
-[node name="Mouse Controller" type="Area3D" parent="Client Card Controller"]
-script = ExtResource("13_jbwb5")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Client Card Controller/Mouse Controller"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Mouse Controller"]
 shape = SubResource("CylinderShape3D_sttby")

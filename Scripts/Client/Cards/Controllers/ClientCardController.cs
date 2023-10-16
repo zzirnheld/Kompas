@@ -13,6 +13,9 @@ namespace Kompas.Client.Cards.Controllers
 		[Export]
 		private Zoomable3DCardInfoDisplayer InfoDisplayer { get; set; }
 
+		[Export]
+		private CardMouseController MouseController { get; set; }
+
 		private ClientCardView _cardView;
 		private ClientCardView CardView
 		{
@@ -37,6 +40,13 @@ namespace Kompas.Client.Cards.Controllers
 		}
 
 		public void Delete() => QueueFree();
+
+		public override void _Ready()
+		{
+			base._Ready();
+			MouseController.MouseOver += (_, _) => ShowInTopLeft();
+			MouseController.LeftClick += (_, _) => FocusInTopLeft();
+		}
 
 		public void ShowInTopLeft()
 		{

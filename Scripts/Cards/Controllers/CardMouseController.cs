@@ -1,30 +1,26 @@
 using Godot;
 using System;
 
-namespace Kompas.Client.Cards.Controllers
+namespace Kompas.Cards.Controllers
 {
 	public partial class CardMouseController : Area3D
 	{
-		[Export]
-		private ClientCardController CardController { get; set; }
+		public event EventHandler MouseOver;
+		public event EventHandler LeftClick;
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
-			MouseEntered += MouseOver;
+			MouseEntered += () => MouseOver?.Invoke(this, EventArgs.Empty);
 			InputEvent += HandleInputEvent;
 		}
-
-		private void MouseOver() => CardController.ShowInTopLeft();
 
 		private void HandleInputEvent(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, long shapeIdx)
 		{
 			if (inputEvent is not InputEventMouseButton mouseEvent) return;
 
 			//Event where now the mouseEvent is Pressed means it's when the mouse goes down
-			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left) OnLeftMouseDown();
+			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left) LeftClick?.Invoke(this, EventArgs.Empty);
 		}
-
-		private void OnLeftMouseDown() => CardController.FocusInTopLeft();
 	}
 }
