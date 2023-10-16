@@ -8,6 +8,7 @@ using Kompas.Effects.Subeffects;
 using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Models;
+using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using Newtonsoft.Json;
 
@@ -40,15 +41,15 @@ namespace Kompas.Server.Cards.Loading
 			return JsonConvert.DeserializeObject<ServerSubeffect[]>(partialKeywordJsons[keyword], CardLoadingSettings);
 		}
 
-		protected override ServerCardController GetCardController(CardControllerController ccc)
+		protected override ServerCardController GetCardController()
 		{
 			return new ServerCardController();
 		}
 
-		public ServerGameCard InstantiateServerCard(string name, ServerPlayer owner, int id, bool avatar = false)
+		public ServerGameCard InstantiateServerCard(string name, ServerGame game, ServerPlayer owner, int id, bool avatar = false)
 		{
 			string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
-			return InstantiateGameCard(json, (cardInfo, effects, ctrl) => new ServerGameCard(cardInfo, id, ctrl, owner, effects, avatar));
+			return InstantiateGameCard(json, (cardInfo, effects, ctrl) => new ServerGameCard(cardInfo, id, owner, game, ctrl, effects, avatar));
 		}
 	}
 }

@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
 								"$type": "Identify.Cards:Avatar:",
@@ -59,7 +59,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
 								"$type": "Identify.Cards:Avatar:",

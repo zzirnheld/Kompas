@@ -11,7 +11,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:CauseBefore:" },
 							"other": {
 								"$type": "Identify.Cards:AugmentedCard:",

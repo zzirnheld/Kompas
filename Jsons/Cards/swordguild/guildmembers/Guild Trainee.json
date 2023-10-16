@@ -11,7 +11,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
@@ -51,7 +51,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},
@@ -91,7 +91,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						},

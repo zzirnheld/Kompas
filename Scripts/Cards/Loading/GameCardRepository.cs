@@ -21,19 +21,6 @@ namespace Kompas.Cards.Loading
 			CardPrefab = cardPrefab;
 		}
 
-		protected virtual TCardController GetCardController(CardControllerController ccc)
-		{
-			TCardController ret = null;
-			foreach (var c in ccc.CardControllers)
-			{
-				if (c is TCardController cc) ret = cc;
-				else c.QueueFree();
-			}
-
-			if (ret == null) throw new System.NotImplementedException($"None of the card controllers were a {typeof(TCardController)}");
-			return ret;
-		}
-
 		private static IList<TEffect> GetKeywordEffects(SerializableCard card)
 		{
 			var effects = new List<TEffect>();
@@ -85,12 +72,17 @@ namespace Kompas.Cards.Loading
 				return default;
 			}
 
-			if (CardPrefab.Instantiate() is not CardControllerController controllerController)
-					throw new System.ArgumentNullException(nameof(CardControllerController), "Was not the right type");
-			var ctrl = GetCardController(controllerController);
+			var ctrl = GetCardController();
 			var card = cardConstructor(cardInfo, effects.ToArray(), ctrl);
-			controllerController.Name = card.CardName + card.ID;
 			return card;
+		}
+
+		protected virtual TCardController GetCardController()
+		{
+			if (CardPrefab.Instantiate() is not TCardController ctrl)
+				throw new System.ArgumentNullException(nameof(CardControllerController), "Was not the right type");
+
+			return ctrl;
 		}
 	}
 }

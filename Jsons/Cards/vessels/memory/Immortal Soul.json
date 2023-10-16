@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": {
 								"$type": "Identify.Cards:AugmentedCard:",
 								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }

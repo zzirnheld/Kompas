@@ -13,7 +13,7 @@ namespace Kompas.Server.Cards.Models
 {
 	public class ServerGameCard : GameCard
 	{
-		public ServerGame ServerGame { get; private set; }
+		public ServerGame ServerGame { get; }
 		public override IGame Game => ServerGame;
 
 		public ServerEffect[] ServerEffects { get; init; }
@@ -23,11 +23,14 @@ namespace Kompas.Server.Cards.Models
 
 		public override ICardController CardController { get; }
 
-		public override bool KnownToEnemy { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+		public override bool KnownToEnemy { get; set; }
 
-		public ServerGameCard(SerializableCard serializeableCard, int id, ServerCardController cardController, IPlayer owningPlayer, ServerEffect[] effects, bool isAvatar)
+		public ServerGameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
+			ServerGame game, ServerCardController cardController, ServerEffect[] effects, bool isAvatar)
 			: base(serializeableCard, id, owningPlayer)
 		{
+			ServerGame = game;
+			ServerEffects = effects;
 			CardController = cardController;
 			IsAvatar = isAvatar;
 		}

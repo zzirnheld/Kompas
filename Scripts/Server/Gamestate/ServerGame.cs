@@ -29,7 +29,7 @@ namespace Kompas.Server.Gamestate
 		private readonly ServerCardRepository serverCardRepository;
 		public CardRepository CardRepository => serverCardRepository;
 		public ServerStackController StackController { get; private set; }
-		IStackController IGame.StackController => throw new System.NotImplementedException();
+		IStackController IGame.StackController => StackController;
 
 		public Board Board { get; private set; }
 		public ServerAwaiter Awaiter { get; private set; }
@@ -148,13 +148,13 @@ namespace Kompas.Server.Gamestate
 
 			ServerGameCard avatar;
 			//otherwise, set the avatar and rest of the deck
-			avatar = serverCardRepository.InstantiateServerCard(decklist.avatarName, player, cardCount++) ??
+			avatar = serverCardRepository.InstantiateServerCard(decklist.avatarName, this, player, cardCount++) ??
 				throw new System.ArgumentException($"Failed to load avatar for card {decklist.avatarName}");
 
 			foreach (string name in decklist.deck)
 			{
 				ServerGameCard card;
-				card = serverCardRepository.InstantiateServerCard(name, player, cardCount);
+				card = serverCardRepository.InstantiateServerCard(name, this, player, cardCount);
 				if (card == null) continue;
 				cardCount++;
 				GD.Print($"Adding new card {card.CardName} with id {card.ID}");
@@ -164,8 +164,9 @@ namespace Kompas.Server.Gamestate
 
 			player.Avatar = avatar;
 			avatar.Play(player.AvatarCorner, player, new GameStartStackable());
-			if (Players.Any(player => player.Avatar == null)) return;
-			await StartGame();
+			ServerNotifier.DeckAccepted(player);
+
+			if (Players.All(player => player.Avatar != null)) await StartGame();
 		}
 
 		public async Task StartGame()
@@ -180,7 +181,7 @@ namespace Kompas.Server.Gamestate
 			TurnPlayer = Players[FirstTurnPlayer];
 			ServerNotifier.SetFirstTurnPlayer(TurnPlayer);
 
-			foreach (var p in ServerPlayers)
+			foreach (var p in Players)
 			{
 				p.Avatar.SetN(0, stackSrc: null);
 				p.Avatar.SetE(p.Avatar.E + AvatarEBonus, stackSrc: null);

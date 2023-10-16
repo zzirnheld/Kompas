@@ -36,7 +36,7 @@ namespace Kompas.Cards.Movement
 		{
 			//TODO move this to server-side
 			//var costToPay = card.Cost;
-			card.Game.Board.Play(card, to, controllingPlayer);
+			card.Game.Board.Play(card, to, controllingPlayer, stackSrc);
 
 			//if (payCost) controllingPlayer.Pips -= costToPay;
 		}
