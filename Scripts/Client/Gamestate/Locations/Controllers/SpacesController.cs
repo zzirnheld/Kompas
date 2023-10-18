@@ -1,5 +1,7 @@
 using Godot;
+using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate.Controllers;
+using Kompas.Gamestate;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
 {
@@ -12,6 +14,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private PackedScene Space { get; set; }
 
 		private readonly SpaceController[,] spaces = new SpaceController[7, 7];
+
+		public SpaceController this[int x, int y] => spaces[x, y];
+		public SpaceController this[Space space] => this[space.x, space.y];
 
 		public override void _Ready()
 		{

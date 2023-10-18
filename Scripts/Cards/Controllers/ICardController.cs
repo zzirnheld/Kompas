@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
 
 namespace Kompas.Cards.Controllers
@@ -19,5 +20,8 @@ namespace Kompas.Cards.Controllers
 		public void SetPhysicalLocation(Location location);
 
 		public void Delete();
+
+		public Node3D Node { get; }
+		public IGameCard Card { get; }
 	}
 }

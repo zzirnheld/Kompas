@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Kompas.Cards.Controllers;
 using Kompas.Gamestate;
 
 namespace Kompas.Client.Gamestate.Controllers
@@ -7,6 +8,7 @@ namespace Kompas.Client.Gamestate.Controllers
 	public partial class SpaceController : Area3D
 	{
 		private const int BoardMax = 6;
+		private static readonly Vector3 CardOffset = Vector3.Up * 0.002f;
 
 		[Export]
 		public int X { get; private set; }
@@ -67,6 +69,18 @@ namespace Kompas.Client.Gamestate.Controllers
 				LeftClick?.Invoke(this, EventArgs.Empty);
 				GD.Print($"{X}, {Y} at {Position}");
 			} 
+		}
+
+		public void Place(ICardController card)
+		{
+			if (card.Node == null)
+			{
+				GD.PushWarning("Tried to place a card with a null Node!");
+				return;
+			}
+
+			AddChild(card.Node);
+			card.Node.Position = CardOffset;
 		}
 	}
 }

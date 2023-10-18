@@ -1,6 +1,7 @@
 
 using Godot;
 using Kompas.Cards.Controllers;
+using Kompas.Cards.Models;
 using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
@@ -8,13 +9,16 @@ using Kompas.Gamestate.Locations;
 
 namespace Kompas.Client.Cards.Controllers
 {
-	public partial class ClientCardController : Node, ICardController
+	public partial class ClientCardController : Node3D, ICardController
 	{
 		[Export]
 		private Zoomable3DCardInfoDisplayer InfoDisplayer { get; set; }
 
 		[Export]
 		private CardMouseController MouseController { get; set; }
+
+		Node3D ICardController.Node => this;
+		IGameCard ICardController.Card => Card;
 
 		private ClientCardView _cardView;
 		private ClientCardView CardView

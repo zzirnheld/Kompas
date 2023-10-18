@@ -257,6 +257,8 @@ namespace Kompas.Gamestate.Locations.Models
 				toPlay.LocationModel = this;
 
 				toPlay.ControllingPlayer = player;
+
+				boardController.Place(toPlay.CardController);
 			}
 		}
 
@@ -296,7 +298,13 @@ namespace Kompas.Gamestate.Locations.Models
 			board[tempX, tempY] = temp;
 
 			card.Position = to;
-			if (temp != null) temp.Position = from;
+			boardController.Place(card.CardController);
+
+			if (temp != null)
+			{
+				temp.Position = from;
+				boardController.Place(temp.CardController);
+			}
 		}
 
 		public void Move(GameCard card, Space to, bool normal, IPlayer mover, IStackable stackSrc = null)
