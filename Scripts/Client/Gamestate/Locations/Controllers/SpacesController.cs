@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Godot;
 using Kompas.Client.Gamestate.Controllers;
 
@@ -8,6 +7,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 	{
 		[Export]
 		private SpaceController[] InitialSpaces { get; set; }
+
+		[Export]
+		private PackedScene Space { get; set; }
 
 		private readonly SpaceController[,] spaces = new SpaceController[7, 7];
 
@@ -32,13 +34,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private void InsertSpace(SpaceController toDupe, bool flipX, bool flipY, bool swapXY)
 		{
-			var newSpace = toDupe.Dupe(this, flipX, flipY, swapXY);
-			if (spaces[newSpace.X, newSpace.Y] == null) spaces[newSpace.X, newSpace.Y] = newSpace;
-			else
-			{
-				GD.Print($"Duplicate. Freeing {newSpace.X}, {newSpace.Y} at {newSpace.Position}");
-				newSpace.QueueFree();
-			}
+			var newSpace = toDupe.Dupe(this, flipX, flipY, swapXY, (x, y) => spaces[x, y] == null, Space);
+			if (newSpace != null) spaces[newSpace.X, newSpace.Y] = newSpace;
 		}
 	}
 }
