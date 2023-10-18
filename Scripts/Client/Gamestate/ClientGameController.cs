@@ -40,7 +40,6 @@ namespace Kompas.Client.Gamestate
 			base._Ready();
 			game = ClientGame.Create(this);
 			CardRepository = new ClientCardRepository(null);
-			throw new System.NotImplementedException();
 		}
 
 		public override void _Process(double delta)

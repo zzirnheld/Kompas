@@ -22,19 +22,22 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			spaces[space.X, space.Y] = space;
 			InsertSpace(space, true, false, false);
-			InsertSpace(space, true, true, false);
-			InsertSpace(space, true, true, true);
 			InsertSpace(space, false, true, false);
-			InsertSpace(space, false, true, true);
+			InsertSpace(space, true, true, false);
 			InsertSpace(space, false, false, true);
+			InsertSpace(space, false, true, true);
+			InsertSpace(space, true, false, true);
 			InsertSpace(space, true, true, true);
 		}
 
-		private void InsertSpace(SpaceController space, bool flipX, bool flipY, bool swapXY)
+		private void InsertSpace(SpaceController toDupe, bool flipX, bool flipY, bool swapXY)
 		{
-			if (spaces[space.X, space.Y] == null)
+			var newSpace = toDupe.Dupe(this, flipX, flipY, swapXY);
+			if (spaces[newSpace.X, newSpace.Y] == null) spaces[newSpace.X, newSpace.Y] = newSpace;
+			else
 			{
-				spaces[space.X, space.Y] = space.Dupe(this, flipX, flipY, swapXY);
+				GD.Print($"Duplicate. Freeing {newSpace.X}, {newSpace.Y} at {newSpace.Position}");
+				newSpace.QueueFree();
 			}
 		}
 	}
