@@ -20,6 +20,9 @@ namespace Kompas.Client.Gamestate
 		[Export]
 		public ClientTargetingController TargetingController { get; private set; }
 
+		[Export]
+		private PackedScene CardPrefab { get; set; }
+
 		private ClientGame game;
 		public override IGame Game => game;
 
@@ -43,7 +46,7 @@ namespace Kompas.Client.Gamestate
 		{
 			base._Ready();
 			game = ClientGame.Create(this);
-			CardRepository = new ClientCardRepository(null);
+			CardRepository = new ClientCardRepository(CardPrefab);
 		}
 
 		public override void _Process(double delta)

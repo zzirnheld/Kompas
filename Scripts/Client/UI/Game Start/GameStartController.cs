@@ -24,7 +24,7 @@ namespace Kompas.Client.UI.GameStart
 		[Export]
 		private SelectDeckController SelectDeck { get; set; }
 
-		private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck }
+		private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck, DeckAccepted }
 		private Dictionary<State, Control> Tabs = new();
 
 		private Task connectionTask; //Awaited in TryConnect. not sure if this or a boolean is the better anti-reentrant mechanism
@@ -37,6 +37,7 @@ namespace Kompas.Client.UI.GameStart
 			Tabs[State.WaitingForServer] = WaitingForServer;
 			Tabs[State.WaitingForPlayer] = WaitingForPlayer;
 			Tabs[State.SelectDeck] = SelectDeck;
+			Tabs[State.DeckAccepted] = null;
 
 			foreach (State s in Enum.GetValues(typeof(State)))
 			{
@@ -102,12 +103,14 @@ namespace Kompas.Client.UI.GameStart
 		public void GetDeck() => ChangeState(State.SelectDeck);
 		public void DeckSubmitted() => ChangeState(State.WaitingForServer);
 
+		public void DeckAccepted() => ChangeState(State.DeckAccepted);
+
 		private void ChangeState(State state)
 		{
 			GD.Print($"Changing state to {state}");
 
 			foreach (State s in Enum.GetValues(typeof(State)))
-				Tabs[s].Visible = s == state;
+				if (Tabs[s] != null) Tabs[s].Visible = s == state;
 		}
 	}
 }

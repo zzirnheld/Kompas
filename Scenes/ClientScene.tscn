@@ -1,8 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=24 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientBoardController.cs" id="1_l7n64"]
+[ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientTargetingController.cs" id="2_cdbal"]
+[ext_resource type="PackedScene" uid="uid://c312rohu62amq" path="res://Scenes/Prefabs/Client Game/ClientCard.tscn" id="2_q0mge"]
 [ext_resource type="Material" uid="uid://c8ak7quhecu3f" path="res://Materials/Gameboard HighQ Center.tres" id="2_wywm4"]
 [ext_resource type="PackedScene" uid="uid://rccou1fb3usa" path="res://Scenes/Prefabs/Client Game/Space.tscn" id="3_126rd"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
@@ -25,11 +27,16 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "PlayerControllers", "BoardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "TargetingController", "PlayerControllers", "BoardController")]
 script = ExtResource("1_6rnfv")
 GameStartController = NodePath("../UI/Game Start")
+TargetingController = NodePath("Targeting Controller")
+CardPrefab = ExtResource("2_q0mge")
 PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 BoardController = NodePath("../3D/Board")
+
+[node name="Targeting Controller" type="Node" parent="Game Controller"]
+script = ExtResource("2_cdbal")
 
 [node name="3D" type="Node3D" parent="."]
 
@@ -174,7 +181,6 @@ HorizontalGrowDirection = 1
 VerticalGrowDirection = -1
 
 [node name="UI" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

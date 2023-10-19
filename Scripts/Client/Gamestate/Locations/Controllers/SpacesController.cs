@@ -43,8 +43,11 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private void InsertSpace(SpaceController toDupe, bool flipX, bool flipY, bool swapXY)
 		{
 			var newSpace = toDupe.Dupe(this, flipX, flipY, swapXY, (x, y) => spaces[x, y] == null, Space);
-			if (newSpace != null) spaces[newSpace.X, newSpace.Y] = newSpace;
-			newSpace.LeftClick += (_, _) => Clicked(newSpace.X, newSpace.Y);
+			if (newSpace != null)
+			{
+				spaces[newSpace.X, newSpace.Y] = newSpace;
+				newSpace.LeftClick += (_, _) => Clicked(newSpace.X, newSpace.Y);
+			}
 		}
 
 		public void Clicked(int x, int y)
