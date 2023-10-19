@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=22 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/SplayOutController.cs" id="11_iiblv"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -35,7 +36,7 @@ BoardController = NodePath("../3D/Board")
 [node name="Engine Stuff" type="Node3D" parent="3D"]
 
 [node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)
@@ -112,16 +113,31 @@ DeckController = NodePath("Deck")
 AnnihilationController = NodePath("Annihilation")
 
 [node name="Hand" type="Node3D" parent="3D/Friendly Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.495075)
 script = ExtResource("7_hs3e0")
 
 [node name="Annihilation" type="Node3D" parent="3D/Friendly Player"]
 script = ExtResource("8_4q2k2")
 
-[node name="Deck" type="Node3D" parent="3D/Friendly Player"]
+[node name="Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
+SplayOutController = NodePath("Spread Out Deck")
 
-[node name="Discard" type="Node3D" parent="3D/Friendly Player"]
+[node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Deck"]
+script = ExtResource("11_iiblv")
+HorizontalGrowDirection = 1
+VerticalGrowDirection = 1
+
+[node name="Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
 script = ExtResource("10_pkr2w")
+SplayOutController = NodePath("Spread Out Discard")
+
+[node name="Spread Out Discard" type="Node3D" parent="3D/Friendly Player/Discard"]
+script = ExtResource("11_iiblv")
+HorizontalGrowDirection = -1
+VerticalGrowDirection = 1
 
 [node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
 script = ExtResource("7_ju5wt")
@@ -131,16 +147,31 @@ DeckController = NodePath("../Friendly Player/Deck")
 AnnihilationController = NodePath("../Friendly Player/Annihilation")
 
 [node name="Hand" type="Node3D" parent="3D/Enemy Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.508328)
 script = ExtResource("7_hs3e0")
 
 [node name="Annihilation" type="Node3D" parent="3D/Enemy Player"]
 script = ExtResource("8_4q2k2")
 
-[node name="Deck" type="Node3D" parent="3D/Enemy Player"]
+[node name="Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
+SplayOutController = NodePath("Spread Out Deck")
 
-[node name="Discard" type="Node3D" parent="3D/Enemy Player"]
+[node name="Spread Out Deck" type="Node3D" parent="3D/Enemy Player/Deck"]
+script = ExtResource("11_iiblv")
+HorizontalGrowDirection = -1
+VerticalGrowDirection = -1
+
+[node name="Discard" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, -0.185)
 script = ExtResource("10_pkr2w")
+SplayOutController = NodePath("Spread Out Discard")
+
+[node name="Spread Out Discard" type="Node3D" parent="3D/Enemy Player/Discard"]
+script = ExtResource("11_iiblv")
+HorizontalGrowDirection = 1
+VerticalGrowDirection = -1
 
 [node name="UI" type="Control" parent="."]
 visible = false
