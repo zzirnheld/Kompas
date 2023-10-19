@@ -56,9 +56,9 @@ namespace Kompas.Client.Cards.Controllers
 			MouseController.LeftClick += (_, _) => FocusInTopLeft();
 		}
 
-		public void ShowInTopLeft() => gameController.TargetingController.ShownCard = Card;
+		public void ShowInTopLeft() => gameController.TargetingController.Highlight(Card);
 
-		public void FocusInTopLeft() => gameController.TargetingController.FocusedCard = Card;
+		public void FocusInTopLeft() => gameController.TargetingController.Select(Card);
 
 		/// <summary>
 		/// TODO reimpl for godot
@@ -74,7 +74,18 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void RefreshLinks()
 		{
-			throw new System.NotImplementedException();
+			//throw new System.NotImplementedException();
+		}
+
+		public void RefreshAugments()
+		{
+			foreach (var card in Card.Augments)
+			{
+				var node = card.CardController.Node;
+				node.GetParent()?.RemoveChild(node);
+				AddChild(node);
+				node.Position = Vector3.Up * 0.05f; //TODO better spread
+			}
 		}
 
 		public void RefreshStats() => gameController.TargetingController.TopLeftCardView.Refresh();

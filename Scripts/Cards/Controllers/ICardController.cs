@@ -16,12 +16,13 @@ namespace Kompas.Cards.Controllers
 		/// Refreshes showing cards linked to this card.
 		/// </summary>
 		public void RefreshLinks();
+		
+		public void RefreshAugments();
 
 		public void Delete();
 
 		public Node3D Node { get; }
 		public IGameCard Card { get; }
 
-		public void RefreshAugments();
 	}
 }

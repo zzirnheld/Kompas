@@ -13,6 +13,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		[Export]
 		private PackedScene Space { get; set; }
 
+		[Export]
+		private ClientGameController GameController { get; set; } //if this becomes a shared controller, this will need to be moved to a child class
+
 		private readonly SpaceController[,] spaces = new SpaceController[7, 7];
 
 		public SpaceController this[int x, int y] => spaces[x, y];
@@ -41,6 +44,12 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			var newSpace = toDupe.Dupe(this, flipX, flipY, swapXY, (x, y) => spaces[x, y] == null, Space);
 			if (newSpace != null) spaces[newSpace.X, newSpace.Y] = newSpace;
+			newSpace.LeftClick += (_, _) => Clicked(newSpace.X, newSpace.Y);
+		}
+
+		public void Clicked(int x, int y)
+		{
+			GameController.TargetingController.Select((x, y));
 		}
 	}
 }
