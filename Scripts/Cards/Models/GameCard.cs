@@ -69,7 +69,8 @@ namespace Kompas.Cards.Models
 				if (null != value) GD.Print($"Position of {CardName} set to {value}");
 
 				position = value;
-				CardController?.SetPhysicalLocation(Location);
+				//Note: this used to call SetPhysicalLocation. BoardController should handle setting the position of the card in all such cases.
+				//Similarly, when a card takes on an augment, the CardController should set the new parent, etc.
 				foreach (var aug in augmentsList) aug.Position = value;
 			}
 		}

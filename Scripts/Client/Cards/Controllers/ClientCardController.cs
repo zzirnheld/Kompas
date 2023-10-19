@@ -5,6 +5,7 @@ using Kompas.Cards.Models;
 using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
+using Kompas.Client.Gamestate;
 using Kompas.Gamestate.Locations;
 
 namespace Kompas.Client.Cards.Controllers
@@ -19,6 +20,8 @@ namespace Kompas.Client.Cards.Controllers
 
 		Node3D ICardController.Node => this;
 		IGameCard ICardController.Card => Card;
+
+		private ClientGameController gameController;
 
 		private ClientCardView _cardView;
 		private ClientCardView CardView
@@ -40,6 +43,7 @@ namespace Kompas.Client.Cards.Controllers
 				if (_card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
 				_card = value;
 				CardView = new (InfoDisplayer ?? throw new System.InvalidOperationException("You didn't populate the client card ctrl's info displayer"), Card);
+				gameController = value.ClientGame.ClientGameController;
 			}
 		}
 
@@ -52,16 +56,9 @@ namespace Kompas.Client.Cards.Controllers
 			MouseController.LeftClick += (_, _) => FocusInTopLeft();
 		}
 
-		public void ShowInTopLeft()
-		{
-			//TODO: initialize a GameController or some such that includes a reference to the top left view (once top left view exists)
-			throw new System.NotImplementedException();
-		}
+		public void ShowInTopLeft() => gameController.TargetingController.ShownCard = Card;
 
-		public void FocusInTopLeft()
-		{
-			throw new System.NotImplementedException();
-		}
+		public void FocusInTopLeft() => gameController.TargetingController.FocusedCard = Card;
 
 		/// <summary>
 		/// TODO reimpl for godot
@@ -80,14 +77,6 @@ namespace Kompas.Client.Cards.Controllers
 			throw new System.NotImplementedException();
 		}
 
-		public void RefreshStats()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void SetPhysicalLocation(Location location)
-		{
-			throw new System.NotImplementedException();
-		}
+		public void RefreshStats() => gameController.TargetingController.TopLeftCardView.Refresh();
 	}
 }

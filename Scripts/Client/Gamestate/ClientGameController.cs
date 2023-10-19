@@ -2,6 +2,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Client.Cards.Loading;
+using Kompas.Client.Cards.Views;
 using Kompas.Client.Networking;
 using Kompas.Client.UI.GameStart;
 using Kompas.Gamestate;
@@ -15,6 +16,9 @@ namespace Kompas.Client.Gamestate
 
 		[Export]
 		public GameStartController GameStartController { get; private set; }
+
+		[Export]
+		public ClientTargetingController TargetingController { get; private set; }
 
 		private ClientGame game;
 		public override IGame Game => game;

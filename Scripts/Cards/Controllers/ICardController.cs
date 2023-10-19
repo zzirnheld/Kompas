@@ -17,11 +17,11 @@ namespace Kompas.Cards.Controllers
 		/// </summary>
 		public void RefreshLinks();
 
-		public void SetPhysicalLocation(Location location);
-
 		public void Delete();
 
 		public Node3D Node { get; }
 		public IGameCard Card { get; }
+
+		public void RefreshAugments();
 	}
 }
