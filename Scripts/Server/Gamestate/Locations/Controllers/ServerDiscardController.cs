@@ -4,6 +4,6 @@ namespace Kompas.Server.Gamestate.Locations.Controllers
 {
 	public partial class ServerDiscardController : DiscardController
 	{
-
+		protected override void SpreadOut() { }
 	}
 }

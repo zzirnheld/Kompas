@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
-[ext_resource type="Script" path="res://Scripts/Gamestate/Locations/Controllers/Client/ClientBoardController.cs" id="1_l7n64"]
+[ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientBoardController.cs" id="1_l7n64"]
 [ext_resource type="Material" uid="uid://c8ak7quhecu3f" path="res://Materials/Gameboard HighQ Center.tres" id="2_wywm4"]
 [ext_resource type="PackedScene" uid="uid://rccou1fb3usa" path="res://Scenes/Prefabs/Client Game/Space.tscn" id="3_126rd"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]

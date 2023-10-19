@@ -19,6 +19,7 @@ namespace Kompas.Gamestate.Locations.Models
 		protected Discard(IPlayer owner, DiscardController discardController) : base(owner)
 		{
 			this.discardController = discardController;
+			discardController.DiscardModel = this;
 		}
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)

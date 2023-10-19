@@ -22,6 +22,7 @@ namespace Kompas.Gamestate.Locations.Models
 		protected Deck(IPlayer owner, DeckController deckController) : base(owner)
 		{
 			this.deckController = deckController;
+			deckController.DeckModel = this;
 		}
 
 		public override int IndexOf(GameCard card) => deck.IndexOf(card);
@@ -35,6 +36,8 @@ namespace Kompas.Gamestate.Locations.Models
 		{
 			if (index.HasValue) deck.Insert(index.Value, card);
 			else deck.Add(card);
+
+			deckController.Refresh();
 		}
 
 		//adding and removing cards

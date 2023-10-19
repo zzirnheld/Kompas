@@ -4,6 +4,6 @@ namespace Kompas.Server.Gamestate.Locations.Controllers
 {
 	public partial class ServerDeckController : DeckController
 	{
-
+		protected override void SpreadOut() { }
 	}
 }

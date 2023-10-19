@@ -22,7 +22,10 @@ namespace Kompas.Gamestate.Locations.Models
 		protected Hand(IPlayer owner, HandController handController) : base(owner)
 		{
 			this.handController = handController;
+			handController.HandModel = this; //TODO: is there another, better way to initialize HandModel? without leaking this
 		}
+
+		public GameCard this[int index] => hand[index];
 
 		public override int IndexOf(GameCard card) => hand.IndexOf(card);
 

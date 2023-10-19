@@ -9,7 +9,6 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public abstract class Annihilation : OwnedLocationModel
 	{
-
 		private readonly List<GameCard> cards = new();
 		public override IEnumerable<GameCard> Cards => cards;
 
@@ -19,6 +18,7 @@ namespace Kompas.Gamestate.Locations.Models
 		protected Annihilation(IPlayer owner, AnnihilationController annihilationController) : base(owner)
 		{
 			this.annihilationController = annihilationController;
+			annihilationController.AnnihilationModel = this;
 		}
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)

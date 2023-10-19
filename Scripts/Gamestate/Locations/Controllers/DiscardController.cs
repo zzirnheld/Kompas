@@ -1,12 +1,14 @@
 using Godot;
+using Kompas.Gamestate.Locations.Models;
 
 namespace Kompas.Gamestate.Locations.Controllers
 {
-	public partial class DiscardController : Node //TODO shared parent class for location controllers? similar to models?
+	public abstract partial class DiscardController : Node //TODO shared parent class for location controllers? similar to models?
 	{
-		public void Refresh()
-		{
-			throw new System.NotImplementedException();
-		}
+		public Discard DiscardModel { get; set; }
+
+		public void Refresh() => SpreadOut();
+
+		protected abstract void SpreadOut();
 	}
 }
