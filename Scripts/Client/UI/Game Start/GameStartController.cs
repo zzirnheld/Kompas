@@ -111,6 +111,8 @@ namespace Kompas.Client.UI.GameStart
 
 			foreach (State s in Enum.GetValues(typeof(State)))
 				if (Tabs[s] != null) Tabs[s].Visible = s == state;
+
+			if (state == State.DeckAccepted) Visible = false;
 		}
 	}
 }

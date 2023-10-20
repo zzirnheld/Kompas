@@ -142,9 +142,6 @@ namespace Kompas.Cards.Models
 			{
 				location = value;
 				GD.Print($"Card {ID} named {CardName} location set to {Location}");
-				//TODO: card controller
-				//if (CardController != null) CardController.SetPhysicalLocation(Location);
-				GD.PrintErr($"Missing a card control. Is this a debug card?");
 			}
 		}
 

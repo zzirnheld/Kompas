@@ -134,7 +134,7 @@ namespace Kompas.Client.Networking
 			}
 
 			var p = FromJson(packetInfo.command, packetInfo.json);
-			GD.Print($"Parsing packet {p}");
+			GD.Print($"Parsing packet {packetInfo.command}");
 			p.Execute(game);
 
 			//clean up any visual differences after the latest packet.

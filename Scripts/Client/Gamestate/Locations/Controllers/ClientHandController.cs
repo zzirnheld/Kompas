@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Kompas.Gamestate.Locations.Controllers;
 
@@ -9,6 +10,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		protected override void SpreadAllCards()
 		{
+			GD.Print($"Spreading {string.Join(", ", HandModel.Cards.Select(c => c.CardName))}");
 			for (int i = 0; i < HandModel.HandSize; i++)
 			{
 				var node = HandModel[i].CardController.Node;
@@ -20,6 +22,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 				
 				node.Rotation = Vector3.Zero;
 				node.Visible = true;
+				GD.Print($"Placing {HandModel[i].CardName} at {node.Position}");
 			}
 		}
 	}

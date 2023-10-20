@@ -1258,6 +1258,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
 script = ExtResource("1_8duf6")
 ZoomedOut = NodePath("Zoomed Out")
 ZoomedIn = NodePath("Zoomed In No Text")
+CardImageMaterial = ExtResource("5_6tu2s")
 
 [node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("FrameObjects")]
 visible = false

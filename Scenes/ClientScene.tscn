@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=26 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/SplayOutController.cs" id="11_iiblv"]
+[ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
+[ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -35,8 +37,9 @@ CardPrefab = ExtResource("2_q0mge")
 PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 BoardController = NodePath("../3D/Board")
 
-[node name="Targeting Controller" type="Node" parent="Game Controller"]
+[node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("TopLeftInfoDisplayer")]
 script = ExtResource("2_cdbal")
+TopLeftInfoDisplayer = NodePath("../../UI/Top Left/MarginContainer/Card Info VBox/Card Info Dimensions")
 
 [node name="3D" type="Node3D" parent="."]
 
@@ -194,6 +197,38 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Teeeeeeeeeeeeeeeeeeeeeeest"
+
+[node name="Top Left" type="Control" parent="UI"]
+layout_mode = 1
+anchor_right = 0.3
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Top Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("15_r18a8")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="Card Info VBox" type="VBoxContainer" parent="UI/Top Left/MarginContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 5.86
+
+[node name="Card Info Dimensions" parent="UI/Top Left/MarginContainer/Card Info VBox" instance=ExtResource("16_p3apf")]
+layout_mode = 2
+
+[node name="Reminder Texts" type="TextureRect" parent="UI/Top Left/MarginContainer/Card Info VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("5_i20x8")
 
 [node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("GameController", "ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
 layout_mode = 1
