@@ -27,7 +27,8 @@ namespace Kompas.Cards.Views
 
 		public void DisplayCardImage(CardBase card)
 		{
-			CardImageMaterial.AlbedoTexture = card.CardFaceImage;
+			ZoomedOut.DisplayCardImage(card);
+			ZoomedIn.DisplayCardImage(card);
 		}
 
 		public void DisplayCardNumericStats(CardBase card)

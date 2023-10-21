@@ -1260,12 +1260,16 @@ ZoomedOut = NodePath("Zoomed Out")
 ZoomedIn = NodePath("Zoomed In No Text")
 CardImageMaterial = ExtResource("5_6tu2s")
 
-[node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("FrameObjects")]
-visible = false
+[node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "FrameObjects", "CardImageObjects")]
 script = ExtResource("2_cdddr")
+N = NodePath("Char/ZO N Label")
+E = NodePath("Char/ZO E Label")
+Cost = NodePath("All/ZO Cost Label")
+W = NodePath("Char/ZO W Label")
 FriendlyCardFrameMaterial = ExtResource("3_rhqch")
 EnemyCardFrameMaterial = ExtResource("4_knvjy")
 FrameObjects = [NodePath("Char/ZO Char Frame Stats"), NodePath("NonChar/ZO NonChar Frame Stats"), NodePath("All/ZO All Frame Cost"), NodePath("All/ZO All Frame Corners"), NodePath("All/ZO All Baseplate")]
+CardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar/ZO NonChar Baseplate Image")]
 
 [node name="Char" type="Node3D" parent="Actual Card Model/Zoomed Out"]
 
@@ -1294,6 +1298,36 @@ skeleton = NodePath("")
 material_override = ExtResource("8_o3qnh")
 mesh = SubResource("ArrayMesh_hlwaj")
 skeleton = NodePath("")
+
+[node name="ZO N Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.810171)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 100
+outline_size = 0
+width = 300.0
+
+[node name="ZO E Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.8, 0.03, -0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 100
+outline_size = 0
+width = 300.0
+
+[node name="ZO W Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.8, 0.03, -0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 100
+outline_size = 0
+width = 300.0
 
 [node name="NonChar" type="Node3D" parent="Actual Card Model/Zoomed Out"]
 visible = false
@@ -1325,6 +1359,16 @@ skeleton = NodePath("")
 material_override = ExtResource("9_f6kxx")
 mesh = SubResource("ArrayMesh_j5726")
 skeleton = NodePath("")
+
+[node name="ZO Cost Label" type="Label3D" parent="Actual Card Model/Zoomed Out/All"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.77)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "69"
+font = ExtResource("3_hjjow")
+font_size = 100
+outline_size = 0
+width = 300.0
 
 [node name="ZO All Baseplate" type="MeshInstance3D" parent="Actual Card Model/Zoomed Out/All"]
 mesh = SubResource("ArrayMesh_eddle")
@@ -1411,7 +1455,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -0.213323)
 mesh = SubResource("ArrayMesh_78r2k")
 skeleton = NodePath("")
 
-[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "FrameObjects")]
+[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "FrameObjects", "CardImageObjects")]
+visible = false
 script = ExtResource("2_0v3lq")
 N = NodePath("Char/N Label")
 E = NodePath("Char/E Label")
@@ -1422,6 +1467,7 @@ Subtypes = NodePath("All/Subtypes Label")
 FriendlyCardFrameMaterial = ExtResource("3_rhqch")
 EnemyCardFrameMaterial = ExtResource("4_knvjy")
 FrameObjects = [NodePath("All/Frame Objects/ZI NT All Frame Cost"), NodePath("All/Frame Objects/ZI NT All Baseplate"), NodePath("All/Frame Objects/ZI NT All Frame Bottom Half "), NodePath("All/Frame Objects/ZI NT All Frame Top Half"), NodePath("Char/Frame Objects/ZI NT Char E"), NodePath("Char/Frame Objects/ZI NT Char N"), NodePath("Char/Frame Objects/ZI NT Char W"), NodePath("NonChar/ZI NT NonChar Frame Stat Caps")]
+CardImageObjects = [NodePath("All/ZI NT All Baseplate Image")]
 
 [node name="All" type="Node3D" parent="Actual Card Model/Zoomed In No Text"]
 

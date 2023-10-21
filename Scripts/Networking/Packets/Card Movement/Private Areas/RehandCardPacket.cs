@@ -1,6 +1,7 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using Kompas.Cards.Movement;
+using Godot;
 
 namespace Kompas.Networking.Packets
 {
@@ -29,6 +30,10 @@ namespace Kompas.Client.Networking
 {
 	public class RehandCardClientPacket : RehandCardPacket, IClientOrderPacket
 	{
-		public void Execute(ClientGame clientGame) => clientGame.LookupCardByID(cardId)?.Rehand();
+		public void Execute(ClientGame clientGame)
+		{
+			GD.Print($"Trying to hand {cardId} {clientGame.LookupCardByID(cardId)}");
+			clientGame.LookupCardByID(cardId)?.Rehand();
+		}
 	}
 }

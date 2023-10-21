@@ -1,7 +1,6 @@
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
-using System;
 
 namespace Kompas.Cards.Views
 {
@@ -27,13 +26,20 @@ namespace Kompas.Cards.Views
 		[Export]
 		private MeshInstance3D[] FrameObjects { get; set; }
 
+		[Export]
+		private MeshInstance3D[] CardImageObjects { get; set; }
+
 		public bool ShowingInfo { set => Visible = value; }
 
 		public virtual void DisplayCardImage(CardBase card)
 		{
-			//Image manipulation is done in the Zoomable3DCardInfoDisplayer, so we don't set the albedo texture twice.
-			//Consider not implementing ICardInfoDisplayer since it doesn't really?
-			throw new System.NotImplementedException("If you want to use the MeshCardInfoDisplayer this way, maybe consider splitting off a version that does actually modify the card image?");
+			foreach (var obj in CardImageObjects)
+			{
+				if (obj.MaterialOverride is not BaseMaterial3D mat)
+					throw new System.InvalidOperationException($"{obj}'s material is not a BaseMaterial3D, can't set its albedo texture");
+
+				mat.AlbedoTexture = card.CardFaceImage;
+			}
 		}
 
 		/* Testing */

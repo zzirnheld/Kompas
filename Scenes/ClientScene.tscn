@@ -117,68 +117,70 @@ Y = 3
 
 [node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
 script = ExtResource("7_ju5wt")
-HandController = NodePath("Hand")
-DiscardController = NodePath("Discard")
-DeckController = NodePath("Deck")
-AnnihilationController = NodePath("Annihilation")
+HandController = NodePath("Friendly Hand")
+DiscardController = NodePath("Friendly Discard")
+DeckController = NodePath("Friendly Deck")
+AnnihilationController = NodePath("Friendly Annihilation")
 
-[node name="Hand" type="Node3D" parent="3D/Friendly Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.495075)
+[node name="Friendly Hand" type="Node3D" parent="3D/Friendly Player"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.05, 0.495)
 script = ExtResource("7_hs3e0")
 
-[node name="Annihilation" type="Node3D" parent="3D/Friendly Player"]
+[node name="Friendly Annihilation" type="Node3D" parent="3D/Friendly Player"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("SplayOutController")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
+[node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
 SplayOutController = NodePath("Spread Out Deck")
 
-[node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Deck"]
+[node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
 script = ExtResource("11_iiblv")
 HorizontalGrowDirection = 1
 VerticalGrowDirection = 1
 
-[node name="Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("SplayOutController")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
+[node name="Friendly Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, -0.185, 0, 0.185)
 script = ExtResource("10_pkr2w")
 SplayOutController = NodePath("Spread Out Discard")
 
-[node name="Spread Out Discard" type="Node3D" parent="3D/Friendly Player/Discard"]
+[node name="Spread Out Discard" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
 script = ExtResource("11_iiblv")
 HorizontalGrowDirection = -1
 VerticalGrowDirection = 1
 
 [node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
 script = ExtResource("7_ju5wt")
-HandController = NodePath("../Friendly Player/Hand")
-DiscardController = NodePath("../Friendly Player/Discard")
-DeckController = NodePath("../Friendly Player/Deck")
-AnnihilationController = NodePath("../Friendly Player/Annihilation")
+HandController = NodePath("Enemy Hand")
+DiscardController = NodePath("Enemy Discard")
+DeckController = NodePath("Enemy Deck")
+AnnihilationController = NodePath("Enemy Annihilation")
 
-[node name="Hand" type="Node3D" parent="3D/Enemy Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.508328)
+[node name="Enemy Hand" type="Node3D" parent="3D/Enemy Player"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
 script = ExtResource("7_hs3e0")
 
-[node name="Annihilation" type="Node3D" parent="3D/Enemy Player"]
+[node name="Enemy Annihilation" type="Node3D" parent="3D/Enemy Player"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("SplayOutController")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
+[node name="Enemy Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
 SplayOutController = NodePath("Spread Out Deck")
 
-[node name="Spread Out Deck" type="Node3D" parent="3D/Enemy Player/Deck"]
+[node name="Spread Out Deck" type="Node3D" parent="3D/Enemy Player/Enemy Deck"]
 script = ExtResource("11_iiblv")
 HorizontalGrowDirection = -1
 VerticalGrowDirection = -1
 
-[node name="Discard" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("SplayOutController")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, -0.185)
+[node name="Enemy Discard" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("SplayOutController")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.185, 0, -0.185)
 script = ExtResource("10_pkr2w")
 SplayOutController = NodePath("Spread Out Discard")
 
-[node name="Spread Out Discard" type="Node3D" parent="3D/Enemy Player/Discard"]
+[node name="Spread Out Discard" type="Node3D" parent="3D/Enemy Player/Enemy Discard"]
 script = ExtResource("11_iiblv")
 HorizontalGrowDirection = 1
 VerticalGrowDirection = -1

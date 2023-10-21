@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
@@ -31,6 +32,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)
 		{
+			GD.Print($"Adding {card}");
 			if (index.HasValue) hand.Insert(index.Value, card);
 			else hand.Add(card);
 			handController.Refresh();

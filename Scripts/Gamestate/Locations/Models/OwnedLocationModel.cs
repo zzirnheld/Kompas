@@ -1,5 +1,6 @@
 using System.Buffers;
 using System.Collections.Generic;
+using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
@@ -38,14 +39,20 @@ namespace Kompas.Gamestate.Locations.Models
         /// </summary>
 		public void Add(GameCard card, int? index = null, IStackable stackableCause = null)
 		{
+			GD.Print($"Trying to {Location} {card}");
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
 			if (!AllowAlreadyHereWhenAdd && this == card.LocationModel) throw new AlreadyHereException(Location);
 
 			//Check if the card is successfully removed (if it's not, it's probably an avatar)
 			//TODO replace these with an AvatarRemovedException that gets caught
 			try { card.Remove(stackableCause); }
-			catch (AvatarRetreatedException) { return; }
+			catch (AvatarRetreatedException)
+			{
+				GD.PushWarning($"{card}, an Avatar, retreated");
+				return;
+			}
 
+			GD.Print($"{card} successfully removed, moving");
 			card.LocationModel = this;
 			card.Position = null;
 			card.ControllingPlayer = Owner;
