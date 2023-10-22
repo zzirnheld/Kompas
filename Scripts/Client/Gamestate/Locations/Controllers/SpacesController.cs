@@ -30,7 +30,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private void Dupe(SpaceController space)
 		{
-			spaces[space.X, space.Y] = space; //TODO add handlers to the spaces being duplicated
+			InsertSpace(space);
 			InsertSpace(space, true, false, false);
 			InsertSpace(space, false, true, false);
 			InsertSpace(space, true, true, false);
@@ -42,17 +42,18 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private void InsertSpace(SpaceController toDupe, bool flipX, bool flipY, bool swapXY)
 		{
-			var newSpace = toDupe.Dupe(this, flipX, flipY, swapXY, (x, y) => spaces[x, y] == null, Space);
-			if (newSpace != null)
-			{
-				spaces[newSpace.X, newSpace.Y] = newSpace;
-				newSpace.LeftClick += (_, _) => Clicked(newSpace.X, newSpace.Y);
-			}
+			InsertSpace(toDupe.Dupe(this, Space, flipX, flipY, swapXY, (x, y) => spaces[x, y] == null));
 		}
 
-		public void Clicked(int x, int y)
+		private void InsertSpace(SpaceController newSpace)
 		{
-			GameController.TargetingController.Select((x, y));
+			if (newSpace == null) return;
+			if (spaces[newSpace.X, newSpace.Y] != null) throw new System.InvalidOperationException($"{newSpace.X}, {newSpace.Y} already had a Space created for it!");
+
+			spaces[newSpace.X, newSpace.Y] = newSpace;
+			newSpace.LeftClick += (_, _) => Clicked(newSpace.X, newSpace.Y);
 		}
+
+		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
 	}
 }
