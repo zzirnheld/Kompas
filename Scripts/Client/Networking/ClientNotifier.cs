@@ -20,7 +20,7 @@ namespace Kompas.Client.Networking
 
 		private void Send(Packet packet)
 		{
-			//if (packet != null) GD.Print($"Sending packet {packet}");
+			if (packet != null) GD.Print($"Sending packet {packet}");
 			networkController.SendPacket(packet);
 		}
 
