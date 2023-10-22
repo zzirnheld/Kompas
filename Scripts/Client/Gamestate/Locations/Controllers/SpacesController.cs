@@ -30,7 +30,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private void Dupe(SpaceController space)
 		{
-			spaces[space.X, space.Y] = space;
+			spaces[space.X, space.Y] = space; //TODO add handlers to the spaces being duplicated
 			InsertSpace(space, true, false, false);
 			InsertSpace(space, false, true, false);
 			InsertSpace(space, true, true, false);

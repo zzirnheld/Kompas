@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c312rohu62amq"]
+[gd_scene load_steps=7 format=3 uid="uid://c312rohu62amq"]
 
 [ext_resource type="PackedScene" uid="uid://dq50o17h7ceai" path="res://Scenes/Prefabs/Card Model.tscn" id="1_e7upk"]
 [ext_resource type="Script" path="res://Scripts/Client/Cards/Controllers/ClientCardController.cs" id="1_rjf3w"]
@@ -6,6 +6,10 @@
 [ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card/Card Image Material.tres" id="4_y5bi1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yn842"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("2_n2png")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7jo0"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_n2png")
 
@@ -19,7 +23,16 @@ MouseController = NodePath("Node3D/Mouse Controller")
 [node name="Actual Card Model" parent="Node3D" index="0"]
 CardImageMaterial = SubResource("StandardMaterial3D_yn842")
 
+[node name="ZO Char Baseplate Image" parent="Node3D/Actual Card Model/Zoomed Out/Char" index="1"]
+material_override = SubResource("StandardMaterial3D_g7jo0")
+
+[node name="ZO NonChar Baseplate Image" parent="Node3D/Actual Card Model/Zoomed Out/NonChar" index="1"]
+material_override = SubResource("StandardMaterial3D_g7jo0")
+
 [node name="ZI WT All Baseplate Image" parent="Node3D/Actual Card Model/Zoomed In With Text/Node3D3" index="10"]
 material_override = ExtResource("4_y5bi1")
+
+[node name="ZI NT All Baseplate Image" parent="Node3D/Actual Card Model/Zoomed In No Text/All" index="7"]
+material_override = SubResource("StandardMaterial3D_g7jo0")
 
 [editable path="Node3D"]

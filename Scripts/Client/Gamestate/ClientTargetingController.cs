@@ -33,7 +33,7 @@ namespace Kompas.Client.Gamestate
 		{
 			//TODO make client notifier a static helper class
 			GD.Print($"Selecting {space}");
-			FocusedCard.ClientGame.ClientGameController.Notifier.RequestPlay(FocusedCard, space.x, space.y);
+			FocusedCard?.ClientGame.ClientGameController.Notifier.RequestPlay(FocusedCard, space.x, space.y);
 		}
 
 		public void Select(ClientGameCard card)

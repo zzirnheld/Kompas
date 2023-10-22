@@ -15,6 +15,6 @@ namespace Kompas.Client.Networking
 {
 	public class PutCardsBackClientPacket : PutCardsBackPacket, IClientOrderPacket
 	{
-		public void Execute(ClientGame clientGame) => throw new System.NotImplementedException(); //Maybe this isn't necessary anymore?
+		public void Execute(ClientGame clientGame) { } // => throw new System.NotImplementedException(); //Maybe this isn't necessary anymore?
 	}
 }
