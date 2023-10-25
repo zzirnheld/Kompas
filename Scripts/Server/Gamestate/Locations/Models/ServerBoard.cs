@@ -26,7 +26,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			this.serverGame = serverGame;
 		}
 
-		public void Play(ServerGameCard toPlay, Space to, ServerPlayer controller, IStackable stackSrc = null)
+		public override void Play(GameCard toPlay, Space to, IPlayer controller, IStackable stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: serverGame, CardBefore: toPlay, stackableCause: stackSrc, player: controller, space: to);
 			bool wasKnown = toPlay.KnownToEnemy;

@@ -90,6 +90,7 @@ namespace Kompas.Client.Gamestate.Controllers
 				return;
 			}
 
+			card.Node.GetParent()?.RemoveChild(card.Node);
 			AddChild(card.Node);
 			card.Node.Position = CardOffset;
 			var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;

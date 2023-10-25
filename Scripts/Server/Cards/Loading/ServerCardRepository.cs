@@ -49,7 +49,9 @@ namespace Kompas.Server.Cards.Loading
 		public ServerGameCard InstantiateServerCard(string name, ServerGame game, ServerPlayer owner, int id, bool avatar = false)
 		{
 			string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
-			return InstantiateGameCard(json, (cardInfo, effects, ctrl) => new ServerGameCard(cardInfo, id, owner, game, ctrl, effects, avatar));
+			var ret = InstantiateGameCard(json, (cardInfo, effects, ctrl) => new ServerGameCard(cardInfo, id, owner, game, ctrl, effects, avatar));
+			game.AddCard(ret);
+			return ret;
 		}
 	}
 }

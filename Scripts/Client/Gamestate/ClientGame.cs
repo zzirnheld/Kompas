@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
@@ -144,7 +145,14 @@ namespace Kompas.Client.Gamestate
 
 		public void AddCard(ClientGameCard card)
 		{
-			if (card.ID != -1) cardsByID.Add(card.ID, card);
+			if (card.ID == -1) return;
+
+			if (cardsByID.ContainsKey(card.ID))
+			{
+				GD.PushError($"Tried to add {card} # {card.ID} but the lookup already had {cardsByID[card.ID]} there!");
+			}
+
+			cardsByID.Add(card.ID, card);
 		}
 
 		//TODO to gamecontroller

@@ -81,8 +81,6 @@ namespace Kompas.Server.Gamestate
 		public int FirstTurnPlayer { get; private set; }
 		public int RoundCount { get; private set; }
 
-		public void AddCard(ServerGameCard card) => cardsByID.Add(card.ID, card);
-
 		private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo)
 		{
 			ServerGameController = gameController;
@@ -151,6 +149,7 @@ namespace Kompas.Server.Gamestate
 			avatar = serverCardRepository.InstantiateServerCard(decklist.avatarName, this, player, cardCount++) ??
 				throw new System.ArgumentException($"Failed to load avatar for card {decklist.avatarName}");
 			ServerNotifier.SetFriendlyAvatar(player, CardRepository.GetJsonFromName(decklist.avatarName), avatar.ID);
+			cardsByID[avatar.ID] = avatar;
 
 			foreach (string name in decklist.deck)
 			{
@@ -168,6 +167,14 @@ namespace Kompas.Server.Gamestate
 			ServerNotifier.DeckAccepted(player);
 
 			if (Players.All(player => player.Avatar != null)) await StartGame();
+		}
+
+		public void AddCard(ServerGameCard card)
+		{
+			if (cardsByID.ContainsKey(card.ID))
+				throw new System.InvalidOperationException($"Can't add card {card} #{card.ID} to the lookup because that's already {cardsByID[card.ID]}!");
+
+			cardsByID[card.ID] = card;
 		}
 
 		public async Task StartGame()
