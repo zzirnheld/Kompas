@@ -8,6 +8,7 @@ namespace Kompas.Client.Gamestate.Controllers
 	{
 		private const int BoardMax = 6;
 		private static readonly Vector3 CardOffset = Vector3.Up * 0.002f;
+		private static readonly Vector3 SpaceRotation = new(0f, 1.25f * Mathf.Pi, 0f);
 
 		[Export]
 		public int X { get; private set; }
@@ -61,6 +62,8 @@ namespace Kompas.Client.Gamestate.Controllers
 			ret.Position = new Vector3(xPos, Position.Y, zPos);
 			ret.CoordsDebugLabel.Text = $"{ret.X}{ret.Y}{(flipX ? "Y" : "N")}{(flipY ? "Y" : "N")}{(swapXY ? "Y" : "N")}";
 
+			ret.Rotation = SpaceRotation;
+
 			return ret;
 		}
 
@@ -89,6 +92,8 @@ namespace Kompas.Client.Gamestate.Controllers
 
 			AddChild(card.Node);
 			card.Node.Position = CardOffset;
+			var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
+			card.Node.Rotation = new Vector3(0, rotation, 0);
 		}
 	}
 }
