@@ -149,7 +149,8 @@ namespace Kompas.Client.Gamestate
 
 			if (cardsByID.ContainsKey(card.ID))
 			{
-				GD.PushError($"Tried to add {card} # {card.ID} but the lookup already had {cardsByID[card.ID]} there!");
+				//Note: It's currently sending two packets for the other person's avatar!?
+				GD.PushError($"Tried to add {card} #{card.ID} but the lookup already had {cardsByID[card.ID]} there!");
 			}
 
 			cardsByID.Add(card.ID, card);
