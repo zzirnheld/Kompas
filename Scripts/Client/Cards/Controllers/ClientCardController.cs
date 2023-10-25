@@ -26,7 +26,7 @@ namespace Kompas.Client.Cards.Controllers
 		private ClientCardView _cardView;
 		private ClientCardView CardView
 		{
-			get => CardView;
+			get => _cardView;
 			set
 			{
 				if (_cardView != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card view!");
