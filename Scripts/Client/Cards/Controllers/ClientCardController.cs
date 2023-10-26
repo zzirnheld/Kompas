@@ -18,9 +18,14 @@ namespace Kompas.Client.Cards.Controllers
 		[Export]
 		private CardMouseController MouseController { get; set; }
 
+		[Export]
+		private AnimationPlayer AnimationPlayer { get; set; }
+
 		Node3D ICardController.Node => this;
 		IGameCard ICardController.Card => Card;
 
+		private const string FocusedAnimationName = "Rotate";
+		private const string ResetAnimationName = "RESET";
 		private ClientGameController gameController;
 
 		private ClientCardView _cardView;
@@ -89,5 +94,11 @@ namespace Kompas.Client.Cards.Controllers
 		}
 
 		public void RefreshStats() => gameController.TargetingController.TopLeftCardView.Refresh();
+
+		public void ShowFocused(bool value)
+		{
+			if (value) AnimationPlayer.Play(FocusedAnimationName);
+			else AnimationPlayer.Play(ResetAnimationName);
+		}
 	}
 }

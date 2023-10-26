@@ -49,10 +49,10 @@ namespace Kompas.Client.Gamestate
 			TopLeftCardView.Show(card);
 		}
 
-		private void FocusChange(ClientGameCard old, ClientGameCard current)
+		private static void FocusChange(ClientGameCard old, ClientGameCard current)
 		{
-			//TODO: unselect card, select other.
-			//old.CardController;
+			old?.ClientCardController.ShowFocused(false);
+			current.ClientCardController.ShowFocused(true);
 		}
 	}
 }
