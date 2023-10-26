@@ -24,6 +24,7 @@ namespace Kompas.Client.Gamestate
 		{
 			base._Ready();
 			TopLeftCardView = new(TopLeftInfoDisplayer);
+			TopLeftCardView.FocusChange += (_, change) => FocusChange(change.Old, change.New);
 		}
 
 		/// <summary>
@@ -46,6 +47,12 @@ namespace Kompas.Client.Gamestate
 		{
 			//GD.Print($"Selecting {card}");
 			TopLeftCardView.Show(card);
+		}
+
+		private void FocusChange(ClientGameCard old, ClientGameCard current)
+		{
+			//TODO: unselect card, select other.
+			//old.CardController;
 		}
 	}
 }

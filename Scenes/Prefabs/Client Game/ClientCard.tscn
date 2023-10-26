@@ -1,9 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://c312rohu62amq"]
+[gd_scene load_steps=9 format=3 uid="uid://c312rohu62amq"]
 
 [ext_resource type="PackedScene" uid="uid://dq50o17h7ceai" path="res://Scenes/Prefabs/Card Model.tscn" id="1_e7upk"]
 [ext_resource type="Script" path="res://Scripts/Client/Cards/Controllers/ClientCardController.cs" id="1_rjf3w"]
 [ext_resource type="Texture2D" uid="uid://ctlgq3gf0rbta" path="res://Sprites/tarocco/I - The Magician 1.png" id="2_n2png"]
 [ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card/Card Image Material.tres" id="4_y5bi1"]
+
+[sub_resource type="Animation" id="Animation_u0val"]
+resource_name = "Rotate"
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.0871557, 0, 0, 0.996195, 0.25, 1, 0, 0, 0.0871557, 0.996195, 0.5, 1, -0.0871557, 0, 0, 0.996195, 0.75, 1, 0, 0, -0.087, 0.996)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cghhw"]
+_data = {
+"Rotate": SubResource("Animation_u0val")
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yn842"]
 resource_local_to_scene = true
@@ -17,6 +33,11 @@ albedo_texture = ExtResource("2_n2png")
 script = ExtResource("1_rjf3w")
 InfoDisplayer = NodePath("Node3D/Actual Card Model")
 MouseController = NodePath("Node3D/Mouse Controller")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cghhw")
+}
 
 [node name="Node3D" parent="." instance=ExtResource("1_e7upk")]
 

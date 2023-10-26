@@ -1,3 +1,4 @@
+using System;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
 
@@ -18,6 +19,14 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		public CardType FocusedCard { get; private set; }
 
+		public class CardChange
+		{
+			public CardType Old { get; init; }
+			public CardType New { get; init; }
+		}
+
+		public event EventHandler<CardChange> FocusChange;
+
 		protected FocusableCardViewBase(DisplayerType infoDisplayer)
 			: base(infoDisplayer)
 		{ }
@@ -29,7 +38,9 @@ namespace Kompas.Cards.Views
 		/// <param name="card"></param>
 		protected virtual void Focus(CardType card)
 		{
+			var oldFocus = FocusedCard;
 			FocusedCard = card;
+			FocusChange?.Invoke(this, new CardChange() { Old = oldFocus, New = card });
 			Show(card);
 		}
 
