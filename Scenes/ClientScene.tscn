@@ -40,7 +40,7 @@ BoardController = NodePath("../3D/Board")
 
 [node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("TopLeftInfoDisplayer")]
 script = ExtResource("2_cdbal")
-TopLeftInfoDisplayer = NodePath("../../UI/Control/Top Left/MarginContainer/Card Info VBox/Card Info Dimensions")
+TopLeftInfoDisplayer = NodePath("../../UI/Control/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Card Info Dimensions")
 
 [node name="3D" type="Node3D" parent="."]
 
@@ -206,13 +206,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Top Left" type="Control" parent="UI/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control"]
 layout_mode = 1
-anchor_right = 0.3
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left Pane" type="Control" parent="UI/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control/Top Left"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/HBoxContainer/Left Pane"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -226,33 +233,56 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="Card Info VBox" type="VBoxContainer" parent="UI/Control/Top Left/MarginContainer"]
+[node name="Card Info VBox" type="VBoxContainer" parent="UI/Control/HBoxContainer/Left Pane/MarginContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 5.86
 
-[node name="Card Info Dimensions" parent="UI/Control/Top Left/MarginContainer/Card Info VBox" instance=ExtResource("16_p3apf")]
+[node name="Card Info Dimensions" parent="UI/Control/HBoxContainer/Left Pane/MarginContainer/Card Info VBox" instance=ExtResource("16_p3apf")]
 layout_mode = 2
 
-[node name="Reminder Texts" type="TextureRect" parent="UI/Control/Top Left/MarginContainer/Card Info VBox"]
+[node name="Reminder Texts" type="TextureRect" parent="UI/Control/HBoxContainer/Left Pane/MarginContainer/Card Info VBox"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("5_i20x8")
 
-[node name="End Turn Button" type="Button" parent="UI/Control" node_paths=PackedStringArray("GameController")]
+[node name="Main Window Placeholder" type="Control" parent="UI/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+mouse_filter = 2
+
+[node name="Right Pane" type="Control" parent="UI/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Right Pane Background" type="TextureRect" parent="UI/Control/HBoxContainer/Right Pane"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -243.0
-offset_bottom = 36.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/HBoxContainer/Right Pane"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="End Turn Button" type="Button" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" node_paths=PackedStringArray("GameController")]
+layout_mode = 2
 theme = ExtResource("6_5db68")
 text = "Yeah I'm done for now"
 script = ExtResource("19_qtc5n")
-GameController = NodePath("../../../Game Controller")
+GameController = NodePath("../../../../../../Game Controller")
 
 [node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("GameController", "ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -683,6 +713,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[connection signal="pressed" from="UI/Control/End Turn Button" to="UI/Control/End Turn Button" method="EndTurn"]
+[connection signal="pressed" from="UI/Control/HBoxContainer/Right Pane/VBoxContainer/End Turn Button" to="UI/Control/HBoxContainer/Right Pane/VBoxContainer/End Turn Button" method="EndTurn"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]
