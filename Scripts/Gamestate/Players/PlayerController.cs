@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations.Controllers;
 
 namespace Kompas.Gamestate.Players
@@ -17,5 +18,9 @@ namespace Kompas.Gamestate.Players
 		[Export]
 
 		public AnnihilationController AnnihilationController { get; private set; }
+
+		public virtual IGameCard Avatar { set { } }
+		public virtual int Pips { set { } }
+		public virtual int PipsNextTurn { set { } }
 	}
 }

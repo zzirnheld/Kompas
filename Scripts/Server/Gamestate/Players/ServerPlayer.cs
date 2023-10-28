@@ -29,6 +29,7 @@ namespace Kompas.Server.Gamestate.Players
 		public IPlayer Enemy { get; private set; }
 
 		public int Pips { get; set; }
+		public int PipsNextTurn { set { } }
 
 		private GameCard _avatar;
 		public GameCard Avatar

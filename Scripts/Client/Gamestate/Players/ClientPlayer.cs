@@ -27,26 +27,48 @@ namespace Kompas.Client.Gamestate.Players
 		public Discard Discard { get; private set; }
 		public Annihilation Annihilation { get; private set; }
 
+		private PlayerController PlayerController { get; }
+
 		public int Index { get; }
-		public GameCard Avatar { get; set; }
+		private GameCard _avatar;
+		public GameCard Avatar
+		{
+			get => _avatar;
+			set
+			{
+				_avatar = value;
+				PlayerController.Avatar = value;
+			}
+		}
 
 		public bool Friendly => Index == 0;
 
-		public int Pips { get; set; } //Replace auto-property with value or possibly a hit on the controller/model?
+		private int _pips;
+		public int Pips
+		{
+			get => _pips;
+			set
+			{
+				_pips = value;
+				PlayerController.Pips = value;
+			}
+		}
+		public int PipsNextTurn { set => PlayerController.PipsNextTurn = value; }
 
 		/// <summary>
 		/// Private constructor to enforce factory to initialize game locations without leaking this
 		/// </summary>
-		private ClientPlayer(ClientGame game, int index, GetNetworker getNetworker)
+		private ClientPlayer(ClientGame game, int index, PlayerController playerController, GetNetworker getNetworker)
 		{
 			this.game = game;
 			Index = index;
+			PlayerController = playerController;
 			this.getNetworker = getNetworker;
 		}
 
 		public static ClientPlayer Create(ClientGame game, int index, PlayerController playerController, GetNetworker getNetworker)
 		{
-			var ret = new ClientPlayer(game, index, getNetworker);
+			var ret = new ClientPlayer(game, index, playerController, getNetworker);
 
 			ret.Deck = new ClientDeck(ret, playerController.DeckController);
 			ret.Hand = new ClientHand(ret, playerController.HandController);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
@@ -60,6 +61,8 @@ namespace Kompas.Cards.Models
 
 		public IPlayer ControllingPlayer { get; }
 		public Space SubjectivePosition => ControllingPlayer.SubjectiveCoords(Position);
+
+		public Texture2D CardFaceImage { get; }
 	}
 
 	public static class GameCardExtensions

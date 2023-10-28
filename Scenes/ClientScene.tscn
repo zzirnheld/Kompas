@@ -120,8 +120,9 @@ Y = 3
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -3.62, 0, 0)
 Y = 3
 
-[node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
+[node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("PlayerInfo", "HandController", "DiscardController", "DeckController", "AnnihilationController")]
 script = ExtResource("7_ju5wt")
+PlayerInfo = NodePath("../../UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info")
 HandController = NodePath("Friendly Hand")
 DiscardController = NodePath("Friendly Discard")
 DeckController = NodePath("Friendly Deck")
@@ -155,8 +156,9 @@ script = ExtResource("11_iiblv")
 HorizontalGrowDirection = -1
 VerticalGrowDirection = 1
 
-[node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
+[node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("PlayerInfo", "HandController", "DiscardController", "DeckController", "AnnihilationController")]
 script = ExtResource("7_ju5wt")
+PlayerInfo = NodePath("../../UI/Control/HBoxContainer/Right Pane/VBoxContainer/Enemy Player Info")
 HandController = NodePath("Enemy Hand")
 DiscardController = NodePath("Enemy Discard")
 DeckController = NodePath("Enemy Deck")
