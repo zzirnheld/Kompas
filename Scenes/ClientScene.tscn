@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=29 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -24,7 +24,9 @@
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/SplayOutController.cs" id="11_iiblv"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
+[ext_resource type="PackedScene" uid="uid://brjjpkqpcrp4p" path="res://Scenes/Prefabs/Client Game/Player Info.tscn" id="18_q5fki"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
+[ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -274,12 +276,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Enemy Player Info" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" instance=ExtResource("18_q5fki")]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
 [node name="End Turn Button" type="Button" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" node_paths=PackedStringArray("GameController")]
 layout_mode = 2
 theme = ExtResource("6_5db68")
-text = "Yeah I'm done for now"
+text = "End Turn"
 script = ExtResource("19_qtc5n")
 GameController = NodePath("../../../../../../Game Controller")
+
+[node name="Friendly Player Info" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" instance=ExtResource("18_q5fki")]
+layout_mode = 2
+
+[node name="Avatar Image" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info/HBoxContainer" index="0"]
+texture = ExtResource("20_whe2q")
+
+[node name="Enemy Username Label" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info/HBoxContainer/VBoxContainer" index="0"]
+text = "You"
 
 [node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("GameController", "ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
 visible = false
@@ -716,3 +735,6 @@ offset_bottom = 40.0
 [connection signal="pressed" from="UI/Control/HBoxContainer/Right Pane/VBoxContainer/End Turn Button" to="UI/Control/HBoxContainer/Right Pane/VBoxContainer/End Turn Button" method="EndTurn"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]
+
+[editable path="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Enemy Player Info"]
+[editable path="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info"]
