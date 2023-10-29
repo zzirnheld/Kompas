@@ -33,10 +33,11 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "TargetingController", "PlayerControllers", "BoardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "TargetingController", "CurrentStateController", "PlayerControllers", "BoardController")]
 script = ExtResource("1_6rnfv")
 GameStartController = NodePath("../UI/Game Start")
 TargetingController = NodePath("Targeting Controller")
+CurrentStateController = NodePath("../UI/Control/HBoxContainer/Right Pane")
 CardPrefab = ExtResource("2_q0mge")
 PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 BoardController = NodePath("../3D/Board")

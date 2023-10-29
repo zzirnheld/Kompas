@@ -5,6 +5,23 @@
 [ext_resource type="Texture2D" uid="uid://ctlgq3gf0rbta" path="res://Sprites/tarocco/I - The Magician 1.png" id="2_n2png"]
 [ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card/Card Image Material.tres" id="4_y5bi1"]
 
+[sub_resource type="Animation" id="Animation_ot7ck"]
+resource_name = "RESET"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+
 [sub_resource type="Animation" id="Animation_u0val"]
 resource_name = "Rotate"
 length = 2.0
@@ -23,23 +40,6 @@ tracks/1/path = NodePath("Node3D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.1, 0)
-
-[sub_resource type="Animation" id="Animation_ot7ck"]
-resource_name = "RESET"
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cghhw"]
 _data = {
@@ -67,7 +67,6 @@ libraries = {
 }
 
 [node name="Node3D" parent="." instance=ExtResource("1_e7upk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Actual Card Model" parent="Node3D" index="0"]
 CardImageMaterial = SubResource("StandardMaterial3D_yn842")
