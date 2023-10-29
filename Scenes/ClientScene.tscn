@@ -328,7 +328,6 @@ texture = ExtResource("20_whe2q")
 text = "You"
 
 [node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("GameController", "ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

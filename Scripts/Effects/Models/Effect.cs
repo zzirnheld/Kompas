@@ -87,7 +87,8 @@ namespace Kompas.Effects.Models
 		public void ResetForTurn(IPlayer turnPlayer)
 		{
 			TimesUsedThisTurn = 0;
-			if (turnPlayer == Card.ControllingPlayer) TimesUsedThisRound = 0;
+			//TODO card is null and this is being called
+			if (turnPlayer == Card?.ControllingPlayer) TimesUsedThisRound = 0;
 		}
 
 		public void Reset()
