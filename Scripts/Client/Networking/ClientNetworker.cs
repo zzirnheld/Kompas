@@ -44,13 +44,13 @@ namespace Kompas.Client.Networking
 			return tcpClient;
 		}
 
-		public override void Tick()
+		public override async Task Tick()
 		{
-			base.Tick();
+			await base.Tick();
 			if (connecting) return;
-			if (packets.Count != 0) ProcessPacket(packets.Dequeue());
+			if (packets.Count == 0) return;
 
-			//TODO: if !tcpClient.connected
+			await ProcessPacket(packets.Dequeue());
 		}
 
 		private static readonly Dictionary<string, System.Type> jsonTypes = new()

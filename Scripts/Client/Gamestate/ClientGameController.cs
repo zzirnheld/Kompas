@@ -1,4 +1,5 @@
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using Godot;
 using Kompas.Client.Cards.Loading;
 using Kompas.Client.Networking;
@@ -50,10 +51,13 @@ namespace Kompas.Client.Gamestate
 		private void TurnStartOperations(IPlayer turnPlayer)
 			=> CurrentStateController.ChangeTurn(turnPlayer.Friendly);
 
-		public override void _Process(double delta)
+		//Remember, async voids don't get awaited.
+		//This means that Process will get called again before this call completes,
+		//if and only if networker.Tick returns an incomplete Task (i.e. calls something else)
+		public override async void _Process(double delta)
 		{
 			base._Process(delta);
-			Networker?.Tick();
+			if (Networker != null) await Networker.Tick();
 		}
 
 		public void SuccessfullyConnected(TcpClient tcpClient)

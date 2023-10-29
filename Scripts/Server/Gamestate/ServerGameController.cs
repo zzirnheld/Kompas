@@ -30,12 +30,15 @@ namespace Kompas.Server.Gamestate
 			ServerGame.SetPlayers(players);
 		}
 
-		public override void _Process(double delta)
+		//Remember, async voids don't get awaited.
+		//This means that Process will get called again before this call completes,
+		//if and only if networker.Tick returns an incomplete Task (i.e. calls something else)
+		public override async void _Process(double delta)
 		{
 			base._Process(delta);
 
 			if (Networkers == null) return;
-			foreach (var networker in Networkers) networker.Tick();
+			foreach (var networker in Networkers) await networker.Tick();
 		}
 	}
 }

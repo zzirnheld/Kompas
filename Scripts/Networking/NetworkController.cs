@@ -31,15 +31,17 @@ namespace Kompas.Networking
 
 		public abstract Task ProcessPacket((string command, string json) packetInfo);
 
-		public virtual void Tick()
+		public virtual Task Tick()
 		{
-			if (tcpClient == null || !tcpClient.Connected) return;
+			if (tcpClient == null || !tcpClient.Connected) return Task.CompletedTask;
 			NetworkStream networkStream = tcpClient.GetStream();
 			//if there's nothing to be read, return
-			if (networkStream == null || !networkStream.DataAvailable) return;
+			if (networkStream == null || !networkStream.DataAvailable) return Task.CompletedTask;
 
 			if (awaitingInt) ReadInt(networkStream);
 			else ReadPacket(networkStream);
+
+			return Task.CompletedTask;
 		}
 
 		#region serialization
