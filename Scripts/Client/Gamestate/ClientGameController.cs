@@ -1,17 +1,16 @@
 using System.Net.Sockets;
-using System.Threading.Tasks;
 using Godot;
 using Kompas.Client.Cards.Loading;
-using Kompas.Client.Cards.Views;
 using Kompas.Client.Networking;
+using Kompas.Client.UI;
 using Kompas.Client.UI.GameStart;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Client.Gamestate
 {
 	public partial class ClientGameController : GameController
 	{
-		//TODO
 		public ClientCardRepository CardRepository { get; private set; }
 
 		[Export]
@@ -21,15 +20,13 @@ namespace Kompas.Client.Gamestate
 		public ClientTargetingController TargetingController { get; private set; }
 
 		[Export]
+		public CurrentStateController CurrentStateController { get; private set; }
+
+		[Export]
 		private PackedScene CardPrefab { get; set; }
 
 		private ClientGame game;
 		public override IGame Game => game;
-
-		//TODO: aggressive nullable warning? encourage user to use null propagation?
-		/// <summary>
-		/// Singleton? which actually sends and receives communication.
-
 
 		//TODO: aggressive nullable warning? encourage user to use null propagation?
 		/// <summary>
@@ -47,7 +44,11 @@ namespace Kompas.Client.Gamestate
 			base._Ready();
 			game = ClientGame.Create(this);
 			CardRepository = new ClientCardRepository(CardPrefab);
+			game.TurnChanged += (_, turnPlayer) => TurnStartOperations(turnPlayer);
 		}
+
+		private void TurnStartOperations(IPlayer turnPlayer)
+			=> CurrentStateController.ChangeTurn(turnPlayer.Friendly);
 
 		public override void _Process(double delta)
 		{

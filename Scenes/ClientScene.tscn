@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=30 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/SplayOutController.cs" id="11_iiblv"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
+[ext_resource type="Script" path="res://Scripts/Client/UI/CurrentStateController.cs" id="18_d6k15"]
 [ext_resource type="PackedScene" uid="uid://brjjpkqpcrp4p" path="res://Scenes/Prefabs/Client Game/Player Info.tscn" id="18_q5fki"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
@@ -256,9 +257,12 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 mouse_filter = 2
 
-[node name="Right Pane" type="Control" parent="UI/Control/HBoxContainer"]
+[node name="Right Pane" type="Control" parent="UI/Control/HBoxContainer" node_paths=PackedStringArray("FriendlyTurnParent", "EnemyTurnParent")]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("18_d6k15")
+FriendlyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/End Turn Button")
+EnemyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/Enemy Turn Label")
 
 [node name="Right Pane Background" type="TextureRect" parent="UI/Control/HBoxContainer/Right Pane"]
 self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
@@ -284,14 +288,35 @@ layout_mode = 2
 [node name="Spacer" type="Control" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 5.0
+size_flags_stretch_ratio = 4.0
 
-[node name="End Turn Button" type="Button" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" node_paths=PackedStringArray("GameController")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Enemy Turn Label" type="Label" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("6_5db68")
-text = "End Turn"
+theme_override_font_sizes/font_size = 24
+text = "Enemy Turn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="End Turn Button" type="Button" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("6_5db68")
+text = "End Your Turn"
 script = ExtResource("19_qtc5n")
-GameController = NodePath("../../../../../../Game Controller")
+GameController = NodePath("../../../../../../../../Game Controller")
 
 [node name="Friendly Player Info" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" instance=ExtResource("18_q5fki")]
 layout_mode = 2
@@ -734,7 +759,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[connection signal="pressed" from="UI/Control/HBoxContainer/Right Pane/VBoxContainer/End Turn Button" to="UI/Control/HBoxContainer/Right Pane/VBoxContainer/End Turn Button" method="EndTurn"]
+[connection signal="pressed" from="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" to="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" method="EndTurn"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]
 

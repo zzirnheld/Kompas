@@ -27,7 +27,7 @@ namespace Kompas.Client.Gamestate.Players
 		public Discard Discard { get; private set; }
 		public Annihilation Annihilation { get; private set; }
 
-		private PlayerController PlayerController { get; }
+		public PlayerController PlayerController { get; }
 
 		public int Index { get; }
 		private GameCard _avatar;

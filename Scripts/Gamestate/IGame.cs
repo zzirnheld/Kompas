@@ -8,6 +8,7 @@ using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
 using Kompas.Gamestate.Locations.Models;
+using System;
 
 namespace Kompas.Gamestate
 {
@@ -95,6 +96,8 @@ namespace Kompas.Gamestate
 
 		//game mechanics
 		public static bool IsHiddenLocation(Location l) => HiddenLocations.Contains(l);
+		
+		public event EventHandler<IPlayer> TurnChanged;
 	}
 
 	public interface IStackController

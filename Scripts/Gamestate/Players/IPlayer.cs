@@ -38,5 +38,7 @@ namespace Kompas.Gamestate.Players
 		public abstract Annihilation Annihilation { get; }
 
 		public Space SubjectiveCoords(Space space) => Index == 0 ? space : space.Inverse;
+
+		public PlayerController PlayerController { get; }
 	}
 }

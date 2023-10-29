@@ -56,37 +56,12 @@ namespace Kompas.Client.Gamestate
 		//search
 		public ClientSearch search;
 
-		//TODO move all of this to the GameController? maybe it should stay here and/or be moved out to a ClientGameTargetingController or something. aggressively single-responsibility
-		/*
-		//targeting
-		public int targetsWanted;
-		private GameCard[] currentPotentialTargets;
-		public GameCard[] CurrentPotentialTargets
-		{
-			get => currentPotentialTargets;
-			private set
-			{
-				currentPotentialTargets = value;
-				ShowValidCardTargets();
-			}
-		}
-
-		private (int, int)[] currentPotentialSpaces;
-		public (int, int)[] CurrentPotentialSpaces
-		{
-			get => currentPotentialSpaces;
-			set
-			{
-				currentPotentialSpaces = value;
-				if (value != null) uiController.boardUIController.ShowSpaceTargets(space => value.Contains(space));
-				else uiController.boardUIController.ShowSpaceTargets(_ => false);
-			}
-		}*/
-
 		public bool canZoom = false;
 
 		//dirty card set
 		private readonly HashSet<GameCard> dirtyCardList = new();
+
+		public event EventHandler<IPlayer> TurnChanged;
 
 		private int leyload;
 		public int Leyload
@@ -192,28 +167,21 @@ namespace Kompas.Client.Gamestate
 		public void SetFirstTurnPlayer(int playerIndex)
 		{
 			FirstTurnPlayer = TurnPlayerIndex = playerIndex;
-			//TODO move to GameController:
-			//uiController.ChangeTurn(playerIndex);
-			//uiController.connectionUIController.Hide();
 			RoundCount = 1;
 			TurnCount = 1;
 			canZoom = true;
-			//TODO move to GameController:
-			//force updating of pips to show correct messages.
-			//there's probably a better way to do this.
-			//foreach (var player in Players) player.Pips = player.Pips;
 		}
 
 		public void SetTurn(int index)
 		{
 			TurnPlayerIndex = index;
 			foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
-			//TODO move to GameController:
-			//uiController.ChangeTurn(TurnPlayerIndex);
 			if (TurnPlayerIndex == FirstTurnPlayer) RoundCount++;
 			TurnCount++;
-			//TODO move to GameController:
-			//foreach (var player in Players) player.Pips = player.Pips;
+
+			TurnPlayer.PipsNextTurn = Leyload + 2;
+			TurnPlayer.Enemy.PipsNextTurn = Leyload + 1;
+			TurnChanged?.Invoke(this, TurnPlayer);
 		}
 
 		public GameCard LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;

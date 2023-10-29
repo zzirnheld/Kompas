@@ -1,9 +1,7 @@
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
-using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
@@ -11,7 +9,6 @@ using Kompas.Gamestate.Players;
 using Kompas.Networking;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate.Extensions;
-using Kompas.Server.Gamestate.Locations.Controllers;
 using Kompas.Server.Gamestate.Locations.Models;
 using Kompas.Server.Networking;
 
@@ -55,17 +52,19 @@ namespace Kompas.Server.Gamestate.Players
 
 		public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
 
+		public PlayerController PlayerController { get; }
 
-		private ServerPlayer(ServerGame game, int index)
+		private ServerPlayer(ServerGame game, int index, PlayerController playerController)
 		{
 			ServerGame = game;
 			Index = index;
+			PlayerController = playerController;
 		}
 
 		//Factory methods, so we can initialize the location models with the player
 		private static ServerPlayer Create(ServerGame game, PlayerController controller, int index, GetNetworker getNetworker)
 		{
-			ServerPlayer ret = new(game, index);
+			ServerPlayer ret = new(game, index, controller);
 
 			ret.Deck = new ServerDeck(ret, controller.DeckController, game);
 			ret.Discard = new ServerDiscard(ret, controller.DiscardController, game);

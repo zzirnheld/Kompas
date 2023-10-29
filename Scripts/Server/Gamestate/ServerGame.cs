@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -80,6 +81,9 @@ namespace Kompas.Server.Gamestate
 
 		public int FirstTurnPlayer { get; private set; }
 		public int RoundCount { get; private set; }
+
+
+		public event EventHandler<IPlayer> TurnChanged;
 
 		private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo)
 		{
@@ -220,6 +224,8 @@ namespace Kompas.Server.Gamestate
 
 			//do hand size
 			StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
+
+			TurnChanged?.Invoke(this, TurnPlayer);
 
 			//trigger turn start effects
 			var context = new TriggeringEventContext(game: this, player: TurnPlayer);
