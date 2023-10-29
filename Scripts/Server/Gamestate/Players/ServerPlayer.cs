@@ -25,7 +25,17 @@ namespace Kompas.Server.Gamestate.Players
 
 		public IPlayer Enemy { get; private set; }
 
-		public int Pips { get; set; }
+		private int _pips;
+		public int Pips
+		{
+			get => _pips;
+			set
+			{
+				_pips = value;
+				PlayerController.Pips = value;
+				ServerNotifier.NotifySetPips(this, value);
+			}
+		}
 		public int PipsNextTurn { set { } }
 
 		private GameCard _avatar;
