@@ -11,6 +11,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private const int FrustumRight = 4;
 		private const int FrustumBottom = 5;
 
+		private const float CardOffset = 1.125f;
+		private const float HandWidthProportion = 5f / 9f;
+
 		[Export]
 		private ClientCameraController Camera { get; set; }
 		[Export]
@@ -22,6 +25,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		public override void _Ready() => Recenter();
 
+		private float handWidth;
+
 		public void Recenter()
 		{
 			if (Camera == null) return;
@@ -32,12 +37,14 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			NodeParent.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, Camera.CenterOfCamera) ?? Vector3.Zero;
 			LeftBound.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, frustums[FrustumLeft]) ?? Vector3.Zero;
 			RightBound.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, frustums[FrustumRight]) ?? Vector3.Zero;
-		}
 
-		private const float CardOffset = 1.125f;
+			handWidth = (LeftBound.GlobalPosition - RightBound.GlobalPosition).Length();
+		}
 
 		protected override void SpreadAllCards()
 		{
+			NodeParent.Scale = (handWidth * HandWidthProportion) / (CardOffset * HandModel.HandSize) * Vector3.One;
+			GD.Print($"{handWidth} * {HandWidthProportion} / {CardOffset} * {HandModel.HandSize} = {NodeParent.Scale.X}");
 			GD.Print($"Spreading {HandModel.HandSize} = {HandModel.Cards.Count()} cards: {string.Join(", ", HandModel.Cards.Select(c => c.CardName))}");
 			for (int i = 0; i < HandModel.HandSize; i++)
 			{
