@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Godot;
 using Kompas.Client.UI;
@@ -13,6 +14,11 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private const float CardOffset = 1.125f;
 		private const float HandWidthProportion = 5f / 9f;
+		/// <summary>
+        /// A minimum number of cards we must have in hand to start scaling according to that number of cards in hand.
+        /// We don't want to blow up a single card to cover the entire middle of the screen, for example.
+        /// </summary>
+		private const int MinHandCountForScale = 5;
 
 		[Export]
 		private ClientCameraController Camera { get; set; }
@@ -43,7 +49,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		protected override void SpreadAllCards()
 		{
-			NodeParent.Scale = (handWidth * HandWidthProportion) / (CardOffset * HandModel.HandSize) * Vector3.One;
+			float scale = (handWidth * HandWidthProportion) / (CardOffset * Math.Max(HandModel.HandSize, MinHandCountForScale));
+			NodeParent.Scale = scale * Vector3.One;
 			GD.Print($"{handWidth} * {HandWidthProportion} / {CardOffset} * {HandModel.HandSize} = {NodeParent.Scale.X}");
 			GD.Print($"Spreading {HandModel.HandSize} = {HandModel.Cards.Count()} cards: {string.Join(", ", HandModel.Cards.Select(c => c.CardName))}");
 			for (int i = 0; i < HandModel.HandSize; i++)
