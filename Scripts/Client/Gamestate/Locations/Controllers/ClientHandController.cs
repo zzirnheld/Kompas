@@ -37,7 +37,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			if (Camera == null) return;
 
-			var frustums = Camera.GetFrustum();
+			var frustums = Camera.Camera.GetFrustum();
 			Plane distanceFromCamera = Camera.AwayFromCamera;
 
 			NodeParent.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, Camera.CenterOfCamera) ?? Vector3.Zero;
