@@ -54,14 +54,19 @@ TopLeftInfoDisplayer = NodePath("../../UI/Control/HBoxContainer/Left Pane/Margin
 [node name="Engine Stuff" type="Node3D" parent="3D"]
 
 [node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.55, 0)
 script = ExtResource("4_w3f76")
 
 [node name="Friendly Hand Parent Object" type="Node3D" parent="3D/Engine Stuff/Camera3D"]
-transform = Transform3D(0.05, 0, 0, 0, -2.18557e-09, -0.05, 0, 0.05, -2.18557e-09, 0.196979, -0.2, -0.25)
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
 
 [node name="Debug positioning cube" type="MeshInstance3D" parent="3D/Engine Stuff/Camera3D/Friendly Hand Parent Object"]
+visible = false
 mesh = SubResource("BoxMesh_ols17")
+
+[node name="Left Bound" type="Node3D" parent="3D/Engine Stuff/Camera3D/Friendly Hand Parent Object"]
+
+[node name="Right Bound" type="Node3D" parent="3D/Engine Stuff/Camera3D/Friendly Hand Parent Object"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)

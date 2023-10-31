@@ -21,6 +21,13 @@ tracks/1/path = NodePath("Node3D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node3D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.5, 0.5, 0.5)
 
 [sub_resource type="Animation" id="Animation_u0val"]
 resource_name = "Rotate"
@@ -40,6 +47,13 @@ tracks/1/path = NodePath("Node3D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.1, 0)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node3D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.75, 0.75, 0.75)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cghhw"]
 _data = {

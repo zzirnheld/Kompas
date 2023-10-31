@@ -1252,6 +1252,7 @@ height = 0.1
 radius = 1.0
 
 [node name="Card Model Controller" type="Node3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("ZoomedOut", "ZoomedIn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
@@ -1300,32 +1301,30 @@ mesh = SubResource("ArrayMesh_hlwaj")
 skeleton = NodePath("")
 
 [node name="ZO N Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.810171)
-pixel_size = 0.0025
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.809801)
 modulate = Color(0, 0, 0, 1)
-text = "69"
+text = "8"
 font = ExtResource("3_hjjow")
-font_size = 100
+font_size = 72
 outline_size = 0
 width = 300.0
 
 [node name="ZO E Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.8, 0.03, -0.01)
-pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
-text = "69"
+text = "8
+"
 font = ExtResource("3_hjjow")
-font_size = 100
+font_size = 72
 outline_size = 0
 width = 300.0
 
 [node name="ZO W Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.8, 0.03, -0.01)
-pixel_size = 0.0025
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.8, 0.03, 0.0014373)
 modulate = Color(0, 0, 0, 1)
-text = "69"
+text = "8"
 font = ExtResource("3_hjjow")
-font_size = 100
+font_size = 72
 outline_size = 0
 width = 300.0
 
@@ -1361,12 +1360,11 @@ mesh = SubResource("ArrayMesh_j5726")
 skeleton = NodePath("")
 
 [node name="ZO Cost Label" type="Label3D" parent="Actual Card Model/Zoomed Out/All"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.77)
-pixel_size = 0.0025
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.773099)
 modulate = Color(0, 0, 0, 1)
-text = "69"
+text = "8"
 font = ExtResource("3_hjjow")
-font_size = 100
+font_size = 72
 outline_size = 0
 width = 300.0
 

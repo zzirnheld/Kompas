@@ -8,5 +8,7 @@ namespace Kompas.Gamestate.Locations.Controllers
 	{
 		//TODO: replace with a "move" and a "play" function, to eventually add animations distinct to each
 		public abstract void Place(ICardController card);
+
+		public virtual void Remove(ICardController card) { }
 	}
 }

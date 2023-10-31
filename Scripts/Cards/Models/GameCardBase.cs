@@ -89,6 +89,10 @@ namespace Kompas.Cards.Models
 			=> card.Location == Location.Board
 			&& card.Position.IsAdjacentTo(space);
 
+		public static bool IsAdjacentTo(this IGameCard card, Predicate<IGameCard> predicate)
+			=> card.Location == Location.Board
+			&& card.Game.Board.CardsAdjacentTo(card.Position).Any(c => predicate(c));
+
 		/// <summary>
 		/// Whether <paramref name="space"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
 		/// </summary>

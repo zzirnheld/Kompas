@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/SpaceController.cs" id="1_1drmd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w8788"]
-size = Vector3(1, 0.1, 1)
+size = Vector3(1, 0.01, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_solk5"]
 

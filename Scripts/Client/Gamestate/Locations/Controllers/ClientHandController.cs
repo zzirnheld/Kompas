@@ -7,27 +7,34 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 {
 	public partial class ClientHandController : HandController
 	{
+		private const int FrustumLeft = 2;
+		private const int FrustumRight = 4;
+		private const int FrustumBottom = 5;
+
 		[Export]
 		private ClientCameraController Camera { get; set; }
 		[Export]
 		private Node3D NodeParent { get; set; }
-
-		private const int FrustumBottom = 5;
+		[Export]
+		private Node3D LeftBound { get; set; }
+		[Export]
+		private Node3D RightBound { get; set; }
 
 		public override void _Ready() => Recenter();
 
 		public void Recenter()
 		{
 			if (Camera == null) return;
-			Plane frustrumBottom = Camera.GetFrustum()[FrustumBottom];
+
+			var frustums = Camera.GetFrustum();
 			Plane distanceFromCamera = Camera.AwayFromCamera;
-			Plane middleOfCamera = Camera.CenterOfCamera;
-			var pos = frustrumBottom.Intersect3(distanceFromCamera, middleOfCamera);
-			GD.Print($"Repositioning to {pos}");
-			NodeParent.GlobalPosition = pos ?? Vector3.Zero;
+
+			NodeParent.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, Camera.CenterOfCamera) ?? Vector3.Zero;
+			LeftBound.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, frustums[FrustumLeft]) ?? Vector3.Zero;
+			RightBound.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, frustums[FrustumRight]) ?? Vector3.Zero;
 		}
 
-		private const float CardOffset = 2.25f;
+		private const float CardOffset = 1.125f;
 
 		protected override void SpreadAllCards()
 		{

@@ -207,14 +207,14 @@ namespace Kompas.Gamestate.Locations.Models
 			if (toRemove.Position == null)
 				throw new InvalidSpaceException(toRemove.Position, "Can't remove a card from a null space");
 
+			boardController.Remove(toRemove.CardController);
+			
 			var (x, y) = toRemove.Position;
 			if (board[x, y] == toRemove)
 				board[x, y] = null;
 			else
 				throw new CardNotHereException(Location, toRemove, $"Card thinks it's at {toRemove.Position}, but {board[x, y]} is there");
 		}
-
-		//TODO: client/server versions should expose a method that takes in a client/server card
 
 		/// <summary>
 		/// Puts the card on the board.
@@ -287,6 +287,10 @@ namespace Kompas.Gamestate.Locations.Models
 			if (!ValidSpellSpaceFor(card, to)) throw new InvalidSpaceException(to, $"{swapDesc}, but the destination is an invalid spell space");
 			if (!ValidSpellSpaceFor(temp, from)) throw new InvalidSpaceException(from, $"{swapDesc}, but the start is an invalid spell space");
 
+
+			boardController.Remove(card.CardController);
+			if (temp != null) boardController.Remove(temp.CardController);
+
 			//then let the cards know they've been moved, but before moving them, so you can count properly
 			if (normal)
 			{
@@ -298,13 +302,10 @@ namespace Kompas.Gamestate.Locations.Models
 			board[tempX, tempY] = temp;
 
 			card.Position = to;
-			boardController.Place(card.CardController);
+			if (temp != null) temp.Position = from;
 
-			if (temp != null)
-			{
-				temp.Position = from;
-				boardController.Place(temp.CardController);
-			}
+			boardController.Place(card.CardController);
+			if (temp != null) boardController.Place(temp.CardController);
 		}
 
 		public void Move(GameCard card, Space to, bool normal, IPlayer mover, IStackable stackSrc = null)
