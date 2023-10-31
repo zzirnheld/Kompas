@@ -6,7 +6,7 @@ namespace Kompas.Client.UI
 	public partial class ClientCameraController : Camera3D
 	{
 		[Export]
-		private float DistanceFromCamera { get; set; } = 0.25f;
+		private float DistanceFromCamera { get; set; } = 0.35f;
 		public Plane AwayFromCamera => new(Vector3.Up, GlobalPosition + (DistanceFromCamera * Vector3.Down));
 		public Plane CenterOfCamera => new(Vector3.Right, GlobalPosition);
 
