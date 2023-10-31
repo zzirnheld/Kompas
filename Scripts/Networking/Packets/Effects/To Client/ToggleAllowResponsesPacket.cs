@@ -24,7 +24,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			throw new System.NotImplementedException();
+			//throw new System.NotImplementedException();
 			/*
 			if (enabled) clientGame.clientUIController.effectsUIController.GetResponse();
 			else clientGame.clientUIController.effectsUIController.UngetResponse();

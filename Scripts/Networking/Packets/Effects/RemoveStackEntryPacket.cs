@@ -22,6 +22,6 @@ namespace Kompas.Client.Networking
 {
 	public class RemoveStackEntryClientPacket : RemoveStackEntryPacket, IClientOrderPacket
 	{
-		public void Execute(ClientGame clientGame) => throw new System.NotImplementedException(); // clientGame.clientEffectsCtrl.Remove(indexToRemove);
+		public void Execute(ClientGame clientGame) { }// => throw new System.NotImplementedException(); // clientGame.clientEffectsCtrl.Remove(indexToRemove);
 	}
 }

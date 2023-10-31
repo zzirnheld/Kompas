@@ -11,7 +11,7 @@ namespace Kompas.Client.Gamestate.Locations.Models
 
 		public void IncrementHand()
 		{
-			throw new System.NotImplementedException();
+			//throw new System.NotImplementedException();
 		}
 
 		public void DecrementHand()

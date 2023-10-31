@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=32 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c312rohu62amq" path="res://Scenes/Prefabs/Client Game/ClientCard.tscn" id="2_q0mge"]
 [ext_resource type="Material" uid="uid://c8ak7quhecu3f" path="res://Materials/Gameboard HighQ Center.tres" id="2_wywm4"]
 [ext_resource type="PackedScene" uid="uid://rccou1fb3usa" path="res://Scenes/Prefabs/Client Game/Space.tscn" id="3_126rd"]
+[ext_resource type="Script" path="res://Scripts/Client/UI/ClientCameraController.cs" id="4_w3f76"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/SpacesController.cs" id="5_kcvca"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
@@ -29,6 +30,8 @@
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_ols17"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
 [node name="Node" type="Node"]
@@ -48,10 +51,17 @@ TopLeftInfoDisplayer = NodePath("../../UI/Control/HBoxContainer/Left Pane/Margin
 
 [node name="3D" type="Node3D" parent="."]
 
+[node name="Friendly Hand Parent Object" type="Node3D" parent="3D"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.5, 0.2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3D/Friendly Hand Parent Object"]
+mesh = SubResource("BoxMesh_ols17")
+
 [node name="Engine Stuff" type="Node3D" parent="3D"]
 
 [node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.75, 0)
+script = ExtResource("4_w3f76")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)
@@ -130,9 +140,11 @@ DiscardController = NodePath("Friendly Discard")
 DeckController = NodePath("Friendly Deck")
 AnnihilationController = NodePath("Friendly Annihilation")
 
-[node name="Friendly Hand" type="Node3D" parent="3D/Friendly Player"]
+[node name="Friendly Hand" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("Camera", "NodeParent")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.05, 0.495)
 script = ExtResource("7_hs3e0")
+Camera = NodePath("../../Engine Stuff/Camera3D")
+NodeParent = NodePath("../../Friendly Hand Parent Object")
 
 [node name="Friendly Annihilation" type="Node3D" parent="3D/Friendly Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
@@ -166,9 +178,12 @@ DiscardController = NodePath("Enemy Discard")
 DeckController = NodePath("Enemy Deck")
 AnnihilationController = NodePath("Enemy Annihilation")
 
-[node name="Enemy Hand" type="Node3D" parent="3D/Enemy Player"]
+[node name="Enemy Hand" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("NodeParent")]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
 script = ExtResource("7_hs3e0")
+NodeParent = NodePath("Node3D")
+
+[node name="Node3D" type="Node3D" parent="3D/Enemy Player/Enemy Hand"]
 
 [node name="Enemy Annihilation" type="Node3D" parent="3D/Enemy Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
