@@ -12,7 +12,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		protected override void SpreadOut()
 		{
-			foreach (var card in DeckModel.Cards) card.CardController.Node.Visible = false;
+			foreach (var card in DeckModel.Cards) card.CardController.Node.Visible = true;//false;
 			SplayOutController.SplayOut(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
 		}
 	}

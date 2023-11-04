@@ -59,11 +59,14 @@ namespace Kompas.Client.Cards.Controllers
 			base._Ready();
 			MouseController.MouseOver += (_, _) => ShowInTopLeft();
 			MouseController.LeftClick += (_, _) => FocusInTopLeft();
+			MouseController.RightClick += (_, _) => ShowEffectDialog();
 		}
 
 		public void ShowInTopLeft() => gameController.TargetingController.Highlight(Card);
 
 		public void FocusInTopLeft() => gameController.TargetingController.Select(Card);
+
+		public void ShowEffectDialog() => gameController.UseEffectDialog.Display(this);
 
 		/// <summary>
 		/// TODO reimpl for godot

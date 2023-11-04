@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=34 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -29,6 +29,8 @@
 [ext_resource type="PackedScene" uid="uid://brjjpkqpcrp4p" path="res://Scenes/Prefabs/Client Game/Player Info.tscn" id="18_q5fki"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
+[ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="30_nxds8"]
+[ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ols17"]
 
@@ -36,18 +38,19 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "TargetingController", "CurrentStateController", "PlayerControllers", "BoardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "TargetingController", "CurrentStateController", "UseEffectDialog", "PlayerControllers", "BoardController")]
 script = ExtResource("1_6rnfv")
 GameStartController = NodePath("../UI/Game Start")
 TargetingController = NodePath("Targeting Controller")
-CurrentStateController = NodePath("../UI/Control/HBoxContainer/Right Pane")
+CurrentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane")
+UseEffectDialog = NodePath("../UI/Use Effect")
 CardPrefab = ExtResource("2_q0mge")
 PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 BoardController = NodePath("../3D/Board")
 
 [node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("TopLeftInfoDisplayer")]
 script = ExtResource("2_cdbal")
-TopLeftInfoDisplayer = NodePath("../../UI/Control/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Card Info Dimensions")
+TopLeftInfoDisplayer = NodePath("../../UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Card Info Dimensions")
 
 [node name="3D" type="Node3D" parent="."]
 
@@ -148,7 +151,7 @@ Y = 3
 
 [node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("PlayerInfo", "HandController", "DiscardController", "DeckController", "AnnihilationController")]
 script = ExtResource("7_ju5wt")
-PlayerInfo = NodePath("../../UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info")
+PlayerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info")
 HandController = NodePath("Friendly Hand")
 DiscardController = NodePath("Friendly Discard")
 DeckController = NodePath("Friendly Deck")
@@ -188,7 +191,7 @@ VerticalGrowDirection = 1
 
 [node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("PlayerInfo", "HandController", "DiscardController", "DeckController", "AnnihilationController")]
 script = ExtResource("7_ju5wt")
-PlayerInfo = NodePath("../../UI/Control/HBoxContainer/Right Pane/VBoxContainer/Enemy Player Info")
+PlayerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Enemy Player Info")
 HandController = NodePath("Enemy Hand")
 DiscardController = NodePath("Enemy Discard")
 DeckController = NodePath("Enemy Deck")
@@ -234,7 +237,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Control" type="Control" parent="UI"]
+[node name="Main Game UI" type="Control" parent="UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -243,7 +246,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Main Game UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -251,12 +254,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Left Pane" type="Control" parent="UI/Control/HBoxContainer"]
+[node name="Left Pane" type="Control" parent="UI/Main Game UI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control/HBoxContainer/Left Pane"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Left Pane"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -270,33 +273,33 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="Card Info VBox" type="VBoxContainer" parent="UI/Control/HBoxContainer/Left Pane/MarginContainer"]
+[node name="Card Info VBox" type="VBoxContainer" parent="UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 5.86
 
-[node name="Card Info Dimensions" parent="UI/Control/HBoxContainer/Left Pane/MarginContainer/Card Info VBox" instance=ExtResource("16_p3apf")]
+[node name="Card Info Dimensions" parent="UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox" instance=ExtResource("16_p3apf")]
 layout_mode = 2
 
-[node name="Reminder Texts" type="TextureRect" parent="UI/Control/HBoxContainer/Left Pane/MarginContainer/Card Info VBox"]
+[node name="Reminder Texts" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("5_i20x8")
 
-[node name="Main Window Placeholder" type="Control" parent="UI/Control/HBoxContainer"]
+[node name="Main Window Placeholder" type="Control" parent="UI/Main Game UI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 mouse_filter = 2
 
-[node name="Right Pane" type="Control" parent="UI/Control/HBoxContainer" node_paths=PackedStringArray("FriendlyTurnParent", "EnemyTurnParent")]
+[node name="Right Pane" type="Control" parent="UI/Main Game UI/HBoxContainer" node_paths=PackedStringArray("FriendlyTurnParent", "EnemyTurnParent")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("18_d6k15")
 FriendlyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/End Turn Button")
 EnemyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/Enemy Turn Label")
 
-[node name="Right Pane Background" type="TextureRect" parent="UI/Control/HBoxContainer/Right Pane"]
+[node name="Right Pane Background" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Right Pane"]
 self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -306,7 +309,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_i20x8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/HBoxContainer/Right Pane"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,15 +317,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Enemy Player Info" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" instance=ExtResource("18_q5fki")]
+[node name="Enemy Player Info" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer" instance=ExtResource("18_q5fki")]
 layout_mode = 2
 
-[node name="Spacer" type="Control" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer"]
+[node name="Spacer" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -330,7 +333,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Enemy Turn Label" type="Label" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
+[node name="Enemy Turn Label" type="Label" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("6_5db68")
 theme_override_font_sizes/font_size = 24
@@ -338,11 +341,11 @@ text = "Enemy Turn"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 
-[node name="End Turn Button" type="Button" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
+[node name="End Turn Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("6_5db68")
@@ -350,13 +353,13 @@ text = "End Your Turn"
 script = ExtResource("19_qtc5n")
 GameController = NodePath("../../../../../../../../Game Controller")
 
-[node name="Friendly Player Info" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer" instance=ExtResource("18_q5fki")]
+[node name="Friendly Player Info" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer" instance=ExtResource("18_q5fki")]
 layout_mode = 2
 
-[node name="Avatar Image" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info/HBoxContainer" index="0"]
+[node name="Avatar Image" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info/HBoxContainer" index="0"]
 texture = ExtResource("20_whe2q")
 
-[node name="Enemy Username Label" parent="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info/HBoxContainer/VBoxContainer" index="0"]
+[node name="Enemy Username Label" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info/HBoxContainer/VBoxContainer" index="0"]
 text = "You"
 
 [node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("GameController", "ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
@@ -790,9 +793,81 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[connection signal="pressed" from="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" to="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" method="EndTurn"]
+[node name="Use Effect" type="Control" parent="UI" node_paths=PackedStringArray("Camera", "CardName", "EffectButtonsParent", "CancelButton")]
+visible = false
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 300.0
+script = ExtResource("30_w3lfl")
+Camera = NodePath("../../3D/Engine Stuff/Camera Over Board/Camera Controller/Camera3D")
+CardName = NodePath("MarginContainer/MarginContainer/VBoxContainer/MarginContainer/Card Name Label")
+EffectButtonPrefab = ExtResource("30_nxds8")
+EffectButtonsParent = NodePath("MarginContainer/MarginContainer/VBoxContainer")
+CancelButton = NodePath("MarginContainer/MarginContainer/VBoxContainer/Cancel Effect Button")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Use Effect"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 63.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Background Outline" type="TextureRect" parent="UI/Use Effect/MarginContainer"]
+self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
+layout_mode = 2
+texture = ExtResource("5_i20x8")
+
+[node name="Background Image" type="TextureRect" parent="UI/Use Effect/MarginContainer/Background Outline"]
+self_modulate = Color(0.196078, 0.156863, 0.352941, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Use Effect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Use Effect/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Use Effect/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Card Name Label" type="Label" parent="UI/Use Effect/MarginContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 20
+text = "Card Name"
+
+[node name="Cancel Effect Button" type="Button" parent="UI/Use Effect/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 16
+text = "Cancel"
+alignment = 0
+
+[connection signal="pressed" from="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" to="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" method="EndTurn"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]
 
-[editable path="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Enemy Player Info"]
-[editable path="UI/Control/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info"]
+[editable path="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Enemy Player Info"]
+[editable path="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Friendly Player Info"]

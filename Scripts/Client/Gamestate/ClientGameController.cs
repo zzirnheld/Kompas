@@ -16,12 +16,12 @@ namespace Kompas.Client.Gamestate
 
 		[Export]
 		public GameStartController GameStartController { get; private set; }
-
 		[Export]
 		public ClientTargetingController TargetingController { get; private set; }
-
 		[Export]
 		public CurrentStateController CurrentStateController { get; private set; }
+		[Export]
+		public UseEffectDialog UseEffectDialog { get; private set; }
 
 		[Export]
 		private PackedScene CardPrefab { get; set; }

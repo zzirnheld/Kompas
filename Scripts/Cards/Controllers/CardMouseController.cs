@@ -7,6 +7,7 @@ namespace Kompas.Cards.Controllers
 	{
 		public event EventHandler MouseOver;
 		public event EventHandler LeftClick;
+		public event EventHandler RightClick;
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
@@ -20,7 +21,11 @@ namespace Kompas.Cards.Controllers
 			if (inputEvent is not InputEventMouseButton mouseEvent) return;
 
 			//Event where now the mouseEvent is Pressed means it's when the mouse goes down
-			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left) LeftClick?.Invoke(this, EventArgs.Empty);
+			if (mouseEvent.Pressed)
+			{
+				if (mouseEvent.ButtonIndex == MouseButton.Left) LeftClick?.Invoke(this, EventArgs.Empty);
+				if (mouseEvent.ButtonIndex == MouseButton.Right) RightClick?.Invoke(this, EventArgs.Empty);
+			}
 		}
 	}
 }
