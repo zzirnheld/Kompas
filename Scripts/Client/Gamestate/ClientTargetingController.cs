@@ -75,11 +75,12 @@ namespace Kompas.Client.Gamestate
 			current.ClientCardController.ShowFocused(true);
 		}
 
-		public void StartSearch(TargetMode targetMode, IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction)
+		public void StartSearch(TargetMode targetMode, IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
 		{
 			TargetMode = targetMode;
 			clientSearch = ClientSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID), listRestriction,
 				GameController.Game, this, GameController.Notifier);
+			GameController.CurrentStateController.ShowCurrentStateInfo(targetBlurb);
 		}
 
 		public void FinishSearch()

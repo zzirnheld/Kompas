@@ -57,27 +57,16 @@ namespace Kompas.Client.Effects.Models
 		}
 
 		//TODO eventually make client aware of activation contexts
-		public void Activated(ResolutionContext context = default)
+		public void IncrementUses()
 		{
 			TimesUsedThisTurn++;
 			TimesUsedThisRound++;
 			TimesUsedThisStack++;
-
-			//TODO controller
-			//ClientGame.EffectActivated(this);
-			ClientGame.StackController.Add(this, context);
 		}
 
-		public void StartResolution(TriggeringEventContext context)
+		public void ResolutionStarted()
 		{
-			//TODO
-			//ClientGame.clientUIController.SetCurrState($"Resolving Effect of {Card.CardName}", $"{blurb}");
 			CardTargets.Clear();
-
-			//in case any cards are still showing targets from the last effect, which they will if this happens after another effect in the stack.
-			//TODO move this behavior to a "effect end" packet and stuff?
-			//TODO GameController
-			//ClientGame.ShowNoTargets();
 		}
 	}
 }

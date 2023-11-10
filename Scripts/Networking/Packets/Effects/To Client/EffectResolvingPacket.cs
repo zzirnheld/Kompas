@@ -8,22 +8,22 @@ namespace Kompas.Networking.Packets
 {
 	public class EffectResolvingPacket : Packet
 	{
-		public int sourceCardId;
-		public int effIndex;
+		public int cardID;
+		public int effectIndex;
 		public int controllerIndex;
 
 		public EffectResolvingPacket() : base(EffectResolving) { }
 
 		public EffectResolvingPacket(int sourceCardId, int effIndex, int controllerIndex, bool invert = false) : this()
 		{
-			this.sourceCardId = sourceCardId;
-			this.effIndex = effIndex;
+			this.cardID = sourceCardId;
+			this.effectIndex = effIndex;
 			this.controllerIndex = invert ? 1 - controllerIndex : controllerIndex;
 		}
 
-		public override Packet Copy() => new EffectResolvingPacket(sourceCardId, effIndex, controllerIndex);
+		public override Packet Copy() => new EffectResolvingPacket(cardID, effectIndex, controllerIndex);
 
-		public override Packet GetInversion(bool known = true) => new EffectResolvingPacket(sourceCardId, effIndex, controllerIndex, invert: true);
+		public override Packet GetInversion(bool known = true) => new EffectResolvingPacket(cardID, effectIndex, controllerIndex, invert: true);
 	}
 }
 
@@ -33,10 +33,10 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			var card = clientGame.LookupCardByID(sourceCardId);
+			var card = clientGame.LookupCardByID(cardID);
 			if (card == null) return;
-			var eff = card.Effects.ElementAt(effIndex) as ClientEffect;
-			eff.StartResolution(default); //TODO eventually make this be real
+			var eff = card.Effects.ElementAt(effectIndex) as ClientEffect;
+			clientGame.StackController.Resolve(eff);
 		}
 	}
 }

@@ -79,9 +79,11 @@ namespace Kompas.Client.Gamestate
 
 		private ClientGame(ClientGameController gameController)
 		{
-			this.ClientGameController = gameController;
+			ClientGameController = gameController;
 
 			clientPlayers = new ClientPlayer[2];
+
+			StackController = new(gameController.StackView);
 		}
 
 		public static ClientGame Create(ClientGameController gameController)

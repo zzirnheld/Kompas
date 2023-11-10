@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Godot;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Effects.Views;
 using Kompas.Effects;
@@ -9,27 +10,48 @@ namespace Kompas.Client.Effects.Controllers
 {
 	public class ClientStackController : IStackController
 	{
-		public ClientStackView clientStackPanelCtrl;
-
+		private readonly ClientStackView stackView;
 		private readonly EffectStack<IClientStackable, IResolutionContext> stack = new();
 
 		public IEnumerable<IClientStackable> StackEntries => stack.StackEntries;
+		IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
 
-		public IStackable CurrStackEntry => throw new System.NotImplementedException();
+		public IClientStackable CurrStackEntry { get; private set; }
+		IStackable IStackController.CurrStackEntry => CurrStackEntry;
 
-		IEnumerable<IStackable> IStackController.StackEntries => throw new System.NotImplementedException();
+		public bool NothingHappening => CurrStackEntry == null;
 
-		public bool NothingHappening => throw new System.NotImplementedException();
+		public ClientStackController(ClientStackView stackView)
+		{
+			this.stackView = stackView;
+		}
 
-		public void Add(IClientStackable stackable, IResolutionContext context = default)
+		public void Activated(ClientEffect effect)
+		{
+			effect.IncrementUses();
+			Add(effect);
+			stackView.Activated(effect);
+		}
+
+		private void Add(IClientStackable stackable, IResolutionContext context = default)
 		{
 			stack.Push((stackable, context));
-			//clientStackPanelCtrl.Add(stackable);
 		}
 
 		public void Remove(int index)
 		{
 			stack.Cancel(index);
+		}
+
+		public void Resolve(IClientStackable stackable)
+		{
+			var (topStackable, _) = stack.Pop();
+			while (stackable != topStackable && !stack.Empty)
+			{
+				GD.PushError($"Resolving stackable {stackable} that was not on top. {topStackable} was, instead");
+				(topStackable, _) = stack.Pop();
+			}
+			stackView.Resolving(stackable);
 		}
 	}
 }

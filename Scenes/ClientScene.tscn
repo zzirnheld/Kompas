@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=35 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://brjjpkqpcrp4p" path="res://Scenes/Prefabs/Client Game/Player Info.tscn" id="18_q5fki"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
+[ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientStackView.cs" id="22_80qh3"]
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="30_nxds8"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
 
@@ -38,12 +39,13 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "TargetingController", "CurrentStateController", "UseEffectDialog", "PlayerControllers", "BoardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("GameStartController", "TargetingController", "CurrentStateController", "UseEffectDialog", "StackView", "PlayerControllers", "BoardController")]
 script = ExtResource("1_6rnfv")
 GameStartController = NodePath("../UI/Game Start")
 TargetingController = NodePath("Targeting Controller")
 CurrentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane")
 UseEffectDialog = NodePath("../UI/Use Effect")
+StackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/Control")
 CardPrefab = ExtResource("2_q0mge")
 PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 BoardController = NodePath("../3D/Board")
@@ -294,12 +296,13 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 mouse_filter = 2
 
-[node name="Right Pane" type="Control" parent="UI/Main Game UI/HBoxContainer" node_paths=PackedStringArray("FriendlyTurnParent", "EnemyTurnParent")]
+[node name="Right Pane" type="Control" parent="UI/Main Game UI/HBoxContainer" node_paths=PackedStringArray("FriendlyTurnParent", "EnemyTurnParent", "CurrentStateLabel")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("18_d6k15")
 FriendlyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/End Turn Button")
 EnemyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/Enemy Turn Label")
+CurrentStateLabel = NodePath("VBoxContainer/Spacer/VBoxContainer/Control/MarginContainer/Label")
 
 [node name="Right Pane Background" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Right Pane"]
 self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
@@ -343,9 +346,29 @@ text = "Enemy Turn"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("CurrentStateController")]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+script = ExtResource("22_80qh3")
+CurrentStateController = NodePath("../../../..")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/Control/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("6_5db68")
+text = "Current state placeholder, just for an example"
+autowrap_mode = 2
 
 [node name="No Further Targets Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
 visible = false

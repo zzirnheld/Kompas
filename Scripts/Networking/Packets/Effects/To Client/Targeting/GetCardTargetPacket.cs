@@ -40,7 +40,7 @@ namespace Kompas.Client.Networking
 			listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
 
 			clientGame.ClientGameController.TargetingController.StartSearch(list ? TargetMode.CardTargetList : TargetMode.CardTarget,
-				potentialTargetIDs, listRestriction);
+				potentialTargetIDs, listRestriction, targetBlurb);
 		}
 	}
 }

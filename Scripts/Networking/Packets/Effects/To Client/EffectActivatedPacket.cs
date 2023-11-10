@@ -2,25 +2,26 @@
 using Kompas.Client.Gamestate;
 using System.Linq;
 using Godot;
+using Kompas.Client.Effects.Models;
 
 namespace Kompas.Networking.Packets
 {
 	public class EffectActivatedPacket : Packet
 	{
-		public int sourceCardId;
-		public int effIndex;
+		public int cardID;
+		public int effectIndex;
 
 		public EffectActivatedPacket() : base(EffectActivated) { }
 
-		public EffectActivatedPacket(int sourceCardId, int effIndex) : this()
+		public EffectActivatedPacket(int cardID, int effectIndex) : this()
 		{
-			this.sourceCardId = sourceCardId;
-			this.effIndex = effIndex;
+			this.cardID = cardID;
+			this.effectIndex = effectIndex;
 		}
 
-		public override Packet Copy() => new EffectActivatedPacket(sourceCardId, effIndex);
+		public override Packet Copy() => new EffectActivatedPacket(cardID, effectIndex);
 
-		public override Packet GetInversion(bool known = true) => new EffectActivatedPacket(sourceCardId, effIndex);
+		public override Packet GetInversion(bool known = true) => new EffectActivatedPacket(cardID, effectIndex);
 	}
 }
 
@@ -30,13 +31,15 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			var card = clientGame.LookupCardByID(sourceCardId);
-			GD.Print($"Trying to activate effect of {sourceCardId}, which is {card}. its effect{effIndex} is {card?.Effects?.ElementAt(effIndex)}");
-			if (card == null) return;
-			throw new System.NotImplementedException();
-			//TODO have a method on ClientGame that takes in an effect? since this shouldn't be a polymorphic method in ClientEffect/Effect
-			/*var eff = card.Effects.ElementAt(effIndex) as ClientEffect;
-			eff?.Activated();*/
+			var card = clientGame.LookupCardByID(cardID);
+			var effect = card?.Effects.ElementAt(effectIndex);
+			if (effect is not ClientEffect eff)
+			{
+				GD.PushError($"Couldn't find effect {effectIndex} of {cardID}");
+				return;
+			}
+
+			clientGame.StackController.Activated(eff);
 		}
 	}
 }

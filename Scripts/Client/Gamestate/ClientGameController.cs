@@ -2,6 +2,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Client.Cards.Loading;
+using Kompas.Client.Effects.Views;
 using Kompas.Client.Networking;
 using Kompas.Client.UI;
 using Kompas.Client.UI.GameStart;
@@ -22,6 +23,8 @@ namespace Kompas.Client.Gamestate
 		public CurrentStateController CurrentStateController { get; private set; }
 		[Export]
 		public UseEffectDialog UseEffectDialog { get; private set; }
+		[Export]
+		public ClientStackView StackView { get; private set; }
 
 		[Export]
 		private PackedScene CardPrefab { get; set; }
