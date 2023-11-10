@@ -150,7 +150,7 @@ namespace Kompas.Server.Gamestate
 
 			ServerGameCard avatar;
 			//otherwise, set the avatar and rest of the deck
-			avatar = serverCardRepository.InstantiateServerCard(decklist.avatarName, this, player, cardCount++) ??
+			avatar = serverCardRepository.InstantiateServerCard(decklist.avatarName, this, player, cardCount++, isAvatar: true) ??
 				throw new System.ArgumentException($"Failed to load avatar for card {decklist.avatarName}");
 			ServerNotifier.SetFriendlyAvatar(player, CardRepository.GetJsonFromName(decklist.avatarName), avatar.ID);
 			cardsByID[avatar.ID] = avatar;

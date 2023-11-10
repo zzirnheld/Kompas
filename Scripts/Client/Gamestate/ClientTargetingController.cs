@@ -18,6 +18,8 @@ namespace Kompas.Client.Gamestate
 		private ControlInfoDisplayer TopLeftInfoDisplayer { get; set; }
 		[Export]
 		private ClientGameController GameController { get; set; }
+		[Export]
+		private Control CanDeclineFurtherTargetsButton { get; set; }
 
 		public ClientTopLeftCardView TopLeftCardView { get; private set; }
 
@@ -31,6 +33,11 @@ namespace Kompas.Client.Gamestate
 		private ClientSearch clientSearch;
 
 		public TargetMode TargetMode { get; private set; }
+
+		public bool CanDeclineFurtherTargets
+		{
+			set => CanDeclineFurtherTargetsButton.Visible = value;
+		}
 
 		public override void _Ready()
 		{
@@ -79,6 +86,17 @@ namespace Kompas.Client.Gamestate
 		{
 			TargetMode = TargetMode.OnHold;
 			clientSearch = null;
+		}
+
+		public void TargetAccepted()
+		{
+			TargetMode = TargetMode.Free;
+		}
+
+		public void DeclineFurtherTargets()
+		{
+			FinishSearch();
+			GameController.Notifier.DeclineAnotherTarget();
 		}
 	}
 }

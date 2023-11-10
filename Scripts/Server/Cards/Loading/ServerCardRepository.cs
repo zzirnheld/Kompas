@@ -43,13 +43,13 @@ namespace Kompas.Server.Cards.Loading
 			return new ServerCardController();
 		}
 
-		public ServerGameCard InstantiateServerCard(string name, ServerGame game, ServerPlayer owner, int id, bool avatar = false)
+		public ServerGameCard InstantiateServerCard(string name, ServerGame game, ServerPlayer owner, int id, bool isAvatar = false)
 		{
 			string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
 
 			ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
 			{
-				var ret = new ServerGameCard(cardInfo, id, owner, game, ctrl, effects, avatar);
+				var ret = new ServerGameCard(cardInfo, id, owner, game, ctrl, effects, isAvatar);
 				foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index);
 				return ret;
 			}

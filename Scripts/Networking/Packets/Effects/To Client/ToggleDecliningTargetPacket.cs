@@ -24,10 +24,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			throw new System.NotImplementedException();
-			/*
-			if (enabled) clientGame.clientUIController.effectsUIController.EnableDecliningTarget();
-			else clientGame.clientUIController.effectsUIController.DisableDecliningTarget();*/
+			clientGame.ClientGameController.TargetingController.CanDeclineFurtherTargets = enabled;
 		}
 	}
 }

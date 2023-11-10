@@ -48,10 +48,11 @@ CardPrefab = ExtResource("2_q0mge")
 PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 BoardController = NodePath("../3D/Board")
 
-[node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("TopLeftInfoDisplayer", "GameController")]
+[node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("TopLeftInfoDisplayer", "GameController", "CanDeclineFurtherTargetsButton")]
 script = ExtResource("2_cdbal")
 TopLeftInfoDisplayer = NodePath("../../UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Card Info Dimensions")
 GameController = NodePath("..")
+CanDeclineFurtherTargetsButton = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button")
 
 [node name="3D" type="Node3D" parent="."]
 
@@ -345,6 +346,15 @@ vertical_alignment = 1
 [node name="Control" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
+
+[node name="No Further Targets Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("6_5db68")
+text = "No Further Targets"
+script = ExtResource("19_qtc5n")
+GameController = NodePath("../../../../../../../../Game Controller")
 
 [node name="End Turn Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
 layout_mode = 2
@@ -866,6 +876,7 @@ theme_override_font_sizes/font_size = 16
 text = "Cancel"
 alignment = 0
 
+[connection signal="pressed" from="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button" to="Game Controller/Targeting Controller" method="DeclineFurtherTargets"]
 [connection signal="pressed" from="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" to="UI/Main Game UI/HBoxContainer/Right Pane/VBoxContainer/Spacer/VBoxContainer/End Turn Button" method="EndTurn"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]

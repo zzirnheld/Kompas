@@ -139,7 +139,8 @@ namespace Kompas.Client.Effects.Models
 
 		public void SendTargets(bool confirmed = false)
 		{
-			if (game.Settings.confirmTargets == Shared.Settings.ConfirmTargets.Prompt && !confirmed)
+			//TODO load settings
+			if (game.Settings?.confirmTargets == Shared.Settings.ConfirmTargets.Prompt && !confirmed)
 			{
 				//confirmTargetsCtrl.Show(CurrSearchData.searched);
 				return;
