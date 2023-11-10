@@ -1,15 +1,23 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
+using Kompas.Client.Effects.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Gamestate
 {
+	public enum TargetMode { Free, OnHold, CardTarget, CardTargetList, SpaceTarget, HandSize }
+
 	public partial class ClientTargetingController : Node
 	{
 		[Export]
 		private ControlInfoDisplayer TopLeftInfoDisplayer { get; set; }
+		[Export]
+		private ClientGameController GameController { get; set; }
 
 		public ClientTopLeftCardView TopLeftCardView { get; private set; }
 
@@ -19,6 +27,10 @@ namespace Kompas.Client.Gamestate
         /// </summary>
 		public ClientGameCard FocusedCard => TopLeftCardView.FocusedCard;
 		public ClientGameCard ShownCard => TopLeftCardView.ShownCard;
+
+		private ClientSearch clientSearch;
+
+		public TargetMode TargetMode { get; private set; }
 
 		public override void _Ready()
 		{
@@ -41,6 +53,7 @@ namespace Kompas.Client.Gamestate
 		{
 			GD.Print($"Selecting {card}");
 			TopLeftCardView.Focus(card);
+
 		}
 
 		public void Highlight(ClientGameCard card)
@@ -54,5 +67,14 @@ namespace Kompas.Client.Gamestate
 			old?.ClientCardController.ShowFocused(false);
 			current.ClientCardController.ShowFocused(true);
 		}
+
+		public void StartSearch(TargetMode targetMode, IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction)
+		{
+			TargetMode = targetMode;
+			clientSearch = ClientSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID), listRestriction,
+				GameController.Game, this, GameController.Notifier);
+		}
+
+		public void TargetsSent() => TargetMode = TargetMode.OnHold;
 	}
 }

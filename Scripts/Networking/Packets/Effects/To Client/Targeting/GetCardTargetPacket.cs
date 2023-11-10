@@ -1,6 +1,9 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using Newtonsoft.Json;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models;
+using Godot;
 
 namespace Kompas.Networking.Packets
 {
@@ -8,22 +11,22 @@ namespace Kompas.Networking.Packets
 	{
 		public string sourceCardName;
 		public string targetBlurb;
-		public int[] potentialTargetIds;
+		public int[] potentialTargetIDs;
 		public string listRestrictionJson;
 		public bool list;
 
 		public GetCardTargetPacket() : base(GetCardTarget) { }
 
-		public GetCardTargetPacket(string sourceCardName, string targetBlurb, int[] potentialTargetIds, string listRestrictionJson, bool list) : this()
+		public GetCardTargetPacket(string sourceCardName, string targetBlurb, int[] potentialTargetIDs, string listRestrictionJson, bool list) : this()
 		{
 			this.sourceCardName = sourceCardName;
 			this.targetBlurb = targetBlurb;
-			this.potentialTargetIds = potentialTargetIds;
+			this.potentialTargetIDs = potentialTargetIDs;
 			this.listRestrictionJson = listRestrictionJson;
 			this.list = list;
 		}
 
-		public override Packet Copy() => new GetCardTargetPacket(sourceCardName, targetBlurb, potentialTargetIds, listRestrictionJson, list);
+		public override Packet Copy() => new GetCardTargetPacket(sourceCardName, targetBlurb, potentialTargetIDs, listRestrictionJson, list);
 	}
 }
 
@@ -33,9 +36,6 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			throw new System.NotImplementedException();
-			/*
-			clientGame.clientUIController.TargetMode = list ? TargetMode.CardTargetList : TargetMode.CardTarget;
 			IListRestriction listRestriction = null;
 
 			try
@@ -47,13 +47,11 @@ namespace Kompas.Client.Networking
 			}
 			catch (System.ArgumentException)
 			{
-				GD.PrintError($"Error loading list restriction from json: {listRestrictionJson}");
+				GD.PushError($"Error loading list restriction from json: {listRestrictionJson}");
 			}
 
-			clientGame.SetPotentialTargets(potentialTargetIds, listRestriction);
-			//TODO make the blurb plural if asking for multiple targets
-			clientGame.clientUIController.currentStateUIController.ChooseCardTarget(sourceCardName, targetBlurb);
-			*/
+			clientGame.ClientGameController.TargetingController.StartSearch(list ? TargetMode.CardTargetList : TargetMode.CardTarget,
+				potentialTargetIDs, listRestriction);
 		}
 	}
 }
