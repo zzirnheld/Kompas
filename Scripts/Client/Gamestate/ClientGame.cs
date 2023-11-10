@@ -50,7 +50,7 @@ namespace Kompas.Client.Gamestate
 		public int TurnCount { get; set; } = 1;
 
 		//public ClientSettings ClientSettings => uiController.clientUISettingsController.ClientSettings;
-		public ClientSettings Settings { get; private set; } //TODO consider moving this to its own controller that Game references?
+		public Settings Settings { get; private set; } //TODO consider moving this to its own controller that Game references?
 		Settings IGame.Settings => Settings;
 
 		//search

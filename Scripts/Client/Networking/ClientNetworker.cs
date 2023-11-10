@@ -122,7 +122,7 @@ namespace Kompas.Client.Networking
 		{
 			if (!jsonTypes.ContainsKey(command)) throw new System.ArgumentException($"Unrecognized command {command} in packet sent to client");
 
-			return JsonConvert.DeserializeObject(json, jsonTypes[command]) as IClientOrderPacket;
+			return JsonConvert.DeserializeObject(json, jsonTypes[command], new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }) as IClientOrderPacket;
 		}
 
 		public override Task ProcessPacket((string command, string json) packetInfo)

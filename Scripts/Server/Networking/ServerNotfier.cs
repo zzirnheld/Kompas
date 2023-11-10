@@ -3,6 +3,7 @@ using System.Linq;
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 using Kompas.Networking;
@@ -160,8 +161,8 @@ namespace Kompas.Server.Networking
 		#endregion card stats
 
 		#region request targets
-		public static void GetCardTarget(IPlayer player, string cardName, string targetBlurb, int[] ids, string listRestrictionJson, bool list)
-			=> SendPacket(player, new GetCardTargetPacket(cardName, targetBlurb, ids, listRestrictionJson, list));
+		public static void GetCardTarget(IPlayer player, string cardName, string targetBlurb, int[] ids, IListRestriction listRestriction, bool list)
+			=> SendPacket(player, new GetCardTargetPacket(cardName, targetBlurb, ids, listRestriction, list));
 
 		public static void GetSpaceTarget(IPlayer player, string cardName, string targetBlurb, (int, int)[] spaces, (int, int)[] recommendedSpaces)
 			=> SendPacket(player, new GetSpaceTargetPacket(cardName, targetBlurb, spaces, recommendedSpaces));

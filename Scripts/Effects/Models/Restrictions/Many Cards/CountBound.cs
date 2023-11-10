@@ -25,6 +25,14 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 		public int stashedBound;
 
 		public override void PrepareForSending(IResolutionContext context) => stashedBound = bound.From(context);
+
+
+		public override void Initialize(EffectInitializationContext initializationContext)
+		{
+			base.Initialize(initializationContext);
+
+			bound.Initialize(initializationContext);
+		}
 	}
 
 	public class Minimum : CountBound

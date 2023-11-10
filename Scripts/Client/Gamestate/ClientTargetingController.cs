@@ -53,7 +53,7 @@ namespace Kompas.Client.Gamestate
 		{
 			GD.Print($"Selecting {card}");
 			TopLeftCardView.Focus(card);
-
+			clientSearch?.ToggleTarget(card);
 		}
 
 		public void Highlight(ClientGameCard card)
@@ -75,6 +75,10 @@ namespace Kompas.Client.Gamestate
 				GameController.Game, this, GameController.Notifier);
 		}
 
-		public void TargetsSent() => TargetMode = TargetMode.OnHold;
+		public void FinishSearch()
+		{
+			TargetMode = TargetMode.OnHold;
+			clientSearch = null;
+		}
 	}
 }

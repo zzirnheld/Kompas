@@ -21,9 +21,9 @@ namespace Kompas.Server.Effects.Models
 	{
 		public const string EffectWasNegated = "Effect was negated";
 
-		public ServerGame serverGame;
-		public override IGame Game => serverGame;
-		public ServerStackController EffectsController => serverGame.StackController;
+		public ServerGame ServerGame { get; private set; }
+		public override IGame Game => ServerGame;
+		public ServerStackController EffectsController => ServerGame.StackController;
 
 		public ServerGameCard ServerCard { get; private set; }
 		public override GameCard Card => ServerCard;
@@ -53,19 +53,16 @@ namespace Kompas.Server.Effects.Models
 			}
 		}
 
-		public void SetInfo(ServerGameCard card, ServerGame game, ServerPlayer controller, int effectIndex)
+		public void SetInfo(ServerGameCard card, ServerGame game, int effectIndex)
 		{
 			ServerCard = card;
-			this.serverGame = game;
+			ServerGame = game;
 			base.SetInfo(effectIndex);
 
 			if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
-				ServerTrigger = new ServerTrigger(triggerData, this);
+				ServerTrigger = ServerTrigger.Create(triggerData, this);
 
-			for (int i = 0; i < subeffects.Length; i++)
-			{
-				subeffects[i].Initialize(this, i);
-			}
+			foreach (var (i, subeff) in subeffects.Enumerate()) subeff.Initialize(this, i);
 		}
 
 		/// <summary>
@@ -107,7 +104,7 @@ namespace Kompas.Server.Effects.Models
 		}
 
 		public override bool CanBeActivatedBy(IPlayer controller)
-			=> serverGame.DebugMode || base.CanBeActivatedBy(controller);
+			=> ServerGame.DebugMode || base.CanBeActivatedBy(controller);
 
 		public void PushedToStack(ServerGame game, ServerPlayer controller)
 		{
@@ -116,7 +113,7 @@ namespace Kompas.Server.Effects.Models
 			TimesUsedThisRound++;
 			TimesUsedThisTurn++;
 			TimesUsedThisStack++;
-			serverGame = game;
+			ServerGame = game;
 			ServerNotifier.NotifyEffectActivated(controller, this);
 		}
 

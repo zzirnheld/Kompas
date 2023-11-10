@@ -1,15 +1,12 @@
 using Godot;
-using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
-using Kompas.Effects.Models;
-using Kompas.Effects.Models.Restrictions;
-using Kompas.Effects.Subeffects;
 using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
+using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Cards.Loading
@@ -49,7 +46,14 @@ namespace Kompas.Server.Cards.Loading
 		public ServerGameCard InstantiateServerCard(string name, ServerGame game, ServerPlayer owner, int id, bool avatar = false)
 		{
 			string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
-			var ret = InstantiateGameCard(json, (cardInfo, effects, ctrl) => new ServerGameCard(cardInfo, id, owner, game, ctrl, effects, avatar));
+
+			ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
+			{
+				var ret = new ServerGameCard(cardInfo, id, owner, game, ctrl, effects, avatar);
+				foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index);
+				return ret;
+			}
+			var ret = InstantiateGameCard(json, ConstructCard);
 			game.AddCard(ret);
 			return ret;
 		}

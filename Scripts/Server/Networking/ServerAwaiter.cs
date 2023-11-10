@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Models;
@@ -138,9 +139,9 @@ namespace Kompas.Server.Networking
 		/// <returns>The cards the person chose and false if they chose targets;<br></br>
 		/// null and true if they declined to choose targets</returns>
 		public async Task<IEnumerable<GameCard>> GetCardListTargets
-			(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, string listRestructionJson)
+			(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, IListRestriction listRestriction)
 		{
-			ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestructionJson, list: true);
+			ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestriction, list: true);
 			while (true)
 			{
 				if (CardListTargets != null)

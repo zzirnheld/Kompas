@@ -12,21 +12,21 @@ namespace Kompas.Networking.Packets
 		public string sourceCardName;
 		public string targetBlurb;
 		public int[] potentialTargetIDs;
-		public string listRestrictionJson;
+		public IListRestriction listRestriction;
 		public bool list;
 
 		public GetCardTargetPacket() : base(GetCardTarget) { }
 
-		public GetCardTargetPacket(string sourceCardName, string targetBlurb, int[] potentialTargetIDs, string listRestrictionJson, bool list) : this()
+		public GetCardTargetPacket(string sourceCardName, string targetBlurb, int[] potentialTargetIDs, IListRestriction listRestriction, bool list) : this()
 		{
 			this.sourceCardName = sourceCardName;
 			this.targetBlurb = targetBlurb;
 			this.potentialTargetIDs = potentialTargetIDs;
-			this.listRestrictionJson = listRestrictionJson;
+			this.listRestriction = listRestriction;
 			this.list = list;
 		}
 
-		public override Packet Copy() => new GetCardTargetPacket(sourceCardName, targetBlurb, potentialTargetIDs, listRestrictionJson, list);
+		public override Packet Copy() => new GetCardTargetPacket(sourceCardName, targetBlurb, potentialTargetIDs, listRestriction, list);
 	}
 }
 
@@ -36,19 +36,8 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			IListRestriction listRestriction = null;
-
-			try
-			{
-				if (string.IsNullOrEmpty(listRestrictionJson)) listRestriction = IListRestriction.SingleElement;
-				else listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson);
-
-				listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
-			}
-			catch (System.ArgumentException)
-			{
-				GD.PushError($"Error loading list restriction from json: {listRestrictionJson}");
-			}
+			IListRestriction listRestriction = this.listRestriction ?? IListRestriction.SingleElement;
+			listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
 
 			clientGame.ClientGameController.TargetingController.StartSearch(list ? TargetMode.CardTargetList : TargetMode.CardTarget,
 				potentialTargetIDs, listRestriction);

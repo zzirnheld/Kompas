@@ -47,7 +47,7 @@ namespace Kompas.Networking
 		#region serialization
 		protected static byte[] Serialize(Packet packet)
 		{
-			string json = JsonConvert.SerializeObject(packet);
+			string json = JsonConvert.SerializeObject(packet, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
 			byte[] bytes = Encoding.UTF8.GetBytes(json);
 			return bytes;
 		}

@@ -256,7 +256,7 @@ namespace Kompas.Server.Effects.Controllers
 			//if a player only has one trigger, don't bother asking them for an order.
 			foreach (var p in game.Players)
 			{
-				var thisPlayers = stillValid.Where(t => t.serverEffect.OwningPlayer == p && t.Confirmed);
+				var thisPlayers = stillValid.Where(t => t.ServerEffect.OwningPlayer == p && t.Confirmed);
 				if (thisPlayers.Count() == 1) thisPlayers.First().Order = 1;
 			}
 
@@ -269,17 +269,17 @@ namespace Kompas.Server.Effects.Controllers
 				List<Task> triggerOrderings = new();
 				foreach (var p in game.Players)
 				{
-					var thisPlayers = confirmed.Where(t => t.serverEffect.OwningPlayer == p);
+					var thisPlayers = confirmed.Where(t => t.ServerEffect.OwningPlayer == p);
 					if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(game.Awaiter.GetTriggerOrder(p, thisPlayers));
 				}
 				await Task.WhenAll(triggerOrderings);
 			}
 
 			//finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
-			foreach (var t in confirmed.Where(t => t.serverEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
-				PushToStack(t.serverEffect, t.serverEffect.OwningServerPlayer, triggered.context);
-			foreach (var t in confirmed.Where(t => t.serverEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
-				PushToStack(t.serverEffect, t.serverEffect.OwningServerPlayer, triggered.context);
+			foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
+				PushToStack(t.ServerEffect, t.ServerEffect.OwningServerPlayer, triggered.context);
+			foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
+				PushToStack(t.ServerEffect, t.ServerEffect.OwningServerPlayer, triggered.context);
 		}
 
 		/// <summary>
@@ -378,7 +378,7 @@ namespace Kompas.Server.Effects.Controllers
 		#region register to trigger condition
 		public void RegisterTrigger(string condition, ServerTrigger trigger)
 		{
-			GD.Print($"Registering a new trigger from card {trigger.serverEffect.Card.CardName} to condition {condition}");
+			GD.Print($"Registering a new trigger from card {trigger.ServerEffect.Card.CardName} to condition {condition}");
 			if (!triggerMap.ContainsKey(condition))
 				triggerMap.Add(condition, new List<ServerTrigger>());
 

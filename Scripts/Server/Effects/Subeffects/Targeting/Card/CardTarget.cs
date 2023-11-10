@@ -114,7 +114,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			string name = Card.CardName;
 			int[] targetIds = stashedPotentialTargets.Select(c => c.ID).ToArray();
 			GD.Print($"Potential targets {string.Join(", ", targetIds)}");
-			return await ServerGame.Awaiter.GetCardListTargets(PlayerTarget, name, blurb, targetIds, listRestriction.SerializeToJSON(ResolutionContext));
+			listRestriction.PrepareForSending(ResolutionContext);
+			return await ServerGame.Awaiter.GetCardListTargets(PlayerTarget, name, blurb, targetIds, listRestriction);
 		}
 
 		public bool AddListIfLegal(IEnumerable<GameCard> choices)

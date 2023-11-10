@@ -18,7 +18,7 @@ namespace Kompas.Client.Effects.Models
 		public readonly GameCard[] toSearch;
 		public readonly IListRestriction listRestriction;
 		public readonly IList<GameCard> searched = new List<GameCard>();
-		
+
 		private readonly IGame game;
 		private readonly ClientTargetingController targetingController;
 		private readonly ClientNotifier clientNotifier;
@@ -72,18 +72,10 @@ namespace Kompas.Client.Effects.Models
 			IGame game, ClientTargetingController targetingController, ClientNotifier notifier)
 		{
 			//if the list is empty, don't search
-			if (!toSearch.Any())
-			{
-				//clientSearchUICtrl.HideSearch();
-				return null;
-			}
+			if (!toSearch.Any()) return null;
 
-			var ret = new ClientSearch(toSearch, listRestriction, game, targetingController, notifier);
 			GD.Print($"Searching a list of {toSearch.Count()} cards: {string.Join(",", toSearch.Select(c => c.CardName))}");
-
-			//initiate search process
-			//clientSearchUICtrl.ShowSearch();
-			return ret;
+			return new(toSearch, listRestriction, game, targetingController, notifier);
 		}
 
 		/// <summary>
@@ -170,7 +162,7 @@ namespace Kompas.Client.Effects.Models
 			else throw new System.ArgumentException($"Unknown target mode {targetingController.TargetMode} in search ctrl");
 
 			//and change the game's target mode TODO should this do this
-			targetingController.TargetsSent();
+			targetingController.FinishSearch();
 		}
 	}
 }

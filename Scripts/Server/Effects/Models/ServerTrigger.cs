@@ -9,10 +9,10 @@ namespace Kompas.Server.Effects.Models
 {
 	public class ServerTrigger : Trigger
 	{
-		public ServerEffect serverEffect;
+		public ServerEffect ServerEffect { get; private set; }
 
-		public override GameCard Card => serverEffect.Card;
-		public override Effect Effect => serverEffect;
+		public override GameCard Card => ServerEffect.Card;
+		public override Effect Effect => ServerEffect;
 
 		private bool responded = false;
 		/// <summary>
@@ -50,12 +50,20 @@ namespace Kompas.Server.Effects.Models
 		}
 		public bool Ordered => order != -1;
 
-		public ServerTrigger(TriggerData triggerData, ServerEffect parent) : base(triggerData, parent)
+		private ServerTrigger(TriggerData triggerData, ServerEffect serverEffect) : base(triggerData, serverEffect)
 		{
 			if (!TriggerConditions.Contains(triggerData.triggerCondition))
-				throw new System.ArgumentNullException(nameof(triggerData), $"invalid trigger condition for effect of {parent.Card.CardName}");
+				throw new System.ArgumentNullException(nameof(triggerData), $"invalid trigger condition for effect of {serverEffect.Card.CardName}");
 
-			parent.serverGame.StackController.RegisterTrigger(TriggerCondition, this);
+			ServerEffect = serverEffect;
+
+		}
+
+		public static ServerTrigger Create(TriggerData triggerData, ServerEffect serverEffect)
+		{
+			var ret = new ServerTrigger(triggerData, serverEffect);
+			serverEffect.ServerGame.StackController.RegisterTrigger(triggerData.triggerCondition, ret);
+			return ret;
 		}
 
 		/// <summary>
@@ -90,7 +98,7 @@ namespace Kompas.Server.Effects.Models
 		{
 			int x = context?.x ?? 0;
 			//Assume for now that optional triggers are always asked to the card's owner
-			Confirmed = await serverEffect.serverGame.Awaiter.GetOptionalTriggerChoice(player, this, x, TriggerData.showX);
+			Confirmed = await ServerEffect.ServerGame.Awaiter.GetOptionalTriggerChoice(player, this, x, TriggerData.showX);
 			Responded = true;
 		}
 	}

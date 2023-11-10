@@ -15,7 +15,7 @@ namespace Kompas.Server.Effects.Models
 		public override IGame Game => ServerGame;
 
 		public ServerEffect ServerEffect { get; protected set; }
-		public ServerGame ServerGame => ServerEffect.serverGame;
+		public ServerGame ServerGame => ServerEffect.ServerGame;
 
 		public EffectInitializationContext DefaultInitializationContext
 			=> Effect.CreateInitializationContext(this, default);
