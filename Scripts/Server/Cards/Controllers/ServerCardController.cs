@@ -17,5 +17,6 @@ namespace Kompas.Server.Cards.Controllers
 		public void RefreshAugments() { }
 		public void RefreshLinks() { }
 		public void RefreshStats() { }
+		public void RefreshTargeting() { }
 	}
 }

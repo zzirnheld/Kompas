@@ -62,6 +62,8 @@ namespace Kompas.Client.Effects.Models
 			this.game = game;
 			this.targetingController = targetingController;
 			this.clientNotifier = clientNotifier;
+
+			foreach (var card in game.Cards) card.CardController.RefreshTargeting();
 		}
 
 		/*

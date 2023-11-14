@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Effects.Models;
@@ -99,5 +100,9 @@ namespace Kompas.Client.Gamestate
 			FinishSearch();
 			GameController.Notifier.DeclineAnotherTarget();
 		}
+
+		public bool IsValidTarget(GameCard card) => clientSearch.toSearch.Contains(card);
+		public bool IsSelectedTarget(GameCard card) => clientSearch.searched.Contains(card);
+		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
 	}
 }

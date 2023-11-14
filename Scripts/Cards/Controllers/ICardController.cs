@@ -19,6 +19,8 @@ namespace Kompas.Cards.Controllers
 		
 		public void RefreshAugments();
 
+		public void RefreshTargeting();
+
 		public void Delete();
 
 		public Node3D Node { get; }

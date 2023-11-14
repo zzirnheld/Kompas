@@ -77,11 +77,13 @@ namespace Kompas.Client.Cards.Controllers
 		/// </summary>
 		public void RefreshRevealed()
 		{
+			CardView.Refresh();
 			//Revealed = Card.KnownToEnemy && Card.InHiddenLocation && !Card.OwningPlayer.Friendly;
 		}
 
 		public void RefreshLinks()
 		{
+			CardView.Refresh();
 			//throw new System.NotImplementedException();
 		}
 
@@ -103,5 +105,7 @@ namespace Kompas.Client.Cards.Controllers
 			if (value) AnimationPlayer.Play(FocusedAnimationName);
 			else AnimationPlayer.Play(ResetAnimationName);
 		}
+
+		public void RefreshTargeting() => CardView.Refresh();
 	}
 }
