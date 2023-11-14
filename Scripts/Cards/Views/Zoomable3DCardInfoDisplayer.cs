@@ -25,6 +25,8 @@ namespace Kompas.Cards.Views
 
 		[Export]
 		private GpuParticles3D ValidTargetParticles { get; set; }
+		[Export]
+		private GpuParticles3D CurrentTargetParticles { get; set; }
 
 		public bool ShowingInfo { set => Visible = value; }
 
@@ -59,9 +61,8 @@ namespace Kompas.Cards.Views
 			ZoomedIn.ShowingInfo = zoomedIn;
 		}
 
-		public void DisplayValidTarget(bool validTarget)
-		{
-			ValidTargetParticles.Emitting = validTarget;
-		}
+		public void DisplayValidTarget(bool validTarget) => ValidTargetParticles.Emitting = validTarget;
+
+		public void DisplayCurrentTarget(bool currentTarget) => CurrentTargetParticles.Emitting = currentTarget;
 	}
 }
