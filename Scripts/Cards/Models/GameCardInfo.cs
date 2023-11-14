@@ -12,7 +12,7 @@ namespace Kompas.Cards.Models
 	/// Holds the info for a card at a given snapshot in time.
 	/// Used for triggers.
 	/// </summary>
-	public class GameCardInfo : GameCardBase, IGameCard
+	public class GameCardInfo : GameCardBase, IGameCardInfo
 	{
 		#region immutable aspects
 		public GameCard Card { get; }
@@ -28,7 +28,7 @@ namespace Kompas.Cards.Models
 
 		public override IPlayRestriction PlayRestriction { get; }
 		public override IMovementRestriction MovementRestriction { get; }
-		public override IRestriction<IGameCard> AttackingDefenderRestriction { get; }
+		public override IRestriction<IGameCardInfo> AttackingDefenderRestriction { get; }
 
 
 		public override int BaseN { get; }

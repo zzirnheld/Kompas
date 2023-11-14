@@ -7,6 +7,6 @@ namespace Kompas.Effects.Models
 	{
 		GameCard Card { get; }
 
-		GameCard GetCause (IGameCard withRespectTo);
+		GameCard GetCause (IGameCardInfo withRespectTo);
 	}
 }

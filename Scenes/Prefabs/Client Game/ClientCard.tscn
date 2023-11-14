@@ -82,9 +82,8 @@ libraries = {
 
 [node name="Node3D" parent="." instance=ExtResource("1_e7upk")]
 
-[node name="Actual Card Model" parent="Node3D" index="0" node_paths=PackedStringArray("ValidTargetParticles")]
+[node name="Actual Card Model" parent="Node3D" index="0"]
 CardImageMaterial = SubResource("StandardMaterial3D_yn842")
-ValidTargetParticles = NodePath("../Particles/Valid Target Particles")
 
 [node name="ZO Char Baseplate Image" parent="Node3D/Actual Card Model/Zoomed Out/Char" index="1"]
 material_override = SubResource("StandardMaterial3D_g7jo0")

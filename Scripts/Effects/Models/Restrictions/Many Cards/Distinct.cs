@@ -6,15 +6,15 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 {
 	public abstract class Distinct : ListRestrictionElementBase
 	{
-		protected delegate object DistinguishingValueSelector(IGameCard card);
+		protected delegate object DistinguishingValueSelector(IGameCardInfo card);
 		protected abstract DistinguishingValueSelector SelectDistinguishingValue { get; }
 
-		private class DistinctCardComparer : IEqualityComparer<IGameCard>
+		private class DistinctCardComparer : IEqualityComparer<IGameCardInfo>
 		{
 			private readonly DistinguishingValueSelector selectDistinguishingValue;
 
-			public bool Equals(IGameCard x, IGameCard y) => selectDistinguishingValue(x) == selectDistinguishingValue(y);
-			public int GetHashCode(IGameCard obj) => selectDistinguishingValue(obj).GetHashCode();
+			public bool Equals(IGameCardInfo x, IGameCardInfo y) => selectDistinguishingValue(x) == selectDistinguishingValue(y);
+			public int GetHashCode(IGameCardInfo obj) => selectDistinguishingValue(obj).GetHashCode();
 
 			public DistinctCardComparer(DistinguishingValueSelector selectDistinguishingValue)
 			{
@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 		}
 
 		//Ensure there exists a selection that fits the required minimum count
-		public override bool AllowsValidChoice(IEnumerable<IGameCard> options, IResolutionContext context)
+		public override bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context)
 		{
 			if (!(InitializationContext.parent is IListRestriction parent)) return true;
 
@@ -32,12 +32,12 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 		}
 
 		//Ensure that particular selection is distinct
-		protected override bool IsValidLogic(IEnumerable<IGameCard> options, IResolutionContext context)
+		protected override bool IsValidLogic(IEnumerable<IGameCardInfo> options, IResolutionContext context)
 			=> options.Count()
 			== options.Distinct(new DistinctCardComparer(SelectDistinguishingValue))
 						.Count();
 
-		public override IEnumerable<IGameCard> Deduplicate(IEnumerable<IGameCard> options)
+		public override IEnumerable<IGameCardInfo> Deduplicate(IEnumerable<IGameCardInfo> options)
 			=> options.Distinct(new DistinctCardComparer(SelectDistinguishingValue));
 	}
 

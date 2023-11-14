@@ -161,8 +161,8 @@ namespace Kompas.Server.Networking
 		#endregion card stats
 
 		#region request targets
-		public static void GetCardTarget(IPlayer player, string cardName, string targetBlurb, int[] ids, IListRestriction listRestriction, bool list)
-			=> SendPacket(player, new GetCardTargetPacket(cardName, targetBlurb, ids, listRestriction, list));
+		public static void GetCardTarget(IPlayer player, string cardName, string targetBlurb, int[] ids, IListRestriction listRestriction)
+			=> SendPacket(player, new GetCardTargetPacket(cardName, targetBlurb, ids, listRestriction));
 
 		public static void GetSpaceTarget(IPlayer player, string cardName, string targetBlurb, (int, int)[] spaces, (int, int)[] recommendedSpaces)
 			=> SendPacket(player, new GetSpaceTargetPacket(cardName, targetBlurb, spaces, recommendedSpaces));

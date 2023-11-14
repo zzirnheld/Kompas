@@ -6,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class AutoTargetCardIdentity : ServerSubeffect
 	{
-		public IIdentity<IGameCard> subeffectCardIdentity;
+		public IIdentity<IGameCardInfo> subeffectCardIdentity;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

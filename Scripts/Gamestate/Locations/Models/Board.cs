@@ -111,7 +111,7 @@ namespace Kompas.Gamestate.Locations.Models
 			return list;
 		}
 
-		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<IGameCard> restriction, IResolutionContext context)
+		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
 			=> AreConnectedBySpaces(source, destination, c => restriction.IsValid(c, context));
 
 		public bool AreConnectedBySpaces(Space source, Space destination, Func<GameCard, bool> throughPredicate)
@@ -133,10 +133,10 @@ namespace Kompas.Gamestate.Locations.Models
 		public int ShortestEmptyPath(Space src, Space dest)
 			=> board[dest.x, dest.y] == null ? ShortestPath(src, dest, IsEmpty) : NoPathExists;
 
-		public int ShortestPath(GameCard src, Space space, IRestriction<IGameCard> restriction, IResolutionContext context)
+		public int ShortestPath(GameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
 			=> ShortestPath(src.Position, space, c => restriction.IsValid(c, context));
 
-		public int ShortestPath(Space src, Space dest, Predicate<IGameCard> throughPredicate)
+		public int ShortestPath(Space src, Space dest, Predicate<IGameCardInfo> throughPredicate)
 			=> ShortestPath(src, dest, s => throughPredicate(GetCardAt(s)));
 
 		/// <summary>

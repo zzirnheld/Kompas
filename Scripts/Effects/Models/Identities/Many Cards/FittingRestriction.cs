@@ -6,13 +6,13 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class Restricted : ContextualParentIdentityBase<IReadOnlyCollection<IGameCard>>
+	public class Restricted : ContextualParentIdentityBase<IReadOnlyCollection<IGameCardInfo>>
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IReadOnlyCollection<IGameCard>> cards = new ManyCards.All();
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
 		[JsonProperty(Required = Required.Always)]
 
-		public IRestriction<IGameCard> cardRestriction;
+		public IRestriction<IGameCardInfo> cardRestriction;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -27,7 +27,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override IReadOnlyCollection<IGameCard> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 			=> cards.From(context, secondaryContext).Where(c => cardRestriction.IsValid(c, context)).ToArray();
 	}
 }

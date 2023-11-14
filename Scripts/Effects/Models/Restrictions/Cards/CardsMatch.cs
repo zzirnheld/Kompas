@@ -9,9 +9,9 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public class CardsMatch : CardRestrictionBase
 	{
 		[JsonProperty]
-		public IIdentity<IGameCard> card;
+		public IIdentity<IGameCardInfo> card;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCard>> cards;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			cards?.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IGameCard item, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo item, IResolutionContext context)
 		{
 			if (card != null) return item?.Card == card.From(context).Card;
 			else return cards.From(context).Any(c => c.Card == item?.Card);

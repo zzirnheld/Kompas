@@ -9,11 +9,11 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	public class CardsMatch : TriggerGamestateRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IGameCard> card;
+		public IIdentity<IGameCardInfo> card;
 		[JsonProperty]
-		public IIdentity<IGameCard> other;
+		public IIdentity<IGameCardInfo> other;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCard>> anyOf;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

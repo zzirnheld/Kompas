@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class Behind : SpaceRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IGameCard> card;
+		public IIdentity<IGameCardInfo> card;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

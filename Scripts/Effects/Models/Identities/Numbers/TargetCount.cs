@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 	public class TargetCount : EffectContextualLeafIdentityBase<int>
 	{
 		[JsonProperty]
-		public IRestriction<IGameCard> cardRestriction = new Restrictions.Gamestate.AlwaysValid();
+		public IRestriction<IGameCardInfo> cardRestriction = new Restrictions.Gamestate.AlwaysValid();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

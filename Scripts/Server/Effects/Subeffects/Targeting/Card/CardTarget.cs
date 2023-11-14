@@ -18,12 +18,12 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public string blurb;
 		public bool secretTarget = false;
 
-		public IIdentity<IReadOnlyCollection<IGameCard>> toSearch = new All();
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch = new All();
 
 		/// <summary>
 		/// Restriction that each card must fulfill
 		/// </summary>
-		public IRestriction<IGameCard> cardRestriction = new AlwaysValid();
+		public IRestriction<IGameCardInfo> cardRestriction = new AlwaysValid();
 
 		/// <summary>
 		/// Restriction that the list collectively must fulfill
@@ -34,7 +34,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		/// Identifies a card that this target should be linked with.
 		/// Usually null, but if you plan on having a delay later, probably a good idea
 		/// </summary>
-		public IIdentity<IGameCard> toLinkWith;
+		public IIdentity<IGameCardInfo> toLinkWith;
 		public Color linkColor = CardLink.DefaultColor; // "r": #, "g" ... etc
 
 		protected IReadOnlyCollection<GameCard> stashedPotentialTargets;

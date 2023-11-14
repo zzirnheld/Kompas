@@ -13,7 +13,7 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
-	public abstract class GameCard : GameCardBase, IGameCard
+	public abstract class GameCard : GameCardBase, IGameCardInfo
 	{
 		public abstract ICardController CardController { get; }
 		public abstract IGame Game { get; }
@@ -124,7 +124,7 @@ namespace Kompas.Cards.Models
 
 		//restrictions
 		public override IMovementRestriction MovementRestriction { get; }
-		public override IRestriction<IGameCard> AttackingDefenderRestriction { get; }
+		public override IRestriction<IGameCardInfo> AttackingDefenderRestriction { get; }
 		public override IPlayRestriction PlayRestriction { get; }
 
 		//controller/owners

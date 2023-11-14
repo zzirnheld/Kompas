@@ -9,7 +9,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class CardTargetSaveRest : CardTarget
 	{
-		public IRestriction<IGameCard> restRestriction;
+		public IRestriction<IGameCardInfo> restRestriction;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

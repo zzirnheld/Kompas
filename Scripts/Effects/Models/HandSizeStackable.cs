@@ -19,14 +19,14 @@ namespace Kompas.Effects.Models
 			this.player = player;
 		}
 
-		private IRestriction<IGameCard> handSizeCardRestriction;
-		public IRestriction<IGameCard> HandSizeCardRestriction => handSizeCardRestriction ??= CreateHandSizeCardRestriction();
+		private IRestriction<IGameCardInfo> handSizeCardRestriction;
+		public IRestriction<IGameCardInfo> HandSizeCardRestriction => handSizeCardRestriction ??= CreateHandSizeCardRestriction();
 
-		private IRestriction<IGameCard> CreateHandSizeCardRestriction()
+		private IRestriction<IGameCardInfo> CreateHandSizeCardRestriction()
 		{
 			var ret = new AllOf()
 			{
-				elements = new IRestriction<IGameCard>[]
+				elements = new IRestriction<IGameCardInfo>[]
 									{
 							new Friendly(),
 							new AtLocation() { locations = new string[]{ "Hand" } }
@@ -36,6 +36,6 @@ namespace Kompas.Effects.Models
 			return ret;
 		}
 
-		public GameCard GetCause(IGameCard withRespectTo) => Card;
+		public GameCard GetCause(IGameCardInfo withRespectTo) => Card;
 	}
 }

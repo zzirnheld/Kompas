@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class AllOf : AllOfBase<IGameCard>
+	public class AllOf : AllOfBase<IGameCardInfo>
 	{
 		[JsonProperty]
 		public string blurb;
@@ -25,7 +25,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public class Not : CardRestrictionBase
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IRestriction<IGameCard> negated;
+		public IRestriction<IGameCardInfo> negated;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -33,13 +33,13 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			negated.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IGameCard item, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo item, IResolutionContext context)
 			=> !negated.IsValid(item, context);
 	}
 
 	public class CardExists : CardRestrictionBase
 	{
-		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
 			=> card != null;
 	}
 }

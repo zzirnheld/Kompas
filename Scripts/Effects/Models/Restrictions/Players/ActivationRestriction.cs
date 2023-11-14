@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 					card = new Identities.Cards.ThisCardNow(),
 					cardRestriction = new Cards.AllOf()
 					{
-						elements = new IRestriction<IGameCard>[] {
+						elements = new IRestriction<IGameCardInfo>[] {
 							new Cards.AtLocation() { locations = this.locations },
 							new Cards.Not() { negated = new Cards.Negated() }
 						}

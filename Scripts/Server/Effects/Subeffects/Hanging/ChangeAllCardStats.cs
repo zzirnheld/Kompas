@@ -11,7 +11,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 	public class ChangeAllCardStats : ChangeCardStats
 	{
 		//default to making sure things are characters before changing their stats
-		public IRestriction<IGameCard> cardRestriction;
+		public IRestriction<IGameCardInfo> cardRestriction;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

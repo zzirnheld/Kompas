@@ -20,11 +20,11 @@ namespace Kompas.Effects.Models.Selectors
 	//Define types that Newtonsoft is capable of loading
 	public class Random : RandomSelector<object> {}
 	public class RandomSpace : RandomSelector<Space> {}
-	public class RandomCard : RandomSelector<IGameCard> {}
+	public class RandomCard : RandomSelector<IGameCardInfo> {}
 
-	public class SortIndex: ISelector<IGameCard>
+	public class SortIndex: ISelector<IGameCardInfo>
 	{
-		public IGameCard Select(IReadOnlyCollection<IGameCard> objects)
+		public IGameCardInfo Select(IReadOnlyCollection<IGameCardInfo> objects)
 			=> objects.OrderBy(c => c.IndexInList).FirstOrDefault();
 	}
 }

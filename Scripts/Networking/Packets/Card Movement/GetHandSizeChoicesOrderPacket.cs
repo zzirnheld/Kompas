@@ -1,22 +1,26 @@
-﻿using Kompas.Client.Gamestate;
+﻿using Godot;
+using Kompas.Client.Gamestate;
+using Kompas.Effects.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Networking.Packets;
+using Newtonsoft.Json;
 
 namespace Kompas.Networking.Packets
 {
 	public class GetHandSizeChoicesOrderPacket : Packet
 	{
-		public int[] cardIds;
+		public int[] cardIDs;
 		public string listRestrictionJson;
 
 		public GetHandSizeChoicesOrderPacket() : base(ChooseHandSize) { }
 
-		public GetHandSizeChoicesOrderPacket(int[] cardIds, string listRestrictionJson) : this()
+		public GetHandSizeChoicesOrderPacket(int[] cardIDs, string listRestrictionJson) : this()
 		{
-			this.cardIds = cardIds;
+			this.cardIDs = cardIDs;
 			this.listRestrictionJson = listRestrictionJson;
 		}
 
-		public override Packet Copy() => new GetHandSizeChoicesOrderPacket(cardIds, listRestrictionJson);
+		public override Packet Copy() => new GetHandSizeChoicesOrderPacket(cardIDs, listRestrictionJson);
 	}
 }
 
@@ -26,25 +30,10 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			throw new System.NotImplementedException();
-			/*
-			clientGame.clientUIController.TargetMode = TargetMode.HandSize;
-			IListRestriction listRestriction = null;
+			IListRestriction listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson);
+			listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
 
-			try
-			{
-				if (listRestrictionJson != null)
-					listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson);
-			}
-			catch (System.ArgumentException)
-			{
-				GD.PrintErr($"Error loading list restriction from json: {listRestrictionJson}");
-			}
-
-			clientGame.SetPotentialTargets(cardIds, listRestriction);
-			//TODO make the blurb plural if asking for multiple targets
-			clientGame.clientUIController.currentStateUIController.ShuffleToHandSize();
-			*/
+			clientGame.ClientGameController.TargetingController.StartHandSizeSearch(cardIDs, listRestriction);
 		}
 	}
 }

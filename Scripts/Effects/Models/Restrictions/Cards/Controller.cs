@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			playerIdentity.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
 			=> playerIdentity.From(context) == card.ControllingPlayer;
 	}
 

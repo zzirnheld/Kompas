@@ -4,15 +4,13 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
-using Kompas.Client.Effects.Models;
+using Kompas.Client.Gamestate.Search;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Gamestate
 {
-	public enum TargetMode { Free, OnHold, CardTarget, CardTargetList, SpaceTarget, HandSize }
-
 	public partial class ClientTargetingController : Node
 	{
 		[Export]
@@ -31,9 +29,7 @@ namespace Kompas.Client.Gamestate
 		public ClientGameCard FocusedCard => TopLeftCardView.FocusedCard;
 		public ClientGameCard ShownCard => TopLeftCardView.ShownCard;
 
-		private ClientSearch clientSearch;
-
-		public TargetMode TargetMode { get; private set; }
+		private ISearch currentSearch;
 
 		public bool CanDeclineFurtherTargets
 		{
@@ -44,7 +40,11 @@ namespace Kompas.Client.Gamestate
 		{
 			base._Ready();
 			TopLeftCardView = new(TopLeftInfoDisplayer);
-			TopLeftCardView.FocusChange += (_, change) => FocusChange(change.Old, change.New);
+			TopLeftCardView.FocusChange += (_, change) =>
+			{
+				change.Old?.ClientCardController.ShowFocused(false);
+				change.New.ClientCardController.ShowFocused(true);
+			};
 		}
 
 		/// <summary>
@@ -55,45 +55,51 @@ namespace Kompas.Client.Gamestate
 			//TODO make client notifier a static helper class
 			GD.Print($"Selecting {space}");
 			FocusedCard?.ClientGame.ClientGameController.Notifier.RequestPlay(FocusedCard, space.x, space.y);
+			currentSearch?.Select(space);
 		}
 
 		public void Select(ClientGameCard card)
 		{
 			GD.Print($"Selecting {card}");
-			TopLeftCardView.Focus(card);
-			clientSearch?.ToggleTarget(card);
+			TopLeftCardView.Select(card);
+			currentSearch?.Select(card);
 		}
 
 		public void Highlight(ClientGameCard card)
 		{
 			//GD.Print($"Selecting {card}");
-			TopLeftCardView.Show(card);
+			TopLeftCardView.Hover(card);
 		}
 
-		private static void FocusChange(ClientGameCard old, ClientGameCard current)
+		public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
 		{
-			old?.ClientCardController.ShowFocused(false);
-			current.ClientCardController.ShowFocused(true);
-		}
-
-		public void StartSearch(TargetMode targetMode, IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
-		{
-			TargetMode = targetMode;
-			clientSearch = ClientSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID), listRestriction,
+			currentSearch = CardSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo(targetBlurb);
+			currentSearch.FinishSearch += (_, _) => FinishSearch();
 		}
 
-		public void FinishSearch()
+		public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
 		{
-			TargetMode = TargetMode.OnHold;
-			clientSearch = null;
+			currentSearch = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID), listRestriction,
+				GameController.Game, this, GameController.Notifier);
+			GameController.CurrentStateController.ShowCurrentStateInfo($"Reshuffle down to hand size");
+			currentSearch.FinishSearch += (_, _) => FinishSearch();
 		}
 
-		public void TargetAccepted()
+		public void StartSpaceSearch(IEnumerable<Space> spaces, string blurb)
 		{
-			TargetMode = TargetMode.Free;
+			currentSearch = new SpaceSearch(spaces, GameController.Notifier);
+			GameController.CurrentStateController.ShowCurrentStateInfo(blurb);
+			currentSearch.FinishSearch += (_, _) => FinishSearch();
 		}
+
+		private void FinishSearch()
+		{
+			currentSearch = null;
+		}
+
+		public void TargetAccepted() { }
 
 		public void DeclineFurtherTargets()
 		{
@@ -101,8 +107,8 @@ namespace Kompas.Client.Gamestate
 			GameController.Notifier.DeclineAnotherTarget();
 		}
 
-		public bool IsValidTarget(GameCard card) => clientSearch.toSearch.Contains(card);
-		public bool IsSelectedTarget(GameCard card) => clientSearch.searched.Contains(card);
+		public bool IsValidTarget(GameCard card) => currentSearch.IsValidTarget(card);
+		public bool IsSelectedTarget(GameCard card) => currentSearch.IsCurrentTarget(card);
 		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
 	}
 }

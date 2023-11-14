@@ -11,7 +11,7 @@ namespace Kompas.Client.Gamestate.Players
 		[Export]
 		private PlayerInfoController PlayerInfo { get; set; }
 
-		public override IGameCard Avatar { set => PlayerInfo.AvatarTexture = value.CardFaceImage; }
+		public override IGameCardInfo Avatar { set => PlayerInfo.AvatarTexture = value.CardFaceImage; }
 		public override int Pips { set => PlayerInfo.PipsCount = value; }
 		public override int PipsNextTurn { set => PlayerInfo.NextTurnPipsCount = value; }
 	}

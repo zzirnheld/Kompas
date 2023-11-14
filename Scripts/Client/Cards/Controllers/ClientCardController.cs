@@ -1,4 +1,5 @@
 
+using System;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
@@ -7,6 +8,7 @@ using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
 using Kompas.Gamestate.Locations;
+using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Cards.Controllers
 {
@@ -22,7 +24,7 @@ namespace Kompas.Client.Cards.Controllers
 		private AnimationPlayer AnimationPlayer { get; set; }
 
 		Node3D ICardController.Node => this;
-		IGameCard ICardController.Card => Card;
+		IGameCardInfo ICardController.Card => Card;
 
 		private const string FocusedAnimationName = "Rotate";
 		private const string ResetAnimationName = "RESET";
@@ -36,6 +38,7 @@ namespace Kompas.Client.Cards.Controllers
 			{
 				if (_cardView != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card view!");
 				_cardView = value;
+				_cardView.Refreshed += (_, _) => Refreshed.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -51,6 +54,8 @@ namespace Kompas.Client.Cards.Controllers
 				gameController = value.ClientGame.ClientGameController;
 			}
 		}
+
+		public event EventHandler Refreshed;
 
 		public void Delete() => QueueFree();
 

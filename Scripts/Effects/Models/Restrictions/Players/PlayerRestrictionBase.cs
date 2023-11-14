@@ -4,9 +4,9 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models.Restrictions.Players
 {
-	public abstract class PlayerRestrictionBase : RestrictionBase<IPlayer>, IRestriction<IGameCard>, IRestriction<(Space s, IPlayer p)>
+	public abstract class PlayerRestrictionBase : RestrictionBase<IPlayer>, IRestriction<IGameCardInfo>, IRestriction<(Space s, IPlayer p)>
 	{
-		public bool IsValid(IGameCard item, IResolutionContext context)
+		public bool IsValid(IGameCardInfo item, IResolutionContext context)
 			=> IsValid(item.ControllingPlayer, context);
 
 		public bool IsValid((Space s, IPlayer p) item, IResolutionContext context)

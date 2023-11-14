@@ -18,8 +18,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public const string Any = "Any";
 		public const string RandomCard = "Random";
 
-		public IIdentity<IReadOnlyCollection<IGameCard>> toSearch = new All();
-		public IRestriction<IGameCard> cardRestriction;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch = new All();
+		public IRestriction<IGameCardInfo> cardRestriction;
 		public CardValue tiebreakerValue;
 		public string tiebreakerDirection;
 

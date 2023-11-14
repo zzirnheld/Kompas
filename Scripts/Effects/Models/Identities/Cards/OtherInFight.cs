@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Cards
 {
-	public class OtherInFight : ContextualParentIdentityBase<IGameCard>
+	public class OtherInFight : ContextualParentIdentityBase<IGameCardInfo>
 	{
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IGameCard> other;
+		public IIdentity<IGameCardInfo> other;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 			other.Initialize(initializationContext);
 		}
 
-		protected override IGameCard AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IGameCardInfo AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			Attack attack = GetAttack(ContextToConsider(context, secondaryContext).TriggerContext);
 			var otherCard = other.From(context, secondaryContext);

@@ -10,10 +10,10 @@ namespace Kompas.Effects.Models.Identities.Numbers
 	public class CountCards : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCard>> cards = new ManyCards.All();
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
 
 		[JsonProperty]
-		public IRestriction<IGameCard> cardRestriction = new Restrictions.Gamestate.AlwaysValid();
+		public IRestriction<IGameCardInfo> cardRestriction = new Restrictions.Gamestate.AlwaysValid();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

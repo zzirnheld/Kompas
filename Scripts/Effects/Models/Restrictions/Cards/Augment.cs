@@ -12,11 +12,11 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public abstract class AugmentRestrictionBase : CardRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<IGameCard> cardRestriction;
+		public IRestriction<IGameCardInfo> cardRestriction;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCard>> manyCards;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> manyCards;
 		[JsonProperty]
-		public IIdentity<IGameCard> singleCard;
+		public IIdentity<IGameCardInfo> singleCard;
 
 		/// <summary>
 		/// Returns a predicate that tests the test card with the following order of priorities:
@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		/// If no CardRestriction is defined, but a list of cards is defined, checks if the test card is one of those cards.
 		/// If neither is defined, but a single card identity is defined, checks if the test card is that card.
 		/// </summary>
-		protected Func<IGameCard, bool> IsValidAug(IResolutionContext context) => card =>
+		protected Func<IGameCardInfo, bool> IsValidAug(IResolutionContext context) => card =>
 		{
 			if (cardRestriction != null) return cardRestriction.IsValid(card, context);
 			if (manyCards != null) return manyCards.From(context, null).Contains(card);
@@ -56,7 +56,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool all = false; //default to any
 
-		protected override bool IsValidLogic(IGameCard card, IResolutionContext context) 
+		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context) 
 			=> all
 				? card.Augments.All(IsValidAug(context))
 				: card.Augments.Any(IsValidAug(context));
@@ -64,7 +64,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Augments : AugmentRestrictionBase
 	{
-		protected override bool IsValidLogic(IGameCard card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
 			=> IsValidAug(context)(card.AugmentedCard);
 	}
 }

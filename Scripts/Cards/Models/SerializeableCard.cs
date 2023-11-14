@@ -18,7 +18,7 @@ namespace Kompas.Cards.Models
 		public int[] keywordArgs = System.Array.Empty<int>();
 
 		public IMovementRestriction movementRestriction = null;
-		public IRestriction<IGameCard> attackingDefenderRestriction = null;
+		public IRestriction<IGameCardInfo> attackingDefenderRestriction = null;
 		public IPlayRestriction PlayRestriction = null;
 
 		public int n;

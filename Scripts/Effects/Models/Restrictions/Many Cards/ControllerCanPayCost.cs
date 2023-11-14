@@ -6,10 +6,10 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 {
 	public class ControllerCanPayCost : ListRestrictionElementBase
 	{
-		protected override bool IsValidLogic(IEnumerable<IGameCard> item, IResolutionContext context)
+		protected override bool IsValidLogic(IEnumerable<IGameCardInfo> item, IResolutionContext context)
 			=> item.Select(c => c.Cost).Sum() <= InitializationContext.Owner.Pips;
 
-		public override bool AllowsValidChoice(IEnumerable<IGameCard> options, IResolutionContext context)
+		public override bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context)
 		{
 			if (!(InitializationContext.parent is IListRestriction parent)) return true;
 

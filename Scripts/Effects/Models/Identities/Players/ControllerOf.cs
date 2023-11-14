@@ -7,7 +7,7 @@ namespace Kompas.Effects.Models.Identities.Players
 	public class ControllerOf : ContextualParentIdentityBase<IPlayer>
 	{
 		[JsonProperty]
-		public IIdentity<IGameCard> card;
+		public IIdentity<IGameCardInfo> card;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

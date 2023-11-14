@@ -1,6 +1,7 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using System.Linq;
+using Kompas.Gamestate;
 
 namespace Kompas.Networking.Packets
 {
@@ -8,7 +9,7 @@ namespace Kompas.Networking.Packets
 	{
 		public string cardName;
 		public string targetBlurb;
-		public int[] possibleSpaces;
+		public int[] possibleSpaces; //storing a space as a single int. I originally did this for space + serialization worries. probably not worth worrying about tho
 		public int[] recommendedSpaces;
 
 		public GetSpaceTargetPacket() : base(GetSpaceTarget) { }
@@ -29,13 +30,8 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			throw new System.NotImplementedException();
-			/*
-			clientGame.clientUIController.TargetMode = TargetMode.SpaceTarget;
-			//TODO check whether client setting says "yes recommendations" or not
-			clientGame.CurrentPotentialSpaces = recommendedSpaces.Select(s => (s / 7, s % 7)).ToArray();
-			clientGame.clientUIController.currentStateUIController.ChooseSpaceTarget(cardName, targetBlurb);
-			*/
+			clientGame.ClientGameController.TargetingController
+				.StartSpaceSearch(recommendedSpaces.Select(s => new Space(s / 7, s % 7)), targetBlurb);
 		}
 	}
 }

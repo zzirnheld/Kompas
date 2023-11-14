@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class ResummonAll : ServerSubeffect
 	{
-		public IRestriction<IGameCard> cardRestriction;
+		public IRestriction<IGameCardInfo> cardRestriction;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

@@ -141,7 +141,7 @@ namespace Kompas.Server.Networking
 		public async Task<IEnumerable<GameCard>> GetCardListTargets
 			(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, IListRestriction listRestriction)
 		{
-			ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestriction, list: true);
+			ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestriction);
 			while (true)
 			{
 				if (CardListTargets != null)

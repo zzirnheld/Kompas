@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class WithinDistanceOfNumberOfCards : SpaceRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<IGameCard> cardRestriction = new Gamestate.AlwaysValid();
+		public IRestriction<IGameCardInfo> cardRestriction = new Gamestate.AlwaysValid();
 
 		[JsonProperty]
 		public IIdentity<int> numberOfCards = Identities.Numbers.Constant.One;

@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models
 	{
 		public GameCard Card => null;
 
-		public GameCard GetCause(IGameCard withRespectTo) => Card;
+		public GameCard GetCause(IGameCardInfo withRespectTo) => Card;
 
 		public Task StartResolution(IServerResolutionContext context)
 		{

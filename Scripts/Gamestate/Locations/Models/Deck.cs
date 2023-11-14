@@ -74,7 +74,7 @@ namespace Kompas.Gamestate.Locations.Models
 			foreach (var card in toShuffleInOrder) PushBottomdeck(card, stackSrc);
 		}
 
-		public List<GameCard> CardsThatFitRestriction(IRestriction<IGameCard> cardRestriction, ResolutionContext context)
+		public List<GameCard> CardsThatFitRestriction(IRestriction<IGameCardInfo> cardRestriction, ResolutionContext context)
 		{
 			List<GameCard> cards = new List<GameCard>();
 			foreach (GameCard c in deck)

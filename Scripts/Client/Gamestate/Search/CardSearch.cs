@@ -8,12 +8,12 @@ using Kompas.Client.Networking;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 
-namespace Kompas.Client.Effects.Models
+namespace Kompas.Client.Gamestate.Search
 {
 	/// <summary>
-    /// Holds the data for a single search
-    /// </summary>
-	public class ClientSearch
+	/// Holds the data for a single search
+	/// </summary>
+	public class CardSearch : ISearch
 	{
 		public readonly GameCard[] toSearch;
 		public readonly IListRestriction listRestriction;
@@ -21,7 +21,7 @@ namespace Kompas.Client.Effects.Models
 
 		private readonly IGame game;
 		private readonly ClientTargetingController targetingController;
-		private readonly ClientNotifier clientNotifier;
+		protected readonly ClientNotifier clientNotifier;
 
 		/// <summary>
 		/// Whether the list restriction of this search data determines that enough cards have <b>already</b> been searched 
@@ -52,7 +52,7 @@ namespace Kompas.Client.Effects.Models
 			}
 		}
 
-		public ClientSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+		protected CardSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
 			IGame game, ClientTargetingController targetingController, ClientNotifier clientNotifier)
 		{
 			this.toSearch = toSearch.ToArray();
@@ -70,7 +70,7 @@ namespace Kompas.Client.Effects.Models
 		public SearchUIController clientSearchUICtrl;
 		public ConfirmTargetsUIController confirmTargetsCtrl; */
 
-		public static ClientSearch StartSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+		public static CardSearch StartSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
 			IGame game, ClientTargetingController targetingController, ClientNotifier notifier)
 		{
 			//if the list is empty, don't search
@@ -80,12 +80,14 @@ namespace Kompas.Client.Effects.Models
 			return new(toSearch, listRestriction, game, targetingController, notifier);
 		}
 
+		public void Select(Space space) => GD.Print("Selecting a space while searching for a card does nothing");
+
 		/// <summary>
 		/// Adds the target, and sends off the list of targets as necessary 
 		/// </summary>
 		/// <param name="nextTarget"></param>
 		/// <returns></returns>
-		public void ToggleTarget(GameCard nextTarget)
+		public void Select(GameCard nextTarget)
 		{
 			//if it's already selected, deselect it
 			if (searched.Contains(nextTarget)) RemoveTarget(nextTarget);
@@ -154,18 +156,18 @@ namespace Kompas.Client.Effects.Models
 
 		private void SendTargets(IList<GameCard> choices)
 		{
-			GD.Print($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} " +
-				$"while in target mode {targetingController.TargetMode}");
-			if (targetingController.TargetMode == TargetMode.HandSize)
-				clientNotifier.RequestHandSizeChoices(choices.Select(c => c.ID).ToArray());
-			else if (targetingController.TargetMode == TargetMode.CardTarget)
-				clientNotifier.RequestTarget(choices.FirstOrDefault());
-			else if (targetingController.TargetMode == TargetMode.CardTargetList)
-				clientNotifier.RequestListChoices(choices);
-			else throw new System.ArgumentException($"Unknown target mode {targetingController.TargetMode} in search ctrl");
+			GD.Print($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} ");
 
-			//and change the game's target mode TODO should this do this
-			targetingController.FinishSearch();
+			SendChoices(choices);
+			FinishSearch?.Invoke(this, EventArgs.Empty);
 		}
+
+		public event EventHandler FinishSearch;
+
+		protected virtual void SendChoices(IList<GameCard> choices)
+			=> clientNotifier.RequestListChoices(choices);
+
+		public bool IsValidTarget(GameCard card) => toSearch.Contains(card);
+		public bool IsCurrentTarget(GameCard card) => searched.Contains(card);
 	}
 }

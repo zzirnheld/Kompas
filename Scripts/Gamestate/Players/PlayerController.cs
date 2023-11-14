@@ -19,7 +19,7 @@ namespace Kompas.Gamestate.Players
 
 		public AnnihilationController AnnihilationController { get; private set; }
 
-		public virtual IGameCard Avatar { set { } }
+		public virtual IGameCardInfo Avatar { set { } }
 		public virtual int Pips { set { } }
 		public virtual int PipsNextTurn { set { } }
 	}

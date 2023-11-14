@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
@@ -10,7 +11,9 @@ namespace Kompas.Server.Cards.Controllers
 	{
 		//FUTURE: when I want to display the card server side, have it store the card
 		public Node3D Node => null;
-		public IGameCard Card => null;
+		public IGameCardInfo Card => null;
+
+		public event EventHandler Refreshed;
 
 		public void Delete() { }
 

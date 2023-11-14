@@ -10,7 +10,11 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
-	public interface IGameCard
+	/// <summary>
+    /// Something that has all the same information as a card in a game,
+    /// but isn't necessarily the actual card
+    /// </summary>
+	public interface IGameCardInfo
 	{
 		public GameCard Card { get; }
 		public IGame Game { get; }
@@ -68,35 +72,35 @@ namespace Kompas.Cards.Models
 	public static class GameCardExtensions
 	{
 
-		public static bool HasSubtype(this IGameCard card, string subtype) => card.SubtypeText.ToLower().Contains(subtype.ToLower());
+		public static bool HasSubtype(this IGameCardInfo card, string subtype) => card.SubtypeText.ToLower().Contains(subtype.ToLower());
 
-		public static int RadiusDistanceTo(this IGameCard card, Space space)
+		public static int RadiusDistanceTo(this IGameCardInfo card, Space space)
 			=> card.Location == Location.Board ? card.Position.RadiusDistanceTo(space) : int.MaxValue;
-		public static int DistanceTo(this IGameCard card, Space space)
+		public static int DistanceTo(this IGameCardInfo card, Space space)
 			=> card.Location == Location.Board ? card.Position.DistanceTo(space) : int.MaxValue;
-		public static int DistanceTo(this IGameCard card, IGameCard other) => card.DistanceTo(other.Position);
+		public static int DistanceTo(this IGameCardInfo card, IGameCardInfo other) => card.DistanceTo(other.Position);
 
-		public static bool WithinSpaces(this IGameCard card, int numSpaces, IGameCard other)
+		public static bool WithinSpaces(this IGameCardInfo card, int numSpaces, IGameCardInfo other)
 			=> card.Location == Location.Board
 			&& other?.Location == Location.Board
 			&& card.DistanceTo(other) <= numSpaces;
 
-		public static bool IsAdjacentTo(this IGameCard card, IGameCard other)
+		public static bool IsAdjacentTo(this IGameCardInfo card, IGameCardInfo other)
 			=> card.Location == Location.Board
 			&& other?.Location == Location.Board
 			&& card.Position.IsAdjacentTo(other.Position);
-		public static bool IsAdjacentTo(this IGameCard card, Space space)
+		public static bool IsAdjacentTo(this IGameCardInfo card, Space space)
 			=> card.Location == Location.Board
 			&& card.Position.IsAdjacentTo(space);
 
-		public static bool IsAdjacentTo(this IGameCard card, Predicate<IGameCard> predicate)
+		public static bool IsAdjacentTo(this IGameCardInfo card, Predicate<IGameCardInfo> predicate)
 			=> card.Location == Location.Board
 			&& card.Game.Board.CardsAdjacentTo(card.Position).Any(c => predicate(c));
 
 		/// <summary>
 		/// Whether <paramref name="space"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
 		/// </summary>
-		public static bool SpaceInAOE(this IGameCard card, Space space, Space mySpace)
+		public static bool SpaceInAOE(this IGameCardInfo card, Space space, Space mySpace)
 			=> space != null
 			&& mySpace != null
 			&& card.SpellSubtypes != null
@@ -106,35 +110,35 @@ namespace Kompas.Cards.Models
 				_ => false
 			});
 
-		public static bool SpaceInAOE(this IGameCard card, Space space) => card.SpaceInAOE(space, card.Position);
+		public static bool SpaceInAOE(this IGameCardInfo card, Space space) => card.SpaceInAOE(space, card.Position);
 
 		/// <summary>
 		/// Whether <paramref name="other"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
 		/// </summary>
-		public static bool CardInAOE(this IGameCard card, IGameCard other, Space mySpace) => card.SpaceInAOE(other.Position, mySpace);
+		public static bool CardInAOE(this IGameCardInfo card, IGameCardInfo other, Space mySpace) => card.SpaceInAOE(other.Position, mySpace);
 
 		/// <summary>
 		/// Whether <paramref name="other"/> is in the aoe of <see cref="this"/> card.
 		/// </summary>
-		public static bool CardInAOE(this IGameCard card, IGameCard other) => card.CardInAOE(other, card.Position);
+		public static bool CardInAOE(this IGameCardInfo card, IGameCardInfo other) => card.CardInAOE(other, card.Position);
 
 		/// <summary>
 		/// Whether <paramref name="other"/> and this card have any spaces shared between their AOEs,
 		/// if this card is at <paramref name="mySpace"/>
 		/// </summary>
-		public static bool Overlaps(this IGameCard card, IGameCard other, Space mySpace)
+		public static bool Overlaps(this IGameCardInfo card, IGameCardInfo other, Space mySpace)
 			=> Space.Spaces.Any(s => card.SpaceInAOE(s, mySpace) && other.SpaceInAOE(s));
 
 		/// <summary>
 		/// Whether <paramref name="c"/> and this card have any spaces shared between their AOEs
 		/// </summary>
-		public static bool Overlaps(this IGameCard card, IGameCard c) => card.Overlaps(c, card.Position);
+		public static bool Overlaps(this IGameCardInfo card, IGameCardInfo c) => card.Overlaps(c, card.Position);
 
-		public static bool SameColumn(this IGameCard card, Space space)
+		public static bool SameColumn(this IGameCardInfo card, Space space)
 			=> card.Location == Location.Board
 			&& card.Position.SameColumn(space);
 
-		public static bool SameColumn(this IGameCard card, IGameCard other)
+		public static bool SameColumn(this IGameCardInfo card, IGameCardInfo other)
 			=> other.Location == Location.Board
 			&& card.SameColumn(other.Position);
 
@@ -143,7 +147,7 @@ namespace Kompas.Cards.Models
 		/// </summary>
 		/// <param name="space">The space to check if it's in front of this card</param>
 		/// <returns><see langword="true"/> if <paramref name="space"/> is in front of this, <see langword="false"/> otherwise.</returns>
-		public static bool SpaceInFront(this IGameCard card, Space space)
+		public static bool SpaceInFront(this IGameCardInfo card, Space space)
 			=> card.ControllingPlayer.SubjectiveCoords(space).NorthOf(card.SubjectivePosition);
 
 		/// <summary>
@@ -151,14 +155,14 @@ namespace Kompas.Cards.Models
 		/// </summary>
 		/// <param name="other">The card to check if it's in front of this one</param>
 		/// <returns><see langword="true"/> if <paramref name="other"/> is in front of this, <see langword="false"/> otherwise.</returns>
-		public static bool CardInFront(this IGameCard card, IGameCard other) => card.SpaceInFront(other.Position);
+		public static bool CardInFront(this IGameCardInfo card, IGameCardInfo other) => card.SpaceInFront(other.Position);
 
 		/// <summary>
 		/// Returns whether the <paramref name="space"/> passed in is behind this card
 		/// </summary>
 		/// <param name="space">The space to check if it's behind this card</param>
 		/// <returns><see langword="true"/> if <paramref name="space"/> is behind this, <see langword="false"/> otherwise.</returns>
-		public static bool SpaceBehind(this IGameCard card, Space space)
+		public static bool SpaceBehind(this IGameCardInfo card, Space space)
 			=> card.SubjectivePosition.NorthOf(card.ControllingPlayer.SubjectiveCoords(space));
 
 		/// <summary>
@@ -166,24 +170,24 @@ namespace Kompas.Cards.Models
 		/// </summary>
 		/// <param name="other">The card to check if it's behind this one</param>
 		/// <returns><see langword="true"/> if <paramref name="other"/> is behind this, <see langword="false"/> otherwise.</returns>
-		public static bool CardBehind(this IGameCard card, IGameCard other) => card.SpaceBehind(other.Position);
+		public static bool CardBehind(this IGameCardInfo card, IGameCardInfo other) => card.SpaceBehind(other.Position);
 
-		public static bool SpaceDirectlyInFront(this IGameCard card, Space space)
+		public static bool SpaceDirectlyInFront(this IGameCardInfo card, Space space)
 			=> card.Location == Location.Board
 			&& card.ControllingPlayer.SubjectiveCoords(space) == card.SubjectivePosition.DueNorth;
 
-		public static bool CardDirectlyInFront(this IGameCard card, IGameCard other)
+		public static bool CardDirectlyInFront(this IGameCardInfo card, IGameCardInfo other)
 			=> other.Location == Location.Board
 			&& card.SpaceDirectlyInFront(other.Position);
 
-		public static bool SameDiagonal(this IGameCard card, Space space)
+		public static bool SameDiagonal(this IGameCardInfo card, Space space)
 			=> card.Location == Location.Board
 			&& card.Position.SameDiagonal(space);
-		public static bool SameDiagonal(this IGameCard card, IGameCard other)
+		public static bool SameDiagonal(this IGameCardInfo card, IGameCardInfo other)
 			=> other?.Location == Location.Board
 			&& card.SameDiagonal(other.Position);
 
-		public static bool InCorner(this IGameCard card)
+		public static bool InCorner(this IGameCardInfo card)
 			=> card.Location == Location.Board
 			&& card.Position.IsCorner;
 
@@ -196,7 +200,7 @@ namespace Kompas.Cards.Models
 		/// <param name="space">The space in the same axis as this card and <paramref name="other"/> param</param>
 		/// <param name="other">The card in the same axis as this card and the <paramref name="space"/> param.</param>
 		/// <returns></returns>
-		public static bool SpaceDirectlyAwayFrom(this IGameCard card, (int x, int y) space, IGameCard other)
+		public static bool SpaceDirectlyAwayFrom(this IGameCardInfo card, (int x, int y) space, IGameCardInfo other)
 		{
 			if (other.Location != Location.Board || card.Location != Location.Board) return false;
 
@@ -210,7 +214,7 @@ namespace Kompas.Cards.Models
 				|| (xDiffCard == yDiffCard && xDiffSpace == yDiffSpace);
 		}
 
-		public static int ShortestPath(this IGameCard card, Space space, Predicate<IGameCard> throughPredicate)
+		public static int ShortestPath(this IGameCardInfo card, Space space, Predicate<IGameCardInfo> throughPredicate)
 			=> card.Game.Board.ShortestPath(card.Position, space, throughPredicate);
 	}
 
@@ -233,7 +237,7 @@ namespace Kompas.Cards.Models
 		/// <summary>
         /// When attacking, this restriction must be true of the defender.
         /// </summary>
-		public abstract IRestriction<IGameCard> AttackingDefenderRestriction { get; }
+		public abstract IRestriction<IGameCardInfo> AttackingDefenderRestriction { get; }
 		#endregion
 
 		#region mutable aspects

@@ -53,9 +53,6 @@ namespace Kompas.Client.Gamestate
 		public Settings Settings { get; private set; } //TODO consider moving this to its own controller that Game references?
 		Settings IGame.Settings => Settings;
 
-		//search
-		public ClientSearch search;
-
 		public bool canZoom = false;
 
 		//dirty card set

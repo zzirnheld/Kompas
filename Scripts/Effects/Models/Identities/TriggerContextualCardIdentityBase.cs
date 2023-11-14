@@ -3,7 +3,7 @@ using Kompas.Gamestate;
 
 namespace Kompas.Effects.Models.Identities
 {
-	public abstract class TriggerContextualCardIdentityBase : TriggerContextualLeafIdentityBase<IGameCard>,
+	public abstract class TriggerContextualCardIdentityBase : TriggerContextualLeafIdentityBase<IGameCardInfo>,
 		IIdentity<Space>
 	{
 		Space IIdentity<Space>.From(IResolutionContext context, IResolutionContext secondaryContext)

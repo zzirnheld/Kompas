@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 		[JsonProperty]
 		public int index = -1;
 
-		protected override IGameCard AbstractItemFrom(IResolutionContext contextToConsider)
+		protected override IGameCardInfo AbstractItemFrom(IResolutionContext contextToConsider)
 		{
 			return InitializationContext.effect?.identityOverrides.TargetCardOverride
 				?? EffectHelper.GetItem(contextToConsider.CardTargets, index);
@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 		[JsonProperty]
 		public int index = -1;
 
-		protected override IGameCard AbstractItemFrom(IResolutionContext contextToConsider)
+		protected override IGameCardInfo AbstractItemFrom(IResolutionContext contextToConsider)
 			=> EffectHelper.GetItem(contextToConsider.CardInfoTargets, index);
 	}
 }

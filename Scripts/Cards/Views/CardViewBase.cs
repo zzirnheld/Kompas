@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
@@ -19,6 +20,8 @@ namespace Kompas.Cards.Views
 
 		public DisplayerType InfoDisplayer { get; init; }
 
+		public event EventHandler<CardType> Refreshed;
+
 		protected CardViewBase(DisplayerType infoDisplayer)
 		{
 			InfoDisplayer = infoDisplayer;
@@ -30,6 +33,7 @@ namespace Kompas.Cards.Views
 		public void Refresh()
 		{
 			Show(ShownCard, true);
+			Refreshed?.Invoke(this, ShownCard);
 		}
 
 		/// <summary>
