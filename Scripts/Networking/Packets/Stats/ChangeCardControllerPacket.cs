@@ -19,7 +19,7 @@ namespace Kompas.Networking.Packets
 		public override Packet Copy() => new ChangeCardControllerPacket(cardId, controllerIndex);
 
 		//don't try and tell the client to change the controller of a card they don't know about
-		public override Packet GetInversion(bool known) => known ? new ChangeCardControllerPacket(cardId, controllerIndex, invert: true) : null;
+		public override Packet? GetInversion(bool known) => known ? new ChangeCardControllerPacket(cardId, controllerIndex, invert: true) : null;
 	}
 }
 

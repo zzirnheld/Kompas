@@ -22,8 +22,8 @@ namespace Kompas.Client.Gamestate
 	public class ClientGame : IGame
 	{
 		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
-		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
-		public CardRepository CardRepository => ClientCardRepository;
+		public ClientCardRepository? ClientCardRepository => ClientGameController.CardRepository;
+		public CardRepository? CardRepository => ClientCardRepository;
 
 		public ClientBoard ClientBoard { get; private set; }
 		public Board Board => ClientBoard;
@@ -74,6 +74,7 @@ namespace Kompas.Client.Gamestate
 			}
 		}
 
+		#nullable disable
 		private ClientGame(ClientGameController gameController)
 		{
 			ClientGameController = gameController;
@@ -82,15 +83,21 @@ namespace Kompas.Client.Gamestate
 
 			StackController = new(gameController.StackView);
 		}
+		#nullable restore
 
 		public static ClientGame Create(ClientGameController gameController)
 		{
 			var ret = new ClientGame(gameController);
 
-			ret.ClientBoard = new ClientBoard(gameController.BoardController);
-			
-			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, gameController.PlayerControllers[0], () => gameController.Networker);
-			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, gameController.PlayerControllers[1], () => gameController.Networker);
+			ret.ClientBoard = new ClientBoard(gameController.BoardController
+				?? throw new System.NullReferenceException("Failed to init"));
+
+			var playerControllers = gameController.PlayerControllers
+				?? throw new System.NullReferenceException("Failed to init");
+			var networker = gameController.Networker
+				?? throw new System.NullReferenceException("Failed to init");
+			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, playerControllers[0], () => networker);
+			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, playerControllers[1], () => networker);
 
 			ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
 			ret.clientPlayers[1].Enemy = ret.clientPlayers[0];
@@ -145,7 +152,8 @@ namespace Kompas.Client.Gamestate
 			if (player >= 2) throw new ArgumentException("Can only handle 2-player games!", nameof(player));
 
 			var owner = clientPlayers[player];
-			var avatar = ClientCardRepository.InstantiateClientAvatar(json, owner, avatarID, this);
+			var avatar = ClientCardRepository?.InstantiateClientAvatar(json, owner, avatarID, this)
+				?? throw new System.NullReferenceException("Failed to init");
 			avatar.KnownToEnemy = true;
 			owner.Avatar = avatar;
 			Space to = player == 0 ? Space.NearCorner : Space.FarCorner;
@@ -183,7 +191,11 @@ namespace Kompas.Client.Gamestate
 			TurnChanged?.Invoke(this, TurnPlayer);
 		}
 
-		public GameCard LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
+		public GameCard? LookupCardByID(int id)
+		{
+			if (cardsByID.TryGetValue(id, out var ret)) return ret;
+			return null;
+		}
 
 		//TODO move to GameController:
 		/*

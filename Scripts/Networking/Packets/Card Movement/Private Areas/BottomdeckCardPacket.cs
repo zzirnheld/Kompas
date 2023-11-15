@@ -19,7 +19,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new BottomdeckCardPacket(cardId, controllerIndex);
 
-		public override Packet GetInversion(bool known)
+		public override Packet? GetInversion(bool known)
 		{
 			if (known) return new DeleteCardPacket(cardId);
 			else return null;

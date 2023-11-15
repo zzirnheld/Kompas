@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Kompas.Shared.Enumerable
 {
@@ -37,5 +39,13 @@ namespace Kompas.Shared.Enumerable
 			=> source.ElementAtOrDefault(TrueIndex(source.Count(), index));
 
 		public static int TrueIndex(int len, int index) => index < 0 ? index + len : index;
+
+		/// <summary>
+        /// For use with SelectMany to flatten in a null-safe way
+        /// </summary>
+		public static IEnumerable<T> YieldNonNull<T>(T? item)
+		{
+			if (item != null) yield return item;
+		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Kompas.Networking.Packets
 	public class GetHandSizeChoicesOrderPacket : Packet
 	{
 		public int[] cardIDs;
-		public string listRestrictionJson;
+		public string listRestrictionJson = string.Empty;
 
 		public GetHandSizeChoicesOrderPacket() : base(ChooseHandSize) { }
 
@@ -30,7 +30,8 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			IListRestriction listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson);
+			IListRestriction? listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson)
+				?? throw new System.NullReferenceException("Failed to init");
 			listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
 
 			clientGame.ClientGameController.TargetingController.StartHandSizeSearch(cardIDs, listRestriction);

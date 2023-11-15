@@ -12,20 +12,20 @@ namespace Kompas.Client.Gamestate.Search
 		private readonly IReadOnlySet<Space> validSpaces;
 		private readonly ClientNotifier clientNotifier;
 
+		public event EventHandler? SearchFinished;
+
 		public SpaceSearch(IEnumerable<Space> validSpaces, ClientNotifier clientNotifier)
 		{
 			this.clientNotifier = clientNotifier;
 			this.validSpaces = new HashSet<Space>(validSpaces);
 		}
 
-		public event EventHandler SearchFinished;
-
 		public bool IsCurrentTarget(GameCard card) => false;
 		public bool IsValidTarget(GameCard card) => false;
 
 		public void Select(GameCard card)
 		{
-			if (card.Position.SafeIsValid()) Select(card.Position);
+			if (card.Position?.IsValid ?? false) Select(card.Position);
 		}
 
 		public void Select(Space space)

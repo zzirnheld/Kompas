@@ -39,7 +39,7 @@ namespace Kompas.Effects.Models
 		/// The object on the stack that caused this event to occur.
 		/// For example, if an effect caused an attack to start, this would be the effect.
 		/// </summary>
-		public readonly IStackable stackableCause;
+		public readonly IStackable? stackableCause;
 
 		/// <summary>
 		/// The object on the stack that this trigger describes an event related to.
@@ -77,7 +77,7 @@ namespace Kompas.Effects.Models
 								  GameCardInfo mainCardInfoBefore,
 								  GameCardInfo secondaryCardInfoBefore,
 								  GameCardInfo cardCause,
-								  IStackable stackableCause,
+								  IStackable? stackableCause,
 								  IStackable stackableEvent,
 								  IPlayer player,
 								  int? x,
@@ -111,7 +111,7 @@ namespace Kompas.Effects.Models
 								 GameCard CardBefore = null,
 								 GameCard secondaryCardBefore = null,
 								 GameCard eventCauseOverride = null,
-								 IStackable stackableCause = null,
+								 IStackable? stackableCause = null,
 								 IStackable stackableEvent = null,
 								 IPlayer player = null,
 								 int? x = null,

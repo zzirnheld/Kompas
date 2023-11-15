@@ -18,7 +18,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new SetDeckCountPacket(playerIndex, count, invert: false);
 
-		public override Packet GetInversion(bool known) => new SetDeckCountPacket(playerIndex, count, invert: true);
+		public override Packet? GetInversion(bool known) => new SetDeckCountPacket(playerIndex, count, invert: true);
 	}
 }
 

@@ -18,7 +18,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new RehandCardPacket(cardId);
 
-		public override Packet GetInversion(bool known)
+		public override Packet? GetInversion(bool known)
 		{
 			if (known) return new RehandCardPacket(cardId);
 			else return new ChangeEnemyHandCountPacket(1);

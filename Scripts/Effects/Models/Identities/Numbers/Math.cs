@@ -4,8 +4,10 @@ namespace Kompas.Effects.Models.Identities.Numbers
 {
 	public class Math : ContextualParentIdentityBase<int>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<int> number;
+		#nullable restore
 
 		[JsonProperty]
 		public int multiplier = 1;

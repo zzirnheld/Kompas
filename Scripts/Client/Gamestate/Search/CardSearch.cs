@@ -24,7 +24,7 @@ namespace Kompas.Client.Gamestate.Search
 		/// <summary>
         /// Triggered when the search completes
         /// </summary>
-		public event EventHandler SearchFinished;
+		public event EventHandler? SearchFinished;
 
 		/// <summary>
 		/// Whether the list restriction of this search data determines that enough cards have <b>already</b> been searched 
@@ -46,12 +46,12 @@ namespace Kompas.Client.Gamestate.Search
 				int min = listRestriction?.GetStashedMinimum() ?? 0;
 				int max = listRestriction?.GetStashedMaximum() ?? 0;
 
-				if (listRestriction == null) return null;
+				if (listRestriction == null) return string.Empty;
 				else if (min > 0 && max < int.MaxValue)
 					return $"{numSearched} / {min} - {max}";
 				else if (max < int.MaxValue) return $"{numSearched} / up to {max}";
 				else if (min > 0) return $"{numSearched} / at least {min}";
-				else return null;
+				else return string.Empty;
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace Kompas.Client.Gamestate.Search
 		public SearchUIController clientSearchUICtrl;
 		public ConfirmTargetsUIController confirmTargetsCtrl; */
 
-		public static CardSearch StartSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+		public static CardSearch? StartSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
 			IGame game, ClientTargetingController targetingController, ClientNotifier notifier)
 		{
 			//if the list is empty, don't search

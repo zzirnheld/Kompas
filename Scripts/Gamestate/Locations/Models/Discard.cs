@@ -22,7 +22,7 @@ namespace Kompas.Gamestate.Locations.Models
 			discardController.DiscardModel = this;
 		}
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)
+		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) discard.Insert(index.Value, card);
 			else discard.Add(card);

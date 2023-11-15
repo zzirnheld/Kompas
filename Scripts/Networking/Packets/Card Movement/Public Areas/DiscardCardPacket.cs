@@ -9,7 +9,7 @@ namespace Kompas.Networking.Packets
 	public class DiscardCardPacket : Packet
 	{
 		public int cardId;
-		public string json;
+		public string json = string.Empty;
 		public int controllerIndex;
 
 		public DiscardCardPacket() : base(DiscardCard) { }
@@ -27,7 +27,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new DiscardCardPacket(cardId, json, controllerIndex, invert: false);
 
-		public override Packet GetInversion(bool known)
+		public override Packet? GetInversion(bool known)
 		{
 			if (known) return new DiscardCardPacket(cardId, json, controllerIndex, invert: true);
 			else return new AddCardPacket(cardId, json, Location.Discard, controllerIndex, nowKnown: true, invert: true);

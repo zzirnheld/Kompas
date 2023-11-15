@@ -5,8 +5,10 @@ namespace Kompas.Effects.Models.Identities.Spaces
 {
 	public class Multiply : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> toMultiply;
+		#nullable restore
 
 		[JsonProperty]
 		public int multiplier = 1;

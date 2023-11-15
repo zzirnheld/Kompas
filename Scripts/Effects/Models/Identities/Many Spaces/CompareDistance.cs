@@ -7,10 +7,12 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 {
 	public class CompareDistance : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IReadOnlyCollection<Space>> spaces;
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> distanceTo;
+		#nullable restore
 
 		[JsonProperty]
 		public bool closest = true;

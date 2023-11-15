@@ -18,7 +18,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new SetPipsPacket(numPips, controllerIndex);
 
-		public override Packet GetInversion(bool known) => new SetPipsPacket(numPips, controllerIndex, invert: true);
+		public override Packet? GetInversion(bool known) => new SetPipsPacket(numPips, controllerIndex, invert: true);
 	}
 }
 

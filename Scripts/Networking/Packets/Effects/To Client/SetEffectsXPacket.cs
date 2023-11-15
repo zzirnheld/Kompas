@@ -22,7 +22,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new SetEffectsXPacket(sourceCardId, effIndex, x);
 
-		public override Packet GetInversion(bool known = true) => new SetEffectsXPacket(sourceCardId, effIndex, x);
+		public override Packet? GetInversion(bool known = true) => new SetEffectsXPacket(sourceCardId, effIndex, x);
 	}
 }
 

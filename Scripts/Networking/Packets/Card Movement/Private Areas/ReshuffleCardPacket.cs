@@ -19,7 +19,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new ReshuffleCardPacket(cardId, controllerIndex);
 
-		public override Packet GetInversion(bool known)
+		public override Packet? GetInversion(bool known)
 			=> known ? new DeleteCardPacket(cardId) : null;
 	}
 }

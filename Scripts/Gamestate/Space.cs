@@ -172,12 +172,4 @@ namespace Kompas.Gamestate
 		public override string ToString() => $"{x}, {y}";
 		public override int GetHashCode() => x + BoardLen * y;
 	}
-
-	public static class SpaceExtensions
-	{
-		/// <summary>
-        /// Null-safe IsValid
-        /// </summary>
-		public static bool SafeIsValid(this Space space) => space?.IsValid ?? false;
-	}
 }

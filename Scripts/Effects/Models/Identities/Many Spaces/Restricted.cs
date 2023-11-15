@@ -8,8 +8,11 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 {
 	public class Restricted : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<Space> restriction;
+		#nullable restore
+		
 		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<Space>> spaces = new ManySpaces.All();
 

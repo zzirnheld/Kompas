@@ -11,25 +11,25 @@ namespace Kompas.Effects.Models
 	public readonly struct EffectInitializationContext
 	{
 		public readonly IGame game;
-		public readonly GameCard source;
+		public readonly GameCard? source;
 
-		public readonly Effect effect;
+		public readonly Effect? effect;
 
-		public readonly Trigger trigger;
-		public readonly Subeffect subeffect;
+		public readonly Trigger? trigger;
+		public readonly Subeffect? subeffect;
 
-		private readonly IPlayer ownerOverride;
-		public readonly IPlayer Owner => ownerOverride ?? effect?.OwningPlayer ?? source?.ControllingPlayer;
+		private readonly IPlayer? ownerOverride;
+		public readonly IPlayer? Owner => ownerOverride ?? effect?.OwningPlayer ?? source?.ControllingPlayer;
 
-		public readonly IContextInitializeable parent;
+		public readonly IContextInitializeable? parent;
 
-		public EffectInitializationContext(IGame game, GameCard source, 
-			Effect effect = default, Trigger trigger = default, Subeffect subeffect = default, IPlayer controller = default)
+		public EffectInitializationContext(IGame game, GameCard? source, 
+			Effect? effect = default, Trigger? trigger = default, Subeffect? subeffect = default, IPlayer? controller = default)
 			: this (game, source, effect, trigger, subeffect, controller, default)
 		{ }
 
-		private EffectInitializationContext(IGame game, GameCard source,
-			Effect effect, Trigger trigger, Subeffect subeffect, IPlayer controller, IContextInitializeable parent)
+		private EffectInitializationContext(IGame game, GameCard? source,
+			Effect? effect, Trigger? trigger, Subeffect? subeffect, IPlayer? controller, IContextInitializeable? parent)
 		{
 			this.game = game;
 			this.source = source;

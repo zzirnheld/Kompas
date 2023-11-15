@@ -27,12 +27,12 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public override int IndexOf(GameCard card) => deck.IndexOf(card);
 		public int DeckSize => deck.Count;
-		public GameCard Topdeck => deck.FirstOrDefault();
-		public GameCard Bottomdeck => deck.LastOrDefault();
+		public GameCard? Topdeck => deck.FirstOrDefault();
+		public GameCard? Bottomdeck => deck.LastOrDefault();
 
 		protected override bool AllowAlreadyHereWhenAdd => true;
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)
+		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) deck.Insert(index.Value, card);
 			else deck.Add(card);

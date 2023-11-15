@@ -1,8 +1,6 @@
 ﻿using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Players;
-using Kompas.Client.Networking;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
 using Kompas.Networking.Packets;
@@ -12,7 +10,7 @@ namespace Kompas.Networking.Packets
 	public class AddCardPacket : Packet
 	{
 		public int cardId;
-		public string json;
+		public string json = string.Empty;
 		public int location;
 		public int controllerIndex;
 		public int x;
@@ -51,12 +49,12 @@ namespace Kompas.Networking.Packets
 
 		public AddCardPacket(GameCard card, bool known, bool invert = false)
 			: this(cardId: card.ID, json: card.BaseJson, location: card.Location, controllerIndex: card.ControllingPlayerIndex,
-				  x: card.Position?.x ?? 0, y: card.Position?.y ?? 0, attached: card.Attached, known: known, invert: invert)
+				  x: card.Position?.x ?? 0, y: card.Position?.y ?? 0, attached: card.AugmentedCard != null, known: known, invert: invert)
 		{ }
 
 		public override Packet Copy() => new AddCardPacket(cardId, json, Location, controllerIndex, x, y, attached, known);
 
-		public override Packet GetInversion(bool known)
+		public override Packet? GetInversion(bool known)
 		{
 			if (IGame.IsHiddenLocation(Location))
 			{
@@ -79,13 +77,14 @@ namespace Kompas.Client.Networking
 		public void Execute(ClientGame clientGame)
 		{
 			var controller = clientGame.Players[controllerIndex];
-			var card = clientGame.ClientCardRepository.InstantiateClientNonAvatar(json, controller, cardId, clientGame);
+			var card = clientGame.ClientCardRepository?.InstantiateClientNonAvatar(json, controller, cardId, clientGame)
+				?? throw new System.NullReferenceException($"Failed to init. card repo? {clientGame.ClientCardRepository != null}");
 			card.KnownToEnemy = known;
 			switch (Location)
 			{
 				case Location.Nowhere: break;
 				case Location.Board:
-					if (attached) clientGame.Board.GetCardAt((x, y)).AddAugment(card);
+					if (attached) clientGame.Board.GetCardAt((x, y))?.AddAugment(card);
 					else card.Play((x, y), controller);
 					break;
 				case Location.Discard:

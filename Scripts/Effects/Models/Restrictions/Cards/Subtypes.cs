@@ -6,8 +6,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class Subtypes : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string[] subtypes;
+		#nullable restore
 
 		[JsonProperty]
 		public bool exclude = false; //default to include

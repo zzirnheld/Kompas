@@ -1,5 +1,4 @@
 using System.Linq;
-using Godot;
 using Kompas.Cards.Models;
 using Newtonsoft.Json;
 
@@ -7,25 +6,16 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class AllOf : AllOfBase<IGameCardInfo>
 	{
-		[JsonProperty]
-		public string blurb;
-
-		public override void Initialize(EffectInitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			if (blurb != null) GD.PrintErr($"{GetType()} blurb is on the card restriction. move it to the card target of {initializationContext.source}");
-		}
-
-		public GameCard Card => InitializationContext.source;
-
-		public override string ToString() => $"Card Restriction of {Card?.CardName}." +
+		public override string ToString() => $"Card Restriction of {InitializationContext.source?.CardName}." +
 			$"\nRestriction Elements: {string.Join(", ", elements.Select(r => r))}";
 	}
 
 	public class Not : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<IGameCardInfo> negated;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

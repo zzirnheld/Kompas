@@ -7,10 +7,12 @@ namespace Kompas.Effects.Models.Identities.Numbers
 {
 	public class FromCardValue : ContextualParentIdentityBase<int>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IGameCardInfo> card;
 		[JsonProperty(Required = Required.Always)]
 		public CardValue cardValue;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -40,8 +42,10 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		public const string SpacesCanMove = "Spaces Can Move";
 		#endregion values
 
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string value;
+		#nullable enable
 		[JsonProperty]
 		public int multiplier = 1;
 		[JsonProperty]
@@ -49,7 +53,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public int modifier = 0;
 
-		public GameCard Card => InitializationContext.source;
+		public GameCard? SourceCard => InitializationContext.source;
 
 		//FUTURE: Make this more definitive
 		public string DisplayName => value;
@@ -70,11 +74,11 @@ namespace Kompas.Effects.Models.Identities.Numbers
 
 				Cost => card.Cost,
 				NumberOfAugments => card.Augments.Count,
-				DistanceToCard => card.DistanceTo(Card),
+				DistanceToCard => SourceCard != null ? card.DistanceTo(SourceCard) : throw new System.InvalidOperationException("Source card was null"),
 				Index => card.IndexInList,
 				SpacesCanMove => card.SpacesCanMove,
 				
-				_ => throw new System.ArgumentException($"Invalid value string {value}", nameof(value)),
+				_ => throw new System.InvalidOperationException($"Invalid value string {value}"),
 			};
 			return intermediateValue * multiplier / divisor + modifier;
 		}

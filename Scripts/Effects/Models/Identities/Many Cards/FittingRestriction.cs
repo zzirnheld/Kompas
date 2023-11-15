@@ -8,11 +8,12 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 {
 	public class Restricted : ContextualParentIdentityBase<IReadOnlyCollection<IGameCardInfo>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
 		[JsonProperty(Required = Required.Always)]
-
 		public IRestriction<IGameCardInfo> cardRestriction;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

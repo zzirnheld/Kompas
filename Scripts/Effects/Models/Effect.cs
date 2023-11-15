@@ -115,11 +115,11 @@ namespace Kompas.Effects.Models
 
 		public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
 
-		public T TestWithCardTarget<T>(GameCard target, System.Func<T> toTest)
+		public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest)
 		{
-			CardTargets.Add(target);
+			if (target != null) CardTargets.Add(target);
 			var ret = toTest();
-			CardTargets.RemoveAt(CardTargets.Count - 1);
+			if (target != null) CardTargets.RemoveAt(CardTargets.Count - 1);
 			return ret;
 		}
 

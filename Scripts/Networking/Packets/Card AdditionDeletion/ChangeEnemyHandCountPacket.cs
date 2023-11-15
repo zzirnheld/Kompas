@@ -26,8 +26,8 @@ namespace Kompas.Client.Networking
 		public void Execute(ClientGame clientGame)
 		{
 			//TODO replace this cast with newing up a dummy and adding it to hand, so we don't have to cast :)
-			for (int i = 0; i < num; i++) (clientGame.Players[1].Hand as ClientHand).IncrementHand();
-			for (int i = 0; i > num; i--) (clientGame.Players[1].Hand as ClientHand).DecrementHand();
+			for (int i = 0; i < num; i++) (clientGame.Players[1].Hand as ClientHand)?.IncrementHand();
+			for (int i = 0; i > num; i--) (clientGame.Players[1].Hand as ClientHand)?.DecrementHand();
 		}
 	}
 }

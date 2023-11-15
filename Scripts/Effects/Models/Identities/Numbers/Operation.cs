@@ -6,12 +6,14 @@ namespace Kompas.Effects.Models.Identities.Numbers
 {
 	public class Operation : ContextualParentIdentityBase<int>
 	{
+		#nullable disable
 		[JsonProperty]
 		public IIdentity<int>[] numbers;
 		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<int>> manyNumbers;
 		[JsonProperty(Required = Required.Always)]
 		public INumberOperation operation;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

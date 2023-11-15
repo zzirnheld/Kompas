@@ -5,10 +5,12 @@ namespace Kompas.Effects.Models.Identities.Spaces
 {
 	public class ApplyDisplacement : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> from;
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> displacement;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -23,10 +25,12 @@ namespace Kompas.Effects.Models.Identities.Spaces
 
 	public class Displacement : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> from;
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> to;
+		#nullable restore
 
 		[JsonProperty]
 		public bool subjective = false;
@@ -45,8 +49,9 @@ namespace Kompas.Effects.Models.Identities.Spaces
 
 			if (subjective)
 			{
-				origin = InitializationContext.Owner.SubjectiveCoords(origin);
-				destination = InitializationContext.Owner.SubjectiveCoords(destination);
+				var owner = InitializationContext.Owner ?? throw new System.NullReferenceException("No owner to draw subjectivity from!");
+				origin = owner.SubjectiveCoords(origin);
+				destination = owner.SubjectiveCoords(destination);
 			}
 
 			return origin.DisplacementTo(destination);

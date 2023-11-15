@@ -21,7 +21,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new AttackStartedPacket(attackerId, defenderId, controllerIndex);
 
-		public override Packet GetInversion(bool known = true) => new AttackStartedPacket(attackerId, defenderId, 1 - controllerIndex);
+		public override Packet? GetInversion(bool known = true) => new AttackStartedPacket(attackerId, defenderId, 1 - controllerIndex);
 	}
 }
 

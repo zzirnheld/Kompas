@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Spaces
 {
-
 	public class TwoSpaceIdentity : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> firstSpace;
 		[JsonProperty(Required = Required.Always)]
@@ -14,6 +14,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 
 		[JsonProperty(Required = Required.Always)]
 		public ITwoSpaceIdentity relationship;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

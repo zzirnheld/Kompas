@@ -16,7 +16,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new SetTurnPlayerPacket(turnPlayer);
 
-		public override Packet GetInversion(bool known = true) => new SetTurnPlayerPacket(turnPlayer, invert: true);
+		public override Packet? GetInversion(bool known = true) => new SetTurnPlayerPacket(turnPlayer, invert: true);
 	}
 }
 

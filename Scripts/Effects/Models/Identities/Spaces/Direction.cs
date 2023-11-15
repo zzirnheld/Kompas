@@ -5,10 +5,12 @@ namespace Kompas.Effects.Models.Identities.Spaces
 {
 	public class Direction : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> from;
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> to;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

@@ -14,8 +14,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class SubeffectValidIfTargeted : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public int[] subeffectIndices;
+		#nullable restore
 
 		protected override IEnumerable<IInitializationRequirement> InitializationRequirements
 			{ get { yield return new SubeffectInitializationRequirement(); } }
@@ -30,7 +32,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		}
 
 		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
-			=> InitializationContext.effect.TestWithCardTarget(card as GameCard, ValidateAllSubeffectsPossible);
+		{
+			var effect = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
+			return InitializationContext.effect.TestWithCardTarget(card as GameCard, ValidateAllSubeffectsPossible);
+		}	
 
 		public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
 		{

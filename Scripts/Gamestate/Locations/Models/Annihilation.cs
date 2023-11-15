@@ -21,7 +21,7 @@ namespace Kompas.Gamestate.Locations.Models
 			annihilationController.AnnihilationModel = this;
 		}
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable stackableCause)
+		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) cards.Insert(index.Value, card);
 			else cards.Add(card);

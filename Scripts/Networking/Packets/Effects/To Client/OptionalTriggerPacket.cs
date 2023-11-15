@@ -26,7 +26,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new OptionalTriggerPacket(sourceCardId, effIndex, x, showX);
 
-		public override Packet GetInversion(bool known = true) => new OptionalTriggerPacket(sourceCardId, effIndex, x, showX, playerBeingAsked: 1);
+		public override Packet? GetInversion(bool known = true) => new OptionalTriggerPacket(sourceCardId, effIndex, x, showX, playerBeingAsked: 1);
 	}
 }
 

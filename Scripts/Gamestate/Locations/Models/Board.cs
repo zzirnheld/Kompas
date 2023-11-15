@@ -262,7 +262,7 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 
 		//movement
-		protected virtual void Swap(GameCard card, Space to, bool normal, IPlayer mover, IStackable? stackSrc = null)
+		protected virtual void Swap(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
 		{
 			GD.Print($"Swapping {card?.CardName} to {to}");
 
@@ -309,13 +309,13 @@ namespace Kompas.Gamestate.Locations.Models
 			if (temp != null) boardController.Place(temp.CardController);
 		}
 
-		public void Move(GameCard card, Space to, bool normal, IPlayer mover, IStackable? stackSrc = null)
+		public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
 		{
 			if (card.AugmentedCard != null)
 			{
 				if (!to.IsValid)
 					throw new InvalidSpaceException(to, $"Can't move {card} to invalid space");
-					
+
 				var target = board[to.x, to.y] ?? throw new NullCardException($"Null card to attach {card} to at {to}");
 
 				card.Remove(stackSrc);

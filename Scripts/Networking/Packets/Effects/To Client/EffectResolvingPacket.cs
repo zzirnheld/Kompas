@@ -23,7 +23,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new EffectResolvingPacket(cardID, effectIndex, controllerIndex);
 
-		public override Packet GetInversion(bool known = true) => new EffectResolvingPacket(cardID, effectIndex, controllerIndex, invert: true);
+		public override Packet? GetInversion(bool known = true) => new EffectResolvingPacket(cardID, effectIndex, controllerIndex, invert: true);
 	}
 }
 

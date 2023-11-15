@@ -21,7 +21,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new EffectActivatedPacket(cardID, effectIndex);
 
-		public override Packet GetInversion(bool known = true) => new EffectActivatedPacket(cardID, effectIndex);
+		public override Packet? GetInversion(bool known = true) => new EffectActivatedPacket(cardID, effectIndex);
 	}
 }
 

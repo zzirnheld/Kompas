@@ -12,6 +12,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 	/// </summary>
 	public class ThreeSpaceRelationship : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> firstSpace;
 		[JsonProperty(Required = Required.Always)]
@@ -19,6 +20,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 
 		[JsonProperty(Required = Required.Always)]
 		public IThreeSpaceRelationship thirdSpaceRelationship;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

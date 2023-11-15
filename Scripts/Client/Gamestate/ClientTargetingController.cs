@@ -14,31 +14,36 @@ namespace Kompas.Client.Gamestate
 	public partial class ClientTargetingController : Node
 	{
 		[Export]
-		private ControlInfoDisplayer TopLeftInfoDisplayer { get; set; }
+		private ControlInfoDisplayer? TopLeftInfoDisplayer { get; set; }
 		[Export]
-		private ClientGameController GameController { get; set; }
+		private ClientGameController? GameController { get; set; }
 		[Export]
-		private Control CanDeclineFurtherTargetsButton { get; set; }
+		private Control? CanDeclineFurtherTargetsButton { get; set; }
 
-		public ClientTopLeftCardView TopLeftCardView { get; private set; }
+		public ClientTopLeftCardView? TopLeftCardView { get; private set; }
 
 		/// <summary>
         /// The view already contains the logic for focusing on a given card, for entirely historical reasons.
         /// I could rip that out and move it here, but why bother
         /// </summary>
-		public ClientGameCard FocusedCard => TopLeftCardView.FocusedCard;
-		public ClientGameCard ShownCard => TopLeftCardView.ShownCard;
+		public ClientGameCard? FocusedCard => TopLeftCardView?.FocusedCard;
+		public ClientGameCard? ShownCard => TopLeftCardView?.ShownCard;
 
-		private ISearch currentSearch;
+		private ISearch? currentSearch;
 
 		public bool CanDeclineFurtherTargets
 		{
-			set => CanDeclineFurtherTargetsButton.Visible = value;
+			set
+			{
+				if (CanDeclineFurtherTargetsButton == null) throw new System.NullReferenceException("Forgot to init");
+				CanDeclineFurtherTargetsButton.Visible = value;
+			}
 		}
 
 		public override void _Ready()
 		{
 			base._Ready();
+			if (TopLeftInfoDisplayer == null) throw new System.NullReferenceException("Forgot to init");
 			TopLeftCardView = new(TopLeftInfoDisplayer);
 			TopLeftCardView.FocusChange += (_, change) =>
 			{
@@ -61,26 +66,35 @@ namespace Kompas.Client.Gamestate
 		public void Select(ClientGameCard card)
 		{
 			GD.Print($"Selecting {card}");
-			TopLeftCardView.Select(card);
+			TopLeftCardView?.Select(card);
 			currentSearch?.Select(card);
 		}
 
 		public void Highlight(ClientGameCard card)
 		{
 			//GD.Print($"Selecting {card}");
-			TopLeftCardView.Hover(card);
+			TopLeftCardView?.Hover(card);
 		}
 
 		public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
 		{
+			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
 			currentSearch = CardSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID), listRestriction,
 				GameController.Game, this, GameController.Notifier);
+
+			if (currentSearch == null)
+			{
+				GD.PrintErr("Failed to initalize search.");
+				return;
+			}
+
 			GameController.CurrentStateController.ShowCurrentStateInfo(targetBlurb);
 			currentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
 		public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
 		{
+			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
 			currentSearch = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo($"Reshuffle down to hand size");
@@ -89,6 +103,7 @@ namespace Kompas.Client.Gamestate
 
 		public void StartSpaceSearch(IEnumerable<Space> spaces, string blurb)
 		{
+			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
 			currentSearch = new SpaceSearch(spaces, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo(blurb);
 			currentSearch.SearchFinished += (_, _) => FinishSearch();
@@ -103,12 +118,13 @@ namespace Kompas.Client.Gamestate
 
 		public void DeclineFurtherTargets()
 		{
+			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
 			FinishSearch();
 			GameController.Notifier.DeclineAnotherTarget();
 		}
 
-		public bool IsValidTarget(GameCard card) => currentSearch.IsValidTarget(card);
-		public bool IsSelectedTarget(GameCard card) => currentSearch.IsCurrentTarget(card);
+		public bool IsValidTarget(GameCard card) => currentSearch?.IsValidTarget(card) ?? false;
+		public bool IsSelectedTarget(GameCard card) => currentSearch?.IsCurrentTarget(card) ?? false;
 		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
 	}
 }

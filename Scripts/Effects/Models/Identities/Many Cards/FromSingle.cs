@@ -7,8 +7,10 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 {
 	public class Concat : ContextualParentIdentityBase<IReadOnlyCollection<IGameCardInfo>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IGameCardInfo>[] cards;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

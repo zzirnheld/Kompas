@@ -21,7 +21,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new MoveCardPacket(cardId, x, y, invert: false);
 
-		public override Packet GetInversion(bool known) => new MoveCardPacket(cardId, x, y, invert: true);
+		public override Packet? GetInversion(bool known) => new MoveCardPacket(cardId, x, y, invert: true);
 	}
 }
 
@@ -31,7 +31,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			clientGame.LookupCardByID(cardId)?.Move((x, y), false, null);
+			clientGame.LookupCardByID(cardId)?.Move((x, y), normalMove: false, mover: null);
 			//TODO have move in client call refresh. for that matter, position change
 		}
 	}

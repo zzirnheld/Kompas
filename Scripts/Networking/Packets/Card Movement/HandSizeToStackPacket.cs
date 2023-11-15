@@ -16,7 +16,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new HandSizeToStackPacket(controllerIndex);
 
-		public override Packet GetInversion(bool known = true) => new HandSizeToStackPacket(1 - controllerIndex);
+		public override Packet? GetInversion(bool known = true) => new HandSizeToStackPacket(1 - controllerIndex);
 	}
 }
 

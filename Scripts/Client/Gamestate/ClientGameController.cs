@@ -13,46 +13,51 @@ namespace Kompas.Client.Gamestate
 {
 	public partial class ClientGameController : GameController
 	{
-		public ClientCardRepository CardRepository { get; private set; }
+		public ClientCardRepository? CardRepository { get; private set; }
 
 		[Export]
-		public GameStartController GameStartController { get; private set; }
+		public GameStartController? GameStartController { get; private set; }
 		[Export]
-		public ClientTargetingController TargetingController { get; private set; }
+		public ClientTargetingController? TargetingController { get; private set; }
 		[Export]
-		public CurrentStateController CurrentStateController { get; private set; }
+		public CurrentStateController? CurrentStateController { get; private set; }
 		[Export]
-		public UseEffectDialog UseEffectDialog { get; private set; }
+		public UseEffectDialog? UseEffectDialog { get; private set; }
 		[Export]
-		public ClientStackView StackView { get; private set; }
+		public ClientStackView? StackView { get; private set; }
 
 		[Export]
-		private PackedScene CardPrefab { get; set; }
+		private PackedScene? CardPrefab { get; set; }
 
-		private ClientGame game;
-		public override IGame Game => game;
+		private ClientGame? game;
+		public override IGame? Game => game;
 
 		//TODO: aggressive nullable warning? encourage user to use null propagation?
 		/// <summary>
 		/// Singleton? which actually sends and receives communication.
 		/// </summary>
-		public ClientNetworker Networker { get; private set; }
+		public ClientNetworker? Networker { get; private set; }
 		/// <summary>
 		/// Singleton? which assembles packets to be sent via the Networker.
 		/// TODO consider changing the name to reflect this role
 		/// </summary>
-		public ClientNotifier Notifier { get; private set; }
+		public ClientNotifier? Notifier { get; private set; }
 
 		public override void _Ready()
 		{
 			base._Ready();
 			game = ClientGame.Create(this);
-			CardRepository = new ClientCardRepository(CardPrefab);
 			game.TurnChanged += (_, turnPlayer) => TurnStartOperations(turnPlayer);
+
+			_ = CardPrefab ?? throw new System.NullReferenceException("Failed to initialize");
+			CardRepository = new ClientCardRepository(CardPrefab);
 		}
 
 		private void TurnStartOperations(IPlayer turnPlayer)
-			=> CurrentStateController.ChangeTurn(turnPlayer.Friendly);
+		{
+			_ = CurrentStateController ?? throw new System.NullReferenceException("Failed to initialize");
+			CurrentStateController.ChangeTurn(turnPlayer.Friendly);
+		}
 
 		//Remember, async voids don't get awaited.
 		//This means that Process will get called again before this call completes,
@@ -65,6 +70,7 @@ namespace Kompas.Client.Gamestate
 
 		public void SuccessfullyConnected(TcpClient tcpClient)
 		{
+			_ = game ?? throw new System.NullReferenceException("Not ready yet");
 			Networker = new ClientNetworker(tcpClient, game);
 			Notifier = new ClientNotifier(Networker);
 		}

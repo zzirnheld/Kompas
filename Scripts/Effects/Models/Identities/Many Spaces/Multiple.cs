@@ -7,8 +7,10 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 {
 	public class Multiple : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space>[] spaces;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

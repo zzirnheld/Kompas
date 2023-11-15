@@ -26,8 +26,10 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 	public class Not : GamestateRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IGamestateRestriction negated;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -52,6 +54,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	public class ThisCardInPlay : GamestateRestrictionBase
 	{
 		protected override bool IsValidLogic(IResolutionContext secondaryContext)
-			=> InitializationContext.source.Location == Location.Board;
+		{
+			var source = InitializationContext.source ?? throw new System.NullReferenceException("No source card");
+			return source.Location == Location.Board;
+		}
 	}
 }

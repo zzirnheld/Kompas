@@ -7,17 +7,16 @@ namespace Kompas.Gamestate.Players
 	public partial class PlayerController : Node
 	{
 		[Export]
-		public HandController HandController { get; private set; }
+		public HandController? HandController { get; private set; }
 
 		[Export]
-		public DiscardController DiscardController { get; private set; }
+		public DiscardController? DiscardController { get; private set; }
 
 		[Export]
-		public DeckController DeckController { get; private set; }
+		public DeckController? DeckController { get; private set; }
 
 		[Export]
-
-		public AnnihilationController AnnihilationController { get; private set; }
+		public AnnihilationController? AnnihilationController { get; private set; }
 
 		public virtual IGameCardInfo Avatar { set { } }
 		public virtual int Pips { set { } }

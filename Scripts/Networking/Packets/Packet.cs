@@ -132,13 +132,13 @@ namespace Kompas.Networking
 		/// Creates an exact copy of this packet to send.
 		/// </summary>
 		/// <returns></returns>
-		public virtual Packet Copy() => new Packet(command);
+		public virtual Packet Copy() => new(command);
 
 		/// <summary>
 		/// Creates a version of this packet that the opposite player will understand.
 		/// </summary>
 		/// <returns></returns>
-		public virtual Packet GetInversion(bool known = true) => known ? Copy() : null;
+		public virtual Packet? GetInversion(bool known = true) => known ? Copy() : null;
 
 		public override string ToString() => JsonConvert.SerializeObject(this);
 	}

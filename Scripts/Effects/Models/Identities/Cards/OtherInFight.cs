@@ -6,8 +6,10 @@ namespace Kompas.Effects.Models.Identities.Cards
 {
 	public class OtherInFight : ContextualParentIdentityBase<IGameCardInfo>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IGameCardInfo> other;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

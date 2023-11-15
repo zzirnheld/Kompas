@@ -16,7 +16,7 @@ namespace Kompas.Networking.Packets
 
 		public override Packet Copy() => new GameEndPacket(victory, invert: false);
 
-		public override Packet GetInversion(bool known) => new GameEndPacket(victory, invert: true);
+		public override Packet? GetInversion(bool known) => new GameEndPacket(victory, invert: true);
 	}
 }
 

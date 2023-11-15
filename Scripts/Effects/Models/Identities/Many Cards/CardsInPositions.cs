@@ -2,14 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
+using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
 	public class CardsInPositions : ContextualParentIdentityBase<IReadOnlyCollection<IGameCardInfo>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IReadOnlyCollection<Space>> positions;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -20,7 +23,9 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			var spaces = positions.From(context, secondaryContext);
-			return spaces.Select(InitializationContext.game.Board.GetCardAt).Where(s => s != null).ToArray();
+			return spaces.Select(InitializationContext.game.Board.GetCardAt)
+				.SelectMany(c => EnumerableHelper.YieldNonNull(c))
+				.ToArray();
 		}
 	}
 }

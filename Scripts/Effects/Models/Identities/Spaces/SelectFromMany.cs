@@ -7,10 +7,12 @@ namespace Kompas.Effects.Models.Identities.Spaces
 {
 	public class SelectFromMany : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IReadOnlyCollection<Space>> spaces;
 		[JsonProperty(Required = Required.Always)]
 		public ISelector<Space> selector;// = new RandomSelector<Space>();
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

@@ -6,8 +6,10 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 {
 	public class AdjacentSpaces : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> adjacentTo;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

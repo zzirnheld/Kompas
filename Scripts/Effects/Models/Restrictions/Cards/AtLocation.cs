@@ -8,10 +8,12 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class AtLocation : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string[] locations;
 
 		public AtLocation() { }
+		#nullable restore
 		public AtLocation(Location location)
 		{
 			locations = new string[] { LocationHelpers.StringVersion(location) };
