@@ -6,7 +6,7 @@ namespace Kompas.Client.Gamestate.Search
 {
 	public interface ISearch
 	{
-		public event EventHandler FinishSearch;
+		public event EventHandler SearchFinished;
 
 		public void Select(GameCard card);
 		public void Select(Space space);

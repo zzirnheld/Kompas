@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Kompas.Cards.Models;
-using Kompas.Client.Gamestate;
 using Kompas.Client.Networking;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
@@ -20,8 +19,12 @@ namespace Kompas.Client.Gamestate.Search
 		public readonly IList<GameCard> searched = new List<GameCard>();
 
 		private readonly IGame game;
-		private readonly ClientTargetingController targetingController;
 		protected readonly ClientNotifier clientNotifier;
+
+		/// <summary>
+        /// Triggered when the search completes
+        /// </summary>
+		public event EventHandler SearchFinished;
 
 		/// <summary>
 		/// Whether the list restriction of this search data determines that enough cards have <b>already</b> been searched 
@@ -60,7 +63,6 @@ namespace Kompas.Client.Gamestate.Search
 			this.listRestriction = listRestriction;
 
 			this.game = game;
-			this.targetingController = targetingController;
 			this.clientNotifier = clientNotifier;
 
 			foreach (var card in game.Cards) card.CardController.RefreshTargeting();
@@ -125,20 +127,14 @@ namespace Kompas.Client.Gamestate.Search
 			//if we were given a maximum number to be searched, and hit that number, no reason to keep asking
 			else if (searched.Count == listRestriction.GetStashedMaximum()) SendTargets();
 
-			targetingController.TopLeftCardView.Refresh(); //Refresh so it'll show current target info correctly
+			nextTarget.CardController.RefreshTargeting();
 		}
 
 		public void RemoveTarget(GameCard target)
 		{
 			GD.Print($"Tried to remove {target} as next target");
 			searched.Remove(target);
-			targetingController.TopLeftCardView.Refresh();
-		}
-
-		public void ResetCurrentTargets()
-		{
-			var currTargets = searched.ToArray();
-			foreach (var c in currTargets) RemoveTarget(c);
+			target.CardController.RefreshTargeting();
 		}
 
 		public void SendTargets(bool confirmed = false)
@@ -151,7 +147,6 @@ namespace Kompas.Client.Gamestate.Search
 			}
 
 			SendTargets(searched);
-			//TODO HideSearch(); or soemthing
 		}
 
 		private void SendTargets(IList<GameCard> choices)
@@ -159,10 +154,9 @@ namespace Kompas.Client.Gamestate.Search
 			GD.Print($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} ");
 
 			SendChoices(choices);
-			FinishSearch?.Invoke(this, EventArgs.Empty);
+			foreach (var card in game.Cards) card.CardController.RefreshTargeting();
+			SearchFinished?.Invoke(this, EventArgs.Empty);
 		}
-
-		public event EventHandler FinishSearch;
 
 		protected virtual void SendChoices(IList<GameCard> choices)
 			=> clientNotifier.RequestListChoices(choices);

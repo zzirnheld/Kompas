@@ -7,8 +7,6 @@ using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
-using Kompas.Gamestate.Locations;
-using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Cards.Controllers
 {
@@ -31,18 +29,24 @@ namespace Kompas.Client.Cards.Controllers
 		private ClientGameController gameController;
 
 		private ClientCardView _cardView;
-		private ClientCardView CardView
+		public ClientCardView CardView
 		{
 			get => _cardView;
-			set
+			private set
 			{
 				if (_cardView != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card view!");
 				_cardView = value;
-				_cardView.Refreshed += (_, _) => Refreshed.Invoke(this, EventArgs.Empty);
 			}
 		}
 
 		private ClientGameCard _card;
+
+		public event EventHandler<GameCard> AnythingRefreshed;
+		public event EventHandler<GameCard> StatsRefreshed;
+		public event EventHandler<GameCard> LinksRefreshed;
+		public event EventHandler<GameCard> AugmentsRefreshed;
+		public event EventHandler<GameCard> TargetingRefreshed;
+
 		public ClientGameCard Card
 		{
 			get => _card;
@@ -54,8 +58,6 @@ namespace Kompas.Client.Cards.Controllers
 				gameController = value.ClientGame.ClientGameController;
 			}
 		}
-
-		public event EventHandler Refreshed;
 
 		public void Delete() => QueueFree();
 
@@ -84,12 +86,15 @@ namespace Kompas.Client.Cards.Controllers
 		{
 			CardView.Refresh();
 			//Revealed = Card.KnownToEnemy && Card.InHiddenLocation && !Card.OwningPlayer.Friendly;
+			AnythingRefreshed?.Invoke(this, Card);
 		}
 
 		public void RefreshLinks()
 		{
 			CardView.Refresh();
 			//throw new System.NotImplementedException();
+			AnythingRefreshed?.Invoke(this, Card);
+			LinksRefreshed?.Invoke(this, Card);
 		}
 
 		public void RefreshAugments()
@@ -101,9 +106,16 @@ namespace Kompas.Client.Cards.Controllers
 				AddChild(node);
 				node.Position = Vector3.Up * 0.05f; //TODO better spread
 			}
+			AnythingRefreshed?.Invoke(this, Card);
+			AugmentsRefreshed?.Invoke(this, Card);
 		}
 
-		public void RefreshStats() => gameController.TargetingController.TopLeftCardView.Refresh();
+		public void RefreshStats()
+		{
+			CardView.Refresh();
+			AnythingRefreshed?.Invoke(this, Card);
+			StatsRefreshed?.Invoke(this, Card);
+		}
 
 		public void ShowFocused(bool value)
 		{

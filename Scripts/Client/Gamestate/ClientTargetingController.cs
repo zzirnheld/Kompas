@@ -76,7 +76,7 @@ namespace Kompas.Client.Gamestate
 			currentSearch = CardSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo(targetBlurb);
-			currentSearch.FinishSearch += (_, _) => FinishSearch();
+			currentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
 		public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
@@ -84,14 +84,14 @@ namespace Kompas.Client.Gamestate
 			currentSearch = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo($"Reshuffle down to hand size");
-			currentSearch.FinishSearch += (_, _) => FinishSearch();
+			currentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
 		public void StartSpaceSearch(IEnumerable<Space> spaces, string blurb)
 		{
 			currentSearch = new SpaceSearch(spaces, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo(blurb);
-			currentSearch.FinishSearch += (_, _) => FinishSearch();
+			currentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
 		private void FinishSearch()

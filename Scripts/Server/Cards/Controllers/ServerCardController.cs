@@ -14,12 +14,33 @@ namespace Kompas.Server.Cards.Controllers
 		public IGameCardInfo Card => null;
 
 		public event EventHandler Refreshed;
+		public event EventHandler<GameCard> AnythingRefreshed;
+		public event EventHandler<GameCard> StatsRefreshed;
+		public event EventHandler<GameCard> LinksRefreshed;
+		public event EventHandler<GameCard> AugmentsRefreshed;
+		public event EventHandler<GameCard> TargetingRefreshed;
 
 		public void Delete() { }
 
-		public void RefreshAugments() { }
-		public void RefreshLinks() { }
-		public void RefreshStats() { }
-		public void RefreshTargeting() { }
+		public void RefreshAugments()
+		{
+			AnythingRefreshed?.Invoke(this, Card.Card);
+			AugmentsRefreshed?.Invoke(this, Card.Card);
+		}
+		public void RefreshLinks()
+		{
+			AnythingRefreshed?.Invoke(this, Card.Card);
+			LinksRefreshed?.Invoke(this, Card.Card);
+		}
+		public void RefreshStats()
+		{
+			AnythingRefreshed?.Invoke(this, Card.Card);
+			StatsRefreshed?.Invoke(this, Card.Card);
+		}
+		public void RefreshTargeting()
+		{
+			AnythingRefreshed?.Invoke(this, Card.Card);
+			TargetingRefreshed?.Invoke(this, Card.Card);
+		}
 	}
 }

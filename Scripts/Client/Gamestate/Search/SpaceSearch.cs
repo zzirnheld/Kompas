@@ -18,7 +18,7 @@ namespace Kompas.Client.Gamestate.Search
 			this.validSpaces = new HashSet<Space>(validSpaces);
 		}
 
-		public event EventHandler FinishSearch;
+		public event EventHandler SearchFinished;
 
 		public bool IsCurrentTarget(GameCard card) => false;
 		public bool IsValidTarget(GameCard card) => false;
@@ -37,7 +37,7 @@ namespace Kompas.Client.Gamestate.Search
 			}
 
 			clientNotifier.RequestSpaceTarget(space.x, space.y);
-			FinishSearch?.Invoke(this, EventArgs.Empty);
+			SearchFinished?.Invoke(this, EventArgs.Empty);
 		}
 	}
 }

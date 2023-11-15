@@ -18,13 +18,15 @@ namespace Kompas.Client.Cards.Views
 		protected override void Show(ClientGameCard card, bool refresh = false)
 		{
 			base.Show(card, refresh);
-			EventHandler handler = null;
-			handler = (_, _) =>
-			{
-				card.CardController.Refreshed -= handler;
-				Refresh();
-			};
-			card.CardController.Refreshed += handler;
+			card.CardController.AnythingRefreshed += (_, card) => Refresh(card);
+		}
+
+		/// <summary>
+		/// If <paramref name="card"/> is the shown card, refreshes its shown information
+		/// </summary>
+		private void Refresh(GameCard card)
+		{
+			if (card == ShownCard) Refresh();
 		}
 	}
 }
