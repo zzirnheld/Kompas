@@ -79,7 +79,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			return intermediateValue * multiplier / divisor + modifier;
 		}
 
-		public void SetValueOf(GameCard card, int num, IStackable stackSrc = null)
+		public void SetValueOf(GameCard card, int num, IStackable? stackSrc = null)
 		{
 			if (card == null) throw new System.ArgumentException("Cannot set value of null card", nameof(card));
 

@@ -249,7 +249,7 @@ namespace Kompas.Server.Gamestate
 		}
 		#endregion turn
 
-		public List<GameCard> DrawX(IPlayer controller, int x, IStackable stackSrc = null)
+		public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null)
 		{
 			List<GameCard> drawn = new();
 			int cardsDrawn;
@@ -269,12 +269,12 @@ namespace Kompas.Server.Gamestate
 			StackController.TriggerForCondition(Trigger.DrawX, context);
 			return drawn;
 		}
-		public GameCard Draw(IPlayer player, IStackable stackSrc = null)
+		public GameCard Draw(IPlayer player, IStackable? stackSrc = null)
 			=> DrawX(player, 1, stackSrc).FirstOrDefault();
 
 		/// <param name="manual">Whether a player instigated the attack without an effect.</param>
 		/// <returns>The Attack object created by starting this attack</returns>
-		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable stackSrc, bool manual = false)
+		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false)
 		{
 			GD.Print($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
 			//push the attack to the stack, then check if any player wants to respond before resolving it

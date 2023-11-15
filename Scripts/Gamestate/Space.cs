@@ -100,7 +100,7 @@ namespace Kompas.Gamestate
 		/// </summary>
 		/// <param name="other"></param>
 		/// <returns></returns>
-		public Space DirectlyBetween(Space other)
+		public Space? DirectlyBetween(Space other)
 		{
 			if (!SameDiagonal(other)) return default;
 			else return AdjacentSpaces.Intersect(other.AdjacentSpaces).FirstOrDefault();
@@ -146,14 +146,14 @@ namespace Kompas.Gamestate
 		public static Space operator *(Space s, int i) => (s.x * i, s.y * i);
 		public static Space operator +(Space a, Space b) => (a.x + b.x, a.y + b.y);
 
-		public static bool operator ==(Space a, Space b)
+		public static bool operator ==(Space? a, Space? b)
 		{
 			//GD.Print($"Comparing {a} to {b}");
 			if (a is null) return b is null;
 			else if (b is null) return false;
 			else return a.x == b.x && a.y == b.y;
 		}
-		public static bool operator !=(Space a, Space b) => !(a == b);
+		public static bool operator !=(Space? a, Space? b) => !(a == b);
 		public static bool operator ==(Space a, (int x, int y) b) => a != null && a.x == b.x && a.y == b.y;
 		public static bool operator !=(Space a, (int x, int y) b) => !(a == b);
 		public static bool operator ==((int x, int y) a, Space b) => b != null && a.x == b.x && a.y == b.y;
@@ -168,7 +168,7 @@ namespace Kompas.Gamestate
 			yCoord = y;
 		}
 
-		public override bool Equals(object obj) => obj is Space spc && x == spc.x && y == spc.y;
+		public override bool Equals(object? obj) => obj is Space spc && x == spc.x && y == spc.y;
 		public override string ToString() => $"{x}, {y}";
 		public override int GetHashCode() => x + BoardLen * y;
 	}

@@ -26,7 +26,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			this.serverGame = serverGame;
 		}
 
-		public override void Play(GameCard toPlay, Space to, IPlayer controller, IStackable stackSrc = null)
+		public override void Play(GameCard toPlay, Space to, IPlayer controller, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: serverGame, CardBefore: toPlay, stackableCause: stackSrc, player: controller, space: to);
 			bool wasKnown = toPlay.KnownToEnemy;
@@ -39,7 +39,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		}
 
 		private (IEnumerable<TriggeringEventContext> moveContexts, IEnumerable<TriggeringEventContext> leaveContexts)
-			GetContextsForMove(GameCard card, Space from, Space to, IPlayer player, IStackable stackSrc)
+			GetContextsForMove(GameCard card, Space from, Space to, IPlayer player, IStackable? stackSrc)
 		{
 			int distance = from.DistanceTo(to);
 
@@ -75,7 +75,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			return (moveContexts, leaveContexts);
 		}
 
-		protected override void Swap(GameCard card, Space to, bool normal, IPlayer mover, IStackable stackSrc = null)
+		protected override void Swap(GameCard card, Space to, bool normal, IPlayer mover, IStackable? stackSrc = null)
 		{
 			//calculate distance before doing the swap
 			var from = card.Position?.Copy;

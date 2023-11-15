@@ -178,7 +178,7 @@ namespace Kompas.Server.Cards.Models
 			while (Activated) SetActivated(false);
 		}
 
-		public override void AddAugment(GameCard augment, IStackable stackSrc = null)
+		public override void AddAugment(GameCard augment, IStackable? stackSrc = null)
 		{
 			var attachedContext = new TriggeringEventContext(game: ServerGame, CardBefore: augment, secondaryCardBefore: this,
 				space: Position, stackableCause: stackSrc, player: stackSrc?.Controller ?? Controller);
@@ -193,7 +193,7 @@ namespace Kompas.Server.Cards.Models
 			ServerGame.serverPlayers[augment.ControllerIndex].notifier.NotifyAttach(augment, Position, wasKnown);
 		}
 
-		protected override void Detach(IStackable stackSrc = null)
+		protected override void Detach(IStackable? stackSrc = null)
 		{
 			var formerlyAugmentedCard = AugmentedCard;
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, secondaryCardBefore: formerlyAugmentedCard,
@@ -203,7 +203,7 @@ namespace Kompas.Server.Cards.Models
 			EffectsController.TriggerForCondition(Trigger.AugmentDetached, context);
 		}
 
-		public override bool Remove(IStackable stackSrc = null)
+		public override bool Remove(IStackable? stackSrc = null)
 		{
 			//GD.Print($"Trying to remove {CardName} from {Location}");
 
@@ -232,7 +232,7 @@ namespace Kompas.Server.Cards.Models
 			return ret;
 		}
 
-		public override void Reveal(IStackable stackSrc = null)
+		public override void Reveal(IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.Controller);
 			base.Reveal(stackSrc);
@@ -244,7 +244,7 @@ namespace Kompas.Server.Cards.Models
 		}
 
 		#region stats
-		public override void SetN(int n, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (n == N) return;
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.Controller, x: n - N);
@@ -255,7 +255,7 @@ namespace Kompas.Server.Cards.Models
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(this);
 		}
 
-		public override void SetE(int e, IStackable stackSrc = null, bool onlyStatBeingSet = true)
+		public override void SetE(int e, IStackable? stackSrc = null, bool onlyStatBeingSet = true)
 		{
 			if (e == E) return;
 			int oldE = E;
@@ -271,7 +271,7 @@ namespace Kompas.Server.Cards.Models
 			if (E <= 0 && CardType == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
 		}
 
-		public override void SetS(int s, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (s == S) return;
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.Controller, x: s - S);
@@ -282,7 +282,7 @@ namespace Kompas.Server.Cards.Models
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(this);
 		}
 
-		public override void SetW(int w, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (w == W) return;
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.Controller, x: w - W);
@@ -293,7 +293,7 @@ namespace Kompas.Server.Cards.Models
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(this);
 		}
 
-		public override void SetC(int c, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (c == C) return;
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.Controller, x: c - C);
@@ -304,7 +304,7 @@ namespace Kompas.Server.Cards.Models
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(this);
 		}
 
-		public override void SetA(int a, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (a == A) return;
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.Controller, x: a - A);
@@ -315,25 +315,25 @@ namespace Kompas.Server.Cards.Models
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(this);
 		}
 
-		public override void TakeDamage(int dmg, IStackable stackSrc = null)
+		public override void TakeDamage(int dmg, IStackable? stackSrc = null)
 		{
 			int netDmg = dmg;
 			base.TakeDamage(netDmg, stackSrc);
 		}
 
-		public override void SetCharStats(int n, int e, int s, int w, IStackable stackSrc = null)
+		public override void SetCharStats(int n, int e, int s, int w, IStackable? stackSrc = null)
 		{
 			base.SetCharStats(n, e, s, w, stackSrc);
 			ServerNotifier.NotifyStats(this);
 		}
 
-		public override void SetStats(CardStats stats, IStackable stackSrc = null)
+		public override void SetStats(CardStats stats, IStackable? stackSrc = null)
 		{
 			base.SetStats(stats, stackSrc);
 			ServerNotifier?.NotifyStats(this);
 		}
 
-		public override void SetNegated(bool negated, IStackable stackSrc = null)
+		public override void SetNegated(bool negated, IStackable? stackSrc = null)
 		{
 			if (Negated != negated)
 			{
@@ -348,7 +348,7 @@ namespace Kompas.Server.Cards.Models
 			base.SetNegated(negated, stackSrc);
 		}
 
-		public override void SetActivated(bool activated, IStackable stackSrc = null)
+		public override void SetActivated(bool activated, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.Controller);
 			if (Activated != activated)

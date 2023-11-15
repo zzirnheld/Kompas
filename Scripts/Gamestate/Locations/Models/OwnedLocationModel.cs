@@ -31,13 +31,13 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected virtual bool AllowAlreadyHereWhenAdd => false;
 
-		protected abstract void PerformAdd(GameCard card, int? index, IStackable stackableCause);
+		protected abstract void PerformAdd(GameCard card, int? index, IStackable? stackableCause);
 
 		/// <summary>
         /// Adds the card to this owned game location at the relevant index.
         /// DOES NOT set the controller (that will need to be done manually by the implementer)
         /// </summary>
-		public void Add(GameCard card, int? index = null, IStackable stackableCause = null)
+		public void Add(GameCard card, int? index = null, IStackable? stackableCause = null)
 		{
 			GD.Print($"Trying to {Location} {card}");
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");

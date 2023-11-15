@@ -18,7 +18,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			this.game = game;
 		}
 
-		protected override void PerformAdd(GameCard card, int? index = null, IStackable stackSrc = null)
+		protected override void PerformAdd(GameCard card, int? index = null, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: game, CardBefore: card, stackableCause: stackSrc, player: Owner);
 			base.PerformAdd(card, index, stackSrc);
@@ -28,7 +28,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			Networking.ServerNotifier.NotifyDeckCount(Owner, Cards.Count());
 		}
 
-		public override void PushBottomdeck(GameCard card, IStackable stackSrc = null)
+		public override void PushBottomdeck(GameCard card, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: game, CardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
@@ -40,7 +40,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			ServerNotifier.NotifyBottomdeck(Owner, card, wasKnown);
 		}
 
-		public override void PushTopdeck(GameCard card, IStackable stackSrc = null)
+		public override void PushTopdeck(GameCard card, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: game, CardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
@@ -51,7 +51,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			ServerNotifier.NotifyTopdeck(Owner, card, wasKnown);
 		}
 
-		public override void ShuffleIn(GameCard card, IStackable stackSrc = null)
+		public override void ShuffleIn(GameCard card, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: game, CardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;

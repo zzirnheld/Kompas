@@ -84,14 +84,14 @@ namespace Kompas.Client.Cards.Models
 			return ret;
 		}
 
-		public override void Remove(IStackable stackSrc = null)
+		public override void Remove(IStackable? stackSrc = null)
 		{
 			//TODO GameController
 			//ClientGame.MarkCardDirty(this);
 			base.Remove(stackSrc);
 		}
 
-		public override void SetN(int n, IStackable stackSrc = null, bool notify = true)
+		public override void SetN(int n, IStackable? stackSrc = null, bool notify = true)
 		{
 			base.SetN(n, stackSrc, notify);
 			//TODO refresh space indicators for spaces can move

@@ -41,13 +41,13 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 
 		//adding and removing cards
-		public virtual void PushTopdeck(GameCard card, IStackable stackSrc = null)
+		public virtual void PushTopdeck(GameCard card, IStackable? stackSrc = null)
 			=> Add(card, index: 0, stackableCause: stackSrc);
 
-		public virtual void PushBottomdeck(GameCard card, IStackable stackSrc = null)
+		public virtual void PushBottomdeck(GameCard card, IStackable? stackSrc = null)
 			=> Add(card, stackableCause: stackSrc);
 
-		public virtual void ShuffleIn(GameCard card, IStackable stackSrc = null)
+		public virtual void ShuffleIn(GameCard card, IStackable? stackSrc = null)
 		{
 			Add(card, stackableCause: stackSrc);
 			Shuffle();
@@ -68,7 +68,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public void Shuffle() => CollectionsHelper.ShuffleInPlace(deck);
 
-		public void BottomdeckMany(IEnumerable<GameCard> cards, IStackable stackSrc = null)
+		public void BottomdeckMany(IEnumerable<GameCard> cards, IStackable? stackSrc = null)
 		{
 			var toShuffleInOrder = CollectionsHelper.Shuffle(cards.ToList());
 			foreach (var card in toShuffleInOrder) PushBottomdeck(card, stackSrc);

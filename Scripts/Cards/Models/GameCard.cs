@@ -9,6 +9,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
@@ -60,15 +61,15 @@ namespace Kompas.Cards.Models
 		#endregion stats
 
 		#region positioning
-		private Space position;
-		public override Space Position
+		private Space? _position;
+		public override Space? Position
 		{
-			get => position;
+			get => _position;
 			set
 			{
 				if (null != value) GD.Print($"Position of {CardName} set to {value}");
 
-				position = value;
+				_position = value;
 				//Note: this used to call SetPhysicalLocation. BoardController should handle setting the position of the card in all such cases.
 				//Similarly, when a card takes on an augment, the CardController should set the new parent, etc.
 				foreach (var aug in augmentsList) aug.Position = value;
@@ -94,8 +95,8 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		private GameCard augmentedCard;
-		public override GameCard AugmentedCard
+		private GameCard? augmentedCard;
+		public override GameCard? AugmentedCard
 		{
 			get => augmentedCard;
 			protected set
@@ -110,7 +111,6 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public bool Attached => AugmentedCard != null;
 		#endregion
 
 		#region effects
@@ -145,7 +145,7 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		private ILocationModel locationModel;
+		private ILocationModel locationModel = Nowhere.Instance;
 		public ILocationModel LocationModel
 		{
 			get => locationModel;
@@ -168,23 +168,9 @@ namespace Kompas.Cards.Models
 			var sb = new StringBuilder();
 			sb.Append(base.ToString());
 			sb.Append($", ID={ID}, Controlled by {ControllingPlayerIndex}, Owned by {OwnerIndex}, In Location {location}, Position {Position}, ");
-			if (Attached) sb.Append($"Augmenting {AugmentedCard.CardName} ID={AugmentedCard.ID}, ");
+			if (AugmentedCard != null) sb.Append($"Augmenting {AugmentedCard.CardName} ID={AugmentedCard.ID}, ");
 			if (Augments.Count > 0) sb.Append($"Augments are {string.Join(", ", Augments.Select(c => $"{c.CardName} ID={c.ID}"))}");
 			return sb.ToString();
-		}
-
-		protected GameCard(int id)
-			: base(default,
-				  string.Empty, System.Array.Empty<string>(),
-				  false,
-				  0, 0,
-				  'C', "Dummy Card", "generic/The Intern",
-				  "",
-				  "")
-		{
-			CardLinkHandler = new GameCardLinksModel(this);
-
-			ID = id;
 		}
 
 		protected GameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer)
@@ -242,7 +228,7 @@ namespace Kompas.Cards.Models
 
 		#region augments
 
-		public virtual void AddAugment(GameCard augment, IStackable stackSrc = null)
+		public virtual void AddAugment(GameCard augment, IStackable? stackSrc = null)
 		{
 			//can't add a null augment
 			if (augment == null)
@@ -258,9 +244,9 @@ namespace Kompas.Cards.Models
 			augment.AugmentedCard = this;
 		}
 
-		protected virtual void Detach(IStackable stackSrc = null)
+		protected virtual void Detach(IStackable? stackSrc = null)
 		{
-			if (!Attached) throw new NotAugmentingException(this);
+			if (AugmentedCard == null) throw new NotAugmentingException(this);
 
 			AugmentedCard.augmentsList.Remove(this);
 			AugmentedCard = null;
@@ -268,38 +254,38 @@ namespace Kompas.Cards.Models
 		#endregion augments
 
 		#region statfuncs
-		public override void SetN(int n, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetN(n, stackSrc, onlyStatBeingSet);
 			//TODO leverage onlyStatBeingSet to only call refresh when necessary. (Will require bookkeeping)
 			CardController.RefreshStats();
 		}
 
-		public override void SetE(int e, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetE(e, stackSrc, onlyStatBeingSet);
 			CardController.RefreshStats();
 		}
 
-		public override void SetS(int s, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetS(s, stackSrc, onlyStatBeingSet);
 			CardController.RefreshStats();
 		}
 
-		public override void SetW(int w, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetW(w, stackSrc, onlyStatBeingSet);
 			CardController.RefreshStats();
 		}
 
-		public override void SetC(int c, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetC(c, stackSrc, onlyStatBeingSet);
 			CardController.RefreshStats();
 		}
 
-		public override void SetA(int a, IStackable stackSrc, bool onlyStatBeingSet = true)
+		public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetA(a, stackSrc, onlyStatBeingSet);
 			CardController.RefreshStats();
@@ -308,13 +294,13 @@ namespace Kompas.Cards.Models
 		/// <summary>
 		/// Inflicts the given amount of damage. Used by attacks and (rarely) by effects.
 		/// </summary>
-		public virtual void TakeDamage(int dmg, IStackable stackSrc = null)
+		public virtual void TakeDamage(int dmg, IStackable? stackSrc = null)
 		{
 			if (Location == Location.Board) SetE(E - dmg, stackSrc: stackSrc);
 		}
 
-		public virtual void SetNegated(bool negated, IStackable stackSrc = null) => Negated = negated;
-		public virtual void SetActivated(bool activated, IStackable stackSrc = null) => Activated = activated;
+		public virtual void SetNegated(bool negated, IStackable? stackSrc = null) => Negated = negated;
+		public virtual void SetActivated(bool activated, IStackable? stackSrc = null) => Activated = activated;
 		#endregion statfuncs
 
 		#region moveCard
@@ -324,15 +310,15 @@ namespace Kompas.Cards.Models
 		/// <param name="stackSrc">The stackable (if any) that caused the card's game location to change</param>
 		/// <returns><see langword="true"/> if the card was successfully removed, 
 		/// <see langword="false"/> if the card is an avatar that got sent back</returns>
-		public virtual void Remove(IStackable stackSrc = null)
+		public virtual void Remove(IStackable? stackSrc = null)
 		{
 			if (Location == Location.Nowhere) return;
 
-			if (Attached) Detach(stackSrc);
+			if (AugmentedCard != null) Detach(stackSrc);
 			else LocationModel.Remove(this);
 		}
 
-		public virtual void Reveal(IStackable stackSrc = null)
+		public virtual void Reveal(IStackable? stackSrc = null)
 		{
 			//Reveal should only succeed if the card is not known to the enemy
 			if (KnownToEnemy) throw new AlreadyKnownException(this);

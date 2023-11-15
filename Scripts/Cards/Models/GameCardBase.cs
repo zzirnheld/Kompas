@@ -6,6 +6,7 @@ using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
+using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
@@ -25,7 +26,7 @@ namespace Kompas.Cards.Models
 
 		public int IndexInList { get; }
 		public Location Location { get; }
-		public Space Position { get; }
+		public Space? Position { get; }
 
 		public string SubtypeText { get; }
 
@@ -57,50 +58,72 @@ namespace Kompas.Cards.Models
 		public bool Hurt => CardType == 'C' && Location == Location.Board && E < BaseE;
 
 		public IReadOnlyCollection<GameCard> Augments { get; }
-		public GameCard AugmentedCard { get; }
+		public GameCard? AugmentedCard { get; }
 		public int SpacesCanMove { get; }
 
 		public IPlayRestriction PlayRestriction { get; }
 		public IMovementRestriction MovementRestriction { get; }
 
 		public IPlayer ControllingPlayer { get; }
-		public Space SubjectivePosition => ControllingPlayer.SubjectiveCoords(Position);
+		public Space? SubjectivePosition
+			=> Position == null ? null : ControllingPlayer.SubjectiveCoords(Position);
 
 		public Texture2D CardFaceImage { get; }
 	}
 
 	public static class GameCardExtensions
 	{
-
 		public static bool HasSubtype(this IGameCardInfo card, string subtype) => card.SubtypeText.ToLower().Contains(subtype.ToLower());
 
 		public static int RadiusDistanceTo(this IGameCardInfo card, Space space)
-			=> card.Location == Location.Board ? card.Position.RadiusDistanceTo(space) : int.MaxValue;
+		{
+			if (card.Location != Location.Board) return int.MaxValue;
+			_ = card.Position ?? throw new System.NullReferenceException("Can't get the radial distance to a card in play with a null space!");
+			return card.Position.RadiusDistanceTo(space);
+		}
+			
 		public static int DistanceTo(this IGameCardInfo card, Space space)
-			=> card.Location == Location.Board ? card.Position.DistanceTo(space) : int.MaxValue;
-		public static int DistanceTo(this IGameCardInfo card, IGameCardInfo other) => card.DistanceTo(other.Position);
+		{
+			if (card.Location != Location.Board) return int.MaxValue;
+			_ = card.Position ?? throw new System.NullReferenceException("Can't get the distance to a card in play with a null space!");
+			return card.Position.DistanceTo(space);
+		}
+
+		public static int DistanceTo(this IGameCardInfo card, IGameCardInfo other)
+		{
+			if (other.Location != Location.Board) return int.MaxValue;
+			_ = other.Position ?? throw new System.NullReferenceException("Can't get the distance to a a card in play's null space!");
+			return card.DistanceTo(other.Position);
+		}
 
 		public static bool WithinSpaces(this IGameCardInfo card, int numSpaces, IGameCardInfo other)
-			=> card.Location == Location.Board
-			&& other?.Location == Location.Board
-			&& card.DistanceTo(other) <= numSpaces;
+			=> card.DistanceTo(other) <= numSpaces;
 
 		public static bool IsAdjacentTo(this IGameCardInfo card, IGameCardInfo other)
-			=> card.Location == Location.Board
-			&& other?.Location == Location.Board
-			&& card.Position.IsAdjacentTo(other.Position);
+		{
+			if (other?.Location != Location.Board) return false;
+			_ = other.Position ?? throw new System.NullReferenceException("Another card in play with a null space can't be adjacent to anything!");
+			return card.IsAdjacentTo(other.Position);
+		}
+
 		public static bool IsAdjacentTo(this IGameCardInfo card, Space space)
-			=> card.Location == Location.Board
-			&& card.Position.IsAdjacentTo(space);
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be adjacent to anything!");
+			return card.Position.IsAdjacentTo(space);
+		}
 
 		public static bool IsAdjacentTo(this IGameCardInfo card, Predicate<IGameCardInfo> predicate)
-			=> card.Location == Location.Board
-			&& card.Game.Board.CardsAdjacentTo(card.Position).Any(c => predicate(c));
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be adjacent to anything!");
+			return card.Game.Board.CardsAdjacentTo(card.Position).Any(c => predicate(c));
+		}
 
 		/// <summary>
 		/// Whether <paramref name="space"/> is in this card's AOE if this card is at <paramref name="mySpace"/>
 		/// </summary>
-		public static bool SpaceInAOE(this IGameCardInfo card, Space space, Space mySpace)
+		public static bool SpaceInAOE(this IGameCardInfo card, Space? space, Space? mySpace)
 			=> space != null
 			&& mySpace != null
 			&& card.SpellSubtypes != null
@@ -120,27 +143,44 @@ namespace Kompas.Cards.Models
 		/// <summary>
 		/// Whether <paramref name="other"/> is in the aoe of <see cref="this"/> card.
 		/// </summary>
-		public static bool CardInAOE(this IGameCardInfo card, IGameCardInfo other) => card.CardInAOE(other, card.Position);
+		public static bool CardInAOE(this IGameCardInfo card, IGameCardInfo other)
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't contain anything!");
+			return card.CardInAOE(other, card.Position);
+		}
 
 		/// <summary>
 		/// Whether <paramref name="other"/> and this card have any spaces shared between their AOEs,
 		/// if this card is at <paramref name="mySpace"/>
 		/// </summary>
 		public static bool Overlaps(this IGameCardInfo card, IGameCardInfo other, Space mySpace)
-			=> Space.Spaces.Any(s => card.SpaceInAOE(s, mySpace) && other.SpaceInAOE(s));
+			=> Space.Spaces.Any(sameSpace => card.SpaceInAOE(sameSpace, mySpace)
+										  && other.SpaceInAOE(sameSpace));
 
 		/// <summary>
 		/// Whether <paramref name="c"/> and this card have any spaces shared between their AOEs
 		/// </summary>
-		public static bool Overlaps(this IGameCardInfo card, IGameCardInfo c) => card.Overlaps(c, card.Position);
+		public static bool Overlaps(this IGameCardInfo card, IGameCardInfo c)
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't overlap anything!");
+			return card.Overlaps(c, card.Position);
+		}
 
 		public static bool SameColumn(this IGameCardInfo card, Space space)
-			=> card.Location == Location.Board
-			&& card.Position.SameColumn(space);
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be in the same column as anything!");
+			return card.Position.SameColumn(space);
+		}
 
 		public static bool SameColumn(this IGameCardInfo card, IGameCardInfo other)
-			=> other.Location == Location.Board
-			&& card.SameColumn(other.Position);
+		{
+			if (other.Location != Location.Board) return false;
+			_ = other.Position ?? throw new System.NullReferenceException("Another card in play with a null space can't be in the same column as anything!");
+			return card.SameColumn(other.Position);
+		}
 
 		/// <summary>
 		/// Returns whether the <paramref name="space"/> passed in is in front of this card
@@ -148,14 +188,24 @@ namespace Kompas.Cards.Models
 		/// <param name="space">The space to check if it's in front of this card</param>
 		/// <returns><see langword="true"/> if <paramref name="space"/> is in front of this, <see langword="false"/> otherwise.</returns>
 		public static bool SpaceInFront(this IGameCardInfo card, Space space)
-			=> card.ControllingPlayer.SubjectiveCoords(space).NorthOf(card.SubjectivePosition);
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be in front of anything!");
+			_ = card.SubjectivePosition ?? throw new System.NullReferenceException("A card in play with a null space can't be in front of anything!");
+			return card.ControllingPlayer.SubjectiveCoords(space).NorthOf(card.SubjectivePosition);
+		}
 
 		/// <summary>
 		/// Returns whether the card passed in is in front of this card
 		/// </summary>
 		/// <param name="other">The card to check if it's in front of this one</param>
 		/// <returns><see langword="true"/> if <paramref name="other"/> is in front of this, <see langword="false"/> otherwise.</returns>
-		public static bool CardInFront(this IGameCardInfo card, IGameCardInfo other) => card.SpaceInFront(other.Position);
+		public static bool CardInFront(this IGameCardInfo card, IGameCardInfo? other)
+		{
+			if (other?.Location != Location.Board) return false;
+			_ = other.Position ?? throw new System.NullReferenceException("Another card in play with a null space can't be in front of anything!");
+			return card.SpaceInFront(other.Position);
+		}
 
 		/// <summary>
 		/// Returns whether the <paramref name="space"/> passed in is behind this card
@@ -163,33 +213,59 @@ namespace Kompas.Cards.Models
 		/// <param name="space">The space to check if it's behind this card</param>
 		/// <returns><see langword="true"/> if <paramref name="space"/> is behind this, <see langword="false"/> otherwise.</returns>
 		public static bool SpaceBehind(this IGameCardInfo card, Space space)
-			=> card.SubjectivePosition.NorthOf(card.ControllingPlayer.SubjectiveCoords(space));
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be in front of anything!");
+			_ = card.SubjectivePosition ?? throw new System.NullReferenceException("A card in play with a null space can't be in front of anything!");
+			return card.SubjectivePosition.NorthOf(card.ControllingPlayer.SubjectiveCoords(space));
+		}
 
 		/// <summary>
 		/// Returns whether the card passed in is behind this card
 		/// </summary>
 		/// <param name="other">The card to check if it's behind this one</param>
 		/// <returns><see langword="true"/> if <paramref name="other"/> is behind this, <see langword="false"/> otherwise.</returns>
-		public static bool CardBehind(this IGameCardInfo card, IGameCardInfo other) => card.SpaceBehind(other.Position);
+		public static bool CardBehind(this IGameCardInfo card, IGameCardInfo? other)
+		{
+			if (other?.Location != Location.Board) return false;
+			_ = other.Position ?? throw new System.NullReferenceException("Another card in play with a null space can't be behind of anything!");
+			return card.SpaceBehind(other.Position);
+		}
 
 		public static bool SpaceDirectlyInFront(this IGameCardInfo card, Space space)
-			=> card.Location == Location.Board
-			&& card.ControllingPlayer.SubjectiveCoords(space) == card.SubjectivePosition.DueNorth;
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.SubjectivePosition ?? throw new System.NullReferenceException("A card in play with a null space can't be in front of anything!");
+			return card.ControllingPlayer.SubjectiveCoords(space) == card.SubjectivePosition.DueNorth;
+		}
 
-		public static bool CardDirectlyInFront(this IGameCardInfo card, IGameCardInfo other)
-			=> other.Location == Location.Board
-			&& card.SpaceDirectlyInFront(other.Position);
+		public static bool CardDirectlyInFront(this IGameCardInfo card, IGameCardInfo? other)
+		{
+			if (other?.Location != Location.Board) return false;
+			_ = other.Position ?? throw new System.NullReferenceException("Another card in play with a null space can't be directly in front of anything!");
+			return card.SpaceDirectlyInFront(other.Position);
+		}
 
 		public static bool SameDiagonal(this IGameCardInfo card, Space space)
-			=> card.Location == Location.Board
-			&& card.Position.SameDiagonal(space);
-		public static bool SameDiagonal(this IGameCardInfo card, IGameCardInfo other)
-			=> other?.Location == Location.Board
-			&& card.SameDiagonal(other.Position);
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be in the same diagonal as anything!");
+			return card.Position.SameDiagonal(space);
+		}
+
+		public static bool SameDiagonal(this IGameCardInfo card, IGameCardInfo? other)
+		{
+			if (other?.Location != Location.Board) return false;
+			_ = other.Position ?? throw new System.NullReferenceException("Another card in play with a null space can't be in the same diagonal as anything!");
+			return card.SameDiagonal(other.Position);
+		}
 
 		public static bool InCorner(this IGameCardInfo card)
-			=> card.Location == Location.Board
-			&& card.Position.IsCorner;
+		{
+			if (card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be in a corner!");
+			return card.Position.IsCorner;
+		}
 
 		/// <summary>
 		/// Refers to this situation: <br></br>
@@ -203,6 +279,8 @@ namespace Kompas.Cards.Models
 		public static bool SpaceDirectlyAwayFrom(this IGameCardInfo card, (int x, int y) space, IGameCardInfo other)
 		{
 			if (other.Location != Location.Board || card.Location != Location.Board) return false;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be directly away from anything!");
+			_ = other.Position ?? throw new System.NullReferenceException("A card in play with a null space can't be directly away from anything!");
 
 			int xDiffCard = other.Position.x - card.Position.x;
 			int yDiffCard = other.Position.y - card.Position.y;
@@ -215,7 +293,11 @@ namespace Kompas.Cards.Models
 		}
 
 		public static int ShortestPath(this IGameCardInfo card, Space space, Predicate<IGameCardInfo> throughPredicate)
-			=> card.Game.Board.ShortestPath(card.Position, space, throughPredicate);
+		{
+			if (card.Location != Location.Board) return Board.NoPathExists;
+			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't get a shortest path to anything!");
+			return card.Game.Board.ShortestPath(card.Position, space, throughPredicate);
+		}
 	}
 
 	/// <summary>
@@ -273,7 +355,7 @@ namespace Kompas.Cards.Models
 		}
 
 		public abstract Location Location { get; protected set; }
-		public abstract GameCard AugmentedCard { get; protected set; }
+		public abstract GameCard? AugmentedCard { get; protected set; }
 		public abstract IReadOnlyCollection<GameCard> Augments { get; protected set; }
 		/// <summary>
 		/// Represents whether this card is currently known to the enemy of this player.
@@ -286,7 +368,7 @@ namespace Kompas.Cards.Models
 		public abstract int SpacesMoved { get; set; }
 		public int SpacesCanMove => N - SpacesMoved;
 
-		public abstract Space Position { get; set; }
+		public abstract Space? Position { get; set; }
 		#endregion
 
 
@@ -302,12 +384,12 @@ namespace Kompas.Cards.Models
 
 		/* This must happen through setters, not properties, so that notifications and stack sending
 		 * can be managed as intended. */
-		public virtual void SetN(int n, IStackable stackSrc, bool onlyStatBeingSet = true) => N = n;
-		public virtual void SetE(int e, IStackable stackSrc, bool onlyStatBeingSet = true) => E = e;
-		public virtual void SetS(int s, IStackable stackSrc, bool onlyStatBeingSet = true) => S = s;
-		public virtual void SetW(int w, IStackable stackSrc, bool onlyStatBeingSet = true) => W = w;
-		public virtual void SetC(int c, IStackable stackSrc, bool onlyStatBeingSet = true) => C = c;
-		public virtual void SetA(int a, IStackable stackSrc, bool onlyStatBeingSet = true) => A = a;
+		public virtual void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true) => N = n;
+		public virtual void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true) => E = e;
+		public virtual void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true) => S = s;
+		public virtual void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true) => W = w;
+		public virtual void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true) => C = c;
+		public virtual void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true) => A = a;
 
 		protected override void SetStats(CardStats cardStats) => SetStats(cardStats, stackSrc: null);
 
@@ -315,7 +397,7 @@ namespace Kompas.Cards.Models
 		/// Shorthand for modifying a card's stats all at once.
 		/// On the server, this only notifies the clients of stat changes once.
 		/// </summary>
-		public virtual void SetStats(CardStats stats, IStackable stackSrc = null)
+		public virtual void SetStats(CardStats stats, IStackable? stackSrc = null)
 		{
 			SetN(stats.n, stackSrc, onlyStatBeingSet: false);
 			SetS(stats.s, stackSrc, onlyStatBeingSet: false);
@@ -330,7 +412,7 @@ namespace Kompas.Cards.Models
 		/// Shorthand for modifying a card's NESW all at once.
 		/// On the server, this only notifies the clients of stat changes once.
 		/// </summary>
-		public virtual void SetCharStats(int n, int e, int s, int w, IStackable stackSrc = null)
+		public virtual void SetCharStats(int n, int e, int s, int w, IStackable? stackSrc = null)
 		{
 			SetN(n, stackSrc, onlyStatBeingSet: false);
 			SetS(s, stackSrc, onlyStatBeingSet: false);
@@ -343,14 +425,14 @@ namespace Kompas.Cards.Models
 		/// Shorthand for modifying a card's NESW all at once.
 		/// On the server, this only notifies the clients of stat changes once.
 		/// </summary>
-		public void AddToCharStats(int n, int e, int s, int w, IStackable stackSrc = null)
+		public void AddToCharStats(int n, int e, int s, int w, IStackable? stackSrc = null)
 			=> SetCharStats(N + n, E + e, S + s, W + w, stackSrc: stackSrc);
 
 		/// <summary>
 		/// Shorthand for modifying a card's stats all at once.
 		/// On the server, this only notifies the clients of stat changes once.
 		/// </summary>
-		public void AddToStats(CardStats buff, IStackable stackSrc = null)
+		public void AddToStats(CardStats buff, IStackable? stackSrc = null)
 			=> SetStats(Stats + buff, stackSrc);
 
 		public void SwapCharStats(GameCard other, bool swapN = true, bool swapE = true, bool swapS = true, bool swapW = true)

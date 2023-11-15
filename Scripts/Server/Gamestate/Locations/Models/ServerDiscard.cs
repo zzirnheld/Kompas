@@ -16,7 +16,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			this.game = game;
 		}
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable stackSrc = null)
+		protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
 		{
 			GameCard cause = null;
 			if (stackSrc is Effect eff) cause = eff.Card;

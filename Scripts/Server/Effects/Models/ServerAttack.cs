@@ -30,7 +30,7 @@ namespace Kompas.Server.Effects.Models
 		/// Trigger the triggers related to attack declaration.
 		/// Should be called before the attack is resolved.
 		/// </summary>
-		public void Declare(IStackable stackSrc)
+		public void Declare(IStackable? stackSrc)
 		{
 			ServerNotifier.NotifyAttackStarted(instigator, attacker, defender);
 
