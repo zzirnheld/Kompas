@@ -16,29 +16,29 @@ namespace Kompas.UI.DeckBuilder
 		public enum Tab { Normal, NewDeck, SaveAs }
 
 		[Export]
-		private SquareGridContainer DeckNodesParent { get; set; }
+		private SquareGridContainer? DeckNodesParent { get; set; }
 
 		[Export]
-		private PackedScene DeckCardControllerPrefab { get; set; }
+		private PackedScene? DeckCardControllerPrefab { get; set; }
 		[Export]
-		private DeckBuilderAvatarController AvatarController { get; set; }
+		private DeckBuilderAvatarController? AvatarController { get; set; }
 
 		[Export]
-		private DeckBuilderController DeckBuilderController { get; set; }
+		private DeckBuilderController? DeckBuilderController { get; set; }
 
 		[Export]
-		private Control[] Tabs { get; set; }
+		private Control[]? Tabs { get; set; }
 
 		[Export]
-		private OptionButton DeckNameSelect { get; set; }
+		private OptionButton? DeckNameSelect { get; set; }
 
 		private readonly List<string> deckNames = new();
 
-		private Decklist currentDeck;
+		private Decklist? currentDeck;
 		//To maintain ordering of decks where copies of the same card aren't next to each other
 		private readonly List<DeckBuilderDeckCardController> currentDeckCtrls = new();
 
-		public DeckBuilderDeckCardController Dragging { get; set; }
+		public DeckBuilderDeckCardController? Dragging { get; set; }
 
 
 		private bool placeholdersWereActive;

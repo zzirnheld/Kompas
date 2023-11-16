@@ -47,5 +47,11 @@ namespace Kompas.Shared.Enumerable
 		{
 			if (item != null) yield return item;
 		}
+
+		public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
+			where T : class
+		{
+			foreach (var t in source) if (t != null) yield return t;
+		}
 	}
 }

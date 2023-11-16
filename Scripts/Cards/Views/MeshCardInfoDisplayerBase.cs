@@ -13,7 +13,7 @@ namespace Kompas.Cards.Views
         /// since that should then affect all instances of the material (since the per-scene box isn't checked)
         /// </summary>
 		[Export]
-		private BaseMaterial3D FriendlyCardFrameMaterial { get; set; }
+		private BaseMaterial3D? FriendlyCardFrameMaterial { get; set; }
 		/// <summary>
         /// Enemy card frame material.
         /// Defaults to shiny grey.
@@ -21,18 +21,20 @@ namespace Kompas.Cards.Views
         /// since that should then affect all instances of the material (since the per-scene box isn't checked)
         /// </summary>
 		[Export]
-		private BaseMaterial3D EnemyCardFrameMaterial { get; set; }
+		private BaseMaterial3D? EnemyCardFrameMaterial { get; set; }
 
 		[Export]
-		private MeshInstance3D[] FrameObjects { get; set; }
+		private MeshInstance3D[]? FrameObjects { get; set; }
 
 		[Export]
-		private MeshInstance3D[] CardImageObjects { get; set; }
+		private MeshInstance3D[]? CardImageObjects { get; set; }
 
 		public bool ShowingInfo { set => Visible = value; }
 
 		public virtual void DisplayCardImage(CardBase card)
 		{
+			_ = CardImageObjects ?? throw new System.NullReferenceException("Failed to init");
+
 			foreach (var obj in CardImageObjects)
 			{
 				if (obj.MaterialOverride is not BaseMaterial3D mat)
@@ -51,6 +53,8 @@ namespace Kompas.Cards.Views
 
 		public void DisplayFrame(bool friendly)
 		{
+			_ = FrameObjects ?? throw new System.NullReferenceException("Failed to init");
+
 			var material = friendly
 				? FriendlyCardFrameMaterial
 				: EnemyCardFrameMaterial;

@@ -31,6 +31,11 @@ namespace Kompas.Cards.Loading
 					+ $"Not present in {string.Join(", ", keywordJsons.Keys)}");
 				var keywordJson = keywordJsons[keyword];
 				var eff = JsonConvert.DeserializeObject<TEffect>(keywordJson, CardLoadingSettings);
+				if (eff == null)
+				{
+					GD.PushError($"Failed to load {keywordJson}");
+					continue;
+				}
 				eff.arg = card.keywordArgs.Length > index ? card.keywordArgs[index] : 0;
 				effects.Add(eff);
 			}
@@ -50,16 +55,21 @@ namespace Kompas.Cards.Loading
 			return stringWriter.ToString();
 		}
 
-		protected TGameCard InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, Validate validation = null)
+		protected TGameCard? InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, Validate? validation = null)
 			where TGameCard : GameCard
 		{
 			GD.Print($"Loading {JsonPrettify(json)}");
-			TSerializableCard cardInfo;
+			TSerializableCard? cardInfo;
 			var effects = new List<TEffect>();
 
 			try
 			{
 				cardInfo = JsonConvert.DeserializeObject<TSerializableCard>(json, CardLoadingSettings);
+				if (cardInfo == null)
+				{
+					GD.PushError($"Failed to load {json}");
+					return default;
+				}
 				validation?.Invoke(cardInfo);
 
 				effects.AddRangeWithCast(cardInfo.Effects);

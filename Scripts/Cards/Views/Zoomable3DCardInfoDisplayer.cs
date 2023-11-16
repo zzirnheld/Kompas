@@ -15,41 +15,53 @@ namespace Kompas.Cards.Views
 	public partial class Zoomable3DCardInfoDisplayer : Node3D, ICardInfoDisplayer
 	{
 		[Export]
-		private MeshCardInfoDisplayerBase ZoomedOut { get; set; }
+		private MeshCardInfoDisplayerBase? ZoomedOut { get; set; }
 
 		[Export]
-		private MeshCardInfoDisplayerBase ZoomedIn { get; set; }
+		private MeshCardInfoDisplayerBase? ZoomedIn { get; set; }
 
 		[Export]
-		private BaseMaterial3D CardImageMaterial { get; set; }
+		private BaseMaterial3D? CardImageMaterial { get; set; }
 
 		[Export]
-		private GpuParticles3D ValidTargetParticles { get; set; }
+		private GpuParticles3D? ValidTargetParticles { get; set; }
 		[Export]
-		private GpuParticles3D CurrentTargetParticles { get; set; }
+		private GpuParticles3D? CurrentTargetParticles { get; set; }
 
 		public bool ShowingInfo { set => Visible = value; }
 
 		public void DisplayCardImage(CardBase card)
 		{
+			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
+			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
+
 			ZoomedOut.DisplayCardImage(card);
 			ZoomedIn.DisplayCardImage(card);
 		}
 
 		public void DisplayCardNumericStats(CardBase card)
 		{
+			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
+			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
+
 			ZoomedOut.DisplayCardNumericStats(card);
 			ZoomedIn.DisplayCardNumericStats(card);
 		}
 
 		public void DisplayCardRulesText(CardBase card)
 		{
+			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
+			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
+
 			ZoomedOut.DisplayCardRulesText(card);
 			ZoomedIn.DisplayCardRulesText(card);
 		}
 
 		public void DisplayFrame(bool friendly)
 		{
+			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
+			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
+
 			ZoomedOut.DisplayFrame(friendly);
 			ZoomedIn.DisplayFrame(friendly);
 		}
@@ -57,12 +69,25 @@ namespace Kompas.Cards.Views
 		//FUTURE: replace with enum?
 		public void DisplayZoomed(bool zoomedIn)
 		{
+			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
+			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
+
 			ZoomedOut.ShowingInfo = !zoomedIn;
 			ZoomedIn.ShowingInfo = zoomedIn;
 		}
 
-		public void DisplayValidTarget(bool validTarget) => ValidTargetParticles.Emitting = validTarget;
+		public void DisplayValidTarget(bool validTarget)
+		{
+			_ = ValidTargetParticles ?? throw new System.NullReferenceException("Failed to init");
 
-		public void DisplayCurrentTarget(bool currentTarget) => CurrentTargetParticles.Emitting = currentTarget;
+			ValidTargetParticles.Emitting = validTarget;
+		}
+
+		public void DisplayCurrentTarget(bool currentTarget)
+		{
+			_ = CurrentTargetParticles ?? throw new System.NullReferenceException("Failed to init");
+
+			CurrentTargetParticles.Emitting = currentTarget;
+		}
 	}
 }

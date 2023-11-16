@@ -7,6 +7,7 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Play;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Cards.Loading
 {
@@ -64,16 +65,16 @@ namespace Kompas.Cards.Loading
 		protected static readonly Dictionary<string, string> triggerKeywordJsons = new();
 
 		public static ReminderTextsContainer Reminders { get; private set; }
-		public static ICollection<string> Keywords { get; private set; }
+		//public static ICollection<string> Keywords { get; private set; }
 
 		private static bool initalized = false;
 		private static readonly object initializationLock = new();
 
-		private static Texture2D charCardFrameTexture;
-		public static Texture2D CharCardFrameTexture => charCardFrameTexture ??= ResourceLoader.Load<Texture2D>(CharCardFramePath);
+		private static Texture2D? _charCardFrameTexture;
+		public static Texture2D CharCardFrameTexture => _charCardFrameTexture ??= ResourceLoader.Load<Texture2D>(CharCardFramePath);
 
-		private static Texture2D noncharCardFrameTexture;
-		public static Texture2D NoncharCardFrameTexture => noncharCardFrameTexture ??= ResourceLoader.Load<Texture2D>(NonCharCardFramePath);
+		private static Texture2D? _noncharCardFrameTexture;
+		public static Texture2D NoncharCardFrameTexture => _noncharCardFrameTexture ??= ResourceLoader.Load<Texture2D>(NonCharCardFramePath);
 
 		/*
 		public Game game;
@@ -113,7 +114,7 @@ namespace Kompas.Cards.Loading
 			}
 		}
 
-		private static string LoadFileAsText(string path)
+		private static string? LoadFileAsText(string path)
 		{
 			//GD.Print($"Trying to load {path}");
 			if (!FileAccess.FileExists(path)) return null;
@@ -133,7 +134,8 @@ namespace Kompas.Cards.Loading
 		{
 			static bool isCardToIgnore(string name) => string.IsNullOrWhiteSpace(name) || cardNamesToIgnore.Contains(name);
 
-			string cardFilenameList = LoadFileAsText(CardListFilePath);
+			string? cardFilenameList = LoadFileAsText(CardListFilePath)
+				?? throw new System.NullReferenceException("Failed to load card list");
 			cardFilenameList = cardFilenameList.Replace('\r', '\n');
 			string[] cardFilenameArray = cardFilenameList.Split('\n');
 
@@ -158,10 +160,11 @@ namespace Kompas.Cards.Loading
 				json = ReplacePlaceholders(json);
 
 				//load the cleaned json to get the card's name according to itself
-				SerializableCard card = SerializableCardFromJson(json);
+				var card = SerializableCardFromJson(json);
 				if (card == null) continue;
 
-				string cardName = card.cardName;
+				string cardName = card.cardName
+					?? throw new System.NullReferenceException("Card had a null name!");
 
 				//add the cleaned json to the dictionary
 				//if this throws a key existing exception, you probably have two cards with the same name field, but diff file names
@@ -173,7 +176,7 @@ namespace Kompas.Cards.Loading
 			//GD.Print(string.Join(", ", CardNames));
 		}
 
-		protected static SerializableCard SerializableCardFromJson(string json)
+		protected static SerializableCard? SerializableCardFromJson(string json)
 		{
 			try
 			{
@@ -188,17 +191,19 @@ namespace Kompas.Cards.Loading
 
 		private static void InitializeMapFromJsons(string filePath, string folderPath, Dictionary<string, string> dict)
 		{
-			string keywordList = LoadFileAsText(filePath);
-			var keywords = keywordList.Replace('\r', '\n')
+			string file = LoadFileAsText(filePath)
+				?? throw new System.NullReferenceException($"Failed to load {filePath}");
+			var lines = file.Replace('\r', '\n')
 				.Split('\n')
 				.Where(s => !string.IsNullOrEmpty(s));
-			GD.Print($"Keywords list: \n{string.Join("\n", keywords.Select(keyword => $"{keyword} length {keyword.Length}"))}");
-			foreach (string keyword in keywords)
+			GD.Print($"Keywords list: \n{string.Join("\n", lines.Select(line => $"{line} length {line.Length}"))}");
+			foreach (string line in lines)
 			{
-				GD.Print($"Loading {keyword} from {folderPath}/{keyword}");
-				string json = LoadFileAsText($"{folderPath}/{keyword}.json");
+				GD.Print($"Loading {line} from {folderPath}/{line}");
+				string json = LoadFileAsText($"{folderPath}/{line}.json")
+					?? throw new System.NullReferenceException($"Failed to load {line}");
 				json = ReplacePlaceholders(json);
-				dict.Add(keyword, json);
+				dict.Add(line, json);
 			}
 		}
 
@@ -224,7 +229,7 @@ namespace Kompas.Cards.Loading
 
 		public static bool CardExists(string cardName) => CardNames.Contains(cardName);
 
-		public static string GetJsonFromName(string name)
+		public static string? GetJsonFromName(string name)
 		{
 			if (!cardJsons.ContainsKey(name))
 			{
@@ -237,11 +242,17 @@ namespace Kompas.Cards.Loading
 		}
 
 		public static IEnumerable<string> GetJsonsFromNames(IEnumerable<string> names)
-			=> names.Select(n => GetJsonFromName(n)).Where(json => json != null);
+			=> names
+				.Select(n => GetJsonFromName(n))
+				.NonNull();
 
-		public static string FileNameFor(string cardName) => cardFileNames[cardName];
+		public static string? FileNameFor(string? cardName)
+		{
+			if (cardName == null) return null;
+			else return cardFileNames[cardName];
+		}
 
-		public static Texture2D LoadSprite(string cardFileName)
+		public static Texture2D? LoadSprite(string cardFileName)
 		{
 			string path = $"{CardImagesPath}/{cardFileName}.png";
 			if (!ResourceLoader.Exists(path))
@@ -252,9 +263,12 @@ namespace Kompas.Cards.Loading
 			else return ResourceLoader.Load<Texture2D>(path);
 		}
 
-		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(SerializableCardFromJson).Where(c => c != null);
+		public static IEnumerable<SerializableCard> SerializableCards
+			=> cardJsons.Values
+				.Select(SerializableCardFromJson)
+				.NonNull();
 		
-		public static IRestriction<TriggeringEventContext>[] InstantiateTriggerKeyword(string keyword)
+		public static IRestriction<TriggeringEventContext>[]? InstantiateTriggerKeyword(string keyword)
 		{
 			if (!triggerKeywordJsons.ContainsKey(keyword))
 			{
@@ -263,7 +277,8 @@ namespace Kompas.Cards.Loading
 			}
 			try
 			{
-				return JsonConvert.DeserializeObject<IRestriction<TriggeringEventContext>[]>(triggerKeywordJsons[keyword], CardLoadingSettings);
+				return JsonConvert.DeserializeObject<IRestriction<TriggeringEventContext>[]>
+					(triggerKeywordJsons[keyword], CardLoadingSettings);
 			}
 			catch (JsonReaderException)
 			{

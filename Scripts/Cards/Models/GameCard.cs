@@ -157,7 +157,8 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public string BaseJson => CardRepository.GetJsonFromName(CardName);
+		public string BaseJson => CardRepository.GetJsonFromName(CardName)
+			?? throw new System.NullReferenceException($"{CardName} doesn't have an associated json?");
 
 		public int TurnsOnBoard { get; set; }
 

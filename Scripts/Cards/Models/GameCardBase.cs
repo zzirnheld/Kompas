@@ -68,7 +68,7 @@ namespace Kompas.Cards.Models
 		public Space? SubjectivePosition
 			=> Position == null ? null : ControllingPlayer.SubjectiveCoords(Position);
 
-		public Texture2D CardFaceImage { get; }
+		public Texture2D? CardFaceImage { get; }
 	}
 
 	public static class GameCardExtensions
@@ -292,7 +292,7 @@ namespace Kompas.Cards.Models
 				|| (xDiffCard == yDiffCard && xDiffSpace == yDiffSpace);
 		}
 
-		public static int ShortestPath(this IGameCardInfo card, Space space, Predicate<IGameCardInfo> throughPredicate)
+		public static int ShortestPath(this IGameCardInfo card, Space space, Predicate<IGameCardInfo?> throughPredicate)
 		{
 			if (card.Location != Location.Board) return Board.NoPathExists;
 			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't get a shortest path to anything!");
@@ -373,12 +373,12 @@ namespace Kompas.Cards.Models
 
 
 		protected GameCardBase(CardStats stats,
-							string subtext, string[] spellTypes,
+							string? subtext, string[] spellTypes,
 							bool unique,
 							int radius, int duration,
-							char cardType, string cardName, string fileName,
-							string effText,
-							string subtypeText)
+							char cardType, string? cardName, string? fileName,
+							string? effText,
+							string? subtypeText)
 			: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText)
 		{ }
 

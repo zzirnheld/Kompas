@@ -16,9 +16,9 @@ namespace Kompas.Cards.Views
 		/// <summary>
 		/// The card currently being shown to the user.
 		/// </summary>
-		public CardType ShownCard { get; private set; }
+		public CardType? ShownCard { get; private set; }
 
-		public DisplayerType InfoDisplayer { get; init; }
+		public DisplayerType InfoDisplayer { get; }
 
 		protected CardViewBase(DisplayerType infoDisplayer)
 		{
@@ -38,7 +38,7 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		/// <param name="card"></param>
 		/// <param name="refresh"></param>
-		protected virtual void Show(CardType card, bool refresh = false)
+		protected virtual void Show(CardType? card, bool refresh = false)
 		{
 			//Unless explicitly refreshing card, if already showing that card, no-op.
 			if (card == ShownCard && !refresh) return;
@@ -47,7 +47,7 @@ namespace Kompas.Cards.Views
 
 			//If we're now showing nothing, hide the window and be done
 			if (ShownCard == null) DisplayNothing();
-			else Display();
+			else Display(ShownCard);
 		}
 
 		/// <summary>
@@ -58,14 +58,14 @@ namespace Kompas.Cards.Views
 			InfoDisplayer.ShowingInfo = false;
 		}
 
-		protected virtual void Display()
+		protected virtual void Display(CardType shownCard)
 		{
 			//If not showing nothing, make sure we're showing information
 			InfoDisplayer.ShowingInfo = true;
 			//and display any relevant information for the card
-			InfoDisplayer.DisplayCardRulesText(ShownCard);
-			InfoDisplayer.DisplayCardNumericStats(ShownCard);
-			InfoDisplayer.DisplayCardImage(ShownCard);
+			InfoDisplayer.DisplayCardRulesText(shownCard);
+			InfoDisplayer.DisplayCardNumericStats(shownCard);
+			InfoDisplayer.DisplayCardImage(shownCard);
 		}
 	}
 }

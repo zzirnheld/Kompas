@@ -5,9 +5,9 @@ namespace Kompas.Cards.Controllers
 {
 	public partial class CardMouseController : Area3D
 	{
-		public event EventHandler MouseOver;
-		public event EventHandler LeftClick;
-		public event EventHandler RightClick;
+		public event EventHandler? MouseOver;
+		public event EventHandler? LeftClick;
+		public event EventHandler? RightClick;
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()

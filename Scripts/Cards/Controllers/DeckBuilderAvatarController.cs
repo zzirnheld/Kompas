@@ -6,6 +6,7 @@ namespace Kompas.Cards.Controllers
 	{
 		public void Clear()
 		{
+			_ = InfoDisplayer ?? throw new System.NullReferenceException("Forgot to init");
 			InfoDisplayer.Clear();
 			Card = null;
 		}

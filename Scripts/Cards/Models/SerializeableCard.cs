@@ -10,16 +10,16 @@ namespace Kompas.Cards.Models
 		public char cardType;
 
 		//perma-values
-		public string cardName;
-		public string effText;
-		public string subtypeText;
+		public string? cardName;
+		public string? effText;
+		public string? subtypeText;
 
 		public string[] keywords = System.Array.Empty<string>();
 		public int[] keywordArgs = System.Array.Empty<int>();
 
-		public IMovementRestriction movementRestriction = null;
-		public IRestriction<IGameCardInfo> attackingDefenderRestriction = null;
-		public IPlayRestriction PlayRestriction = null;
+		public IMovementRestriction? movementRestriction = null;
+		public IRestriction<IGameCardInfo>? attackingDefenderRestriction = null;
+		public IPlayRestriction? PlayRestriction = null;
 
 		public int n;
 		public int e;
@@ -32,7 +32,7 @@ namespace Kompas.Cards.Models
 		public int a;
 		public bool fast;
 		public bool unique;
-		public string subtext;
+		public string? subtext;
 
 		public CardStats Stats => (n, e, s, w, c, a);
 
