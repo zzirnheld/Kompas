@@ -8,26 +8,28 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Play
 {
-	public class AnyOf : AnyOfBase<(Space s, IPlayer p)> { }
+	public class AnyOf : AnyOfBase<(Space? s, IPlayer? p)> { }
 
-	public class StandardPlayRestriction : RestrictionBase<(Space s, IPlayer p)>
+	public class StandardPlayRestriction : RestrictionBase<(Space? s, IPlayer? p)>
 	{
-		protected override bool IsValidLogic((Space s, IPlayer p) item, IResolutionContext context)
+		protected override bool IsValidLogic((Space? s, IPlayer? p) item, IResolutionContext context)
 			=> InitializationContext.game.IsValidStandardPlaySpace(item.s, item.p);
 	}
 
-	public class PlayRestriction : DualRestrictionBase<(Space s, IPlayer p)>, IPlayRestriction
+	public class PlayRestriction : DualRestrictionBase<(Space? s, IPlayer? p)>, IPlayRestriction
 	{
 		[JsonProperty]
 		public bool playAsAugment = false;
+		#nullable disable
 		[JsonProperty]
 		public string[] augmentOnSubtypes;
+		#nullable restore
 
 		[JsonProperty]
 		public bool requireStandardAdjacency = true;
 
 		[JsonProperty]
-		public IRestriction<(Space s, IPlayer p)>[] recommendations = { };
+		public IRestriction<(Space? s, IPlayer? p)>[] recommendations = System.Array.Empty<IRestriction<(Space? s, IPlayer? p)>>();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -35,9 +37,9 @@ namespace Kompas.Effects.Models.Restrictions.Play
 			foreach (var r in recommendations) r.Initialize(initializationContext);
 		}
 
-		private static IRestriction<(Space s, IPlayer p)> OnOrAdjacentToFriendly() => new AnyOf()
+		private static IRestriction<(Space? s, IPlayer? p)> OnOrAdjacentToFriendly() => new AnyOf()
 			{
-				elements = new IRestriction<(Space s, IPlayer p)>[] {
+				elements = new IRestriction<(Space? s, IPlayer? p)>[] {
 					new Cards.Friendly(),
 					new Spaces.AdjacentTo()
 					{
@@ -46,7 +48,7 @@ namespace Kompas.Effects.Models.Restrictions.Play
 				}
 			};
 
-		protected override IEnumerable<IRestriction<(Space s, IPlayer p)>> DefaultRestrictions
+		protected override IEnumerable<IRestriction<(Space? s, IPlayer? p)>> DefaultRestrictions
 		{
 			get
 			{
@@ -69,7 +71,7 @@ namespace Kompas.Effects.Models.Restrictions.Play
 			}
 		}
 
-		protected override IEnumerable<IRestriction<(Space s, IPlayer p)>> DefaultNormalRestrictions
+		protected override IEnumerable<IRestriction<(Space? s, IPlayer? p)>> DefaultNormalRestrictions
 		{
 			get
 			{
@@ -103,14 +105,14 @@ namespace Kompas.Effects.Models.Restrictions.Play
 			}
 		}
 
-		public bool IsRecommendedNormalPlay((Space s, IPlayer p) item)
+		public bool IsRecommendedNormalPlay((Space? s, IPlayer? p) item)
 			=> IsRecommendedPlay(item, ResolutionContext.PlayerTrigger(null, InitializationContext.game));
 
-		public bool IsRecommendedPlay((Space s, IPlayer p) item, IResolutionContext context)
+		public bool IsRecommendedPlay((Space? s, IPlayer? p) item, IResolutionContext context)
 			=> IsValid(item, context)
 			&& recommendations.All(r => r.IsValid(item, context));
 
-		public bool IsValidIgnoringAdjacency((Space s, IPlayer p) item, IResolutionContext context)
+		public bool IsValidIgnoringAdjacency((Space? s, IPlayer? p) item, IResolutionContext context)
 			=> IsValidIgnoring(item, context, r => r is StandardPlayRestriction);
 	}
 }

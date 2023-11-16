@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			stackable.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
 			=> Predicate(stackable.From(context, secondaryContext));
 
 		protected abstract bool Predicate(IStackable stackable);

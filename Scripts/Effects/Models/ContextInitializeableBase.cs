@@ -35,8 +35,8 @@ namespace Kompas.Effects.Models
 			if (!Initialized) throw new System.NotImplementedException($"You forgot to initialize a {GetType()}!\n{this}");
 		}
 		
-		protected static bool AllNull(params object[] objs) => objs.All(o => o == null);
-		protected static bool MultipleNonNull(params object[] objs) => objs.Count(o => o != null) > 1;
+		protected static bool AllNull(params object?[] objs) => objs.All(o => o == null);
+		protected static bool MultipleNonNull(params object?[] objs) => objs.Count(o => o != null) > 1;
 
 		public override string ToString()
 		{

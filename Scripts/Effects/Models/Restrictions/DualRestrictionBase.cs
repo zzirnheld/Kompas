@@ -41,15 +41,17 @@ namespace Kompas.Effects.Models.Restrictions
 			protected override IEnumerable<IRestriction<RestrictedType>> DefaultElements => restrictions;
 		}
 
+		#nullable disable
 		protected DualComponentRestriction NormalRestriction { get; private set; }
 		protected DualComponentRestriction EffectRestriction { get; private set; }
 
 		[JsonProperty]
 		public IRestriction<RestrictedType>[] normalAndEffect = null;
+		#nullable restore
 		[JsonProperty]
-		public IRestriction<RestrictedType>[] normalOnly = new IRestriction<RestrictedType>[] { };
+		public IRestriction<RestrictedType>[] normalOnly = System.Array.Empty<IRestriction<RestrictedType>>();
 		[JsonProperty]
-		public IRestriction<RestrictedType>[] effectOnly = new IRestriction<RestrictedType>[] { };
+		public IRestriction<RestrictedType>[] effectOnly = System.Array.Empty<IRestriction<RestrictedType>>();
 
 		/// <summary>
 		/// Restrictions that, by default, apply to a player moving a card normally (but not by effect)
@@ -69,11 +71,11 @@ namespace Kompas.Effects.Models.Restrictions
 			EffectRestriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(RestrictedType item, IResolutionContext context)
+		protected override bool IsValidLogic(RestrictedType? item, IResolutionContext? context)
 			=> IsValidIgnoring(item, context, r => false);
 
-		protected bool IsValidIgnoring(RestrictedType item, IResolutionContext context, IAllOf<RestrictedType>.ShouldIgnore ignorePredicate)
-			=> context.TriggerContext.stackableCause == null
+		protected bool IsValidIgnoring(RestrictedType? item, IResolutionContext? context, IAllOf<RestrictedType>.ShouldIgnore ignorePredicate)
+			=> context?.TriggerContext.stackableCause == null
 				? NormalRestriction.IsValidIgnoring(item, context, ignorePredicate)
 				: EffectRestriction.IsValidIgnoring(item, context, ignorePredicate);
 	}

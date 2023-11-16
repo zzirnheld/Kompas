@@ -33,7 +33,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
 			return InitializationContext.game.Cards
 				.Where(c => c.DistanceTo(space) < distance.From(context))

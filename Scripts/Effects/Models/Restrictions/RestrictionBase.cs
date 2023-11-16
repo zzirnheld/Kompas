@@ -7,7 +7,7 @@ namespace Kompas.Effects.Models.Restrictions
 	{
 		protected virtual bool AllowNullItem => false;
 
-		public bool IsValid(RestrictedType item, IResolutionContext context)
+		public bool IsValid(RestrictedType? item, IResolutionContext context)
 		{
 			ComplainIfNotInitialized();
 
@@ -24,6 +24,6 @@ namespace Kompas.Effects.Models.Restrictions
 			}
 		}
 
-		protected abstract bool IsValidLogic(RestrictedType item, IResolutionContext context);
+		protected abstract bool IsValidLogic(RestrictedType? item, IResolutionContext context);
 	}
 }

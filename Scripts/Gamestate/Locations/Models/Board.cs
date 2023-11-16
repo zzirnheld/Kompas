@@ -132,7 +132,7 @@ namespace Kompas.Gamestate.Locations.Models
 			=> destination.AdjacentSpaces.Any(destAdj => ShortestPath(source, destAdj, predicate) < NoPathExists);
 
 		public static bool AreConnectedByNumberOfSpacesFittingPredicate
-			(Space source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
+			(Space? source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
 			=> destination.AdjacentSpaces.Any(destAdj => distancePredicate(ShortestPath(source, destAdj, spacePredicate)));
 
 		public int ShortestEmptyPath(GameCard src, Space dest)

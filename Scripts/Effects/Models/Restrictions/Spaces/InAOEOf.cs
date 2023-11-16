@@ -49,7 +49,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
 			var alsoInAOE = this.alsoInAOE?.From(context);
 			bool IsValidAOE(IGameCardInfo card)

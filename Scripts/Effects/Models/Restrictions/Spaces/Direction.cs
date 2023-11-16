@@ -27,7 +27,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			if (from == null && to == null) throw new ArgumentException("Specified neither 'from' nor 'to' spaces in direction restriction - what direction are we testing?");
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
 			var origin = from?.From(context) ?? space;
 			var destination = to?.From(context) ?? space;

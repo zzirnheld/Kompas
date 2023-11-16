@@ -23,7 +23,7 @@ namespace Kompas.Gamestate
 		public static bool IsValidSpellSpaceFor(this IGame game, GameCard card, Space space)
 			=> game.Board.ValidSpellSpaceFor(card, space);
 
-		public static bool IsValidStandardPlaySpace(this IGame game, Space space, IPlayer player)
+		public static bool IsValidStandardPlaySpace(this IGame game, Space? space, IPlayer? player)
 		{
 			/*GD.Print($"Checking whether player {player?.index} can play a card to {space}. Cards adjacent to that space are" +
 				$"{string.Join(",", space.AdjacentSpaces.Select(BoardController.GetCardAt).Where(c => c != null).Select(c => c.CardName))}");*/
@@ -35,10 +35,11 @@ namespace Kompas.Gamestate
 				return isFriendly;
 			}
 
-			bool existsFriendlyAdjacent(Space adjacentTo)
-				=> adjacentTo.AdjacentSpaces
+			bool existsFriendlyAdjacent(Space? adjacentTo)
+				=> adjacentTo?.AdjacentSpaces
 					.Select(game.Board.GetCardAt)
-					.Any(cardIsFriendly);
+					.Any(cardIsFriendly)
+				?? false;
 
 			//first see if there's an adjacent friendly card to this space
 			if (existsFriendlyAdjacent(space)) return true;

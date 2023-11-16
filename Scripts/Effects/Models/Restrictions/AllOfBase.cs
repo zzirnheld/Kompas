@@ -25,7 +25,7 @@ namespace Kompas.Effects.Models.Restrictions
 			foreach (var elem in elements) yield return elem;
 		}
 
-		public bool IsValidIgnoring(RestrictedType item, IResolutionContext context, IAllOf<RestrictedType>.ShouldIgnore ignorePredicate)
+		public bool IsValidIgnoring(RestrictedType? item, IResolutionContext? context, IAllOf<RestrictedType>.ShouldIgnore ignorePredicate)
 		{
 			var oldVal = this.ignorePredicate;
 			this.ignorePredicate = ignorePredicate;
@@ -47,7 +47,7 @@ namespace Kompas.Effects.Models.Restrictions
 			if (LogSoloElements && elements.Count == 1) GD.Print($"only one element on {GetType()} on eff of {initializationContext.source}");
 		}
 
-		protected override bool IsValidLogic(RestrictedType item, IResolutionContext context) => elements
+		protected override bool IsValidLogic(RestrictedType? item, IResolutionContext? context) => elements
 			.Where(r => !ignorePredicate(r))
 			.All(r => Validate(r, item, context));
 
@@ -57,7 +57,7 @@ namespace Kompas.Effects.Models.Restrictions
 		/// Override if you want to change the validation function called on each child,
 		/// like have a client-side variant
 		/// </summary>
-		protected virtual bool Validate(ElementRestrictionType element, RestrictedType item, IResolutionContext context)
+		protected virtual bool Validate(ElementRestrictionType element, RestrictedType? item, IResolutionContext? context)
 		{
 			bool ret = element.IsValid(item, context);
 			if (DEBUG && !ret) GD.Print($"{item} failed by {element}");

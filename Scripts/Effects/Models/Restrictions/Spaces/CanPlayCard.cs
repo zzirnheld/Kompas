@@ -10,8 +10,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	/// </summary>
 	public class CanPlayCard : SpaceRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IGameCardInfo> toPlay;
+		#nullable restore
 
 		[JsonProperty]
 		public bool ignoreAdjacency;
@@ -22,7 +24,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			toPlay.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
 			var restriction = toPlay.From(context).PlayRestriction;
 		

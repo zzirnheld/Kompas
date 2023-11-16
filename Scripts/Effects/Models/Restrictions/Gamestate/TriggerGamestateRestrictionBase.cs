@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		public bool IsValid(Space item, IResolutionContext context) => IsValid(context.TriggerContext, context);
 		public bool IsValid(IPlayer item, IResolutionContext context) => IsValid(context.TriggerContext, context);
 		public bool IsValid(IGameCardInfo item, IResolutionContext context) => IsValid(context.TriggerContext, context);
-		public bool IsValid((Space s, IPlayer p) item, IResolutionContext context) => IsValid(context.TriggerContext, context);
+		public bool IsValid((Space? s, IPlayer? p) item, IResolutionContext context) => IsValid(context.TriggerContext, context);
 		public bool IsValid(IEnumerable<IGameCardInfo> item, IResolutionContext context) => IsValid(context.TriggerContext, context);
 
 		//Fulfill IListRestriction contract

@@ -16,10 +16,12 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	{
 		[JsonProperty]
 		public bool shortestEmptyPath = false;
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> distanceTo;
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<int> number;
+		#nullable restore
 		[JsonProperty]
 		public INumberRelationship comparison = new Relationships.Numbers.Equal();
 
@@ -30,7 +32,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			number.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
 			var origin = this.distanceTo.From(context);
 			int distance = shortestEmptyPath
@@ -45,10 +47,14 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 	public class Towards : SpaceRestrictionBase
 	{
+		#nullable disable
 		//Whether the space to be tested's distance to the destination
 		//is closer than other's distance to the destination
+		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> destination;
+		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> origin;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -66,9 +72,14 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 	public class TowardsAny : SpaceRestrictionBase
 	{
+		#nullable disable
+		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<Space>> anyDestination;
+		[JsonProperty]
 		public IRestriction<Space> anyDestinationRestriction;
+		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> origin;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -88,10 +99,14 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 	public class AwayFrom : SpaceRestrictionBase
 	{
+		#nullable disable
 		//Whether the space to be tested's distance to the destination
 		//is further than other's distance to the destination
+		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> destination;
+		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> origin;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

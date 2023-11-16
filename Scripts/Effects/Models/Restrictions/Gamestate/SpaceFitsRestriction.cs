@@ -8,8 +8,10 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public class SpacesFitRestriction : TriggerGamestateRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<Space> spaceRestriction;
+		#nullable restore
 		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<Space>> spaces = new Identities.ManySpaces.All();
 
@@ -23,7 +25,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			spaceRestriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
 		{
 			var spacesItem = spaces.From(context, secondaryContext);
 			return any
@@ -34,8 +36,10 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 	public class SpaceFitsRestriction : SpacesFitRestriction
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> space;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

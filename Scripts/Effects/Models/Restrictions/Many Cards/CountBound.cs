@@ -8,12 +8,14 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 {
 	public abstract class CountBound : ListRestrictionElementBase
 	{
+		#nullable disable
 		/// <summary>
         /// The bound, as defined by the actual card json.
         /// Might have to reference stuff about the current context, like the current effect X value.
         /// </summary>
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<int> bound;
+		#nullable restore
 
 		/// <summary>
 		/// Used for sending a current minimum to the client.

@@ -7,8 +7,10 @@ namespace Kompas.Effects.Models.Restrictions.Players
 
 	public class Not : PlayerRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<IPlayer> negated;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

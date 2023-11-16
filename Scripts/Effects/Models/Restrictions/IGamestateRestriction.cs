@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions
 	/// </summary>
 	public interface IGamestateRestriction : IContextInitializeable,
 		IRestriction<TriggeringEventContext>, IRestriction<IPlayer>, IRestriction<IGameCardInfo>, IRestriction<Space>,
-		IRestriction<(Space s, IPlayer p)>, IRestriction<int>, IListRestriction
+		IRestriction<(Space? s, IPlayer? p)>, IRestriction<int>, IListRestriction
 	{
 		bool IsValid(IResolutionContext context);
 	}

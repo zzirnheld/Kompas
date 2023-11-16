@@ -16,7 +16,7 @@ namespace Kompas.Effects.Models.Restrictions
 			foreach (var restriction in elements) restriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(RestrictedType item, IResolutionContext context)
+		protected override bool IsValidLogic(RestrictedType? item, IResolutionContext? context)
 			=> elements.Any(r => r.IsValid(item, context));
 	}
 }

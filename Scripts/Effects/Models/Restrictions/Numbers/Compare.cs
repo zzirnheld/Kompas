@@ -6,10 +6,12 @@ namespace Kompas.Effects.Models.Restrictions.Numbers
 {
 	public class Compare : RestrictionBase<int>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<int> other;
 		[JsonProperty(Required = Required.Always)]
 		public INumberRelationship comparison;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{

@@ -8,12 +8,14 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public class CardsMatch : TriggerGamestateRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IGameCardInfo> card;
 		[JsonProperty]
 		public IIdentity<IGameCardInfo> other;
 		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -26,7 +28,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			if (AllNull(other, anyOf)) throw new System.ArgumentNullException("other", "No card to compare the card to in trigger restriction element");
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
 		{
 			var first = card.From(context, secondaryContext)?.Card;
 
