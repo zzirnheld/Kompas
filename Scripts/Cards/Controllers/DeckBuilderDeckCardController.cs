@@ -22,6 +22,7 @@ namespace Kompas.Cards.Controllers
 
 		private void LeftClick(bool pressed)
 		{
+			_ = DeckController ?? throw new System.NullReferenceException("Forgot to init");
 			// check if pressed and released on the same card TODO expand to have dragging capabilities
 			if (pressed)
 			{
@@ -50,12 +51,17 @@ namespace Kompas.Cards.Controllers
 			}
 		}
 
-		public void MouseEnter() => DeckController.DragSwap(this);
+		public void MouseEnter()
+		{
+			_ = DeckController ?? throw new System.NullReferenceException("Forgot to init");
+			DeckController.DragSwap(this);
+		}
 
 		public void MouseExit() => leftClickStayedOnThisCard = rightClickStayedOnThisCard = false;
 
 		public void Delete()
 		{
+			_ = DeckController ?? throw new System.NullReferenceException("Forgot to init");
 			DeckController.RemoveFromDeck(this);
 			QueueFree();
 		}

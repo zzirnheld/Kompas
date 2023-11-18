@@ -11,12 +11,12 @@ namespace Kompas.Client.Effects.Models
 {
 	public class DummySubeffect : Subeffect
 	{
-		public override Effect Effect => ClientEffect;
-		public override IGame Game => ClientEffect.Game;
+		public override Effect? Effect => ClientEffect;
+		public override IGame? Game => ClientEffect?.Game;
 
-		public ClientEffect ClientEffect { get; private set; }
+		public ClientEffect? ClientEffect { get; private set; }
 
-		public static DummySubeffect FromJson(string json, ClientEffect parent, int subeffIndex)
+		public static DummySubeffect? FromJson(string json, ClientEffect parent, int subeffIndex)
 		{
 			var subeff = JsonConvert.DeserializeObject<Subeffect>(json);
 
@@ -27,7 +27,7 @@ namespace Kompas.Client.Effects.Models
 
 			if (toReturn != null)
 			{
-				GD.Print($"Finishing setup for new effect of type {subeff.GetType()}");
+				GD.Print($"Finishing setup for new effect of type {subeff?.GetType()}");
 				toReturn.Initialize(parent, subeffIndex);
 			}
 

@@ -41,6 +41,6 @@ namespace Kompas.Cards.Models
 
 	public abstract class SerializableGameCard : SerializableCard
 	{
-		public abstract IEnumerable<Effect> Effects { get; }
+		public abstract IEnumerable<Effect>? Effects { get; }
 	}
 }

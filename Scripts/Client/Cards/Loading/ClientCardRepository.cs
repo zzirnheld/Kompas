@@ -14,17 +14,11 @@ namespace Kompas.Client.Cards.Loading
 {
 	public class ClientCardRepository : GameCardRepository<ClientSerializableCard, ClientEffect, ClientCardController>
 	{
-		//public GameObject DeckSelectCardPrefab;
-
-		public Material friendlyCardMaterial;
-		public Material enemyCardMaterial;
-
 		public ClientCardRepository(PackedScene cardPrefab)
 			: base(cardPrefab)
-		{
-		}
+		{ }
 
-		public ClientGameCard InstantiateClientAvatar(string json, ClientPlayer owner, int id, ClientGame game)
+		public ClientGameCard? InstantiateClientAvatar(string json, ClientPlayer owner, int id, ClientGame game)
 		{
 			void validation(SerializableCard cardInfo)
 			{
@@ -39,10 +33,12 @@ namespace Kompas.Client.Cards.Loading
 
 		private string SanitizeJson(string json) => json; //TODO
 
-		public ClientGameCard InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
+		public ClientGameCard? InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
 		{
 			var card = InstantiateGameCard(SanitizeJson(json),
 				(cardInfo, effects, ctrl) => ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl));
+
+			if (card == null) return card;
 
 			//TODO set materials - should happen elsewhere based on ClientSettings? or maybe as a callback after controller is instantiated
 			/*
@@ -62,14 +58,24 @@ namespace Kompas.Client.Cards.Loading
 			return card;
 		}
 
-		public SelectDeckCard InstantiateDeckSelectCard(string cardName)
-			=> InstantiateDeckSelectCard(GetJsonFromName(cardName), FileNameFor(cardName));
+		public SelectDeckCard? InstantiateDeckSelectCard(string cardName)
+		{
+			var json = GetJsonFromName(cardName) ?? throw new System.NullReferenceException($"No json found for {cardName}");
+			var fileName = FileNameFor(cardName) ?? throw new System.NullReferenceException($"No file name found for {cardName}");
+			return InstantiateDeckSelectCard(json, fileName);
+		}
 
-		public SelectDeckCard InstantiateDeckSelectCard(string json, string fileName)
+		public SelectDeckCard? InstantiateDeckSelectCard(string json, string fileName)
 		{
 			try
 			{
-				SerializableCard serializableCard = JsonConvert.DeserializeObject<SerializableCard>(SanitizeJson(json), CardLoadingSettings);
+				var serializableCard = JsonConvert.DeserializeObject<SerializableCard>(SanitizeJson(json), CardLoadingSettings);
+				if (serializableCard == null)
+				{
+					GD.PushError($"Failed to load {json}");
+					return null;
+				}
+
 				return new SelectDeckCard(serializableCard.Stats, serializableCard.subtext, serializableCard.spellTypes, serializableCard.unique,
 					serializableCard.radius, serializableCard.duration, serializableCard.cardType, serializableCard.cardName,
 					fileName, //TODO signature that takes in serializablecard, TODO signature in card base for the same, TODO fileName

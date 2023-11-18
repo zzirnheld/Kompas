@@ -15,18 +15,20 @@ namespace Kompas.Client.Cards.Views
 		public void Select(ClientGameCard card) => base.Focus(card);
 		public void Hover(ClientGameCard card, bool refresh = false) => base.Show(card, refresh);
 
-		protected override void Show(ClientGameCard card, bool refresh = false)
+		protected override void Show(ClientGameCard? card, bool refresh = false)
 		{
 			base.Show(card, refresh);
+
+			if (card == null) return;
 			card.CardController.AnythingRefreshed += (_, card) => Refresh(card);
 		}
 
 		/// <summary>
 		/// If <paramref name="card"/> is the shown card, refreshes its shown information
 		/// </summary>
-		private void Refresh(GameCard card)
+		private void Refresh(GameCard? card)
 		{
-			if (card == ShownCard) Refresh();
+			if (card == ShownCard && card != null) Refresh();
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		private async Task<int> AskForOptionChoice()
 			=> await ServerGame.Awaiter
 				.GetEffectOption(PlayerTarget,
-								 cardName: Card.CardName,
+								 cardName: Effect.Card.CardName,
 								 choiceBlurb: choiceBlurb,
 								 optionBlurbs: optionBlurbs,
 								 hasDefault: hasDefault,

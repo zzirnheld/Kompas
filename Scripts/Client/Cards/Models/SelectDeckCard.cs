@@ -6,10 +6,10 @@ namespace Kompas.Client.Cards.Models
 	{
 
 		public SelectDeckCard(CardStats stats,
-			string subtext, string[] spellTypes,
+			string? subtext, string[] spellTypes,
 			bool unique, int radius, int duration,
-			char cardType, string cardName, string fileName,
-			string effText, string subtypeText)
+			char cardType, string? cardName, string? fileName,
+			string? effText, string? subtypeText)
 			: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText)
 		{
 		}

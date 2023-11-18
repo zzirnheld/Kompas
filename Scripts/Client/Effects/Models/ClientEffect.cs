@@ -1,4 +1,5 @@
 
+using System;
 using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Gamestate;
@@ -10,29 +11,39 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Client.Effects.Models
 {
+	//TODO refactor into serialized - unserialized thing? Or reformat like Identities?
 	public class ClientEffect : Effect, IClientStackable
 	{
-		private IPlayer owningPlayer;
+		private IPlayer? owningPlayer;
+		public override IPlayer OwningPlayer => owningPlayer ?? throw new System.NullReferenceException("Tried to get owning player of uninitialized effect");
 
-		public override IPlayer OwningPlayer => owningPlayer;
+		private ClientGameCard? card;
+		public override GameCard Card => card ?? throw new System.NullReferenceException("Tried to get card of uninitialized effect");
 
-		public ClientGame ClientGame { get; private set; }
+		private ClientGame? _clientGame;
+		public ClientGame ClientGame
+		{
+			get => _clientGame ?? throw new System.NullReferenceException("Tried to get game of uninitialized effect");
+			private set => _clientGame = value;
+		}
+		private ClientTrigger? _clientTrigger;
+		public ClientTrigger ClientTrigger
+		{
+			get => _clientTrigger ?? throw new System.NullReferenceException("Tried to get trigger of uninitialized effect");
+			private set => _clientTrigger = value;
+		}
 		public override IGame Game => ClientGame;
-		public DummySubeffect[] DummySubeffects { get; }
-		public ClientTrigger ClientTrigger { get; private set; }
 
+		public DummySubeffect[] DummySubeffects { get; } = Array.Empty<DummySubeffect>();
 		public override Subeffect[] Subeffects => DummySubeffects;
 		public override Trigger Trigger => ClientTrigger;
 
-		private IResolutionContext currentResolutionContext;
+		private IResolutionContext? currentResolutionContext;
 		public override IResolutionContext CurrentResolutionContext
 			=> currentResolutionContext ??= ResolutionContext.PlayerTrigger(this, Game);
 		//TODO controller? should have some way to track it client-side otherwise if effects ever can be activated by not the card's ocntroller something will break
 
 		public string StackableBlurb => blurb;
-
-		private ClientGameCard card;
-		public override GameCard Card => card;
 
 		public void SetInfo(ClientGameCard card, ClientGame clientGame, int effectIndex, IPlayer owningPlayer)
 		{

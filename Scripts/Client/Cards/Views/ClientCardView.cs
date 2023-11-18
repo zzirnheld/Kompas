@@ -11,21 +11,22 @@ namespace Kompas.Client.Cards.Views
 			Focus(card);
 		}
 
-		protected override void Display()
+		protected override void Display(ClientGameCard shownCard)
 		{
-			base.Display();
+			base.Display(shownCard);
 
-			InfoDisplayer.DisplayFrame(ShownCard.OwningPlayer.Friendly);
+			InfoDisplayer.DisplayFrame(shownCard.OwningPlayer.Friendly);
 			InfoDisplayer.DisplayZoomed(zoomedIn: false); //For now, assume never zoomed in.
 
-			DisplayTargeting();
+			DisplayTargeting(shownCard);
 		}
 
-		private void DisplayTargeting()
+		private void DisplayTargeting(ClientGameCard shownCard)
 		{
-			var targetingController = ShownCard.ClientGame.ClientGameController.TargetingController;
-			InfoDisplayer.DisplayValidTarget(targetingController.IsUnselectedValidTarget(ShownCard));
-			InfoDisplayer.DisplayCurrentTarget(targetingController.IsSelectedTarget(ShownCard));
+			var targetingController = shownCard.ClientGame.ClientGameController.TargetingController
+				?? throw new System.NullReferenceException("Forgot to init");
+			InfoDisplayer.DisplayValidTarget(targetingController.IsUnselectedValidTarget(shownCard));
+			InfoDisplayer.DisplayCurrentTarget(targetingController.IsSelectedTarget(shownCard));
 		}
 	}
 }

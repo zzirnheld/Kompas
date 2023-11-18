@@ -4,12 +4,16 @@ using System.Threading.Tasks;
 using Godot;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class AutoSpaceTarget : ServerSubeffect
 	{
+		#nullable disable
+		[JsonProperty(Required = Required.Always)]
 		public IRestriction<Space> spaceRestriction;
+		#nullable restore
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
@@ -29,7 +33,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			catch (System.InvalidOperationException ioe)
 			{
 				GD.PrintErr($"Zero, or more than one space fit the space restriction {spaceRestriction} " +
-					$"for the effect {Effect.blurb} of {Card.CardName}. Exception {ioe}");
+					$"for the effect {Effect.blurb} of {Effect.Card.CardName}. Exception {ioe}");
 				return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 			}
 		}

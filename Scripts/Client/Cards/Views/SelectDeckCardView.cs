@@ -10,6 +10,6 @@ namespace Kompas.Client.Cards.Views
 			: base(infoDisplayer)
 		{ }
 
-		public void Show(CardBase card) => base.Show(card);
+		public void Show(CardBase? card) => base.Show(card);
 	}
 }

@@ -2,6 +2,8 @@ using System;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Exceptions;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Controllers
 {
@@ -17,12 +19,10 @@ namespace Kompas.Client.Gamestate.Controllers
 		public int Y { get; private set; }
 
 		[Export]
-		private Node3D CanPlayTo { get; set; }
+		private Label3D? _coordsDebugLabel;
+		private Label3D CoordsDebugLabel => _coordsDebugLabel ?? throw new UnassignedReferenceException();
 
-		[Export]
-		private Label3D CoordsDebugLabel { get; set; }
-
-		public event EventHandler LeftClick;
+		public event EventHandler? LeftClick;
 
 		public override void _Ready()
 		{
@@ -45,7 +45,7 @@ namespace Kompas.Client.Gamestate.Controllers
         /// <param name="confirmAdd">Validation to perform once the coordinates have been determined (so as not to create, then abandon, new spaces.
         /// For some reason, just doing QueueFree on it didn't seem to clear them up. FUTURE: see if I can figure out another better way.)</param>
         /// <returns></returns>
-		public SpaceController Dupe(Node3D parent, PackedScene spacePrefab, bool flipX, bool flipY, bool swapXY, ConfirmAdd confirmAdd)
+		public SpaceController? Dupe(Node3D parent, PackedScene spacePrefab, bool flipX, bool flipY, bool swapXY, ConfirmAdd confirmAdd)
 		{
 			(int tempX, int tempY) = (flipX ? BoardMax - X : X, flipY ? BoardMax - Y : Y);
 			(int x, int y) = swapXY ? (tempY, tempX) : (tempX, tempY);
@@ -53,7 +53,8 @@ namespace Kompas.Client.Gamestate.Controllers
 			if (!confirmAdd(x, y)) return null;
 
 			//TODO duplicate was not recursive! or else it didn't move stuff properly. 
-			SpaceController ret = spacePrefab.Instantiate() as SpaceController;
+			SpaceController? ret = spacePrefab.Instantiate() as SpaceController
+				?? throw new WrongPrefabTypeException();
 			ret.X = x;
 			ret.Y = y;
 			parent.AddChild(ret);

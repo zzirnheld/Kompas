@@ -11,11 +11,11 @@ namespace Kompas.Server.Effects.Models
 {
 	public abstract class ServerSubeffect : Subeffect
 	{
-		public override Effect Effect => ServerEffect;
-		public override IGame Game => ServerGame;
+		public override Effect? Effect => ServerEffect;
+		public override IGame? Game => ServerGame;
 
-		public ServerEffect ServerEffect { get; protected set; }
-		public ServerGame ServerGame => ServerEffect.ServerGame;
+		public ServerEffect? ServerEffect { get; protected set; }
+		public ServerGame? ServerGame => ServerEffect?.ServerGame;
 
 		public EffectInitializationContext DefaultInitializationContext
 			=> Effect.CreateInitializationContext(this, default);
@@ -31,7 +31,7 @@ namespace Kompas.Server.Effects.Models
 			//GD.Print($"Finishing setup for new subeffect of type {GetType()}");
 			ServerEffect = eff;
 			SubeffIndex = subeffIndex;
-			if (xMultiplier == 1 && xModifier != 0) GD.Print($"x mulitplier {xMultiplier}, relies on default on eff of {Card}");
+			if (xMultiplier == 1 && xModifier != 0) GD.Print($"x mulitplier {xMultiplier}, relies on default on eff of {Effect.Card}");
 		}
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace Kompas.Server.Effects.Models
 		/// Whether this subeffect will be considered EffectImpossible at this point
 		/// </summary>
 		/// <returns></returns>
-		public virtual bool IsImpossible(TargetingContext overrideContext = null) => true;
+		public virtual bool IsImpossible(TargetingContext? overrideContext = null) => true;
 
 
 		/// <summary>

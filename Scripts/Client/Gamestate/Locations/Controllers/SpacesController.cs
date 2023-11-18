@@ -2,19 +2,24 @@ using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate.Controllers;
 using Kompas.Gamestate;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
 {
 	public partial class SpacesController : Node3D
 	{
 		[Export]
-		private SpaceController[] InitialSpaces { get; set; }
+		private SpaceController[]? _initialSpaces;
+		private SpaceController[] InitialSpaces => _initialSpaces ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private PackedScene Space { get; set; }
+		private PackedScene? _space;
+		private PackedScene Space => _space ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private ClientGameController GameController { get; set; } //if this becomes a shared controller, this will need to be moved to a child class
+		private ClientGameController? _gameController;
+		private ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
+		//if this becomes a shared controller, this will need to be moved to a child class
 
 		private readonly SpaceController[,] spaces = new SpaceController[7, 7];
 
@@ -45,7 +50,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			InsertSpace(toDupe.Dupe(this, Space, flipX, flipY, swapXY, (x, y) => spaces[x, y] == null));
 		}
 
-		private void InsertSpace(SpaceController newSpace)
+		private void InsertSpace(SpaceController? newSpace)
 		{
 			if (newSpace == null) return;
 			if (spaces[newSpace.X, newSpace.Y] != null) throw new System.InvalidOperationException($"{newSpace.X}, {newSpace.Y} already had a Space created for it!");

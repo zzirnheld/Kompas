@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
@@ -72,7 +73,7 @@ namespace Kompas.Cards.Loading
 				}
 				validation?.Invoke(cardInfo);
 
-				effects.AddRangeWithCast(cardInfo.Effects);
+				effects.AddRangeWithCast(cardInfo.Effects ?? Enumerable.Empty<TEffect>());
 				effects.AddRange(GetKeywordEffects(cardInfo));
 			}
 			catch (System.ArgumentException argEx)

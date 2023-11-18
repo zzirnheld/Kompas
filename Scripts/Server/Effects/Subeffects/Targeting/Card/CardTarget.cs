@@ -67,8 +67,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		private IEnumerable<GameCard> ClosestCards(IEnumerable<GameCard> possibleTargets)
 		{
-			int minDist = possibleTargets.Min(c => c.DistanceTo(Card));
-			return possibleTargets.Where(c => c.DistanceTo(Card) == minDist);
+			int minDist = possibleTargets.Min(c => c.DistanceTo(Effect.Card));
+			return possibleTargets.Where(c => c.DistanceTo(Effect.Card) == minDist);
 		}
 
 		protected virtual Task<ResolutionInfo> NoPossibleTargets()
@@ -111,7 +111,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		protected async Task<IEnumerable<GameCard>> RequestTargets()
 		{
-			string name = Card.CardName;
+			string name = Effect.Card.CardName;
 			int[] targetIds = stashedPotentialTargets.Select(c => c.ID).ToArray();
 			GD.Print($"Potential targets {string.Join(", ", targetIds)}");
 			listRestriction.PrepareForSending(ResolutionContext);

@@ -8,6 +8,7 @@ using Kompas.Client.UI;
 using Kompas.Client.UI.GameStart;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate
 {
@@ -16,18 +17,24 @@ namespace Kompas.Client.Gamestate
 		public ClientCardRepository? CardRepository { get; private set; }
 
 		[Export]
-		public GameStartController? GameStartController { get; private set; }
+		private GameStartController? _gameStartController;
+		public GameStartController GameStartController => _gameStartController ?? throw new UnassignedReferenceException();
 		[Export]
-		public ClientTargetingController? TargetingController { get; private set; }
+		private ClientTargetingController? _targetingController;
+		public ClientTargetingController TargetingController => _targetingController ?? throw new UnassignedReferenceException();
 		[Export]
-		public CurrentStateController? CurrentStateController { get; private set; }
+		private CurrentStateController? _currentStateController;
+		public CurrentStateController CurrentStateController => _currentStateController ?? throw new UnassignedReferenceException();
 		[Export]
-		public UseEffectDialog? UseEffectDialog { get; private set; }
+		private UseEffectDialog? _useEffectDialog;
+		public UseEffectDialog? UseEffectDialog => _useEffectDialog ?? throw new UnassignedReferenceException();
 		[Export]
-		public ClientStackView? StackView { get; private set; }
+		private ClientStackView? _stackView;
+		public ClientStackView StackView => _stackView ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private PackedScene? CardPrefab { get; set; }
+		private PackedScene? _cardPrefab;
+		private PackedScene CardPrefab => _cardPrefab ?? throw new UnassignedReferenceException();
 
 		private ClientGame? game;
 		public override IGame? Game => game;

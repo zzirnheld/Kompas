@@ -32,8 +32,8 @@ namespace Kompas.Cards.Controllers
 
 		public void Delete();
 
-		public Node3D? Node { get; }
-		public IGameCardInfo? Card { get; }
+		public Node3D Node { get; }
+		public IGameCardInfo Card { get; }
 
 	}
 }

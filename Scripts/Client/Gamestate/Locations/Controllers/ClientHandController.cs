@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using Godot;
 using Kompas.Client.UI;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
 {
@@ -21,14 +23,17 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private const int MinHandCountForScale = 5;
 
 		[Export]
-		private ClientCameraController Camera { get; set; }
+		private ClientCameraController? _camera;
+		private ClientCameraController Camera => _camera ?? throw new UnassignedReferenceException();
 		[Export]
-		private Node3D NodeParent { get; set; }
+		private Node3D? _nodeParent;
+		private Node3D NodeParent => _nodeParent ?? throw new UnassignedReferenceException();
 		[Export]
-		private Node3D LeftBound { get; set; }
+		private Node3D? _leftBound;
+		private Node3D LeftBound => _leftBound ?? throw new UnassignedReferenceException();
 		[Export]
-		private Node3D RightBound { get; set; }
-
+		private Node3D? _rightBound;
+		private Node3D RightBound => _rightBound ?? throw new UnassignedReferenceException();
 		public override void _Ready() => Recenter();
 
 		private float handWidth;

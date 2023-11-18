@@ -69,14 +69,19 @@ namespace Kompas.Effects.Subeffects
 			stackableTargetIndex = stackableIndex
 		};
 
-		public virtual Effect Effect { get; }
-		public virtual IGame Game { get; }
+		public virtual Effect? Effect { get; }
+		public virtual IGame? Game { get; }
 
 		public int SubeffIndex { get; protected set; }
 
-		public GameCard Card => Effect.Card;
-		public IResolutionContext ResolutionContext => Effect.CurrentResolutionContext;
-		public TriggeringEventContext CurrentTriggerContext => Effect.CurrTriggerContext;
+		public IResolutionContext ResolutionContext
+		{
+			get
+			{
+				_ = Effect ?? throw new System.NullReferenceException("Checked resolution context of the subeffect before its effect was assigned!");
+				return Effect.CurrentResolutionContext;;
+			}
+		}
 
 		/// <summary>
 		/// Represents the type of subeffect this is

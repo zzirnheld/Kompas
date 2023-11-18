@@ -13,21 +13,22 @@ namespace Kompas.Cards.Controllers
 	public partial class SelectDeckCardController : Control
 	{
 		[Export]
-		public SelectDeckInfoDisplayer InfoDisplayer { get; private set; }
+		public SelectDeckInfoDisplayer? InfoDisplayer { get; private set; }
 
-		private CardBase card;
-		public CardBase Card
+		private CardBase? _card;
+		public CardBase? Card
 		{
-			get => card;
+			get => _card;
 			protected set
 			{
-				card = value;
-				MyView.Show(card);
+				_card = value;
+				MyView.Show(_card);
 			}
 		}
 
-		private SelectDeckCardView _myView;
-		private SelectDeckCardView MyView => _myView ??= new SelectDeckCardView(InfoDisplayer);
+		private SelectDeckCardView? _myView;
+		private SelectDeckCardView MyView => _myView ??= new SelectDeckCardView(InfoDisplayer
+			?? throw new System.NullReferenceException("Forgot to init"));
 
 		public void Init(CardBase card)
 		{

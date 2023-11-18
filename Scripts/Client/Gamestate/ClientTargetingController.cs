@@ -63,14 +63,14 @@ namespace Kompas.Client.Gamestate
 			currentSearch?.Select(space);
 		}
 
-		public void Select(ClientGameCard card)
+		public void Select(ClientGameCard? card)
 		{
 			GD.Print($"Selecting {card}");
 			TopLeftCardView?.Select(card);
 			currentSearch?.Select(card);
 		}
 
-		public void Highlight(ClientGameCard card)
+		public void Highlight(ClientGameCard? card)
 		{
 			//GD.Print($"Selecting {card}");
 			TopLeftCardView?.Hover(card);

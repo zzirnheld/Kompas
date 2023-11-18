@@ -105,7 +105,7 @@ namespace Kompas.Gamestate
 
 	public interface IStackController
 	{
-		public IStackable CurrStackEntry { get; }
+		public IStackable? CurrStackEntry { get; }
 		public IEnumerable<IStackable> StackEntries { get; }
 		public bool NothingHappening { get; }
 	}

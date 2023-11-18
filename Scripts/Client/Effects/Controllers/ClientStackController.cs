@@ -16,8 +16,8 @@ namespace Kompas.Client.Effects.Controllers
 		public IEnumerable<IClientStackable> StackEntries => stack.StackEntries;
 		IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
 
-		public IClientStackable CurrStackEntry { get; private set; }
-		IStackable IStackController.CurrStackEntry => CurrStackEntry;
+		public IClientStackable? CurrStackEntry { get; private set; }
+		IStackable? IStackController.CurrStackEntry => CurrStackEntry;
 
 		public bool NothingHappening => CurrStackEntry == null;
 
@@ -33,7 +33,7 @@ namespace Kompas.Client.Effects.Controllers
 			stackView.Activated(effect);
 		}
 
-		private void Add(IClientStackable stackable, IResolutionContext context = default)
+		private void Add(IClientStackable stackable, IResolutionContext? context = default)
 		{
 			stack.Push((stackable, context));
 		}

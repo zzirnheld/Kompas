@@ -8,14 +8,18 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Effects.Models.Restrictions.Spaces;
 using Kompas.Server.Networking;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class SpaceTarget : ServerSubeffect
 	{
-		public string blurb;
-
+		[JsonProperty]
+		public string? blurb;
+		#nullable disable
+		[JsonProperty(Required = Required.Always)]
 		public IRestriction<Space> spaceRestriction;
+		#nullable restore
 
 		private bool ForPlay => spaceRestriction is AllOf allOf && allOf.elements.Any(elem => elem is CanPlayCard);
 
@@ -29,7 +33,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				.Where(s => spaceRestriction.IsValid(s, ResolutionContext))
 				.Select(s => PlayerTarget.SubjectiveCoords(s));
 
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible(TargetingContext? overrideContext = null)
 			=> !ValidSpaces.Any();
 
 		/// <summary>
@@ -63,7 +67,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				var (a, b) = (-1, -1);
 				while (!SetTargetIfValid(a, b))
 				{
-					(a, b) = await ServerGame.Awaiter.GetSpaceTarget(PlayerTarget, Card.CardName, blurb, spaces, recommendedSpaces);
+					(a, b) = await ServerGame.Awaiter.GetSpaceTarget(PlayerTarget, Effect.Card.CardName, blurb, spaces, recommendedSpaces);
 					if ((a, b) == (-1, -1) && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
 				}
 				return ResolutionInfo.Next;

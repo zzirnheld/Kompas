@@ -11,11 +11,14 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private const float SurroundedCardScale = 1.15f;
 
 		[Export]
-		private SpacesController SpacesController { get; set; }
+		private SpacesController? _spacesController;
+		private SpacesController SpacesController => _spacesController
+			?? throw new System.NullReferenceException("Forgot to init");
 
 		public override void Place(ICardController cardController)
 		{
-			SpacesController[cardController.Card.Position].Place(cardController);
+			var position = cardController.Card.Position ?? throw new System.NullReferenceException("Card to place had no position");
+			SpacesController[position].Place(cardController);
 			ScaleCard(cardController);
 			ScaleAdjacentCards(cardController);
 		}
