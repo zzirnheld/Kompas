@@ -11,6 +11,8 @@ namespace Kompas.Client.Networking
 {
 	public class ClientNetworker : Networker
 	{
+		private static readonly JsonSerializerSettings DeserializePacketJsonSettings = new() { TypeNameHandling = TypeNameHandling.Auto };
+
 		private readonly ClientGame game;
 		private static bool connecting = false;
 
@@ -27,7 +29,7 @@ namespace Kompas.Client.Networking
 		* Based on whether the tcpClient is non-null and connected, it shows waiting for player;
 		* else choose server again.
 		*/
-		public static async Task<TcpClient> Connect(string ip)
+		public static async Task<TcpClient?> Connect(string ip)
 		{
 			GD.Print($"Connect to {ip}?");
 			if (connecting) return null;
@@ -118,11 +120,11 @@ namespace Kompas.Client.Networking
 			{ Packet.EditCardLink, typeof(EditCardLinkClientPacket)},
 		}; //TODO a unit test that asserts that all types in this map extend IClientOrderPacket
 
-		private static IClientOrderPacket FromJson(string command, string json)
+		private static IClientOrderPacket? FromJson(string command, string json)
 		{
 			if (!jsonTypes.ContainsKey(command)) throw new System.ArgumentException($"Unrecognized command {command} in packet sent to client");
 
-			return JsonConvert.DeserializeObject(json, jsonTypes[command], new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }) as IClientOrderPacket;
+			return JsonConvert.DeserializeObject(json, jsonTypes[command], DeserializePacketJsonSettings) as IClientOrderPacket;
 		}
 
 		public override Task ProcessPacket((string command, string json) packetInfo)
@@ -135,7 +137,7 @@ namespace Kompas.Client.Networking
 
 			var p = FromJson(packetInfo.command, packetInfo.json);
 			GD.Print($"Parsing packet {packetInfo.command}");
-			p.Execute(game);
+			p?.Execute(game);
 
 			//clean up any visual differences after the latest packet.
 			//TODO make this more efficient, probably with dirty lists

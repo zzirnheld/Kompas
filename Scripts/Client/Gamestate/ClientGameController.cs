@@ -37,18 +37,19 @@ namespace Kompas.Client.Gamestate
 		private PackedScene CardPrefab => _cardPrefab ?? throw new UnassignedReferenceException();
 
 		private ClientGame? game;
-		public override IGame? Game => game;
+		public override IGame Game => game ?? throw new NotReadyYetException();
 
 		//TODO: aggressive nullable warning? encourage user to use null propagation?
 		/// <summary>
 		/// Singleton? which actually sends and receives communication.
 		/// </summary>
 		public ClientNetworker? Networker { get; private set; }
+		private ClientNotifier? _notifier;
 		/// <summary>
 		/// Singleton? which assembles packets to be sent via the Networker.
 		/// TODO consider changing the name to reflect this role
 		/// </summary>
-		public ClientNotifier? Notifier { get; private set; }
+		public ClientNotifier Notifier => _notifier ?? throw new NotReadyYetException();
 
 		public override void _Ready()
 		{
@@ -79,7 +80,7 @@ namespace Kompas.Client.Gamestate
 		{
 			_ = game ?? throw new System.NullReferenceException("Not ready yet");
 			Networker = new ClientNetworker(tcpClient, game);
-			Notifier = new ClientNotifier(Networker);
+			_notifier = new ClientNotifier(Networker);
 		}
 	}
 }

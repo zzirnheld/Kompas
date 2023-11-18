@@ -13,6 +13,6 @@ namespace Kompas.Gamestate
 		[Export]
 		public BoardController? BoardController { get; private set; }
 
-		public abstract IGame? Game { get; }
+		public abstract IGame Game { get; }
 	}
 }

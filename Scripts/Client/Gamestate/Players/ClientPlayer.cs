@@ -5,6 +5,7 @@ using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Networking;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Players
 {
@@ -30,10 +31,10 @@ namespace Kompas.Client.Gamestate.Players
 		public PlayerController PlayerController { get; }
 
 		public int Index { get; }
-		private GameCard _avatar;
+		private GameCard? _avatar;
 		public GameCard Avatar
 		{
-			get => _avatar;
+			get => _avatar ?? throw new UnassignedReferenceException();
 			set
 			{
 				_avatar = value;
@@ -55,6 +56,8 @@ namespace Kompas.Client.Gamestate.Players
 		}
 		public int PipsNextTurn { set => PlayerController.PipsNextTurn = value; }
 
+		//Non-nullable models are initialized in factory
+		#nullable disable
 		/// <summary>
 		/// Private constructor to enforce factory to initialize game locations without leaking this
 		/// </summary>
@@ -65,6 +68,7 @@ namespace Kompas.Client.Gamestate.Players
 			PlayerController = playerController;
 			this.getNetworker = getNetworker;
 		}
+		#nullable restore
 
 		public static ClientPlayer Create(ClientGame game, int index, PlayerController playerController, GetNetworker getNetworker)
 		{

@@ -14,7 +14,7 @@ namespace Kompas.Client.UI
 		[Export]
 		private Label NextTurnPips { get; set; }
 
-		public Texture2D AvatarTexture
+		public Texture2D? AvatarTexture
 		{
 			set => AvatarImage.Texture = value;
 		}

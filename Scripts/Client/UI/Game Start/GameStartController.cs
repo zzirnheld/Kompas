@@ -5,29 +5,35 @@ using Godot;
 using Godot.Collections;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Networking;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.UI.GameStart
 {
 	public partial class GameStartController : Control
 	{
 		[Export]
-		public ClientGameController GameController { get; private set; }
+		private ClientGameController? _gameController;
+		public ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private ConnectToServerController ConnectToServer { get; set; }
+		private ConnectToServerController? _connectToServer;
+		private ConnectToServerController ConnectToServer => _connectToServer ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Control WaitingForServer { get; set; }
+		private Control? _waitingForServer;
+		private Control WaitingForServer => _waitingForServer ?? throw new UnassignedReferenceException();
 		[Export]
-		private Control WaitingForPlayer { get; set; }
+		private Control? _waitingForPlayer;
+		private Control WaitingForPlayer => _waitingForPlayer ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private SelectDeckController SelectDeck { get; set; }
+		private SelectDeckController? _selectDeck;
+		private SelectDeckController SelectDeck => _selectDeck ?? throw new UnassignedReferenceException();
 
 		private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck, DeckAccepted }
-		private Dictionary<State, Control> Tabs = new();
+		private Dictionary<State, Control?> Tabs = new();
 
-		private Task connectionTask; //Awaited in TryConnect. not sure if this or a boolean is the better anti-reentrant mechanism
+		private Task? connectionTask; //Awaited in TryConnect. not sure if this or a boolean is the better anti-reentrant mechanism
 
 		public override void _Ready()
 		{
@@ -69,7 +75,7 @@ namespace Kompas.Client.UI.GameStart
 		private async Task Connect(string ip)
 		{
 			ChangeState(State.WaitingForServer);
-			TcpClient tcpClient;
+			TcpClient? tcpClient;
 			try
 			{
 				tcpClient = await ClientNetworker.Connect(ip);
@@ -110,7 +116,10 @@ namespace Kompas.Client.UI.GameStart
 			GD.Print($"Changing state to {state}");
 
 			foreach (State s in Enum.GetValues(typeof(State)))
-				if (Tabs[s] != null) Tabs[s].Visible = s == state;
+			{
+				var tab = Tabs[s];
+				if (tab != null) tab.Visible = s == state;
+			}	
 
 			if (state == State.DeckAccepted) Visible = false;
 		}

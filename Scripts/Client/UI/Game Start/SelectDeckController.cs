@@ -3,6 +3,7 @@ using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate;
 using Kompas.Shared;
+using Kompas.Shared.Exceptions;
 using Kompas.UI;
 
 namespace Kompas.Client.UI.GameStart
@@ -10,19 +11,24 @@ namespace Kompas.Client.UI.GameStart
 	public partial class SelectDeckController : Control
 	{
 		[Export]
-		private OptionButton DeckSelect { get; set; }
+		private OptionButton? _deckSelect;
+		private OptionButton DeckSelect => _deckSelect ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private SquareGridContainer DeckContainer { get; set; }
+		private SquareGridContainer? _deckContainer;
+		private SquareGridContainer DeckContainer => _deckContainer ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private SelectDeckCardController AvatarController { get; set; }
+		private SelectDeckCardController? _avatarController;
+		private SelectDeckCardController AvatarController => _avatarController ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private PackedScene MainDeckCardPrefab { get; set; }
+		private PackedScene? _mainDeckCardPrefab;
+		private PackedScene MainDeckCardPrefab => _mainDeckCardPrefab ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private GameStartController GameStartController { get; set; }
+		private GameStartController? _gameStartController;
+		private GameStartController GameStartController => _gameStartController ?? throw new UnassignedReferenceException();
 
 		private readonly IList<string> deckNames = new List<string>();
 

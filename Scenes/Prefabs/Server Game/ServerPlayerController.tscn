@@ -6,12 +6,12 @@
 [ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerDeckController.cs" id="4_nlgx2"]
 [ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerDiscardController.cs" id="5_3thf0"]
 
-[node name="ServerPlayerController" type="Node" node_paths=PackedStringArray("HandController", "DiscardController", "DeckController", "AnnihilationController")]
+[node name="ServerPlayerController" type="Node" node_paths=PackedStringArray("_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("1_4vh3p")
-HandController = NodePath("Hand")
-DiscardController = NodePath("Discard")
-DeckController = NodePath("Deck")
-AnnihilationController = NodePath("Annihilation")
+_handController = NodePath("Hand")
+_discardController = NodePath("Discard")
+_deckController = NodePath("Deck")
+_annihilationController = NodePath("Annihilation")
 
 [node name="Hand" type="Node" parent="."]
 script = ExtResource("2_0eg1b")

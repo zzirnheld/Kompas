@@ -7,6 +7,8 @@ using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate.Search;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
+using Kompas.Shared.Enumerable;
+using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Gamestate
@@ -14,20 +16,24 @@ namespace Kompas.Client.Gamestate
 	public partial class ClientTargetingController : Node
 	{
 		[Export]
-		private ControlInfoDisplayer? TopLeftInfoDisplayer { get; set; }
+		private ControlInfoDisplayer? _topLeftInfoDisplayer;
+		private ControlInfoDisplayer TopLeftInfoDisplayer => _topLeftInfoDisplayer ?? throw new UnassignedReferenceException();
 		[Export]
-		private ClientGameController? GameController { get; set; }
+		private ClientGameController? _gameController;
+		private ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
 		[Export]
-		private Control? CanDeclineFurtherTargetsButton { get; set; }
+		private Control? _canDeclineFurtherTargetsButton;
+		private Control CanDeclineFurtherTargetsButton => _canDeclineFurtherTargetsButton ?? throw new UnassignedReferenceException();
 
-		public ClientTopLeftCardView? TopLeftCardView { get; private set; }
+		private ClientTopLeftCardView? _topLeftCardView;
+		public ClientTopLeftCardView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();
 
 		/// <summary>
-        /// The view already contains the logic for focusing on a given card, for entirely historical reasons.
-        /// I could rip that out and move it here, but why bother
-        /// </summary>
-		public ClientGameCard? FocusedCard => TopLeftCardView?.FocusedCard;
-		public ClientGameCard? ShownCard => TopLeftCardView?.ShownCard;
+		/// The view already contains the logic for focusing on a given card, for entirely historical reasons.
+		/// I could rip that out and move it here, but why bother
+		/// </summary>
+		public ClientGameCard? FocusedCard => TopLeftCardView.FocusedCard;
+		public ClientGameCard? ShownCard => TopLeftCardView.ShownCard;
 
 		private ISearch? currentSearch;
 
@@ -44,11 +50,11 @@ namespace Kompas.Client.Gamestate
 		{
 			base._Ready();
 			if (TopLeftInfoDisplayer == null) throw new System.NullReferenceException("Forgot to init");
-			TopLeftCardView = new(TopLeftInfoDisplayer);
+			_topLeftCardView = new(TopLeftInfoDisplayer);
 			TopLeftCardView.FocusChange += (_, change) =>
 			{
 				change.Old?.ClientCardController.ShowFocused(false);
-				change.New.ClientCardController.ShowFocused(true);
+				change.New?.ClientCardController.ShowFocused(true);
 			};
 		}
 
@@ -67,6 +73,8 @@ namespace Kompas.Client.Gamestate
 		{
 			GD.Print($"Selecting {card}");
 			TopLeftCardView?.Select(card);
+			if (card == null) return;
+
 			currentSearch?.Select(card);
 		}
 
@@ -79,7 +87,7 @@ namespace Kompas.Client.Gamestate
 		public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
 		{
 			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
-			currentSearch = CardSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID), listRestriction,
+			currentSearch = CardSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 
 			if (currentSearch == null)
@@ -95,7 +103,7 @@ namespace Kompas.Client.Gamestate
 		public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
 		{
 			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
-			currentSearch = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID), listRestriction,
+			currentSearch = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo($"Reshuffle down to hand size");
 			currentSearch.SearchFinished += (_, _) => FinishSearch();

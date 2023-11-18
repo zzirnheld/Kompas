@@ -58,21 +58,21 @@ namespace Kompas.Networking
 			string json = Encoding.UTF8.GetString(bytes);
 			try
 			{
-				Packet p = JsonConvert.DeserializeObject<Packet>(json);
-				return (p.command, json);
+				Packet? p = JsonConvert.DeserializeObject<Packet>(json);
+				return (p?.command ?? Packet.Invalid, json);
 			}
 			catch (System.ArgumentException argEx)
 			{
 				//Catch JSON parse error
 				GD.PrintErr($"Failed to deserialize packet from json \"{json}\", " +
 					$"argument exception with message {argEx.Message}");
-				return (Packet.Invalid, null);
+				return (Packet.Invalid, string.Empty);
 			}
 		}
 		#endregion serialization
 
 		#region writing
-		public void SendPacket(Packet packet)
+		public void SendPacket(Packet? packet)
 		{
 			if (packet == null) return;
 			if (tcpClient == null) return;

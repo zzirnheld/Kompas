@@ -12,8 +12,8 @@ namespace Kompas.Client.Cards.Views
 			: base(infoDisplayer)
 		{ }
 		
-		public void Select(ClientGameCard card) => base.Focus(card);
-		public void Hover(ClientGameCard card, bool refresh = false) => base.Show(card, refresh);
+		public void Select(ClientGameCard? card) => base.Focus(card);
+		public void Hover(ClientGameCard? card, bool refresh = false) => base.Show(card, refresh);
 
 		protected override void Show(ClientGameCard? card, bool refresh = false)
 		{

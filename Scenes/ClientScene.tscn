@@ -50,11 +50,11 @@ _cardPrefab = ExtResource("2_q0mge")
 PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 BoardController = NodePath("../3D/Board")
 
-[node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("TopLeftInfoDisplayer", "GameController", "CanDeclineFurtherTargetsButton")]
+[node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton")]
 script = ExtResource("2_cdbal")
-TopLeftInfoDisplayer = NodePath("../../UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Card Info Dimensions")
-GameController = NodePath("..")
-CanDeclineFurtherTargetsButton = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button")
+_topLeftInfoDisplayer = NodePath("../../UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Top Left Card Info")
+_gameController = NodePath("..")
+_canDeclineFurtherTargetsButton = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button")
 
 [node name="3D" type="Node3D" parent="."]
 
@@ -153,13 +153,13 @@ Y = 3
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -3.62, 0, 0)
 Y = 3
 
-[node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("PlayerInfo", "HandController", "DiscardController", "DeckController", "AnnihilationController")]
+[node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
-PlayerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info")
-HandController = NodePath("Friendly Hand")
-DiscardController = NodePath("Friendly Discard")
-DeckController = NodePath("Friendly Deck")
-AnnihilationController = NodePath("Friendly Annihilation")
+_playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info")
+_handController = NodePath("Friendly Hand")
+_discardController = NodePath("Friendly Discard")
+_deckController = NodePath("Friendly Deck")
+_annihilationController = NodePath("Friendly Annihilation")
 
 [node name="Friendly Hand" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.05, 0.495)
@@ -193,13 +193,13 @@ script = ExtResource("11_iiblv")
 HorizontalGrowDirection = -1
 VerticalGrowDirection = 1
 
-[node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("PlayerInfo", "HandController", "DiscardController", "DeckController", "AnnihilationController")]
+[node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
-PlayerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info")
-HandController = NodePath("Enemy Hand")
-DiscardController = NodePath("Enemy Discard")
-DeckController = NodePath("Enemy Deck")
-AnnihilationController = NodePath("Enemy Annihilation")
+_playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info")
+_handController = NodePath("Enemy Hand")
+_discardController = NodePath("Enemy Discard")
+_deckController = NodePath("Enemy Deck")
+_annihilationController = NodePath("Enemy Annihilation")
 
 [node name="Enemy Hand" type="Node3D" parent="3D/Enemy Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
@@ -280,7 +280,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_stretch_ratio = 5.86
 
-[node name="Card Info Dimensions" parent="UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox" instance=ExtResource("16_p3apf")]
+[node name="Top Left Card Info" parent="UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox" instance=ExtResource("16_p3apf")]
 layout_mode = 2
 
 [node name="Reminder Texts" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox"]
@@ -345,11 +345,11 @@ text = "Enemy Turn"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Stack View" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("CurrentStateController")]
+[node name="Stack View" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_currentStateController")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("22_80qh3")
-CurrentStateController = NodePath("../../../..")
+_currentStateController = NodePath("../../../..")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View"]
 layout_mode = 1
@@ -395,7 +395,7 @@ texture = ExtResource("20_whe2q")
 [node name="Enemy Username Label" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info/HBoxContainer/VBoxContainer" index="0"]
 text = "You"
 
-[node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("GameController", "ConnectToServer", "WaitingForServer", "WaitingForPlayer", "SelectDeck")]
+[node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("_gameController", "_connectToServer", "_waitingForServer", "_waitingForPlayer", "_selectDeck")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -403,11 +403,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_qshp1")
-GameController = NodePath("../../Game Controller")
-ConnectToServer = NodePath("MarginContainer/Connection Tabs/Choose Host")
-WaitingForServer = NodePath("MarginContainer/Connection Tabs/Waiting on Server")
-WaitingForPlayer = NodePath("MarginContainer/Connection Tabs/Connected to Server")
-SelectDeck = NodePath("MarginContainer/Connection Tabs/Select Deck")
+_gameController = NodePath("../../Game Controller")
+_connectToServer = NodePath("MarginContainer/Connection Tabs/Choose Host")
+_waitingForServer = NodePath("MarginContainer/Connection Tabs/Waiting on Server")
+_waitingForPlayer = NodePath("MarginContainer/Connection Tabs/Connected to Server")
+_selectDeck = NodePath("MarginContainer/Connection Tabs/Select Deck")
 
 [node name="Connection Background" type="TextureRect" parent="UI/Game Start"]
 self_modulate = Color(0.196078, 0.196078, 0.352941, 1)
@@ -652,7 +652,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="Select Deck" type="Control" parent="UI/Game Start/MarginContainer/Connection Tabs" node_paths=PackedStringArray("DeckSelect", "DeckContainer", "AvatarController", "GameStartController")]
+[node name="Select Deck" type="Control" parent="UI/Game Start/MarginContainer/Connection Tabs" node_paths=PackedStringArray("_deckSelect", "_deckContainer", "_avatarController", "_gameStartController")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -661,11 +661,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_l46dw")
-DeckSelect = NodePath("HBoxContainer/Left VBox/Control/VBoxContainer/HBoxContainer/OptionButton")
-DeckContainer = NodePath("HBoxContainer/Right VBox/AspectRatioContainer/Selected Deck Parent/Deck Margin/Deck Scroll/Deck Container")
-AvatarController = NodePath("HBoxContainer/Right VBox/Buffer/Avatar")
-MainDeckCardPrefab = ExtResource("10_iqpkk")
-GameStartController = NodePath("../../..")
+_deckSelect = NodePath("HBoxContainer/Left VBox/Control/VBoxContainer/HBoxContainer/OptionButton")
+_deckContainer = NodePath("HBoxContainer/Right VBox/AspectRatioContainer/Selected Deck Parent/Deck Margin/Deck Scroll/Deck Container")
+_avatarController = NodePath("HBoxContainer/Right VBox/Buffer/Avatar")
+_mainDeckCardPrefab = ExtResource("10_iqpkk")
+_gameStartController = NodePath("../../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Game Start/MarginContainer/Connection Tabs/Select Deck"]
 layout_mode = 1
