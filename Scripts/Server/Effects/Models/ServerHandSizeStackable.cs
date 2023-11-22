@@ -9,6 +9,7 @@ using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Networking;
+using Kompas.Shared.Enumerable;
 
 namespace KompasServer.Effects
 {
@@ -48,14 +49,14 @@ namespace KompasServer.Effects
 			var listRestriction = IListRestriction.ConstantCount(overHandSize);
 			string listRestrictionJson = listRestriction.SerializeToJSON(context);
 
-			int[] choices = null;
+			int[]? choices = null;
 			while (!TryAnswer(choices))
 			{
 				choices = await serverGame.Awaiter.GetHandSizeChoices(player, cardIds, listRestrictionJson);
 			}
 		}
 
-		public bool TryAnswer(int[] cardIds)
+		public bool TryAnswer(int[]? cardIds)
 		{
 			if (!awaitingChoices) return false;
 			if (cardIds == null) return false;
@@ -63,7 +64,7 @@ namespace KompasServer.Effects
 			GameCard[] cards = cardIds
 				.Distinct()
 				.Select(i => game.LookupCardByID(i))
-				.Where(c => c != null)
+				.NonNull()
 				.ToArray();
 
 			int count = cards.Count();

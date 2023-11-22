@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Shared.Exceptions;
 using System;
 
 namespace Kompas.Client.UI
@@ -12,7 +13,9 @@ namespace Kompas.Client.UI
 		private static readonly Vector3 FriendlyHandRotation = (float)(-0.15 * Mathf.Pi) * Vector3.Right;
 
 		[Export]
-		public Camera3D Camera { get; private set; }
+		private Camera3D? _camera;
+		public Camera3D Camera => _camera
+			?? throw new UnassignedReferenceException();
 
 		[Export]
 		private float DistanceFromCamera { get; set; } = 0.35f;
@@ -20,13 +23,17 @@ namespace Kompas.Client.UI
 		public Plane CenterOfCamera => new(Vector3.Right, GlobalPosition);
 
 		[Export]
-		private Node3D BoardCameraPosition { get; set; }
+		private Node3D? _boardCameraPosition;
+		private Node3D BoardCameraPosition => _boardCameraPosition
+			?? throw new UnassignedReferenceException();
 
-		private CameraGraphNode currentPosition;
+		private CameraGraphNode? _currentPosition;
+		private CameraGraphNode CurrentPosition => _currentPosition
+			?? throw new NotReadyYetException();
 		public override void _Ready()
 		{
 			var boardPosition = new CameraGraphNode(CameraPosition.Board, BoardCameraPosition);
-			currentPosition = boardPosition;
+			_currentPosition = boardPosition;
 
 			var friendlyHandPosition = new CameraGraphNode(CameraPosition.FriendlyHand, BoardCameraPosition, FriendlyHandRotation);
 			boardPosition.AddReciprocally(down: friendlyHandPosition);
@@ -34,17 +41,17 @@ namespace Kompas.Client.UI
 
 		public override void _Process(double deltaTime)
 		{
-			if (Input.IsActionPressed(CameraRightActionName)) 		GoToCameraPosition(currentPosition.Right);
-			else if (Input.IsActionPressed(CameraLeftActionName)) 	GoToCameraPosition(currentPosition.Left);
-			else if (Input.IsActionPressed(CameraDownActionName)) 	GoToCameraPosition(currentPosition.Down);
-			else if (Input.IsActionPressed(CameraUpActionName)) 	GoToCameraPosition(currentPosition.Up);
+			if (Input.IsActionPressed(CameraRightActionName)) 		GoToCameraPosition(CurrentPosition.Right);
+			else if (Input.IsActionPressed(CameraLeftActionName)) 	GoToCameraPosition(CurrentPosition.Left);
+			else if (Input.IsActionPressed(CameraDownActionName)) 	GoToCameraPosition(CurrentPosition.Down);
+			else if (Input.IsActionPressed(CameraUpActionName)) 	GoToCameraPosition(CurrentPosition.Up);
 		}
 
-		private void GoToCameraPosition(CameraGraphNode node)
+		private void GoToCameraPosition(CameraGraphNode? node)
 		{
 			if (node == null) return;
 
-			currentPosition = node;
+			_currentPosition = node;
 			GetParent()?.RemoveChild(this);
 			node.Node.AddChild(this);
 			Camera.Rotation = node.CameraRotation;
@@ -63,19 +70,20 @@ namespace Kompas.Client.UI
 			public Vector3 CameraRotation { get; }
 
 			//public setters because I might have some nodes I want to end up at the same endpoint
-			public CameraGraphNode Left { get; set; }
-			public CameraGraphNode Right { get; set; }
-			public CameraGraphNode Up { get; set; }
-			public CameraGraphNode Down { get; set; }
+			public CameraGraphNode? Left { get; set; }
+			public CameraGraphNode? Right { get; set; }
+			public CameraGraphNode? Up { get; set; }
+			public CameraGraphNode? Down { get; set; }
 
-			public CameraGraphNode(CameraPosition? position, Node3D node, Vector3? cameraRotation = null)
+			public CameraGraphNode(CameraPosition position, Node3D node, Vector3? cameraRotation = null)
 			{
-				Position = position ?? throw new System.ArgumentException("CameraPosition name must not be null!", nameof(position));
-				Node = node ?? throw new System.ArgumentException("CameraGraphNode must have a valid parent node to attach to!", nameof(node));
+				Position = position;
+				Node = node;
 				CameraRotation = cameraRotation ?? Vector3.Zero;
 			}
 
-			public void AddReciprocally(CameraGraphNode left = null, CameraGraphNode right = null, CameraGraphNode up = null, CameraGraphNode down = null)
+			public void AddReciprocally(CameraGraphNode? left = null, CameraGraphNode? right = null,
+				CameraGraphNode? up = null, CameraGraphNode? down = null)
 			{
 				if (left != null)
 				{

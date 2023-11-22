@@ -10,8 +10,8 @@ namespace Kompas.Server.Cards.Controllers
 	public class ServerCardController : ICardController
 	{
 		//FUTURE: when I want to display the card server side, have it store the card
-		public Node3D? Node => null;
-		public IGameCardInfo? Card => null;
+		public Node3D Node => throw new NullReferenceException("Server cards don't have nodes yet");
+		public IGameCardInfo Card => throw new NullReferenceException("Server cards don't have nodes yet");
 
 		public event EventHandler? Refreshed;
 		public event EventHandler<GameCard?>? AnythingRefreshed;
@@ -24,23 +24,23 @@ namespace Kompas.Server.Cards.Controllers
 
 		public void RefreshAugments()
 		{
-			AnythingRefreshed?.Invoke(this, Card?.Card);
-			AugmentsRefreshed?.Invoke(this, Card?.Card);
+			AnythingRefreshed?.Invoke(this, null);
+			AugmentsRefreshed?.Invoke(this, null);
 		}
 		public void RefreshLinks()
 		{
-			AnythingRefreshed?.Invoke(this, Card?.Card);
-			LinksRefreshed?.Invoke(this, Card?.Card);
+			AnythingRefreshed?.Invoke(this, null);
+			LinksRefreshed?.Invoke(this, null);
 		}
 		public void RefreshStats()
 		{
-			AnythingRefreshed?.Invoke(this, Card?.Card);
-			StatsRefreshed?.Invoke(this, Card?.Card);
+			AnythingRefreshed?.Invoke(this, null);
+			StatsRefreshed?.Invoke(this, null);
 		}
 		public void RefreshTargeting()
 		{
-			AnythingRefreshed?.Invoke(this, Card?.Card);
-			TargetingRefreshed?.Invoke(this, Card?.Card);
+			AnythingRefreshed?.Invoke(this, null);
+			TargetingRefreshed?.Invoke(this, null);
 		}
 	}
 }

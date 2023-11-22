@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using Kompas.Server.Networking;
 using Kompas.Shared.Enumerable;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Effects.Models
 {
@@ -21,25 +23,28 @@ namespace Kompas.Server.Effects.Models
 	{
 		public const string EffectWasNegated = "Effect was negated";
 
-		public ServerGame ServerGame { get; private set; }
+		private ServerGame? _serverGame;
+		public ServerGame ServerGame => _serverGame
+			?? throw new NotInitializedException();
 		public override IGame Game => ServerGame;
 		public ServerStackController EffectsController => ServerGame.StackController;
 
-		public ServerGameCard ServerCard { get; private set; }
-		public override GameCard Card => ServerCard;
+		public ServerGameCard? _card;
+		public override GameCard Card => _card
+			?? throw new NotInitializedException();
 
-		public ServerPlayer OwningServerPlayer { get; private set; }
-		public override IPlayer OwningPlayer => OwningServerPlayer;
+		public ServerPlayer? OwningServerPlayer { get; private set; }
+		public override IPlayer? OwningPlayer => OwningServerPlayer;
 
-		public IServerResolutionContext CurrentServerResolutionContext { get; private set; }
-		public override IResolutionContext CurrentResolutionContext => CurrentServerResolutionContext;
+		public IServerResolutionContext? CurrentServerResolutionContext { get; private set; }
+		public override IResolutionContext? CurrentResolutionContext => CurrentServerResolutionContext;
 
-		public ServerSubeffect[] subeffects;
+		public ServerSubeffect[] subeffects = Array.Empty<ServerSubeffect>();
 		public override Subeffect[] Subeffects => subeffects;
-		public ServerTrigger ServerTrigger { get; private set; }
-		public override Trigger Trigger => ServerTrigger;
+		public ServerTrigger? ServerTrigger { get; private set; }
+		public override Trigger? Trigger => ServerTrigger;
 
-		public ServerSubeffect OnImpossible = null;
+		public ServerSubeffect? OnImpossible { get; private set; } = null;
 		public bool CanDeclineTarget = false;
 
 		public override bool Negated
@@ -48,6 +53,7 @@ namespace Kompas.Server.Effects.Models
 			set
 			{
 				//If being negated, cancel anywhere this was on the stack, and cancel any hanging effects for this
+				_ = EffectsController ?? throw new System.InvalidOperationException("No effects controller!?");
 				if (!Negated && !value) EffectsController.Cancel(this);
 				base.Negated = value;
 			}
@@ -55,8 +61,8 @@ namespace Kompas.Server.Effects.Models
 
 		public void SetInfo(ServerGameCard card, ServerGame game, int effectIndex)
 		{
-			ServerCard = card;
-			ServerGame = game;
+			_card = card;
+			_serverGame = game;
 			base.SetInfo(effectIndex);
 
 			if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
@@ -104,7 +110,7 @@ namespace Kompas.Server.Effects.Models
 		}
 
 		public override bool CanBeActivatedBy(IPlayer controller)
-			=> ServerGame.DebugMode || base.CanBeActivatedBy(controller);
+			=> ServerGame?.DebugMode ?? false || base.CanBeActivatedBy(controller);
 
 		public void PushedToStack(ServerGame game, ServerPlayer controller)
 		{
@@ -113,7 +119,7 @@ namespace Kompas.Server.Effects.Models
 			TimesUsedThisRound++;
 			TimesUsedThisTurn++;
 			TimesUsedThisStack++;
-			ServerGame = game;
+			_serverGame = game;
 			ServerNotifier.NotifyEffectActivated(controller, this);
 		}
 
@@ -166,12 +172,12 @@ namespace Kompas.Server.Effects.Models
 						else resolve = false; //stop if that subeffect index is out of bounds
 						break;
 					case ResolutionResult.Impossible:
-						GD.Print($"Effect of {Card.CardName} was impossible at index {index} because {result.reason}. Going to OnImpossible if applicable");
+						GD.Print($"Effect of {Card?.CardName} was impossible at index {index} because {result.reason}. Going to OnImpossible if applicable");
 						result = await EffectImpossible(result.reason);
 						break;
 					case ResolutionResult.End:
 						//TODO send to player why resolution ended (including "[cardname] effect finished resolving")
-						GD.Print($"Finished resolution of effect of {Card.CardName} because {result.reason}");
+						GD.Print($"Finished resolution of effect of {Card?.CardName} because {result.reason}");
 						resolve = false;
 						break;
 					default:
@@ -207,7 +213,8 @@ namespace Kompas.Server.Effects.Models
 		private void FinishResolution()
 		{
 			SubeffectIndex = 0;
-			X = 0;
+			_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
+			CurrentResolutionContext.X = 0;
 			CardTargets.Clear();
 			rest.Clear();
 			OnImpossible = null;
@@ -237,13 +244,13 @@ namespace Kompas.Server.Effects.Models
 
 		public override void AddTarget(GameCard card) => AddTarget(card);
 
-		public void AddTarget(GameCard card, IPlayer onlyOneToKnow = null)
+		public void AddTarget(GameCard card, IPlayer? onlyOneToKnow = null)
 		{
 			base.AddTarget(card);
 			NotifyAddCardTarget(card, onlyOneToKnow);
 		}
 
-		private void NotifyAddCardTarget(GameCard card, IPlayer onlyOneToKnow = null)
+		private void NotifyAddCardTarget(GameCard card, IPlayer? onlyOneToKnow = null)
 		{
 			if (onlyOneToKnow != null) ServerNotifier.AddHiddenTarget(onlyOneToKnow, Card, EffectIndex, card);
 			else ServerNotifier.AddTarget(Card, EffectIndex, card, Game.Players);
@@ -255,7 +262,7 @@ namespace Kompas.Server.Effects.Models
 			ServerNotifier.RemoveTarget(Card, EffectIndex, card, Game.Players);
 		}
 
-		public void CreateCardLink(Color linkColor, IPlayer onlyPlayerToKnow = null, params GameCard[] cards)
+		public void CreateCardLink(Color linkColor, IPlayer? onlyPlayerToKnow = null, params GameCard[] cards)
 		{
 			GameCard[] validCards = cards.Where(c => c != null).ToArray();
 			//if (validCards.Length <= 1) return; //Don't create a link between one non-null card? nah, do, so we can delete it as expected later

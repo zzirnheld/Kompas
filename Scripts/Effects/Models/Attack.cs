@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models
 			this.defender = defender ?? throw new System.ArgumentNullException(nameof(defender), "Cannot have null defender");
 		}
 
-		public GameCard GetCause(IGameCardInfo withRespectTo)
+		public GameCard? GetCause(IGameCardInfo? withRespectTo)
 		{
 			if (withRespectTo == null) throw new System.ArgumentNullException(nameof(withRespectTo), "Why did you try and get the cause of an attack w/r/t a null card?");
 			else if (attacker == withRespectTo.Card) return defender;

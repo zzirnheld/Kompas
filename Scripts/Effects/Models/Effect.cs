@@ -5,6 +5,7 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
@@ -17,8 +18,8 @@ namespace Kompas.Effects.Models
 		public abstract IGame Game { get; }
 
 		public int EffectIndex { get; private set; }
-		public abstract GameCard Card { get; }
-		public abstract IPlayer OwningPlayer { get; }
+		public abstract GameCard? Card { get; }
+		public abstract IPlayer? OwningPlayer { get; }
 
 		//subeffects
 		public abstract Subeffect[] Subeffects { get; }
@@ -28,10 +29,14 @@ namespace Kompas.Effects.Models
 		public int SubeffectIndex { get; protected set; }
 
 		//Targets
-		public IList<GameCard> CardTargets => CurrentResolutionContext.CardTargets;
-		public IList<Space> SpaceTargets => CurrentResolutionContext.SpaceTargets;
-		public IList<GameCardInfo> CardInfoTargets => CurrentResolutionContext.CardInfoTargets;
-		public IList<IStackable> StackableTargets => CurrentResolutionContext.StackableTargets;
+		public IList<GameCard> CardTargets => CurrentResolutionContext?.CardTargets
+			?? throw new EffectNotResolvingException(this);
+		public IList<Space> SpaceTargets => CurrentResolutionContext?.SpaceTargets
+			?? throw new EffectNotResolvingException(this);
+		public IList<GameCardInfo> CardInfoTargets => CurrentResolutionContext?.CardInfoTargets
+			?? throw new EffectNotResolvingException(this);
+		public IList<IStackable> StackableTargets => CurrentResolutionContext?.StackableTargets
+			?? throw new EffectNotResolvingException(this);
 
 		protected readonly List<CardLink> cardLinks = new();
 
@@ -44,23 +49,20 @@ namespace Kompas.Effects.Models
 		/// <summary>
 		/// X value for card effect text (not coordinates)
 		/// </summary>
-		public int X
-		{
-			get => CurrentResolutionContext.X;
-			set => CurrentResolutionContext.X = value;
-		}
+		public int X  => CurrentResolutionContext?.X 
+				?? throw new EffectNotResolvingException(this);
 
 		//Triggering and Activating
-		public abstract Trigger Trigger { get; }
-		public TriggerData triggerData;
-		public IActivationRestriction activationRestriction;
+		public abstract Trigger? Trigger { get; }
+		public TriggerData? triggerData;
+		public IActivationRestriction? activationRestriction;
 
 		//Misc effect info
-		public string blurb;
+		public string? blurb;
 		public int arg; //used for keyword arguments, and such
 
-		public abstract IResolutionContext CurrentResolutionContext { get; }
-		public TriggeringEventContext CurrTriggerContext => CurrentResolutionContext.TriggerContext;
+		public abstract IResolutionContext? CurrentResolutionContext { get; }
+		public TriggeringEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
 		public int TimesUsedThisTurn { get; protected set; }
 		public int TimesUsedThisRound { get; protected set; }
 		public int TimesUsedThisStack { get; set; }
@@ -70,7 +72,7 @@ namespace Kompas.Effects.Models
 		/// <summary>
 		/// The keyword this effect is from, if it's a full keyword
 		/// </summary>
-		public string Keyword { get; set; }
+		public string? Keyword { get; set; }
 
 		protected void SetInfo(int effIndex)
 		{

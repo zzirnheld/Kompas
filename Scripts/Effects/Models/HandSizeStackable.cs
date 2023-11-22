@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models
 {
 	public abstract class HandSizeStackable : IStackable
 	{
-		public GameCard Card => null;
+		public GameCard? Card => null;
 
 		protected readonly IGame game;
 		protected readonly IPlayer player;
@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models
 			this.player = player;
 		}
 
-		private IRestriction<IGameCardInfo> handSizeCardRestriction;
+		private IRestriction<IGameCardInfo>? handSizeCardRestriction;
 		public IRestriction<IGameCardInfo> HandSizeCardRestriction => handSizeCardRestriction ??= CreateHandSizeCardRestriction();
 
 		private IRestriction<IGameCardInfo> CreateHandSizeCardRestriction()
@@ -27,15 +27,15 @@ namespace Kompas.Effects.Models
 			var ret = new AllOf()
 			{
 				elements = new IRestriction<IGameCardInfo>[]
-									{
-							new Friendly(),
-							new AtLocation() { locations = new string[]{ "Hand" } }
-									}
+				{
+					new Friendly(),
+					new AtLocation() { locations = new string[]{ "Hand" } }
+				}
 			};
 			ret.Initialize(new EffectInitializationContext(game: game, source: default, controller: player));
 			return ret;
 		}
 
-		public GameCard GetCause(IGameCardInfo withRespectTo) => Card;
+		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 	}
 }

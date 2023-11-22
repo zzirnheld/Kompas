@@ -47,8 +47,8 @@ namespace Kompas.Server.Effects.Controllers
 		private bool currentlyCheckingResponses = false;
 		private bool currentlyCheckingOptionals = false;
 		private int currStackIndex;
-		private IServerStackable _currStackEntry;
-		public IServerStackable CurrStackEntry
+		private IServerStackable? _currStackEntry;
+		public IServerStackable? CurrStackEntry
 		{
 			get => _currStackEntry;
 			private set
@@ -57,7 +57,7 @@ namespace Kompas.Server.Effects.Controllers
 				currStackIndex = stack.Count;
 			}
 		}
-		IStackable IStackController.CurrStackEntry => CurrStackEntry;
+		IStackable? IStackController.CurrStackEntry => CurrStackEntry;
 
 		//nothing is happening if nothing is in the stack, nothing is currently resolving, and no one is waiting to add something to the stack.
 		public bool NothingHappening
@@ -169,26 +169,29 @@ namespace Kompas.Server.Effects.Controllers
 		public async Task ResolveNextStackEntry()
 		{
 			var (stackable, context) = stack.Pop();
-			if (stackable == null) await StackEmptied();
-			else
+			if (stackable == null)
 			{
-				//GD.Print($"Resolving next stack entry: {stackable}, {context}");
-				//inform the players that they no longer can respond, in case they were somehow still thinking they could
-				foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
-
-				//set the current stack entry to the appropriate value. this is used to check if something is currently resolving.
-				CurrStackEntry = stackable;
-
-				//actually resolve the thing
-				await stackable.StartResolution(context);
-
-				//after it resolves, tell the clients it's done resolving
-				ServerNotifier.RemoveStackEntry(currStackIndex, game.Players);
-				//take note that nothing is resolving
-				CurrStackEntry = null;
-				//and see if there's antyhing to resolve next.
-				await CheckForResponse();
+				await StackEmptied();
+				return;
 			}
+			if (context == null) throw new System.InvalidOperationException($"Stackable {stackable} wasn't associated with a context!");
+			
+			//GD.Print($"Resolving next stack entry: {stackable}, {context}");
+			//inform the players that they no longer can respond, in case they were somehow still thinking they could
+			foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
+
+			//set the current stack entry to the appropriate value. this is used to check if something is currently resolving.
+			CurrStackEntry = stackable;
+
+			//actually resolve the thing
+			await stackable.StartResolution(context);
+
+			//after it resolves, tell the clients it's done resolving
+			ServerNotifier.RemoveStackEntry(currStackIndex, game.Players);
+			//take note that nothing is resolving
+			CurrStackEntry = null;
+			//and see if there's antyhing to resolve next.
+			await CheckForResponse();
 		}
 
 		private void RemoveHangingEffect(HangingEffect hangingEff)
@@ -385,7 +388,7 @@ namespace Kompas.Server.Effects.Controllers
 			triggerMap[condition].Add(trigger);
 		}
 
-		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string fallOffCondition = default)
+		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string? fallOffCondition = default)
 		{
 			GD.Print($"Registering a new hanging effect to condition {condition}");
 			if (!hangingEffectMap.ContainsKey(condition))

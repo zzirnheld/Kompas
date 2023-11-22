@@ -162,13 +162,13 @@ namespace Kompas.Effects.Subeffects
 		public IPlayer PlayerTarget => Effect.GetPlayer(playerIndex);
 		public IStackable StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
-		public GameCard GetCardTarget(TargetingContext overrideContext = null)
+		public GameCard GetCardTarget(TargetingContext? overrideContext = null)
 			=> Effect.GetTarget(overrideContext.OrElse(CurrTargetingContext).cardTargetIndex.Value);
-		public Space GetSpaceTarget(TargetingContext overrideContext = null)
+		public Space GetSpaceTarget(TargetingContext? overrideContext = null)
 			=> Effect.GetSpace(overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex.Value);
-		public IPlayer GetPlayerTarget(TargetingContext overrideContext = null)
+		public IPlayer GetPlayerTarget(TargetingContext? overrideContext = null)
 			=> Effect.GetPlayer(overrideContext.OrElse(CurrTargetingContext).playerTargetIndex.Value);
-		public IStackable GetStackableTarget(TargetingContext overrideContext = null)
+		public IStackable GetStackableTarget(TargetingContext? overrideContext = null)
 			=> EffectHelper.GetItem(Effect.StackableTargets, overrideContext.OrElse(CurrTargetingContext).stackableTargetIndex.Value);
 
 

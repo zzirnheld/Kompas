@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Godot;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.UI.MainMenu
 {
@@ -9,7 +10,9 @@ namespace Kompas.UI.MainMenu
 		protected const float FullClockwiseRotation = (float)(2f * Math.PI);
 
 		[Export]
-		public Control center;
+		private Control? _center;
+		public Control Center => _center
+			?? throw new UnassignedReferenceException();
 
 		protected virtual float InitialRotation => 0f;
 
@@ -180,7 +183,7 @@ namespace Kompas.UI.MainMenu
 		}
 
 		private float RotationForVector(Vector2 targetPosition)
-			=> Mathf.Atan2(targetPosition.X - center.GlobalPosition.X,
-						   center.GlobalPosition.Y - targetPosition.Y);
+			=> Mathf.Atan2(targetPosition.X - Center.GlobalPosition.X,
+						   Center.GlobalPosition.Y - targetPosition.Y);
 	}
 }

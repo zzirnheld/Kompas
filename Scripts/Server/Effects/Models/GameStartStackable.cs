@@ -6,9 +6,9 @@ namespace Kompas.Server.Effects.Models
 {
 	public class GameStartStackable : IStackable, IServerStackable
 	{
-		public GameCard Card => null;
+		public GameCard? Card => null;
 
-		public GameCard GetCause(IGameCardInfo withRespectTo) => Card;
+		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 
 		public Task StartResolution(IServerResolutionContext context)
 		{
