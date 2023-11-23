@@ -55,7 +55,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			return attack.attacker == fightingWhoCard || attack.defender == fightingWhoCard;
 		}
 
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 			=> InitializationContext.game.StackController.StackEntries.Any(stackEntry => IsValidFight(card, context, stackEntry));
 	}
 }

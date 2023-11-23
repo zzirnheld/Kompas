@@ -5,17 +5,20 @@ using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
+using Kompas.Shared.Exceptions;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models
 {
 	public abstract class ServerSubeffect : Subeffect
 	{
-		public override Effect? Effect => ServerEffect;
-		public override IGame? Game => ServerGame;
+		protected override Effect _Effect => ServerEffect;
+		protected override IGame _Game => ServerGame;
 
-		public ServerEffect? ServerEffect { get; protected set; }
-		public ServerGame? ServerGame => ServerEffect?.ServerGame;
+		private ServerEffect? _serverEffect;
+		public ServerEffect ServerEffect => _serverEffect
+			?? throw new NotInitializedException();
+		public ServerGame ServerGame => ServerEffect.ServerGame;
 
 		public EffectInitializationContext DefaultInitializationContext
 			=> Effect.CreateInitializationContext(this, default);
@@ -29,7 +32,7 @@ namespace Kompas.Server.Effects.Models
 		public virtual void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			//GD.Print($"Finishing setup for new subeffect of type {GetType()}");
-			ServerEffect = eff;
+			_serverEffect = eff;
 			SubeffIndex = subeffIndex;
 			if (xMultiplier == 1 && xModifier != 0) GD.Print($"x mulitplier {xMultiplier}, relies on default on eff of {Effect.Card}");
 		}

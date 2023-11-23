@@ -23,13 +23,13 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			negated.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IGameCardInfo item, IResolutionContext context)
+		protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
 			=> !negated.IsValid(item, context);
 	}
 
 	public class CardExists : CardRestrictionBase
 	{
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 			=> card != null;
 	}
 }

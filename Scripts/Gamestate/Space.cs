@@ -10,7 +10,7 @@ namespace Kompas.Gamestate
 	{
 		public const int BoardLen = 7;
 		public const int MaxIndex = BoardLen - 1;
-		public static readonly Space Invalid = (-1, -1);
+		public static readonly Space Invalid = (-69, -420);
 
 		public int x;
 		public int y;

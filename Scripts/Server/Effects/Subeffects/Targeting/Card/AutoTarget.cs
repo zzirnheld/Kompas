@@ -38,7 +38,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> !Game.Cards.Any(c => cardRestriction.IsValid(c, ResolutionContext));
 
 		private static GameCard GetRandomCard(GameCard[] cards)

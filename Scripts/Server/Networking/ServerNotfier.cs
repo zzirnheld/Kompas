@@ -10,6 +10,7 @@ using Kompas.Networking;
 using Kompas.Networking.Packets;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate.Players;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Server.Networking
 {
@@ -17,13 +18,13 @@ namespace Kompas.Server.Networking
 	//it wasn't broke for a while so I didn't fix it, but then it broke when I changed to godot so now i can fix it
 	public static class ServerNotifier
 	{
-		public static void SendPacket(IPlayer player, Packet packet)
+		public static void SendPacket(IPlayer player, Packet? packet)
 		{
 			if (packet != null) GD.Print($"Sending packet to {player.Index} with info {packet}");
 			player.Networker.SendPacket(packet);
 		}
 
-		private static void SendPackets(IPlayer playerA, Packet a, IPlayer playerB, Packet b)
+		private static void SendPackets(IPlayer playerA, Packet a, IPlayer playerB, Packet? b)
 		{
 			SendPacket(playerA, a);
 			SendPacket(playerB, b);
@@ -218,11 +219,11 @@ namespace Kompas.Server.Networking
 		public static void DisableDecliningTarget(IPlayer player) => SendPacket(player, new ToggleDecliningTargetPacket(false));
 
 		public static void AskForTrigger(IPlayer player, ServerTrigger t, int x, bool showX)
-			=> SendToBothInverting(player, new OptionalTriggerPacket(t.Effect.Card.ID, t.Effect.EffectIndex, x, showX));
+			=> SendToBothInverting(player, new OptionalTriggerPacket(t.Effect.Card?.ID, t.Effect.EffectIndex, x, showX));
 
 		public static void GetTriggerOrder(IPlayer player, IEnumerable<ServerTrigger> triggers)
 		{
-			int[] cardIds = triggers.Select(t => t.Effect.Card.ID).ToArray();
+			int?[] cardIds = triggers.Select(t => t.Effect.Card?.ID).ToArray();
 			int[] effIndices = triggers.Select(t => t.Effect.EffectIndex).ToArray();
 			SendPacket(player, new GetTriggerOrderPacket(cardIds, effIndices));
 		}

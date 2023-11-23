@@ -39,16 +39,16 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 
 	public class Minimum : CountBound
 	{
-		protected override bool IsValidLogic(IEnumerable<IGameCardInfo> item, IResolutionContext context)
-			=> item.Count() >= bound.From(context);
+		protected override bool IsValidLogic(IEnumerable<IGameCardInfo>? item, IResolutionContext context)
+			=> item?.Count() >= bound.From(context);
 
 		public override bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context)
 			=> options.Count() >= bound.From(context);
 
-		public override bool IsValidClientSide(IEnumerable<IGameCardInfo> options, IResolutionContext context)
-			=> options.Count() >= stashedBound;
+		public override bool IsValidClientSide (IEnumerable<IGameCardInfo>? options, IResolutionContext context)
+			=> options?.Count() >= stashedBound;
 
-		public override int GetMinimum(IResolutionContext context)
+		public override int GetMinimum(IResolutionContext? context)
 			=> context == null
 				? stashedBound
 				: bound.From(context);
@@ -56,16 +56,16 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 
 	public class Maximum : CountBound
 	{
-		protected override bool IsValidLogic(IEnumerable<IGameCardInfo> item, IResolutionContext context)
-			=> item.Count() <= bound.From(context);
+		protected override bool IsValidLogic(IEnumerable<IGameCardInfo>? item, IResolutionContext context)
+			=> item?.Count() <= bound.From(context);
 
 		public override bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context)
 			=> true;
 
-		public override bool IsValidClientSide(IEnumerable<IGameCardInfo> options, IResolutionContext context)
-			=> options.Count() <= stashedBound;
+		public override bool IsValidClientSide (IEnumerable<IGameCardInfo>? options, IResolutionContext context)
+			=> options?.Count() <= stashedBound;
 
-		public override int GetMaximum(IResolutionContext context)
+		public override int GetMaximum(IResolutionContext? context)
 			=> context == null
 				? stashedBound
 				: bound.From(context);

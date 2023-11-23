@@ -1,5 +1,6 @@
 using Kompas.Cards.Models;
 using Kompas.Effects.Subeffects;
+using Kompas.Server.Effects.Models.Subeffects;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
@@ -11,7 +12,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public int subeffectIndex;
 		#nullable restore
 
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
 			_ = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
 			return InitializationContext.effect.Subeffects[subeffectIndex] is SpaceTarget spaceTgtSubeff

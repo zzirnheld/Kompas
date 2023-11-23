@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 	{
 		private bool clientSide;
 
-		protected override bool Validate(IListRestriction element, IEnumerable<IGameCardInfo> item, IResolutionContext context)
+		protected override bool Validate(IListRestriction element, IEnumerable<IGameCardInfo>? item, IResolutionContext context)
 			=> clientSide
 			? element.IsValidClientSide(item, context)
 			: element.IsValid(item, context);
@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 				&& elements.All(elem => elem.AllowsValidChoice(options, context));
 		}
 
-		public bool IsValidClientSide(IEnumerable<IGameCardInfo> options, IResolutionContext context)
+		public bool IsValidClientSide (IEnumerable<IGameCardInfo>? options, IResolutionContext context)
 		{
 			clientSide = true;
 			bool ret = IsValid(options, context);
@@ -37,13 +37,13 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 			return localOptions;
 		}
 
-		public int GetMinimum(IResolutionContext context)
+		public int GetMinimum(IResolutionContext? context)
 			=> elements
 				.Select(elem => elem.GetMinimum(context))
 				.DefaultIfEmpty(0)
 				.Max();
 
-		public int GetMaximum(IResolutionContext context)
+		public int GetMaximum(IResolutionContext? context)
 			=> elements
 				.Select(elem => elem.GetMaximum(context))
 				.DefaultIfEmpty(int.MaxValue)

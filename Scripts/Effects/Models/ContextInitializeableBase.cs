@@ -45,7 +45,7 @@ namespace Kompas.Effects.Models
 
 		public virtual void AdjustSubeffectIndices(int increment, int startingAtIndex = 0) { }
 
-		public static void AdjustSubeffectIndices(int[] subeffectIndices, int increment, int startingAtIndex)
+		public static void AdjustSubeffectIndices(int[]? subeffectIndices, int increment, int startingAtIndex)
 		{
 			if (subeffectIndices == null) return;
 

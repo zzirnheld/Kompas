@@ -39,7 +39,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		}
 
 		private (IEnumerable<TriggeringEventContext> moveContexts, IEnumerable<TriggeringEventContext> leaveContexts)
-			GetContextsForMove(GameCard card, Space from, Space to, IPlayer player, IStackable? stackSrc)
+			GetContextsForMove(GameCard card, Space from, Space to, IPlayer? player, IStackable? stackSrc)
 		{
 			int distance = from.DistanceTo(to);
 
@@ -75,7 +75,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			return (moveContexts, leaveContexts);
 		}
 
-		protected override void Swap(GameCard card, Space to, bool normal, IPlayer mover, IStackable? stackSrc = null)
+		protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
 		{
 			//calculate distance before doing the swap
 			var from = card.Position?.Copy;
@@ -112,7 +112,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			EffectsController.TriggerForCondition(Trigger.LeaveAOE, leaveContexts.ToArray());
 
 			//notify the players
-			ServerNotifier.NotifyMove(mover, card, to);
+			ServerNotifier.NotifyMove(mover ?? card.OwningPlayer, card, to);
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace Kompas.Shared.Enumerable
 			foreach(var obj in enumerable)
 			{
 				if (obj is T t) list.Add(t);
-				else throw new System.ArgumentException($"Mismatch between type of object {obj.GetType()} and type parameter for adding range {typeof(T)}");
+				else throw new System.ArgumentException($"Mismatch between type of object {obj?.GetType()} and type parameter for adding range {typeof(T)}");
 			}
 			return list;
 		}
@@ -35,7 +35,7 @@ namespace Kompas.Shared.Enumerable
 		/// <summary>
         /// ElementAt, but allows negative indices to index from the end
         /// </summary>
-		public static T ElementAtWrapped<T>(this IEnumerable<T> source, int index)
+		public static T? ElementAtWrapped<T>(this IEnumerable<T> source, int index)
 			=> source.ElementAtOrDefault(TrueIndex(source.Count(), index));
 
 		public static int TrueIndex(int len, int index) => index < 0 ? index + len : index;

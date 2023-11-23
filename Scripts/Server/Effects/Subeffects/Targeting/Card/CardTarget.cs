@@ -74,7 +74,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		protected virtual Task<ResolutionInfo> NoPossibleTargets()
 			=> Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> !listRestriction.AllowsValidChoice(DeterminePossibleTargets(), ResolutionContext);
 
 		public override async Task<ResolutionInfo> Resolve()

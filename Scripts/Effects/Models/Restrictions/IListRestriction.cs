@@ -27,7 +27,7 @@ namespace Kompas.Effects.Models.Restrictions
 
 		public bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context);
 
-		public bool IsValidClientSide(IEnumerable<IGameCardInfo> options, IResolutionContext context);
+		public bool IsValidClientSide (IEnumerable<IGameCardInfo>? options, IResolutionContext context);
 
 		/// <summary>
 		/// If you don't specifically want to constrain the list (i.e. by deduplicating on a particular value),

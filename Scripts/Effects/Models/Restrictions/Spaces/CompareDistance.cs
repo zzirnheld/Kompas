@@ -63,7 +63,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			origin.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space item, IResolutionContext context)
+		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
 			var destination = this.destination.From(context);
 			return destination.DistanceTo(item) < destination.DistanceTo(origin.From(context));
@@ -89,7 +89,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			origin.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space item, IResolutionContext context)
+		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
 			var origin = this.origin.From(context);
 			var destinations = anyDestination.From(context);
@@ -115,7 +115,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			origin.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space item, IResolutionContext context)
+		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
 			var destination = this.destination.From(context);
 			return destination.DistanceTo(item) > destination.DistanceTo(origin.From(context));

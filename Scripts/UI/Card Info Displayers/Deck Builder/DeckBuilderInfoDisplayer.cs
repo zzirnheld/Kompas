@@ -1,16 +1,20 @@
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 {
 	public partial class DeckBuilderInfoDisplayer : Control, ICardInfoDisplayer
 	{
 		[Export]
-		private Texture2D FallbackCardImageTexture { get; set; }
+		private Texture2D? _fallbackCardImageTexture;
+		private Texture2D FallbackCardImageTexture => _fallbackCardImageTexture
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		protected TextureRect CardFaceImage { get; private set; }
-
+		private TextureRect? _cardFaceImage;
+		protected TextureRect CardFaceImage => _cardFaceImage
+			?? throw new UnassignedReferenceException();
 		public bool ShowingInfo { set => Visible = value; }
 
 		public override void _Ready()

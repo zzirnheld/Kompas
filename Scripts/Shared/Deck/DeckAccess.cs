@@ -34,7 +34,11 @@ namespace Kompas.Shared
 			EnsureDeckDirectory();
 
 			using var deck = FileAccess.Open($"{DeckFolderPath}/{decklist.deckName}.json", FileAccess.ModeFlags.Write);
-			if (deck == null) GD.Print(FileAccess.GetOpenError());
+			if (deck == null)
+			{
+				GD.Print(FileAccess.GetOpenError());
+				return;
+			}
 			string json = JsonConvert.SerializeObject(decklist);
 			deck.StoreString(json);
 		}
@@ -44,12 +48,16 @@ namespace Kompas.Shared
 			EnsureDeckDirectory();
 
 			using var deckFolder = DirAccess.Open(DeckFolderPath);
-			if (deckFolder == null) GD.Print(DirAccess.GetOpenError());
+			if (deckFolder == null)
+			{
+				GD.Print(DirAccess.GetOpenError());
+				return;
+			}
 
 			deckFolder.Remove($"{decklist.deckName}.json");
 		}
 
-		public static Decklist Load(string deckName)
+		public static Decklist? Load(string deckName)
 		{
 			var path = $"{DeckFolderPath}/{deckName}.json";
 			if (!FileAccess.FileExists(path)) return null;

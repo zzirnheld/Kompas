@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderBuiltDeckAvatarInfoDisplayer.cs" id="6_53b6o"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
-[ext_resource type="Texture2D" uid="uid://bfpsfa5jrx1ig" path="res://Icons/Kompas Spiral 2.png" id="8_5rhaf"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
+[ext_resource type="Texture2D" uid="uid://blflkj818tjrc" path="res://Icons/Kompas Spiral 3.png" id="8_mqgry"]
 [ext_resource type="Texture2D" uid="uid://cj61oorxnb25n" path="res://Icons/Kompas Spiral White.png" id="9_ona11"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="11_jp0pa"]
@@ -145,13 +145,13 @@ texture = ExtResource("9_ona11")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" node_paths=PackedStringArray("CardFaceImage")]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" node_paths=PackedStringArray("_cardFaceImage")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_53b6o")
-FallbackCardImageTexture = ExtResource("8_5rhaf")
-CardFaceImage = NodePath("..")
+_fallbackCardImageTexture = ExtResource("8_mqgry")
+_cardFaceImage = NodePath("..")
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView"]
 self_modulate = Color(1, 1, 1, 0)
@@ -607,7 +607,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 
-[node name="Spinning Logo On Splash" type="TextureRect" parent="Contain Spinning Logo" node_paths=PackedStringArray("EscapeMenuHaze", "EscapeMenuButtons", "EscapeMenuParentToSetVisibility", "center")]
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Contain Spinning Logo" node_paths=PackedStringArray("EscapeMenuHaze", "EscapeMenuButtons", "EscapeMenuParentToSetVisibility")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -624,7 +624,6 @@ script = ExtResource("19_rydhv")
 EscapeMenuHaze = NodePath("../../Escape Menu Stuff/Background Haze")
 EscapeMenuButtons = NodePath("../../Escape Menu Stuff/Escape Menu Buttons")
 EscapeMenuParentToSetVisibility = NodePath("../../Escape Menu Stuff")
-center = NodePath("Center of Spinning Logo")
 
 [node name="Control" type="Control" parent="Contain Spinning Logo/Spinning Logo On Splash"]
 show_behind_parent = true

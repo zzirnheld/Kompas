@@ -7,22 +7,27 @@ using Godot;
 using Kompas.Networking;
 using Kompas.Server.Cards.Loading;
 using Kompas.Server.Gamestate;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Networking
 {
 	public partial class ServerController : Node
 	{
 		[Export]
-		private PackedScene GamePrefab { get; set; }
+		private PackedScene? _gamePrefab;
+		private PackedScene GamePrefab => _gamePrefab
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private PackedScene CardPrefab { get; set; }
+		private PackedScene? _cardPrefab;
+		private PackedScene CardPrefab => _cardPrefab
+			?? throw new UnassignedReferenceException();
 
-		private ServerCardRepository CardRepo { get; set; }
+		private ServerCardRepository? CardRepo { get; set; }
 
-		private TcpListener listener;
+		private TcpListener? listener;
 		private readonly IList<ServerGameController> games = new List<ServerGameController>();
-		private TcpClient currentlyWaitingTcpClient = null;
-		private Task<TcpClient> currTcpClient;
+		private TcpClient? currentlyWaitingTcpClient = null;
+		private Task<TcpClient>? currTcpClient;
 
 		public override void _Ready()
 		{
@@ -40,6 +45,9 @@ namespace Kompas.Server.Networking
 
 		public override void _Process(double delta)
 		{
+			_ = currTcpClient ?? throw new NotReadyYetException();
+			_ = listener ?? throw new NotReadyYetException();
+			_ = CardRepo ?? throw new NotReadyYetException();
 			if (currTcpClient.IsCompleted)
 			{
 				var client = currTcpClient.Result;

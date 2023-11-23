@@ -9,7 +9,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		//default is two targets ago
 		public int targetToAttachTo = -2;
 
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> GetCardTarget(overrideContext) == null
 			|| Effect.GetTarget(targetToAttachTo) == null;
 

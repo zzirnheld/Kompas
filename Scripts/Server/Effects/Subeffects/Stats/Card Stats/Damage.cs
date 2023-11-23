@@ -6,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class Damage : ServerSubeffect
 	{
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> GetCardTarget(overrideContext) == null;
 
 		public override Task<ResolutionInfo> Resolve()

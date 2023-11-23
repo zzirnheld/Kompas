@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 			negated.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IPlayer item, IResolutionContext context)
+		protected override bool IsValidLogic(IPlayer? item, IResolutionContext context)
 			=> !negated.IsValid(item, context);
 	}
 }

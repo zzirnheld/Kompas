@@ -26,7 +26,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			overrideOtherSpace?.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
 			var otherCard = other.From(context);
 			var otherSpace = overrideOtherSpace?.From(context)

@@ -49,8 +49,16 @@ namespace Kompas.Effects.Models
 		/// <summary>
 		/// X value for card effect text (not coordinates)
 		/// </summary>
-		public int X  => CurrentResolutionContext?.X 
+		public int X  
+		{
+			get => CurrentResolutionContext?.X 
 				?? throw new EffectNotResolvingException(this);
+			set
+			{
+				_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
+				CurrentResolutionContext.X = value;
+			}
+		} 
 
 		//Triggering and Activating
 		public abstract Trigger? Trigger { get; }
@@ -128,9 +136,9 @@ namespace Kompas.Effects.Models
 
 		public override string ToString() => $"Effect of {(Card == null ? "Nothing???" : Card.CardName)}";
 
-		public GameCard GetCause(IGameCardInfo? withRespectTo) => Card;
+		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 
-		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger trigger)
+		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger? trigger)
 			=> new(game: Game, source: Card, effect: this, trigger: trigger, subeffect: subeffect);
 	}
 }

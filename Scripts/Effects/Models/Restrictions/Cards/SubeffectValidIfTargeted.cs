@@ -31,7 +31,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 				.All(subeff => !subeff.IsImpossible());
 		}
 
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
 			var effect = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
 			return InitializationContext.effect.TestWithCardTarget(card as GameCard, ValidateAllSubeffectsPossible);

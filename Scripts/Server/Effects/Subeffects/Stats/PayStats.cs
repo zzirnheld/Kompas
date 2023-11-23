@@ -21,7 +21,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public int S => sMult * Effect.X + sMod;
 		public int W => wMult * Effect.X + wMod;
 
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible (TargetingContext? overrideContext = null)
 		{
 			var card = GetCardTarget(overrideContext);
 			return CardTarget == null || CardTarget.N < N || CardTarget.E < E || CardTarget.S < S || CardTarget.W < W;

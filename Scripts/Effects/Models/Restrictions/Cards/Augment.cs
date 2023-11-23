@@ -56,7 +56,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool all = false; //default to any
 
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context) 
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context) 
 			=> all
 				? card.Augments.All(IsValidAug(context))
 				: card.Augments.Any(IsValidAug(context));
@@ -64,7 +64,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Augments : AugmentRestrictionBase
 	{
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 			=> IsValidAug(context)(card.AugmentedCard);
 	}
 }

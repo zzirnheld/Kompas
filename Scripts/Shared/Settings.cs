@@ -16,16 +16,16 @@ namespace Kompas.Shared
 		public static readonly Color FriendlyGold = new("e2a600");
 		public static readonly Color EnemySilver = new("808080");
 
-		public string friendlyColorString;
-		public string enemyColorString;
+		public string? friendlyColorString;
+		public string? enemyColorString;
 		public int friendlyColorIndex = 0;
 		public int enemyColorIndex = 0;
 
-		public StatHighlight statHighlight;
+		public StatHighlight? statHighlight;
 		public float zoomThreshold;
-		public ConfirmTargets confirmTargets;
+		public ConfirmTargets? confirmTargets;
 		public bool showAdvancedEffectsSettings = false;
-		public string defaultIP;
+		public string? defaultIP;
 
 		[JsonIgnore]
 		public Color FriendlyColor

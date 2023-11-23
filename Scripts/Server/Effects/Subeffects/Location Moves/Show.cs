@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	/// </summary>
 	public class Show : ServerSubeffect
 	{
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> GetCardTarget(overrideContext) == null;
 
 		public override Task<ResolutionInfo> Resolve()

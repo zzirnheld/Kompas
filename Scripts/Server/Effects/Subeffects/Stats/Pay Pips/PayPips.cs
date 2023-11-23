@@ -6,10 +6,10 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class PayPips : ServerSubeffect
 	{
-		public override bool IsImpossible(TargetingContext targetingContext = null)
+		public override bool IsImpossible(TargetingContext? targetingContext = null)
 			=> GetPlayerTarget(targetingContext).Pips < ToPay;
 
-		private int ToPay => pipCost.From(ResolutionContext, default);
+		private int ToPay => pipCost.From(ResolutionContext, ResolutionContext);
 
 		public IIdentity<int> pipCost = new EffectX();
 

@@ -13,20 +13,21 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class AdjacentTo : SpaceRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<IGameCardInfo> cardRestriction;
+		public IRestriction<IGameCardInfo>? cardRestriction;
 		[JsonProperty]
 		public IIdentity<int> cardRestrictionMinimum = Identities.Numbers.Constant.One;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOfTheseCards;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>>? anyOfTheseCards;
 		[JsonProperty]
-		public IIdentity<IGameCardInfo> card;
+		public IIdentity<IGameCardInfo>? card;
 		[JsonProperty]
-		public IIdentity<Space> space;
+		public IIdentity<Space>? space;
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			cardRestriction?.Initialize(initializationContext);
+			cardRestrictionMinimum.Initialize(initializationContext);
 			anyOfTheseCards?.Initialize(initializationContext);
 			card?.Initialize(initializationContext);
 			space?.Initialize(initializationContext);
@@ -44,25 +45,25 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(Space toTest, IResolutionContext context)
+		protected override bool IsValidLogic(Space? toTest, IResolutionContext context)
 		{
 			if (cardRestriction != null)
-				return toTest.AdjacentSpaces
+				return toTest?.AdjacentSpaces
 					.Select(InitializationContext.game.Board.GetCardAt)
 					.Count(c => cardRestriction.IsValid(c, context))
 					>= cardRestrictionMinimum.From(context);
 			else if (anyOfTheseCards != null)
 				return anyOfTheseCards
 					.From(context)
-					.Any(c => c.IsAdjacentTo(toTest));
+					.Any(c => c.IsAdjacentTo(toTest ?? Space.Invalid));
 			else if (card != null)
 				return card
 					.From(context)
-					.IsAdjacentTo(toTest);
+					.IsAdjacentTo(toTest ?? Space.Invalid);
 			else if (space != null)
 				return space
 					.From(context)
-					.IsAdjacentTo(toTest);
+					.IsAdjacentTo(toTest ?? Space.Invalid);
 			else throw new System.NotImplementedException($"You forgot to account for some weird case for {InitializationContext.source}");
 		}
 	}

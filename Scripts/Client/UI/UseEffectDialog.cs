@@ -57,6 +57,7 @@ namespace Kompas.Client.UI
 		public void Activate(Effect effect)
 		{
 			Visible = false;
+			if (effect.Card == null) return;
 			clientNotifier.RequestActivateEffect(effect.Card, effect.EffectIndex);
 		}
 

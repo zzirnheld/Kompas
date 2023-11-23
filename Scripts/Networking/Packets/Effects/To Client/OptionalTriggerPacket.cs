@@ -5,7 +5,7 @@ namespace Kompas.Networking.Packets
 {
 	public class OptionalTriggerPacket : Packet
 	{
-		public int sourceCardId;
+		public int? sourceCardId;
 		public int effIndex;
 		public int x;
 		public bool showX;
@@ -14,7 +14,7 @@ namespace Kompas.Networking.Packets
 
 		public OptionalTriggerPacket() : base(OptionalTrigger) { }
 
-		public OptionalTriggerPacket(int sourceCardId, int effIndex, int x, bool showX, int playerBeingAsked = 0) : this()
+		public OptionalTriggerPacket(int? sourceCardId, int effIndex, int x, bool showX, int playerBeingAsked = 0) : this()
 		{
 			this.sourceCardId = sourceCardId;
 			this.effIndex = effIndex;

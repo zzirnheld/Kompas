@@ -72,7 +72,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public bool Surrounded(Space s) => s.AdjacentSpaces.All(s => !IsEmpty(s));
 
 		//get game data
-		public bool IsEmpty(Space s) => s.IsValid && GetCardAt(s) == null;
+		public bool IsEmpty(Space? s) => s != null && s.IsValid && GetCardAt(s) == null;
 
 		public GameCard? GetCardAt(Space? s)
 		{

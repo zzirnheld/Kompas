@@ -7,11 +7,11 @@ namespace Kompas.Effects.Models
 {
 	public class TriggerData
 	{
-		public string triggerCondition;
-		public IRestriction<TriggeringEventContext> triggerRestriction;
+		public string? triggerCondition;
+		public IRestriction<TriggeringEventContext>? triggerRestriction;
 
 		public bool optional = false;
-		public string blurb;
+		public string? blurb;
 		public bool showX = false;
 		public int orderPriority = 0; //positive means it goes on the stack after anything, negative before
 	}
@@ -89,7 +89,7 @@ namespace Kompas.Effects.Models
 		public string TriggerCondition => TriggerData.triggerCondition;
 		public IRestriction<TriggeringEventContext> TriggerRestriction => TriggerData.triggerRestriction;
 		public bool Optional => TriggerData.optional;
-		public string Blurb => TriggerData.blurb ?? Effect.blurb;
+		public string Blurb => TriggerData.blurb ?? Effect.blurb ?? string.Empty;
 
 		public Trigger(TriggerData triggerData, Effect effect)
 		{

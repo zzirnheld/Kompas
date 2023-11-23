@@ -10,7 +10,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	/// </summary>
 	public abstract class ChangeGameLocation : ServerSubeffect
 	{
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible(TargetingContext? overrideContext = null)
 		{
 			var currLocation = GetCardTarget(overrideContext)?.Location; //TODO allow moving from ex. one hand to another. needs to somehow be aware of which location will end up in
 			return currLocation == null || currLocation == Destination;

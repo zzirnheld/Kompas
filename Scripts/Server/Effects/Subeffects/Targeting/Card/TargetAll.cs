@@ -5,7 +5,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class TargetAll: CardTarget
 	{
-		public override bool IsImpossible(TargetingContext overrideContext = null)
+		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> !DeterminePossibleTargets().Any();
 
 		public override Task<ResolutionInfo> Resolve()

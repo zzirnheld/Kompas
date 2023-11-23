@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Godot;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -13,7 +14,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			Effect.X = TrueCount;
+			var context = Effect.CurrentResolutionContext ?? throw new EffectNotResolvingException(Effect);
+			context.X = TrueCount;
 			GD.Print($"Setting X to {Effect.X}");
 			return Task.FromResult(ResolutionInfo.Next);
 		}

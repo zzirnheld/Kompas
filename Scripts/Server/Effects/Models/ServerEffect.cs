@@ -44,7 +44,7 @@ namespace Kompas.Server.Effects.Models
 		public ServerTrigger? ServerTrigger { get; private set; }
 		public override Trigger? Trigger => ServerTrigger;
 
-		public ServerSubeffect? OnImpossible { get; private set; } = null;
+		public ServerSubeffect? OnImpossible { get; set; } = null;
 		public bool CanDeclineTarget = false;
 
 		public override bool Negated

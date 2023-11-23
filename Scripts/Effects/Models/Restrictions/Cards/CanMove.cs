@@ -3,6 +3,7 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
+using Kompas.Server.Effects.Models.Subeffects;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
@@ -30,7 +31,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			}
 		}
 
-		protected override bool IsValidLogic(IGameCardInfo card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
 			bool IsValidMoveSpace(Space space) => card.MovementRestriction.IsValid(space, context);
 

@@ -5,12 +5,12 @@ namespace Kompas.Networking.Packets
 {
 	public class GetTriggerOrderPacket : Packet
 	{
-		public int[] sourceCardIds;
+		public int?[] sourceCardIds;
 		public int[] effIndices;
 
 		public GetTriggerOrderPacket() : base(GetTriggerOrder) { }
 
-		public GetTriggerOrderPacket(int[] sourceCardIds, int[] effIndices) : this()
+		public GetTriggerOrderPacket(int?[] sourceCardIds, int[] effIndices) : this()
 		{
 			this.sourceCardIds = sourceCardIds;
 			this.effIndices = effIndices;

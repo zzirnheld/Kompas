@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			from.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space item, IResolutionContext context)
+		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 			=> from.From(context) != item;
 	}
 
@@ -54,8 +54,9 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	/// </summary>
 	public class SpellRule : SpaceRestrictionBase
 	{
-		protected override bool IsValidLogic(Space item, IResolutionContext context)
-			=> InitializationContext.source?.CardType != 'S'
-			|| InitializationContext.game.Board.ValidSpellSpaceFor(InitializationContext.source, item);
+		protected override bool IsValidLogic(Space? item, IResolutionContext context)
+			=> item != null
+			&& (InitializationContext.source?.CardType != 'S'
+			|| InitializationContext.game.Board.ValidSpellSpaceFor(InitializationContext.source, item));
 	}
 }
