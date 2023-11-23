@@ -2,6 +2,7 @@ using Godot;
 using Kompas.Client.Cards.Controllers;
 using Kompas.Client.Networking;
 using Kompas.Effects.Models;
+using Kompas.Shared.Exceptions;
 using System.Collections.Generic;
 
 namespace Kompas.Client.UI
@@ -9,18 +10,30 @@ namespace Kompas.Client.UI
 	public partial class UseEffectDialog : Control
 	{
 		[Export]
-		private Camera3D Camera { get; set; }
+		private Camera3D? _camera;
+		private Camera3D Camera => _camera
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Label CardName { get; set; }
+		private Label? _cardName;
+		private Label CardName => _cardName
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private PackedScene EffectButtonPrefab { get; set; }
+		private PackedScene? _effectButtonPrefab;
+		private PackedScene EffectButtonPrefab => _effectButtonPrefab
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Node EffectButtonsParent { get; set; }
+		private Node? _effectButtonsParent;
+		private Node EffectButtonsParent => _effectButtonsParent
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Button CancelButton { get; set; }
+		private Button? _cancelButton;
+		private Button CancelButton => _cancelButton
+			?? throw new UnassignedReferenceException();
 
 		private readonly IList<UseEffectDialogButton> buttons = new List<UseEffectDialogButton>();
-		private ClientNotifier clientNotifier;
+		private ClientNotifier? _clientNotifier;
+		private ClientNotifier ClientNotifier => _clientNotifier
+			?? throw new NotInitializedException();
 
 		public override void _Ready()
 		{
@@ -29,7 +42,7 @@ namespace Kompas.Client.UI
 
 		public void Display(ClientCardController cardController)
 		{
-			clientNotifier = cardController.Card.ClientGame.ClientGameController.Notifier;
+			_clientNotifier = cardController.Card.ClientGame.ClientGameController.Notifier;
 
 			var effects = cardController.Card.Effects;
 			CardName.Text = cardController.Card.CardName;
@@ -58,7 +71,7 @@ namespace Kompas.Client.UI
 		{
 			Visible = false;
 			if (effect.Card == null) return;
-			clientNotifier.RequestActivateEffect(effect.Card, effect.EffectIndex);
+			ClientNotifier.RequestActivateEffect(effect.Card, effect.EffectIndex);
 		}
 
 		private void Unshow() => Visible = false;

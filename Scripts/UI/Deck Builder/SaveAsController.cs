@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Shared.Exceptions;
 using System;
 
 namespace Kompas.UI.DeckBuilder
@@ -6,10 +7,14 @@ namespace Kompas.UI.DeckBuilder
 	public partial class SaveAsController : Control
 	{
 		[Export]
-		private DeckBuilderDeckController DeckBuilderDeckController { get; set; }
+		private DeckBuilderDeckController? _deckBuilderDeckController;
+		private DeckBuilderDeckController DeckBuilderDeckController => _deckBuilderDeckController
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private LineEdit DeckNameEdit { get; set; }
+		private LineEdit? _deckNameEdit;
+		private LineEdit DeckNameEdit => _deckNameEdit
+			?? throw new UnassignedReferenceException();
 
 		public void Enable()
 		{

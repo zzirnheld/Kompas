@@ -86,8 +86,10 @@ namespace Kompas.Effects.Models
 		public abstract GameCard Card { get; }
 		public abstract Effect Effect { get; }
 
-		public string TriggerCondition => TriggerData.triggerCondition;
-		public IRestriction<TriggeringEventContext> TriggerRestriction => TriggerData.triggerRestriction;
+		public string TriggerCondition => TriggerData.triggerCondition
+			?? throw new InvalidOperationException("Trigger data didn't have a trigger condition");
+		public IRestriction<TriggeringEventContext> TriggerRestriction => TriggerData.triggerRestriction
+			?? throw new InvalidOperationException("Trigger data didn't have a trigger restriction");
 		public bool Optional => TriggerData.optional;
 		public string Blurb => TriggerData.blurb ?? Effect.blurb ?? string.Empty;
 
@@ -95,6 +97,8 @@ namespace Kompas.Effects.Models
 		{
 			var initializationContext = new EffectInitializationContext(game: effect.Game, source: effect.Card, effect: effect, trigger: this);
 			TriggerData = triggerData;
+			_ = triggerData.triggerCondition ?? throw new ArgumentNullException(nameof(triggerData), "Null trigger condition!");
+			_ = triggerData.triggerRestriction ?? throw new ArgumentNullException(nameof(triggerData), "Null trigger restriction!");
 			try
 			{
 				triggerData.triggerRestriction.Initialize(initializationContext);

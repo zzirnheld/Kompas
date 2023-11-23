@@ -38,7 +38,7 @@ namespace Kompas.Cards.Controllers
 			myView = new DeckBuilderCardView(InfoDisplayer);
 		}
 
-		public void Init(DeckBuilderCard card, DeckBuilderTopLeftCardView topLeftCardView, DeckBuilderDeckController deckController)
+		public void Init(DeckBuilderCard? card, DeckBuilderTopLeftCardView topLeftCardView, DeckBuilderDeckController deckController)
 		{
 			DeckController = deckController;
 

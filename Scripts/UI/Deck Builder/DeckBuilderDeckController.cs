@@ -6,6 +6,7 @@ using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Shared;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.UI.DeckBuilder
@@ -16,21 +17,33 @@ namespace Kompas.UI.DeckBuilder
 		public enum Tab { Normal, NewDeck, SaveAs }
 
 		[Export]
-		private SquareGridContainer? DeckNodesParent { get; set; }
+		private SquareGridContainer? _deckNodesParent;
+		private SquareGridContainer DeckNodesParent => _deckNodesParent
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private PackedScene? DeckCardControllerPrefab { get; set; }
+		private PackedScene? _deckCardControllerPrefab;
+		private PackedScene DeckCardControllerPrefab => _deckCardControllerPrefab
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private DeckBuilderAvatarController? AvatarController { get; set; }
+		private DeckBuilderAvatarController? _avatarController;
+		private DeckBuilderAvatarController AvatarController => _avatarController
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private DeckBuilderController? DeckBuilderController { get; set; }
+		private DeckBuilderController? _deckBuilderController;
+		private DeckBuilderController DeckBuilderController => _deckBuilderController
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Control[]? Tabs { get; set; }
+		private Control[]? _tabs;
+		private Control[] Tabs => _tabs
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private OptionButton? DeckNameSelect { get; set; }
+		private OptionButton? _deckNameSelect;
+		private OptionButton DeckNameSelect  => _deckNameSelect
+			?? throw new UnassignedReferenceException();
 
 		private readonly List<string> deckNames = new();
 
@@ -72,6 +85,7 @@ namespace Kompas.UI.DeckBuilder
 
 		public void SaveAs(string name)
 		{
+			currentDeck ??= new();
 			currentDeck = currentDeck.Copy(name);
 			AddDeckNameAndSelect(name);
 			SaveDeck();
@@ -104,15 +118,25 @@ namespace Kompas.UI.DeckBuilder
 
 		public void DeleteSelectedDeck()
 		{
-			DeckAccess.Delete(currentDeck);
+			if (currentDeck == null) return;
 
-			int deckIndex = deckNames.IndexOf(currentDeck.deckName);
-			DeckNameSelect.RemoveItem(deckIndex);
-			deckNames.RemoveAt(deckIndex);
+			int indexToSelect;
+			if (currentDeck.deckName == null)
+			{
+				GD.PushWarning("Deleted deck with no name!?");
+				indexToSelect = 0;
+			}
+			else
+			{
+				DeckAccess.Delete(currentDeck);
+				int deckIndex = deckNames.IndexOf(currentDeck.deckName);
+				DeckNameSelect.RemoveItem(deckIndex);
+				deckNames.RemoveAt(deckIndex);
+				indexToSelect = deckIndex == 0 ? 0 : deckIndex - 1;
+			}
 
 			//TODO handle deleting last deck. maybe force user onto the "create first deck" code path?
 			//TODO create first deck code path that's new deck but you can't cancel out (forcing you to have at least 1 deck)
-			int indexToSelect = deckIndex == 0 ? 0 : deckIndex - 1;
 			LoadDeck(indexToSelect);
 			DeckNameSelect.Select(indexToSelect);
 		}
@@ -154,11 +178,13 @@ namespace Kompas.UI.DeckBuilder
 
 		public void AddToDeck(DeckBuilderCard card)
 		{
+			_ = currentDeck ?? throw new InvalidOperationException("Tried to add card to a null deck!");
+
 			var ctrl = CreateCardController();
 			DeckNodesParent.AddChild(ctrl);
 			//DeckNodesParent.MoveChild(ctrl, -1 - DeckSpacingPlaceholders.Length);
 			ctrl.Init(card, DeckBuilderController.CardView, this);
-			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
+			currentDeck.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
 			currentDeckCtrls.Add(ctrl);
 		}
 
@@ -172,15 +198,20 @@ namespace Kompas.UI.DeckBuilder
 			currentDeckCtrls.RemoveAt(index);
 		}
 
-		public void BecomeAvatar(DeckBuilderCardController card)
+		public void BecomeAvatar(DeckBuilderCardController cardCtrl)
 		{
-			AvatarController.UpdateAvatar(card.Card);
-			currentDeck.avatarName = card.Card.CardName;
+			_ = currentDeck ?? throw new InvalidOperationException("Tried to become avatar of a null deck!");
+
+			var card = cardCtrl.Card ?? throw new InvalidOperationException("Card control had no card!");
+			AvatarController.UpdateAvatar(card);
+			currentDeck.avatarName = card.CardName;
 		}
 
 		public void DragSwap(DeckBuilderDeckCardController card)
 		{
 			if (Dragging == null) return;
+			_ = Dragging.Card ?? throw new InvalidOperationException("Drag swapping a card ctrl with no card!");
+			_ = currentDeck ?? throw new InvalidOperationException("Can't drag card through a null deck!");
 
 			int argIndex = currentDeckCtrls.IndexOf(card);
 			if (argIndex < 0) { GD.Print($"{card} not in deck"); return; }

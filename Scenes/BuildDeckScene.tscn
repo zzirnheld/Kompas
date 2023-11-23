@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("CardInfoDisplayer", "DeckController")]
+[node name="Deck Builder Controller" type="Control" node_paths=PackedStringArray("CardInfoDisplayer", "DeckController")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -291,7 +291,7 @@ layout_mode = 2
 theme = ExtResource("11_jp0pa")
 text = "Cancel"
 
-[node name="Save As VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control" node_paths=PackedStringArray("DeckBuilderDeckController", "DeckNameEdit")]
+[node name="Save As VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control" node_paths=PackedStringArray("_deckBuilderDeckController", "_deckNameEdit")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -300,8 +300,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_gjys2")
-DeckBuilderDeckController = NodePath("../../../../Deck Cards Parent/MarginContainer/ScrollContainer")
-DeckNameEdit = NodePath("Deck Buttons MarginContainer2/Deck Name LineEdit")
+_deckBuilderDeckController = NodePath("../../../../Deck Cards Parent/MarginContainer/ScrollContainer")
+_deckNameEdit = NodePath("Deck Buttons MarginContainer2/Deck Name LineEdit")
 
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox"]
 layout_mode = 2
@@ -390,18 +390,18 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer" node_paths=PackedStringArray("DeckNodesParent", "AvatarController", "DeckBuilderController", "Tabs", "DeckNameSelect")]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer" node_paths=PackedStringArray("_deckNodesParent", "_avatarController", "_deckBuilderController", "_tabs", "_deckNameSelect")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_f63o8")
-DeckNodesParent = NodePath("Container")
-DeckCardControllerPrefab = ExtResource("12_lr2s2")
-AvatarController = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView")
-DeckBuilderController = NodePath("../../../../../../..")
-Tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox")]
-DeckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select")
+_deckNodesParent = NodePath("Deck Parent")
+_deckCardControllerPrefab = ExtResource("12_lr2s2")
+_avatarController = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView")
+_deckBuilderController = NodePath("../../../../../../..")
+_tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox")]
+_deckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select")
 
-[node name="Container" type="Container" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
+[node name="Deck Parent" type="Container" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

@@ -826,17 +826,17 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Use Effect" type="Control" parent="UI" node_paths=PackedStringArray("Camera", "CardName", "EffectButtonsParent", "CancelButton")]
+[node name="Use Effect" type="Control" parent="UI" node_paths=PackedStringArray("_camera", "_cardName", "_effectButtonsParent", "_cancelButton")]
 visible = false
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 300.0
 script = ExtResource("30_w3lfl")
-Camera = NodePath("../../3D/Engine Stuff/Camera Over Board/Camera Controller/Camera3D")
-CardName = NodePath("MarginContainer/MarginContainer/VBoxContainer/MarginContainer/Card Name Label")
-EffectButtonPrefab = ExtResource("30_nxds8")
-EffectButtonsParent = NodePath("MarginContainer/MarginContainer/VBoxContainer")
-CancelButton = NodePath("MarginContainer/MarginContainer/VBoxContainer/Cancel Effect Button")
+_camera = NodePath("../../3D/Engine Stuff/Camera Over Board/Camera Controller/Camera3D")
+_cardName = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/MarginContainer/Card Name Label")
+_effectButtonPrefab = ExtResource("30_nxds8")
+_effectButtonsParent = NodePath("MarginContainer/MarginContainer/Effect Parent VBox")
+_cancelButton = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/Cancel Effect Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Use Effect"]
 layout_mode = 0
@@ -873,25 +873,25 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Use Effect/MarginContainer/MarginContainer"]
+[node name="Effect Parent VBox" type="VBoxContainer" parent="UI/Use Effect/MarginContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = -2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Use Effect/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Use Effect/MarginContainer/MarginContainer/Effect Parent VBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Card Name Label" type="Label" parent="UI/Use Effect/MarginContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Card Name Label" type="Label" parent="UI/Use Effect/MarginContainer/MarginContainer/Effect Parent VBox/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("6_5db68")
 theme_override_font_sizes/font_size = 20
 text = "Card Name"
 
-[node name="Cancel Effect Button" type="Button" parent="UI/Use Effect/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="Cancel Effect Button" type="Button" parent="UI/Use Effect/MarginContainer/MarginContainer/Effect Parent VBox"]
 layout_mode = 2
 theme = ExtResource("6_5db68")
 theme_override_font_sizes/font_size = 16
