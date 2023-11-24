@@ -18,6 +18,7 @@ using Kompas.Server.Gamestate.Locations.Models;
 using Kompas.Server.Gamestate.Players;
 using Kompas.Server.Networking;
 using Kompas.Shared;
+using Kompas.Shared.Exceptions;
 using KompasServer.Effects;
 
 namespace Kompas.Server.Gamestate
@@ -29,11 +30,17 @@ namespace Kompas.Server.Gamestate
 
 		private readonly ServerCardRepository serverCardRepository;
 		public CardRepository CardRepository => serverCardRepository;
-		public ServerStackController StackController { get; private set; }
+		private ServerStackController? _stackController;
+		public ServerStackController StackController => _stackController
+			?? throw new UseFactoryException();
 		IStackController IGame.StackController => StackController;
 
-		public Board Board { get; private set; }
-		public ServerAwaiter Awaiter { get; private set; }
+		private Board? _board;
+		public Board Board => _board
+			?? throw new UseFactoryException();
+		private ServerAwaiter? _awaiter;
+		public ServerAwaiter Awaiter => _awaiter
+			?? throw new UseFactoryException();
 
 		public bool DebugMode => true;
 
@@ -43,14 +50,19 @@ namespace Kompas.Server.Gamestate
 		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
 
 		//Players
-		private ServerPlayer[] ServerPlayers { get; set; }
+		private ServerPlayer[]? _serverPlayers;
+		private ServerPlayer[] ServerPlayers => _serverPlayers
+			?? throw new NotInitializedException();
 		public IPlayer[] Players => ServerPlayers;
-		public IPlayer TurnPlayer { get; private set; }
+
+		private IPlayer? _turnPlayer;
+		public IPlayer TurnPlayer => _turnPlayer
+			?? throw new NotInitializedException();
 		private int cardCount = 0;
 
 		public bool GameHasStarted { get; private set; } = false;
 
-		public IPlayer Winner { get; private set; }
+		public IPlayer? Winner { get; private set; }
 
 		private int _turnCount;
 		public int TurnCount
@@ -83,7 +95,7 @@ namespace Kompas.Server.Gamestate
 		public int RoundCount { get; private set; }
 
 
-		public event EventHandler<IPlayer> TurnChanged;
+		public event EventHandler<IPlayer>? TurnChanged;
 
 		private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo)
 		{
@@ -95,9 +107,9 @@ namespace Kompas.Server.Gamestate
 		{
 			ServerGame ret = new(gameController, cardRepo);
 
-			ret.StackController = new ServerStackController(ret);
-			ret.Board = new ServerBoard(gameController.BoardController, ret);
-			ret.Awaiter = new ServerAwaiter(ret);
+			ret._stackController = new ServerStackController(ret);
+			ret._board = new ServerBoard(gameController.BoardController, ret);
+			ret._awaiter = new ServerAwaiter(ret);
 
 			return ret;
 		}
@@ -106,7 +118,7 @@ namespace Kompas.Server.Gamestate
 		{
 			if (players.Length != 2) throw new System.ArgumentException("Games support only exactly 2 players!", nameof(players));
 
-			ServerPlayers = players;
+			_serverPlayers = players;
 			foreach (ServerPlayer p in ServerPlayers) GetDeckFrom(p);
 
 		}
@@ -149,10 +161,12 @@ namespace Kompas.Server.Gamestate
 			}
 
 			ServerGameCard avatar;
+			var avatarName = decklist.avatarName ?? throw new NullReferenceException();
 			//otherwise, set the avatar and rest of the deck
-			avatar = serverCardRepository.InstantiateServerCard(decklist.avatarName, this, player, cardCount++, isAvatar: true) ??
+			avatar = serverCardRepository.InstantiateServerCard(avatarName, this, player, cardCount++, isAvatar: true) ??
 				throw new System.ArgumentException($"Failed to load avatar for card {decklist.avatarName}");
-			ServerNotifier.SetFriendlyAvatar(player, CardRepository.GetJsonFromName(decklist.avatarName), avatar.ID);
+            string avatarJson = CardRepository.GetJsonFromName(avatarName) ?? throw new NullReferenceException();
+            ServerNotifier.SetFriendlyAvatar(player, avatarJson, avatar.ID);
 			cardsByID[avatar.ID] = avatar;
 
 			foreach (string name in decklist.deck)
@@ -190,7 +204,7 @@ namespace Kompas.Server.Gamestate
 
 			//determine who goes first and tell the players
 			FirstTurnPlayer = new System.Random().NextDouble() > 0.5f ? 0 : 1;
-			TurnPlayer = Players[FirstTurnPlayer];
+			_turnPlayer = Players[FirstTurnPlayer];
 			ServerNotifier.SetFirstTurnPlayer(TurnPlayer);
 
 			foreach (var p in Players)
@@ -242,7 +256,7 @@ namespace Kompas.Server.Gamestate
 
 		public async Task SwitchTurn()
 		{
-			TurnPlayer = TurnPlayer.Enemy;
+			_turnPlayer = TurnPlayer.Enemy;
 			GD.Print($"Turn swapping to the turn of index {TurnPlayer.Index}");
 
 			await TurnStartOperations();
@@ -269,7 +283,7 @@ namespace Kompas.Server.Gamestate
 			StackController.TriggerForCondition(Trigger.DrawX, context);
 			return drawn;
 		}
-		public GameCard Draw(IPlayer player, IStackable? stackSrc = null)
+		public GameCard? Draw(IPlayer player, IStackable? stackSrc = null)
 			=> DrawX(player, 1, stackSrc).FirstOrDefault();
 
 		/// <param name="manual">Whether a player instigated the attack without an effect.</param>
@@ -286,7 +300,7 @@ namespace Kompas.Server.Gamestate
 			return attack;
 		}
 
-		public GameCard LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
+		public GameCard? LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
 
 		public ServerPlayer ServerControllerOf(GameCard card) => ServerPlayers[card.ControllingPlayerIndex];
 

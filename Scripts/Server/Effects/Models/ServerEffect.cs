@@ -29,12 +29,14 @@ namespace Kompas.Server.Effects.Models
 		public override IGame Game => ServerGame;
 		public ServerStackController EffectsController => ServerGame.StackController;
 
-		public ServerGameCard? _card;
+		private ServerGameCard? _card;
 		public override GameCard Card => _card
 			?? throw new NotInitializedException();
 
-		public ServerPlayer? OwningServerPlayer { get; private set; }
-		public override IPlayer? OwningPlayer => OwningServerPlayer;
+		private ServerPlayer? _ownerServerPlayer;
+		public ServerPlayer OwningServerPlayer => _ownerServerPlayer
+			?? throw new NotInitializedException();
+		public override IPlayer OwningPlayer => OwningServerPlayer;
 
 		public IServerResolutionContext? CurrentServerResolutionContext { get; private set; }
 		public override IResolutionContext? CurrentResolutionContext => CurrentServerResolutionContext;
@@ -134,7 +136,7 @@ namespace Kompas.Server.Effects.Models
 			if (context.CardTargets != null) foreach(var tgt in context.CardTargets) NotifyAddCardTarget(tgt);
 			
 			playerTargets.Add(context.ControllingPlayer);
-			if (context.TriggerContext.stackableCause != null) StackableTargets.Add(context.TriggerContext.stackableCause);
+			if (context.TriggerContext?.stackableCause != null) StackableTargets.Add(context.TriggerContext.stackableCause);
 
 			//notify relevant to this effect starting
 			ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);
@@ -276,6 +278,12 @@ namespace Kompas.Server.Effects.Models
 		public void DestroyCardLink(int index)
 		{
 			var link = cardLinks.ElementAtWrapped(index);
+			if (link == null)
+			{
+				GD.PushError($"No card link at index {index}");
+				return;
+			}
+
 			if (cardLinks.Remove(link))
 			{
 				ServerNotifier.RemoveCardLink(link, Game.Players);

@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models
 
 		public int EffectIndex { get; private set; }
 		public abstract GameCard? Card { get; }
-		public abstract IPlayer? OwningPlayer { get; }
+		public abstract IPlayer OwningPlayer { get; }
 
 		//subeffects
 		public abstract Subeffect[] Subeffects { get; }
@@ -113,9 +113,9 @@ namespace Kompas.Effects.Models
 		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
 
-		public GameCard GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
-		public Space GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
-		public IPlayer GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
+		public GameCard? GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
+		public Space? GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
+		public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 
 
 		public virtual void AddTarget(GameCard card) {

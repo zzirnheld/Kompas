@@ -3,6 +3,7 @@ using Kompas.Gamestate;
 using Kompas.Server.Cards.Loading;
 using Kompas.Server.Gamestate.Players;
 using Kompas.Server.Networking;
+using Kompas.Shared.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -11,23 +12,27 @@ namespace Kompas.Server.Gamestate
 {
 	public partial class ServerGameController : GameController
 	{
-		private ServerGame _serverGame;
-		public ServerGame ServerGame { get; private set; }
+		private ServerGame? _serverGame;
+		public ServerGame ServerGame => _serverGame
+			?? throw new NotInitializedException();
 		public override IGame Game => ServerGame;
 
-		public ServerCardRepository CardRepository { get; private set; }
+		private ServerCardRepository? _cardRepository;
+		public ServerCardRepository CardRepository => _cardRepository
+			?? throw new NotInitializedException();
 
-		public ServerAwaiter Awaiter { get; private set; }
-		public IReadOnlyCollection<ServerNetworker> Networkers { get; private set; }
+		private IReadOnlyCollection<ServerNetworker>? _networkers;
+		public IReadOnlyCollection<ServerNetworker> Networkers => _networkers
+			?? throw new NotInitializedException();
 
 		public void Init(TcpClient[] tcpClients, ServerCardRepository cardRepository)
 		{
-			CardRepository = cardRepository;
-			ServerGame = ServerGame.Create(this, CardRepository);
+			_cardRepository = cardRepository;
+			_serverGame = ServerGame.Create(this, CardRepository);
 			
 			var players = ServerPlayer.Create(this,
 				(player, index) => new ServerNetworker(tcpClients[index], player, ServerGame));
-			Networkers = players.Select(p => p.Networker).ToArray();
+			_networkers = players.Select(p => p.Networker).ToArray();
 			ServerGame.SetPlayers(players);
 		}
 

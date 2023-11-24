@@ -1,6 +1,7 @@
 using Godot;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
+using Kompas.Shared.Exceptions;
 using Kompas.UI;
 
 namespace Kompas.Gamestate
@@ -8,10 +9,14 @@ namespace Kompas.Gamestate
 	public abstract partial class GameController : Node
 	{
 		[Export]
-		public PlayerController[]? PlayerControllers { get; private set; }
+		private PlayerController[]? _playerControllers;
+		public PlayerController[] PlayerControllers => _playerControllers
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		public BoardController? BoardController { get; private set; }
+		private BoardController? _boardController;
+		public BoardController BoardController => _boardController
+			?? throw new UnassignedReferenceException();
 
 		public abstract IGame Game { get; }
 	}

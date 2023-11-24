@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models
 		/// <summary>
 		/// Information describing the event that triggered this effect to occur, if any such event happened. (If it's player-triggered, this is null.) 
 		/// </summary>
-		public TriggeringEventContext TriggerContext { get; }
+		public TriggeringEventContext? TriggerContext { get; }
 
 		public int StartIndex { get; }
 		public IList<GameCard> CardTargets { get; }

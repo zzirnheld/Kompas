@@ -105,7 +105,7 @@ namespace Kompas.Server.Effects.Controllers
 		#region the stack
 		//TODO fix these signatures
 
-		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext triggerContext)
+		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext? triggerContext)
 		{
 			PushToStack(atk, new ServerResolutionContext(triggerContext, controller));
 		}
