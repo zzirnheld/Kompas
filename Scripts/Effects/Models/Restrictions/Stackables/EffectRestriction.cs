@@ -4,9 +4,9 @@ namespace Kompas.Effects.Models.Restrictions.Stackables
 {
 	public abstract class EffectRestrictionElementBase : RestrictionBase<IStackable>, IRestriction<Effect>
 	{
-		public bool IsValid(Effect? item, IResolutionContext? context) => base.IsValid(item, context);
+		public bool IsValid(Effect? item, IResolutionContext context) => base.IsValid(item, context);
 
-		protected override bool IsValidLogic(IStackable? item, IResolutionContext? context)
+		protected override bool IsValidLogic(IStackable? item, IResolutionContext context)
 		{
 			return item is Effect effect && IsValidLogic(effect);
 		}

@@ -11,6 +11,7 @@ namespace Kompas.Server.Gamestate
 {
 	public partial class ServerGameController : GameController
 	{
+		private ServerGame _serverGame;
 		public ServerGame ServerGame { get; private set; }
 		public override IGame Game => ServerGame;
 

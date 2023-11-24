@@ -10,6 +10,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 {
 	public class InAOEOf : SpaceRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty]
 		public IIdentity<IGameCardInfo> card;
 		[JsonProperty]
@@ -24,6 +25,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		[JsonProperty]
 		public IIdentity<Space> alsoInAOE;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -51,6 +53,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
+			if (space == null) return false;
 			var alsoInAOE = this.alsoInAOE?.From(context);
 			bool IsValidAOE(IGameCardInfo card)
 			{

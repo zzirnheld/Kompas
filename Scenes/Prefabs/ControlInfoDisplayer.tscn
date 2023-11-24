@@ -8,21 +8,21 @@
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="6_4g4hh"]
 [ext_resource type="Texture2D" uid="uid://dm3yu3wrg22fx" path="res://Icons/Card Stuff/Char Frame.svg" id="7_45e0j"]
 
-[node name="Card Info Dimensions" type="TextureRect" node_paths=PackedStringArray("Image", "N", "E", "Cost", "W", "CardName", "Subtypes", "EffText", "FrameImage")]
+[node name="Card Info Dimensions" type="TextureRect" node_paths=PackedStringArray("_image", "_n", "_e", "_cost", "_w", "_cardName", "_subtypes", "_effText", "_frameImage")]
 self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("1_ookky")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("2_ah84u")
-Image = NodePath("Card View/Card Image/Card Face Image")
-N = NodePath("Card View/Card Stats/N Value")
-E = NodePath("Card View/Card Stats/E Value")
-Cost = NodePath("Card View/Card Stats/S Value")
-W = NodePath("Card View/Card Stats/W Value")
-CardName = NodePath("Card View/Card Text/Name Label")
-Subtypes = NodePath("Card View/Card Text/Subtypes Label")
-EffText = NodePath("Card View/Card Text/RichTextLabel")
-FrameImage = NodePath("Card View/Frame")
+_image = NodePath("Card View/Card Image/Card Face Image")
+_n = NodePath("Card View/Card Stats/N Value")
+_e = NodePath("Card View/Card Stats/E Value")
+_cost = NodePath("Card View/Card Stats/S Value")
+_w = NodePath("Card View/Card Stats/W Value")
+_cardName = NodePath("Card View/Card Text/Name Label")
+_subtypes = NodePath("Card View/Card Text/Subtypes Label")
+_effText = NodePath("Card View/Card Text/RichTextLabel")
+_frameImage = NodePath("Card View/Frame")
 
 [node name="Card View" type="Control" parent="."]
 layout_mode = 1

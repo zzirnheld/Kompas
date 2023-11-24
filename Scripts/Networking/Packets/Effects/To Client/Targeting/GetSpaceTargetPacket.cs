@@ -2,15 +2,16 @@
 using Kompas.Client.Gamestate;
 using System.Linq;
 using Kompas.Gamestate;
+using Godot;
 
 namespace Kompas.Networking.Packets
 {
 	public class GetSpaceTargetPacket : Packet
 	{
-		public string cardName;
-		public string targetBlurb;
-		public int[] possibleSpaces; //storing a space as a single int. I originally did this for space + serialization worries. probably not worth worrying about tho
-		public int[] recommendedSpaces;
+		public string? cardName;
+		public string? targetBlurb;
+		public int[]? possibleSpaces; //storing a space as a single int. I originally did this for space + serialization worries. probably not worth worrying about tho
+		public int[]? recommendedSpaces;
 
 		public GetSpaceTargetPacket() : base(GetSpaceTarget) { }
 
@@ -30,6 +31,11 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			if (cardName == null || targetBlurb == null || possibleSpaces == null || recommendedSpaces == null)
+			{
+				GD.PushWarning("Missing something in get space target packet");
+				return;
+			}
 			clientGame.ClientGameController.TargetingController
 				.StartSpaceSearch(recommendedSpaces.Select(s => new Space(s / 7, s % 7)), targetBlurb);
 		}

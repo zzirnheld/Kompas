@@ -5,14 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://dmyal633ooqud" path="res://Sprites/tarocco/XV - The Devil.png" id="2_xr2w4"]
 [ext_resource type="Theme" uid="uid://bt31glg5gcnm8" path="res://Themes/Less Important Label.tres" id="3_go1dd"]
 
-[node name="Enemy Player Info" type="Control" node_paths=PackedStringArray("AvatarImage", "Pips", "NextTurnPips")]
+[node name="Enemy Player Info" type="Control" node_paths=PackedStringArray("_avatarImage", "_pips", "_nextTurnPips")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_vertical = 3
 script = ExtResource("1_b80qf")
-AvatarImage = NodePath("HBoxContainer/Avatar Image")
-Pips = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Pips Count")
-NextTurnPips = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Next Turn Pips Count")
+_avatarImage = NodePath("HBoxContainer/Avatar Image")
+_pips = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Pips Count")
+_nextTurnPips = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Next Turn Pips Count")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

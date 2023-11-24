@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Kompas.Effects.Models;
+using Kompas.Shared.Enumerable;
+using System;
 
 namespace Kompas.Networking.Packets
 {
 	public class EditCardLinkPacket : Packet
 	{
-		public int[] linkedCardsIDs;
+		public int[]? linkedCardsIDs;
 
 		public int effIndex;
 		public int whoseEffectID;
@@ -31,14 +33,22 @@ namespace Kompas.Networking.Packets
 		}
 
 		public EditCardLinkPacket(IEnumerable<int> cardIDs, Effect eff, bool add)
-			: this(cardIDs.ToArray(), eff.EffectIndex, eff.Card.ID, add, CardLink.DefaultColor)
+			: this(cardIDs.ToArray(), eff.EffectIndex, eff.Card?.ID ?? throw new InvalidOperationException("Eff with no card"),
+				add, CardLink.DefaultColor)
 		{ }
 
 		public EditCardLinkPacket(CardLink cardLink, bool add)
 			: this(cardLink.CardIDs, cardLink.LinkingEffect, add)
 		{ }
 
-		public override Packet Copy() => new EditCardLinkPacket(linkedCardsIDs, effIndex, whoseEffectID, add, linkColor);
+		public override Packet Copy() => new EditCardLinkPacket()
+		{
+			linkedCardsIDs = linkedCardsIDs,
+			effIndex = effIndex,
+			whoseEffectID = whoseEffectID,
+			add = add,
+			linkColor = linkColor
+		};
 	}
 }
 
@@ -48,8 +58,14 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			if (linkedCardsIDs == null)
+			{
+				GD.PushWarning("null card ids or color for link");
+				return;
+			}
+
 			var effect = clientGame.LookupCardByID(whoseEffectID)?.Effects.ElementAt(effIndex);
-			var cards = linkedCardsIDs.Select(clientGame.LookupCardByID).Where(c => c != null);
+			var cards = linkedCardsIDs.Select(clientGame.LookupCardByID).NonNull();
 
 			if (effect == default || !cards.Any()) throw new System.ArgumentException($"Bad edit card args {linkedCardsIDs}, {effIndex}, {whoseEffectID}");
 			var linkHandler = cards.First().CardLinkHandler;

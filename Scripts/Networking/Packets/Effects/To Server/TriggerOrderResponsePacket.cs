@@ -1,4 +1,5 @@
-﻿using Kompas.Networking.Packets;
+﻿using Godot;
+using Kompas.Networking.Packets;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
@@ -7,9 +8,9 @@ namespace Kompas.Networking.Packets
 {
 	public class TriggerOrderResponsePacket : Packet
 	{
-		public int[] cardIds;
-		public int[] effIndices;
-		public int[] orders;
+		public int[]? cardIds;
+		public int[]? effIndices;
+		public int[]? orders;
 
 		public TriggerOrderResponsePacket() : base(ChooseTriggerOrder) { }
 
@@ -20,7 +21,12 @@ namespace Kompas.Networking.Packets
 			this.orders = orders;
 		}
 
-		public override Packet Copy() => new TriggerOrderResponsePacket(cardIds, effIndices, orders);
+		public override Packet Copy() => new TriggerOrderResponsePacket()
+		{
+			cardIds = cardIds,
+			effIndices = effIndices,
+			orders = orders
+		};
 	}
 }
 
@@ -30,6 +36,11 @@ namespace Kompas.Server.Networking
 	{
 		public Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
+			if (cardIds == null || effIndices == null || orders == null)
+			{
+				GD.PushWarning("Null trigger order");
+				return Task.CompletedTask;
+			}
 			serverGame.Awaiter.TriggerOrders = (cardIds, effIndices, orders);
 			return Task.CompletedTask;
 		}

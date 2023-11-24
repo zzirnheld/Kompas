@@ -14,7 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_3keyu")
 InfoDisplayer = NodePath("TextureRect")
 
-[node name="TextureRect" type="TextureRect" parent="." node_paths=PackedStringArray("Image")]
+[node name="TextureRect" type="TextureRect" parent="." node_paths=PackedStringArray("_image")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +26,7 @@ texture = ExtResource("1_te3ue")
 expand_mode = 2
 stretch_mode = 4
 script = ExtResource("3_4kakw")
-Image = NodePath(".")
+_image = NodePath(".")
 
 [node name="Control" type="Control" parent="TextureRect"]
 anchors_preset = 0

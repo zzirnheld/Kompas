@@ -8,7 +8,7 @@ namespace Kompas.Networking.Packets
 {
 	public class SetDeckPacket : Packet
 	{
-		public Decklist decklist;
+		public Decklist? decklist;
 
 		public SetDeckPacket() : base(SetDeck) { }
 
@@ -17,7 +17,10 @@ namespace Kompas.Networking.Packets
 			this.decklist = decklist;
 		}
 
-		public override Packet Copy() => new SetDeckPacket(decklist);
+		public override Packet Copy() => new SetDeckPacket()
+		{
+			decklist = decklist
+		};
 	}
 }
 
@@ -27,6 +30,7 @@ namespace Kompas.Server.Networking
 	{
 		public async Task Execute(ServerGame serverGame, ServerPlayer player)
 		{
+			if (decklist == null) return;
 			await serverGame.SetDeck(player, decklist);
 		}
 	}

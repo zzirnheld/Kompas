@@ -35,6 +35,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
+			if (space == null) return false;
 			return InitializationContext.game.Cards
 				.Where(c => c.DistanceTo(space) < distance.From(context))
 				.Where(c => cardRestriction.IsValid(c, context))

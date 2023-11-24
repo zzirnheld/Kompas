@@ -5,8 +5,8 @@ namespace Kompas.Networking.Packets
 {
 	public class GetTriggerOrderPacket : Packet
 	{
-		public int?[] sourceCardIds;
-		public int[] effIndices;
+		public int?[]? sourceCardIds;
+		public int[]? effIndices;
 
 		public GetTriggerOrderPacket() : base(GetTriggerOrder) { }
 

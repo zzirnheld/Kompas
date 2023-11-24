@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Shared.Exceptions;
 using Kompas.UI.MainMenu;
 using System;
 
@@ -25,11 +26,17 @@ namespace Kompas.UI.DeckBuilder
 		private Positioning closed;
 
 		[Export]
-		private Control EscapeMenuHaze { get; set; }
+		private Control? _escapeMenuHaze;
+		private Control EscapeMenuHaze => _escapeMenuHaze
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Control EscapeMenuButtons { get; set; }
+		private Control? _escapeMenuButtons;
+		private Control EscapeMenuButtons => _escapeMenuButtons
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Control EscapeMenuParentToSetVisibility { get; set; }
+		private Control? _escapeMenuParentToSetVisibility;
+		private Control EscapeMenuParentToSetVisibility => _escapeMenuParentToSetVisibility
+			?? throw new UnassignedReferenceException();
 		private float initialHazeVisibility;
 		private float initialButtonVisibility;
 		private float TargetVisibility => open ? 1f : 0f;
