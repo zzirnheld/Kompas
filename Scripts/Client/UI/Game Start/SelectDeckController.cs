@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
@@ -51,6 +52,11 @@ namespace Kompas.Client.UI.GameStart
 		private void Load(int index)
 		{
 			var decklist = DeckAccess.Load(deckNames[index]);
+			if (decklist == null)
+			{
+				GD.PushError($"No deck found for {deckNames[index]}");
+				return;
+			}
 			ShowDeck(decklist);
 		}
 
@@ -60,6 +66,11 @@ namespace Kompas.Client.UI.GameStart
 			foreach (var cardName in decklist.deck)
 			{
 				var card = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(cardName);
+				if (card == null)
+				{
+					GD.PushError($"Couldn't init card {cardName}");
+					continue;
+				}
 				var ctrl = CreateCardController();
 				ctrl.Init(card);
 
@@ -68,7 +79,13 @@ namespace Kompas.Client.UI.GameStart
 				DeckContainer.AddChild(ctrl);
 			}
 
-			var avatar = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(decklist.avatarName);
+            string avatarName = decklist.avatarName ?? throw new NullReferenceException();
+            var avatar = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(avatarName);
+			if (avatar == null)
+			{
+				GD.PushError($"Couldn't init avatar {decklist.avatarName}");
+				return;
+			}
 			AvatarController.Init(avatar);
 		}
 
@@ -87,6 +104,11 @@ namespace Kompas.Client.UI.GameStart
 		public void SelectDeck()
 		{
 			var decklist = DeckAccess.Load(deckNames[DeckSelect.Selected]);
+			if (decklist == null)
+			{
+				GD.PushError($"No deck found for {deckNames[DeckSelect.Selected]}");
+				return;
+			}
 			GameStartController.GameController.Notifier.RequestDecklistImport(decklist);
 			GameStartController.DeckSubmitted();
 		}

@@ -33,9 +33,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		}
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
-		{
-			return spaces.From(context)
+			=> space != null
+			&& spaces.From(context)
 				.All(s => Kompas.Gamestate.Locations.Models.Board.AreConnectedBySpaces(s, space, byRestriction, context));
-		}
 	}
 }

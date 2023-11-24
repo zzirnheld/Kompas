@@ -153,29 +153,27 @@ namespace Kompas.Effects.Subeffects
 		public int Count => (Effect.X * xMultiplier / xDivisor) + xModifier;
 		#endregion effect x
 
-		public GameCard CardTarget => Effect.GetTarget(targetIndex);
-		public Space SpaceTarget => Effect.GetSpace(spaceIndex);
-		public GameCardInfo CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex)
-			?? throw new InvalidOperationException($"Couldn't get card info target {cardInfoIndex}");
-		public IPlayer PlayerTarget => Effect.GetPlayer(playerIndex);
-		public IStackable StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex)
-			?? throw new InvalidOperationException($"Couldn't get stackable target {stackableIndex}");
+		public GameCard? CardTarget => Effect.GetTarget(targetIndex);
+		public Space? SpaceTarget => Effect.GetSpace(spaceIndex);
+		public GameCardInfo? CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex);
+		public IPlayer? PlayerTarget => Effect.GetPlayer(playerIndex);
+		public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
-        public GameCard GetCardTarget(TargetingContext? overrideContext = null)
+        public GameCard? GetCardTarget(TargetingContext? overrideContext = null)
         {
             int num = overrideContext.OrElse(CurrTargetingContext).cardTargetIndex
 				?? throw new System.InvalidOperationException("No card target index to grab card target for!");
             return Effect.GetTarget(num);
         }
 
-        public Space GetSpaceTarget(TargetingContext? overrideContext = null)
+        public Space? GetSpaceTarget(TargetingContext? overrideContext = null)
         {
             int index = overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex
 				?? throw new System.InvalidOperationException("No space target index to grab space target for!");
             return Effect.GetSpace(index);
         }
 
-        public IPlayer GetPlayerTarget(TargetingContext? overrideContext = null)
+        public IPlayer? GetPlayerTarget(TargetingContext? overrideContext = null)
 		{
 			var index = overrideContext.OrElse(CurrTargetingContext).playerTargetIndex
 				?? throw new System.InvalidOperationException("No player target index to grab player target for!");

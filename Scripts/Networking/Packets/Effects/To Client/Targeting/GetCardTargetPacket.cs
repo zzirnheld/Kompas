@@ -9,10 +9,10 @@ namespace Kompas.Networking.Packets
 {
 	public class GetCardTargetPacket : Packet
 	{
-		public string sourceCardName;
-		public string targetBlurb;
-		public int[] potentialTargetIDs;
-		public IListRestriction listRestriction;
+		public string? sourceCardName;
+		public string? targetBlurb;
+		public int[]? potentialTargetIDs;
+		public IListRestriction? listRestriction;
 
 		public GetCardTargetPacket() : base(GetCardTarget) { }
 
@@ -24,7 +24,13 @@ namespace Kompas.Networking.Packets
 			this.listRestriction = listRestriction;
 		}
 
-		public override Packet Copy() => new GetCardTargetPacket(sourceCardName, targetBlurb, potentialTargetIDs, listRestriction);
+		public override Packet Copy() => new GetCardTargetPacket()
+		{
+			sourceCardName = sourceCardName,
+			targetBlurb = targetBlurb,
+			potentialTargetIDs = potentialTargetIDs,
+			listRestriction = listRestriction
+		};
 	}
 }
 
@@ -34,6 +40,11 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			if (sourceCardName == null || targetBlurb == null || potentialTargetIDs == null)
+			{
+				GD.PushError("Nulls for card target client packet");
+				return;
+			}
 			IListRestriction listRestriction = this.listRestriction ?? IListRestriction.SingleElement;
 			listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
 

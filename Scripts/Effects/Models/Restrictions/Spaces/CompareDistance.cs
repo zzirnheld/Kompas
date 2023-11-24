@@ -34,6 +34,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
+			if (space == null) return false;
 			var origin = this.distanceTo.From(context);
 			int distance = shortestEmptyPath
 				? InitializationContext.game.Board.ShortestEmptyPath(origin, space)
@@ -65,6 +66,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
+			if (item == null) return false;
 			var destination = this.destination.From(context);
 			return destination.DistanceTo(item) < destination.DistanceTo(origin.From(context));
 		}
@@ -91,6 +93,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
+			if (item == null) return false;
 			var origin = this.origin.From(context);
 			var destinations = anyDestination.From(context);
 			return destinations.Any(destination => destination.DistanceTo(item) < destination.DistanceTo(origin));
@@ -117,6 +120,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
+			if (item == null) return false;
 			var destination = this.destination.From(context);
 			return destination.DistanceTo(item) > destination.DistanceTo(origin.From(context));
 		}

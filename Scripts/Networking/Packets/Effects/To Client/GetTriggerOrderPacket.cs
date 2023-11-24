@@ -16,7 +16,11 @@ namespace Kompas.Networking.Packets
 			this.effIndices = effIndices;
 		}
 
-		public override Packet Copy() => new GetTriggerOrderPacket(sourceCardIds, effIndices);
+		public override Packet Copy() => new GetTriggerOrderPacket()
+		{
+			sourceCardIds = sourceCardIds,
+			effIndices = effIndices
+		};
 	}
 }
 

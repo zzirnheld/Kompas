@@ -14,7 +14,9 @@ namespace Kompas.Client.Gamestate
 {
 	public partial class ClientGameController : GameController
 	{
-		public ClientCardRepository? CardRepository { get; private set; }
+		private ClientCardRepository? _cardRespository;
+		public ClientCardRepository CardRepository => _cardRespository
+			?? throw new NotInitializedException();
 
 		[Export]
 		private GameStartController? _gameStartController;
@@ -58,7 +60,7 @@ namespace Kompas.Client.Gamestate
 			game.TurnChanged += (_, turnPlayer) => TurnStartOperations(turnPlayer);
 
 			_ = CardPrefab ?? throw new System.NullReferenceException("Failed to initialize");
-			CardRepository = new ClientCardRepository(CardPrefab);
+			_cardRespository = new ClientCardRepository(CardPrefab);
 		}
 
 		private void TurnStartOperations(IPlayer turnPlayer)

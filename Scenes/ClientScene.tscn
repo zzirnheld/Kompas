@@ -39,7 +39,7 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "PlayerControllers", "BoardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_playerControllers")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("../UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
@@ -47,8 +47,7 @@ _currentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane 
 _useEffectDialog = NodePath("../UI/Use Effect")
 _stackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
 _cardPrefab = ExtResource("2_q0mge")
-PlayerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
-BoardController = NodePath("../3D/Board")
+_playerControllers = []
 
 [node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton")]
 script = ExtResource("2_cdbal")
@@ -369,22 +368,21 @@ theme = ExtResource("6_5db68")
 text = "Current state placeholder, just for an example"
 autowrap_mode = 2
 
-[node name="No Further Targets Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
+[node name="No Further Targets Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("6_5db68")
 text = "No Further Targets"
 script = ExtResource("19_qtc5n")
-GameController = NodePath("../../../../../../../../Game Controller")
 
-[node name="End Turn Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("GameController")]
+[node name="End Turn Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_gameController")]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("6_5db68")
 text = "End Your Turn"
 script = ExtResource("19_qtc5n")
-GameController = NodePath("../../../../../../../../Game Controller")
+_gameController = NodePath("../../../../../../../../Game Controller")
 
 [node name="Friendly Player Info" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer" instance=ExtResource("18_q5fki")]
 layout_mode = 2
