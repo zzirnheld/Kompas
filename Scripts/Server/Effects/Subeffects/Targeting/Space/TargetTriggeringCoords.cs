@@ -7,7 +7,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			ServerEffect.AddSpace(ResolutionContext.TriggerContext.space
+			ServerEffect.AddSpace(ResolutionContext.TriggerContext?.space
 				?? throw new InvalidSpaceException(null, NoValidSpaceTarget));
 			return Task.FromResult(ResolutionInfo.Next);
 		}

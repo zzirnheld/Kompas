@@ -3,13 +3,17 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.Gamestate;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class AutoTargetSpaceIdentity : ServerSubeffect
 	{
+		#nullable disable
+		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> subeffectSpaceIdentity;
+		#nullable restore
 
 		public IRestriction<Space> spaceRestriction = new AlwaysValid();
 
@@ -21,7 +25,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			var space = subeffectSpaceIdentity.From(ResolutionContext, default);
+			var space = subeffectSpaceIdentity.From(ResolutionContext, ResolutionContext);
 			
 			if (space == null) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 			if (!spaceRestriction.IsValid(space, ResolutionContext)) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));

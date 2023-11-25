@@ -6,10 +6,10 @@ namespace Kompas.Gamestate.Exceptions
 	{
 		public string message;
 
-		public KompasException(string debugMessage, string message)
+		public KompasException(string? debugMessage, string? message)
 			: base(debugMessage)
 		{
-			this.message = message;
+			this.message = message ?? string.Empty;
 		}
 	}
 }

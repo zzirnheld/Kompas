@@ -1,16 +1,23 @@
 using Godot;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.UI
 {
 	public partial class CurrentStateController : Control
 	{
 		[Export]
-		private Control FriendlyTurnParent { get; set; }
+		private Control? _friendlyTurnParent;
+		private Control FriendlyTurnParent => _friendlyTurnParent
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Control EnemyTurnParent { get; set; }
+		private Control? _enemyTurnParent;
+		private Control EnemyTurnParent => _enemyTurnParent
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Label CurrentStateLabel { get; set; }
+		private Label? _currentStateLabel;
+		private Label CurrentStateLabel => _currentStateLabel
+			?? throw new UnassignedReferenceException();
 
 		public override void _Ready()
 		{

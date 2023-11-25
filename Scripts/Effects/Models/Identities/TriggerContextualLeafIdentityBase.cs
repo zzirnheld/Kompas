@@ -1,9 +1,14 @@
+using System;
+
 namespace Kompas.Effects.Models.Identities
 {
 	public abstract class TriggerContextualLeafIdentityBase<ReturnType> : EffectContextualLeafIdentityBase<ReturnType>
 	{
 		protected override ReturnType AbstractItemFrom(IResolutionContext toConsider)
-			=> AbstractItemFrom(toConsider.TriggerContext);
+		{
+			_ = toConsider.TriggerContext ?? throw new InvalidOperationException("Resolution context had no triggering context!");
+			return AbstractItemFrom(toConsider.TriggerContext);
+		}
 
 		/// <summary>
 		/// Override this one if you ONLY need to know about the context you should actually be considering

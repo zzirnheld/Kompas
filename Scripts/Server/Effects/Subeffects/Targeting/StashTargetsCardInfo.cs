@@ -10,7 +10,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			if (CardTarget == null) throw new NullCardException(NoValidCardTarget);
 
-			ServerEffect.CardInfoTargets.Add(GameCardInfo.CardInfoOf(CardTarget));
+			var targetInfo = GameCardInfo.CardInfoOf(CardTarget)
+				?? throw new System.InvalidOperationException("Failed to create a card info!");
+			ServerEffect.CardInfoTargets.Add(targetInfo);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
+using Godot;
 
 namespace Kompas.Networking.Packets
 {
@@ -25,6 +26,11 @@ namespace Kompas.Client.Networking
 		public void Execute(ClientGame clientGame)
 		{
 			var card = clientGame.LookupCardByID(cardId);
+			if (card == null)
+			{
+				GD.PushError($"Can't delete card {cardId}");
+				return;
+			}
 			clientGame.Delete(card);
 		}
 	}

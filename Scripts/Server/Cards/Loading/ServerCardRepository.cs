@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
@@ -24,10 +25,10 @@ namespace Kompas.Server.Cards.Loading
 
 			var card = JsonConvert.DeserializeObject<SerializableCard>(cardJsons[name],
 					new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-			return card.cardType == 'C';
+			return card?.cardType == 'C';
 		}
 
-		public static ServerSubeffect[] InstantiateServerPartialKeyword(string keyword)
+		public static ServerSubeffect[]? InstantiateServerPartialKeyword(string keyword)
 		{
 			if (!partialKeywordJsons.ContainsKey(keyword))
 			{
@@ -53,7 +54,8 @@ namespace Kompas.Server.Cards.Loading
 				foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index);
 				return ret;
 			}
-			var ret = InstantiateGameCard(json, ConstructCard);
+			var ret = InstantiateGameCard(json, ConstructCard)
+				?? throw new InvalidOperationException($"Failed to instantiate {json}");
 			game.AddCard(ret);
 			return ret;
 		}

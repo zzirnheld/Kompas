@@ -10,8 +10,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class CanMove : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty]
 		public IIdentity<Space> destination;
+		#nullable restore
 		/// <summary>
 		/// Index of a subeffect whose space restriction should be considered for whether you'll be able to move this card there.
 		/// Be warned! If there's any additional targeting in the meantime (on which the valid movement depends) this might not work as expected.

@@ -9,6 +9,7 @@ using Kompas.Gamestate;
 using Kompas.Effects.Models.Restrictions.Spaces;
 using Kompas.Server.Networking;
 using Newtonsoft.Json;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -31,7 +32,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public IEnumerable<Space> ValidSpaces => Space.Spaces
 				.Where(s => spaceRestriction.IsValid(s, ResolutionContext))
-				.Select(s => PlayerTarget.SubjectiveCoords(s));
+				.Select(s => PlayerTarget?.SubjectiveCoords(s))
+				.NonNull();
 
 		public override bool IsImpossible(TargetingContext? overrideContext = null)
 			=> !ValidSpaces.Any();
@@ -43,8 +45,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		/// <returns><see langword="true"/> if there's a valid space,
 		/// assuming you pick <paramref name="theoreticalTarget"/>,
 		/// <see langword="false"/> otherwise</returns>
-		public bool WillBePossibleIfCardTargeted(GameCard theoreticalTarget)
+		public bool WillBePossibleIfCardTargeted(GameCard? theoreticalTarget)
 		{
+			if (theoreticalTarget == null) return false;
 			foreach (var space in Space.Spaces)
 			{
 				if (Effect.identityOverrides.WithTargetCardOverride(theoreticalTarget,
@@ -60,33 +63,36 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			var spaces = ValidSpaces.Select(s => (s.x, s.y)).ToArray();
 			var recommendedSpaces
 				= ForPlay
-				? spaces.Where(s => CardTarget.PlayRestriction.IsRecommendedPlay((s, PlayerTarget), ResolutionContext)).ToArray()
+				? spaces.Where(s => CardTarget?.PlayRestriction.IsRecommendedPlay((s, PlayerTarget), ResolutionContext) ?? false)
+					.ToArray()
 				: spaces;
+				_ = PlayerTarget ?? throw new System.InvalidOperationException("Deleted a player target!?");
 			if (spaces.Length > 0)
 			{
-				var (a, b) = (-1, -1);
-				while (!SetTargetIfValid(a, b))
+				var space = Space.Invalid;
+				while (!SetTargetIfValid(space))
 				{
-					(a, b) = await ServerGame.Awaiter.GetSpaceTarget(PlayerTarget, Effect.Card.CardName, blurb, spaces, recommendedSpaces);
-					if ((a, b) == (-1, -1) && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
+					space = await ServerGame.Awaiter.GetSpaceTarget
+						(PlayerTarget, Effect.Card?.CardName ?? string.Empty, blurb ?? string.Empty, spaces, recommendedSpaces);
+					if (space == Space.Invalid && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
 				}
 				return ResolutionInfo.Next;
 			}
 			else
 			{
-				GD.Print($"No valid coords exist for {Effect.Card.CardName} effect");
+				GD.Print($"No valid coords exist for {Effect.Card?.CardName} effect");
 				return ResolutionInfo.Impossible(NoValidSpaceTarget);
 			}
 		}
 
-		public bool SetTargetIfValid(int x, int y)
+		public bool SetTargetIfValid(Space space)
 		{
-			Space space = (x, y);
 			//evaluate the target. if it's valid, confirm it as the target (that's what the true is for)
 			if (space.IsValid && spaceRestriction.IsValid(space, ResolutionContext))
 			{
-				GD.Print($"Adding {x}, {y} as coords");
+				GD.Print($"Adding {space} as coords");
 				ServerEffect.AddSpace(space);
+				_ = PlayerTarget ?? throw new System.InvalidOperationException("Deleted a player target!?");
 				ServerNotifier.AcceptTarget(PlayerTarget);
 				return true;
 			}

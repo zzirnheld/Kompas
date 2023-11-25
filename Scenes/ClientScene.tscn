@@ -294,13 +294,13 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 mouse_filter = 2
 
-[node name="Right Pane (Current State)" type="Control" parent="UI/Main Game UI/HBoxContainer" node_paths=PackedStringArray("FriendlyTurnParent", "EnemyTurnParent", "CurrentStateLabel")]
+[node name="Right Pane (Current State)" type="Control" parent="UI/Main Game UI/HBoxContainer" node_paths=PackedStringArray("_friendlyTurnParent", "_enemyTurnParent", "_currentStateLabel")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("18_d6k15")
-FriendlyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/End Turn Button")
-EnemyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/Enemy Turn Label")
-CurrentStateLabel = NodePath("VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/Label")
+_friendlyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/End Turn Button")
+_enemyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/Enemy Turn Label")
+_currentStateLabel = NodePath("VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/Current State Label")
 
 [node name="Right Pane Background" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)"]
 self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
@@ -362,7 +362,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer"]
+[node name="Current State Label" type="Label" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("6_5db68")
 text = "Current state placeholder, just for an example"

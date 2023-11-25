@@ -1,5 +1,6 @@
 ﻿using Kompas.Effects.Models.Restrictions;
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -17,7 +18,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			XRest.Initialize(DefaultInitializationContext);
 		}
 
-		private async Task<int> AskForX() => await ServerGame.Awaiter.GetPlayerXValue(PlayerTarget);
+		private async Task<int> AskForX() => await ServerGame.Awaiter.GetPlayerXValue(PlayerTarget
+			?? throw new InvalidOperationException("Did you delete a player?"));
 
 		public override async Task<ResolutionInfo> Resolve()
 		{

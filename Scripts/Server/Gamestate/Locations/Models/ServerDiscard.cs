@@ -18,7 +18,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
 		{
-			GameCard cause = null;
+			GameCard? cause = null;
 			if (stackSrc is Effect eff) cause = eff.Card;
 			else if (stackSrc is Attack atk)
 			{

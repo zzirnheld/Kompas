@@ -3,6 +3,7 @@ using Kompas.Client.Gamestate;
 using System.Linq;
 using Kompas.Client.Effects;
 using Kompas.Client.Effects.Models;
+using System;
 
 namespace Kompas.Networking.Packets
 {
@@ -35,7 +36,8 @@ namespace Kompas.Client.Networking
 		{
 			var card = clientGame.LookupCardByID(cardID);
 			if (card == null) return;
-			var eff = card.Effects.ElementAt(effectIndex) as ClientEffect;
+			var eff = card.Effects.ElementAt(effectIndex) as ClientEffect
+				?? throw new InvalidOperationException("Effect on client wasn't a ClientEffect!");
 			clientGame.StackController.Resolve(eff);
 		}
 	}

@@ -34,9 +34,9 @@ namespace Kompas.Server.Networking
 
 		//TODO also make sure that when decline target is set, it also wakes up relevant targeting semaphores
 		public bool DeclineTarget { get; set; }
-		public GameCard CardTarget { get; set; }
-		private IEnumerable<GameCard> cardListTargets;
-		public IEnumerable<GameCard> CardListTargets
+		public GameCard? CardTarget { get; set; }
+		private IEnumerable<GameCard>? cardListTargets;
+		public IEnumerable<GameCard>? CardListTargets
 		{
 			get => cardListTargets;
 			set
@@ -47,7 +47,7 @@ namespace Kompas.Server.Networking
 		}
 		public (int, int)? SpaceTarget { get; set; }
 
-		public int[] HandSizeChoices { get; set; }
+		public int[]? HandSizeChoices { get; set; }
 		#endregion awaited values
 
 		#region trigger things
@@ -138,7 +138,7 @@ namespace Kompas.Server.Networking
 		/// <param name="listRestrictionJson">The list resriction, if any</param>
 		/// <returns>The cards the person chose and false if they chose targets;<br></br>
 		/// null and true if they declined to choose targets</returns>
-		public async Task<IEnumerable<GameCard>> GetCardListTargets
+		public async Task<IEnumerable<GameCard>?> GetCardListTargets
 			(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, IListRestriction listRestriction)
 		{
 			ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestriction);
@@ -168,7 +168,7 @@ namespace Kompas.Server.Networking
 		/// <param name="spaces">The list of valid spaces</param>
 		/// <returns>The space and false if the player chose a space<br></br>
 		/// default and true if the player declined to choose a space</returns>
-		public async Task<(int, int)> GetSpaceTarget
+		public async Task<Space> GetSpaceTarget
 			(IPlayer toAsk, string cardName, string blurb, (int, int)[] spaces, (int, int)[] recommendedSpaces)
 		{
 			ServerNotifier.GetSpaceTarget(toAsk, cardName, blurb, spaces, recommendedSpaces);

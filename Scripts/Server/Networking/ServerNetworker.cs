@@ -3,6 +3,7 @@ using Kompas.Networking;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Kompas.Server.Networking
 			this.game = game;
 		}
 
-		private static IServerOrderPacket FromJson(string command, string json)
+		private static IServerOrderPacket? FromJson(string command, string json)
 		{
 			return command switch
 			{
@@ -74,13 +75,18 @@ namespace Kompas.Server.Networking
 		{
 			if (packetInfo.command == Packet.Invalid)
 			{
-				GD.PrintErr($"Invalid packet {packetInfo.json}");
+				GD.PushError($"Invalid packet {packetInfo.json}");
 				return;
 			}
 
 			GD.Print($"Processing {packetInfo.json} from {player}");
 
 			var packet = FromJson(packetInfo.command, packetInfo.json);
+			if (packet == null)
+			{
+				GD.PushError($"Couldn't deserialize {packetInfo.json} as a packet");
+				return;
+			}
 			await packet.Execute(game, player);
 		}
 	}

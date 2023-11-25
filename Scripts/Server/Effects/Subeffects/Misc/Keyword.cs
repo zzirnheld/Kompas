@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Server.Cards.Loading;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -11,12 +13,14 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	/// </summary>
 	public class Keyword : ServerSubeffect
 	{
-		public string keyword;
+		[JsonProperty(Required = Required.Always)]
+		public string keyword = string.Empty;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
-			var subeffects = ServerCardRepository.InstantiateServerPartialKeyword(keyword);
+			var subeffects = ServerCardRepository.InstantiateServerPartialKeyword(keyword)
+				?? throw new InvalidOperationException($"Failed to instantiate {keyword}");
 			foreach (var s in subeffects)
 			{
 				GD.Print($"Loaded subeff with jump indices {s.jumpIndices}");

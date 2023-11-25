@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Models;
@@ -11,19 +12,23 @@ using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate.Extensions;
 using Kompas.Server.Gamestate.Locations.Models;
 using Kompas.Server.Networking;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Gamestate.Players
 {
 	public class ServerPlayer : IPlayer
 	{
-		//TODO encapsulate
-		public ServerNetworker Networker { get; private set; }
+		private ServerNetworker? _networker;
+		public ServerNetworker Networker => _networker
+			?? throw new UseFactoryException();
 		Networker IPlayer.Networker => Networker;
 
 		public ServerGame ServerGame { get; }
 		public IGame Game => ServerGame;
 
-		public IPlayer Enemy { get; private set; }
+		private IPlayer? _enemy;
+		public IPlayer Enemy => _enemy
+			?? throw new UseFactoryException();
 
 		private int _pips;
 		public int Pips
@@ -38,10 +43,10 @@ namespace Kompas.Server.Gamestate.Players
 		}
 		public int PipsNextTurn { set { } }
 
-		private GameCard _avatar;
+		private GameCard? _avatar;
 		public GameCard Avatar
 		{
-			get => _avatar;
+			get => _avatar ?? throw new NotInitializedException();
 			set
 			{
 				if (_avatar != null)
@@ -55,10 +60,18 @@ namespace Kompas.Server.Gamestate.Players
 
 		public int Index { get; }
 
-		public Deck Deck { get; private set; }
-		public Discard Discard { get; private set; }
-		public Hand Hand { get; private set; }
-		public Annihilation Annihilation { get; private set; }
+		private Deck? _deck;
+		public Deck Deck => _deck
+			?? throw new UseFactoryException();
+		private Discard? _discard;
+		public Discard Discard => _discard
+			?? throw new UseFactoryException();
+		private Hand? _hand;
+		public Hand Hand => _hand
+			?? throw new UseFactoryException();
+		private Annihilation? _annihilation;
+		public Annihilation Annihilation => _annihilation
+			?? throw new UseFactoryException();
 
 		public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
 
@@ -76,11 +89,11 @@ namespace Kompas.Server.Gamestate.Players
 		{
 			ServerPlayer ret = new(game, index, controller);
 
-			ret.Deck = new ServerDeck(ret, controller.DeckController, game);
-			ret.Discard = new ServerDiscard(ret, controller.DiscardController, game);
-			ret.Hand = new ServerHand(ret, controller.HandController, game);
-			ret.Annihilation = new ServerAnnihilation(ret, controller.AnnihilationController, game);
-			ret.Networker = getNetworker(ret, index);
+			ret._deck = new ServerDeck(ret, controller.DeckController, game);
+			ret._discard = new ServerDiscard(ret, controller.DiscardController, game);
+			ret._hand = new ServerHand(ret, controller.HandController, game);
+			ret._annihilation = new ServerAnnihilation(ret, controller.AnnihilationController, game);
+			ret._networker = getNetworker(ret, index);
 
 			return ret;
 		}
@@ -93,8 +106,8 @@ namespace Kompas.Server.Gamestate.Players
 				Create(gameController.ServerGame, gameController.PlayerControllers[1], 1, getNetworker),
 			};
 
-			ret[0].Enemy = ret[1];
-			ret[1].Enemy = ret[0];
+			ret[0]._enemy = ret[1];
+			ret[1]._enemy = ret[0];
 
 			return ret;
 		}
@@ -109,8 +122,9 @@ namespace Kompas.Server.Gamestate.Players
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		public async Task TryAugment(GameCard aug, Space space)
+		public async Task TryAugment(GameCard? aug, Space? space)
 		{
+			if (aug == null || space == null) return;
 			try
 			{
 				if (ServerGame.IsValidNormalAttach(aug, space, this))
@@ -127,8 +141,9 @@ namespace Kompas.Server.Gamestate.Players
 			}
 		}
 
-		public async Task TryPlay(GameCard card, Space space)
+		public async Task TryPlay(GameCard? card, Space? space)
 		{
+			if (card == null || space == null) return;
 			try
 			{
 				if (ServerGame.IsValidNormalPlay(card, space, this))
@@ -149,8 +164,9 @@ namespace Kompas.Server.Gamestate.Players
 			}
 		}
 
-		public async Task TryMove(GameCard toMove, Space space)
+		public async Task TryMove(GameCard? toMove, Space? space)
 		{
+			if (toMove == null || space == null) return;
 			//if it's not a valid place to do, put the cards back
 			try
 			{
@@ -173,10 +189,10 @@ namespace Kompas.Server.Gamestate.Players
 		/// </summary>
 		/// <param name="effect"></param>
 		/// <param name="controller"></param>
-		public async Task TryActivateEffect(ServerEffect effect)
+		public async Task TryActivateEffect(ServerEffect? effect)
 		{
 			GD.Print($"Player {Index} trying to activate effect of {effect?.Card?.CardName}");
-			if (effect.CanBeActivatedBy(this))
+			if (effect != null && effect.CanBeActivatedBy(this))
 			{
 				var context = ServerResolutionContext.PlayerTrigger(effect, Game, this);
 				ServerGame.StackController.PushToStack(effect, this, context);
@@ -184,8 +200,9 @@ namespace Kompas.Server.Gamestate.Players
 			}
 		}
 
-		public async Task TryAttack(GameCard attacker, GameCard defender)
+		public async Task TryAttack(GameCard? attacker, GameCard? defender)
 		{
+			if (attacker == null || defender == null) return;
 			ServerNotifier.NotifyBothPutBack(new IPlayer[] {this, Enemy});
 
 			if (ServerGame.IsValidNormalAttack(attacker, defender, this))
