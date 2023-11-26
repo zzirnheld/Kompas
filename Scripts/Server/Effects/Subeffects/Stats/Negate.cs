@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -8,7 +9,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			CardTarget.SetNegated(negated, ServerEffect);
+			var card = CardTarget ?? throw new NullCardException(TargetWasNull);
+			card.SetNegated(negated, ServerEffect);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

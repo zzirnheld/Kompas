@@ -43,7 +43,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			_ = restRestriction ?? throw new NotInitializedException();
 			base.AddList(choices);
-			var rest = (toSearch.From(ResolutionContext, default)
+			var rest = (toSearch.From(ResolutionContext, ResolutionContext)
 				?.Where(c => restRestriction.IsValid(c, ResolutionContext) && !choices.Contains(c))
 				.Select(c => c.Card))
 				?? throw new InvalidOperationException();

@@ -1,3 +1,4 @@
+using System;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 
@@ -19,9 +20,15 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			displacement.Initialize(initializationContext);
 		}
 
-		protected override Space? AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> from.From(context, secondaryContext) + displacement.From(context, secondaryContext);
-	}
+        protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+            var origin = from.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			var displ = displacement.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return origin + displ;
+        }
+    }
 
 	public class Displacement : ContextualParentIdentityBase<Space>
 	{
@@ -42,14 +49,17 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			to.Initialize(initializationContext);
 		}
 
-		protected override Space? AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			var origin = from.From(context, secondaryContext);
 			var destination = to.From(context, secondaryContext);
 
+			if (origin == null || destination == null) return null;
+
 			if (subjective)
 			{
-				var owner = InitializationContext.Owner ?? throw new System.NullReferenceException("No owner to draw subjectivity from!");
+				var owner = InitializationContext.Owner
+					?? throw new System.NullReferenceException("No owner to draw subjectivity from!");
 				origin = owner.SubjectiveCoords(origin);
 				destination = owner.SubjectiveCoords(destination);
 			}

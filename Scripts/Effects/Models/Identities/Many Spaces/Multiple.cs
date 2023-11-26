@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Gamestate;
+using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManySpaces
@@ -18,7 +19,9 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			foreach (var i in spaces) i.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> spaces.Select(s => s.From(context, secondaryContext)).ToArray();
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+			=> spaces.Select(s => s.From(context, secondaryContext))
+				.NonNull()
+				.ToArray();
 	}
 }

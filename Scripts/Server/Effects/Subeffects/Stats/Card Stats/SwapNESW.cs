@@ -1,12 +1,16 @@
 ﻿using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class SwapNESW : ServerSubeffect
 	{
+		#nullable disable
+		[JsonProperty (Required = Required.Always)]
 		public int[] targetIndices;
+		#nullable restore
 
 		public bool swapN = false;
 		public bool swapE = false;

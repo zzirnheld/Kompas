@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManySpaces
@@ -23,8 +25,11 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			spaces.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> spaces.From(context, secondaryContext)
-				.Where(s => restriction.IsValid(s, InitializationContext.effect?.CurrentResolutionContext)).ToList();
-	}
+        protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+			var spaces = this.spaces.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return spaces.Where(s => restriction.IsValid(s, ContextToConsider(context, secondaryContext))).ToList();
+        }
+    }
 }

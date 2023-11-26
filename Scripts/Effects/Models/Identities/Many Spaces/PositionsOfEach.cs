@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -20,9 +21,13 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			cards.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> cards.From(context, secondaryContext)
-					.SelectMany(c => EnumerableHelper.YieldNonNull(c.Position))
-					.ToArray();
-	}
+        protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+			var cards = this.cards.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return cards
+				.SelectMany(c => EnumerableHelper.YieldNonNull(c.Position))
+				.ToArray();
+        }
+    }
 }

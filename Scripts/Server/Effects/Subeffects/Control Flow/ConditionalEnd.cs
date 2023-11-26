@@ -1,11 +1,15 @@
 ﻿using Kompas.Effects.Models.Restrictions;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class ConditionalEnd : ServerSubeffect
 	{
+		#nullable disable
+		[JsonProperty (Required = Required.Always)]
 		public IGamestateRestriction endIfTrue;
+		#nullable restore
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

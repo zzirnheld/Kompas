@@ -1,3 +1,4 @@
+using System;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
@@ -25,16 +26,17 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			throughRestriction?.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
+		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
-			Space first = firstSpace.From(context, secondaryContext);
-			Space second = secondSpace.From(context, secondaryContext);
+			Space first = firstSpace.From(context, secondaryContext) ?? throw new InvalidOperationException();
+			Space second = secondSpace.From(context, secondaryContext) ?? throw new InvalidOperationException();
 
 			if (first == null || second == null) return -1;
 
 			if (throughRestriction == null) return first.DistanceTo(second);
 
-			var contextToConsider = base.secondaryContext ? secondaryContext : context;
+			var contextToConsider = ContextToConsider(context, secondaryContext)
+				?? throw new InvalidOperationException();
 			bool through(Space s) => throughRestriction.IsValid(s, contextToConsider);
 			return Gamestate.Locations.Models.Board.ShortestPath(first, second, through);
 		}

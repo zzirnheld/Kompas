@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Relationships.Spaces;
@@ -29,10 +30,12 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			secondSpace.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
-			Space first = firstSpace.From(context, secondaryContext);
-			Space second = secondSpace.From(context, secondaryContext);
+			Space first = firstSpace.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			Space second = secondSpace.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
 			return Space.Spaces.Where(space => thirdSpaceRelationship.Evaluate(first, second, space)).ToArray();
 		}
 	}

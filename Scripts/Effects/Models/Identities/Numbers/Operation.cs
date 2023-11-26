@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -25,12 +26,17 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			if (numbers != null) foreach(var identity in numbers) identity.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
+		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			var numberValues = new List<int>();
 
 			if (numbers != null) foreach (var number in numbers) numberValues.Add(number.From(context, secondaryContext));
-			if (manyNumbers != null) foreach (int number in manyNumbers.From(context, secondaryContext)) numberValues.Add(number);
+			if (manyNumbers != null)
+			{
+				var manyNumbers = this.manyNumbers.From(context, secondaryContext)
+					?? throw new InvalidOperationException();
+				foreach (int number in manyNumbers) numberValues.Add(number);
+			}
 
 			return operation.Perform(numberValues.ToArray());
 		}

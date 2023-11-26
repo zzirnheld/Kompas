@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Gamestate;
@@ -24,12 +25,16 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			distanceTo.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
-			var tuples = spaces.From(context, secondaryContext)
-				.Select(s => (s, s.DistanceTo(distanceTo.From(context, secondaryContext))))
+			var spaces = this.spaces.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			var dest = distanceTo.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			var tuples = spaces
+				.Select(s => (s, s.DistanceTo(dest)))
 				.OrderBy(tuple => tuple.Item2);
-			if (tuples.Count() == 0) return tuples.Select(tuple => tuple.s).ToList();
+			if (!tuples.Any()) return Array.Empty<Space>();
 			
 			int dist = tuples.First().Item2;
 			return tuples.Where(tuple => tuple.Item2 == dist).Select(tuple => tuple.s).ToList();

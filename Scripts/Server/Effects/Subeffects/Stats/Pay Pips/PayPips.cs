@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Numbers;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class PayPips : ServerSubeffect
 	{
 		public override bool IsImpossible(TargetingContext? targetingContext = null)
-			=> GetPlayerTarget(targetingContext).Pips < ToPay;
+			=> GetPlayerTarget(targetingContext)?.Pips < ToPay;
 
 		private int ToPay => pipCost.From(ResolutionContext, ResolutionContext);
 
@@ -22,6 +23,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public override Task<ResolutionInfo> Resolve()
 		{
 			int toPay = ToPay;
+			var player = PlayerTarget
+				?? throw new NullPlayerException(TargetWasNull);
 			if (PlayerTarget.Pips < toPay) return Task.FromResult(ResolutionInfo.Impossible(CantAffordPips));
 
 			PlayerTarget.Pips -= toPay;

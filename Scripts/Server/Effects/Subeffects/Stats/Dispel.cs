@@ -1,4 +1,5 @@
 ﻿using Kompas.Cards.Movement;
+using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -7,7 +8,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			CardTarget.Dispel(Effect);
+			var card = CardTarget ?? throw new NullCardException(TargetWasNull);
+			card.Dispel(Effect);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

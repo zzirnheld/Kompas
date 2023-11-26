@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 		[JsonProperty]
 		public bool secondaryCard = false;
 
-		protected override IGameCardInfo AbstractItemFrom(TriggeringEventContext context)
+		protected override IGameCardInfo? AbstractItemFrom(TriggeringEventContext context)
 			=> secondaryCard
 				? context.secondaryCardInfoBefore
 				: context.mainCardInfoBefore;

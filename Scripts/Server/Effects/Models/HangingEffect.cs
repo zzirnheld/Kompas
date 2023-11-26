@@ -35,7 +35,8 @@ namespace Kompas.Server.Effects.Models
 			RemoveIfEnd = removeIfEnd;
 		}
 
-		public virtual bool ShouldBeCanceled(TriggeringEventContext context) => fallOffRestriction.IsValid(context, default);
+		public virtual bool ShouldBeCanceled(TriggeringEventContext context)
+			=> fallOffRestriction.IsValid(context, IResolutionContext.NotResolving);
 
 		public virtual bool ShouldResolve(TriggeringEventContext context)
 		{

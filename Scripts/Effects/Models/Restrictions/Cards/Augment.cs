@@ -29,11 +29,11 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			if (cardRestriction != null) return cardRestriction.IsValid(card, context);
 			if (manyCards != null)
 			{
-				var cards = manyCards.From(context, null)
+				var cards = manyCards.From(context, context)
 					?? throw new InvalidOperationException();
 				return card != null && cards.Contains(card);
 			}
-			if (singleCard != null) return singleCard.From(context, null) == card;
+			if (singleCard != null) return singleCard.From(context, context) == card;
 			throw new System.ArgumentNullException(nameof(card), $"No augment provided for {this.GetType()} CardRestrictionElement");
 		};
 

@@ -34,7 +34,7 @@ namespace Kompas.Effects.Models
 			this.game = game;
 			this.source = source;
 
-			this.effect = effect;
+			this.effect = effect ?? subeffect?.Effect;
 
 			this.trigger = trigger;
 			this.subeffect = subeffect;

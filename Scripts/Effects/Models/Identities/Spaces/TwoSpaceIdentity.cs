@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			base.Initialize(initializationContext);
 		}
 
-		protected override Space? AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			var first = firstSpace.From(context, secondaryContext)
 				?? throw new InvalidOperationException();

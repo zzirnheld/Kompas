@@ -1,4 +1,5 @@
 using Kompas.Gamestate.Exceptions;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,19 +10,21 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			int? nValue = n?.From(ResolutionContext, default);
-			int? eValue = e?.From(ResolutionContext, default);
-			int? sValue = s?.From(ResolutionContext, default);
-			int? wValue = w?.From(ResolutionContext, default);
-			int? cValue = c?.From(ResolutionContext, default);
-			int? aValue = a?.From(ResolutionContext, default);
+			int? nValue = n?.From(ResolutionContext, ResolutionContext);
+			int? eValue = e?.From(ResolutionContext, ResolutionContext);
+			int? sValue = s?.From(ResolutionContext, ResolutionContext);
+			int? wValue = w?.From(ResolutionContext, ResolutionContext);
+			int? cValue = c?.From(ResolutionContext, ResolutionContext);
+			int? aValue = a?.From(ResolutionContext, ResolutionContext);
 
-			int? turnsOnBoardChange	 = turnsOnBoard?.From(ResolutionContext, default);
-			int? attacksThisTurnChange  = attacksThisTurn?.From(ResolutionContext, default);
-			int? spacesMovedChange	  = spacesMoved?.From(ResolutionContext, default);
-			int? durationChange		 = duration?.From(ResolutionContext, default);
+			int? turnsOnBoardChange	 = turnsOnBoard?.From(ResolutionContext, ResolutionContext);
+			int? attacksThisTurnChange  = attacksThisTurn?.From(ResolutionContext, ResolutionContext);
+			int? spacesMovedChange	  = spacesMoved?.From(ResolutionContext, ResolutionContext);
+			int? durationChange		 = duration?.From(ResolutionContext, ResolutionContext);
 
-			foreach (var card in cards.From(ResolutionContext, default).Select(c => c.Card))
+			var cards = this.cards.From(ResolutionContext, ResolutionContext)
+				?? throw new InvalidOperationException();
+			foreach (var card in cards.Select(c => c.Card))
 			{
 				ValidateCardOnBoard(card);
 

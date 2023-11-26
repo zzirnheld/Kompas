@@ -69,7 +69,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		protected IReadOnlyCollection<GameCard> DeterminePossibleTargets()
 		{
-			var possibleTargets = from card in toSearch.From(ResolutionContext, default)
+			var possibleTargets = from card in toSearch.From(ResolutionContext, ResolutionContext)
 									where cardRestriction.IsValid(card, ResolutionContext)
 									select card.Card;
 			return possibleTargets.ToArray();
@@ -153,7 +153,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		protected virtual void AddList(IEnumerable<GameCard> choices)
 		{
-			var cardToLinkWith = toLinkWith?.From(ResolutionContext, default)?.Card;
+			var cardToLinkWith = toLinkWith?.From(ResolutionContext, ResolutionContext)?.Card;
 			foreach (var c in choices)
 			{
 				ServerEffect.AddTarget(c, secretTarget ? PlayerTarget : null);

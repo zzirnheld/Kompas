@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -10,10 +11,11 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			int toSpend = (CardTarget.SpacesCanMove * mult / div) + mod;
-			if (toSpend <= 0 || CardTarget.SpacesCanMove < toSpend) return Task.FromResult(ResolutionInfo.Impossible(CantAffordStats));
+			var card = CardTarget ?? throw new NullCardException(TargetWasNull);
+			int toSpend = (card.SpacesCanMove * mult / div) + mod;
+			if (toSpend <= 0 || card.SpacesCanMove < toSpend) return Task.FromResult(ResolutionInfo.Impossible(CantAffordStats));
 
-			CardTarget.SpacesMoved += toSpend;
+			card.SpacesMoved += toSpend;
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

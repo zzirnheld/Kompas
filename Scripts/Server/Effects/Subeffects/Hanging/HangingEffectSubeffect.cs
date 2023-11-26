@@ -6,6 +6,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.Effects.Models.Restrictions.Triggering;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
@@ -13,12 +14,18 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 	{
 		//BEWARE: once per turn might not work for these as impl rn, because it's kind of ill-defined.
 		//this is only a problem if I one day start creating hanging effects that can later trigger once each turn.
-		public IRestriction<TriggeringEventContext> triggerRestriction;
+		[JsonProperty]
+		public IRestriction<TriggeringEventContext> triggerRestriction = new AlwaysValid();
+		#nullable disable
+		[JsonProperty (Required = Required.Always)]
 		public string endCondition;
+		#nullable restore
 		public virtual bool ContinueResolution => true;
 
+		[JsonProperty]
 		public string fallOffCondition = Trigger.Remove;
-		public IRestriction<TriggeringEventContext> fallOffRestriction;
+		[JsonProperty]
+		public IRestriction<TriggeringEventContext>? fallOffRestriction;
 
 		protected IRestriction<TriggeringEventContext> CreateFallOffRestriction(GameCard card)
 		{
@@ -34,7 +41,6 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
-			triggerRestriction ??= new AlwaysValid();
 			triggerRestriction.Initialize(DefaultInitializationContext);
 
 			if (triggerRestriction is IAllOf<TriggerRestrictionBase> allOf

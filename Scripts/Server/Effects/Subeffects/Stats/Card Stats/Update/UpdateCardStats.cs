@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Kompas.Effects.Models.Identities.Numbers;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -18,17 +19,23 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			int nChange = n.From(ResolutionContext, default);
-			int eChange = e.From(ResolutionContext, default);
-			int sChange = s.From(ResolutionContext, default);
-			int wChange = w.From(ResolutionContext, default);
-			int cChange = c.From(ResolutionContext, default);
-			int aChange = a.From(ResolutionContext, default);
+			_ = n ?? throw new NotInitializedException();
+			_ = e ?? throw new NotInitializedException();
+			_ = s ?? throw new NotInitializedException();
+			_ = w ?? throw new NotInitializedException();
+			_ = c ?? throw new NotInitializedException();
+			_ = a ?? throw new NotInitializedException();
+			int nChange = n.From(ResolutionContext, ResolutionContext);
+			int eChange = e.From(ResolutionContext, ResolutionContext);
+			int sChange = s.From(ResolutionContext, ResolutionContext);
+			int wChange = w.From(ResolutionContext, ResolutionContext);
+			int cChange = c.From(ResolutionContext, ResolutionContext);
+			int aChange = a.From(ResolutionContext, ResolutionContext);
 
-			int? turnsOnBoardChange	 = turnsOnBoard?.From(ResolutionContext, default);
-			int? attacksThisTurnChange  = attacksThisTurn?.From(ResolutionContext, default);
-			int? spacesMovedChange	  = spacesMoved?.From(ResolutionContext, default);
-			int? durationChange		 = duration?.From(ResolutionContext, default);
+			int? turnsOnBoardChange = turnsOnBoard?.From(ResolutionContext, ResolutionContext);
+			int? attacksThisTurnChange = attacksThisTurn?.From(ResolutionContext, ResolutionContext);
+			int? spacesMovedChange = spacesMoved?.From(ResolutionContext, ResolutionContext);
+			int? durationChange = duration?.From(ResolutionContext, ResolutionContext);
 
 			foreach (var card in CardsToAffect)
 			{

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
@@ -62,7 +63,9 @@ namespace Kompas.Server.Effects.Models
 		public static ServerTrigger Create(TriggerData triggerData, ServerEffect serverEffect)
 		{
 			var ret = new ServerTrigger(triggerData, serverEffect);
-			serverEffect.ServerGame.StackController.RegisterTrigger(triggerData.triggerCondition, ret);
+			var condition = triggerData.triggerCondition
+				?? throw new NullReferenceException($"No trigger condition for trigger {triggerData}!");
+			serverEffect.ServerGame.StackController.RegisterTrigger(condition, ret);
 			return ret;
 		}
 
@@ -73,7 +76,8 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="stackTrigger">The effect or attack that triggered this, if any.</param>
 		/// <param name="x">If the action that triggered this has a value of x, it goes here. Otherwise, null.</param>
 		/// <returns>Whether all restrictions of the trigger are fulfilled.</returns>
-		public bool ValidForTriggeringContext(TriggeringEventContext context) => !Card.Negated && TriggerRestriction.IsValid(context, default);
+		public bool ValidForTriggeringContext(TriggeringEventContext context)
+			=> !Card.Negated && TriggerRestriction.IsValid(context, IResolutionContext.Dummy(context));
 
 		/// <summary>
 		/// Rechecks any trigger restrictions that might have changed between the trigger triggering and being ordered.

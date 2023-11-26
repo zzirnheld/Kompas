@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -18,10 +19,14 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cards.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> cards.From(context, secondaryContext)
+        protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+			var cards = this.cards.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return cards
 				.GroupBy(c => c.CardName)
 				.Select(group => group.First())
 				.ToArray();
-	}
+        }
+    }
 }

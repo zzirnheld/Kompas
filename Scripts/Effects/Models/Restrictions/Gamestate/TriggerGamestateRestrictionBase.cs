@@ -28,7 +28,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		public bool IsValidClientSide (IEnumerable<IGameCardInfo>? options, IResolutionContext context) => IsValid(options, context);
 		public void PrepareForSending(IResolutionContext context) { }
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+        public override void Initialize(EffectInitializationContext initializationContext)
 		{
 			if (initializationContext.subeffect != null) useDummyResolutionContext ??= false; //Default to false if it's part of a subeffect.
 			base.Initialize(initializationContext);

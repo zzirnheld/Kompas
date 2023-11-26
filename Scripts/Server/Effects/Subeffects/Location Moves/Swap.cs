@@ -9,7 +9,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	public class Swap : ServerSubeffect
 	{
 		public int SecondTargetIndex = -2;
-		public GameCard SecondTarget => Effect.GetTarget(SecondTargetIndex);
+		public GameCard SecondTarget => Effect.GetTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
 		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> GetCardTarget(overrideContext) == null || SecondTarget == null;
 
@@ -17,13 +17,15 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			if (CardTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != Location.Board)
+			if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, MovedCardOffBoard);
 
 			if (SecondTarget == null)
 				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && SecondTarget.Location != Location.Board)
+			if (SecondTarget.Location != Location.Board)
 				throw new InvalidLocationException(SecondTarget.Location, SecondTarget, MovedCardOffBoard);
+			if (SecondTarget.Position == null)
+				throw new NullSpaceOnBoardException(SecondTarget);
 
 			CardTarget.Move(SecondTarget.Position, false, PlayerTarget, ServerEffect);
 			return Task.FromResult(ResolutionInfo.Next);

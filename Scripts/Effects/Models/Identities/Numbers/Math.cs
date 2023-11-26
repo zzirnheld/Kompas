@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			number.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
+		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 			=> (number.From(context, secondaryContext) * multiplier / divisor) + modifier;
 	}
 }

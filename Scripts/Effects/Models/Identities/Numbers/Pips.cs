@@ -1,3 +1,4 @@
+using System;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
@@ -16,7 +17,11 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			player.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> player.From(context, secondaryContext).Pips;
-	}
+        protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+			var player = this.player.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return player.Pips;
+        }
+    }
 }

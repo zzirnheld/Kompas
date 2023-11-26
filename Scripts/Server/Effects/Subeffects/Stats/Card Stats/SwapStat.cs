@@ -2,21 +2,26 @@
 using Kompas.Effects.Models.Identities.Numbers;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class SwapStat : ServerSubeffect
 	{
+		#nullable disable
+		[JsonProperty (Required = Required.Always)]
 		public CardValue firstTargetStat;
+		[JsonProperty (Required = Required.Always)]
 		public CardValue secondTargetStat;
+		#nullable restore
 		public int secondTargetIndex = -2;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
-			firstTargetStat?.Initialize(DefaultInitializationContext);
-			secondTargetStat?.Initialize(DefaultInitializationContext);
+			firstTargetStat.Initialize(DefaultInitializationContext);
+			secondTargetStat.Initialize(DefaultInitializationContext);
 		}
 
 		public override Task<ResolutionInfo> Resolve()

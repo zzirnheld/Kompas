@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -6,7 +7,6 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Numbers
 {
-
 	public class CountCards : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty]
@@ -28,7 +28,11 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> cards.From(context, secondaryContext).Count(c => cardRestriction.IsValid(c, default));
-	}
+        protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+			var cards = this.cards.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return cards.Count(c => cardRestriction.IsValid(c, ContextToConsider(context, secondaryContext)));
+        }
+    }
 }

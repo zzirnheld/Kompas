@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -28,7 +29,12 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> cards.From(context, secondaryContext).Where(c => cardRestriction.IsValid(c, context)).ToArray();
-	}
+        protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom
+			(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+			var cards = this.cards.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return cards.Where(c => cardRestriction.IsValid(c, context)).ToArray();
+        }
+    }
 }

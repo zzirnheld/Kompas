@@ -2,18 +2,19 @@
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Gamestate;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class ResummonAll : ServerSubeffect
 	{
-		public IRestriction<IGameCardInfo> cardRestriction;
+		[JsonProperty]
+		public IRestriction<IGameCardInfo> cardRestriction = new AlwaysValid();
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
-			cardRestriction ??= new AlwaysValid();
 			cardRestriction.Initialize(DefaultInitializationContext);
 		}
 

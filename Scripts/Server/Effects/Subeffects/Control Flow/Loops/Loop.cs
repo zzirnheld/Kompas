@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Godot;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Networking;
 
@@ -14,9 +15,10 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			//make the "no other targets" button disappear
 			if (canDecline)
 			{
+				var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
 				//TODO - do this for both players? in case loop contained something setting target. or maybe store the player that's in a can decline loop?
-				ServerNotifier.DisableDecliningTarget(PlayerTarget);
-				ServerNotifier.AcceptTarget(PlayerTarget); // otherwise it keeps them in the now-irrelevant target mode
+				ServerNotifier.DisableDecliningTarget(player);
+				ServerNotifier.AcceptTarget(player); // otherwise it keeps them in the now-irrelevant target mode
 			}
 		}
 
@@ -31,7 +33,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				//tell the client to enable the button to exit the loop
 				if (canDecline)
 				{
-					ServerNotifier.EnableDecliningTarget(PlayerTarget);
+					var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+					ServerNotifier.EnableDecliningTarget(player);
 					ServerEffect.OnImpossible = this;
 					ServerEffect.CanDeclineTarget = true;
 				}

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
+using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
@@ -18,7 +19,9 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			foreach (var i in cards) i.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> cards.Select(s => s.From(context, secondaryContext)).ToArray();
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+			=> cards.Select(s => s.From(context, secondaryContext))
+				.NonNull()
+				.ToArray();
 	}
 }

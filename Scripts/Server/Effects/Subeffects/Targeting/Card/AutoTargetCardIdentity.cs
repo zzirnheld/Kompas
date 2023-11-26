@@ -20,7 +20,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			var card = subeffectCardIdentity.From(ResolutionContext, default);
+			var card = subeffectCardIdentity.From(ResolutionContext, ResolutionContext);
 			if (card == null) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
 			Effect.AddTarget(card.Card);

@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			elements = CardRepository.InstantiateTriggerKeyword(keyword);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext secondaryContext)
+		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 			=> elements.All(tre => tre.IsValid(context, secondaryContext));
 	}
 }

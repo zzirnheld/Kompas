@@ -1,5 +1,6 @@
 ﻿using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Gamestate.Players;
+using System;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -17,7 +18,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			else if (defender == null)
 				throw new NullCardException("Defender was null");
 
-			var atk = ServerGame.Attack(attacker, defender, instigator: PlayerTarget as ServerPlayer, stackSrc: Effect);
+			var atk = ServerGame.Attack(attacker, defender,
+				instigator: PlayerTarget as ServerPlayer ?? throw new InvalidOperationException(),
+				stackSrc: Effect);
 			Effect.StackableTargets.Add(atk);
 			return Task.FromResult(ResolutionInfo.Next);
 		}

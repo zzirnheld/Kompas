@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
@@ -21,9 +22,13 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			cardValue.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> cardValue.GetValueOf(card.From(context, secondaryContext));
-	}
+        protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+        {
+			var card = this.card.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+            return cardValue.GetValueOf(card);
+        }
+    }
 	
 	public class CardValue : ContextInitializeableBase
 	{

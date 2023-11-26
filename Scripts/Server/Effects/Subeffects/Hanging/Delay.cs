@@ -7,6 +7,8 @@ using Kompas.Server.Gamestate.Players;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Effects.Models.Restrictions;
+using System;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
@@ -26,17 +28,20 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		{
 			GD.Print($"Is context null? {ResolutionContext == null}");
 			GD.Print($"Are jump indices null? {jumpIndices == null}");
+			var context = ResolutionContext ?? throw new EffectNotResolvingException(Effect);
+			var controller = ServerEffect.CurrentServerResolutionContext?.ControllingPlayer
+				?? throw new InvalidOperationException();
 			var delay = new DelayEffect(game: ServerGame,
 												 triggerRestriction: triggerRestriction,
 												 endCondition: endCondition,
 												 fallOffCondition: fallOffCondition,
 												 fallOffRestriction: CreateFallOffRestriction(Effect.Card),
 												 sourceEff: Effect,
-												 currentContext: ResolutionContext,
+												 currentContext: context,
 												 numTimesToDelay: numTimesToDelay,
 												 toResume: ServerEffect,
 												 indexToResumeResolution: JumpIndex,
-												 controller: ServerEffect.CurrentServerResolutionContext.ControllingPlayer,
+												 controller: controller,
 												 targets: Effect.CardTargets,
 												 cardInfoTargets: Effect.CardInfoTargets,
 												 spaces: Effect.SpaceTargets,
@@ -54,6 +59,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			private readonly List<GameCard> targets;
 			private readonly List<GameCardInfo> cardInfoTargets;
 			private readonly List<Space> spaces;
+			//TODO: replace with TargetingContext
 
 			public DelayEffect(ServerGame game, IRestriction<TriggeringEventContext> triggerRestriction, string endCondition,
 				string fallOffCondition, IRestriction<TriggeringEventContext> fallOffRestriction, Effect sourceEff, IResolutionContext currentContext,
@@ -66,7 +72,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				this.toResume = toResume;
 				this.indexToResumeResolution = indexToResumeResolution;
 				this.controller = controller;
-				GD.Print($"Targets are {string.Join(",", targets?.Select(c => c.ToString()) ?? new string[] { "Null" })}");
+				GD.Print($"Targets are {string.Join(",", targets.Select(c => c.ToString()))}");
 				this.targets = new List<GameCard>(targets);
 				this.cardInfoTargets = new List<GameCardInfo>(cardInfoTargets);
 				this.spaces = new List<Space>(spaces);
@@ -94,7 +100,8 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 			public override void Resolve(TriggeringEventContext context)
 			{
-				var myContext = new ServerResolutionContext(context, controller, indexToResumeResolution, targets, default, cardInfoTargets, spaces, default, default, default);
+				var myContext = new ServerResolutionContext(context, controller, indexToResumeResolution,
+					targets, default, cardInfoTargets, spaces, default, Array.Empty<IStackable>(), default);
 				serverGame.StackController.PushToStack(toResume, controller, myContext);
 			}
 		}

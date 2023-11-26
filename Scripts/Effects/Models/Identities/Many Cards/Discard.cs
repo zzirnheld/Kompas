@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
@@ -16,8 +17,9 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			get
 			{
 				var cards = new List<IGameCardInfo>();
-				if (friendly) cards.AddRange(InitializationContext.Owner.Discard.Cards);
-				if (enemy) cards.AddRange(InitializationContext.Owner.Enemy.Discard.Cards);
+				var owner = InitializationContext.Owner ?? throw new IllDefinedException();
+				if (friendly) cards.AddRange(owner.Discard.Cards);
+				if (enemy) cards.AddRange(owner.Enemy.Discard.Cards);
 				return cards;
 			}
 		}
