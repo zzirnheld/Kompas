@@ -32,16 +32,15 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			var controller = ServerEffect.CurrentServerResolutionContext?.ControllingPlayer
 				?? throw new InvalidOperationException();
 			var delay = new DelayEffect(game: ServerGame,
-												end: End,
-												fallOff: FallOff,
-												 sourceEff: Effect,
-												 currentContext: context,
-												 numTimesToDelay: numTimesToDelay,
-												 toResume: ServerEffect,
-												 indexToResumeResolution: JumpIndex,
-												 controller: controller,
-												 resolutionContext: ResolutionContext,
-												 clearIfResolve: clearWhenResume);
+										end: End,
+										fallOff: FallOff,
+										sourceEff: Effect,
+										currentContext: context,
+										numTimesToDelay: numTimesToDelay,
+										toResume: ServerEffect,
+										indexToResumeResolution: JumpIndex,
+										controller: controller,
+										clearIfResolve: clearWhenResume);
 			return new List<HangingEffect>() { delay };
 		}
 
@@ -52,25 +51,23 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			private readonly ServerEffect toResume;
 			private readonly int indexToResumeResolution;
 			private readonly ServerPlayer controller;
-			private readonly IResolutionContext stashedResolutionContext;
 
 			public DelayEffect(ServerGame game, EndCondition end, EndCondition fallOff,
 				Effect sourceEff, IResolutionContext currentContext,
 				int numTimesToDelay, ServerEffect toResume, int indexToResumeResolution, ServerPlayer controller,
-				IResolutionContext resolutionContext, bool clearIfResolve)
+				bool clearIfResolve)
 				: base(game, end, fallOff, sourceEff, currentContext, clearIfResolve)
 			{
 				this.numTimesToDelay = numTimesToDelay;
 				this.toResume = toResume;
 				this.indexToResumeResolution = indexToResumeResolution;
 				this.controller = controller;
-				stashedResolutionContext = resolutionContext.Copy;
 				numTimesDelayed = 0;
 			}
 
 			public override bool ShouldResolve(TriggeringEventContext context)
 			{
-				Godot.GD.Print($"Checking if delayed hanging effect should end for context {context}, {numTimesDelayed}/{numTimesToDelay}");
+				GD.Print($"Checking if delayed hanging effect should end for context {context}, {numTimesDelayed}/{numTimesToDelay}");
 				//first check any other logic
 				if (!base.ShouldResolve(context)) return false;
 
@@ -89,7 +86,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 			protected override void ResolveLogic(TriggeringEventContext context)
 			{
-				var myContext = ServerResolutionContext.Resume(stashedResolutionContext,
+				var myContext = ServerResolutionContext.Resume(StashedContext,
 					context, controller, indexToResumeResolution);
 				serverGame.StackController.PushToStack(toResume, controller, myContext);
 			}

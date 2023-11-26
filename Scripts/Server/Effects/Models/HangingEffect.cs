@@ -18,7 +18,7 @@ namespace Kompas.Server.Effects.Models
 
 		private bool ended = false;
 		protected readonly ServerGame serverGame;
-		private readonly IResolutionContext savedContext;
+		protected IResolutionContext StashedContext { get; }
 
 		public readonly struct EndCondition
 		{
@@ -35,7 +35,7 @@ namespace Kompas.Server.Effects.Models
 			this.fallOff = fallOff;
 
 			this.sourceEff = sourceEff;
-			savedContext = currentContext.Copy;
+			StashedContext = currentContext.Copy;
 			RemoveIfEnd = removeIfEnd;
 		}
 
@@ -46,8 +46,8 @@ namespace Kompas.Server.Effects.Models
 		{
 			//if we've already ended this hanging effect, we shouldn't end it again.
 			if (ended) return false;
-			GD.Print($"Checking whether {this} should end for context {context}, with saved context {savedContext}");
-			return end.Restriction.IsValid(context, savedContext);
+			GD.Print($"Checking whether {this} should end for context {context}, with saved context {StashedContext}");
+			return end.Restriction.IsValid(context, StashedContext);
 		}
 
 		/// <summary>
