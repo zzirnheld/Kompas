@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Controllers;
@@ -15,15 +16,12 @@ namespace Kompas.Server.Effects.Models
 		public ServerGame ServerGame { get; init; }
 
 		private ServerStackController EffCtrl => ServerGame.StackController;
-		private readonly Space attackerInitialSpace;
-		private readonly Space defenderInitialSpace;
 
 		public ServerAttack(ServerGame serverGame, IPlayer instigator, GameCard attacker, GameCard defender)
 			: base(instigator, attacker, defender)
 		{
-			ServerGame = serverGame ?? throw new System.ArgumentNullException(nameof(serverGame), "Server game cannot be null for attack");
-			attackerInitialSpace = attacker.Position;
-			defenderInitialSpace = defender.Position;
+			ServerGame = serverGame
+				?? throw new System.ArgumentNullException(nameof(serverGame), "Server game cannot be null for attack");
 		}
 
 		/// <summary>
@@ -49,9 +47,7 @@ namespace Kompas.Server.Effects.Models
 		private bool StillValidAttack
 		{
 			get => attacker.Location == Location.Board
-				&& defender.Location == Location.Board
-				&& attacker.Position == attackerInitialSpace
-				&& defender.Position == defenderInitialSpace;
+				&& defender.Location == Location.Board;
 		}
 
 		public Task StartResolution(IServerResolutionContext context)

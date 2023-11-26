@@ -2,6 +2,7 @@ using Kompas.Effects.Models.Identities;
 using Newtonsoft.Json;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
+using System;
 
 namespace Kompas.Effects.Models.Restrictions.Spaces
 {
@@ -47,7 +48,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
 			if (space == null) return false;
-			var card = toMove.From(context).Card;
+			var card = toMove.From(context)?.Card
+				?? throw new InvalidOperationException();
 			return FitsMovementRestriction(card, space, context) && FitsThroughRestriction(card.Position, space, context);
 		}
 

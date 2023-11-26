@@ -9,6 +9,6 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public bool negated = true;
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> card.Negated == negated;
+			=> card?.Negated == negated;
 	}
 }

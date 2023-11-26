@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models
 {
 	/// <summary>
 	/// Base class for initializeable things, like restrictions or identities.
-    /// Since these are all being loaded from JSON, make sure to mark any relevant fields as [JsonProperty]
+	/// Since these are all being loaded from JSON, make sure to mark any relevant fields as [JsonProperty]
 	/// </summary>
 	[DataContract]
 	public abstract class ContextInitializeableBase : IContextInitializeable

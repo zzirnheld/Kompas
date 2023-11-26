@@ -1,13 +1,19 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
 	public interface IResolutionContext
 	{
-		public static IResolutionContext Dummy(TriggeringEventContext triggeringEventContext)
+		/// <summary>
+		/// Use this resolution context to test for a hypothetical resolution
+		/// (but only if you expect resolution context to not be referenced)
+		/// </summary>
+		public static IResolutionContext NotResolving
+			=> new DummyResolutionContext(null);
+
+		public static IResolutionContext Dummy(TriggeringEventContext? triggeringEventContext)
 			=> new DummyResolutionContext(triggeringEventContext);
 
 		/// <summary>
@@ -34,7 +40,7 @@ namespace Kompas.Effects.Models
 		private class DummyResolutionContext : IResolutionContext
 		{
 			private const string NotImplementedMessage = "Dummy resolution context should never have resolution information checked. Use the secondary (aka stashed) resolution context instead.";
-			public TriggeringEventContext TriggerContext { get; }
+			public TriggeringEventContext? TriggerContext { get; }
 
 			public int StartIndex => throw new System.NotImplementedException(NotImplementedMessage);
 			public IList<GameCard> CardTargets => throw new System.NotImplementedException(NotImplementedMessage);
@@ -48,7 +54,7 @@ namespace Kompas.Effects.Models
 
 			public IResolutionContext Copy => new DummyResolutionContext(TriggerContext);
 
-			public DummyResolutionContext(TriggeringEventContext triggerContext)
+			public DummyResolutionContext(TriggeringEventContext? triggerContext)
 			{
 				TriggerContext = triggerContext;
 			}

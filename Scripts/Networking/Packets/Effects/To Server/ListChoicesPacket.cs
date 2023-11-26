@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kompas.Server.Gamestate.Players;
 using Godot;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Networking.Packets
 {
@@ -40,8 +41,7 @@ namespace Kompas.Server.Networking
 				GD.PushWarning("Null card ids for choices");
 				return Task.CompletedTask;
 			}
-			var choices = cardIds.Select(c => serverGame.LookupCardByID(c)).Where(c => c != null).Distinct();
-
+			var choices = cardIds.Select(c => serverGame.LookupCardByID(c)).NonNull().Distinct();
 			serverGame.Awaiter.CardListTargets = choices;
 			return Task.CompletedTask;
 		}

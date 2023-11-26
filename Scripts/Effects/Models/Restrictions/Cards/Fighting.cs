@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		/// Can be null to represent checking whether the card is in any fight at all
 		/// </summary>
 		[JsonProperty] //DisallowNull means the json can't specify null
-		public IIdentity<IGameCardInfo> fightingWho;
+		public IIdentity<IGameCardInfo>? fightingWho;
 		/// <summary>
 		/// Whether the character must be the defender in the fight in question
 		/// </summary>
@@ -56,6 +56,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		}
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> InitializationContext.game.StackController.StackEntries.Any(stackEntry => IsValidFight(card, context, stackEntry));
+			=> card != null
+			&& InitializationContext.game.StackController.StackEntries.Any(stackEntry => IsValidFight(card, context, stackEntry));
 	}
 }

@@ -2,6 +2,7 @@ using Kompas.Effects.Models.Identities;
 using Newtonsoft.Json;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
+using System;
 
 namespace Kompas.Effects.Models.Restrictions.Spaces
 {
@@ -26,8 +27,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
-			var restriction = toPlay.From(context).PlayRestriction;
-		
+			var restriction = (toPlay.From(context)?.PlayRestriction)
+				?? throw new InvalidOperationException();
 			return ignoreAdjacency
 				? restriction.IsValidIgnoringAdjacency((space, InitializationContext.Owner), context)
 				: restriction.IsValid((space, InitializationContext.Owner), context);

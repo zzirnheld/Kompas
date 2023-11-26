@@ -7,19 +7,19 @@ namespace Kompas.Cards.Views
 	public abstract partial class MeshCardInfoDisplayerBase : Node3D, ICardInfoDisplayer
 	{
 		/// <summary>
-        /// Friendly card frame material.
-        /// Defaults to shiny gold.
-        /// Should be modified by Settings in whatever Settings controller,
-        /// since that should then affect all instances of the material (since the per-scene box isn't checked)
-        /// </summary>
+		/// Friendly card frame material.
+		/// Defaults to shiny gold.
+		/// Should be modified by Settings in whatever Settings controller,
+		/// since that should then affect all instances of the material (since the per-scene box isn't checked)
+		/// </summary>
 		[Export]
 		private BaseMaterial3D? FriendlyCardFrameMaterial { get; set; }
 		/// <summary>
-        /// Enemy card frame material.
-        /// Defaults to shiny grey.
-        /// Should be modified by Settings in whatever Settings controller,
-        /// since that should then affect all instances of the material (since the per-scene box isn't checked)
-        /// </summary>
+		/// Enemy card frame material.
+		/// Defaults to shiny grey.
+		/// Should be modified by Settings in whatever Settings controller,
+		/// since that should then affect all instances of the material (since the per-scene box isn't checked)
+		/// </summary>
 		[Export]
 		private BaseMaterial3D? EnemyCardFrameMaterial { get; set; }
 

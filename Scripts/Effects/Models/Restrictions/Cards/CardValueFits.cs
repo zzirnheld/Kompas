@@ -21,12 +21,12 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		}
 
 		protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
-			=> numberRestriction.IsValid(cardValue.GetValueOf(item), context);
+			=> item != null && numberRestriction.IsValid(cardValue.GetValueOf(item), context);
 	}
 
 	public class Hurt : CardRestrictionBase
 	{
 		protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
-			=> item.Hurt;
+			=> item != null && item.Hurt;
 	}
 }

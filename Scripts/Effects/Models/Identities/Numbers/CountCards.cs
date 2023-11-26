@@ -28,7 +28,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> cards.From(context, secondaryContext).Count(c => cardRestriction.IsValid(c, default));
 	}
 }

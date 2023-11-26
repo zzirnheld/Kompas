@@ -35,7 +35,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
 			if (space == null) return false;
-			var origin = this.distanceTo.From(context);
+
+			var origin = distanceTo.From(context);
+			if (origin == null) return false;
+
 			int distance = shortestEmptyPath
 				? InitializationContext.game.Board.ShortestEmptyPath(origin, space)
 				: origin.DistanceTo(space);
@@ -66,9 +69,11 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
-			if (item == null) return false;
-			var destination = this.destination.From(context);
-			return destination.DistanceTo(item) < destination.DistanceTo(origin.From(context));
+			var dest = destination.From(context);
+			var orig = origin.From(context);
+			if (dest == null || orig == null || item == null) return false;
+
+			return dest.DistanceTo(item) < dest.DistanceTo(orig);
 		}
 	}
 
@@ -93,10 +98,11 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
-			if (item == null) return false;
-			var origin = this.origin.From(context);
 			var destinations = anyDestination.From(context);
-			return destinations.Any(destination => destination.DistanceTo(item) < destination.DistanceTo(origin));
+			var orig = origin.From(context);
+			if (destinations == null || orig == null || item == null) return false;
+
+			return destinations.Any(dest => dest.DistanceTo(item) < dest.DistanceTo(orig));
 		}
 	}
 
@@ -120,9 +126,11 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 		{
-			if (item == null) return false;
-			var destination = this.destination.From(context);
-			return destination.DistanceTo(item) > destination.DistanceTo(origin.From(context));
+			var dest = destination.From(context);
+			var orig = origin.From(context);
+			if (dest == null || orig == null || item == null) return false;
+
+			return dest.DistanceTo(item) > dest.DistanceTo(orig);
 		}
 	}
 }

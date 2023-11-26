@@ -9,6 +9,6 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public bool hidden = true;
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> card.KnownToEnemy == !hidden;
+			=> card?.KnownToEnemy == !hidden;
 	}
 }

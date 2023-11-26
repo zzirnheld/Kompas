@@ -9,6 +9,8 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Identities.Numbers;
 using Kompas.Effects.Models.Restrictions.Gamestate;
+using Newtonsoft.Json;
+using System;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -18,16 +20,19 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public const string Any = "Any";
 		public const string RandomCard = "Random";
 
+		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch = new All();
-		public IRestriction<IGameCardInfo> cardRestriction;
-		public CardValue tiebreakerValue;
-		public string tiebreakerDirection;
+		[JsonProperty]
+		public IRestriction<IGameCardInfo> cardRestriction = new AlwaysValid();
+		[JsonProperty]
+		public CardValue? tiebreakerValue;
+		[JsonProperty]
+		public string tiebreakerDirection = string.Empty;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
 			toSearch.Initialize(DefaultInitializationContext);
-			cardRestriction ??= new AlwaysValid();
 			cardRestriction.Initialize(DefaultInitializationContext);
 			tiebreakerValue?.Initialize(DefaultInitializationContext);
 		}
@@ -49,8 +54,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			GameCard potentialTarget = null;
-			IEnumerable<GameCard> potentialTargets = null;
+			GameCard? potentialTarget = null;
+			IEnumerable<GameCard>? potentialTargets = null;
 			try
 			{
 				potentialTargets = toSearch.From(ResolutionContext, default)
@@ -58,7 +63,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 					.Select(c => c.Card);
 				potentialTarget = tiebreakerDirection switch
 				{
-					Maximum => potentialTargets.OrderByDescending(tiebreakerValue.GetValueOf).First(),
+					Maximum => GetMaximum(potentialTargets),
 					Any => potentialTargets.First(),
 					RandomCard => GetRandomCard(potentialTargets.ToArray()),
 					_ => potentialTargets.Single(),
@@ -73,6 +78,14 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 			ServerEffect.AddTarget(potentialTarget);
 			return Task.FromResult(ResolutionInfo.Next);
+		}
+
+		private GameCard GetMaximum(IEnumerable<GameCard> potentialTargets)
+		{
+			_ = tiebreakerValue ?? throw new InvalidOperationException();
+			return potentialTargets
+				.OrderByDescending(tiebreakerValue.GetValueOf)
+				.First();
 		}
 	}
 }

@@ -12,11 +12,11 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public abstract class AugmentRestrictionBase : CardRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<IGameCardInfo> cardRestriction;
+		public IRestriction<IGameCardInfo>? cardRestriction;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCardInfo>> manyCards;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>>? manyCards;
 		[JsonProperty]
-		public IIdentity<IGameCardInfo> singleCard;
+		public IIdentity<IGameCardInfo>? singleCard;
 
 		/// <summary>
 		/// Returns a predicate that tests the test card with the following order of priorities:
@@ -24,12 +24,17 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		/// If no CardRestriction is defined, but a list of cards is defined, checks if the test card is one of those cards.
 		/// If neither is defined, but a single card identity is defined, checks if the test card is that card.
 		/// </summary>
-		protected Func<IGameCardInfo, bool> IsValidAug(IResolutionContext context) => card =>
+		protected Func<IGameCardInfo?, bool> IsValidAug(IResolutionContext context) => card =>
 		{
 			if (cardRestriction != null) return cardRestriction.IsValid(card, context);
-			if (manyCards != null) return manyCards.From(context, null).Contains(card);
+			if (manyCards != null)
+			{
+				var cards = manyCards.From(context, null)
+					?? throw new InvalidOperationException();
+				return card != null && cards.Contains(card);
+			}
 			if (singleCard != null) return singleCard.From(context, null) == card;
-			throw new System.ArgumentNullException("augment", $"No augment provided for {this.GetType()} CardRestrictionElement");
+			throw new System.ArgumentNullException(nameof(card), $"No augment provided for {this.GetType()} CardRestrictionElement");
 		};
 
 		public override void Initialize(EffectInitializationContext initializationContext)
@@ -56,15 +61,18 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool all = false; //default to any
 
-		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context) 
-			=> all
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+		{
+			if (card == null) return false;
+			return all
 				? card.Augments.All(IsValidAug(context))
 				: card.Augments.Any(IsValidAug(context));
+		}
 	}
 
 	public class Augments : AugmentRestrictionBase
 	{
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> IsValidAug(context)(card.AugmentedCard);
+			=> card != null && IsValidAug(context)(card.AugmentedCard);
 	}
 }

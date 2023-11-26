@@ -16,7 +16,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			player.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> player.From(context, secondaryContext).Pips;
 	}
 }

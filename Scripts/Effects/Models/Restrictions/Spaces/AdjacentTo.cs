@@ -55,15 +55,18 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			else if (anyOfTheseCards != null)
 				return anyOfTheseCards
 					.From(context)
-					.Any(c => c.IsAdjacentTo(toTest ?? Space.Invalid));
+					?.Any(c => c.IsAdjacentTo(toTest ?? Space.Invalid))
+					?? false;
 			else if (card != null)
 				return card
 					.From(context)
-					.IsAdjacentTo(toTest ?? Space.Invalid);
+					?.IsAdjacentTo(toTest ?? Space.Invalid)
+					?? false;
 			else if (space != null)
 				return space
 					.From(context)
-					.IsAdjacentTo(toTest ?? Space.Invalid);
+					?.IsAdjacentTo(toTest ?? Space.Invalid)
+					?? false;
 			else throw new System.NotImplementedException($"You forgot to account for some weird case for {InitializationContext.source}");
 		}
 	}

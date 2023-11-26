@@ -28,7 +28,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		}
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> Locations.Any(loc => card.Location == loc);
+			=> card != null && Locations.Any(loc => card.Location == loc);
 
 		public override string ToString() => $"must be in {string.Join(", ", Locations)}";
 	}

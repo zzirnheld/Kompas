@@ -28,10 +28,13 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
+			if (card == null) return false;
+
 			var otherCard = other.From(context);
+			if (otherCard == null) return false;
+
 			var otherSpace = overrideOtherSpace?.From(context)
 				?? otherCard.Position;
-
 			if (otherSpace == null) return false;
 
 			return otherCard.Overlaps(card, otherSpace);

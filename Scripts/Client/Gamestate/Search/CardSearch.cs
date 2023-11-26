@@ -22,8 +22,8 @@ namespace Kompas.Client.Gamestate.Search
 		protected readonly ClientNotifier clientNotifier;
 
 		/// <summary>
-        /// Triggered when the search completes
-        /// </summary>
+		/// Triggered when the search completes
+		/// </summary>
 		public event EventHandler? SearchFinished;
 
 		/// <summary>

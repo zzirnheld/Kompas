@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			cardValue.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> cardValue.GetValueOf(card.From(context, secondaryContext));
 	}
 	

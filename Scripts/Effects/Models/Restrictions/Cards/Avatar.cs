@@ -5,12 +5,12 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public class Avatar : CardRestrictionBase
 	{
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> card.IsAvatar;
+			=> card != null && card.IsAvatar;
 	}
 
 	public class Summoned : CardRestrictionBase
 	{
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> card.Summoned;
+			=> card != null && card.Summoned;
 	}
 }

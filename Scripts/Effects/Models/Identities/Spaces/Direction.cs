@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			to.Initialize(initializationContext);
 		}
 
-		protected override Space AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> from.From(context, secondaryContext).DirectionFromThisTo(to.From(context, secondaryContext));
 	}
 }

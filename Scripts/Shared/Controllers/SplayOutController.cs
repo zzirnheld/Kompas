@@ -6,9 +6,9 @@ using Kompas.Shared.Enumerable;
 namespace Kompas.Shared.Controllers
 {
 	/// <summary>
-    /// Naive, stupid, ugly placeholder so I can start thinking about and testing game functionality.
-    /// To be replaced later with a solution that considers the visual elements.
-    /// </summary>
+	/// Naive, stupid, ugly placeholder so I can start thinking about and testing game functionality.
+	/// To be replaced later with a solution that considers the visual elements.
+	/// </summary>
 	public partial class SplayOutController : Node3D
 	{
 		public const float Offset = 2.25f;

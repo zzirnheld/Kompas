@@ -27,6 +27,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
+			if (card == null) return false;
 			bool HasSubtype(string subtype) => spell ? card.SpellSubtypes.Contains(subtype) : card.HasSubtype(subtype);
 			bool includes = any
 				? subtypes.Any(HasSubtype)

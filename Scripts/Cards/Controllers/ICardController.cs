@@ -7,8 +7,8 @@ namespace Kompas.Cards.Controllers
 	public interface ICardController
 	{
 		/// <summary>
-        /// Anything on the card has been refreshed
-        /// </summary>
+		/// Anything on the card has been refreshed
+		/// </summary>
 		public event EventHandler<GameCard?>? AnythingRefreshed;
 
 		/// <summary>

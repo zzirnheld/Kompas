@@ -12,9 +12,9 @@ using Kompas.Gamestate.Players;
 namespace Kompas.Cards.Models
 {
 	/// <summary>
-    /// Something that has all the same information as a card in a game,
-    /// but isn't necessarily the actual card
-    /// </summary>
+	/// Something that has all the same information as a card in a game,
+	/// but isn't necessarily the actual card
+	/// </summary>
 	public interface IGameCardInfo
 	{
 		public GameCard Card { get; }
@@ -301,11 +301,11 @@ namespace Kompas.Cards.Models
 	}
 
 	/// <summary>
-    /// Base class for card information relevant to a game.
-    /// Could be the actual card itself, or a stashed copy of that card's information.
-    /// Doesn't implement IGameCard because children should be able to decide whether these things have set accessors,
-    /// and things that just want an IGameCard shouldn't assume that these have set accessors
-    /// </summary>
+	/// Base class for card information relevant to a game.
+	/// Could be the actual card itself, or a stashed copy of that card's information.
+	/// Doesn't implement IGameCard because children should be able to decide whether these things have set accessors,
+	/// and things that just want an IGameCard shouldn't assume that these have set accessors
+	/// </summary>
 	public abstract class GameCardBase : CardBase
 	{
 		#region immutable aspects
@@ -317,8 +317,8 @@ namespace Kompas.Cards.Models
 		public abstract IPlayRestriction PlayRestriction { get; }
 		public abstract IMovementRestriction MovementRestriction { get; }
 		/// <summary>
-        /// When attacking, this restriction must be true of the defender.
-        /// </summary>
+		/// When attacking, this restriction must be true of the defender.
+		/// </summary>
 		public abstract IRestriction<IGameCardInfo> AttackingDefenderRestriction { get; }
 		#endregion
 

@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			displacement.Initialize(initializationContext);
 		}
 
-		protected override Space AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> from.From(context, secondaryContext) + displacement.From(context, secondaryContext);
 	}
 
@@ -42,7 +42,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			to.Initialize(initializationContext);
 		}
 
-		protected override Space AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			var origin = from.From(context, secondaryContext);
 			var destination = to.From(context, secondaryContext);

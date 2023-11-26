@@ -33,7 +33,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			catch (System.InvalidOperationException ioe)
 			{
 				GD.PrintErr($"Zero, or more than one space fit the space restriction {spaceRestriction} " +
-					$"for the effect {Effect.blurb} of {Effect.Card.CardName}. Exception {ioe}");
+					$"for the effect {Effect.blurb} of {Effect.Card?.CardName}. Exception {ioe}");
 				return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 			}
 		}

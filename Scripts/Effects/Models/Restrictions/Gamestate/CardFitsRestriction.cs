@@ -34,7 +34,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext secondaryContext)
 		{
 			var contextToConsider = ContextToConsider(context, secondaryContext);
 			bool IsValidCard(IGameCardInfo c) => cardRestriction.IsValid(c, contextToConsider);
@@ -45,8 +45,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			return true;
 		}
 
-		protected virtual IdentityType FromIdentity<IdentityType>
-			(IIdentity<IdentityType> identity, TriggeringEventContext triggeringEventContext, IResolutionContext resolutionContext)
+		protected virtual IdentityType? FromIdentity<IdentityType>
+			(IIdentity<IdentityType> identity, TriggeringEventContext? triggeringEventContext, IResolutionContext resolutionContext)
 			=> identity.From(triggeringEventContext, resolutionContext);
 
 		public override string ToString()

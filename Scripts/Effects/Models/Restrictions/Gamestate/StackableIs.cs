@@ -14,24 +14,24 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			stackable.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext secondaryContext)
 			=> Predicate(stackable.From(context, secondaryContext));
 
-		protected abstract bool Predicate(IStackable stackable);
+		protected abstract bool Predicate(IStackable? stackable);
 	}
 
 	public class IsAttack : StackableIs
 	{
-		protected override bool Predicate(IStackable stackable) => stackable is Attack;
+		protected override bool Predicate(IStackable? stackable) => stackable is Attack;
 	}
 
 	public class IsEffect : StackableIs
 	{
-		protected override bool Predicate(IStackable stackable) => stackable is Effect;
+		protected override bool Predicate(IStackable? stackable) => stackable is Effect;
 	}
 
 	public class Normally : StackableIs
 	{
-		protected override bool Predicate(IStackable stackable) => stackable == null;
+		protected override bool Predicate(IStackable? stackable) => stackable == null;
 	}
 }

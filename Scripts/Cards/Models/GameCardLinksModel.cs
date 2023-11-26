@@ -7,8 +7,8 @@ using Kompas.Effects.Models;
 namespace Kompas.Cards.Controllers
 {
 	/// <summary>
-    /// Controls the CardLinks relevant to a particular GameCard
-    /// </summary>
+	/// Controls the CardLinks relevant to a particular GameCard
+	/// </summary>
 	public class GameCardLinksModel
 	{
 		public GameCard Card { get; }

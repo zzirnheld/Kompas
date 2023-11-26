@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 			other.Initialize(initializationContext);
 		}
 
-		protected override IGameCardInfo AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IGameCardInfo AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			Attack attack = GetAttack(ContextToConsider(context, secondaryContext).TriggerContext);
 			var otherCard = other.From(context, secondaryContext);

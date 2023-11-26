@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -6,7 +7,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			Effect.playerTargets.Add(PlayerTarget.Enemy);
+			var player = PlayerTarget ?? throw new NullPlayerException("No player to get the enemy of");
+			Effect.playerTargets.Add(player.Enemy);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

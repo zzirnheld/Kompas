@@ -25,7 +25,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			if (numbers != null) foreach(var identity in numbers) identity.Initialize(initializationContext);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override int AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			var numberValues = new List<int>();
 

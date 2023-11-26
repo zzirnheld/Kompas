@@ -17,9 +17,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private const float CardOffset = 1.125f;
 		private const float HandWidthProportion = 5f / 9f;
 		/// <summary>
-        /// A minimum number of cards we must have in hand to start scaling according to that number of cards in hand.
-        /// We don't want to blow up a single card to cover the entire middle of the screen, for example.
-        /// </summary>
+		/// A minimum number of cards we must have in hand to start scaling according to that number of cards in hand.
+		/// We don't want to blow up a single card to cover the entire middle of the screen, for example.
+		/// </summary>
 		private const int MinHandCountForScale = 5;
 
 		[Export]

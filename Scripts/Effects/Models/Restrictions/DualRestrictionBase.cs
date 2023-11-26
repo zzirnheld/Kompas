@@ -71,11 +71,11 @@ namespace Kompas.Effects.Models.Restrictions
 			EffectRestriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(RestrictedType? item, IResolutionContext? context)
+		protected override bool IsValidLogic(RestrictedType? item, IResolutionContext context)
 			=> IsValidIgnoring(item, context, r => false);
 
-		protected bool IsValidIgnoring(RestrictedType? item, IResolutionContext? context, IAllOf<RestrictedType>.ShouldIgnore ignorePredicate)
-			=> context?.TriggerContext.stackableCause == null
+		protected bool IsValidIgnoring(RestrictedType? item, IResolutionContext context, IAllOf<RestrictedType>.ShouldIgnore ignorePredicate)
+			=> context.TriggerContext?.stackableCause == null
 				? NormalRestriction.IsValidIgnoring(item, context, ignorePredicate)
 				: EffectRestriction.IsValidIgnoring(item, context, ignorePredicate);
 	}

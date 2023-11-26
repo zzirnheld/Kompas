@@ -29,7 +29,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			secondSpace.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			Space first = firstSpace.From(context, secondaryContext);
 			Space second = secondSpace.From(context, secondaryContext);

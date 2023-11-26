@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			cards.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> cards.From(context, secondaryContext)
 					.SelectMany(c => EnumerableHelper.YieldNonNull(c.Position))
 					.ToArray();

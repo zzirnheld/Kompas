@@ -10,34 +10,44 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.Gamestate.Locations;
 using Kompas.Server.Networking;
+using Newtonsoft.Json;
+using System;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class CardTarget : ServerSubeffect
 	{
-		public string blurb;
+		[JsonProperty]
+		public string blurb = string.Empty;
+		[JsonProperty]
 		public bool secretTarget = false;
 
+		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch = new All();
 
 		/// <summary>
 		/// Restriction that each card must fulfill
 		/// </summary>
+		[JsonProperty]
 		public IRestriction<IGameCardInfo> cardRestriction = new AlwaysValid();
 
 		/// <summary>
 		/// Restriction that the list collectively must fulfill
 		/// </summary>
+		[JsonProperty]
 		public IListRestriction listRestriction = IListRestriction.SingleElement;
 
 		/// <summary>
 		/// Identifies a card that this target should be linked with.
 		/// Usually null, but if you plan on having a delay later, probably a good idea
 		/// </summary>
-		public IIdentity<IGameCardInfo> toLinkWith;
+		[JsonProperty]
+		public IIdentity<IGameCardInfo>? toLinkWith;
+		[JsonProperty]
 		public Color linkColor = CardLink.DefaultColor; // "r": #, "g" ... etc
 
-		protected IReadOnlyCollection<GameCard> stashedPotentialTargets;
+		protected IReadOnlyCollection<GameCard>? stashedPotentialTargets;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
@@ -63,12 +73,6 @@ namespace Kompas.Server.Effects.Models.Subeffects
 									where cardRestriction.IsValid(card, ResolutionContext)
 									select card.Card;
 			return possibleTargets.ToArray();
-		}
-
-		private IEnumerable<GameCard> ClosestCards(IEnumerable<GameCard> possibleTargets)
-		{
-			int minDist = possibleTargets.Min(c => c.DistanceTo(Effect.Card));
-			return possibleTargets.Where(c => c.DistanceTo(Effect.Card) == minDist);
 		}
 
 		protected virtual Task<ResolutionInfo> NoPossibleTargets()
@@ -100,7 +104,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				return ResolutionInfo.Next;
 			}
 
-			IEnumerable<GameCard> targets = null;
+			IEnumerable<GameCard>? targets = null;
 			do {
 				targets = await RequestTargets();
 				if (targets == null && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
@@ -109,27 +113,31 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			return ResolutionInfo.Next;
 		}
 
-		protected async Task<IEnumerable<GameCard>> RequestTargets()
+		protected async Task<IEnumerable<GameCard>?> RequestTargets()
 		{
 			string name = Effect.Card.CardName;
+			_ = stashedPotentialTargets ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");
 			int[] targetIds = stashedPotentialTargets.Select(c => c.ID).ToArray();
 			GD.Print($"Potential targets {string.Join(", ", targetIds)}");
 			listRestriction.PrepareForSending(ResolutionContext);
-			return await ServerGame.Awaiter.GetCardListTargets(PlayerTarget, name, blurb, targetIds, listRestriction);
+
+			var player = PlayerTarget ?? throw new InvalidOperationException("Tried to send targets to noone!");
+			return await ServerGame.Awaiter.GetCardListTargets(player, name, blurb, targetIds, listRestriction);
 		}
 
-		public bool AddListIfLegal(IEnumerable<GameCard> choices)
+		public bool AddListIfLegal(IEnumerable<GameCard>? choices)
 		{
 			GD.Print($"Potentially adding list {string.Join(",", choices ?? new List<GameCard>())}");
+			if (choices == null) return false;
 
+			_ = stashedPotentialTargets ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");
 			if (choices.Except(stashedPotentialTargets).Any()) return false; //Tried to choose cards that weren't allowed
 			if (!listRestriction.IsValid(choices, ResolutionContext)) return false;
 			ShuffleIfAppropriate(stashedPotentialTargets);
 
 			//add all cards in the chosen list to targets
 			AddList(choices);
-			//everything's cool
-			ServerNotifier.AcceptTarget(PlayerTarget);
+			ServerNotifier.AcceptTarget(PlayerTarget ?? throw new InvalidOperationException("Accepted no one's target!?"));
 			return true;
 		}
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -28,12 +29,17 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			if (AllNull(other, anyOf)) throw new System.ArgumentNullException("other", "No card to compare the card to in trigger restriction element");
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext secondaryContext)
 		{
 			var first = card.From(context, secondaryContext)?.Card;
 
 			if (other != null && first != other.From(context, secondaryContext)?.Card) return false;
-			if (anyOf != null && !anyOf.From(context, secondaryContext).Any(c => c?.Card == first)) return false;
+			if (anyOf != null)
+			{
+				var cards = anyOf.From(context, secondaryContext);
+				if (cards == null) throw new InvalidOperationException();
+				if (!cards.Any(c => c?.Card == first)) return false;
+			}
 
 			return true;
 		}

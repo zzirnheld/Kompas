@@ -7,9 +7,9 @@ using Kompas.Client.UI.GameStart;
 namespace Kompas.Cards.Controllers
 {
 	/// <summary>
-    /// Extends TextureRect because the TextureRect has to be the parent, otherwise the grid doesn't line up.
-    /// For some reason.
-    /// </summary>
+	/// Extends TextureRect because the TextureRect has to be the parent, otherwise the grid doesn't line up.
+	/// For some reason.
+	/// </summary>
 	public partial class SelectDeckCardController : Control
 	{
 		[Export]

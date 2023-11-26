@@ -37,14 +37,14 @@ namespace Kompas.Effects.Models.Restrictions
 		public IEnumerable<IGameCardInfo> Deduplicate(IEnumerable<IGameCardInfo> options);
 
 		/// <summary>
-        /// Get the current minimum for this resolution context.
-        /// If null is passed in, the stashed minimum is returned instead.
-        /// </summary>
+		/// Get the current minimum for this resolution context.
+		/// If null is passed in, the stashed minimum is returned instead.
+		/// </summary>
 		public int GetMinimum(IResolutionContext? context);
 		/// <summary>
-        /// Get the current maximum for this resolution context.
-        /// If null is passed in, the stashed maximum is returned instead.
-        /// </summary>
+		/// Get the current maximum for this resolution context.
+		/// If null is passed in, the stashed maximum is returned instead.
+		/// </summary>
 		public int GetMaximum(IResolutionContext? context);
 
 		public void PrepareForSending(IResolutionContext context);

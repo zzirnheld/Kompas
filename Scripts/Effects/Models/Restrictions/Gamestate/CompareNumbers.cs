@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			secondNumber.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext secondaryContext)
 		{
 			int first = firstNumber.From(context, secondaryContext);
 			int second = secondNumber.From(context, secondaryContext);

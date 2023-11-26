@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			card.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> card.From(context, secondaryContext).Augments;
 	}
 }

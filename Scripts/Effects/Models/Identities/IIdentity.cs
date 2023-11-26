@@ -5,17 +5,17 @@ namespace Kompas.Effects.Models.Identities
 	/// </summary>
 	public interface IIdentity<ReturnType> : IContextInitializeable
 	{
-		public ReturnType From(IResolutionContext context, IResolutionContext secondaryContext);
+		public ReturnType? From(IResolutionContext? context, IResolutionContext? secondaryContext);
 	}
 
 	public static class IdentityExtensions
 	{
-		public static ReturnType From<ReturnType>(this IIdentity<ReturnType> identity,
-			TriggeringEventContext triggeringContext, IResolutionContext resolutionContext)
+		public static ReturnType? From<ReturnType>(this IIdentity<ReturnType> identity,
+			TriggeringEventContext? triggeringContext, IResolutionContext? resolutionContext)
 				=> identity.From(IResolutionContext.Dummy(triggeringContext), resolutionContext);
 
-		public static ReturnType From<ReturnType>(this IIdentity<ReturnType> identity,
-			IResolutionContext resolutionContext)
-				=> identity.From(resolutionContext, default);
+		public static ReturnType? From<ReturnType>(this IIdentity<ReturnType> identity,
+			IResolutionContext? resolutionContext)
+				=> identity.From(resolutionContext, IResolutionContext.NotResolving);
 	}
 }

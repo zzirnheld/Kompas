@@ -24,8 +24,8 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
 		{
-			if (card != null) return item?.Card == card.From(context).Card;
-			else return cards?.From(context).Any(c => c.Card == item?.Card) ?? false;
+			if (card != null) return item?.Card == card.From(context)?.Card;
+			else return cards?.From(context)?.Any(c => c.Card == item?.Card) ?? false;
 		}
 	}
 }

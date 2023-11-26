@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Identities.Players
 			if (AllNull(card)) throw new System.ArgumentException($"Must provide something to check controller of");
 		}
 
-		protected override IPlayer AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IPlayer AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			if (card != null) return card.From(context, secondaryContext).ControllingPlayer;
 			throw new System.ArgumentException("huh?");

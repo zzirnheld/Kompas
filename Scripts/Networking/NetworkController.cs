@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 namespace Kompas.Networking
 {
 	/// <summary>
-    /// Handles serializing, sending, deserializing, and receiving packets.
-    /// Usage: Call Update() each frame, or each interval at which you want to check packets
-    /// </summary>
+	/// Handles serializing, sending, deserializing, and receiving packets.
+	/// Usage: Call Update() each frame, or each interval at which you want to check packets
+	/// </summary>
 	public abstract class Networker
 	{
 		public const int port = 8448;

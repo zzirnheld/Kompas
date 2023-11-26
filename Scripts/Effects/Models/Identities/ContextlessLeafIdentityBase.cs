@@ -3,9 +3,9 @@ namespace Kompas.Effects.Models.Identities
 	public abstract class ContextlessLeafIdentityBase<ReturnType> : ContextInitializeableBase,
 		IIdentity<ReturnType>
 	{
-		protected abstract ReturnType AbstractItem { get; }
+		protected abstract ReturnType? AbstractItem { get; }
 
-		public ReturnType Item
+		public ReturnType? Item
 		{
 			get
 			{
@@ -14,6 +14,6 @@ namespace Kompas.Effects.Models.Identities
 			}
 		}
 
-		public ReturnType From(IResolutionContext context, IResolutionContext secondaryContext) => Item;
+		public ReturnType? From(IResolutionContext? context, IResolutionContext? secondaryContext) => Item;
 	}
 }

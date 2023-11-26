@@ -59,8 +59,8 @@ namespace Kompas.Client.Gamestate
 		}
 
 		/// <summary>
-        /// If applicable, tries to play the current FocusedCard to <paramref name="space"/>
-        /// </summary>
+		/// If applicable, tries to play the current FocusedCard to <paramref name="space"/>
+		/// </summary>
 		public void Select(Space space)
 		{
 			//TODO make client notifier a static helper class

@@ -21,5 +21,5 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			context.CacheCardInfoAfter();
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Vanish, context);
 		}
-    }
+	}
 }

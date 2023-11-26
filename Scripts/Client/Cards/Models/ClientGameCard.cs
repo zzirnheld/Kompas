@@ -70,8 +70,8 @@ namespace Kompas.Client.Cards.Models
 		}
 
 		/// <summary>
-        /// Factory method to create card and initialize the relevant things with a non-leaked this instance
-        /// </summary>
+		/// Factory method to create card and initialize the relevant things with a non-leaked this instance
+		/// </summary>
 		public static ClientGameCard Create(SerializableCard serializedCard, int id, ClientGame game,
 			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
 		{

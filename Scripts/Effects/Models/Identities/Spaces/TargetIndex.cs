@@ -1,4 +1,5 @@
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Spaces
@@ -8,6 +9,15 @@ namespace Kompas.Effects.Models.Identities.Spaces
 		[JsonProperty]
 		public int index = -1;
 
-		protected override Space AbstractItem => InitializationContext.effect.GetSpace(index);
+		protected override Space? AbstractItem
+		{
+			get
+			{
+				var effect = InitializationContext.effect
+					?? throw new IllDefinedException();
+
+				return effect.GetSpace(index);
+			}
+		}
 	}
 }

@@ -34,17 +34,17 @@ namespace Kompas.Client.Gamestate.Controllers
 		public delegate bool ConfirmAdd(int x, int y);
 
 		/// <summary>
-        /// Creates a SpaceController that has position and coordinates corresponding to this SpaceController in some way.
-        /// Has to ask for the prefab of itself because of Godot crust (which I understand, just find frustrating)
-        /// </summary>
-        /// <param name="parent">The Node that the new SpaceController should be parented to</param>
-        /// <param name="spacePrefab">Because Duplicate() doesn't duplicate children and you can't add an [Export] variable that references itself</param>
-        /// <param name="flipX">Whether to flip the X coordinate</param>
-        /// <param name="flipY">Whether to flip the Y coordinate</param>
-        /// <param name="swapXY">Whether to swap the X and Y coordinates (after flipping them, if applicable)</param>
-        /// <param name="confirmAdd">Validation to perform once the coordinates have been determined (so as not to create, then abandon, new spaces.
-        /// For some reason, just doing QueueFree on it didn't seem to clear them up. FUTURE: see if I can figure out another better way.)</param>
-        /// <returns></returns>
+		/// Creates a SpaceController that has position and coordinates corresponding to this SpaceController in some way.
+		/// Has to ask for the prefab of itself because of Godot crust (which I understand, just find frustrating)
+		/// </summary>
+		/// <param name="parent">The Node that the new SpaceController should be parented to</param>
+		/// <param name="spacePrefab">Because Duplicate() doesn't duplicate children and you can't add an [Export] variable that references itself</param>
+		/// <param name="flipX">Whether to flip the X coordinate</param>
+		/// <param name="flipY">Whether to flip the Y coordinate</param>
+		/// <param name="swapXY">Whether to swap the X and Y coordinates (after flipping them, if applicable)</param>
+		/// <param name="confirmAdd">Validation to perform once the coordinates have been determined (so as not to create, then abandon, new spaces.
+		/// For some reason, just doing QueueFree on it didn't seem to clear them up. FUTURE: see if I can figure out another better way.)</param>
+		/// <returns></returns>
 		public SpaceController? Dupe(Node3D parent, PackedScene spacePrefab, bool flipX, bool flipY, bool swapXY, ConfirmAdd confirmAdd)
 		{
 			(int tempX, int tempY) = (flipX ? BoardMax - X : X, flipY ? BoardMax - Y : Y);

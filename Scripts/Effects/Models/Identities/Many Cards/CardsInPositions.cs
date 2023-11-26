@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			positions.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			var spaces = positions.From(context, secondaryContext);
 			return spaces.Select(InitializationContext.game.Board.GetCardAt)

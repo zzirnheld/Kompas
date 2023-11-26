@@ -116,13 +116,13 @@ namespace Kompas.UI.MainMenu
 			float anchorX = ManipulateAnchorTimeProportion(x);
 			AnchorLeft 	 = start.LeftAnchor   + (target.LeftAnchor   - start.LeftAnchor)   * anchorX;
 			AnchorRight  = start.RightAnchor  + (target.RightAnchor  - start.RightAnchor)  * anchorX;
-			AnchorTop 	 = start.TopAnchor	  + (target.TopAnchor 	 - start.TopAnchor)    * anchorX;
+			AnchorTop 	 = start.TopAnchor	  + (target.TopAnchor 	 - start.TopAnchor)	* anchorX;
 			AnchorBottom = start.BottomAnchor + (target.BottomAnchor - start.BottomAnchor) * anchorX;
 
 			float offsetX = ManipulateOffsetTimeProportion(x);
 			OffsetLeft 	 = start.LeftOffset   + (target.LeftOffset   - start.LeftOffset)   * offsetX;
 			OffsetRight  = start.RightOffset  + (target.RightOffset  - start.RightOffset)  * offsetX;
-			OffsetTop 	 = start.TopOffset	  + (target.TopOffset 	 - start.TopOffset)    * offsetX;
+			OffsetTop 	 = start.TopOffset	  + (target.TopOffset 	 - start.TopOffset)	* offsetX;
 			OffsetBottom = start.BottomOffset + (target.BottomOffset - start.BottomOffset) * offsetX;
 		}
 

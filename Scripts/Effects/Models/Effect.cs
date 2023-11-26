@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models
 		public abstract IGame Game { get; }
 
 		public int EffectIndex { get; private set; }
-		public abstract GameCard? Card { get; }
+		public abstract GameCard Card { get; }
 		public abstract IPlayer OwningPlayer { get; }
 
 		//subeffects

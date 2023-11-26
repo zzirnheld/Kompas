@@ -159,21 +159,21 @@ namespace Kompas.Effects.Subeffects
 		public IPlayer? PlayerTarget => Effect.GetPlayer(playerIndex);
 		public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
-        public GameCard? GetCardTarget(TargetingContext? overrideContext = null)
-        {
-            int num = overrideContext.OrElse(CurrTargetingContext).cardTargetIndex
+		public GameCard? GetCardTarget(TargetingContext? overrideContext = null)
+		{
+			int num = overrideContext.OrElse(CurrTargetingContext).cardTargetIndex
 				?? throw new System.InvalidOperationException("No card target index to grab card target for!");
-            return Effect.GetTarget(num);
-        }
+			return Effect.GetTarget(num);
+		}
 
-        public Space? GetSpaceTarget(TargetingContext? overrideContext = null)
-        {
-            int index = overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex
+		public Space? GetSpaceTarget(TargetingContext? overrideContext = null)
+		{
+			int index = overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex
 				?? throw new System.InvalidOperationException("No space target index to grab space target for!");
-            return Effect.GetSpace(index);
-        }
+			return Effect.GetSpace(index);
+		}
 
-        public IPlayer? GetPlayerTarget(TargetingContext? overrideContext = null)
+		public IPlayer? GetPlayerTarget(TargetingContext? overrideContext = null)
 		{
 			var index = overrideContext.OrElse(CurrTargetingContext).playerTargetIndex
 				?? throw new System.InvalidOperationException("No player target index to grab player target for!");

@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			spaces.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> spaces.From(context, secondaryContext)
 				.Where(s => restriction.IsValid(s, InitializationContext.effect?.CurrentResolutionContext)).ToList();
 	}

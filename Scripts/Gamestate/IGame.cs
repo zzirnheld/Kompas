@@ -78,19 +78,19 @@ namespace Kompas.Gamestate
 		public IReadOnlyCollection<GameCard> Cards { get; }
 
 		/// <summary>
-        /// Number of rounds that have started since the game began.
-        /// A round is the first turn player's turn through all other players' turns, until it gets back to the player who went first.
-        /// Right after the game begins, this should be 1.
-        /// </summary>
+		/// Number of rounds that have started since the game began.
+		/// A round is the first turn player's turn through all other players' turns, until it gets back to the player who went first.
+		/// Right after the game begins, this should be 1.
+		/// </summary>
 		public int RoundCount { get; }
 		/// <summary>
-        /// The number of turns that have started since the game began.
-        /// Right after the game begins, this should be 1.
-        /// </summary>
+		/// The number of turns that have started since the game began.
+		/// Right after the game begins, this should be 1.
+		/// </summary>
 		public int TurnCount { get; }
 		/// <summary>
-        /// Usually is the same as the TurnCount, but can be inflated further by card effects
-        /// </summary>
+		/// Usually is the same as the TurnCount, but can be inflated further by card effects
+		/// </summary>
 		public int Leyload { get; set; }
 
 		public GameCard? LookupCardByID(int id);

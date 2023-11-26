@@ -10,7 +10,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public class CanPlay : CardRestrictionBase
 	{
 		[JsonProperty]
-		public IIdentity<Space> destination;
+		public IIdentity<Space>? destination;
 		[JsonProperty]
 		public IIdentity<IPlayer> player = new Identities.Players.TargetIndex();
 
@@ -23,10 +23,12 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
+			if (card == null) return false;
 			var controller = player.From(context);
-			bool IsValidEffectPlay(Space space) => card.PlayRestriction.IsValid((space, controller), context);
+			bool IsValidEffectPlay(Space? space) => card.PlayRestriction.IsValid((space, controller), context);
 
 			if (destination == null) return Space.Spaces.Any(IsValidEffectPlay);
+
 			else return IsValidEffectPlay(destination.From(context));
 		}
 	}

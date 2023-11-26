@@ -20,6 +20,6 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 			=> space != null
-			&& card.From(context).SpaceBehind(space);
+			&& (card.From(context)?.SpaceBehind(space) ?? false);
 	}
 }

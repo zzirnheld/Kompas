@@ -3,8 +3,8 @@ using Kompas.Cards.Models;
 namespace Kompas.UI.CardInfoDisplayers
 {
 	/// <summary>
-    /// Defines how information is actually displayed on a card.
-    /// </summary>
+	/// Defines how information is actually displayed on a card.
+	/// </summary>
 	public interface ICardInfoDisplayer
 	{
 		/// <summary>

@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			adjacentTo.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> adjacentTo.From(context, secondaryContext).AdjacentSpaces;
 	}
 }

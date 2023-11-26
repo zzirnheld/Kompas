@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Identities;
@@ -25,9 +26,10 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			spaceRestriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext secondaryContext)
 		{
-			var spacesItem = spaces.From(context, secondaryContext);
+			var spacesItem = spaces.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
 			return any
 				? spacesItem.Any(s => spaceRestriction.IsValid(s, ContextToConsider(context, secondaryContext)))
 				: spacesItem.All(s => spaceRestriction.IsValid(s, ContextToConsider(context, secondaryContext)));

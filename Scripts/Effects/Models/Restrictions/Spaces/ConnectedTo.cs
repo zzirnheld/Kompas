@@ -1,5 +1,6 @@
 using Kompas.Effects.Models.Identities;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 			=> space != null
-			&& spaces.From(context)
-				.All(s => Kompas.Gamestate.Locations.Models.Board.AreConnectedBySpaces(s, space, byRestriction, context));
+			&& (spaces.From(context)
+				?.All(s => Board.AreConnectedBySpaces(s, space, byRestriction, context))
+				?? false);
 	}
 }

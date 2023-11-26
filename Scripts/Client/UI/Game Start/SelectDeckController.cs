@@ -79,8 +79,8 @@ namespace Kompas.Client.UI.GameStart
 				DeckContainer.AddChild(ctrl);
 			}
 
-            string avatarName = decklist.avatarName ?? throw new NullReferenceException();
-            var avatar = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(avatarName);
+			string avatarName = decklist.avatarName ?? throw new NullReferenceException();
+			var avatar = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(avatarName);
 			if (avatar == null)
 			{
 				GD.PushError($"Couldn't init avatar {decklist.avatarName}");

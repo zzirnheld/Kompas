@@ -55,9 +55,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		{
 			if (space == null) return false;
 			var alsoInAOE = this.alsoInAOE?.From(context);
-			bool IsValidAOE(IGameCardInfo card)
+			bool IsValidAOE(IGameCardInfo? card)
 			{
-				return card.SpaceInAOE(space)
+				return card != null
+					&& card.SpaceInAOE(space)
 					&& (alsoInAOE == null || card.SpaceInAOE(alsoInAOE));
 			}
 			if (card != null && !ValidateCard(IsValidAOE, context)) return false;
@@ -66,18 +67,23 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			return true;
 		}
 
-		private bool ValidateCard(Func<IGameCardInfo, bool> isValidCard, IResolutionContext context)
+		private bool ValidateCard(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
 			=> isValidCard(card.From(context));
 
-		private bool ValidateAnyOf(Func<IGameCardInfo, bool> isValidCard, IResolutionContext context) 
+		private bool ValidateAnyOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context) 
 		{
-			IEnumerable<IGameCardInfo> cards = anyOf.From(context);
+			IEnumerable<IGameCardInfo>? cards = anyOf.From(context);
+			if (cards == null) return false;
 			if (cardRestriction != null) cards = cards.Where(c => cardRestriction.IsValid(c, context));
 
 			return minAnyOfCount.From(context) <= cards.Count(c => isValidCard(c));
 		}
 
-		private bool ValidateAllOf(Func<IGameCardInfo, bool> isValidCard, IResolutionContext context)
-			=> allOf.From(context).All(isValidCard);
+		private bool ValidateAllOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
+		{
+			var cards = allOf.From(context);
+			if (cards == null) return false;
+			return cards.All(isValidCard);
+		}
 	}
 }

@@ -33,16 +33,16 @@ namespace Kompas.Shared.Enumerable
 
 
 		/// <summary>
-        /// ElementAt, but allows negative indices to index from the end
-        /// </summary>
+		/// ElementAt, but allows negative indices to index from the end
+		/// </summary>
 		public static T? ElementAtWrapped<T>(this IEnumerable<T> source, int index)
 			=> source.ElementAtOrDefault(TrueIndex(source.Count(), index));
 
 		public static int TrueIndex(int len, int index) => index < 0 ? index + len : index;
 
 		/// <summary>
-        /// For use with SelectMany to flatten in a null-safe way
-        /// </summary>
+		/// For use with SelectMany to flatten in a null-safe way
+		/// </summary>
 		public static IEnumerable<T> YieldNonNull<T>(T? item)
 		{
 			if (item != null) yield return item;

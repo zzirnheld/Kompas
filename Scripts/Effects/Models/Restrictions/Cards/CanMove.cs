@@ -27,7 +27,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			base.Initialize(initializationContext);
 			destination?.Initialize(initializationContext);
 			if (spaceRestrictionSubeffectIndex != int.MinValue
-				&& InitializationContext.effect.Subeffects[spaceRestrictionSubeffectIndex] is not SpaceTarget)
+				&& InitializationContext.effect?.Subeffects[spaceRestrictionSubeffectIndex] is not SpaceTarget)
 			{
 				throw new System.ArgumentException($"{spaceRestrictionSubeffectIndex} isn't a space target subeffect! for {InitializationContext.effect}");
 			}
@@ -35,12 +35,19 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
+			if (card == null) return false;
+			
 			bool IsValidMoveSpace(Space space) => card.MovementRestriction.IsValid(space, context);
 
-			if (destination != null) return IsValidMoveSpace(destination.From(context));
+			if (destination != null)
+			{
+                var space = destination.From(context)
+					?? throw new System.InvalidOperationException();
+                return IsValidMoveSpace(space);
+			}
 			else if (spaceRestrictionSubeffectIndex != default)
 			{
-				if (InitializationContext.effect.Subeffects[spaceRestrictionSubeffectIndex] is not SpaceTarget spaceTargetSubeffect)
+				if (InitializationContext.effect?.Subeffects[spaceRestrictionSubeffectIndex] is not SpaceTarget spaceTargetSubeffect)
 				{
 					throw new System.ArgumentException($"{spaceRestrictionSubeffectIndex} isn't a space target subeffect! resolving {InitializationContext.effect}");
 				}

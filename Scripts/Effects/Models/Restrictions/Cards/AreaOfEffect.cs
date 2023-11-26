@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -33,8 +34,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
+			if (card == null) return false;
 			var wantedCards = cards.From(context)
-				.Where(c => cardRestriction.IsValid(c, context));
+				?.Where(c => cardRestriction.IsValid(c, context))
+				?? throw new InvalidOperationException();
 
 			return all
 				? wantedCards.All(card.CardInAOE)

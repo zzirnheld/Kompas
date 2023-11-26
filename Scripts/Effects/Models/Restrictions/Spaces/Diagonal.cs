@@ -19,6 +19,6 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 			=> space != null
-			&& other.From(context).SameDiagonal(space);
+			&& (other.From(context)?.SameDiagonal(space) ?? false);
 	}
 }

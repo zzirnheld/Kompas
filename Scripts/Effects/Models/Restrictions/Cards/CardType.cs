@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public char cardType;
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> card.CardType == cardType;
+			=> card?.CardType == cardType;
 	}
 
 	public class Character : CardType

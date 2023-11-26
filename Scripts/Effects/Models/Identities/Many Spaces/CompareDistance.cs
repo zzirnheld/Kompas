@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			distanceTo.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			var tuples = spaces.From(context, secondaryContext)
 				.Select(s => (s, s.DistanceTo(distanceTo.From(context, secondaryContext))))

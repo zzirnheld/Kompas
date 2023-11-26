@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			toMultiply.Initialize(initializationContext);
 		}
 
-		protected override Space AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
 			var space = toMultiply.From(context, secondaryContext);
 			space *= multiplier;

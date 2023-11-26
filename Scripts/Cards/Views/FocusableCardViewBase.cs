@@ -15,7 +15,7 @@ namespace Kompas.Cards.Views
 		/// <summary>
 		/// The card being "focused" on.
 		/// If we're not currently doing something like hovering over another card,
-        /// this is the one we should be showing, as a fallback
+		/// this is the one we should be showing, as a fallback
 		/// </summary>
 		public CardType? FocusedCard { get; private set; }
 

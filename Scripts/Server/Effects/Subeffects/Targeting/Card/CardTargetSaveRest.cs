@@ -1,6 +1,9 @@
 ﻿using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Shared.Exceptions;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +12,11 @@ namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class CardTargetSaveRest : CardTarget
 	{
-		public IRestriction<IGameCardInfo> restRestriction;
+		/// <summary>
+		/// If null, default to cardRestriction
+		/// </summary>
+		[JsonProperty]
+		public IRestriction<IGameCardInfo>? restRestriction;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
@@ -26,6 +33,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		protected override Task<ResolutionInfo> NoPossibleTargets()
 		{
+			_ = restRestriction ?? throw new NotInitializedException();
 			var rest = ServerGame.Cards.Where(c => restRestriction.IsValid(c, ResolutionContext));
 			ServerEffect.rest.AddRange(rest);
 			return base.NoPossibleTargets();
@@ -33,10 +41,12 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		protected override void AddList(IEnumerable<GameCard> choices)
 		{
+			_ = restRestriction ?? throw new NotInitializedException();
 			base.AddList(choices);
-			var rest = toSearch.From(ResolutionContext, default)
-				.Where(c => restRestriction.IsValid(c, ResolutionContext) && !choices.Contains(c))
-				.Select(c => c.Card);
+			var rest = (toSearch.From(ResolutionContext, default)
+				?.Where(c => restRestriction.IsValid(c, ResolutionContext) && !choices.Contains(c))
+				.Select(c => c.Card))
+				?? throw new InvalidOperationException();
 			ServerEffect.rest.AddRange(rest);
 		}
 	}

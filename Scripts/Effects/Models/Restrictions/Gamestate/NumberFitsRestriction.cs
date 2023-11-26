@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		}
 
 
-		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext? secondaryContext)
+		protected override bool IsValidLogic(TriggeringEventContext? context, IResolutionContext secondaryContext)
 			=> restriction.IsValid(number.From(context, secondaryContext), secondaryContext);
 	}
 }

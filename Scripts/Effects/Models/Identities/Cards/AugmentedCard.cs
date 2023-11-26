@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 			ofThisCard.Initialize(initializationContext);
 		}
 
-		protected override IGameCardInfo AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override IGameCardInfo AbstractItemFrom(IResolutionContext? context, IResolutionContext? secondaryContext)
 			=> ofThisCard.From(context, secondaryContext).AugmentedCard;
 	}
 }

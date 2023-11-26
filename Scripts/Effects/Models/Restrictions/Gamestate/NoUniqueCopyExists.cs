@@ -1,10 +1,15 @@
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public class NoUniqueCopyExists : GamestateRestrictionBase
 	{
 		protected override bool IsValidLogic(IResolutionContext context)
-			=> !InitializationContext.game.BoardHasCopyOf(InitializationContext.source);
+		{
+			var card = InitializationContext.source
+				?? throw new IllDefinedException();
+			return !InitializationContext.game.BoardHasCopyOf(card);
+		}
 	}
 }
