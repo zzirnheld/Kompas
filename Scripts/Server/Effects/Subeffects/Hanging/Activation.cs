@@ -11,10 +11,8 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		protected override IEnumerable<HangingEffect> CreateHangingEffects()
 		{
 			var tempActivation = new ActivationEffect(serverGame: ServerGame,
-													triggerRestriction: triggerRestriction,
-													endCondition: endCondition,
-													fallOffCondition: fallOffCondition,
-													fallOffRestriction: CreateFallOffRestriction(CardTarget),
+													end: End,
+													fallOff: FallOff,
 													sourceEff: Effect,
 													resolutionContext: ResolutionContext,
 													target: CardTarget,
@@ -27,17 +25,16 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			private readonly GameCard target;
 			private readonly ServerSubeffect source;
 
-			public ActivationEffect(ServerGame serverGame, IRestriction<TriggeringEventContext> triggerRestriction, string endCondition,
-				string fallOffCondition, IRestriction<TriggeringEventContext> fallOffRestriction,
+			public ActivationEffect(ServerGame serverGame, EndCondition end, EndCondition fallOff,
 				Effect sourceEff, IResolutionContext resolutionContext, GameCard target, ServerSubeffect source)
-				: base(serverGame, triggerRestriction, endCondition, fallOffCondition, fallOffRestriction, sourceEff, resolutionContext, removeIfEnd: true)
+				: base(serverGame, end, fallOff, sourceEff, resolutionContext, removeIfEnd: true)
 			{
 				this.target = target ?? throw new System.ArgumentNullException(nameof(target), "Cannot target a null card for a hanging activation");
 				this.source = source ?? throw new System.ArgumentNullException(nameof(source), "Cannot make a hanging activation effect from no subeffect");
 				target.SetActivated(true, source.ServerEffect);
 			}
 
-			public override void Resolve(TriggeringEventContext context)
+			protected override void ResolveLogic(TriggeringEventContext context)
 				=> target.SetActivated(false, source.ServerEffect);
 		}
 	}

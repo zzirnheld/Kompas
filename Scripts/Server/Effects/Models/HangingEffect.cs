@@ -2,33 +2,37 @@
 using Kompas.Server.Gamestate;
 using Godot;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Triggering;
+using Kompas.Effects.Models.Restrictions.Gamestate;
 
 namespace Kompas.Server.Effects.Models
 {
 	public abstract class HangingEffect
 	{
 		public readonly Effect sourceEff;
-		public readonly string endCondition;
-		public readonly string fallOffCondition;
-		public readonly IRestriction<TriggeringEventContext> fallOffRestriction;
-
 		public bool RemoveIfEnd { get; }
 
+		public EndCondition end;
+		public EndCondition? fallOff;
+
 		private bool ended = false;
-		private readonly IRestriction<TriggeringEventContext> triggerRestriction;
 		protected readonly ServerGame serverGame;
 		private readonly IResolutionContext savedContext;
 
-		public HangingEffect(ServerGame serverGame, IRestriction<TriggeringEventContext> triggerRestriction, string endCondition,
-			string fallOffCondition, IRestriction<TriggeringEventContext> fallOffRestriction,
+		public readonly struct EndCondition
+		{
+			public IRestriction<TriggeringEventContext> Restriction { get; init; }
+			public string Condition { get; init; }
+		}
+
+		public HangingEffect(ServerGame serverGame, EndCondition end, EndCondition fallOff,
 			Effect sourceEff, IResolutionContext currentContext, bool removeIfEnd)
 		{
-			this.serverGame = serverGame != null ? serverGame : throw new System.ArgumentNullException(nameof(serverGame), "ServerGame in HangingEffect must not be null");
-			this.triggerRestriction = triggerRestriction ?? throw new System.ArgumentNullException(nameof(triggerRestriction), "Trigger Restriction in HangingEffect must not be null");
-			this.endCondition = endCondition;
-
-			this.fallOffCondition = fallOffCondition;
-			this.fallOffRestriction = fallOffRestriction;
+			this.serverGame = serverGame
+				?? throw new System.ArgumentNullException(nameof(serverGame), "ServerGame in HangingEffect must not be null");
+			this.end = end;
+			this.fallOff = fallOff;
 
 			this.sourceEff = sourceEff;
 			savedContext = currentContext.Copy;
@@ -36,14 +40,14 @@ namespace Kompas.Server.Effects.Models
 		}
 
 		public virtual bool ShouldBeCanceled(TriggeringEventContext context)
-			=> fallOffRestriction.IsValid(context, IResolutionContext.NotResolving);
+			=> fallOff?.Restriction.IsValid(context, IResolutionContext.NotResolving) ?? false;
 
 		public virtual bool ShouldResolve(TriggeringEventContext context)
 		{
 			//if we've already ended this hanging effect, we shouldn't end it again.
 			if (ended) return false;
 			GD.Print($"Checking whether {this} should end for context {context}, with saved context {savedContext}");
-			return triggerRestriction.IsValid(context, savedContext);
+			return end.Restriction.IsValid(context, savedContext);
 		}
 
 		/// <summary>
@@ -52,11 +56,17 @@ namespace Kompas.Server.Effects.Models
 		/// or maybe resuming a delayed effect.
 		/// </summary>
 		/// <param name="context">The context in which the effect is being resolved.</param>
-		public abstract void Resolve(TriggeringEventContext context);
+		public void Resolve(TriggeringEventContext context)
+		{
+			ended = true;
+			ResolveLogic(context);
+		}
+
+		protected abstract void ResolveLogic(TriggeringEventContext context);
 
 		public override string ToString()
 		{
-			return $"{GetType()} ending when {endCondition}";
+			return $"{GetType()} ending when {end.Condition}";
 		}
 	}
 }

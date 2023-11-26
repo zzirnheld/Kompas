@@ -27,15 +27,26 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		[JsonProperty]
 		public IRestriction<TriggeringEventContext>? fallOffRestriction;
 
-		protected IRestriction<TriggeringEventContext> CreateFallOffRestriction(GameCard card)
+		protected HangingEffect.EndCondition End => new()
 		{
-			//conditions for falling off
-			IRestriction<TriggeringEventContext> triggerRest = fallOffRestriction
-			?? (fallOffCondition == Trigger.Remove ?
+			Restriction = triggerRestriction,
+			Condition = endCondition
+		};
+
+		protected HangingEffect.EndCondition FallOff => new()
+		{
+			Condition = fallOffCondition,
+			Restriction = GetFallOffRestriction()
+		};
+
+		private IRestriction<TriggeringEventContext> GetFallOffRestriction()
+		{
+			var restriction = fallOffRestriction
+				?? (fallOffCondition == Trigger.Remove ?
 					TriggerRestrictionBase.AllOf(TriggerRestrictionBase.DefaultFallOffRestrictions) :
 					new AlwaysValid());
-			triggerRest.Initialize(DefaultInitializationContext);
-			return triggerRest;
+			restriction.Initialize(DefaultInitializationContext);
+			return restriction;
 		}
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)

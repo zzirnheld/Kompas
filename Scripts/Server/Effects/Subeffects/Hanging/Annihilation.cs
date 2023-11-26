@@ -12,10 +12,8 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		protected override IEnumerable<HangingEffect> CreateHangingEffects()
 		{
 			var eff = new AnnihilationEffect(serverGame: ServerGame,
-													triggerRestriction: triggerRestriction,
-													endCondition: endCondition,
-													fallOffCondition: fallOffCondition,
-													fallOffRestriction: CreateFallOffRestriction(CardTarget),
+													end: End,
+													fallOff: FallOff,
 													sourceEff: Effect,
 													resolutionContext: ResolutionContext,
 													target: CardTarget);
@@ -29,15 +27,14 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		{
 			private readonly GameCard target;
 
-			public AnnihilationEffect(ServerGame serverGame, IRestriction<TriggeringEventContext> triggerRestriction, string endCondition,
-				string fallOffCondition, IRestriction<TriggeringEventContext> fallOffRestriction,
+			public AnnihilationEffect(ServerGame serverGame, EndCondition end, EndCondition fallOff,
 				Effect sourceEff, IResolutionContext resolutionContext, GameCard target)
-				: base(serverGame, triggerRestriction, endCondition, fallOffCondition, fallOffRestriction, sourceEff, resolutionContext, removeIfEnd: true)
+				: base(serverGame, end, fallOff, sourceEff, resolutionContext, removeIfEnd: true)
 			{
 				this.target = target;
 			}
 
-			public override void Resolve(TriggeringEventContext context) => target.Annihilate(sourceEff);
+			protected override void ResolveLogic(TriggeringEventContext context) => target.Annihilate(sourceEff);
 
 			public override string ToString()
 			{

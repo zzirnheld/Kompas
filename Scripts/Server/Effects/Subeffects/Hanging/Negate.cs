@@ -13,10 +13,8 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		protected override IEnumerable<HangingEffect> CreateHangingEffects()
 		{
 			var tempNegation = new NegationEffect(serverGame: ServerGame,
-														 triggerRestriction: triggerRestriction,
-														 endCondition: endCondition,
-														 fallOffCondition: fallOffCondition,
-														 fallOffRestriction: CreateFallOffRestriction(CardTarget),
+													end: End,
+													fallOff: FallOff,
 														 currentContext: ResolutionContext,
 														 target: CardTarget,
 														 source: this,
@@ -30,10 +28,9 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			private readonly ServerSubeffect source;
 			private readonly bool negated;
 
-			public NegationEffect(ServerGame serverGame, IRestriction<TriggeringEventContext> triggerRestriction, string endCondition,
-				string fallOffCondition, IRestriction<TriggeringEventContext> fallOffRestriction,
+			public NegationEffect(ServerGame serverGame, EndCondition end, EndCondition fallOff,
 				IResolutionContext currentContext, GameCard target, ServerSubeffect source, bool negated)
-				: base(serverGame, triggerRestriction, endCondition, fallOffCondition, fallOffRestriction, source.Effect, currentContext, removeIfEnd: false)
+				: base(serverGame, end, fallOff, source.Effect, currentContext, removeIfEnd: false)
 			{
 				this.target = target ?? throw new System.ArgumentNullException(nameof(target), "Cannot target a null card for a hanging negation");
 				this.source = source ?? throw new System.ArgumentNullException(nameof(source), "Cannot make a hanging negation effect from no subeffect");
@@ -41,7 +38,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				target.SetNegated(negated, source.Effect);
 			}
 
-			public override void Resolve(TriggeringEventContext context) => target.SetNegated(!negated, source.Effect);
+			protected override void ResolveLogic(TriggeringEventContext context) => target.SetNegated(!negated, source.Effect);
 		}
 	}
 }

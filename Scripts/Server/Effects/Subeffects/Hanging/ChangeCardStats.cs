@@ -54,10 +54,8 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			GD.Print($"Creating temp NESW buff effect during context {ResolutionContext}");
 
 			var temp = new ChangeCardStatsEffect(game: ServerGame,
-											 triggerRestriction: triggerRestriction,
-											 endCondition: endCondition,
-											 fallOffCondition: fallOffCondition,
-											 fallOffRestriction: CreateFallOffRestriction(CardTarget),
+													end: End,
+													fallOff: FallOff,
 											 sourceEff: Effect,
 											 currentContext: ResolutionContext,
 											 buffRecipient: CardTarget,
@@ -71,10 +69,9 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			private readonly GameCard buffRecipient;
 			private readonly CardStats buff;
 
-			public ChangeCardStatsEffect(ServerGame game, IRestriction<TriggeringEventContext> triggerRestriction, string endCondition,
-				string fallOffCondition, IRestriction<TriggeringEventContext> fallOffRestriction, Effect sourceEff,
+			public ChangeCardStatsEffect(ServerGame game,  EndCondition end, EndCondition fallOff, Effect sourceEff,
 				IResolutionContext currentContext, GameCard buffRecipient, CardStats buff)
-				: base(game, triggerRestriction, endCondition, fallOffCondition, fallOffRestriction, sourceEff, currentContext, removeIfEnd: true)
+				: base(game, end, fallOff, sourceEff, currentContext, removeIfEnd: true)
 			{
 				this.buffRecipient = buffRecipient ?? throw new System.ArgumentNullException(nameof(buffRecipient), "Null characcter card in temporary nesw buff");
 				this.buff = buff;
@@ -82,7 +79,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				buffRecipient.AddToStats(buff, stackSrc: sourceEff);
 			}
 
-			public override void Resolve(TriggeringEventContext context)
+			protected override void ResolveLogic(TriggeringEventContext context)
 			{
 				try
 				{
