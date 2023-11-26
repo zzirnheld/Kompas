@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
@@ -22,6 +23,17 @@ namespace Kompas.Server.Effects.Models
 			Enumerable.Empty<Space>(), default,
 			Enumerable.Empty<IStackable>(), default)
 		{ }
+
+		public static ServerResolutionContext Resume(IResolutionContext context,
+			TriggeringEventContext newTriggerContext, ServerPlayer controllingPlayer, int startIndex)
+		{
+			return new ServerResolutionContext(triggerContext: newTriggerContext,
+				controllingPlayer, startIndex,
+				context.CardTargets, default,
+				context.CardInfoTargets,
+				context.SpaceTargets, default,
+				context.StackableTargets, default);
+		}
 
 		public ServerResolutionContext(TriggeringEventContext? triggerContext,
 			ServerPlayer controllingPlayer, int startIndex,
