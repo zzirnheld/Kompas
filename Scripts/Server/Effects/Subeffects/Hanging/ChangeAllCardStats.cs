@@ -5,18 +5,19 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Gamestate.Locations;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
 	public class ChangeAllCardStats : ChangeCardStats
 	{
 		//default to making sure things are characters before changing their stats
-		public IRestriction<IGameCardInfo> cardRestriction;
+		[JsonProperty]
+		public IRestriction<IGameCardInfo> cardRestriction = new Character();
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
-			cardRestriction ??= new Character();
 			cardRestriction.Initialize(DefaultInitializationContext);
 		}
 

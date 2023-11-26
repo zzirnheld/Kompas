@@ -1,14 +1,20 @@
 ﻿using System.Linq;
 using Kompas.Effects.Models.Identities;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
 	public class LoopWhileHaveTargets : Loop
 	{
+		[JsonProperty]
 		public bool delete = false;
 
+		[JsonProperty]
 		public int remainingTargets = 0;
+		#nullable disable
+		[JsonProperty]
 		public IIdentity<int> leaveRemainingTargets;
+		#nullable restore
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{

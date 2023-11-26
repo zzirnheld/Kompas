@@ -65,6 +65,7 @@ namespace Kompas.Server.Effects.Models
 		{
 			_card = card;
 			_serverGame = game;
+			_ownerServerPlayer = game.ServerControllerOf(card);
 			base.SetInfo(effectIndex);
 
 			if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
