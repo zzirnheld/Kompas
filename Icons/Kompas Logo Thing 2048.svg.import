@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jgcjrp5k7q8k"
-path="res://.godot/imported/Kompas Board Beeg.svg-a98d43de89bab8af193ab3d6a3d4cfd0.ctex"
+uid="uid://bddpfwboy2x42"
+path.s3tc="res://.godot/imported/Kompas Logo Thing 2048.svg-19aebdb2c152332170d1bb80f489f5ce.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://Icons/Kompas Board Beeg.svg"
-dest_files=["res://.godot/imported/Kompas Board Beeg.svg-a98d43de89bab8af193ab3d6a3d4cfd0.ctex"]
+source_file="res://Icons/Kompas Logo Thing 2048.svg"
+dest_files=["res://.godot/imported/Kompas Logo Thing 2048.svg-19aebdb2c152332170d1bb80f489f5ce.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
