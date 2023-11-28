@@ -1,24 +1,24 @@
 ﻿using Kompas.Effects.Models;
-using Kompas.Server.Gamestate;
 using Godot;
 using Kompas.Effects.Models.Restrictions;
-using Kompas.Cards.Models;
-using Kompas.Effects.Models.Restrictions.Triggering;
-using Kompas.Effects.Models.Restrictions.Gamestate;
 
 namespace Kompas.Server.Effects.Models
 {
-	public abstract class HangingEffect
+	/// <summary>
+	/// Describes an effect that ends at some point.
+	/// The "ending" occurs without using the stack (so it can't be negated).
+	/// </summary>
+    public abstract class HangingEffect
 	{
-		public readonly ServerEffect sourceEff;
+		public ServerEffect Effect { get; }
 		public bool RemoveIfEnd { get; }
 
-		public EndCondition end;
-		public EndCondition? fallOff;
+		public EndCondition End { get; }
+		public EndCondition? FallOff { get; }
+
+		protected IResolutionContext StashedContext { get; }
 
 		private bool ended = false;
-		protected readonly ServerGame serverGame;
-		protected IResolutionContext StashedContext { get; }
 
 		public readonly struct EndCondition
 		{
@@ -29,24 +29,36 @@ namespace Kompas.Server.Effects.Models
 		public HangingEffect(EndCondition end, EndCondition fallOff,
 			ServerEffect sourceEff, IResolutionContext currentContext, bool removeIfEnd)
 		{
-			serverGame = sourceEff.ServerGame;
-			this.end = end;
-			this.fallOff = fallOff;
+			End = end;
+			FallOff = fallOff;
 
-			this.sourceEff = sourceEff;
+			Effect = sourceEff;
 			StashedContext = currentContext.Copy;
 			RemoveIfEnd = removeIfEnd;
 		}
 
+		/// <summary>
+		/// Determines whether the hanging effect should be canceled.
+		/// If the same triggering conditions would both cause the effect to resolve and be canceled,
+		/// the effect attempts to resolve.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <returns></returns>
 		public virtual bool ShouldBeCanceled(TriggeringEventContext context)
-			=> fallOff?.Restriction.IsValid(context, IResolutionContext.NotResolving) ?? false;
+			=> FallOff?.Restriction.IsValid(context, IResolutionContext.NotResolving) ?? false;
 
+		/// <summary>
+		/// Determines whether the hanging effect should go ahead and resolve
+		/// </summary>
+		/// <param name="context">The triggering context pertinent to this effect resolving</param>
+		/// <returns>Whether the hanging effect should go ahead and resolve</returns>
 		public virtual bool ShouldResolve(TriggeringEventContext context)
 		{
 			//if we've already ended this hanging effect, we shouldn't end it again.
 			if (ended) return false;
-			GD.Print($"Checking whether {this} should end for context {context}, with saved context {StashedContext}");
-			return end.Restriction.IsValid(context, StashedContext);
+			GD.Print($"Checking whether {this} should end for triggering context {context},"
+				+ $"with saved resolution context {StashedContext}");
+			return End.Restriction.IsValid(context, StashedContext);
 		}
 
 		/// <summary>
@@ -65,7 +77,7 @@ namespace Kompas.Server.Effects.Models
 
 		public override string ToString()
 		{
-			return $"{GetType()} ending when {end.Condition}";
+			return $"{GetType()} ending when {End.Condition}";
 		}
 	}
 }

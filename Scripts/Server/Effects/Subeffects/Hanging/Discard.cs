@@ -32,7 +32,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			}
 
 			protected override void ResolveLogic(TriggeringEventContext context)
-				=> target.Discard(sourceEff);
+				=> target.Discard(Effect);
 		}
 	}
 }

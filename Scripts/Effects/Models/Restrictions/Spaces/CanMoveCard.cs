@@ -38,7 +38,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 
 		private bool FitsMovementRestriction(IGameCardInfo card, Space space, IResolutionContext context)
 			=> normalMove 
-				? card.MovementRestriction.IsValid(space, ResolutionContext.PlayerTrigger(InitializationContext.effect, InitializationContext.game))
+				? card.MovementRestriction.IsValid(space,
+					ResolutionContext.PlayerTrigger(InitializationContext.effect, InitializationContext.game))
 				: card.MovementRestriction.IsValid(space, context);
 
 		private bool FitsThroughRestriction(Space? source, Space dest, IResolutionContext context)

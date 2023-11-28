@@ -29,7 +29,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				this.target = target;
 			}
 
-			protected override void ResolveLogic(TriggeringEventContext context) => target.Annihilate(sourceEff);
+			protected override void ResolveLogic(TriggeringEventContext context) => target.Annihilate(Effect);
 
 			public override string ToString()
 			{

@@ -31,7 +31,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				target.SetNegated(negated, source);
 			}
 
-			protected override void ResolveLogic(TriggeringEventContext context) => target.SetNegated(!negated, sourceEff);
+			protected override void ResolveLogic(TriggeringEventContext context) => target.SetNegated(!negated, Effect);
 		}
 	}
 }

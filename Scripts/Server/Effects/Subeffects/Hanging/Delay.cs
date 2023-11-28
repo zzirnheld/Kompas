@@ -75,7 +75,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			{
 				var myContext = ServerResolutionContext.Resume(StashedContext,
 					context, controller, indexToResumeResolution);
-				serverGame.StackController.PushToStack(sourceEff, controller, myContext);
+				Effect.ServerGame.StackController.PushToStack(Effect, controller, myContext);
 			}
 		}
 	}

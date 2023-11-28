@@ -79,7 +79,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			{
 				try
 				{
-					buffRecipient.AddToStats(-1 * buff, stackSrc: sourceEff);
+					buffRecipient.AddToStats(-1 * buff, stackSrc: Effect);
 				}
 				catch (CardNotHereException) { }
 			}
