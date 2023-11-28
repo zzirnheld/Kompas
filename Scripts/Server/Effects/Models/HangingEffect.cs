@@ -10,7 +10,7 @@ namespace Kompas.Server.Effects.Models
 {
 	public abstract class HangingEffect
 	{
-		public readonly Effect sourceEff;
+		public readonly ServerEffect sourceEff;
 		public bool RemoveIfEnd { get; }
 
 		public EndCondition end;
@@ -26,11 +26,10 @@ namespace Kompas.Server.Effects.Models
 			public string Condition { get; init; }
 		}
 
-		public HangingEffect(ServerGame serverGame, EndCondition end, EndCondition fallOff,
-			Effect sourceEff, IResolutionContext currentContext, bool removeIfEnd)
+		public HangingEffect(EndCondition end, EndCondition fallOff,
+			ServerEffect sourceEff, IResolutionContext currentContext, bool removeIfEnd)
 		{
-			this.serverGame = serverGame
-				?? throw new System.ArgumentNullException(nameof(serverGame), "ServerGame in HangingEffect must not be null");
+			serverGame = sourceEff.ServerGame;
 			this.end = end;
 			this.fallOff = fallOff;
 

@@ -48,13 +48,9 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 			foreach (var card in cards)
 			{
-				var temp = new ChangeCardStatsEffect(game: ServerGame,
-													end: End,
-													fallOff: FallOff,
-													sourceEff: Effect,
-													currentContext: ResolutionContext,
-													buffRecipient: card,
-													buff: buff);
+				var temp = new ChangeCardStatsEffect(end: End, fallOff: FallOff,
+					sourceEff: ServerEffect, currentContext: ResolutionContext,
+					buffRecipient: card, buff: buff);
 
 				effs.Add(temp);
 			}

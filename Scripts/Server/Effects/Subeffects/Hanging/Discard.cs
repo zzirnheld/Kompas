@@ -11,12 +11,9 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 	{
 		protected override IEnumerable<HangingEffect> CreateHangingEffects()
 		{
-			var eff = new DiscardEffect(serverGame: ServerGame,
-													end: End,
-													fallOff: FallOff,
-											   sourceEff: Effect,
-											   resolutionContext: ResolutionContext,
-											   target: CardTarget);
+			var eff = new DiscardEffect(end: End, fallOff: FallOff,
+				sourceEff: ServerEffect, resolutionContext: ResolutionContext,
+				target: CardTarget);
 			return new List<HangingEffect>() { eff };
 		}
 
@@ -27,9 +24,9 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		{
 			private readonly GameCard target;
 
-			public DiscardEffect(ServerGame serverGame, EndCondition end, EndCondition fallOff,
-				Effect sourceEff, IResolutionContext resolutionContext, GameCard target)
-				: base(serverGame, end, fallOff, sourceEff, resolutionContext, removeIfEnd: false)
+			public DiscardEffect(EndCondition end, EndCondition fallOff,
+				ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target)
+				: base(end, fallOff, sourceEff, resolutionContext, removeIfEnd: false)
 			{
 				this.target = target;
 			}

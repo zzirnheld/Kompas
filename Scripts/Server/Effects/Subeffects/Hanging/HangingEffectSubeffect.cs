@@ -3,14 +3,13 @@ using Kompas.Effects.Models;
 using System.Threading.Tasks;
 using System.Linq;
 using Kompas.Effects.Models.Restrictions;
-using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.Effects.Models.Restrictions.Triggering;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
-	public abstract class HangingEffectSubeffect : ServerSubeffect
+    public abstract class HangingEffectSubeffect : ServerSubeffect
 	{
 		//BEWARE: once per turn might not work for these as impl rn, because it's kind of ill-defined.
 		//this is only a problem if I one day start creating hanging effects that can later trigger once each turn.
@@ -20,12 +19,13 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		[JsonProperty (Required = Required.Always)]
 		public string endCondition;
 		#nullable restore
-		public virtual bool ContinueResolution => true;
 
 		[JsonProperty]
 		public string fallOffCondition = Trigger.Remove;
 		[JsonProperty]
 		public IRestriction<TriggeringEventContext>? fallOffRestriction;
+		
+		public virtual bool ContinueResolution => true;
 
 		protected HangingEffect.EndCondition End => new()
 		{
