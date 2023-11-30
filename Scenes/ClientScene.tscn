@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=37 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -38,6 +38,8 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_x2g6r"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_37nna"]
 
 [node name="Node" type="Node"]
 
@@ -191,7 +193,7 @@ HorizontalGrowDirection = -1
 VerticalGrowDirection = 1
 
 [node name="Spiral Big" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
-transform = Transform3D(-2.16371e-08, 0, -0.495, 0, 0.495, 0, 0.495, 0, -2.16371e-08, -0.312, 0.01, 0.312)
+transform = Transform3D(-0.345068, 0, -0.345068, 0, 0.488, 0, 0.345068, 0, -0.345068, -0.31, 0.01, 0.315)
 mesh = SubResource("PlaneMesh_x2g6r")
 material = ExtResource("16_5woes")
 
@@ -206,6 +208,10 @@ transform = Transform3D(0.996195, 0.0871557, 0, -0.0870363, 0.994829, 0.052336, 
 
 [node name="Camera3D" type="Camera3D" parent="3D/Friendly Player/Friendly Discard/Node3D"]
 transform = Transform3D(25, 0, 0, 0, -1.09279e-06, 25, 0, -25, -1.09279e-06, 0, 0, 0)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0)
+mesh = SubResource("PlaneMesh_37nna")
 
 [node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
