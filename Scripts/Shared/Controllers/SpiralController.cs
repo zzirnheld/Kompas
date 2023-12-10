@@ -10,6 +10,8 @@ namespace Kompas.Shared.Controllers
 	/// </summary>
 	public partial class SpiralController : Node3D
 	{
+		private const float AngleStepDivisor = 12f;
+
 		[Export]
 		private float ObjectHeight { get; set; }
 		[Export]
@@ -32,15 +34,9 @@ namespace Kompas.Shared.Controllers
 			}
 		}
 
-		private void TransferChild(Node3D child)
-		{
-			child.GetParent()?.RemoveChild(child);
-			AddChild(child);
-		}
-
 		private float CalculateNextAngle(int index, float lastAngle)
 		{
-			float step = Mathf.Pi / ((index + 1f) * 12f); //TODO extract constant for step. don't divide by 0 tho
+			float step = Mathf.Pi / ((index + 1f) * AngleStepDivisor); //don't divide by 0
 			float lastRadius = CalculateRadius(lastAngle);
 
 			float nextAngle = lastAngle;
@@ -64,7 +60,7 @@ namespace Kompas.Shared.Controllers
 			return nextAngle;
 		}
 
-		private float CalculateRadius(float angle) => angle * ObjectDiameter * SpiralTighten; //TODO normalize by object diameter
+		private float CalculateRadius(float angle) => angle * ObjectDiameter * SpiralTighten;
 
 		private (float, float) CalculateCoordinates(float angle)
 		{
@@ -72,6 +68,12 @@ namespace Kompas.Shared.Controllers
 			float x = radius * Mathf.Sin(angle);
 			float y = radius * Mathf.Cos(angle);
 			return (x, y);
+		}
+
+		private void TransferChild(Node3D child)
+		{
+			child.GetParent()?.RemoveChild(child);
+			AddChild(child);
 		}
 	}
 }

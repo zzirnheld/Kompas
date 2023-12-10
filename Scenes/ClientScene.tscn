@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=38 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -22,16 +22,17 @@
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
-[ext_resource type="Script" path="res://Scripts/Shared/Controllers/SplayOutController.cs" id="11_iiblv"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
 [ext_resource type="Material" uid="uid://cehfjiqermc0e" path="res://Icons/Spiral.tres" id="16_5woes"]
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/SpiralController.cs" id="16_plm70"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/CurrentStateController.cs" id="18_d6k15"]
 [ext_resource type="PackedScene" uid="uid://brjjpkqpcrp4p" path="res://Scenes/Prefabs/Client Game/Player Info.tscn" id="18_q5fki"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientStackView.cs" id="22_80qh3"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
+[ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ols17"]
 
@@ -43,7 +44,7 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_playerControllers")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_playerControllers", "_boardController")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("../UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
@@ -51,7 +52,8 @@ _currentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane 
 _useEffectDialog = NodePath("../UI/Use Effect")
 _stackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
 _cardPrefab = ExtResource("2_q0mge")
-_playerControllers = []
+_playerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
+_boardController = NodePath("../3D/Board")
 
 [node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton")]
 script = ExtResource("2_cdbal")
@@ -66,8 +68,12 @@ _canDeclineFurtherTargetsButton = NodePath("../../UI/Main Game UI/HBoxContainer/
 [node name="Camera Over Board" type="Node3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.55, 0)
 
-[node name="Camera Controller" type="Node3D" parent="3D/Engine Stuff/Camera Over Board"]
+[node name="Camera Controller" type="Node3D" parent="3D/Engine Stuff/Camera Over Board" node_paths=PackedStringArray("_camera", "_boardCameraPosition")]
 script = ExtResource("4_w3f76")
+_camera = NodePath("Camera3D")
+_boardCameraPosition = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
 
 [node name="Friendly Hand Parent Object" type="Node3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
@@ -171,31 +177,38 @@ _rightBound = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller/R
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_splayOutController")]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.185, 0, 0.185)
+[node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
-_splayOutController = NodePath("Spread Out Deck")
 
-[node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = 1
-VerticalGrowDirection = 1
+[node name="Spiral Big" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Deck"]
+transform = Transform3D(-0.345068, 0, -0.345068, 0, 0.488, 0, 0.345068, 0, -0.345068, 0.31, 0.01, 0.315)
+mesh = SubResource("PlaneMesh_x2g6r")
+material = ExtResource("16_5woes")
 
-[node name="Friendly Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_splayOutController")]
+[node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Friendly Deck/Spiral Big"]
+transform = Transform3D(-0.0579596, 0, 0.0579596, 0, 0.0819672, 0, -0.0579596, 0, -0.0579596, 0, 0.05, 0)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+
+[node name="Friendly Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_spiralController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
 script = ExtResource("10_pkr2w")
-_splayOutController = NodePath("Spread Out Discard")
-
-[node name="Spread Out Discard" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = -1
-VerticalGrowDirection = 1
+_spiralController = NodePath("Spiral Big/Spread Out Discard")
 
 [node name="Spiral Big" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(-0.345068, 0, -0.345068, 0, 0.488, 0, 0.345068, 0, -0.345068, -0.31, 0.01, 0.315)
 mesh = SubResource("PlaneMesh_x2g6r")
 material = ExtResource("16_5woes")
+
+[node name="Spread Out Discard" type="Node3D" parent="3D/Friendly Player/Friendly Discard/Spiral Big"]
+transform = Transform3D(-0.0579596, 0, 0.0579596, 0, 0.0819672, 0, -0.0579596, 0, -0.0579596, 0, 0.05, 0)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
 
 [node name="Spiral Smol" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, -0.025, 0.01, 0.025)
@@ -205,9 +218,6 @@ material = ExtResource("16_5woes")
 
 [node name="Node3D" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(0.996195, 0.0871557, 0, -0.0870363, 0.994829, 0.052336, 0.00456138, -0.0521368, 0.99863, 0, 0.7, 0.25)
-
-[node name="Camera3D" type="Camera3D" parent="3D/Friendly Player/Friendly Discard/Node3D"]
-transform = Transform3D(25, 0, 0, 0, -1.09279e-06, 25, 0, -25, -1.09279e-06, 0, 0, 0)
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0)
@@ -232,25 +242,38 @@ script = ExtResource("7_hs3e0")
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Enemy Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_splayOutController")]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, -0.185, 0, -0.185)
+[node name="Enemy Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_spiralController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
-_splayOutController = NodePath("Spread Out Deck")
+_spiralController = NodePath("Spiral Big/Spread Out Deck")
 
-[node name="Spread Out Deck" type="Node3D" parent="3D/Enemy Player/Enemy Deck"]
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = -1
-VerticalGrowDirection = -1
+[node name="Spiral Big" type="CSGMesh3D" parent="3D/Enemy Player/Enemy Deck"]
+transform = Transform3D(-0.345068, 0, -0.345068, 0, 0.488, 0, 0.345068, 0, -0.345068, -0.31, 0.01, -0.315)
+mesh = SubResource("PlaneMesh_x2g6r")
+material = ExtResource("16_5woes")
 
-[node name="Enemy Discard" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_splayOutController")]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.185, 0, -0.185)
+[node name="Spread Out Deck" type="Node3D" parent="3D/Enemy Player/Enemy Deck/Spiral Big"]
+transform = Transform3D(-0.0579596, 0, 0.0579596, 0, 0.0819672, 0, -0.0579596, 0, -0.0579596, 0, 0.05, 0)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+
+[node name="Enemy Discard" type="Node3D" parent="3D/Enemy Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, -0.185)
 script = ExtResource("10_pkr2w")
-_splayOutController = NodePath("Spread Out Discard")
 
-[node name="Spread Out Discard" type="Node3D" parent="3D/Enemy Player/Enemy Discard"]
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = 1
-VerticalGrowDirection = -1
+[node name="Spiral Big" type="CSGMesh3D" parent="3D/Enemy Player/Enemy Discard"]
+transform = Transform3D(-0.345068, 0, -0.345068, 0, 0.488, 0, 0.345068, 0, -0.345068, 0.31, 0.01, -0.315)
+mesh = SubResource("PlaneMesh_x2g6r")
+material = ExtResource("16_5woes")
+
+[node name="Spread Out Discard" type="Node3D" parent="3D/Enemy Player/Enemy Discard/Spiral Big"]
+transform = Transform3D(-0.0579596, 0, 0.0579596, 0, 0.0819672, 0, -0.0579596, 0, -0.0579596, 0, 0.05, 0)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -316,10 +339,13 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 mouse_filter = 2
 
-[node name="Right Pane (Current State)" type="Control" parent="UI/Main Game UI/HBoxContainer"]
+[node name="Right Pane (Current State)" type="Control" parent="UI/Main Game UI/HBoxContainer" node_paths=PackedStringArray("_friendlyTurnParent", "_enemyTurnParent", "_currentStateLabel")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("18_d6k15")
+_friendlyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/End Turn Button")
+_enemyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/Enemy Turn Label")
+_currentStateLabel = NodePath("VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/Current State Label")
 
 [node name="Right Pane Background" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)"]
 self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
@@ -842,12 +868,17 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Use Effect" type="Control" parent="UI"]
+[node name="Use Effect" type="Control" parent="UI" node_paths=PackedStringArray("_camera", "_cardName", "_effectButtonsParent", "_cancelButton")]
 visible = false
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 300.0
 script = ExtResource("30_w3lfl")
+_camera = NodePath("../../3D/Engine Stuff/Camera Over Board/Camera Controller/Camera3D")
+_cardName = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/MarginContainer/Card Name Label")
+_effectButtonPrefab = ExtResource("33_xkpbn")
+_effectButtonsParent = NodePath("MarginContainer/MarginContainer/Effect Parent VBox")
+_cancelButton = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/Cancel Effect Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Use Effect"]
 layout_mode = 0

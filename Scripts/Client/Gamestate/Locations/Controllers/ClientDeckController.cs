@@ -10,14 +10,14 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 	public partial class ClientDeckController : DeckController
 	{
 		[Export]
-		private SplayOutController? _splayOutController;
-		private SplayOutController SplayOutController => _splayOutController
+		private SpiralController? _spiralController;
+		private SpiralController SpiralController => _spiralController
 			?? throw new UnassignedReferenceException();
 
 		protected override void SpreadOut()
 		{
 			foreach (var card in DeckModel.Cards) card.CardController.Node.Visible = true;//false;
-			SplayOutController.SplayOut(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
+			SpiralController.SpiralOut(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
 		}
 	}
 }

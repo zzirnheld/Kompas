@@ -24,7 +24,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		[Export]
 		private ClientCameraController? _camera;
-		private ClientCameraController Camera => _camera ?? throw new UnassignedReferenceException();
+		private ClientCameraController? Camera => _camera; // ?? throw new UnassignedReferenceException();
 		[Export]
 		private Node3D? _nodeParent;
 		private Node3D NodeParent => _nodeParent ?? throw new UnassignedReferenceException();
