@@ -62,6 +62,7 @@ namespace Kompas.Gamestate.Locations.Models
 				throw new CardNotHereException(Location, card, $"Couldn't remove {card.CardName} from deck, it wasn't in deck!");
 
 			deck.Remove(card);
+			deckController.Refresh();
 		}
 
 		//misc

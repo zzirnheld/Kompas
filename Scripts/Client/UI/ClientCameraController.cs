@@ -7,7 +7,7 @@ namespace Kompas.Client.UI
 	public partial class ClientCameraController : Node3D
 	{
 		private const string CameraLeftActionName = "CameraLeft";
-		private const string CameraRightActionName = "CameraLeft";
+		private const string CameraRightActionName = "CameraRight";
 		private const string CameraUpActionName = "CameraUp";
 		private const string CameraDownActionName = "CameraDown";
 		private static readonly Vector3 FriendlyHandRotation = (float)(-0.15 * Mathf.Pi) * Vector3.Right;
@@ -27,6 +27,11 @@ namespace Kompas.Client.UI
 		private Node3D BoardCameraPosition => _boardCameraPosition
 			?? throw new UnassignedReferenceException();
 
+		[Export]
+		private Node3D? _friendlyDeckPosition;
+		private Node3D FriendlyDeckPosition => _friendlyDeckPosition
+			?? throw new UnassignedReferenceException();
+
 		private CameraGraphNode? _currentPosition;
 		private CameraGraphNode CurrentPosition => _currentPosition
 			?? throw new NotReadyYetException();
@@ -37,6 +42,9 @@ namespace Kompas.Client.UI
 
 			var friendlyHandPosition = new CameraGraphNode(CameraPosition.FriendlyHand, BoardCameraPosition, FriendlyHandRotation);
 			boardPosition.AddReciprocally(down: friendlyHandPosition);
+
+			var friendlyDeckPosition = new CameraGraphNode(CameraPosition.FriendlyDeck, FriendlyDeckPosition);
+			boardPosition.AddReciprocally(right: friendlyDeckPosition);
 		}
 
 		public override void _Process(double deltaTime)
@@ -55,12 +63,14 @@ namespace Kompas.Client.UI
 			GetParent()?.RemoveChild(this);
 			node.Node.AddChild(this);
 			Camera.Rotation = node.CameraRotation;
+			Camera.Position = Vector3.Zero;
 		}
 
 		public enum CameraPosition
 		{
 			Board,
 			FriendlyHand,
+			FriendlyDeck,
 		}
 
 		private class CameraGraphNode
