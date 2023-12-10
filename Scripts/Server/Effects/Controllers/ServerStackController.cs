@@ -196,10 +196,11 @@ namespace Kompas.Server.Effects.Controllers
 
 		private void RemoveHangingEffect(HangingEffect hangingEff)
 		{
-			hangingEffectMap[hangingEff.endCondition].Remove(hangingEff);
+			hangingEffectMap[hangingEff.end.Condition].Remove(hangingEff);
 			//Not all hanging effects can fall off
-			if (!string.IsNullOrEmpty(hangingEff.fallOffCondition))
-				hangingEffectFallOffMap[hangingEff.fallOffCondition].Remove(hangingEff);
+			var fallOffCondition = hangingEff.fallOff?.Condition;
+			if (!string.IsNullOrEmpty(fallOffCondition))
+				hangingEffectFallOffMap[fallOffCondition].Remove(hangingEff);
 		}
 
 		/// <summary>

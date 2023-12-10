@@ -10,42 +10,68 @@ namespace Kompas.Shared.Controllers
 	/// </summary>
 	public partial class SpiralController : Node3D
 	{
-		private static readonly float FourOverPi = 4 / Mathf.Pi;
-
 		[Export]
-		private float ObjectHeight { get; set; } = 0.05f;
+		private float ObjectHeight { get; set; }
 		[Export]
-		private float ObjectRadius { get; set; } = 2.25f;
+		private float ObjectDiameter { get; set; }
+		[Export]
+		private float SpiralTighten { get; set; }
+		[Export]
+		private float StartingAngle { get; set; }
 
 		//TODO - this means it will not itself handle removing a child, unless I do some magic with events
 		public void SpiralOut(IReadOnlyCollection<Node3D> children)
 		{
+			float angle = StartingAngle;
 			foreach (var (index, child) in children.Enumerate())
 			{
-				var (x, y) = CalculateCoordinates(index);
-				child.GetParent()?.RemoveChild(child);
-				AddChild(child);
+				angle = CalculateNextAngle(index, angle);
+				var (x, y) = CalculateCoordinates(angle);
+				TransferChild(child);
 				child.Position = new(x, ObjectHeight, y);
 			}
 		}
 
-		private (float, float) CalculateCoordinates(int index)
+		private void TransferChild(Node3D child)
 		{
-			float radius = CalculateSpiralRadius(index);
-			float angle = index; //in radians
+			child.GetParent()?.RemoveChild(child);
+			AddChild(child);
+		}
 
+		private float CalculateNextAngle(int index, float lastAngle)
+		{
+			float step = Mathf.Pi / ((index + 1f) * 12f); //TODO extract constant for step. don't divide by 0 tho
+			float lastRadius = CalculateRadius(lastAngle);
+
+			float nextAngle = lastAngle;
+			float chordLength = 0;
+			while (chordLength < ObjectDiameter)
+			{
+				nextAngle += step;
+				var nextRadius = CalculateRadius(nextAngle);
+				//cosine rule
+				chordLength = (lastRadius * lastRadius) + (nextRadius * nextRadius) - (2 * lastRadius * nextRadius * Mathf.Cos(nextAngle - lastAngle));
+
+				if (nextAngle > 1000f)
+				{
+					GD.PushError("TOO far!");
+					break;
+				}
+			}
+
+			GD.Print($"Item {index} goes at angle {nextAngle}");
+
+			return nextAngle;
+		}
+
+		private float CalculateRadius(float angle) => angle * ObjectDiameter * SpiralTighten; //TODO normalize by object diameter
+
+		private (float, float) CalculateCoordinates(float angle)
+		{
+			var radius = CalculateRadius(angle);
 			float x = radius * Mathf.Sin(angle);
 			float y = radius * Mathf.Cos(angle);
 			return (x, y);
-		}
-
-		private float CalculateSpiralRadius(int itemIndex)
-		{
-			//radius = (1 + sqrt(4/pi * index + 1))/2 - 1
-			float underSqrt = FourOverPi * itemIndex + 1f;
-			float radiusRaw = (1f + Mathf.Sqrt(underSqrt)) / 2f - 1f;
-			float radius = radiusRaw * ObjectRadius;
-			return radius;
 		}
 	}
 }

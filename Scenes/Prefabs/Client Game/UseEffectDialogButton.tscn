@@ -4,14 +4,12 @@
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="2_mic6u"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="2_vqveg"]
 
-[node name="VBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("_effectName", "_button")]
+[node name="VBoxContainer" type="VBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_h87yx")
-_effectName = NodePath("MarginContainer/Label")
-_button = NodePath("MarginContainer/Label/Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -1,0 +1,89 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw0in0g8wgpr8"]
+
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/SpiralController.cs" id="1_2cccl"]
+[ext_resource type="Script" path="res://Scenes/TestSpiral.cs" id="2_nk2ua"]
+[ext_resource type="PackedScene" uid="uid://dq50o17h7ceai" path="res://Scenes/Prefabs/Card Model.tscn" id="2_s5fag"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Spread Out Discard" type="Node3D" parent="."]
+script = ExtResource("1_2cccl")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+StartingAngle = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+
+[node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("Spiral")]
+script = ExtResource("2_nk2ua")
+Spiral = NodePath("../Spread Out Discard")
+
+[node name="Card Model Controller" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller2" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller3" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller4" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller5" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller6" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller7" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller8" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller9" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller10" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller11" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller12" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller13" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller14" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller15" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller16" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller17" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller18" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller19" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller20" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller21" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller22" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller23" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller24" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller25" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller26" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller27" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller28" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller29" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller30" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller31" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller32" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Card Model Controller33" parent="Node3D" instance=ExtResource("2_s5fag")]

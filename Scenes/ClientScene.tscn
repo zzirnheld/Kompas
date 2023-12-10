@@ -43,7 +43,7 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "PlayerControllers")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_playerControllers")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("../UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
@@ -51,7 +51,7 @@ _currentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane 
 _useEffectDialog = NodePath("../UI/Use Effect")
 _stackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
 _cardPrefab = ExtResource("2_q0mge")
-PlayerControllers = []
+_playerControllers = []
 
 [node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton")]
 script = ExtResource("2_cdbal")
@@ -211,6 +211,7 @@ transform = Transform3D(25, 0, 0, 0, -1.09279e-06, 25, 0, -25, -1.09279e-06, 0, 
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0)
+visible = false
 mesh = SubResource("PlaneMesh_37nna")
 
 [node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]

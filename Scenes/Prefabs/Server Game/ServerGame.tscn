@@ -4,10 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://duk3w4245el7w" path="res://Scenes/Prefabs/Server Game/ServerPlayerController.tscn" id="2_xdx61"]
 [ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerBoardController.cs" id="3_wvf6v"]
 
-[node name="ServerGame" type="Node" node_paths=PackedStringArray("_playerControllers", "_boardController")]
+[node name="ServerGame" type="Node" node_paths=PackedStringArray("_playerControllers")]
 script = ExtResource("1_m4dkr")
-_playerControllers = [NodePath("Player 1"), NodePath("Player 2")]
-_boardController = NodePath("Board")
+_playerControllers = []
 
 [node name="Player 1" parent="." instance=ExtResource("2_xdx61")]
 
