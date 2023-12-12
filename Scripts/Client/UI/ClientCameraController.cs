@@ -11,7 +11,7 @@ namespace Kompas.Client.UI
 		private const string CameraRightActionName = "CameraRight";
 		private const string CameraUpActionName = "CameraUp";
 		private const string CameraDownActionName = "CameraDown";
-		private static readonly Vector3 FriendlyHandRotation = (float)(-0.15 * Mathf.Pi) * Vector3.Right;
+		private static readonly Vector3 FriendlyHandRotation = (float)(-0.05 * Mathf.Pi) * Vector3.Right;
 
 		[Export]
 		private Camera3D? _camera;
