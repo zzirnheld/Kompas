@@ -10,8 +10,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 {
 	public partial class ClientDeckController : DeckController
 	{
-		private const string LookingAtAnimationName = "Looking At";
-		private const string ResetAnimationName = "RESET";
+		private const string OpenAnimationName = "Open";
+		private const string WhileOpenAnimationName = "Spin";
+		private const string CloseAnimationName = "Close";
 
 		[Export]
 		private SpiralController? _spiralController;
@@ -19,8 +20,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private ClientCameraController? _camera;
-		private ClientCameraController Camera => _camera
+		private ClientCameraController? _cameraController;
+		private ClientCameraController CameraController => _cameraController
 			?? throw new UnassignedReferenceException();
 
 		[Export]
@@ -31,18 +32,19 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		public override void _Ready()
 		{
 			base._Ready();
-			Camera.Arrived += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Arrived(); };
-			Camera.Departed += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Departed(); };
+			CameraController.Arrived += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Arrived(); };
+			CameraController.Departed += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Departed(); };
 		}
 
 		private void Arrived()
 		{
-			AnimationPlayer.Play(LookingAtAnimationName);
+			AnimationPlayer.Play(OpenAnimationName);
+			AnimationPlayer.Queue(WhileOpenAnimationName);
 		}
 
 		private void Departed()
 		{
-			AnimationPlayer.Play(ResetAnimationName);
+			AnimationPlayer.Play(CloseAnimationName);
 		}
 
 		protected override void SpreadOut()
