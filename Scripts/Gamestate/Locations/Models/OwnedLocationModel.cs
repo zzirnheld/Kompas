@@ -25,6 +25,10 @@ namespace Kompas.Gamestate.Locations.Models
 			Owner = owner;
 		}
 
+		public bool IsLocation(Location location, bool friendly)
+			=> location == Location
+			&& friendly == Owner.Friendly;
+
 		public abstract int IndexOf(GameCard card);
 
 		public abstract void Remove(GameCard card);

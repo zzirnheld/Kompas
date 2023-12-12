@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=42 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -39,6 +39,76 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_x2g6r"]
+
+[sub_resource type="Animation" id="Animation_uv7vu"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spiral Big:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v2due"]
+resource_name = "Open"
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spiral Big")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.05, 0.05, 0.05, 1, 1, 0.488, 0.488, 0.488)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spiral Big")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.01, 0.01, 0.01, 1, 1, 0.31, 0.01, 0.315)
+
+[sub_resource type="Animation" id="Animation_c34py"]
+resource_name = "Spin"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spiral Big")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.31, 0.01, 0.31)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spiral Big")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.488, 0.488, 0.488)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spiral Big:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hxan"]
+_data = {
+"Open": SubResource("Animation_v2due"),
+"RESET": SubResource("Animation_uv7vu"),
+"Spin": SubResource("Animation_c34py")
+}
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_37nna"]
 
@@ -185,7 +255,7 @@ script = ExtResource("9_u740w")
 _spiralController = NodePath("Spread Out Deck")
 
 [node name="Spiral Big" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Deck"]
-transform = Transform3D(0.488, 0, 0, 0, 0.488, 0, 0, 0, 0.488, 0.31, 0.01, 0.315)
+transform = Transform3D(-0.488, 0, -4.26623e-08, 0, 0.488, 0, 4.26623e-08, 0, -0.488, 0.31, 0.01, 0.31)
 mesh = SubResource("PlaneMesh_x2g6r")
 material = ExtResource("16_5woes")
 
@@ -198,6 +268,11 @@ SpiralTighten = 0.25
 
 [node name="Friendly Deck Camera Position" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0.1, 0.7, 0.25)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="3D/Friendly Player/Friendly Deck"]
+libraries = {
+"": SubResource("AnimationLibrary_6hxan")
+}
 
 [node name="Friendly Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_spiralController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)

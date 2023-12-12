@@ -1,5 +1,6 @@
 using Godot;
 using Kompas.Client.Gamestate.Locations.Controllers;
+using Kompas.Gamestate.Locations;
 using Kompas.Shared.Exceptions;
 using System;
 
@@ -12,6 +13,7 @@ namespace Kompas.Client.UI
 		private const string CameraUpActionName = "CameraUp";
 		private const string CameraDownActionName = "CameraDown";
 		private static readonly Vector3 FriendlyHandRotation = (float)(-0.05 * Mathf.Pi) * Vector3.Right;
+		private static readonly Vector3 DefaultCameraParentRotation = new (Mathf.Pi / 2f, 0f, 0f);
 
 		[Export]
 		private Camera3D? _camera;
@@ -47,15 +49,29 @@ namespace Kompas.Client.UI
 		private CameraGraphNode? _currentPosition;
 		private CameraGraphNode CurrentPosition => _currentPosition
 			?? throw new NotReadyYetException();
+
+		public readonly struct LookingAt
+		{
+			public Location Location { get; init; }
+			public bool Friendly { get; init; }
+		}
+
+		public event EventHandler<LookingAt>? Departed;
+		public event EventHandler<LookingAt>? Arrived;
+
 		public override void _Ready()
 		{
-			var boardPosition = new CameraGraphNode(CameraPosition.Board, BoardCameraPosition);
+			var boardPosition = new CameraGraphNode(CameraPosition.Board, BoardCameraPosition,
+				lookingAt: new() { Location = Location.Board });
 			_currentPosition = boardPosition;
 
-			var friendlyHandPosition = new CameraGraphNode(CameraPosition.FriendlyHand, BoardCameraPosition, FriendlyHandRotation);
+			var friendlyHandPosition = new CameraGraphNode(CameraPosition.FriendlyHand, BoardCameraPosition,
+				lookingAt: new() { Location = Location.Hand, Friendly = true },
+				cameraRotation: FriendlyHandRotation);
 			boardPosition.AddReciprocally(down: friendlyHandPosition);
 
-			var friendlyDeckPosition = new CameraGraphNode(CameraPosition.FriendlyDeck, FriendlyDeckPosition);
+			var friendlyDeckPosition = new CameraGraphNode(CameraPosition.FriendlyDeck, FriendlyDeckPosition,
+				lookingAt: new() { Location = Location.Deck, Friendly = true });
 			boardPosition.AddReciprocally(right: friendlyDeckPosition);
 		}
 
@@ -71,13 +87,16 @@ namespace Kompas.Client.UI
 		{
 			if (node == null) return;
 
+			if (_currentPosition != null) Departed?.Invoke(this, _currentPosition.LookingAt);
 			_currentPosition = node;
+			Arrived?.Invoke(this, node.LookingAt);
+
 			GetParent()?.RemoveChild(this);
 			node.Node.AddChild(this);
+
 			Camera.Rotation = node.CameraRotation;
 			Camera.Position = Vector3.Zero;
-			GD.Print($"Setting {HandObject}'s rotation to {-node.CameraRotation}");
-			HandObject.Rotation = new Vector3(Mathf.Pi / 2f, 0f, 0f) + node.CameraRotation;
+			HandObject.Rotation = DefaultCameraParentRotation + node.CameraRotation;
 		}
 
 		public enum CameraPosition
@@ -92,6 +111,7 @@ namespace Kompas.Client.UI
 			public CameraPosition Position { get; }
 			public Node3D Node { get; }
 			public Vector3 CameraRotation { get; }
+			public LookingAt LookingAt { get; }
 
 			//public setters because I might have some nodes I want to end up at the same endpoint
 			public CameraGraphNode? Left { get; set; }
@@ -99,10 +119,12 @@ namespace Kompas.Client.UI
 			public CameraGraphNode? Up { get; set; }
 			public CameraGraphNode? Down { get; set; }
 
-			public CameraGraphNode(CameraPosition position, Node3D node, Vector3? cameraRotation = null)
+
+			public CameraGraphNode(CameraPosition position, Node3D node, LookingAt lookingAt, Vector3? cameraRotation = null)
 			{
 				Position = position;
 				Node = node;
+				LookingAt = lookingAt;
 				CameraRotation = cameraRotation ?? Vector3.Zero;
 			}
 
