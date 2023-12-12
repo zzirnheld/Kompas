@@ -36,6 +36,8 @@ namespace Kompas.Client.UI
         /// </summary>
 		public Plane CenterOfCamera => new(Vector3.Right, GlobalPosition);
 
+		//TODO replace these with scripts attached to the objs that hold the up/down/left pointers?
+		//or maybe instead have some sort of a "stack" notion, where if you hit "down" to go somewhere, hitting "up" means going the opposite way
 		[Export]
 		private Node3D? _boardCameraPosition;
 		private Node3D BoardCameraPosition => _boardCameraPosition
@@ -44,6 +46,26 @@ namespace Kompas.Client.UI
 		[Export]
 		private Node3D? _friendlyDeckPosition;
 		private Node3D FriendlyDeckPosition => _friendlyDeckPosition
+			?? throw new UnassignedReferenceException();
+
+		[Export]
+		private Node3D? _friendlyDiscardPosition;
+		private Node3D FriendlyDiscardPosition => _friendlyDiscardPosition
+			?? throw new UnassignedReferenceException();
+
+		[Export]
+		private Node3D? _enemyHandPosition;
+		private Node3D EnemyHandPosition => _enemyHandPosition
+			?? throw new UnassignedReferenceException();
+
+		[Export]
+		private Node3D? _enemyDeckPosition;
+		private Node3D EnemyDeckPosition => _enemyDeckPosition
+			?? throw new UnassignedReferenceException();
+
+		[Export]
+		private Node3D? _enemyDiscardPosition;
+		private Node3D EnemyDiscardPosition => _enemyDiscardPosition
 			?? throw new UnassignedReferenceException();
 
 		private CameraGraphNode? _currentPosition;
@@ -63,24 +85,53 @@ namespace Kompas.Client.UI
 		{
 			var boardPosition = new CameraGraphNode(CameraPosition.Board, BoardCameraPosition,
 				lookingAt: new() { Location = Location.Board });
-			_currentPosition = boardPosition;
 
 			var friendlyHandPosition = new CameraGraphNode(CameraPosition.FriendlyHand, BoardCameraPosition,
 				lookingAt: new() { Location = Location.Hand, Friendly = true },
 				cameraRotation: FriendlyHandRotation);
-			boardPosition.AddReciprocally(down: friendlyHandPosition);
 
 			var friendlyDeckPosition = new CameraGraphNode(CameraPosition.FriendlyDeck, FriendlyDeckPosition,
 				lookingAt: new() { Location = Location.Deck, Friendly = true });
-			boardPosition.AddReciprocally(right: friendlyDeckPosition);
+
+			var friendlyDiscardPosition = new CameraGraphNode(CameraPosition.FriendlyDiscard, FriendlyDiscardPosition,
+				lookingAt: new() { Location = Location.Discard, Friendly = true });
+
+			var enemyHandPosition = new CameraGraphNode(CameraPosition.EnemyHand, EnemyHandPosition,
+				lookingAt: new() { Location = Location.Hand, Friendly = false });
+
+			var enemyDeckPosition = new CameraGraphNode(CameraPosition.EnemyDeck, EnemyDeckPosition,
+				lookingAt: new() { Location = Location.Deck, Friendly = false });
+
+			var enemyDiscardPosition = new CameraGraphNode(CameraPosition.EnemyDiscard, EnemyDiscardPosition,
+				lookingAt: new() { Location = Location.Discard, Friendly = false });
+
+			boardPosition.AddReciprocally(
+				left: friendlyDiscardPosition,
+				right: friendlyDeckPosition,
+				up: enemyHandPosition,
+				down: friendlyHandPosition
+			);
+
+			enemyHandPosition.AddReciprocally(
+				left: enemyDeckPosition,
+				right: enemyDiscardPosition
+			);
+
+			friendlyDeckPosition.AddReciprocally(up: enemyDiscardPosition);
+			friendlyDiscardPosition.AddReciprocally(up: enemyDeckPosition);
+
+			friendlyHandPosition.Left = friendlyDiscardPosition;
+			friendlyHandPosition.Right = friendlyDeckPosition;
+
+			_currentPosition = boardPosition;
 		}
 
 		public override void _Process(double deltaTime)
 		{
-			if (Input.IsActionPressed(CameraRightActionName)) 		GoToCameraPosition(CurrentPosition.Right);
-			else if (Input.IsActionPressed(CameraLeftActionName)) 	GoToCameraPosition(CurrentPosition.Left);
-			else if (Input.IsActionPressed(CameraDownActionName)) 	GoToCameraPosition(CurrentPosition.Down);
-			else if (Input.IsActionPressed(CameraUpActionName)) 	GoToCameraPosition(CurrentPosition.Up);
+			if (Input.IsActionJustReleased(CameraRightActionName)) 		GoToCameraPosition(CurrentPosition.Right);
+			else if (Input.IsActionJustReleased(CameraLeftActionName)) 	GoToCameraPosition(CurrentPosition.Left);
+			else if (Input.IsActionJustReleased(CameraDownActionName)) 	GoToCameraPosition(CurrentPosition.Down);
+			else if (Input.IsActionJustReleased(CameraUpActionName)) 	GoToCameraPosition(CurrentPosition.Up);
 		}
 
 		private void GoToCameraPosition(CameraGraphNode? node)
@@ -104,6 +155,10 @@ namespace Kompas.Client.UI
 			Board,
 			FriendlyHand,
 			FriendlyDeck,
+			FriendlyDiscard,
+			EnemyDeck,
+			EnemyDiscard,
+			EnemyHand,
 		}
 
 		private class CameraGraphNode
