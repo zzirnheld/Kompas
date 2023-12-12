@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=38 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
+[ext_resource type="PackedScene" uid="uid://n0i40wbs2c5p" path="res://Scenes/Prefabs/Client Game/Focusable Spiral.tscn" id="14_r8kao"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
 [ext_resource type="Material" uid="uid://cehfjiqermc0e" path="res://Icons/Spiral.tres" id="16_5woes"]
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
@@ -39,154 +40,6 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_x2g6r"]
-
-[sub_resource type="Animation" id="Animation_v2due"]
-resource_name = "Open"
-tracks/0/type = "scale_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Spiral Big")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.05, 0.05, 0.05, 1, 1, 0.488, 0.488, 0.488)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Spiral Big")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.01, 0.01, 0.01, 1, 1, 0.31, 0.01, 0.315)
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Spiral Big:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -3.14159, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_uv7vu"]
-resource_name = "RESET"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Spiral Big:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 3.14159, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Spiral Big:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.01, 0.01, 0.01)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Spiral Big:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.05, 0.05, 0.05)]
-}
-
-[sub_resource type="Animation" id="Animation_c34py"]
-resource_name = "Spin"
-length = 10.0
-loop_mode = 1
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Spiral Big")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.31, 0.01, 0.31)
-tracks/1/type = "scale_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Spiral Big")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.488, 0.488, 0.488)
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Spiral Big:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 5, 10),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0), Vector3(0, 6.28319, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_r7uil"]
-resource_name = "Close"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Spiral Big:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.31, 0.01, 0.31), Vector3(0.01, 0.01, 0.01)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Spiral Big:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -3.14159, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Spiral Big:scale")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.488, 0.488, 0.488), Vector3(0.05, 0.05, 0.05)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hxan"]
-_data = {
-"Close": SubResource("Animation_r7uil"),
-"Open": SubResource("Animation_v2due"),
-"RESET": SubResource("Animation_uv7vu"),
-"Spin": SubResource("Animation_c34py")
-}
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_37nna"]
 
 [node name="Node" type="Node"]
 
@@ -328,17 +181,14 @@ script = ExtResource("8_4q2k2")
 [node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_spiralController", "_cameraController", "_animationPlayer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
-_spiralController = NodePath("Spread Out Deck")
+_spiralController = NodePath("Spiral Big/Spread Out Deck")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller")
-_animationPlayer = NodePath("AnimationPlayer")
+_animationPlayer = NodePath("Spiral Big/AnimationPlayer")
 
-[node name="Spiral Big" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Deck"]
-transform = Transform3D(-0.05, 0, 1.26759e-07, 0, 0.05, 0, -1.26759e-07, 0, -0.05, 0.01, 0.01, 0.01)
-mesh = SubResource("PlaneMesh_x2g6r")
-material = ExtResource("16_5woes")
+[node name="Spiral Big" parent="3D/Friendly Player/Friendly Deck" instance=ExtResource("14_r8kao")]
 
-[node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
-transform = Transform3D(0.0732, 0, 0, 0, 0.0732, 0, 0, 0, 0.0732, 0.31, 0.0344, 0.315)
+[node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Friendly Deck/Spiral Big"]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.05, 0.0102459)
 script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
@@ -347,20 +197,15 @@ SpiralTighten = 0.25
 [node name="Friendly Deck Camera Position" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0.1, 0.7, 0.25)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="3D/Friendly Player/Friendly Deck"]
-libraries = {
-"": SubResource("AnimationLibrary_6hxan")
-}
-
 [node name="Friendly Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_spiralController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
 script = ExtResource("10_pkr2w")
 _spiralController = NodePath("Spread Out Discard")
 
-[node name="Spiral Big" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
-transform = Transform3D(-0.345068, 0, -0.345068, 0, 0.488, 0, 0.345068, 0, -0.345068, -0.31, 0.01, 0.315)
-mesh = SubResource("PlaneMesh_x2g6r")
-material = ExtResource("16_5woes")
+[node name="Spiral Parent" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Spiral Big" parent="3D/Friendly Player/Friendly Discard/Spiral Parent" instance=ExtResource("14_r8kao")]
 
 [node name="Spread Out Discard" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, -0.31, 0.0344, 0.315)
@@ -369,19 +214,8 @@ ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
 
-[node name="Spiral Smol" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
-transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, -0.025, 0.01, 0.025)
-visible = false
-mesh = SubResource("PlaneMesh_x2g6r")
-material = ExtResource("16_5woes")
-
 [node name="Node3D" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(0.996195, 0.0871557, 0, -0.0870363, 0.994829, 0.052336, 0.00456138, -0.0521368, 0.99863, 0, 0.7, 0.25)
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="3D/Friendly Player/Friendly Discard"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0)
-visible = false
-mesh = SubResource("PlaneMesh_37nna")
 
 [node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
@@ -1106,5 +940,7 @@ alignment = 0
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]
 
+[editable path="3D/Friendly Player/Friendly Deck/Spiral Big"]
+[editable path="3D/Friendly Player/Friendly Discard/Spiral Parent/Spiral Big"]
 [editable path="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info"]
 [editable path="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info"]
