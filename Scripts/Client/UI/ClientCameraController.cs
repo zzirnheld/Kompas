@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Shared.Exceptions;
 using System;
 
@@ -18,8 +19,19 @@ namespace Kompas.Client.UI
 			?? throw new UnassignedReferenceException();
 
 		[Export]
+		private Node3D? _handObject;
+		public Node3D HandObject => _handObject
+			?? throw new UnassignedReferenceException();
+
+		[Export]
 		private float DistanceFromCamera { get; set; } = 0.35f;
+		/// <summary>
+        /// Horizontal plane (facing up), a configurable distance below the camera (DistanceFromCamera)
+        /// </summary>
 		public Plane AwayFromCamera => new(Vector3.Up, GlobalPosition + (DistanceFromCamera * Vector3.Down));
+		/// <summary>
+        /// Vertical plane (facing right) anchored at the camera's position
+        /// </summary>
 		public Plane CenterOfCamera => new(Vector3.Right, GlobalPosition);
 
 		[Export]
@@ -64,6 +76,8 @@ namespace Kompas.Client.UI
 			node.Node.AddChild(this);
 			Camera.Rotation = node.CameraRotation;
 			Camera.Position = Vector3.Zero;
+			GD.Print($"Setting {HandObject}'s rotation to {-node.CameraRotation}");
+			HandObject.Rotation = new Vector3(Mathf.Pi / 2f, 0f, 0f) + node.CameraRotation;
 		}
 
 		public enum CameraPosition

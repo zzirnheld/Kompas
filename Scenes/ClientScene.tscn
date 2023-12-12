@@ -68,14 +68,14 @@ _canDeclineFurtherTargetsButton = NodePath("../../UI/Main Game UI/HBoxContainer/
 [node name="Camera Over Board" type="Node3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.55, 0)
 
-[node name="Camera Controller" type="Node3D" parent="3D/Engine Stuff/Camera Over Board" node_paths=PackedStringArray("_camera", "_boardCameraPosition", "_friendlyDeckPosition")]
+[node name="Camera Controller" type="Node3D" parent="3D/Engine Stuff/Camera Over Board" node_paths=PackedStringArray("_camera", "_handObject", "_boardCameraPosition", "_friendlyDeckPosition")]
 script = ExtResource("4_w3f76")
 _camera = NodePath("Camera3D")
+_handObject = NodePath("Friendly Hand Parent Object")
 _boardCameraPosition = NodePath("..")
 _friendlyDeckPosition = NodePath("../../../Friendly Player/Friendly Deck/Node3D")
 
 [node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Friendly Hand Parent Object" type="Node3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
