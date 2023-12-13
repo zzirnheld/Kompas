@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8hvw0esgmqjf"]
+
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/GridController.cs" id="1_h28s3"]
+[ext_resource type="Material" uid="uid://bmtq833q7boaw" path="res://Icons/Spiral Square.tres" id="1_tkgbr"]
+[ext_resource type="PackedScene" uid="uid://boux4witqlchu" path="res://Scenes/Prefabs/Client Game/Card Placeholder.tscn" id="2_x85id"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x2g6r"]
+
+[sub_resource type="Animation" id="Animation_gjoar"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.488, 0.488, 0.488)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.001, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gh14n"]
+resource_name = "Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.05, 0.05, 0.05), Vector3(0.488, 0.488, 0.488)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.31, 0.001, -0.31), Vector3(0, 0.001, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nawjm"]
+_data = {
+"Open": SubResource("Animation_gh14n"),
+"RESET": SubResource("Animation_gjoar")
+}
+
+[node name="Spiral Card Area" type="Node3D" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound")]
+script = ExtResource("1_h28s3")
+_nodeParent = NodePath("Cards")
+_topLeftCorner = NodePath("Cards/Card Placeholder Top Left")
+_rightBound = NodePath("Cards/Card Placeholder Top Right")
+_bottomBound = NodePath("Cards/Card Placeholder Bottom Left")
+
+[node name="Spiral Big" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.488, 0, 0, 0, 0.488, 0, 0, 0, 0.488, 0, 0.001, 0)
+mesh = SubResource("PlaneMesh_x2g6r")
+material = ExtResource("1_tkgbr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Spiral Big"]
+libraries = {
+"": SubResource("AnimationLibrary_nawjm")
+}
+
+[node name="Cards" type="Node3D" parent="."]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
+
+[node name="Card Placeholder Top Left" parent="Cards" instance=ExtResource("2_x85id")]
+transform = Transform3D(1, 0, 0, 0, -1, 1.50996e-07, 0, -1.50996e-07, -1, -3.562, 0, -3.562)
+visible = false
+
+[node name="Card Placeholder Top Right" parent="Cards" instance=ExtResource("2_x85id")]
+transform = Transform3D(1, 0, 0, 0, -1, 1.50996e-07, 0, -1.50996e-07, -1, 3.562, 0, -3.562)
+visible = false
+
+[node name="Card Placeholder Bottom Left" parent="Cards" instance=ExtResource("2_x85id")]
+transform = Transform3D(1, 0, 0, 0, -1, 1.50996e-07, 0, -1.50996e-07, -1, -3.562, 0, 3.562)
+visible = false
+
+[node name="Card Placeholder Bottom Right" parent="Cards" instance=ExtResource("2_x85id")]
+transform = Transform3D(1, 0, 0, 0, -1, 1.50996e-07, 0, -1.50996e-07, -1, 3.562, 0, 3.562)
+visible = false

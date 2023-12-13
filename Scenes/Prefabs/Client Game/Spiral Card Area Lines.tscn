@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://08swibvs8rfu"]
+
+[ext_resource type="Material" uid="uid://cehfjiqermc0e" path="res://Icons/Spiral.tres" id="1_mohsr"]
+[ext_resource type="PackedScene" uid="uid://boux4witqlchu" path="res://Scenes/Prefabs/Client Game/Card Placeholder.tscn" id="2_j587e"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x2g6r"]
+
+[node name="Spiral Card Area" type="Node3D"]
+
+[node name="Spiral Big" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.488, 0, 0, 0, 0.488, 0, 0, 0, 0.488, 0, 0.001, 0)
+mesh = SubResource("PlaneMesh_x2g6r")
+material = ExtResource("1_mohsr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Spiral Big"]
+
+[node name="Card Placeholder" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.0615565, 0, -0.176791)
+
+[node name="Card Placeholder2" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.0527625, 0, -0.0690489)
+
+[node name="Card Placeholder6" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.0202685, 0, -0.151568)
+
+[node name="Card Placeholder3" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.0646646, 0, 0.0467883)
+
+[node name="Card Placeholder7" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.0171764, 0, 0.0144139)
+
+[node name="Card Placeholder4" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.17354, 0, -0.0789304)
+
+[node name="Card Placeholder5" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.162449, 0, 0.0115633)
+
+[node name="Card Placeholder8" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.110488, 0, 0.0779693)
+
+[node name="Card Placeholder9" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.0299833, 0, 0.11964)
+
+[node name="Card Placeholder10" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.0299833, 0, 0.233643)
+
+[node name="Card Placeholder11" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.0557842, 0, 0.233643)
+
+[node name="Card Placeholder12" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.142284, 0, 0.203509)
+
+[node name="Card Placeholder13" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.206497, 0, 0.139839)
+
+[node name="Card Placeholder14" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.240843, 0, 0.0581848)
+
+[node name="Card Placeholder15" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.240843, 0, -0.0320482)
+
+[node name="Card Placeholder16" parent="." instance=ExtResource("2_j587e")]
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.217196, 0, -0.113674)

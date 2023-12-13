@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using Kompas.Godot;
 using Kompas.Shared.Enumerable;
 
 namespace Kompas.Shared.Controllers
@@ -29,7 +30,7 @@ namespace Kompas.Shared.Controllers
 			{
 				angle = CalculateNextAngle(index, angle);
 				var (x, y) = CalculateCoordinates(angle);
-				TransferChild(child);
+				this.TransferChild(child);
 				child.Position = new(x, ObjectHeight, y);
 			}
 		}
@@ -68,12 +69,6 @@ namespace Kompas.Shared.Controllers
 			float x = radius * Mathf.Sin(angle);
 			float y = radius * Mathf.Cos(angle);
 			return (x, y);
-		}
-
-		private void TransferChild(Node3D child)
-		{
-			child.GetParent()?.RemoveChild(child);
-			AddChild(child);
 		}
 	}
 }

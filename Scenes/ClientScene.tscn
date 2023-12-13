@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=37 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
+[ext_resource type="PackedScene" uid="uid://b8hvw0esgmqjf" path="res://Scenes/Prefabs/Client Game/Spiral Card Area Square.tscn" id="14_i4ntf"]
 [ext_resource type="PackedScene" uid="uid://n0i40wbs2c5p" path="res://Scenes/Prefabs/Client Game/Focusable Spiral.tscn" id="14_r8kao"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
@@ -179,12 +180,17 @@ _rightBound = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller/R
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_spiralController", "_cameraController", "_animationPlayer")]
+[node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_gridController", "_cameraController", "_animationPlayer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
-_spiralController = NodePath("Spread Out Deck")
+_gridController = NodePath("Spiral Parent/Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller")
-_animationPlayer = NodePath("Spiral Big/AnimationPlayer")
+_animationPlayer = NodePath("Spiral Parent/Spiral Card Area/Spiral Big/AnimationPlayer")
+
+[node name="Spiral Parent" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.001, 0.31)
+
+[node name="Spiral Card Area" parent="3D/Friendly Player/Friendly Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
 [node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(0.0732, 0, 0, 0, 0.0732, 0, 0, 0, 0.0732, 0.31, 0.0344, 0.315)
@@ -192,8 +198,6 @@ script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
-
-[node name="Spiral Big" parent="3D/Friendly Player/Friendly Deck" instance=ExtResource("14_r8kao")]
 
 [node name="Friendly Deck Camera Position" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0.1, 0.7, 0.25)
@@ -237,10 +241,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Enemy Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_spiralController", "_cameraController", "_animationPlayer")]
+[node name="Enemy Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_cameraController", "_animationPlayer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
-_spiralController = NodePath("Spread Out Deck")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller")
 _animationPlayer = NodePath("Spiral Parent/Spiral Big/AnimationPlayer")
 
@@ -949,7 +952,7 @@ alignment = 0
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]
 
-[editable path="3D/Friendly Player/Friendly Deck/Spiral Big"]
+[editable path="3D/Friendly Player/Friendly Deck/Spiral Parent/Spiral Card Area"]
 [editable path="3D/Friendly Player/Friendly Discard/Spiral Parent/Spiral Big"]
 [editable path="3D/Enemy Player/Enemy Deck/Spiral Parent/Spiral Big"]
 [editable path="3D/Enemy Player/Enemy Discard/Spiral Parent/Spiral Big"]

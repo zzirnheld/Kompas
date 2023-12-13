@@ -15,8 +15,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private const string CloseAnimationName = "Close";
 
 		[Export]
-		private SpiralController? _spiralController;
-		private SpiralController SpiralController => _spiralController
+		private GridController? _gridController;
+		private GridController GridController => _gridController
 			?? throw new UnassignedReferenceException();
 
 		[Export]
@@ -39,7 +39,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private void Arrived()
 		{
 			AnimationPlayer.Play(OpenAnimationName);
-			AnimationPlayer.Queue(WhileOpenAnimationName);
+			//AnimationPlayer.Queue(WhileOpenAnimationName);
 		}
 
 		private void Departed()
@@ -50,7 +50,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		protected override void SpreadOut()
 		{
 			foreach (var card in DeckModel.Cards) card.CardController.Node.Visible = true;//false;
-			SpiralController.SpiralOut(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
+			GridController.Arrange(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
 		}
 	}
 }
