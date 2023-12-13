@@ -39,7 +39,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private void Arrived()
 		{
 			AnimationPlayer.Play(OpenAnimationName);
-			//AnimationPlayer.Queue(WhileOpenAnimationName);
+			AnimationPlayer.Queue(WhileOpenAnimationName);
 		}
 
 		private void Departed()
