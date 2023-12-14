@@ -10,8 +10,12 @@ namespace Kompas.Shared.Controllers
 	/// <summary>
     /// Organizes objects in a grid.
 	/// </summary>
-	public partial class GridController : Node3D
+	public partial class GridArranger : NodeArranger
 	{
+		private const string OpenAnimationName = "Open";
+		private const string WhileOpenAnimationName = "Spin";
+		private const string CloseAnimationName = "Close";
+
 		[Export]
 		private Node3D? _nodeParent;
 		private Node3D NodeParent => _nodeParent
@@ -33,6 +37,11 @@ namespace Kompas.Shared.Controllers
 			?? throw new UnassignedReferenceException();
 
 		[Export]
+		private AnimationPlayer? _animationPlayer;
+		private AnimationPlayer AnimationPlayer => _animationPlayer
+			?? throw new UnassignedReferenceException();
+
+		[Export]
 		private float MinObjectSize { get; set; } = 1.1f;
 
 		private int rows;
@@ -49,7 +58,7 @@ namespace Kompas.Shared.Controllers
 			objectSize = xWidth / columns;
 		}
 
-		public void Arrange(IReadOnlyCollection<Node3D> nodes)
+		public override void Arrange(IReadOnlyCollection<Node3D> nodes)
 		{
 			int col = 0;
 			int row = 0;
@@ -66,6 +75,17 @@ namespace Kompas.Shared.Controllers
 					row++;
 				}
 			}
+		}
+
+		public override void Open()
+		{
+			AnimationPlayer.Play(OpenAnimationName);
+			AnimationPlayer.Queue(WhileOpenAnimationName);
+		}
+
+		public override void Close()
+		{
+			AnimationPlayer.Play(CloseAnimationName);
 		}
 	}
 }
