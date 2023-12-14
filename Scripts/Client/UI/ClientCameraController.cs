@@ -142,12 +142,21 @@ namespace Kompas.Client.UI
 			_currentPosition = node;
 			Arrived?.Invoke(this, node.LookingAt);
 
+			var fromCameraPosition = Camera.GlobalPosition;
+			var fromCameraRotation = Camera.GlobalRotation;
+			var fromHandRotation = HandObject.GlobalRotation;
+
 			GetParent()?.RemoveChild(this);
 			node.Node.AddChild(this);
 
-			Camera.Rotation = node.CameraRotation;
-			Camera.Position = Vector3.Zero;
-			HandObject.Rotation = DefaultCameraParentRotation + node.CameraRotation;
+			Camera.GlobalPosition = fromCameraPosition;
+			Camera.GlobalRotation = fromCameraRotation;
+			//HandObject.GlobalRotation = fromHandRotation;
+
+			var tween = GetTree().CreateTween();
+			tween.TweenProperty(Camera, "position", Vector3.Zero, 0.5);
+			tween.Parallel().TweenProperty(Camera, "rotation", node.CameraRotation, 0.5);
+			tween.Parallel().TweenProperty(HandObject, "rotation", DefaultCameraParentRotation + node.CameraRotation, 0.5);
 		}
 
 		public enum CameraPosition

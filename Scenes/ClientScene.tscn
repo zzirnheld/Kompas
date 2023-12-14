@@ -420,14 +420,14 @@ layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("6_5db68")
 text = "No Further Targets"
-script = ExtResource("19_qtc5n")
 
-[node name="End Turn Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer"]
+[node name="End Turn Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_gameController")]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("6_5db68")
 text = "End Your Turn"
 script = ExtResource("19_qtc5n")
+_gameController = NodePath("../../../../../../../../Game Controller")
 
 [node name="Friendly Player Info" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer" instance=ExtResource("18_q5fki")]
 layout_mode = 2

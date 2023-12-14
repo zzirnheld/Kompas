@@ -9,6 +9,7 @@
 
 [sub_resource type="Animation" id="Animation_gh14n"]
 resource_name = "Open"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -16,7 +17,7 @@ tracks/0/path = NodePath("Spiral Big:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.05, 0.05, 0.05), Vector3(0.488, 0.488, 0.488)]
@@ -28,7 +29,7 @@ tracks/1/path = NodePath("Spiral Big:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-0.31, 0.001, -0.31), Vector3(0, 0.001, 0)]
@@ -40,7 +41,7 @@ tracks/2/path = NodePath("Cards:scale")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.004, 0.004, 0.004), Vector3(0.08, 0.08, 0.08)]
@@ -52,7 +53,7 @@ tracks/3/path = NodePath("Cards:position")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-0.31, 0, -0.31), Vector3(0, 0, 0)]
@@ -64,7 +65,7 @@ tracks/4/path = NodePath("Square:scale")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.05, 0.05, 0.05), Vector3(0.488, 0.488, 0.488)]
@@ -76,7 +77,7 @@ tracks/5/path = NodePath("Square:position")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-0.31, 0.002, -0.31), Vector3(0, 0.002, 0)]
@@ -88,7 +89,7 @@ tracks/6/path = NodePath("Spiral Big:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
@@ -224,6 +225,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_82sm6"]
 resource_name = "Close"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -231,7 +233,7 @@ tracks/0/path = NodePath("Spiral Big:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.488, 0.488, 0.488), Vector3(0.05, 0.05, 0.05)]
@@ -243,7 +245,7 @@ tracks/1/path = NodePath("Spiral Big:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0.001, 0), Vector3(-0.31, 0.001, -0.31)]
@@ -255,7 +257,7 @@ tracks/2/path = NodePath("Cards:scale")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.08, 0.08, 0.08), Vector3(0.004, 0.004, 0.004)]
@@ -267,7 +269,7 @@ tracks/3/path = NodePath("Cards:position")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-0.31, 0, -0.31)]
@@ -279,7 +281,7 @@ tracks/4/path = NodePath("Square:scale")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.488, 0.488, 0.488), Vector3(0.05, 0.05, 0.05)]
@@ -291,7 +293,7 @@ tracks/5/path = NodePath("Square:position")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0.002, 0), Vector3(-0.31, 0.002, -0.31)]
@@ -303,7 +305,7 @@ tracks/6/path = NodePath("Spiral Big:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
