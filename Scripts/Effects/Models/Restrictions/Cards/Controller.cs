@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	public class Controller : CardRestrictionBase
 	{
 		#nullable disable
-		[JsonProperty (Required = Required.Always)]
+		[JsonProperty] //If not initialized here, should be initialized in child
 		public IIdentity<IPlayer> playerIdentity;
 		#nullable restore
 
