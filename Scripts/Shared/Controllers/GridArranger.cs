@@ -51,6 +51,7 @@ namespace Kompas.Shared.Controllers
 		public override void _Ready()
 		{
 			base._Ready();
+			NodeParent.GlobalRotation = Vector3.Zero; //TODO more elegant way of making the cards face the correct way?
 			float xWidth = (RightBound.Position.X - TopLeftCorner.Position.X);
 			float zWidth = (BottomBound.Position.Z - TopLeftCorner.Position.Z);
 			columns = Mathf.FloorToInt(xWidth / MinObjectSize) + 1; //because we want to fully cover that area
