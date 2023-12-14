@@ -64,8 +64,6 @@ namespace Kompas.Client.Gamestate.Search
 
 			this.game = game;
 			this.clientNotifier = clientNotifier;
-
-			foreach (var card in game.Cards) card.CardController.RefreshTargeting();
 		}
 
 		/*
