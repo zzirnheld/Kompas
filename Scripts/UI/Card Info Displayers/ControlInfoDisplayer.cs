@@ -55,9 +55,7 @@ namespace Kompas.UI.CardInfoDisplayers
 		public override void _Ready()
 		{
 			base._Ready();
-			EffText.MetaHoverStarted += metadata => { GD.Print($"{metadata}, {metadata.GetType()}"); };
-
-			MouseEntered += () => { GD.Print($"entered {Name}"); };
+			EffText.MetaHoverStarted += keywordBlurb => { GD.Print($"{keywordBlurb}, at {GetViewport().GetMousePosition()}"); };
 		}
 
 		public void DisplayCardImage(CardBase card)

@@ -21,10 +21,6 @@ namespace Kompas.UI.TextBehavior
 		{
 			VisibilityChanged += ReshowText;
 			Resized += ReshowText;
-
-			MetaHoverStarted += metadata => { GD.Print($"{Name} start {metadata}, {metadata.GetType()}"); };
-			MetaHoverEnded += metadata => { GD.Print($"{Name} end {metadata}, {metadata.GetType()}"); };
-			MetaClicked += metadata => { GD.Print($"{Name} click {metadata}, {metadata.GetType()}"); };
 		}
 
 		public void ReshowText()
