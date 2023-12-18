@@ -22,8 +22,8 @@ namespace Kompas.Client.Gamestate
 	public class ClientGame : IGame
 	{
 		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
-		public ClientCardRepository? ClientCardRepository => ClientGameController.CardRepository;
-		public CardRepository? CardRepository => ClientCardRepository;
+		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
+		public CardRepository CardRepository => ClientCardRepository;
 
 		public ClientBoard ClientBoard { get; private set; }
 		public Board Board => ClientBoard;

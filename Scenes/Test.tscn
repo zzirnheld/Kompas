@@ -87,3 +87,18 @@ Spiral = NodePath("../Spread Out Discard")
 [node name="Card Model Controller32" parent="Node3D" instance=ExtResource("2_s5fag")]
 
 [node name="Card Model Controller33" parent="Node3D" instance=ExtResource("2_s5fag")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_right = 373.0
+offset_bottom = 313.0
+bbcode_enabled = true
+text = "[hint={{test}}]{test2}[/hint]"

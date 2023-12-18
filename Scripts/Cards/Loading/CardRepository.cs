@@ -8,6 +8,7 @@ using Kompas.Effects.Models.Restrictions.Play;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models;
 using Kompas.Shared.Enumerable;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Cards.Loading
 {
@@ -29,7 +30,7 @@ namespace Kompas.Cards.Loading
 		public const string TriggerKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Trigger";
 		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List.txt";
 
-		public static readonly string RemindersJsonPath = $"res://Reminder Text/Reminder Texts";
+		public static readonly string RemindersJsonPath = $"res://Jsons/Reminder Texts.json";
 		public static readonly string CardImagesPath = "res://Sprites";
 
 		private static readonly Regex subeffRegex = new(@"Subeffect:([^:]+):"); //Subeffect:*:
@@ -65,8 +66,12 @@ namespace Kompas.Cards.Loading
 		protected static readonly Dictionary<string, string> triggerKeywordJsons = new();
 
 		public static ReminderTextsContainer Reminders { get; private set; }
-		//public static ICollection<string> Keywords { get; private set; }
-
+		private static ICollection<string>? _keywords;
+		public static ICollection<string> Keywords
+		{
+			get => _keywords ?? throw new NotInitializedException();
+			set => _keywords = value;
+		} 
 		private static bool initalized = false;
 		private static readonly object initializationLock = new();
 
@@ -106,10 +111,11 @@ namespace Kompas.Cards.Loading
 				InitializeMapFromJsons(PartialKeywordListFilePath, PartialKeywordFolderPath, partialKeywordJsons);
 				InitializeMapFromJsons(TriggerKeywordListFilePath, TriggerKeywordFolderPath, triggerKeywordJsons);
 
-				//var reminderJsonAsset = LoadFileAsText(RemindersJsonPath);
-				//Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset);
-				//Reminders.Initialize();
-				//Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
+				var reminderJsonAsset = LoadFileAsText(RemindersJsonPath)
+					?? throw new System.NullReferenceException("Failed to load reminders json");
+				Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset);
+				Reminders.Initialize();
+				Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
 				initalized = true;
 			}
 		}
@@ -285,6 +291,22 @@ namespace Kompas.Cards.Loading
 				GD.PrintErr($"Failed to instantiate {keyword}");
 				throw;
 			}
+		}
+
+		/// <summary>
+        /// Adds BBCode [hint] tags for keyword reminders.
+        /// </summary>
+        /// <param name="baseEffText"></param>
+        /// <returns></returns>
+		public string AddKeywordHints(string baseEffText)
+		{
+			string bbCodeEffText = baseEffText;
+			foreach (var keyword in Keywords)
+			{
+				//{{ and }} escape the { and } characters in an interpolated string
+				bbCodeEffText = bbCodeEffText.Replace(keyword, $"[hint={Reminders.KeywordToReminder[keyword]}]{keyword}[/hint]");
+			}
+			return bbCodeEffText;
 		}
 	}
 }

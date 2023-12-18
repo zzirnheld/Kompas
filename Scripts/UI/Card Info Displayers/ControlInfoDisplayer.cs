@@ -70,7 +70,7 @@ namespace Kompas.UI.CardInfoDisplayers
 		{
 			CardName.ShrinkableText = card.CardName;
 			Subtypes.ShrinkableText = card.SubtypeText;
-			EffText.ShrinkableText = card.EffText;
+			EffText.ShrinkableText = card.BBCodeEffText;
 		}
 	}
 }

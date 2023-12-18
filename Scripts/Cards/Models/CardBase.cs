@@ -92,8 +92,20 @@ namespace Kompas.Cards.Models
 		public int Duration { get; set; }
 		public char CardType { get; private set; }
 		public string CardName { get; private set; } = string.Empty;
-		public string EffText { get; private set; } = string.Empty;
 		public string SubtypeText { get; private set; } = string.Empty;
+
+		protected event EventHandler<string>? EffTextChanged;
+		private string _effText = string.Empty;
+		public string EffText
+		{
+			get => _effText;
+			set
+			{
+				_effText = value;
+				EffTextChanged?.Invoke(this, value);
+			}
+		}
+		public virtual string BBCodeEffText => EffText;
 
 		public string QualifiedSubtypeText => AttributesString + ArgsString + SubtypeText;
 

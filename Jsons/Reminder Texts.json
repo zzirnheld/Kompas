@@ -1,0 +1,217 @@
+{
+	"keywordReminderTexts": [
+		{
+			"keyword": "Linewalk.",
+			"reminder": "You can move me through any number of empty spaces on my diagonal, as if it were 1 space (for N purposes)."
+		},
+		{
+			"keyword": "Shape.",
+			"reminder": "I can move through X Ethereal characters to an empty space, then I lose X E. This also counts as moving 1 space for N purposes."
+		},
+		{
+			"keyword":"Vessel.",
+			"reminder":"You can destroy a Memory attached to me to echo me."
+		},
+		{
+			"keyword": "Revenant.",
+			"reminder": "When I die, annihilate me.\nYou can pip revive me at half cost."
+		},
+		{
+			"keyword": "Ificate.",
+			"reminder": "When I'm hand->discarded, discard->cast a DIFFERENT Crazy Idea for 1 pip."
+		},
+		{
+			"keyword": "Recoverable.",
+			"reminder": "When this character dies (while I'm equipped), discard->hand me."
+		},
+		{
+			"keyword": "Territorial.",
+			"reminder": "When turns start, I attack an adjacent character."
+		},
+		{
+			"keyword": "Comeback Play.",
+			"reminder": "When you start friendly turns controlling a Sportsball, discard->cast me."
+		},
+		{
+			"keyword": "Runic.",
+			"reminder": "Can't be cast normally."
+		},
+		{
+			"keyword": "Golem.",
+			"reminder": "While I'm inactive, I can't attack or move."
+		},
+		{
+			"keyword": "Supplicant.",
+			"reminder": "When I fight, kill me.\nWhen another character arrives adjacent to a Supplicant:"
+		},
+		{
+			"keyword": "Weather Condition",
+			"reminder": "When a non-Weather character arrives here, apply the listed effect.\nWhen turns start, deck->cast a Weather Condition adjacent to me, then annihilate me."
+		},
+		{
+			"keyword": "Weather Event",
+			"reminder": "Summon me only where Weather overlaps other Weather.\nWhen I'm summoned, each Weather Condition I'm in:"
+		},
+		{
+			"keyword": "Spin a Storm",
+			"reminder": "Hand->summon a Weather Event in that Weather Condition's overlap with other Weather."
+		},
+		{
+			"keyword": "martyr",
+			"reminder": "Dying during an enemy turn."
+		},
+		{
+			"keyword": "Wisp.",
+			"reminder": "When I'm summoned, or when turns start, move me 1 space. When I move:"
+		},
+		{
+			"keyword": "Invoke",
+			"reminder": "Discard your deck's top card until you discard an appropriate character. Revive them."
+		},
+		{
+			"keyword": "Flashback.",
+			"reminder": "You can pip discard->cast me, then immediately annihilate me."
+		},
+		{
+			"keyword": "Wanderer.",
+			"reminder": "When turns start, swap me for a Wanderer in your deck with less S. (They won't wander until next turn.)"
+		},
+		{
+			"keyword": "Waterborn",
+			"reminder": "Must be played in Water, but doesn't have to be played adjacent to a friendly card."
+		},
+		{
+			"keyword": "Waterdweller",
+			"reminder": "When nothing is happening, if I'm not in Water, kill me."
+		},
+		{
+			"keyword": "Speedemon",
+			"reminder": "After I move in a straight line, except by this effect, move me 1 space in the same direction."
+		},
+		{
+			"keyword": "Pass Back",
+			"reminder": "When this character defends, pass me to your Avatar."
+		},
+		{
+			"keyword": "Attended",
+			"reminder": "When nothing is happening and I'm adjacent to fewer than that many friendly characters, I die."
+		},
+		{
+			"keyword": "secondary heading",
+			"reminder": "Northeast, northwest, southeast, or southwest."
+		},
+		{
+			"keyword": "Collectible",
+			"reminder": "When a character kills this one, they pick me up."
+		},
+		{
+			"keyword": "Pilot a Mech",
+			"reminder": "Annihilate me. Hand->summon a Mech Golem where I was and activate it. When it dies, summon me where it was and negate me until the next turn starts."
+		},
+		{
+			"keyword": "Nimble",
+			"reminder": "Can move through cards."
+		},
+		{
+			"keyword": "Spores",
+			"reminder": "The first time each stack I'm activated, pulse adjacent characters. (Activate, then deactivate each.)"
+		},
+		{
+			"keyword": "Ambush.",
+			"reminder": "When I'm summoned, I attack an adjacent W X enemy. Give them -X W until the battle ends. This uses my attack for the turn."
+		},
+		{
+			"keyword": "Smite.",
+			"reminder": "When I attack, hand->discard X cards. Give me +2*X W until the battle ends."
+		},
+		{
+			"keyword": "Evasive",
+			"reminder": "The first time each round I fight a W X character, give them -X W for that fight."
+		},
+		{
+			"keyword": "Must contain",
+			"reminder": "If there's no appropriate cards here, dispel me."
+		},
+		{
+			"keyword": "Runecast",
+			"reminder": "Once each turn, you can pip hand->cast a Rune."
+		},
+		{
+			"keyword": "Rummage",
+			"reminder": "Hand->discard 1 card, then draw 1 card."
+		},
+		{
+			"keyword": "rummage",
+			"reminder": "Hand->discard 1 card, then draw 1 card."
+		},
+		{
+			"keyword": "Structure",
+			"reminder": "Can't move or attack normally."
+		},
+		{
+			"keyword": "Warrior Trainer",
+			"reminder": "When you summon a Warrior adjacent to me, give them:"
+		},
+		{
+			"keyword": "Berserker",
+			"reminder": "3 attacks each turn."
+		},
+		{
+			"keyword": "Undying",
+			"reminder": "1 turn after I die, revive me where I died."
+		},
+		{
+			"keyword": "Soullink",
+			"reminder": "When I deal X more damage than my defender has E, give their Avatar -X E."
+		},
+		{
+			"keyword": "Trample",
+			"reminder": "When I deal X more damage than my defender has E, give enemies adjacent to them -X E."
+		},
+		{
+			"keyword": "Bouncy",
+			"reminder": "When this character arrives, attach me to an adjacent character."
+		},
+		{
+			"keyword": "Sticky",
+			"reminder": "When a character arrives adjacent to me, attach me to them. "
+		},
+		{
+			"keyword": "Masquerade",
+			"reminder": "Twice each turn, you can swap a Mask attached to me for one in your hand."
+		},
+		{
+			"keyword": "Mask",
+			"reminder": "Characters can only wear one Mask."
+		},
+		{
+			"keyword": "Repositionable",
+			"reminder": "Once each turn, you can teleport me to a space adjacent to a friendly."
+		},
+		{
+			"keyword": "Restock",
+			"reminder": "When I die, discard->reshuffle me."
+		},
+		{
+			"keyword": "hurt",
+			"reminder": "A character with less E than printed (the E number is red)."
+		},
+		{
+			"keyword": "heal",
+			"reminder": "Increase a character's E to its starting value (the E number is black). If the character has more E than they started with, nothing happens."
+		},
+		{
+			"keyword": "Modular",
+			"reminder": "When I'm summoned, hand->attach up to # Modules to me, then draw the same number of cards.",
+			"technicalReminder": "When I'm summoned, hand->attach [X <= #] Modules to me, then draw X cards."
+		},
+		{
+			"keyword": "Shadowy Figure",
+			"reminder": "When an enemy arrives here, I vanish.\nWhen I'm cast, show 2 Cryptids in your hand. Secretly choose one. When I vanish, hand->summon it where I was."
+		},
+		{
+			"keyword": "Aggressive",
+			"reminder": "When I'm summoned, I attack a character within my radius."
+		}
+	]
+}

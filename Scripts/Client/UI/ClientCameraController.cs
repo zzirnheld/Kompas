@@ -144,7 +144,7 @@ namespace Kompas.Client.UI
 
 			var fromCameraPosition = Camera.GlobalPosition;
 			var fromCameraRotation = Camera.GlobalRotation;
-			var fromHandRotation = HandObject.GlobalRotation;
+			//var fromHandRotation = HandObject.GlobalRotation;
 
 			GetParent()?.RemoveChild(this);
 			node.Node.AddChild(this);
