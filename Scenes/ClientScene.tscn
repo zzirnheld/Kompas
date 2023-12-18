@@ -958,20 +958,36 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("34_mphml")
-_keyword = NodePath("MarginContainer/VBoxContainer/Keyword Label")
-_reminderText = NodePath("MarginContainer/VBoxContainer/Reminder Text Label")
+_keyword = NodePath("PanelContainer/VBoxContainer/Keyword Label")
+_reminderText = NodePath("PanelContainer/VBoxContainer/Reminder Text Label")
 
 [node name="Reminder Text Background" type="TextureRect" parent="UI/Reminder Text"]
-self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_i20x8")
 
+[node name="Reminder Text Background" type="TextureRect" parent="UI/Reminder Text/Reminder Text Background"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
 [node name="MarginContainer" type="MarginContainer" parent="UI/Reminder Text"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -983,17 +999,26 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Reminder Text/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/Reminder Text"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -0.400024
+offset_bottom = 50.0
+grow_horizontal = 2
+theme = ExtResource("6_5db68")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Reminder Text/PanelContainer"]
 layout_mode = 2
 
-[node name="Keyword Label" type="Label" parent="UI/Reminder Text/MarginContainer/VBoxContainer"]
+[node name="Keyword Label" type="Label" parent="UI/Reminder Text/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("6_5db68")
 text = "Keyword:"
 autowrap_mode = 2
 
-[node name="Reminder Text Label" type="Label" parent="UI/Reminder Text/MarginContainer/VBoxContainer"]
+[node name="Reminder Text Label" type="Label" parent="UI/Reminder Text/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("6_5db68")

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Kompas.Cards.Models;
-using Kompas.Effects.Models.Restrictions.Play;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models;
 using Kompas.Shared.Enumerable;
@@ -65,7 +64,12 @@ namespace Kompas.Cards.Loading
 		protected static readonly Dictionary<string, string> partialKeywordJsons = new();
 		protected static readonly Dictionary<string, string> triggerKeywordJsons = new();
 
-		public static ReminderTextsContainer Reminders { get; private set; }
+		private static ReminderTextsContainer? _reminders;
+		public static ReminderTextsContainer Reminders
+		{
+			get => _reminders ?? throw new NotInitializedException();
+			set => _reminders = value;
+		}
 		private static ICollection<string>? _keywords;
 		public static ICollection<string> Keywords
 		{
@@ -113,7 +117,8 @@ namespace Kompas.Cards.Loading
 
 				var reminderJsonAsset = LoadFileAsText(RemindersJsonPath)
 					?? throw new System.NullReferenceException("Failed to load reminders json");
-				Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset);
+				Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset)
+					?? throw new System.NullReferenceException("Failed to load reminder texts from the json");
 				Reminders.Initialize();
 				Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
 				initalized = true;
