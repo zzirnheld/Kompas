@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Woolen Golem",
-	"effText": "Golem.\nWhen I become active, give me and a distinct character -[my E] W.",
+	"effText": "GOLEM.\nWhen I become active, give me and a distinct character -[my E] W.",
 	"effects": [
 		{
 			"blurb": "Wooly Wool",

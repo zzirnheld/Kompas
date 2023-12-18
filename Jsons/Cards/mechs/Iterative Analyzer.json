@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Iterative Analyzer",
-	"effText": "When this Mech dies, deck->hand a distinct Mech Golem. 1 turn later, discard->hand me.",
+	"effText": "When this Mech dies, deck->hand a distinct Mech GOLEM. 1 turn later, discard->hand me.",
 	"effects": [
 		{
 			"blurb": "Postmortem Analysis",

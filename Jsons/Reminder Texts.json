@@ -37,7 +37,8 @@
 			"reminder": "Can't be cast normally."
 		},
 		{
-			"keyword": "Golem.",
+			"keywordRegex": "GOLEM",
+			"keyword": "Golem",
 			"reminder": "While I'm inactive, I can't attack or move."
 		},
 		{

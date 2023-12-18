@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "S0ULL1NK3R",
-	"effText": "Soullink. Golem.",
+	"effText": "Soullink. GOLEM.",
 	"effects": [],
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",

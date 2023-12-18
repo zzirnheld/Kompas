@@ -29,9 +29,10 @@ namespace Kompas.Cards.Loading
 	[DataContract]
 	public class ReminderTextInfo
 	{
-		#nullable disable
 		[JsonProperty]
-		public string keywordRegex;
+		public string? keywordRegex;
+		
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string keyword;
 		[JsonProperty(Required = Required.Always)]

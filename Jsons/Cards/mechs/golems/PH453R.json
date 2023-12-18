@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "PH453R",
-	"effText": "Nimble Evasive Golem.",
+	"effText": "Nimble Evasive GOLEM.",
 	"effects": [],
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",

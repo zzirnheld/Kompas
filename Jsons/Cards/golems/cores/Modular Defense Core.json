@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Modular Defense Core",
-	"effText": "Recoverable.\nWhile equipped, activate this Golem. When they defend, swap me for a Golem Core in your hand.",
+	"effText": "Recoverable.\nWhile equipped, activate this GOLEM. When they defend, swap me for a Golem Core in your hand.",
 	"effects": [
 		{
 			"blurb": "Defense Activate!",

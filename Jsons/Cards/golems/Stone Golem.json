@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Stone Golem",
-	"effText": "Golem.",
+	"effText": "GOLEM.",
 	"effects": [],
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",
