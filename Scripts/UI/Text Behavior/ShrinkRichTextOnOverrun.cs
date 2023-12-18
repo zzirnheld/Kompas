@@ -15,6 +15,7 @@ namespace Kompas.UI.TextBehavior
 		private int StartingFontSize { get; set; } = 19;
 
 		private bool currentlyResizingText = false;
+		private string rawText = string.Empty;
 
 
 		public override void _Ready()
@@ -28,39 +29,43 @@ namespace Kompas.UI.TextBehavior
 			//Guard against infinite recursion
 			if (currentlyResizingText) return;
 			currentlyResizingText = true;
-			ShrinkableText = Text;
+			SetShrinkableText(rawText, Text);
 			currentlyResizingText = false;
 		}
 
-		public string ShrinkableText //TODO crop out tags when determining "size"
+		/// <summary>
+        /// Sets the shrinkable text
+        /// </summary>
+        /// <param name="text">The text that we should size based off of</param>
+        /// <param name="bbCodeText">The BBCode text that we should actually display (but includes tags we should ignore)</param>
+		public void SetShrinkableText(string text, string bbCodeText)
 		{
-			set
+			//GD.Print($"Shrinkable rich text set to {Text}");
+			if (!IsVisibleInTree() || Size.Y == 0)
 			{
-				//GD.Print($"Shrinkable rich text set to {Text}");
-				if (!IsVisibleInTree() || Size.Y == 0)
-				{
-					GD.Print($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
-					Text = value;
-					return;
-				}
-
-				RemoveThemeFontSizeOverride(FontSizeName);
-				Font font = GetThemeDefaultFont();
-				int nextFontSizeToTry = UseThemeDefaultFontSize ? GetThemeDefaultFontSize() : StartingFontSize;
-				float height = float.MaxValue;
-				float targetHeight = Size.Y;
-
-				while (height > targetHeight && nextFontSizeToTry > MinFontSize)
-				{
-					height = font.GetMultilineStringSize(value, width: Size.X, fontSize: nextFontSizeToTry).Y;
-					AddThemeFontSizeOverride(FontSizeName, nextFontSizeToTry);
-					nextFontSizeToTry--;
-				}
-
-				if (nextFontSizeToTry <= MinFontSize) GD.PrintErr($"{value} is too long, boiiii");
-
-				Text = value;
+				GD.Print($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
+				Text = bbCodeText;
+				rawText = text;
+				return;
 			}
+
+			RemoveThemeFontSizeOverride(FontSizeName);
+			Font font = GetThemeDefaultFont();
+			int nextFontSizeToTry = UseThemeDefaultFontSize ? GetThemeDefaultFontSize() : StartingFontSize;
+			float height = float.MaxValue;
+			float targetHeight = Size.Y;
+
+			while (height > targetHeight && nextFontSizeToTry > MinFontSize)
+			{
+				height = font.GetMultilineStringSize(text, width: Size.X, fontSize: nextFontSizeToTry).Y;
+				AddThemeFontSizeOverride(FontSizeName, nextFontSizeToTry);
+				nextFontSizeToTry--;
+			}
+
+			if (nextFontSizeToTry <= MinFontSize) GD.PrintErr($"{text} is too long, boiiii");
+
+			Text = bbCodeText;
+			rawText = text;
 		}
 	}
 }
