@@ -5,6 +5,7 @@ using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate.Search;
+using Kompas.Client.UI;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Shared.Enumerable;
@@ -18,6 +19,9 @@ namespace Kompas.Client.Gamestate
 		[Export]
 		private ControlInfoDisplayer? _topLeftInfoDisplayer;
 		private ControlInfoDisplayer TopLeftInfoDisplayer => _topLeftInfoDisplayer ?? throw new UnassignedReferenceException();
+		[Export]
+		private ReminderTextPopup? _reminderTextPopup;
+		private ReminderTextPopup ReminderTextPopup => _reminderTextPopup ?? throw new UnassignedReferenceException();
 		[Export]
 		private ClientGameController? _gameController;
 		private ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
@@ -59,7 +63,7 @@ namespace Kompas.Client.Gamestate
 		{
 			base._Ready();
 			if (TopLeftInfoDisplayer == null) throw new System.NullReferenceException("Forgot to init");
-			_topLeftCardView = new(TopLeftInfoDisplayer);
+			_topLeftCardView = new(TopLeftInfoDisplayer, ReminderTextPopup);
 			TopLeftCardView.FocusChange += (_, change) =>
 			{
 				change.Old?.ClientCardController.ShowFocused(false);

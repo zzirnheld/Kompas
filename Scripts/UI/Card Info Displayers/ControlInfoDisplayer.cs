@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
@@ -47,6 +48,9 @@ namespace Kompas.UI.CardInfoDisplayers
 		private TextureRect FrameImage => _frameImage
 			?? throw new UnassignedReferenceException();
 
+		public event EventHandler<string>? HoverKeyword;
+		public event EventHandler<string>? StopHoverKeyword;
+
 		public bool ShowingInfo
 		{
 			set => Visible = value;
@@ -55,7 +59,16 @@ namespace Kompas.UI.CardInfoDisplayers
 		public override void _Ready()
 		{
 			base._Ready();
-			EffText.MetaHoverStarted += keywordBlurb => { GD.Print($"{keywordBlurb}, at {GetViewport().GetMousePosition()}"); };
+			EffText.MetaHoverStarted += keyword =>
+			{
+				if (keyword.VariantType != Variant.Type.String) throw new System.InvalidOperationException("Can't have a non-string keyword!");
+				HoverKeyword?.Invoke(this, (string)keyword);
+			};
+			EffText.MetaHoverEnded += keyword =>
+			{
+				if (keyword.VariantType != Variant.Type.String) throw new System.InvalidOperationException("Can't have a non-string keyword!");
+				StopHoverKeyword?.Invoke(this, (string)keyword);
+			};
 		}
 
 		public void DisplayCardImage(CardBase card)
