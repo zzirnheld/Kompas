@@ -70,12 +70,6 @@ namespace Kompas.Cards.Loading
 			get => _reminders ?? throw new NotInitializedException();
 			set => _reminders = value;
 		}
-		private static ICollection<string>? _keywords;
-		public static ICollection<string> Keywords
-		{
-			get => _keywords ?? throw new NotInitializedException();
-			set => _keywords = value;
-		} 
 		private static bool initalized = false;
 		private static readonly object initializationLock = new();
 
@@ -120,7 +114,6 @@ namespace Kompas.Cards.Loading
 				Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset)
 					?? throw new System.NullReferenceException("Failed to load reminder texts from the json");
 				Reminders.Initialize();
-				Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
 				initalized = true;
 			}
 		}
@@ -306,15 +299,14 @@ namespace Kompas.Cards.Loading
 		public string AddKeywordHints(string baseEffText)
 		{
 			string bbCodeEffText = baseEffText;
-			foreach (var keyword in Keywords)
+			foreach (var reminderTextInfo in Reminders.KeywordToReminder.Values)
 			{
-				//{{ and }} escape the { and } characters in an interpolated string
-				string keywordTag = $"[url={keyword}]{keyword}[/url]";
-				bbCodeEffText = bbCodeEffText.Replace(keyword, keywordTag);
+				string keywordTag = $"[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.keyword}[/url]";
+				bbCodeEffText = reminderTextInfo.KeywordReplaceRegex.Replace(bbCodeEffText, keywordTag);
 			}
 			return bbCodeEffText;
 		}
 
-		public string LookupKeywordReminderText(string keyword) => Reminders.KeywordToReminder[keyword];
+		public ReminderTextInfo LookupKeywordReminderText(string keyword) => Reminders.KeywordToReminder[keyword];
 	}
 }

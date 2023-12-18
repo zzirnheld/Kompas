@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Cards.Loading;
 using Kompas.Shared.Exceptions;
 using System;
 
@@ -16,10 +17,10 @@ namespace Kompas.Client.UI
 		private Label ReminderText => _reminderText
 			?? throw new UnassignedReferenceException();
 
-		public void Display(string keyword, string reminderText)
+		public void Display(ReminderTextInfo reminderTextInfo)
 		{
-			Keyword.Text = keyword;
-			ReminderText.Text = reminderText;
+			Keyword.Text = reminderTextInfo.keyword;
+			ReminderText.Text = reminderTextInfo.reminder;
 			var mousePos = GetViewport().GetMousePosition();
 			OffsetLeft = OffsetRight = mousePos.X;
 			OffsetTop = OffsetBottom = mousePos.Y;

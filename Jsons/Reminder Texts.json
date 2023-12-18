@@ -9,8 +9,8 @@
 			"reminder": "I can move through X Ethereal characters to an empty space, then I lose X E. This also counts as moving 1 space for N purposes."
 		},
 		{
-			"keyword":"Vessel.",
-			"reminder":"You can destroy a Memory attached to me to echo me."
+			"keyword": "Vessel.",
+			"reminder": "You can destroy a Memory attached to me to echo me."
 		},
 		{
 			"keyword": "Revenant.",

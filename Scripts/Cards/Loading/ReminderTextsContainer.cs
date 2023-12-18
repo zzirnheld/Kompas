@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using Godot;
 using Newtonsoft.Json;
 
 namespace Kompas.Cards.Loading
@@ -11,7 +13,7 @@ namespace Kompas.Cards.Loading
 		[JsonProperty(Required = Required.Always)]
 		public ReminderTextInfo[] keywordReminderTexts = Array.Empty<ReminderTextInfo>();
 
-		public Dictionary<string, string> KeywordToReminder { get; set; } = new();
+		public Dictionary<string, ReminderTextInfo> KeywordToReminder { get; set; } = new();
 
 		public ReminderTextsContainer() { }
 
@@ -19,17 +21,25 @@ namespace Kompas.Cards.Loading
 		{
 			foreach(var rti in keywordReminderTexts)
 			{
-				KeywordToReminder.Add(rti.keyword, rti.reminder);
+				KeywordToReminder.Add(rti.KeywordStringKey, rti);
 			}
 		}
 	}
 
 	[DataContract]
-	public struct ReminderTextInfo
+	public class ReminderTextInfo
 	{
+		#nullable disable
+		[JsonProperty]
+		public string keywordRegex;
 		[JsonProperty(Required = Required.Always)]
 		public string keyword;
 		[JsonProperty(Required = Required.Always)]
 		public string reminder;
+		#nullable restore
+
+		public string KeywordStringKey => keywordRegex ?? keyword;
+		private Regex? _keywordReplaceRegex;
+		public Regex KeywordReplaceRegex => _keywordReplaceRegex ??= new(keywordRegex ?? keyword);
 	}
 }

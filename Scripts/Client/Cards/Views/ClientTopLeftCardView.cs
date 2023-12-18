@@ -49,7 +49,7 @@ namespace Kompas.Client.Cards.Views
 			}
 
 			var reminderText = ShownCard.Game.CardRepository.LookupKeywordReminderText(keyword);
-			ReminderTextPopup.Display(keyword, reminderText);
+			ReminderTextPopup.Display(reminderText);
 		}
 	}
 }
