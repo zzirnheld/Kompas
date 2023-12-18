@@ -305,7 +305,7 @@ grow_vertical = 2
 [node name="Left Pane" type="Control" parent="UI/Main Game UI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Left Pane"]
 layout_mode = 1
@@ -445,6 +445,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("6_qshp1")
 _gameController = NodePath("../../Game Controller")
 _connectToServer = NodePath("MarginContainer/Connection Tabs/Choose Host")
@@ -874,6 +875,7 @@ visible = false
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 300.0
+mouse_filter = 1
 script = ExtResource("30_w3lfl")
 _camera = NodePath("../../3D/Engine Stuff/Camera Over Board/Camera Controller/Camera3D")
 _cardName = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/MarginContainer/Card Name Label")

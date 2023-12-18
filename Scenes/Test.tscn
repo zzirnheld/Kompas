@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw0in0g8wgpr8"]
+[gd_scene load_steps=5 format=3 uid="uid://dw0in0g8wgpr8"]
 
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/SpiralController.cs" id="1_2cccl"]
 [ext_resource type="Script" path="res://Scenes/TestSpiral.cs" id="2_nk2ua"]
 [ext_resource type="PackedScene" uid="uid://dq50o17h7ceai" path="res://Scenes/Prefabs/Card Model.tscn" id="2_s5fag"]
+[ext_resource type="Script" path="res://Scenes/TestRichTextLabel.cs" id="4_qikvg"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -101,4 +102,5 @@ layout_mode = 0
 offset_right = 373.0
 offset_bottom = 313.0
 bbcode_enabled = true
-text = "[hint={{test}}]{test2}[/hint]"
+text = "[url={{test}}]{test2}[/url]"
+script = ExtResource("4_qikvg")

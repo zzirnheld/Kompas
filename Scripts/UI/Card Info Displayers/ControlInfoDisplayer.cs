@@ -52,6 +52,14 @@ namespace Kompas.UI.CardInfoDisplayers
 			set => Visible = value;
 		}
 
+		public override void _Ready()
+		{
+			base._Ready();
+			EffText.MetaHoverStarted += metadata => { GD.Print($"{metadata}, {metadata.GetType()}"); };
+
+			MouseEntered += () => { GD.Print($"entered {Name}"); };
+		}
+
 		public void DisplayCardImage(CardBase card)
 		{
 			Image.Texture = card.CardFaceImage;

@@ -304,7 +304,7 @@ namespace Kompas.Cards.Loading
 			foreach (var keyword in Keywords)
 			{
 				//{{ and }} escape the { and } characters in an interpolated string
-				bbCodeEffText = bbCodeEffText.Replace(keyword, $"[hint={Reminders.KeywordToReminder[keyword]}]{keyword}[/hint]");
+				bbCodeEffText = bbCodeEffText.Replace(keyword, $"[url={{\"keyword\": \"{Reminders.KeywordToReminder[keyword]}\"]{keyword}[/url]");
 			}
 			return bbCodeEffText;
 		}
