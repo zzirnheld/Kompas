@@ -20,6 +20,14 @@ namespace Kompas.Cards.Views
 
 		public DisplayerType InfoDisplayer { get; }
 
+		public class CardChange
+		{
+			public CardType? Old { get; init; }
+			public CardType? New { get; init; }
+		}
+
+		public event EventHandler<CardChange>? ChangeShownCard;
+
 		protected CardViewBase(DisplayerType infoDisplayer)
 		{
 			InfoDisplayer = infoDisplayer;
@@ -43,7 +51,9 @@ namespace Kompas.Cards.Views
 			//Unless explicitly refreshing card, if already showing that card, no-op.
 			if (card == ShownCard && !refresh) return;
 
+			var old = ShownCard;
 			ShownCard = card;
+			ChangeShownCard?.Invoke(this, new() { Old = old, New = card});
 
 			//If we're now showing nothing, hide the window and be done
 			if (ShownCard == null) DisplayNothing();

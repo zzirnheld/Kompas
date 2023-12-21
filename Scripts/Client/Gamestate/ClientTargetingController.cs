@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -9,6 +10,7 @@ using Kompas.Client.Gamestate.Search;
 using Kompas.Client.UI;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations;
 using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
@@ -72,6 +74,10 @@ namespace Kompas.Client.Gamestate
 			{
 				change.Old?.ClientCardController.ShowFocused(false);
 				change.New?.ClientCardController.ShowFocused(true);
+			};
+			TopLeftCardView.ChangeShownCard += (_, change) =>
+			{
+				ShowWhereCanMove(change.New);
 			};
 		}
 
@@ -152,13 +158,15 @@ namespace Kompas.Client.Gamestate
 		public bool IsSelectedTarget(GameCard card) => CurrentSearch?.IsCurrentTarget(card) ?? false;
 		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
 
-		public void ShowWhereCanMove(GameCard card)
+		public void ShowWhereCanMove(GameCard? card)
 		{
+			Predicate<Space> CanMove = card == null || card.Location != Location.Board
+				? _ => false
+				: card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate;
 			foreach (var spaceCtrl in SpacesController.SpaceTargets)
 			{
 				var space = spaceCtrl.Space;
-				bool can = card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(space);
-				spaceCtrl.ShowCanMoveHere(can);
+				spaceCtrl.ShowCanMoveHere(CanMove(space));
 			}
 		}
 	}

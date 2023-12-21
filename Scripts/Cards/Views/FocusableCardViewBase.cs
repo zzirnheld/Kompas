@@ -19,12 +19,6 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		public CardType? FocusedCard { get; private set; }
 
-		public class CardChange
-		{
-			public CardType? Old { get; init; }
-			public CardType? New { get; init; }
-		}
-
 		public event EventHandler<CardChange>? FocusChange;
 
 		protected FocusableCardViewBase(DisplayerType infoDisplayer)
