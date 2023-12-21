@@ -29,12 +29,12 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-        protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom
 			(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		{
 			var cards = this.cards.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return cards.Where(c => cardRestriction.IsValid(c, context)).ToArray();
-        }
-    }
+			return cards.Where(c => cardRestriction.IsValid(c, context)).ToArray();
+		}
+	}
 }

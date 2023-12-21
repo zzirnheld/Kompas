@@ -23,13 +23,13 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cards.Initialize(initializationContext);
 		}
 
-        protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var cards = this.cards.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return CollectionsHelper.Shuffle(cards)
+			return CollectionsHelper.Shuffle(cards)
 				.Take(limit.From(context, secondaryContext))
 				.ToArray();
-        }
-    }
+		}
+	}
 }

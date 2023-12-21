@@ -34,10 +34,10 @@ namespace Kompas.UI.TextBehavior
 		}
 
 		/// <summary>
-        /// Sets the shrinkable text
-        /// </summary>
-        /// <param name="text">The text that we should size based off of</param>
-        /// <param name="bbCodeText">The BBCode text that we should actually display (but includes tags we should ignore)</param>
+		/// Sets the shrinkable text
+		/// </summary>
+		/// <param name="text">The text that we should size based off of</param>
+		/// <param name="bbCodeText">The BBCode text that we should actually display (but includes tags we should ignore)</param>
 		public void SetShrinkableText(string text, string bbCodeText)
 		{
 			//GD.Print($"Shrinkable rich text set to {Text}");

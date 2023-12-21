@@ -5,7 +5,7 @@ using Kompas.Effects.Models;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
-    public class Annihilation : HangingEffectSubeffect
+	public class Annihilation : HangingEffectSubeffect
 	{
 		protected override IEnumerable<HangingEffect> CreateHangingEffects()
 		{

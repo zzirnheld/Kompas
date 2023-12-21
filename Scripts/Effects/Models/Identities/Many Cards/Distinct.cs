@@ -19,14 +19,14 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			cards.Initialize(initializationContext);
 		}
 
-        protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var cards = this.cards.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return cards
+			return cards
 				.GroupBy(c => c.CardName)
 				.Select(group => group.First())
 				.ToArray();
-        }
-    }
+		}
+	}
 }

@@ -4,6 +4,7 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
+using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Client.Gamestate.Search;
 using Kompas.Client.UI;
 using Kompas.Effects.Models.Restrictions;
@@ -28,6 +29,9 @@ namespace Kompas.Client.Gamestate
 		[Export]
 		private Control? _canDeclineFurtherTargetsButton;
 		private Control CanDeclineFurtherTargetsButton => _canDeclineFurtherTargetsButton ?? throw new UnassignedReferenceException();
+		[Export]
+		private SpacesController? _spacesController;
+		private SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
 
 		private ClientTopLeftCardView? _topLeftCardView;
 		public ClientTopLeftCardView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();
@@ -147,5 +151,15 @@ namespace Kompas.Client.Gamestate
 		public bool IsValidTarget(GameCard card) => CurrentSearch?.IsValidTarget(card) ?? false;
 		public bool IsSelectedTarget(GameCard card) => CurrentSearch?.IsCurrentTarget(card) ?? false;
 		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
+
+		public void ShowWhereCanMove(GameCard card)
+		{
+			foreach (var spaceCtrl in SpacesController.SpaceTargets)
+			{
+				var space = spaceCtrl.Space;
+				bool can = card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(space);
+				spaceCtrl.ShowCanMoveHere(can);
+			}
+		}
 	}
 }

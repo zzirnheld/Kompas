@@ -58,10 +58,10 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			IEnumerable<GameCard>? potentialTargets = null;
 			try
 			{
-                var gameCardInfos = toSearch.From(ResolutionContext, ResolutionContext)
+				var gameCardInfos = toSearch.From(ResolutionContext, ResolutionContext)
 					?? throw new InvalidOperationException();
-                potentialTargets = gameCardInfos
-                    .Where(c => cardRestriction.IsValid(c, ResolutionContext))
+				potentialTargets = gameCardInfos
+					.Where(c => cardRestriction.IsValid(c, ResolutionContext))
 					.Select(c => c.Card);
 				potentialTarget = tiebreakerDirection switch
 				{

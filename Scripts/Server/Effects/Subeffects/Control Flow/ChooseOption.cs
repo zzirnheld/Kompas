@@ -16,10 +16,10 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		[JsonProperty]
 		public bool showX = false;
 
-        private async Task<int> AskForOptionChoice()
-        {
+		private async Task<int> AskForOptionChoice()
+		{
 			var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
-            return await ServerGame.Awaiter
+			return await ServerGame.Awaiter
 				.GetEffectOption(PlayerTarget,
 								cardName: Effect.Card.CardName,
 								choiceBlurb: choiceBlurb,
@@ -27,9 +27,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 								hasDefault: hasDefault,
 								showX: showX,
 								x: Effect.X);
-        }
+		}
 
-        public override async Task<ResolutionInfo> Resolve()
+		public override async Task<ResolutionInfo> Resolve()
 		{
 			int choice = -1;
 			_ = jumpIndices ?? throw new IllDefinedException();

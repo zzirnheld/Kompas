@@ -20,15 +20,15 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			displacement.Initialize(initializationContext);
 		}
 
-        protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
-            var origin = from.From(context, secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
+			var origin = from.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
 			var displ = displacement.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return origin + displ;
-        }
-    }
+			return origin + displ;
+		}
+	}
 
 	public class Displacement : ContextualParentIdentityBase<Space>
 	{

@@ -4,7 +4,7 @@ using Kompas.Effects.Models;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
-    public class Negate : HangingEffectSubeffect
+	public class Negate : HangingEffectSubeffect
 	{
 		public bool negated = true;
 

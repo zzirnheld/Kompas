@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate.Controllers;
@@ -22,6 +23,13 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		//if this becomes a shared controller, this will need to be moved to a child class
 
 		private readonly SpaceController[,] spaces = new SpaceController[7, 7];
+		public IEnumerable<ISpaceTargetingController> SpaceTargets
+		{
+			get
+			{
+				foreach (var space in spaces) yield return space.SpaceTargetingController;
+			}
+		}
 
 		public SpaceController this[int x, int y] => spaces[x, y];
 		public SpaceController this[Space space] => this[space.x, space.y];

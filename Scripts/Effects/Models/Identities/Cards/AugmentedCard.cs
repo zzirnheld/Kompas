@@ -18,11 +18,11 @@ namespace Kompas.Effects.Models.Identities.Cards
 			ofThisCard.Initialize(initializationContext);
 		}
 
-        protected override IGameCardInfo? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override IGameCardInfo? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var card = ofThisCard.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return card.AugmentedCard;
-        }
-    }
+			return card.AugmentedCard;
+		}
+	}
 }

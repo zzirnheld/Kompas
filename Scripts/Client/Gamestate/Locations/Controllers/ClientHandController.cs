@@ -39,11 +39,11 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private float handWidth;
 
 		/// <summary>
-        /// Figures out where the center of the camera window is,
-        /// and places the center of the hand + the left and right bounds accordingly.
-        /// Currently only does this on startup.
-        /// (Since we then thereafter move around the hand rotation/position relative to the camera, will have to figure out if this is exactly what I want)
-        /// </summary>
+		/// Figures out where the center of the camera window is,
+		/// and places the center of the hand + the left and right bounds accordingly.
+		/// Currently only does this on startup.
+		/// (Since we then thereafter move around the hand rotation/position relative to the camera, will have to figure out if this is exactly what I want)
+		/// </summary>
 		public void Recenter()
 		{
 			if (Camera == null) return;

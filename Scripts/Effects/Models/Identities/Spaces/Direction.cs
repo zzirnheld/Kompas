@@ -20,13 +20,13 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			to.Initialize(initializationContext);
 		}
 
-        protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
-            var origin = from.From(context, secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
+			var origin = from.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
 			var dest = to.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return origin.DirectionFromThisTo(dest);
-        }
-    }
+			return origin.DirectionFromThisTo(dest);
+		}
+	}
 }

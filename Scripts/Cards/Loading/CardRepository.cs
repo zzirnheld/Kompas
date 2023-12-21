@@ -292,10 +292,10 @@ namespace Kompas.Cards.Loading
 		}
 
 		/// <summary>
-        /// Adds BBCode [hint] tags for keyword reminders.
-        /// </summary>
-        /// <param name="baseEffText"></param>
-        /// <returns></returns>
+		/// Adds BBCode [hint] tags for keyword reminders.
+		/// </summary>
+		/// <param name="baseEffText"></param>
+		/// <returns></returns>
 		public string AddKeywordHints(string baseEffText)
 		{
 			string bbCodeEffText = baseEffText;

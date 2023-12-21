@@ -25,11 +25,11 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			spaces.Initialize(initializationContext);
 		}
 
-        protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var spaces = this.spaces.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return spaces.Where(s => restriction.IsValid(s, ContextToConsider(context, secondaryContext))).ToList();
-        }
-    }
+			return spaces.Where(s => restriction.IsValid(s, ContextToConsider(context, secondaryContext))).ToList();
+		}
+	}
 }

@@ -15,13 +15,13 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			player.Initialize(initializationContext);
 		}
 
-        protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var player = this.player.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return player.Hand.HandSize;
-        }
-    }
+			return player.Hand.HandSize;
+		}
+	}
 	
 	public class HandSizeLimit : ContextualParentIdentityBase<int>
 	{
@@ -34,11 +34,11 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			player.Initialize(initializationContext);
 		}
 
-        protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var player = this.player.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return player.HandSizeLimit;
-        }
-    }
+			return player.HandSizeLimit;
+		}
+	}
 }

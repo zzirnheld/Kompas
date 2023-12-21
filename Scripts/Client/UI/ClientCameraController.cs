@@ -28,12 +28,12 @@ namespace Kompas.Client.UI
 		[Export]
 		private float DistanceFromCamera { get; set; } = 0.35f;
 		/// <summary>
-        /// Horizontal plane (facing up), a configurable distance below the camera (DistanceFromCamera)
-        /// </summary>
+		/// Horizontal plane (facing up), a configurable distance below the camera (DistanceFromCamera)
+		/// </summary>
 		public Plane AwayFromCamera => new(Vector3.Up, GlobalPosition + (DistanceFromCamera * Vector3.Down));
 		/// <summary>
-        /// Vertical plane (facing right) anchored at the camera's position
-        /// </summary>
+		/// Vertical plane (facing right) anchored at the camera's position
+		/// </summary>
 		public Plane CenterOfCamera => new(Vector3.Right, GlobalPosition);
 
 		//TODO replace these with scripts attached to the objs that hold the up/down/left pointers?

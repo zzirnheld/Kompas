@@ -9,14 +9,14 @@ namespace Kompas.Effects.Models.Identities.Players
 		[JsonProperty]
 		public int index = -1;
 
-        protected override IPlayer? AbstractItem
-        {
-            get
-            {
+		protected override IPlayer? AbstractItem
+		{
+			get
+			{
 				var effect = InitializationContext.effect
 					?? throw new IllDefinedException();
-                return effect.GetPlayer(index);
-            }
-        }
-    }
+				return effect.GetPlayer(index);
+			}
+		}
+	}
 }

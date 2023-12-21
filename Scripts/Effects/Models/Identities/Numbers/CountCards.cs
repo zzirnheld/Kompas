@@ -28,11 +28,11 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-        protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var cards = this.cards.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return cards.Count(c => cardRestriction.IsValid(c, ContextToConsider(context, secondaryContext)));
-        }
-    }
+			return cards.Count(c => cardRestriction.IsValid(c, ContextToConsider(context, secondaryContext)));
+		}
+	}
 }

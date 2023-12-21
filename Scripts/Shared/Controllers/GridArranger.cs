@@ -8,7 +8,7 @@ using Kompas.Shared.Exceptions;
 namespace Kompas.Shared.Controllers
 {
 	/// <summary>
-    /// Organizes objects in a grid.
+	/// Organizes objects in a grid.
 	/// </summary>
 	public partial class GridArranger : NodeArranger
 	{

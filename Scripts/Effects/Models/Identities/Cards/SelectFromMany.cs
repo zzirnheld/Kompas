@@ -19,11 +19,11 @@ namespace Kompas.Effects.Models.Identities.Cards
 			cards.Initialize(initializationContext);
 		}
 
-        protected override IGameCardInfo? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override IGameCardInfo? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var cards = this.cards.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return selector.Select(cards);
-        }
-    }
+			return selector.Select(cards);
+		}
+	}
 }

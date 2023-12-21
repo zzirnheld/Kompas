@@ -7,14 +7,14 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 {
 	public class Targets : ContextlessLeafIdentityBase<IReadOnlyCollection<IGameCardInfo>>
 	{
-        protected override IReadOnlyCollection<IGameCardInfo> AbstractItem
-        {
-            get
-            {
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItem
+		{
+			get
+			{
 				var effect = InitializationContext.effect
 					?? throw new IllDefinedException();
-                return effect.CardTargets.ToArray();
-            }
-        }
-    }
+				return effect.CardTargets.ToArray();
+			}
+		}
+	}
 }

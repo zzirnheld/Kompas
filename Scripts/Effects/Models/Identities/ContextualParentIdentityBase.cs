@@ -32,17 +32,17 @@ namespace Kompas.Effects.Models.Identities
 			return AbstractItemFrom(context, secondaryContext);
 		}
 
-        public ReturnType? Item
-        {
-            get
-            {
+		public ReturnType? Item
+		{
+			get
+			{
 				var effect = InitializationContext.effect ?? throw new IllDefinedException();
 				var context = effect.CurrentResolutionContext ?? throw new IllDefinedException();
-                return From(context, context);
-            }
-        }
+				return From(context, context);
+			}
+		}
 
-        protected Attack GetAttack(TriggeringEventContext effectContext)
+		protected Attack GetAttack(TriggeringEventContext effectContext)
 		{
 			if (effectContext.stackableEvent is Attack eventAttack) return eventAttack;
 			if (effectContext.stackableCause is Attack causeAttack) return causeAttack;

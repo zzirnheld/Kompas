@@ -41,9 +41,9 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 			if (destination != null)
 			{
-                var space = destination.From(context)
+				var space = destination.From(context)
 					?? throw new System.InvalidOperationException();
-                return IsValidMoveSpace(space);
+				return IsValidMoveSpace(space);
 			}
 			else if (spaceRestrictionSubeffectIndex != default)
 			{

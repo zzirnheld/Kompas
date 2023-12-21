@@ -1,8 +1,7 @@
 using System;
 using Godot;
 using Kompas.Cards.Controllers;
-using Kompas.Cards.Models;
-using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Controllers
@@ -17,10 +16,16 @@ namespace Kompas.Client.Gamestate.Controllers
 		public int X { get; private set; }
 		[Export]
 		public int Y { get; private set; }
+		public Space Space => (X, Y);
 
 		[Export]
 		private Label3D? _coordsDebugLabel;
 		private Label3D CoordsDebugLabel => _coordsDebugLabel ?? throw new UnassignedReferenceException();
+
+		[Export]
+		private SpaceTargetingController? _spaceTargetingController;
+		public ISpaceTargetingController SpaceTargetingController => _spaceTargetingController
+			?? throw new UnassignedReferenceException();
 
 		public event EventHandler? LeftClick;
 
@@ -97,6 +102,11 @@ namespace Kompas.Client.Gamestate.Controllers
 			card.Node.Position = CardOffset;
 			var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
 			card.Node.Rotation = new Vector3(0, rotation, 0);
+		}
+
+		public void ShowCanMoveHere(bool can)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

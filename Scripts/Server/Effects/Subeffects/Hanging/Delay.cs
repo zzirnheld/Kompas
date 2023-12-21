@@ -7,7 +7,7 @@ using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
-    public class Delay : HangingEffectSubeffect
+	public class Delay : HangingEffectSubeffect
 	{
 		public int numTimesToDelay = 0;
 		public bool clearWhenResume = true;

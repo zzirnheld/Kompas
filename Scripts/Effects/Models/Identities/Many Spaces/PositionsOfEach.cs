@@ -21,13 +21,13 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 			cards.Initialize(initializationContext);
 		}
 
-        protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var cards = this.cards.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return cards
+			return cards
 				.SelectMany(c => EnumerableHelper.YieldNonNull(c.Position))
 				.ToArray();
-        }
-    }
+		}
+	}
 }

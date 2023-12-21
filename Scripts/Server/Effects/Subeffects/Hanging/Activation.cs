@@ -4,7 +4,7 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
-    public class Activation : HangingEffectSubeffect
+	public class Activation : HangingEffectSubeffect
 	{
 		protected override IEnumerable<HangingEffect> CreateHangingEffects()
 		{

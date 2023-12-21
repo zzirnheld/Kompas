@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {
-    public abstract class HangingEffectSubeffect : ServerSubeffect
+	public abstract class HangingEffectSubeffect : ServerSubeffect
 	{
 		//BEWARE: once per turn might not work for these as impl rn, because it's kind of ill-defined.
 		//this is only a problem if I one day start creating hanging effects that can later trigger once each turn.

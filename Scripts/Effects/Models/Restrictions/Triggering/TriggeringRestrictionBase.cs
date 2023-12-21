@@ -46,12 +46,12 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 				? IResolutionContext.Dummy(triggeringContext)
 				: resolutionContext;
 
-        protected override sealed bool IsValidLogic(TriggeringEventContext? item, IResolutionContext context)
-        {
-       		var NullTriggeringContext = "Triggering event context was null? If you see this, consider if it's allowable";
+		protected override sealed bool IsValidLogic(TriggeringEventContext? item, IResolutionContext context)
+		{
+	   		var NullTriggeringContext = "Triggering event context was null? If you see this, consider if it's allowable";
 			_ = item ?? throw new System.ArgumentNullException(NullTriggeringContext);
 			return IsValidContext(item, context);
-        }
+		}
 		
 		protected abstract bool IsValidContext(TriggeringEventContext item, IResolutionContext context);
 	}

@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models
 	/// Describes an effect that ends at some point.
 	/// The "ending" occurs without using the stack (so it can't be negated).
 	/// </summary>
-    public abstract class HangingEffect
+	public abstract class HangingEffect
 	{
 		public ServerEffect Effect { get; }
 		public bool RemoveIfEnd { get; }

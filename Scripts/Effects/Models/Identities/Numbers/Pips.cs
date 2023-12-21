@@ -17,11 +17,11 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			player.Initialize(initializationContext);
 		}
 
-        protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			var player = this.player.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-            return player.Pips;
-        }
-    }
+			return player.Pips;
+		}
+	}
 }
