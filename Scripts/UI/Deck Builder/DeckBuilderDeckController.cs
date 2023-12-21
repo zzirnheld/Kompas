@@ -149,6 +149,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private void LoadDeck(string deckName)
 		{
+			GD.Print($"loading {deckName}");
 			var decklist = DeckAccess.Load(deckName);
 			if (decklist == null)
 			{
@@ -164,6 +165,7 @@ namespace Kompas.UI.DeckBuilder
 				AvatarController.UpdateAvatar(avatar);
 			}
 
+			currentDeck = new(); //Because AddToDeck needs something to add to
 			if (decklist.deck != null)
 				foreach (string cardName in decklist.deck) AddToDeck(cardName);
 
@@ -236,6 +238,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private void AddDeckName(string deckName)
 		{
+			GD.Print($"Adding deck name {deckName}");
 			deckNames.Add(deckName);
 			DeckNameSelect.AddItem(deckName);
 		}

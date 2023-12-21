@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=20 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -8,16 +8,19 @@
 [ext_resource type="Script" path="res://Scripts/UI/Card Info Displayers/Deck Builder/DeckBuilderBuiltDeckAvatarInfoDisplayer.cs" id="6_53b6o"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderDeckController.cs" id="6_f63o8"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/NewDeckController.cs" id="7_fm1fl"]
+[ext_resource type="Texture2D" uid="uid://blflkj818tjrc" path="res://Icons/Kompas Spiral 3.png" id="8_1uba1"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/DeckBuilderAvatarController.cs" id="8_jhgvb"]
 [ext_resource type="Texture2D" uid="uid://cj61oorxnb25n" path="res://Icons/Kompas Spiral White.png" id="9_ona11"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderSearchController.cs" id="10_tq1we"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="11_jp0pa"]
+[ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="12_x1jtj"]
 [ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="14_uu30b"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/SaveAsController.cs" id="15_gjys2"]
+[ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="17_wecxo"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
-[node name="Deck Builder Controller" type="Control"]
+[node name="Deck Builder Controller" type="Control" node_paths=PackedStringArray("_cardInfoDisplayer", "_deckController")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +28,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vu5h4")
+_cardInfoDisplayer = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Card Info VBox/Card Info Dimensions")
+_deckController = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/Deck Builder Deck Controller")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.176471, 0.137255, 0.294118, 1)
@@ -140,11 +145,13 @@ texture = ExtResource("9_ona11")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" node_paths=PackedStringArray("_cardFaceImage")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_53b6o")
+_fallbackCardImageTexture = ExtResource("8_1uba1")
+_cardFaceImage = NodePath("..")
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView"]
 self_modulate = Color(1, 1, 1, 0)
@@ -226,7 +233,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("11_jp0pa")
 
-[node name="New Deck VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control"]
+[node name="New Deck VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control" node_paths=PackedStringArray("_deckBuilderDeckController", "_deckNameEdit")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -235,6 +242,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_fm1fl")
+_deckBuilderDeckController = NodePath("../../../../Deck Cards Parent/MarginContainer/Deck Builder Deck Controller")
+_deckNameEdit = NodePath("Deck Buttons MarginContainer2/Deck Name LineEdit")
 
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox"]
 layout_mode = 2
@@ -282,7 +291,7 @@ layout_mode = 2
 theme = ExtResource("11_jp0pa")
 text = "Cancel"
 
-[node name="Save As VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control"]
+[node name="Save As VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control" node_paths=PackedStringArray("_deckBuilderDeckController", "_deckNameEdit")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -291,6 +300,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_gjys2")
+_deckBuilderDeckController = NodePath("../../../../Deck Cards Parent/MarginContainer/Deck Builder Deck Controller")
+_deckNameEdit = NodePath("Deck Buttons MarginContainer2/Deck Name LineEdit")
 
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox"]
 layout_mode = 2
@@ -379,11 +390,16 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Deck Builder Deck Controller" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer" node_paths=PackedStringArray("_tabs")]
+[node name="Deck Builder Deck Controller" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer" node_paths=PackedStringArray("_deckNodesParent", "_avatarController", "_deckBuilderController", "_tabs", "_deckNameSelect")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_f63o8")
-_tabs = []
+_deckNodesParent = NodePath("Deck Parent")
+_deckCardControllerPrefab = ExtResource("12_x1jtj")
+_avatarController = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView")
+_deckBuilderController = NodePath("../../../../../../..")
+_tabs = [NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/New Deck VBox"), NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Save As VBox")]
+_deckNameSelect = NodePath("../../../Deck Edit Buttons VBox/HBoxContainer/Control/Deck Edit VBox/Deck Select Margin/Deck Select")
 
 [node name="Deck Parent" type="Container" parent="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/Deck Builder Deck Controller"]
 layout_mode = 2
@@ -450,10 +466,13 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.6
 
-[node name="Searched Cards Parent" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half"]
+[node name="Searched Cards Parent" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half" node_paths=PackedStringArray("_deckBuilderController", "_searchGridParent")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("10_tq1we")
+_deckBuilderController = NodePath("../../../../../..")
+_searchCardControllerPrefab = ExtResource("17_wecxo")
+_searchGridParent = NodePath("Searched Cards MarginContainer/Searched Cards ScrollContainer/Searched Cards GridContainer")
 
 [node name="Background Outline" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Search/Search Lower Half/Searched Cards Parent"]
 self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
@@ -588,7 +607,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 
-[node name="Spinning Logo On Splash" type="TextureRect" parent="Contain Spinning Logo"]
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Contain Spinning Logo" node_paths=PackedStringArray("_escapeMenuHaze", "_escapeMenuButtons", "_escapeMenuParentToSetVisibility", "_center")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -602,6 +621,10 @@ texture = ExtResource("20_xotc0")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("19_rydhv")
+_escapeMenuHaze = NodePath("../../Escape Menu Stuff/Background Haze")
+_escapeMenuButtons = NodePath("../../Escape Menu Stuff/Escape Menu Buttons")
+_escapeMenuParentToSetVisibility = NodePath("../../Escape Menu Stuff")
+_center = NodePath("Center of Spinning Logo")
 
 [node name="Control" type="Control" parent="Contain Spinning Logo/Spinning Logo On Splash"]
 show_behind_parent = true

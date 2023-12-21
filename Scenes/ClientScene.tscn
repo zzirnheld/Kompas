@@ -74,7 +74,7 @@ _boardCameraPosition = NodePath("..")
 _friendlyDeckPosition = NodePath("../../../Friendly Player/Friendly Deck/Friendly Deck Camera Position")
 _friendlyDiscardPosition = NodePath("../../../Friendly Player/Friendly Discard/Friendly Discard Camera Position")
 _enemyHandPosition = NodePath("../../../Enemy Player/Enemy Hand/Enemy Hand Camera Position")
-_enemyDeckPosition = NodePath("../../../Enemy Player/Enemy Deck/Enemy Deck Camera Position")
+_enemyDeckPosition = NodePath("../../../Friendly Player/Friendly Deck/Friendly Deck Camera Position")
 _enemyDiscardPosition = NodePath("../../../Enemy Player/Enemy Discard/Enemy Discard Camera Position")
 
 [node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]

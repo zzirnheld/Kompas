@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dw0in0g8wgpr8"]
+[gd_scene load_steps=7 format=3 uid="uid://dw0in0g8wgpr8"]
 
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/SpiralController.cs" id="1_2cccl"]
 [ext_resource type="Script" path="res://Scenes/TestSpiral.cs" id="2_nk2ua"]
 [ext_resource type="PackedScene" uid="uid://dq50o17h7ceai" path="res://Scenes/Prefabs/Card Model.tscn" id="2_s5fag"]
 [ext_resource type="Script" path="res://Scenes/TestRichTextLabel.cs" id="4_qikvg"]
+[ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="5_24xhp"]
+[ext_resource type="PackedScene" uid="uid://qntqbe8p3cue" path="res://Scenes/Prefabs/Deck Builder/DeckBuildDeckCardPrefab.tscn" id="6_4smk3"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -104,3 +106,60 @@ offset_bottom = 313.0
 bbcode_enabled = true
 text = "[url={{test}}]{test2}[/url]"
 script = ExtResource("4_qikvg")
+
+[node name="Deck Parent" type="Container" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("5_24xhp")
+
+[node name="TextureRect" parent="Deck Parent" instance=ExtResource("6_4smk3")]
+layout_mode = 2
+
+[node name="TextureRect2" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect3" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect4" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect5" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect6" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect7" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect8" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect9" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect10" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect11" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
+
+[node name="TextureRect12" parent="Deck Parent" node_paths=PackedStringArray("InfoDisplayer") instance=ExtResource("6_4smk3")]
+layout_mode = 2
+InfoDisplayer = NodePath("../TextureRect/Control")
