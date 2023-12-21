@@ -22,8 +22,8 @@ namespace Kompas.Client.Gamestate
 	public class ClientGame : IGame
 	{
 		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
-		public ClientCardRepository? ClientCardRepository => ClientGameController.CardRepository;
-		public CardRepository? CardRepository => ClientCardRepository;
+		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
+		public CardRepository CardRepository => ClientCardRepository;
 
 		public ClientBoard ClientBoard { get; private set; }
 		public Board Board => ClientBoard;
@@ -92,12 +92,9 @@ namespace Kompas.Client.Gamestate
 			ret.ClientBoard = new ClientBoard(gameController.BoardController
 				?? throw new System.NullReferenceException("Failed to init"));
 
-			var playerControllers = gameController.PlayerControllers
-				?? throw new System.NullReferenceException("Failed to init");
-			var networker = gameController.Networker
-				?? throw new System.NullReferenceException("Failed to init");
-			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, playerControllers[0], () => networker);
-			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, playerControllers[1], () => networker);
+			var playerControllers = gameController.PlayerControllers;
+			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, playerControllers[0], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
+			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, playerControllers[1], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
 
 			ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
 			ret.clientPlayers[1].Enemy = ret.clientPlayers[0];

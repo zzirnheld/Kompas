@@ -48,7 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.25
 
-[node name="Connect to Server" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
+[node name="Connect to Server" type="Button" parent="Horizontal Organizer/Menu Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -58,9 +58,8 @@ vs Player"
 icon_alignment = 2
 vertical_icon_alignment = 2
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Solo Mode" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
+[node name="Solo Mode" type="Button" parent="Horizontal Organizer/Menu Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -68,9 +67,8 @@ theme = ExtResource("3_ipls1")
 text = "Incarnate
 vs Artifice"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Build Deck" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
+[node name="Build Deck" type="Button" parent="Horizontal Organizer/Menu Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -78,9 +76,8 @@ theme = ExtResource("3_ipls1")
 text = "Ponder
 Strategems"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Host Server" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
+[node name="Host Server" type="Button" parent="Horizontal Organizer/Menu Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -88,23 +85,21 @@ theme = ExtResource("3_ipls1")
 text = "Bind
 Others"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Quit" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
+[node name="Quit" type="Button" parent="Horizontal Organizer/Menu Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("3_ipls1")
 text = "Escape"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
 [node name="Contain Spinning Logo" type="Control" parent="Horizontal Organizer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="Control" type="Control" parent="."]
+[node name="Splash Screen Background" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,7 +108,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Background2" type="TextureRect" parent="Control"]
+[node name="Control2" type="Control" parent="Splash Screen Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background2" type="TextureRect" parent="Splash Screen Background/Control2"]
 modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -123,7 +126,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_pef7p")
 
-[node name="Button" type="Button" parent="Control"]
+[node name="Button" type="Button" parent="Splash Screen Background/Control2"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -133,13 +136,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_28mb5")
 
-[node name="Control" type="Control" parent="Control"]
+[node name="Control" type="Control" parent="Splash Screen Background/Control2"]
 layout_mode = 1
 anchor_right = 0.45
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Splash Screen Background/Control2/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -148,12 +151,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="Control/Control/VBoxContainer"]
+[node name="Control" type="Control" parent="Splash Screen Background/Control2/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/Control/VBoxContainer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,7 +165,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Control/Control/VBoxContainer/Control/MarginContainer"]
+[node name="Label" type="Label" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 theme = ExtResource("8_cqwiq")
@@ -171,12 +174,12 @@ text = "Kompas"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Control2" type="Control" parent="Control/Control/VBoxContainer"]
+[node name="Control2" type="Control" parent="Splash Screen Background/Control2/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/Control/VBoxContainer/Control2"]
+[node name="MarginContainer" type="MarginContainer" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,7 +188,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Control/Control/VBoxContainer/Control2/MarginContainer"]
+[node name="Label" type="Label" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control2/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("9_q4plg")
@@ -194,7 +197,7 @@ text = "Click anywhere to begin"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Horizontal Organizer2" type="HBoxContainer" parent="Control"]
+[node name="Horizontal Organizer2" type="HBoxContainer" parent="Splash Screen Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -203,19 +206,19 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Left Spacer" type="Control" parent="Control/Horizontal Organizer2"]
+[node name="Left Spacer" type="Control" parent="Splash Screen Background/Horizontal Organizer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 mouse_filter = 2
 
-[node name="Contain Spinning Logo" type="Control" parent="Control/Horizontal Organizer2"]
+[node name="Contain Spinning Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 mouse_filter = 2
 
-[node name="Spinning Logo On Splash" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo" node_paths=PackedStringArray("_leftSpacer", "_topLeft", "_topRight", "_bottomLeft", "_bottomRight", "_disappearDuringTransition", "_center")]
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo" node_paths=PackedStringArray("_leftSpacer", "_topLeft", "_topRight", "_bottomLeft", "_bottomRight", "_disappearDuringTransition", "_center")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.1
@@ -234,10 +237,10 @@ _topLeft = NodePath("Parent/Top Left")
 _topRight = NodePath("Parent/Top Right")
 _bottomLeft = NodePath("Parent/Bottom Left")
 _bottomRight = NodePath("Parent/Bottom Right")
-_disappearDuringTransition = []
+_disappearDuringTransition = [NodePath("../../../Control2")]
 _center = NodePath("Center of Spinning Logo")
 
-[node name="Parent" type="Control" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
+[node name="Parent" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -247,7 +250,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Top Left" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
+[node name="Top Left" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
 visible = false
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
@@ -261,7 +264,7 @@ offset_bottom = 5.0
 mouse_filter = 0
 texture = ExtResource("2_pef7p")
 
-[node name="Top Right" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
+[node name="Top Right" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -274,7 +277,7 @@ offset_bottom = 5.0
 mouse_filter = 0
 texture = ExtResource("2_pef7p")
 
-[node name="Bottom Left" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
+[node name="Bottom Left" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -287,7 +290,7 @@ offset_right = 5.0
 mouse_filter = 0
 texture = ExtResource("2_pef7p")
 
-[node name="Bottom Right" type="TextureRect" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
+[node name="Bottom Right" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
 self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -300,7 +303,7 @@ offset_top = -5.0
 mouse_filter = 0
 texture = ExtResource("2_pef7p")
 
-[node name="Center of Spinning Logo" type="Control" parent="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
+[node name="Center of Spinning Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -314,6 +317,6 @@ grow_vertical = 2
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Build Deck" to="." method="BuildDeck"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Host Server" to="." method="HostServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Quit" to="." method="Quit"]
-[connection signal="pressed" from="Control/Button" to="Control/Button" method="BecomeInvisible"]
-[connection signal="pressed" from="Control/Button" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]
-[connection signal="resized" from="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" to="Control/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]
+[connection signal="pressed" from="Splash Screen Background/Control2/Button" to="Splash Screen Background/Control2/Button" method="BecomeInvisible"]
+[connection signal="pressed" from="Splash Screen Background/Control2/Button" to="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]
+[connection signal="resized" from="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" to="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]

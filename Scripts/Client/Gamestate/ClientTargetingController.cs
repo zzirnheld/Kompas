@@ -5,6 +5,7 @@ using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate.Search;
+using Kompas.Client.UI;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Shared.Enumerable;
@@ -18,6 +19,9 @@ namespace Kompas.Client.Gamestate
 		[Export]
 		private ControlInfoDisplayer? _topLeftInfoDisplayer;
 		private ControlInfoDisplayer TopLeftInfoDisplayer => _topLeftInfoDisplayer ?? throw new UnassignedReferenceException();
+		[Export]
+		private ReminderTextPopup? _reminderTextPopup;
+		private ReminderTextPopup ReminderTextPopup => _reminderTextPopup ?? throw new UnassignedReferenceException();
 		[Export]
 		private ClientGameController? _gameController;
 		private ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
@@ -35,7 +39,16 @@ namespace Kompas.Client.Gamestate
 		public ClientGameCard? FocusedCard => TopLeftCardView.FocusedCard;
 		public ClientGameCard? ShownCard => TopLeftCardView.ShownCard;
 
-		private ISearch? currentSearch;
+		private ISearch? _currentSearch;
+		private ISearch? CurrentSearch
+		{
+			get => _currentSearch;
+			set
+			{
+				_currentSearch = value;
+				foreach (var card in GameController.Game.Cards) card.CardController.RefreshTargeting();
+			}
+		}
 
 		public bool CanDeclineFurtherTargets
 		{
@@ -50,7 +63,7 @@ namespace Kompas.Client.Gamestate
 		{
 			base._Ready();
 			if (TopLeftInfoDisplayer == null) throw new System.NullReferenceException("Forgot to init");
-			_topLeftCardView = new(TopLeftInfoDisplayer);
+			_topLeftCardView = new(TopLeftInfoDisplayer, ReminderTextPopup);
 			TopLeftCardView.FocusChange += (_, change) =>
 			{
 				change.Old?.ClientCardController.ShowFocused(false);
@@ -66,7 +79,7 @@ namespace Kompas.Client.Gamestate
 			//TODO make client notifier a static helper class
 			GD.Print($"Selecting {space}");
 			FocusedCard?.ClientGame.ClientGameController.Notifier.RequestPlay(FocusedCard, space.x, space.y);
-			currentSearch?.Select(space);
+			CurrentSearch?.Select(space);
 		}
 
 		public void Select(ClientGameCard? card)
@@ -75,7 +88,7 @@ namespace Kompas.Client.Gamestate
 			TopLeftCardView?.Select(card);
 			if (card == null) return;
 
-			currentSearch?.Select(card);
+			CurrentSearch?.Select(card);
 		}
 
 		public void Highlight(ClientGameCard? card)
@@ -87,39 +100,39 @@ namespace Kompas.Client.Gamestate
 		public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
 		{
 			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
-			currentSearch = CardSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
+			CurrentSearch = CardSearch.StartSearch(potentialTargetIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 
-			if (currentSearch == null)
+			if (CurrentSearch == null)
 			{
 				GD.PrintErr("Failed to initalize search.");
 				return;
 			}
 
 			GameController.CurrentStateController.ShowCurrentStateInfo(targetBlurb);
-			currentSearch.SearchFinished += (_, _) => FinishSearch();
+			CurrentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
 		public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
 		{
 			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
-			currentSearch = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
+			CurrentSearch = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
 				GameController.Game, this, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo($"Reshuffle down to hand size");
-			currentSearch.SearchFinished += (_, _) => FinishSearch();
+			CurrentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
 		public void StartSpaceSearch(IEnumerable<Space> spaces, string blurb)
 		{
 			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
-			currentSearch = new SpaceSearch(spaces, GameController.Notifier);
+			CurrentSearch = new SpaceSearch(spaces, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo(blurb);
-			currentSearch.SearchFinished += (_, _) => FinishSearch();
+			CurrentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
 		private void FinishSearch()
 		{
-			currentSearch = null;
+			CurrentSearch = null;
 		}
 
 		public void TargetAccepted() { }
@@ -131,8 +144,8 @@ namespace Kompas.Client.Gamestate
 			GameController.Notifier.DeclineAnotherTarget();
 		}
 
-		public bool IsValidTarget(GameCard card) => currentSearch?.IsValidTarget(card) ?? false;
-		public bool IsSelectedTarget(GameCard card) => currentSearch?.IsCurrentTarget(card) ?? false;
+		public bool IsValidTarget(GameCard card) => CurrentSearch?.IsValidTarget(card) ?? false;
+		public bool IsSelectedTarget(GameCard card) => CurrentSearch?.IsCurrentTarget(card) ?? false;
 		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
 	}
 }

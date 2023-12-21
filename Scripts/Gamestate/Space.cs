@@ -160,7 +160,7 @@ namespace Kompas.Gamestate
 		public static bool operator !=((int x, int y) a, Space b) => !(a == b);
 
 		public static implicit operator (int x, int y)(Space space) => (space.x, space.y);
-		public static implicit operator Space((int x, int y) s) => (s.x, s.y);
+		public static implicit operator Space((int x, int y) s) => new(s.x, s.y);
 
 		public void Deconstruct(out int xCoord, out int yCoord)
 		{

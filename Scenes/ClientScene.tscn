@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=37 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -22,16 +22,18 @@
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
-[ext_resource type="Script" path="res://Scripts/Shared/Controllers/SplayOutController.cs" id="11_iiblv"]
+[ext_resource type="PackedScene" uid="uid://b8hvw0esgmqjf" path="res://Scenes/Prefabs/Client Game/Spiral Card Area Square.tscn" id="14_i4ntf"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/SpiralController.cs" id="16_plm70"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/CurrentStateController.cs" id="18_d6k15"]
 [ext_resource type="PackedScene" uid="uid://brjjpkqpcrp4p" path="res://Scenes/Prefabs/Client Game/Player Info.tscn" id="18_q5fki"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientStackView.cs" id="22_80qh3"]
-[ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="30_nxds8"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
+[ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
+[ext_resource type="Script" path="res://Scripts/Client/UI/ReminderTextPopup.cs" id="34_mphml"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ols17"]
 
@@ -39,7 +41,7 @@
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_playerControllers")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_playerControllers", "_boardController")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("../UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
@@ -47,11 +49,13 @@ _currentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane 
 _useEffectDialog = NodePath("../UI/Use Effect")
 _stackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
 _cardPrefab = ExtResource("2_q0mge")
-_playerControllers = []
+_playerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
+_boardController = NodePath("../3D/Board")
 
-[node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton")]
+[node name="Targeting Controller" type="Node" parent="Game Controller" node_paths=PackedStringArray("_topLeftInfoDisplayer", "_reminderTextPopup", "_gameController", "_canDeclineFurtherTargetsButton")]
 script = ExtResource("2_cdbal")
 _topLeftInfoDisplayer = NodePath("../../UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Top Left Card Info")
+_reminderTextPopup = NodePath("../../UI/Reminder Text")
 _gameController = NodePath("..")
 _canDeclineFurtherTargetsButton = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button")
 
@@ -62,10 +66,18 @@ _canDeclineFurtherTargetsButton = NodePath("../../UI/Main Game UI/HBoxContainer/
 [node name="Camera Over Board" type="Node3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.55, 0)
 
-[node name="Camera Controller" type="Node3D" parent="3D/Engine Stuff/Camera Over Board" node_paths=PackedStringArray("_camera", "_boardCameraPosition")]
+[node name="Camera Controller" type="Node3D" parent="3D/Engine Stuff/Camera Over Board" node_paths=PackedStringArray("_camera", "_handObject", "_boardCameraPosition", "_friendlyDeckPosition", "_friendlyDiscardPosition", "_enemyHandPosition", "_enemyDeckPosition", "_enemyDiscardPosition")]
 script = ExtResource("4_w3f76")
 _camera = NodePath("Camera3D")
+_handObject = NodePath("Friendly Hand Parent Object")
 _boardCameraPosition = NodePath("..")
+_friendlyDeckPosition = NodePath("../../../Friendly Player/Friendly Deck/Friendly Deck Camera Position")
+_friendlyDiscardPosition = NodePath("../../../Friendly Player/Friendly Discard/Friendly Discard Camera Position")
+_enemyHandPosition = NodePath("../../../Enemy Player/Enemy Hand/Enemy Hand Camera Position")
+_enemyDeckPosition = NodePath("../../../Enemy Player/Enemy Deck/Enemy Deck Camera Position")
+_enemyDiscardPosition = NodePath("../../../Enemy Player/Enemy Discard/Enemy Discard Camera Position")
+
+[node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
 
 [node name="Friendly Hand Parent Object" type="Node3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
@@ -79,9 +91,6 @@ transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 
 
 [node name="Right Bound" type="Node3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
-
-[node name="Camera3D" type="Camera3D" parent="3D/Engine Stuff/Camera Over Board/Camera Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)
@@ -172,25 +181,48 @@ _rightBound = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller/R
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_splayOutController")]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.185, 0, 0.185)
+[node name="Friendly Deck" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
-_splayOutController = NodePath("Spread Out Deck")
+_cardArranger = NodePath("Spiral Parent/F Deck Spiral Card Area")
+_cameraController = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller")
+
+[node name="Spiral Parent" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.001, 0.31)
+
+[node name="F Deck Spiral Card Area" parent="3D/Friendly Player/Friendly Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
 [node name="Spread Out Deck" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = 1
-VerticalGrowDirection = 1
+transform = Transform3D(0.0732, 0, 0, 0, 0.0732, 0, 0, 0, 0.0732, 0.31, 0.0344, 0.315)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
 
-[node name="Friendly Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_splayOutController")]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, -0.185, 0, 0.185)
+[node name="Friendly Deck Camera Position" type="Node3D" parent="3D/Friendly Player/Friendly Deck"]
+transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0.1, 0.7, 0.25)
+
+[node name="Friendly Discard" type="Node3D" parent="3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
 script = ExtResource("10_pkr2w")
-_splayOutController = NodePath("Spread Out Discard")
+_cardArranger = NodePath("Spiral Parent/F Discard Spiral Card Area")
+_cameraController = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller")
 
 [node name="Spread Out Discard" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = -1
-VerticalGrowDirection = 1
+transform = Transform3D(0.0732, 0, 2.22045e-16, 0, 0.0732, 0, -2.22045e-16, 0, 0.0732, -0.31, 0.0344, 0.31)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+
+[node name="Friendly Discard Camera Position" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
+transform = Transform3D(0.996195, 0.0871557, 0, 0.00456138, -0.0521368, 0.99863, 0.0870363, -0.994829, -0.052336, 0, 0.7, 0.25)
+
+[node name="Spiral Parent" type="Node3D" parent="3D/Friendly Player/Friendly Discard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.001, 0.31)
+
+[node name="F Discard Spiral Card Area" parent="3D/Friendly Player/Friendly Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.001, 0)
 
 [node name="Enemy Player" type="Node3D" parent="3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
@@ -204,31 +236,47 @@ _annihilationController = NodePath("Enemy Annihilation")
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
 script = ExtResource("7_hs3e0")
 
-[node name="Node3D" type="Node3D" parent="3D/Enemy Player/Enemy Hand"]
+[node name="Enemy Hand Camera Position" type="Node3D" parent="3D/Enemy Player/Enemy Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="Enemy Annihilation" type="Node3D" parent="3D/Enemy Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Enemy Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_splayOutController")]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, -0.185, 0, -0.185)
+[node name="Enemy Deck" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
-_splayOutController = NodePath("Spread Out Deck")
+_cardArranger = NodePath("Spiral Parent/E Deck Spiral Card Area")
+_cameraController = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller")
 
-[node name="Spread Out Deck" type="Node3D" parent="3D/Enemy Player/Enemy Deck"]
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = -1
-VerticalGrowDirection = -1
+[node name="Enemy Deck Camera Position" type="Node3D" parent="3D/Enemy Player/Enemy Deck"]
+transform = Transform3D(0.996195, 0.0871557, 0, -0.00456138, 0.0521368, 0.99863, 0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
 
-[node name="Enemy Discard" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_splayOutController")]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.185, 0, -0.185)
+[node name="Spiral Parent" type="Node3D" parent="3D/Enemy Player/Enemy Deck"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.31, 0.001, -0.31)
+
+[node name="E Deck Spiral Card Area" parent="3D/Enemy Player/Enemy Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
+
+[node name="Enemy Discard" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, -0.185)
 script = ExtResource("10_pkr2w")
-_splayOutController = NodePath("Spread Out Discard")
+_cardArranger = NodePath("Spiral Parent/E Discard Spiral Card Area")
+_cameraController = NodePath("../../Engine Stuff/Camera Over Board/Camera Controller")
 
 [node name="Spread Out Discard" type="Node3D" parent="3D/Enemy Player/Enemy Discard"]
-script = ExtResource("11_iiblv")
-HorizontalGrowDirection = 1
-VerticalGrowDirection = -1
+transform = Transform3D(-3.19967e-09, 0, 0.0732, 0, 0.0732, 0, -0.0732, 0, -3.19967e-09, 0.31, 0.0344, -0.31)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+
+[node name="Enemy Discard Camera Position" type="Node3D" parent="3D/Enemy Player/Enemy Discard"]
+transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
+
+[node name="Spiral Parent" type="Node3D" parent="3D/Enemy Player/Enemy Discard"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.31, 0.001, -0.31)
+
+[node name="E Discard Spiral Card Area" parent="3D/Enemy Player/Enemy Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -259,7 +307,7 @@ grow_vertical = 2
 [node name="Left Pane" type="Control" parent="UI/Main Game UI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Left Pane"]
 layout_mode = 1
@@ -374,7 +422,6 @@ layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("6_5db68")
 text = "No Further Targets"
-script = ExtResource("19_qtc5n")
 
 [node name="End Turn Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_gameController")]
 layout_mode = 2
@@ -400,6 +447,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("6_qshp1")
 _gameController = NodePath("../../Game Controller")
 _connectToServer = NodePath("MarginContainer/Connection Tabs/Choose Host")
@@ -829,10 +877,11 @@ visible = false
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 300.0
+mouse_filter = 1
 script = ExtResource("30_w3lfl")
 _camera = NodePath("../../3D/Engine Stuff/Camera Over Board/Camera Controller/Camera3D")
 _cardName = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/MarginContainer/Card Name Label")
-_effectButtonPrefab = ExtResource("30_nxds8")
+_effectButtonPrefab = ExtResource("33_xkpbn")
 _effectButtonsParent = NodePath("MarginContainer/MarginContainer/Effect Parent VBox")
 _cancelButton = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/Cancel Effect Button")
 
@@ -895,6 +944,87 @@ theme = ExtResource("6_5db68")
 theme_override_font_sizes/font_size = 16
 text = "Cancel"
 alignment = 0
+
+[node name="Reminder Text" type="Control" parent="UI" node_paths=PackedStringArray("_keyword", "_reminderText")]
+visible = false
+layout_mode = 1
+anchor_right = 0.2
+anchor_bottom = 0.2
+offset_left = 150.0
+offset_top = 200.0
+offset_right = 150.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("34_mphml")
+_keyword = NodePath("PanelContainer/VBoxContainer/Keyword Label")
+_reminderText = NodePath("PanelContainer/VBoxContainer/Reminder Text Label")
+
+[node name="Reminder Text Background" type="TextureRect" parent="UI/Reminder Text"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
+[node name="Reminder Text Background" type="TextureRect" parent="UI/Reminder Text/Reminder Text Background"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Reminder Text"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Reminder Text"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -0.400024
+offset_bottom = 50.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("6_5db68")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Reminder Text/PanelContainer"]
+layout_mode = 2
+
+[node name="Keyword Label" type="Label" parent="UI/Reminder Text/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("6_5db68")
+text = "Keyword:"
+autowrap_mode = 2
+
+[node name="Reminder Text Label" type="Label" parent="UI/Reminder Text/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("6_5db68")
+text = "An example of reminder text"
+autowrap_mode = 2
 
 [connection signal="pressed" from="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button" to="Game Controller/Targeting Controller" method="DeclineFurtherTargets"]
 [connection signal="pressed" from="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/End Turn Button" to="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/End Turn Button" method="EndTurn"]

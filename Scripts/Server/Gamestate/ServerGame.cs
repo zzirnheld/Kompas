@@ -184,7 +184,11 @@ namespace Kompas.Server.Gamestate
 			avatar.Play(player.AvatarCorner, player, new GameStartStackable());
 			ServerNotifier.DeckAccepted(player);
 
-			if (Players.All(player => player.Avatar != null)) await StartGame();
+			try
+			{
+				if (Players.All(player => player.Avatar != null)) await StartGame();
+			}
+			catch (NotInitializedException) { }
 		}
 
 		public void AddCard(ServerGameCard card)

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "F4LL1NGT1T4N",
-	"effText": "Golem.\nI can spend 1 space of movement to teleport to a space adjacent to a friendly Mech.",
+	"effText": "GOLEM.\nI can spend 1 space of movement to teleport to a space adjacent to a friendly Mech.",
 	"effects": [
 		{
 			"blurb": "T3L3P0RT",

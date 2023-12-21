@@ -15,9 +15,9 @@ namespace Kompas.Cards.Loading
 		where TEffect : Effect
 		where TCardController : class, ICardController
 	{
-		private PackedScene CardPrefab { get; }
+		private PackedScene? CardPrefab { get; }
 
-		protected GameCardRepository(PackedScene cardPrefab)
+		protected GameCardRepository(PackedScene? cardPrefab)
 		{
 			CardPrefab = cardPrefab;
 		}
@@ -90,7 +90,7 @@ namespace Kompas.Cards.Loading
 
 		protected virtual TCardController GetCardController()
 		{
-			if (CardPrefab.Instantiate() is not TCardController ctrl)
+			if (CardPrefab?.Instantiate() is not TCardController ctrl)
 				throw new System.ArgumentNullException(nameof(CardControllerController), "Was not the right type");
 
 			return ctrl;

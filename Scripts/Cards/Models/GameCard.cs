@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -133,6 +134,9 @@ namespace Kompas.Cards.Models
 		public int ControllingPlayerIndex => ControllingPlayer?.Index ?? 0;
 		public int OwnerIndex => OwningPlayer?.Index ?? -1;
 
+		private string _bbCodeEffText = string.Empty;
+		public override string BBCodeEffText => _bbCodeEffText;
+
 		//misc
 		private Location location;
 		public override Location Location
@@ -202,6 +206,14 @@ namespace Kompas.Cards.Models
 			PlayRestriction.Initialize(initContext);
 
 			GD.Print($"Finished setting up info for card {CardName}");
+
+			UpdateBBCodeEffectText(EffText);
+			EffTextChanged += (_, effText) => UpdateBBCodeEffectText(effText);
+		}
+
+		private void UpdateBBCodeEffectText(string effText)
+		{
+			_bbCodeEffText = OwningPlayer.Game.CardRepository.AddKeywordHints(effText);
 		}
 
 		/// <summary>

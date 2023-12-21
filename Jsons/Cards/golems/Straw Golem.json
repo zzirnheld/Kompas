@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Straw Golem",
-	"effText": "Golem.\nWhen I become active, move two enemy cards each 3 spaces.",
+	"effText": "GOLEM.\nWhen I become active, move two enemy cards each 3 spaces.",
 	"effects": [
 		{
 			"blurb": "Go Elsewhere",

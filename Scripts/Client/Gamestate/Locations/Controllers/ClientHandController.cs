@@ -24,7 +24,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		[Export]
 		private ClientCameraController? _camera;
-		private ClientCameraController Camera => _camera ?? throw new UnassignedReferenceException();
+		private ClientCameraController? Camera => _camera; // ?? throw new UnassignedReferenceException();
 		[Export]
 		private Node3D? _nodeParent;
 		private Node3D NodeParent => _nodeParent ?? throw new UnassignedReferenceException();
@@ -38,11 +38,19 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private float handWidth;
 
+		/// <summary>
+        /// Figures out where the center of the camera window is,
+        /// and places the center of the hand + the left and right bounds accordingly.
+        /// Currently only does this on startup.
+        /// (Since we then thereafter move around the hand rotation/position relative to the camera, will have to figure out if this is exactly what I want)
+        /// </summary>
 		public void Recenter()
 		{
 			if (Camera == null) return;
 
 			var frustums = Camera.Camera.GetFrustum();
+			//NOTE: AwayFromCamera and CenterOfCamera assume the camera is facing directly down.
+			//If we call Recenter more often, we may need to adjust that (with some like, transformation of forward or right)
 			Plane distanceFromCamera = Camera.AwayFromCamera;
 
 			NodeParent.GlobalPosition 	= frustums[FrustumBottom].Intersect3(distanceFromCamera, Camera.CenterOfCamera) ?? Vector3.Zero;

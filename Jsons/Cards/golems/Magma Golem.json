@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Magma Golem",
-	"effText": "Golem.\nWhen I become active, give all adjacent characters -4 E.",
+	"effText": "GOLEM.\nWhen I become active, give all adjacent characters -4 E.",
 	"effects": [
 		{
 			"blurb": "Heheh. Grenade.",

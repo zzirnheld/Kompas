@@ -14,8 +14,8 @@ namespace Kompas.Server.Cards.Loading
 {
 	public class ServerCardRepository : GameCardRepository<ServerSerializableCard, ServerEffect, ServerCardController>
 	{
-		public ServerCardRepository(PackedScene cardPrefab)
-			: base(cardPrefab)
+		public ServerCardRepository()
+			: base(null)
 		{
 		}
 

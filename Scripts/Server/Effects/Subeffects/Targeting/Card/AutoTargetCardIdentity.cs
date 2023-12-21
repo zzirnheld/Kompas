@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	public class AutoTargetCardIdentity : ServerSubeffect
 	{
 		#nullable disable
-		[JsonProperty (Required = Required.Always)]
+		[JsonProperty] //Can be populated by inheritors, not always required
 		public IIdentity<IGameCardInfo> subeffectCardIdentity;
 		#nullable restore
 

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "B3R53RK3R",
-	"effText": "Berserker. Golem.",
+	"effText": "Berserker. GOLEM.",
 	"effects": [],
 	"movementRestriction": {
 		"$type": "Restrict.Spaces:MovementRestriction:",

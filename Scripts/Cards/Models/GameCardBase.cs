@@ -380,7 +380,7 @@ namespace Kompas.Cards.Models
 							string? effText,
 							string? subtypeText)
 			: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText)
-		{ }
+		{}
 
 		/* This must happen through setters, not properties, so that notifications and stack sending
 		 * can be managed as intended. */

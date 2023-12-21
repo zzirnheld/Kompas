@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "54MUR41",
-	"effText": "Nimble. Speedemon. Golem.",
+	"effText": "Nimble. Speedemon. GOLEM.",
 	"effects": [],
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",

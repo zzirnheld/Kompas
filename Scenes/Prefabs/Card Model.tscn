@@ -1,4 +1,4 @@
-[gd_scene load_steps=141 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=143 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedIn3DCardInfoDisplayer.cs" id="2_0v3lq"]
@@ -1251,6 +1251,13 @@ shadow_mesh = SubResource("ArrayMesh_w3jxq")
 height = 0.1
 radius = 1.0
 
+[sub_resource type="Curve" id="Curve_lbcae"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4yme7"]
+curve = SubResource("Curve_lbcae")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4sw6e"]
 direction = Vector3(0, 1, 0)
 spread = 90.0
@@ -1259,6 +1266,7 @@ initial_velocity_min = 2.0
 initial_velocity_max = 2.0
 angular_velocity_min = 100.0
 angular_velocity_max = 100.0
+scale_curve = SubResource("CurveTexture_4yme7")
 color = Color(0.443646, 0.786871, 0.870117, 1)
 hue_variation_min = -0.1
 hue_variation_max = 0.1
@@ -1653,6 +1661,7 @@ shape = SubResource("CylinderShape3D_sttby")
 [node name="Valid Target Particles" type="GPUParticles3D" parent="Particles"]
 emitting = false
 lifetime = 0.5
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_4sw6e")
 draw_pass_1 = SubResource("QuadMesh_751mi")
 

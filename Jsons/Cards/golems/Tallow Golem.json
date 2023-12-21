@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Tallow Golem",
-	"effText": "Golem.\nWhen I become active, activate a character until your next turn.",
+	"effText": "GOLEM.\nWhen I become active, activate a character until your next turn.",
 	"effects": [
 		{
 			"triggerData": {

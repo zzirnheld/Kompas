@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Pneumatic Golem",
-	"effText": "Golem.\nWhen I become active, hand a character within [my N] spaces of me.",
+	"effText": "GOLEM.\nWhen I become active, hand a character within [my N] spaces of me.",
 	"effects": [
 		{
 			"blurb": "Nope, Go Away",

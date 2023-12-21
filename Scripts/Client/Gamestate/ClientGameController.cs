@@ -58,8 +58,6 @@ namespace Kompas.Client.Gamestate
 			base._Ready();
 			game = ClientGame.Create(this);
 			game.TurnChanged += (_, turnPlayer) => TurnStartOperations(turnPlayer);
-
-			_ = CardPrefab ?? throw new System.NullReferenceException("Failed to initialize");
 			_cardRespository = new ClientCardRepository(CardPrefab);
 		}
 

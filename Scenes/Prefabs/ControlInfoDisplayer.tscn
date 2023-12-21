@@ -32,6 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="Card Image" type="Control" parent="Card View"]
 layout_mode = 1
@@ -40,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Card Face Image" type="TextureRect" parent="Card View/Card Image"]
 layout_mode = 1
@@ -122,14 +124,19 @@ StartingFontSize = 13
 [node name="RichTextLabel" type="RichTextLabel" parent="Card View/Card Text"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.2
-anchor_top = 0.42
-anchor_right = 0.8
-anchor_bottom = 0.81
+anchor_left = 0.18
+anchor_top = 0.41
+anchor_right = 0.82
+anchor_bottom = 0.82
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 theme = ExtResource("4_chhut")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 19
-text = "Golem.
+bbcode_enabled = true
+text = "[url=\"test\"]Golem.[/url]
 When I become active, I give a character +-1 EW."
 script = ExtResource("6_4g4hh")
 
@@ -140,6 +147,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="N Value" type="Label" parent="Card View/Card Stats"]
 layout_mode = 1
@@ -199,6 +207,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("7_45e0j")
 expand_mode = 1
 stretch_mode = 4

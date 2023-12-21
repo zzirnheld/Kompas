@@ -17,10 +17,6 @@ namespace Kompas.Server.Networking
 		private PackedScene? _gamePrefab;
 		private PackedScene GamePrefab => _gamePrefab
 			?? throw new UnassignedReferenceException();
-		[Export]
-		private PackedScene? _cardPrefab;
-		private PackedScene CardPrefab => _cardPrefab
-			?? throw new UnassignedReferenceException();
 
 		private ServerCardRepository? CardRepo { get; set; }
 
@@ -40,7 +36,7 @@ namespace Kompas.Server.Networking
 
 			listener.Start();
 			currTcpClient = listener.AcceptTcpClientAsync();
-			CardRepo = new ServerCardRepository(CardPrefab);
+			CardRepo = new ServerCardRepository();
 		}
 
 		public override void _Process(double delta)

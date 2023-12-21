@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "TR4MPL3R",
-	"effText": "Trample. Golem.",
+	"effText": "Trample. GOLEM.",
 	"effects": [],
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",

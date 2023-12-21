@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Earth Golem",
-	"effText": "Golem.\nWhen I become active, I give a character \u00b11 EW.",
+	"effText": "GOLEM.\nWhen I become active, I give a character \u00b11 EW.",
 	"effects": [
 		{
 			"blurb": "++ or --",

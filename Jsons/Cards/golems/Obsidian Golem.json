@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Obsidian Golem",
-	"effText": "Golem.\nWhen I become active, give a summon -5 E.",
+	"effText": "GOLEM.\nWhen I become active, give a summon -5 E.",
 	"effects": [
 		{
 			"blurb": "Shards of Glass",
