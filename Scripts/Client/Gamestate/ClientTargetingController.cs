@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Cards.Movement;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
+using Kompas.Client.Gamestate.Controllers;
 using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Client.Gamestate.Search;
 using Kompas.Client.UI;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
 using Kompas.Shared.Enumerable;
@@ -72,12 +75,14 @@ namespace Kompas.Client.Gamestate
 			_topLeftCardView = new(TopLeftInfoDisplayer, ReminderTextPopup);
 			TopLeftCardView.FocusChange += (_, change) =>
 			{
+				//TODO: maybe animate the currently shown card? that's probably more helpful? think about it
+				//or maybe animate the currently hovered card slightly, like popping it up, but leave the selection as it is
 				change.Old?.ClientCardController.ShowFocused(false);
 				change.New?.ClientCardController.ShowFocused(true);
 			};
 			TopLeftCardView.ChangeShownCard += (_, change) =>
 			{
-				ShowWhereCanMove(change.New);
+				ShowCanDoHighlights(change.New);
 			};
 		}
 
@@ -158,15 +163,30 @@ namespace Kompas.Client.Gamestate
 		public bool IsSelectedTarget(GameCard card) => CurrentSearch?.IsCurrentTarget(card) ?? false;
 		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
 
-		public void ShowWhereCanMove(GameCard? card)
+		public void ShowCanDoHighlights(GameCard? card)
 		{
-			Predicate<Space> CanMove = card == null || card.Location != Location.Board
-				? _ => false
-				: card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate;
+			Predicate<Space> canDo;
+			SpaceHighlight highlight;
+			switch (card?.Location)
+			{
+				case null:
+					canDo = _ => false;
+					highlight = SpaceHighlight.CanMove;
+					break;
+				case Location.Board:
+					canDo = card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate;
+					highlight = SpaceHighlight.CanMove;
+					break;
+				case Location.Hand:
+					canDo = s => card.PlayRestriction.IsRecommendedNormalPlay((s, card?.ControllingPlayer));
+					highlight = SpaceHighlight.CanPlay;
+					break;
+				default:
+					return;
+			}
 			foreach (var spaceCtrl in SpacesController.SpaceTargets)
 			{
-				var space = spaceCtrl.Space;
-				spaceCtrl.ShowCanMoveHere(CanMove(space));
+				spaceCtrl.ToggleHighlight(highlight, canDo(spaceCtrl.Space));
 			}
 		}
 	}
