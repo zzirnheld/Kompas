@@ -19,15 +19,20 @@ namespace Kompas.Client.Gamestate.Controllers
 		private Node3D CanMove => _canMove ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Node3D? _canPlay;
-		private Node3D CanPlay => _canPlay ?? throw new UnassignedReferenceException();
+		private Node3D? _recommendPlay;
+		private Node3D RecommendPlay => _recommendPlay ?? throw new UnassignedReferenceException();
+
+		[Export]
+		private Node3D? _unrecommendPlay;
+		private Node3D UnrecommendPlay => _unrecommendPlay ?? throw new UnassignedReferenceException();
 
 		public Space Space => SpaceController.Space;
 
-		private Dictionary<SpaceHighlight, IReadOnlyCollection<SpaceHighlight>> MutualExclusion = new()
+		private readonly Dictionary<SpaceHighlight, IReadOnlyCollection<SpaceHighlight>> mutualExclusion = new()
 		{
-			{ SpaceHighlight.CanMove, new SpaceHighlight[] { SpaceHighlight.CanPlay } },
-			{ SpaceHighlight.CanPlay, new SpaceHighlight[] { SpaceHighlight.CanMove } },
+			{ SpaceHighlight.CanMove, new SpaceHighlight[] { SpaceHighlight.UnrecommendedPlay, SpaceHighlight.RecommendPlay } },
+			{ SpaceHighlight.RecommendPlay, new SpaceHighlight[] { SpaceHighlight.UnrecommendedPlay, SpaceHighlight.CanMove } },
+			{ SpaceHighlight.UnrecommendedPlay, new SpaceHighlight[] { SpaceHighlight.CanMove, SpaceHighlight.RecommendPlay } },
 		};
 		private Dictionary<SpaceHighlight, Action<bool>>? _highlightToToggle;
 		private Dictionary<SpaceHighlight, Action<bool>> HighlightToToggle => _highlightToToggle
@@ -39,7 +44,8 @@ namespace Kompas.Client.Gamestate.Controllers
 			_highlightToToggle = new()
 			{
 				{ SpaceHighlight.CanMove, can => CanMove.Visible = can },
-				{ SpaceHighlight.CanPlay, can => CanPlay.Visible = can },
+				{ SpaceHighlight.RecommendPlay, can => RecommendPlay.Visible = can },
+				{ SpaceHighlight.UnrecommendedPlay, can => UnrecommendPlay.Visible = can },
 			};
 		}
 		
@@ -52,7 +58,7 @@ namespace Kompas.Client.Gamestate.Controllers
 
 		public void ClearMutuallyExclusiveHighlights(SpaceHighlight highlight)
 		{
-			foreach (var unhighlight in MutualExclusion[highlight])
+			foreach (var unhighlight in mutualExclusion[highlight])
 				HighlightToToggle[unhighlight](false);
 		}
 	}

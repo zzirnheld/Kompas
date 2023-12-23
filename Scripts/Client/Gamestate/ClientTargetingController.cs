@@ -10,6 +10,7 @@ using Kompas.Client.Gamestate.Controllers;
 using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Client.Gamestate.Search;
 using Kompas.Client.UI;
+using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Gamestate;
@@ -165,28 +166,29 @@ namespace Kompas.Client.Gamestate
 
 		public void ShowCanDoHighlights(GameCard? card)
 		{
-			Predicate<Space> canDo;
-			SpaceHighlight highlight;
-			switch (card?.Location)
-			{
-				case null:
-					canDo = _ => false;
-					highlight = SpaceHighlight.CanMove;
-					break;
-				case Location.Board:
-					canDo = card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate;
-					highlight = SpaceHighlight.CanMove;
-					break;
-				case Location.Hand:
-					canDo = s => card.PlayRestriction.IsRecommendedNormalPlay((s, card?.ControllingPlayer));
-					highlight = SpaceHighlight.CanPlay;
-					break;
-				default:
-					return;
-			}
+			static bool recommendPlayTo(Space s, GameCard card)
+				=> card.PlayRestriction.IsRecommendedNormalPlay((s, card.ControllingPlayer));
+			static bool canPlayTo(Space s, GameCard card)
+				=> card.PlayRestriction.IsValid((s, card.ControllingPlayer), ResolutionContext.PlayerTrigger(null, card.Game));
+			static bool canMoveTo(Space s, GameCard card)
+				=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
 			foreach (var spaceCtrl in SpacesController.SpaceTargets)
 			{
-				spaceCtrl.ToggleHighlight(highlight, canDo(spaceCtrl.Space));
+				if (card == null)
+				{
+					spaceCtrl.ToggleHighlight(SpaceHighlight.CanMove, false);
+					return;
+				}
+
+				if (card.Location == Location.Board)
+					spaceCtrl.ToggleHighlight(SpaceHighlight.CanMove, canMoveTo(spaceCtrl.Space, card));
+				else if (card.Location == Location.Hand)
+				{
+					bool recommend = recommendPlayTo(spaceCtrl.Space, card);
+					if (recommend) spaceCtrl.ToggleHighlight(SpaceHighlight.RecommendPlay, recommend);
+					else spaceCtrl.ToggleHighlight(SpaceHighlight.UnrecommendedPlay, canPlayTo(spaceCtrl.Space, card));
+
+				}
 			}
 		}
 	}
