@@ -26,8 +26,6 @@ namespace Kompas.Client.Gamestate.Controllers
 		private SpaceTargetingController? _spaceTargetingController;
 		public ISpaceTargetingController SpaceTargetingController => _spaceTargetingController
 			?? throw new UnassignedReferenceException();
-		private Node3D? _canMoveTo;
-		private Node3D CanMoveTo => _canMoveTo ?? throw new UnassignedReferenceException();
 
 		public event EventHandler? LeftClick;
 
