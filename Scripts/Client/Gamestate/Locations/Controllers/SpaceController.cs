@@ -6,7 +6,7 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Controllers
 {
-	public partial class SpaceController : Area3D
+	public partial class SpaceController : Area3D, ISpaceTargetingController
 	{
 		private const int BoardMax = 6;
 		private static readonly Vector3 CardOffset = Vector3.Up * 0.002f;
@@ -26,6 +26,8 @@ namespace Kompas.Client.Gamestate.Controllers
 		private SpaceTargetingController? _spaceTargetingController;
 		public ISpaceTargetingController SpaceTargetingController => _spaceTargetingController
 			?? throw new UnassignedReferenceException();
+		private Node3D? _canMoveTo;
+		private Node3D CanMoveTo => _canMoveTo ?? throw new UnassignedReferenceException();
 
 		public event EventHandler? LeftClick;
 
@@ -104,9 +106,9 @@ namespace Kompas.Client.Gamestate.Controllers
 			card.Node.Rotation = new Vector3(0, rotation, 0);
 		}
 
-		public void ShowCanMoveHere(bool can)
+		public void ShowCanMoveTo(bool can = true)
 		{
-			throw new NotImplementedException();
+			CanMoveTo.Visible = can;
 		}
 	}
 }

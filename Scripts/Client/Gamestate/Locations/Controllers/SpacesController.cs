@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate.Controllers;
 using Kompas.Gamestate;
+using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
 {
@@ -68,5 +72,11 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		}
 
 		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
+
+		public IReadOnlyCollection<ISpaceTargetingController> GetSpaceTargetingControllers()
+		{
+			IEnumerable<ISpaceTargetingController> GetSpaceCtrls() { foreach (var ctrl in spaces) yield return ctrl; }
+			return GetSpaceCtrls().ToArray();
+		}
 	}
 }

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "XIII - Death",
-	"effText": "When you draw, give me +1 W.\nDuring friendly turns, I can pay X W to kill an adjacent S X character.",
+	"effText": "When you draw, give me +1 W.\nI can pay X W to kill an adjacent S X character.",
 	"effects": [
 		{
 			"triggerData": {
