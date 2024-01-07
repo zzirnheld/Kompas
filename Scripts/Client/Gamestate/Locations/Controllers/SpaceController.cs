@@ -106,9 +106,6 @@ namespace Kompas.Client.Gamestate.Controllers
 			card.Node.Rotation = new Vector3(0, rotation, 0);
 		}
 
-		public void ShowCanMoveTo(bool can = true)
-		{
-			CanMoveTo.Visible = can;
-		}
+		public void ToggleHighlight(SpaceHighlight highlight, bool show) => SpaceTargetingController.ToggleHighlight(highlight, show);
 	}
 }
