@@ -8,12 +8,12 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 	{
 		[Export]
 		private Node3D? _tile;
-		public Node3D Tile => _tile ?? throw new UnassignedReferenceException();
+		private Node3D Tile => _tile ?? throw new UnassignedReferenceException();
 
 		[Export]
-		public Node3D? Plus1X { get; private set; }
+		private Node3D? Plus1X { get; set; }
 		[Export]
-		public Node3D? Plus1Y { get; private set; }
+		private Node3D? Plus1Y { get; set; }
 		[Export]
 		private int x;
 		[Export]
@@ -25,6 +25,26 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			if (Plus1X == null && x < Space.BoardLen - 1) throw new UnassignedReferenceException();
 			if (Plus1Y == null && y < Space.BoardLen - 1) throw new UnassignedReferenceException();
+		}
+
+		public void Display(bool plusX, bool plusY)
+		{
+			Visible = true;
+			if (plusX)
+			{
+				if (Plus1X == null) throw new UnassignedReferenceException();
+				Plus1X.Visible = true;
+			}
+			if (plusY)
+			{
+				if (Plus1Y == null) throw new UnassignedReferenceException();
+				Plus1Y.Visible = true;
+			}
+		}
+
+		public void DisplayNone()
+		{
+			Visible = false;
 		}
 	}
 }
