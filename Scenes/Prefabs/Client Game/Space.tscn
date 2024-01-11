@@ -11,10 +11,9 @@ size = Vector3(1, 0.01, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_solk5"]
 
-[node name="Space Area" type="Area3D" node_paths=PackedStringArray("_coordsDebugLabel", "_spaceTargetingController")]
+[node name="Space Area" type="Area3D" node_paths=PackedStringArray("_coordsDebugLabel")]
 script = ExtResource("1_1drmd")
 _coordsDebugLabel = NodePath("Label3D")
-_spaceTargetingController = NodePath("Space Targeting Controller")
 
 [node name="Space CollisionArea" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
