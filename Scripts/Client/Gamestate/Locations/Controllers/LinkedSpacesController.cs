@@ -69,7 +69,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			}
 		}*/
 
-		public void Display(ShouldShowSpace predicate)
+		public void Display(ShouldShowSpace predicate, bool showConnections)
 		{
 			foreach (var space in Spaces.Values) space.DisplayNone();
 
@@ -79,10 +79,10 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 			foreach (var space in shown)
 			{
-				Space plusX = space + (1, 0);
-				Space plusY = space + (0, 1);
 				var linkedSpace = Spaces[space];
-				linkedSpace.Display(shown.Contains(plusX), shown.Contains(plusY));
+				bool showPlusX = showConnections && shown.Contains(space + (1, 0));
+				bool showPlusY = showConnections && shown.Contains(space + (0, 1));
+				linkedSpace.Display(showPlusX, showPlusY);
 			}
 		}
 	}
