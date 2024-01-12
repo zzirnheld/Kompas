@@ -1,4 +1,7 @@
+using System;
 using Godot;
+using Kompas.Cards.Controllers;
+using Kompas.Client.Gamestate.Controllers;
 using Kompas.Gamestate;
 using Kompas.Shared.Exceptions;
 
@@ -6,6 +9,15 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 {
 	public partial class LinkedSpaceController : Node3D
 	{
+		private static readonly Vector3 CardOffset = Vector3.Up * 0.002f;
+
+		[Export]
+		private SpaceTargetingController? _spaceTargetingController;
+		public ISpaceTargetingController SpaceTargetingController => _spaceTargetingController
+			?? throw new UnassignedReferenceException();
+
+		public event EventHandler? LeftClick;
+		
 		[Export]
 		private Node3D? _tile;
 		private Node3D Tile => _tile ?? throw new UnassignedReferenceException();
@@ -46,5 +58,37 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			Visible = false;
 		}
+
+
+		private void HandleInputEvent(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, long shapeIdx)
+		{
+			if (inputEvent is not InputEventMouseButton mouseEvent)
+			{
+				return;
+			}
+
+			//Event where now the mouseEvent is Pressed means it's when the mouse goes down
+			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+			{
+				LeftClick?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public void Place(ICardController card)
+		{
+			if (card.Node == null)
+			{
+				GD.PushWarning("Tried to place a card with a null Node!");
+				return;
+			}
+
+			card.Node.GetParent()?.RemoveChild(card.Node);
+			AddChild(card.Node);
+			card.Node.Position = CardOffset;
+			var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
+			card.Node.Rotation = new Vector3(0, rotation, 0);
+		}
+
+		public void ToggleHighlight(SpaceHighlight highlight, bool show) => SpaceTargetingController.ToggleHighlight(highlight, show);
 	}
 }

@@ -1,82 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate.Controllers;
 using Kompas.Gamestate;
 using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
-using Microsoft.VisualBasic.FileIO;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
 {
 	public partial class SpacesController : Node3D
 	{
 		[Export]
-		private SpaceController[]? _initialSpaces;
-		private SpaceController[] InitialSpaces => _initialSpaces ?? throw new UnassignedReferenceException();
-
-		[Export]
-		private PackedScene? _space;
-		private PackedScene Space => _space ?? throw new UnassignedReferenceException();
+		private PackedScene? _linkedSpaces;
+		private PackedScene LinkedSpaces => _linkedSpaces ?? throw new UnassignedReferenceException();
 
 		[Export]
 		private ClientGameController? _gameController;
 		private ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
 		//if this becomes a shared controller, this will need to be moved to a child class
 
-		private readonly SpaceController[,] spaces = new SpaceController[7, 7];
-		public IEnumerable<ISpaceTargetingController> SpaceTargets
-		{
-			get
-			{
-				foreach (var space in spaces) yield return space.SpaceTargetingController;
-			}
-		}
+		[Export]
+		private LinkedSpacesController? _baseClickable;
+		private LinkedSpacesController BaseClickable => _baseClickable ?? throw new UnassignedReferenceException();
 
-		public SpaceController this[int x, int y] => spaces[x, y];
-		public SpaceController this[Space space] => this[space.x, space.y];
+		[Export]
+		private LinkedSpacesController? _canMove;
+		private LinkedSpacesController CanMove => _canMove ?? throw new UnassignedReferenceException();
+
+		[Export]
+		private LinkedSpacesController? _canPlay;
+		private LinkedSpacesController CanPlay => _canPlay ?? throw new UnassignedReferenceException();
 
 		public override void _Ready()
 		{
 			base._Ready();
 
-			foreach (var space in InitialSpaces) Dupe(space);
-		}
-
-		private void Dupe(SpaceController space)
-		{
-			InsertSpace(space);
-			InsertSpace(space, true, false, false);
-			InsertSpace(space, false, true, false);
-			InsertSpace(space, true, true, false);
-			InsertSpace(space, false, false, true);
-			InsertSpace(space, false, true, true);
-			InsertSpace(space, true, false, true);
-			InsertSpace(space, true, true, true);
-		}
-
-		private void InsertSpace(SpaceController toDupe, bool flipX, bool flipY, bool swapXY)
-		{
-			InsertSpace(toDupe.Dupe(this, Space, flipX, flipY, swapXY, (x, y) => spaces[x, y] == null));
-		}
-
-		private void InsertSpace(SpaceController? newSpace)
-		{
-			if (newSpace == null) return;
-			if (spaces[newSpace.X, newSpace.Y] != null) throw new System.InvalidOperationException($"{newSpace.X}, {newSpace.Y} already had a Space created for it!");
-
-			spaces[newSpace.X, newSpace.Y] = newSpace;
-			newSpace.LeftClick += (_, _) => Clicked(newSpace.X, newSpace.Y);
+			foreach (var ctrl in BaseClickable.Spaces.Values) ctrl.LeftClick += (_, _) => Clicked(ctrl.Coords.x, ctrl.Coords.y);
 		}
 
 		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
-
-		public IReadOnlyCollection<ISpaceTargetingController> GetSpaceTargetingControllers()
-		{
-			IEnumerable<ISpaceTargetingController> GetSpaceCtrls() { foreach (var ctrl in spaces) yield return ctrl; }
-			return GetSpaceCtrls().ToArray();
-		}
 	}
 }

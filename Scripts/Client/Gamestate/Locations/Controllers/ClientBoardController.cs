@@ -18,7 +18,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		public override void Place(ICardController cardController)
 		{
 			var position = cardController.Card.Position ?? throw new System.NullReferenceException("Card to place had no position");
-			SpacesController[position].Place(cardController);
+			//SpacesController[position].Place(cardController);
 			ScaleCard(cardController);
 			ScaleAdjacentCards(cardController);
 		}

@@ -36,8 +36,8 @@ namespace Kompas.Client.Gamestate
 		private Control? _canDeclineFurtherTargetsButton;
 		private Control CanDeclineFurtherTargetsButton => _canDeclineFurtherTargetsButton ?? throw new UnassignedReferenceException();
 		[Export]
-		private SpacesController? _spacesController;
-		private SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
+		private LinkedSpacesController? _spacesController;
+		private LinkedSpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
 
 		private ClientTopLeftCardView? _topLeftCardView;
 		public ClientTopLeftCardView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();
@@ -172,7 +172,7 @@ namespace Kompas.Client.Gamestate
 				=> card.PlayRestriction.IsValid((s, card.ControllingPlayer), ResolutionContext.PlayerTrigger(null, card.Game));
 			static bool canMoveTo(Space s, GameCard card)
 				=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
-			foreach (var spaceCtrl in SpacesController.SpaceTargets)
+			foreach (var spaceCtrl in Array.Empty<SpaceController>())
 			{
 				if (card == null)
 				{
