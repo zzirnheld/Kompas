@@ -21,10 +21,6 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		//if this becomes a shared controller, this will need to be moved to a child class
 
 		[Export]
-		private LinkedSpacesController? _baseClickable;
-		private LinkedSpacesController BaseClickable => _baseClickable ?? throw new UnassignedReferenceException();
-
-		[Export]
 		private LinkedSpacesController? _canMove;
 		private LinkedSpacesController CanMove => _canMove ?? throw new UnassignedReferenceException();
 
@@ -35,8 +31,6 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		public override void _Ready()
 		{
 			base._Ready();
-
-			foreach (var ctrl in BaseClickable.Spaces.Values) ctrl.LeftClick += (_, _) => Clicked(ctrl.Coords.x, ctrl.Coords.y);
 		}
 
 		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
