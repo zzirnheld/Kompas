@@ -23,14 +23,26 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		[Export]
 		private LinkedSpacesController? _canMove;
 		private LinkedSpacesController CanMove => _canMove ?? throw new UnassignedReferenceException();
+		[Export]
+		private Material? _canMoveMaterial;
+		private Material CanMoveMaterial => _canMoveMaterial ?? throw new UnassignedReferenceException();
 
 		[Export]
 		private LinkedSpacesController? _canPlay;
 		private LinkedSpacesController CanPlay => _canPlay ?? throw new UnassignedReferenceException();
+		[Export]
+		private Material? _canPlayMaterial;
+		private Material CanPlayMaterial => _canPlayMaterial ?? throw new UnassignedReferenceException();
 
 		public override void _Ready()
 		{
 			base._Ready();
+
+			//CanMove.Display(_ => false, false);
+			//CanPlay.Display(_ => false, false);
+
+			CanMove.UpdateMaterial(CanMoveMaterial);
+			CanPlay.UpdateMaterial(CanPlayMaterial);
 		}
 
 		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));

@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=89 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -21,8 +21,10 @@
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/SpacesClickingController.cs" id="9_0nh6x"]
 [ext_resource type="PackedScene" uid="uid://cpyf6wpld1p25" path="res://Scenes/Prefabs/Spaces.tscn" id="9_06muj"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
+[ext_resource type="Material" uid="uid://bqku0pws3o8hd" path="res://Materials/Space Indicators/Can Play.tres" id="10_eomph"]
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
+[ext_resource type="Material" uid="uid://c48vhoc0gsq67" path="res://Materials/Space Indicators/Can Move.tres" id="11_3gybj"]
 [ext_resource type="PackedScene" uid="uid://b8hvw0esgmqjf" path="res://Scenes/Prefabs/Client Game/Spiral Card Area Square.tscn" id="14_i4ntf"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
@@ -257,10 +259,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("2_wywm4")
 
-[node name="Spaces" type="Node3D" parent="3D/Board" node_paths=PackedStringArray("_gameController")]
+[node name="Spaces" type="Node3D" parent="3D/Board" node_paths=PackedStringArray("_gameController", "_canMove", "_canPlay")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.002, 0)
 script = ExtResource("5_kcvca")
 _gameController = NodePath("../../../Game Controller")
+_canMove = NodePath("Can Move Spaces")
+_canMoveMaterial = ExtResource("11_3gybj")
+_canPlay = NodePath("Can Play Spaces")
+_canPlayMaterial = ExtResource("10_eomph")
 
 [node name="Clickables in Order" type="Node3D" parent="3D/Board/Spaces"]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
@@ -560,10 +566,10 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="3D/Board/Spaces/Clickables in Order/Area3D 6 6"]
 shape = SubResource("ConvexPolygonShape3D_7idqb")
 
-[node name="Linked Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
-
-[node name="Kompas Board Solidified" parent="3D/Board/Spaces/Linked Spaces" index="0"]
+[node name="Can Move Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
 visible = false
+
+[node name="Can Play Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
 
 [node name="Friendly Player" type="Node3D" parent="3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
@@ -1436,6 +1442,5 @@ autowrap_mode = 2
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Choose Host/HBoxContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer/Button" to="UI/Game Start/MarginContainer/Connection Tabs/Choose Host" method="Connect"]
 [connection signal="pressed" from="UI/Game Start/MarginContainer/Connection Tabs/Select Deck/HBoxContainer/Left VBox/Control/VBoxContainer/Select Deck" to="UI/Game Start/MarginContainer/Connection Tabs/Select Deck" method="SelectDeck"]
 
-[editable path="3D/Board/Spaces/Linked Spaces"]
 [editable path="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info"]
 [editable path="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info"]

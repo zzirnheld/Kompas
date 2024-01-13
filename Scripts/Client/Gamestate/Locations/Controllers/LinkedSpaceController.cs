@@ -19,13 +19,13 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		public event EventHandler? LeftClick;
 		
 		[Export]
-		private Node3D? _tile;
-		private Node3D Tile => _tile ?? throw new UnassignedReferenceException();
+		private MeshInstance3D? _tile;
+		private MeshInstance3D Tile => _tile ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Node3D? Plus1X { get; set; }
+		private MeshInstance3D? Plus1X { get; set; }
 		[Export]
-		private Node3D? Plus1Y { get; set; }
+		private MeshInstance3D? Plus1Y { get; set; }
 		[Export]
 		private int x;
 		[Export]
@@ -90,5 +90,12 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		}
 
 		public void ToggleHighlight(SpaceHighlight highlight, bool show) => SpaceTargetingController.ToggleHighlight(highlight, show);
+
+		public void UpdateMaterial(Material material)
+		{
+			Tile.MaterialOverride = material;
+			if (Plus1X != null) Plus1X.MaterialOverride = material;
+			if (Plus1Y != null) Plus1Y.MaterialOverride = material;
+		}
 	}
 }

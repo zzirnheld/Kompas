@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Kompas.Client.Networking;
 using Kompas.Gamestate;
 using Kompas.Shared.Exceptions;
 
@@ -26,6 +25,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 				.Where(child => child is LinkedSpaceController)
 				.Cast<LinkedSpaceController>()
 				.ToDictionary(lsc => lsc.Coords);
+
+			if (Spaces.Values.Any(s => s.GetParent() != LinkedSpacesParent)) GD.PushError($"{Name} AAAAAAAAAAAAA");
 
 			//for testing
 			//Display(s => Math.Abs(s.x - 1) + Math.Abs(s.y - 2) <= 2);
@@ -84,6 +85,11 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 				bool showPlusY = showConnections && shown.Contains(space + (0, 1));
 				linkedSpace.Display(showPlusX, showPlusY);
 			}
+		}
+
+		public void UpdateMaterial(Material material)
+		{
+			foreach (var space in Spaces.Values) space.UpdateMaterial(material);
 		}
 	}
 }
