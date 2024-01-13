@@ -57,6 +57,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		public void DisplayNone()
 		{
 			Visible = false;
+			if (Plus1X != null) Plus1X.Visible = false;
+			if (Plus1Y != null) Plus1Y.Visible = false;
 		}
 
 

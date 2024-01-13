@@ -567,7 +567,6 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_7idqb")
 
 [node name="Can Move Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
-visible = false
 
 [node name="Can Play Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
 

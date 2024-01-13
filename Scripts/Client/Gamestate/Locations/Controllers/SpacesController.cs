@@ -38,11 +38,13 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			base._Ready();
 
-			//CanMove.Display(_ => false, false);
-			//CanPlay.Display(_ => false, false);
+			CanMove.Display(_ => false, false);
+			CanPlay.Display(_ => false, false);
 
 			CanMove.UpdateMaterial(CanMoveMaterial);
 			CanPlay.UpdateMaterial(CanPlayMaterial);
+
+			CanPlay.Display(space => space.DistanceTo((2, 1)) < 3, false);
 		}
 
 		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
