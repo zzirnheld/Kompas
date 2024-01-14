@@ -4,7 +4,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 {
 	public class CauseAfter : TriggerContextualCardIdentityBase
 	{
-		protected override GameCardBase AbstractItemFrom(TriggeringEventContext contextToConsider)
+		protected override IGameCardInfo? AbstractItemFrom(TriggeringEventContext contextToConsider)
 			=> contextToConsider.CauseCardInfoAfter;
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
@@ -15,9 +16,17 @@ namespace Kompas.Cards.Views
 		/// <summary>
 		/// The card currently being shown to the user.
 		/// </summary>
-		public CardType ShownCard { get; private set; }
+		public CardType? ShownCard { get; private set; }
 
-		public DisplayerType InfoDisplayer { get; init; }
+		public DisplayerType InfoDisplayer { get; }
+
+		public class CardChange
+		{
+			public CardType? Old { get; init; }
+			public CardType? New { get; init; }
+		}
+
+		public event EventHandler<CardChange>? ChangeShownCard;
 
 		protected CardViewBase(DisplayerType infoDisplayer)
 		{
@@ -37,16 +46,18 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		/// <param name="card"></param>
 		/// <param name="refresh"></param>
-		public virtual void Show(CardType card, bool refresh = false)
+		protected virtual void Show(CardType? card, bool refresh = false)
 		{
 			//Unless explicitly refreshing card, if already showing that card, no-op.
 			if (card == ShownCard && !refresh) return;
 
+			var old = ShownCard;
 			ShownCard = card;
+			ChangeShownCard?.Invoke(this, new() { Old = old, New = card});
 
 			//If we're now showing nothing, hide the window and be done
 			if (ShownCard == null) DisplayNothing();
-			else Display();
+			else Display(ShownCard);
 		}
 
 		/// <summary>
@@ -57,14 +68,14 @@ namespace Kompas.Cards.Views
 			InfoDisplayer.ShowingInfo = false;
 		}
 
-		protected virtual void Display()
+		protected virtual void Display(CardType shownCard)
 		{
 			//If not showing nothing, make sure we're showing information
 			InfoDisplayer.ShowingInfo = true;
 			//and display any relevant information for the card
-			InfoDisplayer.DisplayCardRulesText(ShownCard);
-			InfoDisplayer.DisplayCardNumericStats(ShownCard);
-			InfoDisplayer.DisplayCardImage(ShownCard);
+			InfoDisplayer.DisplayCardRulesText(shownCard);
+			InfoDisplayer.DisplayCardNumericStats(shownCard);
+			InfoDisplayer.DisplayCardImage(shownCard);
 		}
 	}
 }

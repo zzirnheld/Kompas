@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://brlphuk871odk"]
+
+[ext_resource type="Texture2D" uid="uid://crtpd56phnj41" path="res://Icons/Kompas Logo Square.svg" id="1_w76fb"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_w76fb")

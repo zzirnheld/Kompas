@@ -5,10 +5,12 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public class NumberFitsRestriction : TriggerGamestateRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<int> number;
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<int> restriction;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -18,7 +20,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		}
 
 
-		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 			=> restriction.IsValid(number.From(context, secondaryContext), secondaryContext);
 	}
 }

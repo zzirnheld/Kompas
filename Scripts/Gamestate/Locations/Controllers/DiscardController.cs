@@ -1,12 +1,21 @@
 using Godot;
+using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations.Models;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Gamestate.Locations.Controllers
 {
-	public partial class DiscardController : Node //TODO shared parent class for location controllers? similar to models?
+	public abstract partial class DiscardController : Node //TODO shared parent class for location controllers? similar to models?
 	{
-		public void Refresh()
+		private Discard? _discardModel;
+		public Discard DiscardModel
 		{
-			throw new System.NotImplementedException();
+			get => _discardModel ?? throw new UnassignedReferenceException();
+			set => _discardModel = value;
 		}
+
+		public void Refresh() => SpreadOut();
+
+		protected abstract void SpreadOut();
 	}
 }

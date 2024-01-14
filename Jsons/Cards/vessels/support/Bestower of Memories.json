@@ -29,15 +29,9 @@
 									},
 									{
 										"$type": "Restrict.Cards:Augments:",
-										
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
-												{
-													"$type": "Restrict.Cards:Subtypes:",
-													"subtypes": [ "Vessel" ]
-												}
-											]
+										"cardRestriction": {
+											"$type": "Restrict.Cards:Subtypes:",
+											"subtypes": [ "Vessel" ]
 										}
 									}
 								]

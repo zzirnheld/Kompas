@@ -7,8 +7,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 {
 	public class Behind : SpaceRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCardInfo> card;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -16,9 +18,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			card.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
-		{
-			return card.From(context).SpaceBehind(space);
-		}
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
+			=> space != null
+			&& (card.From(context)?.SpaceBehind(space) ?? false);
 	}
 }

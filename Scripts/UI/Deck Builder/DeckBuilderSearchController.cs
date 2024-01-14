@@ -2,6 +2,7 @@ using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
+using Kompas.Shared.Exceptions;
 using System.Linq;
 
 namespace Kompas.UI.DeckBuilder
@@ -9,11 +10,17 @@ namespace Kompas.UI.DeckBuilder
 	public partial class DeckBuilderSearchController : Node
 	{
 		[Export]
-		private DeckBuilderController DeckBuilderController { get; set; }
+		private DeckBuilderController? _deckBuilderController;
+		private DeckBuilderController DeckBuilderController => _deckBuilderController
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private PackedScene SearchCardControllerPrefab { get; set; }
+		private PackedScene? _searchCardControllerPrefab;
+		private PackedScene SearchCardControllerPrefab => _searchCardControllerPrefab
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Control SearchGridParent { get; set; }
+		private Control? _searchGridParent;
+		private Control SearchGridParent => _searchGridParent
+			?? throw new UnassignedReferenceException();
 
 		private string lastSearch = string.Empty;
 
@@ -32,9 +39,9 @@ namespace Kompas.UI.DeckBuilder
 
 			bool IsValid(SerializableCard sCard)
 			{
-				return sCard.cardName.ToLower().Contains(basicText.ToLower())
-					|| sCard.subtypeText.ToLower().Contains(basicText.ToLower())
-					|| sCard.effText.ToLower().Contains(basicText.ToLower());
+				return (sCard.cardName?.ToLower().Contains(basicText.ToLower()) ?? false)
+					|| (sCard.subtypeText?.ToLower().Contains(basicText.ToLower()) ?? false)
+					|| (sCard.effText?.ToLower().Contains(basicText.ToLower()) ?? false);
 			}
 			foreach (var sCard in CardRepository.SerializableCards.Where(IsValid)) ShowInSearch(sCard);
 		}

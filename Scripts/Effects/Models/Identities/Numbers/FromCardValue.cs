@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
@@ -7,10 +8,12 @@ namespace Kompas.Effects.Models.Identities.Numbers
 {
 	public class FromCardValue : ContextualParentIdentityBase<int>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCardInfo> card;
 		[JsonProperty(Required = Required.Always)]
 		public CardValue cardValue;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -20,7 +23,11 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		}
 
 		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> cardValue.GetValueOf(card.From(context, secondaryContext));
+		{
+			var card = this.card.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			return cardValue.GetValueOf(card);
+		}
 	}
 	
 	public class CardValue : ContextInitializeableBase
@@ -35,13 +42,15 @@ namespace Kompas.Effects.Models.Identities.Numbers
 
 		public const string Cost = "Cost";
 		public const string NumberOfAugments = "Number of Augments";
-		public const string DistanceToSource = "Distance to Source";
+		public const string DistanceToCard = "Distance to Card";
 		public const string Index = "Index";
 		public const string SpacesCanMove = "Spaces Can Move";
 		#endregion values
 
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string value;
+		#nullable enable
 		[JsonProperty]
 		public int multiplier = 1;
 		[JsonProperty]
@@ -49,12 +58,12 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public int modifier = 0;
 
-		public GameCard Source => InitializationContext.source;
+		public GameCard? SourceCard => InitializationContext.source;
 
 		//FUTURE: Make this more definitive
 		public string DisplayName => value;
 
-		public int GetValueOf(GameCardBase card)
+		public int GetValueOf(IGameCardInfo card)
 		{
 			ComplainIfNotInitialized();
 			if (card == null) throw new NullCardException("Cannot get value of null card");
@@ -70,16 +79,16 @@ namespace Kompas.Effects.Models.Identities.Numbers
 
 				Cost => card.Cost,
 				NumberOfAugments => card.Augments.Count,
-				DistanceToSource => card.DistanceTo(Source),
+				DistanceToCard => SourceCard != null ? card.DistanceTo(SourceCard) : throw new System.InvalidOperationException("Source card was null"),
 				Index => card.IndexInList,
 				SpacesCanMove => card.SpacesCanMove,
 				
-				_ => throw new System.ArgumentException($"Invalid value string {value}", nameof(value)),
+				_ => throw new System.InvalidOperationException($"Invalid value string {value}"),
 			};
 			return intermediateValue * multiplier / divisor + modifier;
 		}
 
-		public void SetValueOf(GameCard card, int num, IStackable stackSrc = null)
+		public void SetValueOf(GameCard card, int num, IStackable? stackSrc = null)
 		{
 			if (card == null) throw new System.ArgumentException("Cannot set value of null card", nameof(card));
 

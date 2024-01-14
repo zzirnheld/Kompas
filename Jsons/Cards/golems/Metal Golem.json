@@ -1,14 +1,14 @@
 {
 	"cardType": 67,
 	"cardName": "Metal Golem",
-	"effText": "Golem.\nWhen I become active, set two characters' N to 0.",
+	"effText": "GOLEM.\nWhen I become active, set two characters' N to 0.",
 	"effects": [
 		{
 			"blurb": "Go to Bonky Jail",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
-					"$type": "Restrict.Triggering:CardsMatch:",
+					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}

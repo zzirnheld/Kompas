@@ -17,13 +17,13 @@ expand_mode = 4
 script = ExtResource("2_c45i8")
 InfoDisplayer = NodePath("Control")
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("CardFaceImage")]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("_cardFaceImage")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_5hdl2")
-FallbackCardImageTexture = ExtResource("4_p0kuv")
-CardFaceImage = NodePath("..")
+_fallbackCardImageTexture = ExtResource("4_p0kuv")
+_cardFaceImage = NodePath("..")
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)

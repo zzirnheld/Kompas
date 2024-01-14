@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "P4RT1S4N",
-	"effText": "Golem.\nI can attack characters 2 spaces from me, not just adjacent ones.",
+	"effText": "GOLEM.\nI can attack characters 2 spaces from me, not just adjacent ones.",
 	"effects": [],
 	"attackingDefenderRestriction": {
 		"$type": "Restrict.Cards:AttackingDefender:",

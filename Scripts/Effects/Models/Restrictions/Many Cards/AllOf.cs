@@ -4,16 +4,16 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Effects.Models.Restrictions.ManyCards
 {
-	public class AllOf : AllOfBase<IEnumerable<GameCardBase>, IListRestriction>, IListRestriction
+	public class AllOf : AllOfBase<IEnumerable<IGameCardInfo>, IListRestriction>, IListRestriction
 	{
 		private bool clientSide;
 
-		protected override bool Validate(IListRestriction element, IEnumerable<GameCardBase> item, IResolutionContext context)
+		protected override bool Validate(IListRestriction element, IEnumerable<IGameCardInfo>? item, IResolutionContext context)
 			=> clientSide
 			? element.IsValidClientSide(item, context)
 			: element.IsValid(item, context);
 
-		public bool AllowsValidChoice(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context)
 		{
 			ComplainIfNotInitialized();
 			return GetMinimum(context) <= GetMaximum(context)	//There exists a number of cards that both the min and max permit
@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 				&& elements.All(elem => elem.AllowsValidChoice(options, context));
 		}
 
-		public bool IsValidClientSide(IEnumerable<GameCardBase> options, IResolutionContext context)
+		public bool IsValidClientSide (IEnumerable<IGameCardInfo>? options, IResolutionContext context)
 		{
 			clientSide = true;
 			bool ret = IsValid(options, context);
@@ -30,20 +30,20 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 			return ret;
 		}
 
-		public IEnumerable<GameCardBase> Deduplicate(IEnumerable<GameCardBase> options)
+		public IEnumerable<IGameCardInfo> Deduplicate(IEnumerable<IGameCardInfo> options)
 		{
 			var localOptions = options;
 			foreach (var elem in elements) localOptions = elem.Deduplicate(localOptions);
 			return localOptions;
 		}
 
-		public int GetMinimum(IResolutionContext context)
+		public int GetMinimum(IResolutionContext? context)
 			=> elements
 				.Select(elem => elem.GetMinimum(context))
 				.DefaultIfEmpty(0)
 				.Max();
 
-		public int GetMaximum(IResolutionContext context)
+		public int GetMaximum(IResolutionContext? context)
 			=> elements
 				.Select(elem => elem.GetMaximum(context))
 				.DefaultIfEmpty(int.MaxValue)

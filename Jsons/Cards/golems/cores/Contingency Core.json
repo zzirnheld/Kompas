@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Contingency Core",
-	"effText": "Recoverable.\nWhile equipped, activate this Golem.\nWhen this Golem dies, revive them where they were.",
+	"effText": "Recoverable.\nWhile equipped, activate this GOLEM.\nWhen this Golem dies, revive them where they were.",
 	"effects": [
 		{
 			"triggerData": {
@@ -34,7 +34,7 @@
 					"$type": "Subeffect:Hanging.Activation:",
 					"endCondition": "Augment Detached",
 					"triggerRestriction": {
-						"$type": "Restrict.Triggering:CardsMatch:",
+						"$type": "Restrict.Gamestate:CardsMatch:",
 						"card": { "$type": "Identify.Cards:CardBefore:" },
 						"other": { "$type": "Identify.Cards:ThisCardNow:" }
 					}
@@ -50,7 +50,7 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{ "$type": "Restrict.Triggering:EnemyTurn:" },
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": {
 								"$type": "Identify.Cards:AugmentedCard:",
 								"ofThisCard": { "$type": "Identify.Cards:ThisCardNow:" }

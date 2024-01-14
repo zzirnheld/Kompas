@@ -1,15 +1,21 @@
 using Godot;
+using Kompas.Shared.Exceptions;
 using System;
+using System.Linq;
 
 namespace Kompas.UI.DeckBuilder
 {
 	public partial class NewDeckController : Control
 	{
 		[Export]
-		private DeckBuilderDeckController DeckBuilderDeckController { get; set; }
+		private DeckBuilderDeckController? _deckBuilderDeckController;
+		private DeckBuilderDeckController DeckBuilderDeckController => _deckBuilderDeckController
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private LineEdit DeckNameEdit { get; set; }
+		private LineEdit? _deckNameEdit;
+		private LineEdit DeckNameEdit => _deckNameEdit
+			?? throw new UnassignedReferenceException();
 
 		public void Enable()
 		{
@@ -18,9 +24,14 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Confirm()
 		{
-			DeckBuilderDeckController.NewDeck(DeckNameEdit.Text);
+			string deckName = DeckNameEdit.Text;
+			DeckNameEdit.Text = null;
+			if (!AllowedDeckName(deckName)) return;
+			DeckBuilderDeckController.NewDeck(DeckNameEdit.Text ?? string.Empty);
 			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
 		}
+
+		private static bool AllowedDeckName(string name) => name != string.Empty && name.All(char.IsLetterOrDigit);
 
 		public void Cancel()
 		{

@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models
 {
 	/// <summary>
 	/// Base class for initializeable things, like restrictions or identities.
-    /// Since these are all being loaded from JSON, make sure to mark any relevant fields as [JsonProperty]
+	/// Since these are all being loaded from JSON, make sure to mark any relevant fields as [JsonProperty]
 	/// </summary>
 	[DataContract]
 	public abstract class ContextInitializeableBase : IContextInitializeable
@@ -35,8 +35,8 @@ namespace Kompas.Effects.Models
 			if (!Initialized) throw new System.NotImplementedException($"You forgot to initialize a {GetType()}!\n{this}");
 		}
 		
-		protected static bool AllNull(params object[] objs) => objs.All(o => o == null);
-		protected static bool MultipleNonNull(params object[] objs) => objs.Count(o => o != null) > 1;
+		protected static bool AllNull(params object?[] objs) => objs.All(o => o == null);
+		protected static bool MultipleNonNull(params object?[] objs) => objs.Count(o => o != null) > 1;
 
 		public override string ToString()
 		{
@@ -45,7 +45,7 @@ namespace Kompas.Effects.Models
 
 		public virtual void AdjustSubeffectIndices(int increment, int startingAtIndex = 0) { }
 
-		public static void AdjustSubeffectIndices(int[] subeffectIndices, int increment, int startingAtIndex)
+		public static void AdjustSubeffectIndices(int[]? subeffectIndices, int increment, int startingAtIndex)
 		{
 			if (subeffectIndices == null) return;
 

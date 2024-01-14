@@ -1,3 +1,4 @@
+using System;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 
@@ -5,8 +6,10 @@ namespace Kompas.Effects.Models.Identities.Spaces
 {
 	public class Multiply : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> toMultiply;
+		#nullable restore
 
 		[JsonProperty]
 		public int multiplier = 1;
@@ -21,9 +24,10 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			toMultiply.Initialize(initializationContext);
 		}
 
-		protected override Space AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
-			var space = toMultiply.From(context, secondaryContext);
+			var space = toMultiply.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
 			space *= multiplier;
 			space.x *= xMultiplier;
 			space.y *= yMultiplier;

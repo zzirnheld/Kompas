@@ -8,8 +8,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class Controller : CardRestrictionBase
 	{
-		[JsonProperty]
-		public IIdentity<Player> playerIdentity;
+		#nullable disable
+		[JsonProperty] //If not initialized here, should be initialized in child
+		public IIdentity<IPlayer> playerIdentity;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -17,8 +19,8 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			playerIdentity.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> playerIdentity.From(context) == card.ControllingPlayer;
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+			=> card != null && playerIdentity.From(context) == card.ControllingPlayer;
 	}
 
 	public class Friendly : Controller

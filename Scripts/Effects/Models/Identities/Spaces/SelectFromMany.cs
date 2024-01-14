@@ -7,10 +7,12 @@ namespace Kompas.Effects.Models.Identities.Spaces
 {
 	public class SelectFromMany : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<IReadOnlyCollection<Space>> spaces;
 		[JsonProperty(Required = Required.Always)]
 		public ISelector<Space> selector;// = new RandomSelector<Space>();
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -18,7 +20,11 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			spaces.Initialize(initializationContext);
 		}
 
-		protected override Space AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> selector.Select(spaces.From(context, secondaryContext));
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
+			var spaces = this.spaces.From(context, secondaryContext)
+				?? throw new System.InvalidOperationException();
+			return selector.Select(spaces);
+		}
 	}
 }

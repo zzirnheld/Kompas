@@ -8,10 +8,12 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class AtLocation : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string[] locations;
 
 		public AtLocation() { }
+		#nullable restore
 		public AtLocation(Location location)
 		{
 			locations = new string[] { LocationHelpers.StringVersion(location) };
@@ -25,8 +27,8 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			if (locations == null) throw new System.ArgumentNullException("locations");
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> Locations.Any(loc => card.Location == loc);
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+			=> card != null && Locations.Any(loc => card.Location == loc);
 
 		public override string ToString() => $"must be in {string.Join(", ", Locations)}";
 	}

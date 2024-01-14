@@ -8,5 +8,7 @@ namespace Kompas.Cards.Views
 		public DeckBuilderCardView(DeckBuilderInfoDisplayer infoDisplayer)
 			: base(infoDisplayer)
 		{ }
+
+		public void Show(DeckBuilderCard? card) => base.Show(card);
 	}
 }

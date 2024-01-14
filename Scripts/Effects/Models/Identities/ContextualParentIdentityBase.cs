@@ -19,20 +19,28 @@ namespace Kompas.Effects.Models.Identities
 		/// <summary>
 		/// Override this one if you need to pass on BOTH contexts.
 		/// </summary>
-		protected abstract ReturnType AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext);
+		protected abstract ReturnType? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext);
 
 		/// <summary>
 		/// Gets the abstract stackable from the first one, that only knows about the context to consider,
 		/// then the one that knows about both contexts if the first one came up empty.
 		/// </summary>
-		public ReturnType From(IResolutionContext context, IResolutionContext secondaryContext)
+		public ReturnType? From(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			ComplainIfNotInitialized();
 
 			return AbstractItemFrom(context, secondaryContext);
 		}
 
-		public ReturnType Item => From(InitializationContext.effect.CurrentResolutionContext, default);
+		public ReturnType? Item
+		{
+			get
+			{
+				var effect = InitializationContext.effect ?? throw new IllDefinedException();
+				var context = effect.CurrentResolutionContext ?? throw new IllDefinedException();
+				return From(context, context);
+			}
+		}
 
 		protected Attack GetAttack(TriggeringEventContext effectContext)
 		{

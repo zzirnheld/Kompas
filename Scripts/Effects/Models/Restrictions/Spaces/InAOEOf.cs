@@ -10,20 +10,22 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 {
 	public class InAOEOf : SpaceRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCardInfo> card;
 		[JsonProperty]
-		public IRestriction<GameCardBase> cardRestriction; //Used to restrict anyOf. If non-null, but anyOf is null, will make anyOf default to All()
+		public IRestriction<IGameCardInfo> cardRestriction; //Used to restrict anyOf. If non-null, but anyOf is null, will make anyOf default to All()
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> anyOf;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> allOf;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> allOf;
 
 		[JsonProperty]
 		public IIdentity<int> minAnyOfCount = Identities.Numbers.Constant.One;
 
 		[JsonProperty]
 		public IIdentity<Space> alsoInAOE;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -49,12 +51,14 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
+			if (space == null) return false;
 			var alsoInAOE = this.alsoInAOE?.From(context);
-			bool IsValidAOE(GameCardBase card)
+			bool IsValidAOE(IGameCardInfo? card)
 			{
-				return card.SpaceInAOE(space)
+				return card != null
+					&& card.SpaceInAOE(space)
 					&& (alsoInAOE == null || card.SpaceInAOE(alsoInAOE));
 			}
 			if (card != null && !ValidateCard(IsValidAOE, context)) return false;
@@ -63,18 +67,23 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			return true;
 		}
 
-		private bool ValidateCard(Func<GameCardBase, bool> isValidCard, IResolutionContext context)
+		private bool ValidateCard(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
 			=> isValidCard(card.From(context));
 
-		private bool ValidateAnyOf(Func<GameCardBase, bool> isValidCard, IResolutionContext context) 
+		private bool ValidateAnyOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context) 
 		{
-			IEnumerable<GameCardBase> cards = anyOf.From(context);
+			IEnumerable<IGameCardInfo>? cards = anyOf.From(context);
+			if (cards == null) return false;
 			if (cardRestriction != null) cards = cards.Where(c => cardRestriction.IsValid(c, context));
 
 			return minAnyOfCount.From(context) <= cards.Count(c => isValidCard(c));
 		}
 
-		private bool ValidateAllOf(Func<GameCardBase, bool> isValidCard, IResolutionContext context)
-			=> allOf.From(context).All(isValidCard);
+		private bool ValidateAllOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
+		{
+			var cards = allOf.From(context);
+			if (cards == null) return false;
+			return cards.All(isValidCard);
+		}
 	}
 }

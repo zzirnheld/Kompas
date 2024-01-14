@@ -31,7 +31,7 @@
 				"blurb": "Resound",
 				"triggerCondition": "Vanish",
 				"triggerRestriction": {
-					"$type": "Restrict.Triggering:CardsMatch:",
+					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}

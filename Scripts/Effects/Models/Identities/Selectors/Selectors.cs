@@ -6,25 +6,27 @@ using Kompas.Cards.Models;
 namespace Kompas.Effects.Models.Selectors
 {
 	public interface ISelector<T>
+		where T : class
 	{
-		T Select(IReadOnlyCollection<T> objects);
+		T? Select(IReadOnlyCollection<T> objects);
 	}
 
 	public class RandomSelector<T> : ISelector<T>
+		where T : class
 	{
 		readonly System.Random random = new();
 
-		public T Select(IReadOnlyCollection<T> objects) => objects.ElementAt(random.Next(0, objects.Count));
+		public T? Select(IReadOnlyCollection<T> objects) => objects.ElementAt(random.Next(0, objects.Count));
 	}
 
 	//Define types that Newtonsoft is capable of loading
 	public class Random : RandomSelector<object> {}
 	public class RandomSpace : RandomSelector<Space> {}
-	public class RandomCard : RandomSelector<GameCardBase> {}
+	public class RandomCard : RandomSelector<IGameCardInfo> {}
 
-	public class SortIndex: ISelector<GameCardBase>
+	public class SortIndex: ISelector<IGameCardInfo>
 	{
-		public GameCardBase Select(IReadOnlyCollection<GameCardBase> objects)
+		public IGameCardInfo? Select(IReadOnlyCollection<IGameCardInfo> objects)
 			=> objects.OrderBy(c => c.IndexInList).FirstOrDefault();
 	}
 }

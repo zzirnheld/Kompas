@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://brjjpkqpcrp4p"]
+
+[ext_resource type="Script" path="res://Scripts/Client/UI/PlayerInfoController.cs" id="1_b80qf"]
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="1_ylk7h"]
+[ext_resource type="Texture2D" uid="uid://dmyal633ooqud" path="res://Sprites/tarocco/XV - The Devil.png" id="2_xr2w4"]
+[ext_resource type="Theme" uid="uid://bt31glg5gcnm8" path="res://Themes/Less Important Label.tres" id="3_go1dd"]
+
+[node name="Enemy Player Info" type="Control" node_paths=PackedStringArray("_avatarImage", "_pips", "_nextTurnPips")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 3
+script = ExtResource("1_b80qf")
+_avatarImage = NodePath("HBoxContainer/Avatar Image")
+_pips = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Pips Count")
+_nextTurnPips = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Next Turn Pips Count")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ylk7h")
+
+[node name="Avatar Image" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_xr2w4")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Enemy Username Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_ylk7h")
+theme_override_font_sizes/font_size = 24
+text = "Enemy >:)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Pips Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_go1dd")
+theme_override_font_sizes/font_size = 0
+text = "Pips:"
+vertical_alignment = 1
+
+[node name="Pips Count" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "69"
+vertical_alignment = 1
+
+[node name="Next Turn Pips Count" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+text = "(+420)"
+vertical_alignment = 1

@@ -1,8 +1,8 @@
 {
 	"cardType": 67,
 	"cardName": "5H4P3R",
-	"effText": "Nimble Golem.\nWhen I move across X cards in a line, destroy them and give me -X E.",
-	"technicalEffText": "Nimble Golem.\nWhen I move, destroy all X cards on a line between my origin and destination, and give me -X E.",
+	"effText": "Nimble GOLEM.\nWhen I move across X cards in a line, destroy them and give me -X E.",
+	"technicalEffText": "Nimble GOLEM.\nWhen I move, destroy all X cards on a line between my origin and destination, and give me -X E.",
 	"effects": [
 		{
 			"blurb": "D35TR0Y!!!",
@@ -12,7 +12,7 @@
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"other": { "$type": "Identify.Cards:CardBefore:" }
 						}

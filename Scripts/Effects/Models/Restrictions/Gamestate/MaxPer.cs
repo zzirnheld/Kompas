@@ -1,3 +1,4 @@
+using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Gamestate
@@ -13,21 +14,24 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected override bool IsValidLogic(IResolutionContext context) => Uses < Max; // ? true : LogFalse();
 
-		//private bool LogFalse() { Debug.Log($"{Uses} exceeded {max} in {InitializationContext.effect}"); return false; }
+		//private bool LogFalse() { GD.Print($"{Uses} exceeded {max} in {InitializationContext.effect}"); return false; }
 	}
 
 	public class MaxPerTurn : MaxPer
 	{
-		protected override int Uses => InitializationContext.effect.TimesUsedThisTurn;
+		protected override int Uses => InitializationContext.effect?.TimesUsedThisTurn
+			?? throw new IllDefinedException();
 	}
 
 	public class MaxPerRound : MaxPer
 	{
-		protected override int Uses => InitializationContext.effect.TimesUsedThisRound;
+		protected override int Uses => InitializationContext.effect?.TimesUsedThisRound
+			?? throw new IllDefinedException();
 	}
 
 	public class MaxPerStack : MaxPer
 	{
-		protected override int Uses => InitializationContext.effect.TimesUsedThisStack;
+		protected override int Uses => InitializationContext.effect?.TimesUsedThisStack
+			?? throw new IllDefinedException();
 	}
 }

@@ -6,56 +6,59 @@ using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Shared;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.UI.DeckBuilder
 {
 	public partial class DeckBuilderDeckController : Control
 	{
-		public const string DeckFolderPath = "user://Decks";
-		private const string CurrentDeckGroupName = "CurrentDeck";
-
 		//TODO factor out this tab ui behavior to make this class just responsible for CRUD-y stuff
 		public enum Tab { Normal, NewDeck, SaveAs }
 
 		[Export]
-		private BuiltDeckContainer DeckNodesParent { get; set; }
+		private SquareGridContainer? _deckNodesParent;
+		private SquareGridContainer DeckNodesParent => _deckNodesParent
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private PackedScene DeckCardControllerPrefab { get; set; }
+		private PackedScene? _deckCardControllerPrefab;
+		private PackedScene DeckCardControllerPrefab => _deckCardControllerPrefab
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private DeckBuilderAvatarController AvatarController { get; set; }
+		private DeckBuilderAvatarController? _avatarController;
+		private DeckBuilderAvatarController AvatarController => _avatarController
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private DeckBuilderController DeckBuilderController { get; set; }
+		private DeckBuilderController? _deckBuilderController;
+		private DeckBuilderController DeckBuilderController => _deckBuilderController
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Control[] Tabs { get; set; }
+		private Control[]? _tabs;
+		private Control[] Tabs => _tabs
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private OptionButton DeckNameSelect { get; set; }
+		private OptionButton? _deckNameSelect;
+		private OptionButton DeckNameSelect  => _deckNameSelect
+			?? throw new UnassignedReferenceException();
 
 		private readonly List<string> deckNames = new();
 
-		private Decklist currentDeck;
+		private Decklist? currentDeck;
 		//To maintain ordering of decks where copies of the same card aren't next to each other
 		private readonly List<DeckBuilderDeckCardController> currentDeckCtrls = new();
 
-		public DeckBuilderDeckCardController Dragging { get; set; }
+		public DeckBuilderDeckCardController? Dragging { get; set; }
 
 
 		private bool placeholdersWereActive;
 
 		public override void _Ready()
 		{
-			EnsureDeckDirectory();
-			using var folder = DirAccess.Open(DeckFolderPath);
-			foreach (string deckFileName in folder.GetFiles())
-			{
-				if (deckFileName[^5..] != ".json") return; // GD.Print($"{deckFileName[^5..]}");
-				string deckName = deckFileName[..^5];
-				AddDeckName(deckName);
-			}
+			foreach (var deckName in DeckAccess.GetDeckNames()) AddDeckName(deckName);
 
 			AvatarController.Init(null, DeckBuilderController.CardView, this);
 			if (deckNames.Count == 0) ShowController(Tab.NewDeck);
@@ -82,6 +85,7 @@ namespace Kompas.UI.DeckBuilder
 
 		public void SaveAs(string name)
 		{
+			currentDeck ??= new();
 			currentDeck = currentDeck.Copy(name);
 			AddDeckNameAndSelect(name);
 			SaveDeck();
@@ -109,29 +113,30 @@ namespace Kompas.UI.DeckBuilder
 		private void SaveDeck()
 		{
 			if (currentDeck == null) return;
-			
-			EnsureDeckDirectory();
-
-			using var deck = FileAccess.Open($"{DeckFolderPath}/{currentDeck.deckName}.json", FileAccess.ModeFlags.Write);
-			if (deck == null) GD.Print(FileAccess.GetOpenError());
-			string json = JsonConvert.SerializeObject(currentDeck);
-			deck.StoreString(json);
+			DeckAccess.Save(currentDeck);
 		}
 
 		public void DeleteSelectedDeck()
 		{
-			using var deckFolder = DirAccess.Open(DeckFolderPath);
-			if (deckFolder == null) GD.Print(DirAccess.GetOpenError());
+			if (currentDeck == null) return;
 
-			deckFolder.Remove($"{currentDeck.deckName}.json");
-
-			int deckIndex = deckNames.IndexOf(currentDeck.deckName);
-			DeckNameSelect.RemoveItem(deckIndex);
-			deckNames.RemoveAt(deckIndex);
+			int indexToSelect;
+			if (currentDeck.deckName == null)
+			{
+				GD.PushWarning("Deleted deck with no name!?");
+				indexToSelect = 0;
+			}
+			else
+			{
+				DeckAccess.Delete(currentDeck);
+				int deckIndex = deckNames.IndexOf(currentDeck.deckName);
+				DeckNameSelect.RemoveItem(deckIndex);
+				deckNames.RemoveAt(deckIndex);
+				indexToSelect = deckIndex == 0 ? 0 : deckIndex - 1;
+			}
 
 			//TODO handle deleting last deck. maybe force user onto the "create first deck" code path?
 			//TODO create first deck code path that's new deck but you can't cancel out (forcing you to have at least 1 deck)
-			int indexToSelect = deckIndex == 0 ? 0 : deckIndex - 1;
 			LoadDeck(indexToSelect);
 			DeckNameSelect.Select(indexToSelect);
 		}
@@ -144,36 +149,27 @@ namespace Kompas.UI.DeckBuilder
 
 		private void LoadDeck(string deckName)
 		{
-			var path = $"{DeckFolderPath}/{deckName}.json";
-			if (!FileAccess.FileExists(path)) return;
+			GD.Print($"loading {deckName}");
+			var decklist = DeckAccess.Load(deckName);
+			if (decklist == null)
+			{
+				GD.PrintErr($"Failed to load deck {deckName} in deck edit");
+				return;
+			}
 
 			ClearDeck();
-			using var deck = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-			string json = deck.GetAsText();
-			GD.Print($"Loading {json}");
-			Decklist decklist = JsonConvert.DeserializeObject<Decklist>(json);
-
+			
 			if (decklist.avatarName != null)
 			{
 				var avatar = DeckBuilderCardRepository.CreateDeckBuilderCard(decklist.avatarName);
 				AvatarController.UpdateAvatar(avatar);
 			}
 
+			currentDeck = new(); //Because AddToDeck needs something to add to
 			if (decklist.deck != null)
 				foreach (string cardName in decklist.deck) AddToDeck(cardName);
 
 			currentDeck = decklist;
-
-			ReevaluatePlaceholders();
-		}
-
-		private void ReevaluatePlaceholders()
-		{
-			bool active = (currentDeck?.deck?.Count ?? 0) < 9;
-			if (active == placeholdersWereActive) return;
-
-			placeholdersWereActive = active;
-			//foreach (var placeholder in DeckSpacingPlaceholders) placeholder.Visible = active;
 		}
 
 		private void AddToDeck(string cardName)
@@ -184,13 +180,14 @@ namespace Kompas.UI.DeckBuilder
 
 		public void AddToDeck(DeckBuilderCard card)
 		{
+			_ = currentDeck ?? throw new InvalidOperationException("Tried to add card to a null deck!");
+
 			var ctrl = CreateCardController();
 			DeckNodesParent.AddChild(ctrl);
 			//DeckNodesParent.MoveChild(ctrl, -1 - DeckSpacingPlaceholders.Length);
 			ctrl.Init(card, DeckBuilderController.CardView, this);
-			currentDeck?.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
+			currentDeck.deck.Add(card.CardName); //It's ok that we add to the decklist before replacing it in LoadDeck because it just gets garbage collected
 			currentDeckCtrls.Add(ctrl);
-			ReevaluatePlaceholders();
 		}
 
 		public void RemoveFromDeck(DeckBuilderDeckCardController card)
@@ -203,15 +200,20 @@ namespace Kompas.UI.DeckBuilder
 			currentDeckCtrls.RemoveAt(index);
 		}
 
-		public void BecomeAvatar(DeckBuilderCardController card)
+		public void BecomeAvatar(DeckBuilderCardController cardCtrl)
 		{
-			AvatarController.UpdateAvatar(card.Card);
-			currentDeck.avatarName = card.Card.CardName;
+			_ = currentDeck ?? throw new InvalidOperationException("Tried to become avatar of a null deck!");
+
+			var card = cardCtrl.Card ?? throw new InvalidOperationException("Card control had no card!");
+			AvatarController.UpdateAvatar(card);
+			currentDeck.avatarName = card.CardName;
 		}
 
 		public void DragSwap(DeckBuilderDeckCardController card)
 		{
 			if (Dragging == null) return;
+			_ = Dragging.Card ?? throw new InvalidOperationException("Drag swapping a card ctrl with no card!");
+			_ = currentDeck ?? throw new InvalidOperationException("Can't drag card through a null deck!");
 
 			int argIndex = currentDeckCtrls.IndexOf(card);
 			if (argIndex < 0) { GD.Print($"{card} not in deck"); return; }
@@ -234,17 +236,9 @@ namespace Kompas.UI.DeckBuilder
 			return controller;
 		}
 
-		private static void EnsureDeckDirectory()
-		{
-			if (!DirAccess.DirExistsAbsolute(DeckFolderPath))
-			{
-				using var folder = DirAccess.Open("user://");
-				folder.MakeDir(DeckFolderPath);
-			}
-		}
-
 		private void AddDeckName(string deckName)
 		{
+			GD.Print($"Adding deck name {deckName}");
 			deckNames.Add(deckName);
 			DeckNameSelect.AddItem(deckName);
 		}

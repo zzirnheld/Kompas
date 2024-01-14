@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Relationships.Spaces;
@@ -12,6 +13,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 	/// </summary>
 	public class ThreeSpaceRelationship : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> firstSpace;
 		[JsonProperty(Required = Required.Always)]
@@ -19,6 +21,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 
 		[JsonProperty(Required = Required.Always)]
 		public IThreeSpaceRelationship thirdSpaceRelationship;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -29,8 +32,10 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 
 		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
-			Space first = firstSpace.From(context, secondaryContext);
-			Space second = secondSpace.From(context, secondaryContext);
+			Space first = firstSpace.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			Space second = secondSpace.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
 			return Space.Spaces.Where(space => thirdSpaceRelationship.Evaluate(first, second, space)).ToArray();
 		}
 	}

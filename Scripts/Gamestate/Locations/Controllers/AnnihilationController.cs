@@ -1,12 +1,19 @@
 using Godot;
+using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Locations.Models;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Gamestate.Locations.Controllers
 {
 	public partial class AnnihilationController : Node //TODO shared parent class for location controllers? similar to models?
 	{
-		public void Refresh()
+		private Annihilation? _annihilationModel;
+		public Annihilation AnnihilationModel
 		{
-			throw new System.NotImplementedException();
+			get => _annihilationModel ?? throw new UnassignedReferenceException();
+			set => _annihilationModel = value;
 		}
+
+		public void Refresh() { }
 	}
 }

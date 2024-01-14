@@ -76,25 +76,36 @@ namespace Kompas.Cards.Models
 			protected set => a = value;
 		}
 
-		public abstract int BaseN { get; }
-		public abstract int BaseE { get; }
-		public abstract int BaseS { get; }
-		public abstract int BaseW { get; }
-		public abstract int BaseC { get; }
-		public abstract int BaseA { get; }
-
+		public virtual int BaseN => N;
+		public virtual int BaseE => E;
+		public virtual int BaseS => S;
+		public virtual int BaseW => W;
+		public virtual int BaseC => C;
+		public virtual int BaseA => A;
 		public CardStats Stats => (N, E, S, W, C, A);
 
 		public bool Unique { get; private set; }
 
-		public string Subtext { get; private set; }
-		public string[] SpellSubtypes { get; private set; }
+		public string Subtext { get; private set; } = string.Empty;
+		public string[] SpellSubtypes { get; private set; } = System.Array.Empty<string>();
 		public int Radius { get; private set; }
 		public int Duration { get; set; }
 		public char CardType { get; private set; }
-		public string CardName { get; private set; }
-		public string EffText { get; private set; }
-		public string SubtypeText { get; private set; }
+		public string CardName { get; private set; } = string.Empty;
+		public string SubtypeText { get; private set; } = string.Empty;
+
+		protected event EventHandler<string>? EffTextChanged;
+		private string _effText = string.Empty;
+		public string EffText
+		{
+			get => _effText;
+			set
+			{
+				_effText = value;
+				EffTextChanged?.Invoke(this, value);
+			}
+		}
+		public virtual string BBCodeEffText => EffText;
 
 		public string QualifiedSubtypeText => AttributesString + ArgsString + SubtypeText;
 
@@ -145,31 +156,32 @@ namespace Kompas.Cards.Models
 		}
 		#endregion
 
-		public Texture2D CardFaceImage { get; private set; }
+		public Texture2D? CardFaceImage { get; private set; }
 
 		public virtual string FileName { get; set; }
 
 		protected CardBase(CardStats stats,
-									   string subtext, string[] spellTypes,
+									   string? subtext, string[] spellTypes,
 									   bool unique,
 									   int radius, int duration,
-									   char cardType, string cardName, string fileName,
-									   string effText,
-									   string subtypeText)
+									   char cardType, string? cardName, string? fileName,
+									   string? effText,
+									   string? subtypeText)
 		{
 			(n, e, s, w, c, a) = stats;
 
-			FileName = fileName;
+			FileName = fileName
+				?? throw new System.NullReferenceException($"{cardName} had no associated file?");
 			SetInfo(null, subtext, spellTypes, unique, radius, duration, cardType, cardName, effText, subtypeText);
 		}
 
 		protected void SetInfo(CardStats? stats,
-									   string subtext, string[] spellTypes,
+									   string? subtext, string[] spellTypes,
 									   bool unique,
 									   int radius, int duration,
-									   char cardType, string cardName,
-									   string effText,
-									   string subtypeText)
+									   char cardType, string? cardName,
+									   string? effText,
+									   string? subtypeText)
 		{
 			if (stats.HasValue) SetStats(stats.Value);
 
@@ -178,7 +190,7 @@ namespace Kompas.Cards.Models
 			if (cardName != CardName) CardFaceImage = CardRepository.LoadSprite(FileName);
 			else GD.Print("Names match. Set Info not updating pics.");
 
-			Subtext = subtext; //TODO un-deprecate and use as an override for constructed subtype text from the subtypes array
+			Subtext = subtext ?? string.Empty; //TODO un-deprecate and use as an override for constructed subtype text from the subtypes array
 			SpellSubtypes = spellTypes;
 			Unique = unique;
 			Radius = radius;
@@ -208,12 +220,11 @@ namespace Kompas.Cards.Models
 			return $"{CardName}, {N}/{E}/{S}/{W}/{C}/{A}";
 		}
 
-		public int CompareTo(object obj)
+		public int CompareTo(object? obj)
 		{
 			if (obj == null) return 1;
 
-			var other = obj as CardBase;
-			if (other == null) throw new ArgumentException("Other object is not a CardBase!");
+			if (obj is not CardBase other) throw new ArgumentException("Other object is not a CardBase!");
 
 			int compare = CardName.CompareTo(other.CardName);
 			if (compare != 0) return compare;

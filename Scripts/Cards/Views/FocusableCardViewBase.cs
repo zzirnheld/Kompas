@@ -1,3 +1,4 @@
+using System;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
 
@@ -14,9 +15,11 @@ namespace Kompas.Cards.Views
 		/// <summary>
 		/// The card being "focused" on.
 		/// If we're not currently doing something like hovering over another card,
-        /// this is the one we should be showing, as a fallback
+		/// this is the one we should be showing, as a fallback
 		/// </summary>
-		public CardType FocusedCard { get; private set; }
+		public CardType? FocusedCard { get; private set; }
+
+		public event EventHandler<CardChange>? FocusChange;
 
 		protected FocusableCardViewBase(DisplayerType infoDisplayer)
 			: base(infoDisplayer)
@@ -27,13 +30,15 @@ namespace Kompas.Cards.Views
 		/// If we're not currently doing something like hovering over another card, this is the one we should be showing
 		/// </summary>
 		/// <param name="card"></param>
-		public virtual void Focus(CardType card)
+		protected virtual void Focus(CardType? card)
 		{
+			var oldFocus = FocusedCard;
 			FocusedCard = card;
+			FocusChange?.Invoke(this, new CardChange() { Old = oldFocus, New = card });
 			Show(card);
 		}
 
-		public override void Show(CardType card, bool refresh = false)
+		protected override void Show(CardType? card, bool refresh = false)
 		{
 			base.Show(card ?? FocusedCard, refresh);
 		}

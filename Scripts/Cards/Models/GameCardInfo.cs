@@ -12,13 +12,15 @@ namespace Kompas.Cards.Models
 	/// Holds the info for a card at a given snapshot in time.
 	/// Used for triggers.
 	/// </summary>
-	public class GameCardInfo : GameCardBase
+	public class GameCardInfo : GameCardBase, IGameCardInfo
 	{
 		#region immutable aspects
-		public override GameCard Card { get; }
+		public GameCard Card { get; }
+		public IGame Game { get; }
 
-		public override int IndexInList { get; }
-		public override Player Owner { get; }
+		public int IndexInList { get; }
+		public IPlayer OwningPlayer { get; }
+		public IPlayer ControllingPlayer { get; }
 		public override bool Summoned { get; }
 		public override bool IsAvatar { get; }
 
@@ -26,7 +28,7 @@ namespace Kompas.Cards.Models
 
 		public override IPlayRestriction PlayRestriction { get; }
 		public override IMovementRestriction MovementRestriction { get; }
-		public override IRestriction<GameCardBase> AttackingDefenderRestriction { get; }
+		public override IRestriction<IGameCardInfo> AttackingDefenderRestriction { get; }
 
 
 		public override int BaseN { get; }
@@ -40,15 +42,14 @@ namespace Kompas.Cards.Models
 		#region mutable aspects
 		//Note for the unfamiliar: most of these have setters so that inheritors can have setters for the same property names without hiding
 		public override Location Location { get; protected set; }
-		public override Player ControllingPlayer { get; set; }
-		public override GameCard AugmentedCard { get; protected set; }
+		public override GameCard? AugmentedCard { get; protected set; }
 		public override IReadOnlyCollection<GameCard> Augments { get; protected set; }
 		public override bool KnownToEnemy { get; set; }
 
 		public override bool Activated { get; protected set; }
 		public override bool Negated { get; protected set; }
 		public override int SpacesMoved { get; set; }
-		public override Space Position { get; set; }
+		public override Space? Position { get; set; }
 		#endregion
 
 		/// <summary>
@@ -57,7 +58,7 @@ namespace Kompas.Cards.Models
 		/// <param name="card">The card whose information to snapshot</param>
 		/// <returns>A <see cref="GameCardInfo"/> whose information matches the current state of <paramref name="card"/>, 
 		/// or null if <paramref name="card"/> is <see langword="null"/></returns>
-		public static GameCardInfo CardInfoOf(GameCard card)
+		public static GameCardInfo? CardInfoOf(GameCard? card)
 		{
 			if (card == null) return null;
 
@@ -74,10 +75,12 @@ namespace Kompas.Cards.Models
 						card.SubtypeText)
 		{
 			Card = card;
+			Game = card.Game;
+			
 			Location = card.Location;
 			IndexInList = card.IndexInList;
 			ControllingPlayer = card.ControllingPlayer;
-			Owner = card.Owner;
+			OwningPlayer = card.OwningPlayer;
 			Summoned = card.Summoned;
 			IsAvatar = card.IsAvatar;
 			AugmentedCard = card.AugmentedCard;

@@ -6,18 +6,20 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 {
 	public class TriggerKeyword : TriggerRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string keyword;
-
+		[JsonProperty(Required = Required.Always)]
 		private IRestriction<TriggeringEventContext> [] elements;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
-			elements = ServerCardRepository.InstantiateTriggerKeyword(keyword);
+			elements = CardRepository.InstantiateTriggerKeyword(keyword);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 			=> elements.All(tre => tre.IsValid(context, secondaryContext));
 	}
 }

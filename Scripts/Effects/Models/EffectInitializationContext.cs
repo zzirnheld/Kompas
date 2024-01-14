@@ -10,46 +10,46 @@ namespace Kompas.Effects.Models
 	/// </summary>
 	public readonly struct EffectInitializationContext
 	{
-		public readonly Game game;
-		public readonly GameCard source;
+		public readonly IGame game;
+		public readonly GameCard? source;
 
-		public readonly Effect effect;
+		public readonly Effect? effect;
 
-		public readonly Trigger trigger;
-		public readonly Subeffect subeffect;
+		public readonly Trigger? trigger;
+		public readonly Subeffect? subeffect;
 
-		private readonly Player controllerOverride;
-		public readonly Player Controller => controllerOverride ?? effect?.Controller ?? source?.ControllingPlayer;
+		private readonly IPlayer? ownerOverride;
+		public readonly IPlayer? Owner => ownerOverride ?? effect?.OwningPlayer ?? source?.ControllingPlayer;
 
-		public readonly IContextInitializeable parent;
+		public readonly IContextInitializeable? parent;
 
-		public EffectInitializationContext(Game game, GameCard source, 
-			Effect effect = default, Trigger trigger = default, Subeffect subeffect = default, Player controller = default)
+		public EffectInitializationContext(IGame game, GameCard? source, 
+			Effect? effect = default, Trigger? trigger = default, Subeffect? subeffect = default, IPlayer? controller = default)
 			: this (game, source, effect, trigger, subeffect, controller, default)
 		{ }
 
-		private EffectInitializationContext(Game game, GameCard source,
-			Effect effect, Trigger trigger, Subeffect subeffect, Player controller, IContextInitializeable parent)
+		private EffectInitializationContext(IGame game, GameCard? source,
+			Effect? effect, Trigger? trigger, Subeffect? subeffect, IPlayer? controller, IContextInitializeable? parent)
 		{
 			this.game = game;
 			this.source = source;
 
-			this.effect = effect;
+			this.effect = effect ?? subeffect?.Effect;
 
 			this.trigger = trigger;
 			this.subeffect = subeffect;
 
-			this.controllerOverride = controller;
+			this.ownerOverride = controller;
 
 			this.parent = parent;
 		}
 
 		public EffectInitializationContext Child(IContextInitializeable parent)
-			=> new(game, source, effect, trigger, subeffect, controllerOverride, parent);
+			=> new(game, source, effect, trigger, subeffect, ownerOverride, parent);
 
 		public override string ToString()
 		{
-			string str = $"Game {game}, Source card {source}";
+			string str = $"Game {game}, Card card {source}";
 
 			if (effect != null) str += $", Effect {effect}";
 			if (trigger != null) str += $", Trigger {trigger}";

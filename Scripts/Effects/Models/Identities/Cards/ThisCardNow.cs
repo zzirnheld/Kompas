@@ -1,9 +1,11 @@
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Effects.Models.Identities.Cards
 {
 	public class ThisCardNow : ContextlessLeafCardIdentityBase
 	{
-		protected override GameCardBase AbstractItem => InitializationContext.source;
+		protected override IGameCardInfo AbstractItem => InitializationContext.source
+			?? throw new IllDefinedException();
 	}
 }

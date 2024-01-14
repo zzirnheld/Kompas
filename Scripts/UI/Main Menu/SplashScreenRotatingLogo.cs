@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.UI.MainMenu
 {
@@ -15,19 +16,31 @@ namespace Kompas.UI.MainMenu
 		private const double SpunBackAround = -2f * Math.PI;
 
 		[Export]
-		private Control LeftSpacer { get; set; }
+		private Control? _leftSpacer;
+		private Control LeftSpacer => _leftSpacer
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Control TopLeft { get; set; }
+		private Control? _topLeft;
+		private Control TopLeft => _topLeft
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Control TopRight { get; set; }
+		private Control? _topRight;
+		private Control TopRight => _topRight
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Control BottomLeft { get; set; }
+		private Control? _bottomLeft;
+		private Control BottomLeft => _bottomLeft
+			?? throw new UnassignedReferenceException();
 		[Export]
-		private Control BottomRight { get; set; }
+		private Control? _bottomRight;
+		private Control BottomRight => _bottomRight
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private Control[] DisappearDuringTransition { get; set; }
+		private Control[]? _disappearDuringTransition;
+		private Control[] DisappearDuringTransition => _disappearDuringTransition
+			?? throw new UnassignedReferenceException();
 
 		private bool splashScreenStarted = false;
 		private bool splashScreenOver = false;

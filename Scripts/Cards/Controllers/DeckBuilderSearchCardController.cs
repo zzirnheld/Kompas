@@ -18,6 +18,8 @@ namespace Kompas.Cards.Controllers
 
 		private void LeftClick(bool pressed)
 		{
+			_ = DeckController ?? throw new System.NullReferenceException("Forgot to init");
+			_ = Card ?? throw new System.NullReferenceException("Forgot to init");
 			// check if pressed and released on the same card TODO expand to have dragging capabilities
 			if (pressed)
 			{

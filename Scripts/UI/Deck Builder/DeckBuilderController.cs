@@ -1,6 +1,7 @@
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Views;
+using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.UI.DeckBuilder
@@ -10,18 +11,22 @@ namespace Kompas.UI.DeckBuilder
 		private const string MainMenuPath = "res://Scenes/MainMenuScene.tscn";
 
 		[Export]
-		private ControlInfoDisplayer CardInfoDisplayer { get; set; }
+		private ControlInfoDisplayer? _cardInfoDisplayer;
+		private ControlInfoDisplayer CardInfoDisplayer => _cardInfoDisplayer
+			?? throw new UnassignedReferenceException();
 		[Export]
-		public DeckBuilderDeckController DeckController { get; private set; }
+		private DeckBuilderDeckController? _deckController;
+		public DeckBuilderDeckController DeckController => _deckController
+			?? throw new UnassignedReferenceException();
 
 		public DeckBuilderCardRepository CardRepository { get; } = new DeckBuilderCardRepository();
 
-		private DeckBuilderTopLeftCardView cardView;
+		private DeckBuilderTopLeftCardView? cardView;
 		public DeckBuilderTopLeftCardView CardView => cardView ??= new DeckBuilderTopLeftCardView(CardInfoDisplayer);
 
 		public override void _Ready()
 		{
-			CardView.Show(null, refresh: true);
+			CardView.Refresh();
 		}
 
 		private void ToMainMenu() => GetTree().ChangeSceneToFile(MainMenuPath);

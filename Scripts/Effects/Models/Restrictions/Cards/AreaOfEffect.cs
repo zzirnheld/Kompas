@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -10,10 +11,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 	{
 		//If you want to specify the cards that you want to have at least one in AOE using an identity, you can use this one.
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cards = new Identities.ManyCards.Board();
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new Identities.ManyCards.Board();
 		//If you just wanna restrict which of the cards on board have to fit, you can use this one.
 		[JsonProperty]
-		public IRestriction<GameCardBase> cardRestriction = new Gamestate.AlwaysValid();
+		public IRestriction<IGameCardInfo> cardRestriction = new Gamestate.AlwaysValid();
 
 		[JsonProperty]
 		public bool all = false; //false = any;
@@ -31,10 +32,12 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
+			if (card == null) return false;
 			var wantedCards = cards.From(context)
-				.Where(c => cardRestriction.IsValid(c, context));
+				?.Where(c => cardRestriction.IsValid(c, context))
+				?? throw new InvalidOperationException();
 
 			return all
 				? wantedCards.All(card.CardInAOE)

@@ -1,14 +1,14 @@
 {
 	"cardType": 67,
 	"cardName": "Earth Golem",
-	"effText": "Golem.\nWhen I become active, I give a character \u00b11 EW.",
+	"effText": "GOLEM.\nWhen I become active, I give a character \u00b11 EW.",
 	"effects": [
 		{
 			"blurb": "++ or --",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
-					"$type": "Restrict.Triggering:CardsMatch:",
+					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}

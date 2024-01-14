@@ -4,7 +4,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 {
 	public class Attacker : TriggerContextualCardIdentityBase
 	{
-		protected override GameCardBase AbstractItemFrom(TriggeringEventContext contextToConsider)
+		protected override IGameCardInfo AbstractItemFrom(TriggeringEventContext contextToConsider)
 			=> GetAttack(contextToConsider).attacker;
 	}
 }

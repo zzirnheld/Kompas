@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Kompas.Cards.Models;
-using Kompas.Effects.Models.Restrictions.Play;
+using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models;
+using Kompas.Shared.Enumerable;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Cards.Loading
 {
@@ -18,19 +21,19 @@ namespace Kompas.Cards.Loading
 		public const string CardListFilePath = $"{CardJsonsFolderPath}/Card List.txt";
 
 		public const string KeywordJsonsFolderPath = $"{JsonsFolderPath}/Keywords/Full";
-		public const string keywordListFilePath = $"{KeywordJsonsFolderPath}/Keyword List";
+		public const string keywordListFilePath = $"{KeywordJsonsFolderPath}/Keyword List.txt";
 
 		public const string PartialKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Partial";
-		public const string PartialKeywordListFilePath = $"{PartialKeywordFolderPath}/Keyword List";
+		public const string PartialKeywordListFilePath = $"{PartialKeywordFolderPath}/Keyword List.txt";
 
 		public const string TriggerKeywordFolderPath = $"{JsonsFolderPath}/Keywords/Trigger";
-		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List";
+		public const string TriggerKeywordListFilePath = $"{TriggerKeywordFolderPath}/Keyword List.txt";
 
-		public static readonly string RemindersJsonPath = $"res://Reminder Text/Reminder Texts";
+		public static readonly string RemindersJsonPath = $"res://Jsons/Reminder Texts.json";
 		public static readonly string CardImagesPath = "res://Sprites";
 
 		private static readonly Regex subeffRegex = new(@"Subeffect:([^:]+):"); //Subeffect:*:
-		private const string subeffReplacement = @"KompasServer.Effects.Subeffects.$1, Kompas";
+		private const string subeffReplacement = @"Kompas.Server.Effects.Models.Subeffects.$1, Kompas";
 
 		private static readonly Regex coreRestrictionRegex = new(@"Restrict\.([^:]+):([^:]+):"); //Restrict.*:*:
 		private const string coreRestrictionReplacement = @"Kompas.Effects.Models.Restrictions.$1.$2, Kompas";
@@ -61,17 +64,20 @@ namespace Kompas.Cards.Loading
 		protected static readonly Dictionary<string, string> partialKeywordJsons = new();
 		protected static readonly Dictionary<string, string> triggerKeywordJsons = new();
 
-		public static ReminderTextsContainer Reminders { get; private set; }
-		public static ICollection<string> Keywords { get; private set; }
-
+		private static ReminderTextsContainer? _reminders;
+		public static ReminderTextsContainer Reminders
+		{
+			get => _reminders ?? throw new NotInitializedException();
+			set => _reminders = value;
+		}
 		private static bool initalized = false;
 		private static readonly object initializationLock = new();
 
-		private static Texture2D charCardFrameTexture;
-		public static Texture2D CharCardFrameTexture => charCardFrameTexture ??= ResourceLoader.Load<Texture2D>(CharCardFramePath);
+		private static Texture2D? _charCardFrameTexture;
+		public static Texture2D CharCardFrameTexture => _charCardFrameTexture ??= ResourceLoader.Load<Texture2D>(CharCardFramePath);
 
-		private static Texture2D noncharCardFrameTexture;
-		public static Texture2D NoncharCardFrameTexture => noncharCardFrameTexture ??= ResourceLoader.Load<Texture2D>(NonCharCardFramePath);
+		private static Texture2D? _noncharCardFrameTexture;
+		public static Texture2D NoncharCardFrameTexture => _noncharCardFrameTexture ??= ResourceLoader.Load<Texture2D>(NonCharCardFramePath);
 
 		/*
 		public Game game;
@@ -88,17 +94,14 @@ namespace Kompas.Cards.Loading
 
 		protected CardRepository()
 		{
-			GD.Print(JsonConvert.SerializeObject(new PlayRestriction(), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All }));
-
-			InitializeCardJsons(); //TODO replace with what's currently in Awake()
+			Initialize();
 		}
 
-		protected virtual void Awake()
+		private void Initialize()
 		{
 			lock (initializationLock)
 			{
 				if (initalized) return;
-				initalized = true;
 
 				InitializeCardJsons();
 
@@ -106,14 +109,16 @@ namespace Kompas.Cards.Loading
 				InitializeMapFromJsons(PartialKeywordListFilePath, PartialKeywordFolderPath, partialKeywordJsons);
 				InitializeMapFromJsons(TriggerKeywordListFilePath, TriggerKeywordFolderPath, triggerKeywordJsons);
 
-				var reminderJsonAsset = LoadFileAsText(RemindersJsonPath);
-				//Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset);
-				//Reminders.Initialize();
-				Keywords = Reminders.keywordReminderTexts.Select(rti => rti.keyword).ToArray();
+				var reminderJsonAsset = LoadFileAsText(RemindersJsonPath)
+					?? throw new System.NullReferenceException("Failed to load reminders json");
+				Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset)
+					?? throw new System.NullReferenceException("Failed to load reminder texts from the json");
+				Reminders.Initialize();
+				initalized = true;
 			}
 		}
 
-		private static string LoadFileAsText(string path)
+		private static string? LoadFileAsText(string path)
 		{
 			//GD.Print($"Trying to load {path}");
 			if (!FileAccess.FileExists(path)) return null;
@@ -133,7 +138,8 @@ namespace Kompas.Cards.Loading
 		{
 			static bool isCardToIgnore(string name) => string.IsNullOrWhiteSpace(name) || cardNamesToIgnore.Contains(name);
 
-			string cardFilenameList = LoadFileAsText(CardListFilePath);
+			string? cardFilenameList = LoadFileAsText(CardListFilePath)
+				?? throw new System.NullReferenceException("Failed to load card list");
 			cardFilenameList = cardFilenameList.Replace('\r', '\n');
 			string[] cardFilenameArray = cardFilenameList.Split('\n');
 
@@ -158,10 +164,11 @@ namespace Kompas.Cards.Loading
 				json = ReplacePlaceholders(json);
 
 				//load the cleaned json to get the card's name according to itself
-				SerializableCard card = SerializableCardFromJson(json);
+				var card = SerializableCardFromJson(json);
 				if (card == null) continue;
 
-				string cardName = card.cardName;
+				string cardName = card.cardName
+					?? throw new System.NullReferenceException("Card had a null name!");
 
 				//add the cleaned json to the dictionary
 				//if this throws a key existing exception, you probably have two cards with the same name field, but diff file names
@@ -173,7 +180,7 @@ namespace Kompas.Cards.Loading
 			//GD.Print(string.Join(", ", CardNames));
 		}
 
-		protected static SerializableCard SerializableCardFromJson(string json)
+		protected static SerializableCard? SerializableCardFromJson(string json)
 		{
 			try
 			{
@@ -188,15 +195,19 @@ namespace Kompas.Cards.Loading
 
 		private static void InitializeMapFromJsons(string filePath, string folderPath, Dictionary<string, string> dict)
 		{
-			string keywordList = LoadFileAsText(filePath);
-			var keywords = keywordList.Replace('\r', '\n').Split('\n').Where(s => !string.IsNullOrEmpty(s));
-			GD.Print($"Keywords list: \n{string.Join("\n", keywords.Select(keyword => $"{keyword} length {keyword.Length}"))}");
-			foreach (string keyword in keywords)
+			string file = LoadFileAsText(filePath)
+				?? throw new System.NullReferenceException($"Failed to load {filePath}");
+			var lines = file.Replace('\r', '\n')
+				.Split('\n')
+				.Where(s => !string.IsNullOrEmpty(s));
+			GD.Print($"Keywords list: \n{string.Join("\n", lines.Select(line => $"{line} length {line.Length}"))}");
+			foreach (string line in lines)
 			{
-				GD.Print($"Loading {keyword} from {folderPath}/{keyword}");
-				string json = LoadFileAsText($"{folderPath}/{keyword}");
+				GD.Print($"Loading {line} from {folderPath}/{line}");
+				string json = LoadFileAsText($"{folderPath}/{line}.json")
+					?? throw new System.NullReferenceException($"Failed to load {line}");
 				json = ReplacePlaceholders(json);
-				dict.Add(keyword, json);
+				dict.Add(line, json);
 			}
 		}
 
@@ -222,7 +233,7 @@ namespace Kompas.Cards.Loading
 
 		public static bool CardExists(string cardName) => CardNames.Contains(cardName);
 
-		public static string GetJsonFromName(string name)
+		public static string? GetJsonFromName(string name)
 		{
 			if (!cardJsons.ContainsKey(name))
 			{
@@ -235,17 +246,67 @@ namespace Kompas.Cards.Loading
 		}
 
 		public static IEnumerable<string> GetJsonsFromNames(IEnumerable<string> names)
-			=> names.Select(n => GetJsonFromName(n)).Where(json => json != null);
+			=> names
+				.Select(n => GetJsonFromName(n))
+				.NonNull();
 
-		public static string FileNameFor(string cardName) => cardFileNames[cardName];
+		public static string? FileNameFor(string? cardName)
+		{
+			if (cardName == null) return null;
+			else return cardFileNames[cardName];
+		}
 
-		public static Texture2D LoadSprite(string cardFileName)
+		public static Texture2D? LoadSprite(string cardFileName)
 		{
 			string path = $"{CardImagesPath}/{cardFileName}.png";
-			if (!ResourceLoader.Exists(path)) return null;
+			if (!ResourceLoader.Exists(path))
+			{
+				GD.Print($"Warning: texture not found at {cardFileName}");
+				return null;
+			}
 			else return ResourceLoader.Load<Texture2D>(path);
 		}
 
-		public static IEnumerable<SerializableCard> SerializableCards => cardJsons.Values.Select(SerializableCardFromJson).Where(c => c != null);
+		public static IEnumerable<SerializableCard> SerializableCards
+			=> cardJsons.Values
+				.Select(SerializableCardFromJson)
+				.NonNull();
+		
+		public static IRestriction<TriggeringEventContext>[]? InstantiateTriggerKeyword(string keyword)
+		{
+			if (!triggerKeywordJsons.ContainsKey(keyword))
+			{
+				GD.PrintErr($"No trigger keyword json found for {keyword}");
+				return System.Array.Empty<IRestriction<TriggeringEventContext>>();
+			}
+			try
+			{
+				return JsonConvert.DeserializeObject<IRestriction<TriggeringEventContext>[]>
+					(triggerKeywordJsons[keyword], CardLoadingSettings);
+			}
+			catch (JsonReaderException)
+			{
+				GD.PrintErr($"Failed to instantiate {keyword}");
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Adds BBCode [hint] tags for keyword reminders.
+		/// </summary>
+		/// <param name="baseEffText"></param>
+		/// <returns></returns>
+		public string AddKeywordHints(string baseEffText)
+		{
+			string bbCodeEffText = baseEffText;
+			foreach (var reminderTextInfo in Reminders.KeywordToReminder.Values)
+			{
+				string keywordTag = $"[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.keyword}[/url]";
+				bbCodeEffText = reminderTextInfo.KeywordReplaceRegex.Replace(bbCodeEffText, keywordTag);
+			}
+			return bbCodeEffText;
+		}
+
+		public ReminderTextInfo LookupKeywordReminderText(string keyword) => Reminders.KeywordToReminder[keyword];
 	}
 }

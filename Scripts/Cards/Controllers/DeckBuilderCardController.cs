@@ -7,34 +7,38 @@ using Kompas.UI.DeckBuilder;
 namespace Kompas.Cards.Controllers
 {
 	/// <summary>
-    /// Extends TextureRect because the TextureRect has to be the parent, otherwise the grid doesn't line up.
-    /// For some reason.
-    /// </summary>
+	/// Extends TextureRect because the TextureRect has to be the parent, otherwise the grid doesn't line up.
+	/// For some reason.
+	/// </summary>
 	public partial class DeckBuilderCardController : TextureRect
 	{
 		[Export]
-		public DeckBuilderInfoDisplayer InfoDisplayer { get; private set; }
+		public DeckBuilderInfoDisplayer? InfoDisplayer { get; private set; }
 
-		protected DeckBuilderDeckController DeckController { get; private set; }
+		protected DeckBuilderDeckController? DeckController { get; private set; }
 
-		private DeckBuilderCard card;
-		public DeckBuilderCard Card
+		private DeckBuilderCard? _card;
+		public DeckBuilderCard? Card
 		{
-			get => card;
+			get => _card;
 			protected set
 			{
-				card = value;
-				myView.Show(card);
+				_card = value;
+				_ = myView ?? throw new System.NullReferenceException("Failed to init");
+				myView?.Show(_card);
 			}
 		}
 
-		private DeckBuilderTopLeftCardView topLeftCardView;
+		private DeckBuilderTopLeftCardView? topLeftCardView;
+		private DeckBuilderCardView? myView;
 
-		private DeckBuilderCardView myView;
+		public override void _Ready()
+		{
+			_ = InfoDisplayer ?? throw new System.NullReferenceException("Forgot to init");
+			myView = new DeckBuilderCardView(InfoDisplayer);
+		}
 
-		public override void _Ready() => myView = new DeckBuilderCardView(InfoDisplayer);
-
-		public void Init(DeckBuilderCard card, DeckBuilderTopLeftCardView topLeftCardView, DeckBuilderDeckController deckController)
+		public void Init(DeckBuilderCard? card, DeckBuilderTopLeftCardView topLeftCardView, DeckBuilderDeckController deckController)
 		{
 			DeckController = deckController;
 
@@ -53,8 +57,16 @@ namespace Kompas.Cards.Controllers
 			if (mouseInput.ButtonIndex == MouseButton.Left && mouseInput.DoubleClick) DoubleLeftClick();
 		}
 
-		protected virtual void DoubleLeftClick() => DeckController.BecomeAvatar(this);
+		protected virtual void DoubleLeftClick()
+		{
+			_ = DeckController ?? throw new System.NullReferenceException("Forgot to init");
+			DeckController.BecomeAvatar(this);
+		}
 
-		public void ShowInTopLeft() => topLeftCardView.Show(Card);
+		public void ShowInTopLeft()
+		{
+			_ = topLeftCardView ?? throw new System.NullReferenceException("Forgot to init");
+			topLeftCardView.Show(Card);
+		}
 	}
 }

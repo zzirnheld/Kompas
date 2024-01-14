@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Modular Defense Core",
-	"effText": "Recoverable.\nWhile equipped, activate this Golem. When they defend, swap me for a Golem Core in your hand.",
+	"effText": "Recoverable.\nWhile equipped, activate this GOLEM. When they defend, swap me for a Golem Core in your hand.",
 	"effects": [
 		{
 			"blurb": "Defense Activate!",
@@ -12,7 +12,7 @@
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
@@ -37,7 +37,7 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Restrict.Triggering:CardsMatch:",
+								"$type": "Restrict.Gamestate:CardsMatch:",
 								"card": { "$type": "Identify.Cards:CardBefore:" },
 								"other": { "$type": "Identify.Cards:ThisCardNow:" }
 							}
@@ -55,7 +55,7 @@
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{
-							"$type": "Restrict.Triggering:CardsMatch:",
+							"$type": "Restrict.Gamestate:CardsMatch:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": {
 								"$type": "Identify.Cards:AugmentedCard:",

@@ -1,25 +1,31 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	//Not abstract because Client uses this base class
 	public abstract class Annihilation : OwnedLocationModel
 	{
-		public AnnihilationController AnnihilationController { get; init; }
-
-		private readonly List<GameCard> cards = new List<GameCard>();
-
-		public override Location Location => Location.Annihilation;
+		private readonly List<GameCard> cards = new();
 		public override IEnumerable<GameCard> Cards => cards;
 
-		protected override void Add(GameCard card, int? index)
+		public override Location Location => Location.Annihilation;
+		private readonly AnnihilationController annihilationController;
+
+		protected Annihilation(IPlayer owner, AnnihilationController annihilationController) : base(owner)
+		{
+			this.annihilationController = annihilationController;
+			annihilationController.AnnihilationModel = this;
+		}
+
+		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) cards.Insert(index.Value, card);
 			else cards.Add(card);
-			AnnihilationController.Refresh();
+			annihilationController.Refresh();
 		}
 
 		public override void Remove(GameCard card)
@@ -28,7 +34,7 @@ namespace Kompas.Gamestate.Locations.Models
 				throw new CardNotHereException(Location.Annihilation, card, "Card was not in annihilation, couldn't be removed");
 
 			cards.Remove(card);
-			AnnihilationController.Refresh();
+			annihilationController.Refresh();
 		}
 
 		public override int IndexOf(GameCard card) => cards.IndexOf(card);

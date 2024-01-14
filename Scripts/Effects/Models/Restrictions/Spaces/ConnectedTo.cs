@@ -1,5 +1,6 @@
 using Kompas.Effects.Models.Identities;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 {
 	public class ConnectedTo : SpaceRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty]
 		public IIdentity<Space> space;
 		[JsonProperty]
@@ -16,6 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public IIdentity<IReadOnlyCollection<Space>> anyOfTheseSpaces;
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<Space> byRestriction;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -30,10 +33,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			byRestriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
-		{
-			return spaces.From(context)
-				.All(s => InitializationContext.game.Board.AreConnectedBySpaces(s, space, byRestriction, context));
-		}
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
+			=> space != null
+			&& (spaces.From(context)
+				?.All(s => Board.AreConnectedBySpaces(s, space, byRestriction, context))
+				?? false);
 	}
 }

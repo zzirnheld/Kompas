@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.InitializationRequirements;
+using Kompas.Server.Effects.Models;
 using Newtonsoft.Json;
 
-//TODO: move this to the KompasServer package?
+//TODO: move this to the Kompas.Server package?
 //If I do, I'd probably want to have some tyupe of "server-only restriction" thing, where it just always returns true if it's client side.
 //That could create some crustiness if I ever for some reason want to check a CardRestriction client side that includes this,
 //but considering it should only ever be part of a subeffect, that shouldn't happen.
@@ -13,8 +14,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class SubeffectValidIfTargeted : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public int[] subeffectIndices;
+		#nullable restore
 
 		protected override IEnumerable<IInitializationRequirement> InitializationRequirements
 			{ get { yield return new SubeffectInitializationRequirement(); } }
@@ -28,8 +31,11 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 				.All(subeff => !subeff.IsImpossible());
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> InitializationContext.effect.TestWithCardTarget(card as GameCard, ValidateAllSubeffectsPossible);
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+		{
+			var effect = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
+			return InitializationContext.effect.TestWithCardTarget(card as GameCard, ValidateAllSubeffectsPossible);
+		}	
 
 		public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
 		{

@@ -6,21 +6,21 @@ namespace Kompas.Effects.Models
 {
 	public class TriggeringEventContext
 	{
-		public readonly Game game;
+		public readonly IGame game;
 
 		// Information about the relevant triggering situation
 		/// <summary>
 		/// Information about the primary card involved in the triggering event,
 		/// stashed before the triggering event
 		/// </summary>
-		public readonly GameCardInfo mainCardInfoBefore;
+		public readonly GameCardInfo? mainCardInfoBefore;
 
 		/// <summary>
 		/// Information about the secondary card involved in the triggering event,
 		/// stashed before the triggering event.
 		/// The secondary card is often something like "the other card in the attack"
 		/// </summary>
-		public readonly GameCardInfo secondaryCardInfoBefore;
+		public readonly GameCardInfo? secondaryCardInfoBefore;
 
 		/// <summary>
 		/// The card that caused the triggering event.<br/>
@@ -33,55 +33,55 @@ namespace Kompas.Effects.Models
 		///  this is the other card involved in the attack.
 		///  (Think a character dying during a fight. That was caused by the other card.)
 		/// </summary>
-		public readonly GameCardInfo cardCauseBefore;
+		public readonly GameCardInfo? cardCauseBefore;
 
 		/// <summary>
 		/// The object on the stack that caused this event to occur.
 		/// For example, if an effect caused an attack to start, this would be the effect.
 		/// </summary>
-		public readonly IStackable stackableCause;
+		public readonly IStackable? stackableCause;
 
 		/// <summary>
 		/// The object on the stack that this trigger describes an event related to.
 		/// For example, if this is an "Attack" event, the stackableEvent is that attack.
 		/// </summary>
-		public readonly IStackable stackableEvent;
+		public readonly IStackable? stackableEvent;
 
-		public readonly Player player;
+		public readonly IPlayer? player;
 		public readonly int? x;
-		public readonly Space space;
+		public readonly Space? space;
 
 
 		/// <summary>
 		/// The information for the main triggering card,
 		/// stashed immediately after the triggering event occurred.
 		/// </summary>
-		public GameCardInfo MainCardInfoAfter { get; private set; }
+		public GameCardInfo? MainCardInfoAfter { get; private set; }
 
 		/// <summary>
 		/// The information for the secondary triggering card,
 		/// stashed immediately after the triggering event occurred.
 		/// The secondary card could be the defender in an "Attack" trigger, etc.
 		/// </summary>
-		public GameCardInfo SecondaryCardInfoAfter { get; private set; }
+		public GameCardInfo? SecondaryCardInfoAfter { get; private set; }
 
 		/// <summary>
 		/// The information for the card that caused the event,
 		/// stashed immediately after the triggering event occurred.
 		/// </summary>
-		public GameCardInfo CauseCardInfoAfter { get; private set; }
+		public GameCardInfo? CauseCardInfoAfter { get; private set; }
 
 		private readonly string cachedToString;
 
-		private TriggeringEventContext(Game game,
-								  GameCardInfo mainCardInfoBefore,
-								  GameCardInfo secondaryCardInfoBefore,
-								  GameCardInfo cardCause,
-								  IStackable stackableCause,
-								  IStackable stackableEvent,
-								  Player player,
+		private TriggeringEventContext(IGame game,
+								  GameCardInfo? mainCardInfoBefore,
+								  GameCardInfo? secondaryCardInfoBefore,
+								  GameCardInfo? cardCause,
+								  IStackable? stackableCause,
+								  IStackable? stackableEvent,
+								  IPlayer? player,
 								  int? x,
-								  Space space)
+								  Space? space)
 		{
 			this.game = game;
 			this.mainCardInfoBefore = mainCardInfoBefore;
@@ -100,22 +100,22 @@ namespace Kompas.Effects.Models
 			if (cardCause != null) sb.Append($"Card cause: {cardCause.CardName}, ");
 			if (stackableEvent != null) sb.Append($"Stackable Event: {stackableEvent}, ");
 			if (stackableCause != null) sb.Append($"Stackable Cause: {stackableCause}, ");
-			if (player != null) sb.Append($"Triggerer: {player.index}, ");
+			if (player != null) sb.Append($"Triggerer: {player.Index}, ");
 			if (x != null) sb.Append($"X: {x}, ");
 			if (space != null) sb.Append($"Space: {space}, ");
 
 			cachedToString = sb.ToString();
 		}
 
-		public TriggeringEventContext(Game game,
-								 GameCard CardBefore = null,
-								 GameCard secondaryCardBefore = null,
-								 GameCard eventCauseOverride = null,
-								 IStackable stackableCause = null,
-								 IStackable stackableEvent = null,
-								 Player player = null,
+		public TriggeringEventContext(IGame game,
+								 GameCard? CardBefore = null,
+								 GameCard? secondaryCardBefore = null,
+								 GameCard? eventCauseOverride = null,
+								 IStackable? stackableCause = null,
+								 IStackable? stackableEvent = null,
+								 IPlayer? player = null,
 								 int? x = null,
-								 Space space = null)
+								 Space? space = null)
 			: this(game: game,
 				   mainCardInfoBefore: GameCardInfo.CardInfoOf(CardBefore),
 				   secondaryCardInfoBefore: GameCardInfo.CardInfoOf(secondaryCardBefore),
@@ -137,10 +137,13 @@ namespace Kompas.Effects.Models
 		/// (like the attacker on a defends proc)</param>
 		public void CacheCardInfoAfter()
 		{
-			if (MainCardInfoAfter != null)
-				throw new System.ArgumentException("Already initialized MainCardInfoAfter on this context");
-			else
-				MainCardInfoAfter = GameCardInfo.CardInfoOf(mainCardInfoBefore.Card);
+			if (mainCardInfoBefore != null)
+			{
+				if (MainCardInfoAfter != null)
+					throw new System.ArgumentException("Already initialized MainCardInfoAfter on this context");
+				else
+					MainCardInfoAfter = GameCardInfo.CardInfoOf(mainCardInfoBefore?.Card);
+			}
 
 			if (secondaryCardInfoBefore != null)
 			{

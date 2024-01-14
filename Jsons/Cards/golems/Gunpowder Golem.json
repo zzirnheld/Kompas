@@ -1,14 +1,14 @@
 {
 	"cardType": 67,
 	"cardName": "Gunpowder Golem",
-	"effText": "Golem.\nWhen I become active, give me and a distinct summon -[my W] E.",
+	"effText": "GOLEM.\nWhen I become active, give me and a distinct summon -[my W] E.",
 	"effects": [
 		{
 			"blurb": "Boom",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
-					"$type": "Restrict.Triggering:CardsMatch:",
+					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}

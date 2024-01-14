@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManyCards
 {
-	public class Augments : ContextualParentIdentityBase<IReadOnlyCollection<GameCardBase>>
+	public class Augments : ContextualParentIdentityBase<IReadOnlyCollection<IGameCardInfo>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCardInfo> card;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -15,7 +18,11 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 			card.Initialize(initializationContext);
 		}
 
-		protected override IReadOnlyCollection<GameCardBase> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> card.From(context, secondaryContext).Augments;
+		protected override IReadOnlyCollection<IGameCardInfo> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
+			var card = this.card.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			return card.Augments;
+		}
 	}
 }

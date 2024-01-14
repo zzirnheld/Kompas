@@ -6,22 +6,29 @@ namespace Kompas.Effects.Models
 {
 	public interface IResolutionContext
 	{
-		public static IResolutionContext Dummy(TriggeringEventContext triggeringEventContext)
+		/// <summary>
+		/// Use this resolution context to test for a hypothetical resolution
+		/// (but only if you expect resolution context to not be referenced)
+		/// </summary>
+		public static IResolutionContext NotResolving
+			=> new DummyResolutionContext(null);
+
+		public static IResolutionContext Dummy(TriggeringEventContext? triggeringEventContext)
 			=> new DummyResolutionContext(triggeringEventContext);
 
 		/// <summary>
 		/// Information describing the event that triggered this effect to occur, if any such event happened. (If it's player-triggered, this is null.) 
 		/// </summary>
-		public TriggeringEventContext TriggerContext { get; }
+		public TriggeringEventContext? TriggerContext { get; }
 
 		public int StartIndex { get; }
 		public IList<GameCard> CardTargets { get; }
 		public IList<GameCardInfo> CardInfoTargets { get; }
-		public GameCard DelayedCardTarget { get; }
+		public GameCard? DelayedCardTarget { get; }
 		public IList<Space> SpaceTargets { get; }
-		public Space DelayedSpaceTarget { get; }
+		public Space? DelayedSpaceTarget { get; }
 		public IList<IStackable> StackableTargets { get; }
-		public IStackable DelayedStackableTarget { get; }
+		public IStackable? DelayedStackableTarget { get; }
 		public int X { get; set; }
 
 		public IResolutionContext Copy { get; }
@@ -33,7 +40,7 @@ namespace Kompas.Effects.Models
 		private class DummyResolutionContext : IResolutionContext
 		{
 			private const string NotImplementedMessage = "Dummy resolution context should never have resolution information checked. Use the secondary (aka stashed) resolution context instead.";
-			public TriggeringEventContext TriggerContext { get; }
+			public TriggeringEventContext? TriggerContext { get; }
 
 			public int StartIndex => throw new System.NotImplementedException(NotImplementedMessage);
 			public IList<GameCard> CardTargets => throw new System.NotImplementedException(NotImplementedMessage);
@@ -47,7 +54,7 @@ namespace Kompas.Effects.Models
 
 			public IResolutionContext Copy => new DummyResolutionContext(TriggerContext);
 
-			public DummyResolutionContext(TriggeringEventContext triggerContext)
+			public DummyResolutionContext(TriggeringEventContext? triggerContext)
 			{
 				TriggerContext = triggerContext;
 			}

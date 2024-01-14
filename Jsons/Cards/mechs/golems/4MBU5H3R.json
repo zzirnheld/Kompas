@@ -1,14 +1,14 @@
 {
 	"cardType": 67,
 	"cardName": "4MBU5H3R",
-	"effText": "Golem.\nWhen I become active, I Ambush.",
+	"effText": "GOLEM.\nWhen I become active, I Ambush.",
 	"effects": [
 		{
 			"blurb": "1T'5 4N 4MBU5H",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
-					"$type": "Restrict.Triggering:CardsMatch:",
+					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
@@ -8,13 +9,15 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public class CardFitsRestriction : TriggerGamestateRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty]
-		public IIdentity<GameCardBase> card;
+		public IIdentity<IGameCardInfo> card;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> anyOf;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
 		
 		[JsonProperty(Required = Required.Always)]
-		public IRestriction<GameCardBase> cardRestriction;
+		public IRestriction<IGameCardInfo> cardRestriction;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -32,18 +35,23 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 		{
 			var contextToConsider = ContextToConsider(context, secondaryContext);
-			bool IsValidCard(GameCardBase c) => cardRestriction.IsValid(c, contextToConsider);
+			bool IsValidCard(IGameCardInfo? c) => cardRestriction.IsValid(c, contextToConsider);
 
 			if (card != null && !IsValidCard(FromIdentity(card, context, secondaryContext))) return false;
-			if (anyOf != null && !FromIdentity(anyOf, context, secondaryContext).Any(IsValidCard)) return false;
+			if (anyOf != null)
+			{
+				var cards = FromIdentity(anyOf, context, secondaryContext)
+					?? throw new InvalidOperationException();
+				if (!cards.Any(IsValidCard)) return false;
+			} 
 
 			return true;
 		}
 
-		protected virtual IdentityType FromIdentity<IdentityType>
+		protected virtual IdentityType? FromIdentity<IdentityType>
 			(IIdentity<IdentityType> identity, TriggeringEventContext triggeringEventContext, IResolutionContext resolutionContext)
 			=> identity.From(triggeringEventContext, resolutionContext);
 

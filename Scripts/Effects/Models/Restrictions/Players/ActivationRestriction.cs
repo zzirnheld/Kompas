@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 		[JsonProperty]
 		public string[] locations = { Location.Board.StringVersion() };
 
-		protected override IEnumerable<IRestriction<Player>> DefaultElements
+		protected override IEnumerable<IRestriction<IPlayer>> DefaultElements
 		{
 			get
 			{
@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 					card = new Identities.Cards.ThisCardNow(),
 					cardRestriction = new Cards.AllOf()
 					{
-						elements = new IRestriction<GameCardBase>[] {
+						elements = new IRestriction<IGameCardInfo>[] {
 							new Cards.AtLocation() { locations = this.locations },
 							new Cards.Not() { negated = new Cards.Negated() }
 						}

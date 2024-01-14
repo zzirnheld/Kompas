@@ -15,15 +15,17 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		/// <returns></returns>
 		public bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> elements.Where(elem => TriggerRestrictionBase.ReevalationRestrictions.Contains(elem.GetType()))
-					.All(elem => elem.IsValid(context, default));
+					.All(elem => elem.IsValid(context, IResolutionContext.Dummy(context)));
 	}
 
 	public class AnyOf : AnyOfBase<TriggeringEventContext> { }
 
 	public class Not : TriggerRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IRestriction<TriggeringEventContext> inverted;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -31,7 +33,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			inverted.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 			=> !inverted.IsValid(context, secondaryContext);
 	}
 }

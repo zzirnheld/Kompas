@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool waiveAdjacencyRequirement = false;
 
-		protected override IEnumerable<IRestriction<GameCardBase>> DefaultElements
+		protected override IEnumerable<IRestriction<IGameCardInfo>> DefaultElements
 		{
 			get
 			{
@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 					card = new Identities.Cards.ThisCardNow(),
 					cardRestriction = new AllOf()
 					{
-						elements = new IRestriction<GameCardBase>[]
+						elements = new IRestriction<IGameCardInfo>[]
 						{
 							new Friendly(),
 							new Character(),

@@ -3,12 +3,14 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Players
 {
-	public class AllOf : AllOfBase<Player> { }
+	public class AllOf : AllOfBase<IPlayer> { }
 
 	public class Not : PlayerRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
-		public IRestriction<Player> negated;
+		public IRestriction<IPlayer> negated;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -16,7 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 			negated.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(Player item, IResolutionContext context)
+		protected override bool IsValidLogic(IPlayer? item, IResolutionContext context)
 			=> !negated.IsValid(item, context);
 	}
 }

@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class WithinDistanceOfNumberOfCards : SpaceRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<GameCardBase> cardRestriction = new Gamestate.AlwaysValid();
+		public IRestriction<IGameCardInfo> cardRestriction = new Gamestate.AlwaysValid();
 
 		[JsonProperty]
 		public IIdentity<int> numberOfCards = Identities.Numbers.Constant.One;
@@ -33,8 +33,9 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
+			if (space == null) return false;
 			return InitializationContext.game.Cards
 				.Where(c => c.DistanceTo(space) < distance.From(context))
 				.Where(c => cardRestriction.IsValid(c, context))

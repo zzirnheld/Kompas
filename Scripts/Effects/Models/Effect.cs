@@ -5,6 +5,7 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
@@ -14,11 +15,11 @@ namespace Kompas.Effects.Models
 	/// </summary>
 	public abstract class Effect : IStackable
 	{
-		public abstract Game Game { get; }
+		public abstract IGame Game { get; }
 
 		public int EffectIndex { get; private set; }
-		public GameCard Source { get; private set; }
-		public abstract Player Controller { get; set; }
+		public abstract GameCard Card { get; }
+		public abstract IPlayer OwningPlayer { get; }
 
 		//subeffects
 		public abstract Subeffect[] Subeffects { get; }
@@ -28,15 +29,19 @@ namespace Kompas.Effects.Models
 		public int SubeffectIndex { get; protected set; }
 
 		//Targets
-		public IList<GameCard> CardTargets => CurrentResolutionContext.CardTargets;
-		public IList<Space> SpaceTargets => CurrentResolutionContext.SpaceTargets;
-		public IList<GameCardInfo> CardInfoTargets => CurrentResolutionContext.CardInfoTargets;
-		public IList<IStackable> StackableTargets => CurrentResolutionContext.StackableTargets;
+		public IList<GameCard> CardTargets => CurrentResolutionContext?.CardTargets
+			?? throw new EffectNotResolvingException(this);
+		public IList<Space> SpaceTargets => CurrentResolutionContext?.SpaceTargets
+			?? throw new EffectNotResolvingException(this);
+		public IList<GameCardInfo> CardInfoTargets => CurrentResolutionContext?.CardInfoTargets
+			?? throw new EffectNotResolvingException(this);
+		public IList<IStackable> StackableTargets => CurrentResolutionContext?.StackableTargets
+			?? throw new EffectNotResolvingException(this);
 
 		protected readonly List<CardLink> cardLinks = new();
 
 		//we don't care about informing players of the contents of these. yet. but we might later
-		public readonly List<Player> playerTargets = new();
+		public readonly List<IPlayer> playerTargets = new();
 		public readonly List<GameCard> rest = new();
 
 		public IdentityOverrides identityOverrides = new();
@@ -44,28 +49,28 @@ namespace Kompas.Effects.Models
 		/// <summary>
 		/// X value for card effect text (not coordinates)
 		/// </summary>
-		public int X
+		public int X  
 		{
-			get => CurrentResolutionContext.X;
-			set => CurrentResolutionContext.X = value;
-		}
+			get => CurrentResolutionContext?.X 
+				?? throw new EffectNotResolvingException(this);
+			set
+			{
+				_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
+				CurrentResolutionContext.X = value;
+			}
+		} 
 
 		//Triggering and Activating
-		public abstract Trigger Trigger { get; }
-		public TriggerData triggerData;
-		public IActivationRestriction activationRestriction;
+		public abstract Trigger? Trigger { get; }
+		public TriggerData? triggerData;
+		public IActivationRestriction? activationRestriction;
 
 		//Misc effect info
-		public string blurb;
+		public string? blurb;
 		public int arg; //used for keyword arguments, and such
 
-		private IResolutionContext resolutionContext;
-		public virtual IResolutionContext CurrentResolutionContext
-		{
-			get => resolutionContext;
-			protected set => resolutionContext = value;
-		}
-		public TriggeringEventContext CurrTriggerContext => CurrentResolutionContext.TriggerContext;
+		public abstract IResolutionContext? CurrentResolutionContext { get; }
+		public TriggeringEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
 		public int TimesUsedThisTurn { get; protected set; }
 		public int TimesUsedThisRound { get; protected set; }
 		public int TimesUsedThisStack { get; set; }
@@ -75,24 +80,25 @@ namespace Kompas.Effects.Models
 		/// <summary>
 		/// The keyword this effect is from, if it's a full keyword
 		/// </summary>
-		public string Keyword { get; set; }
+		public string? Keyword { get; set; }
 
-		protected void SetInfo(GameCard source, int effIndex, Player owner)
+		protected void SetInfo(int effIndex)
 		{
-			GD.Print($"Trying to init eff {effIndex} of {source}, with game {Game}");
-			Source = source ?? throw new System.ArgumentNullException(nameof(source), "Effect cannot be attached to null card");
 			EffectIndex = effIndex;
-			Controller = owner;
 
-			blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {source.CardName}" : blurb;
-			activationRestriction?.Initialize(new EffectInitializationContext(game: Game, source: Source, effect: this));
+			//TODO go back to a SerializableEffect model. The Subeffects will still be specified "manually" but that's the cross I'll have to bear, I think,
+			//unless I want to make a Serializable version of every subeffect. Which might be a good idea anyway (I'd just put them in the same file for convenience)
+			if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
+			blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {Card.CardName}" : blurb;
+			activationRestriction?.Initialize(new EffectInitializationContext(game: Game, source: Card, effect: this));
 			TimesUsedThisTurn = 0;
 		}
 
-		public void ResetForTurn(Player turnPlayer)
+		public void ResetForTurn(IPlayer turnPlayer)
 		{
 			TimesUsedThisTurn = 0;
-			if (turnPlayer == Source.ControllingPlayer) TimesUsedThisRound = 0;
+			//TODO card is null and this is being called
+			if (turnPlayer == Card?.ControllingPlayer) TimesUsedThisRound = 0;
 		}
 
 		public void Reset()
@@ -101,15 +107,15 @@ namespace Kompas.Effects.Models
 			TimesUsedThisTurn = 0;
 		}
 
-		public virtual bool CanBeActivatedBy(Player controller)
+		public virtual bool CanBeActivatedBy(IPlayer controller)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game));
 
-		public virtual bool CanBeActivatedAtAllBy(Player activator)
+		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
 
-		public GameCard GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
-		public Space GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
-		public Player GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
+		public GameCard? GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
+		public Space? GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
+		public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 
 
 		public virtual void AddTarget(GameCard card) {
@@ -119,20 +125,20 @@ namespace Kompas.Effects.Models
 
 		public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
 
-		public T TestWithCardTarget<T>(GameCard target, System.Func<T> toTest)
+		public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest)
 		{
-			CardTargets.Add(target);
+			if (target != null) CardTargets.Add(target);
 			var ret = toTest();
-			CardTargets.RemoveAt(CardTargets.Count - 1);
+			if (target != null) CardTargets.RemoveAt(CardTargets.Count - 1);
 			return ret;
 		}
 
 
-		public override string ToString() => $"Effect of {(Source == null ? "Nothing???" : Source.CardName)}";
+		public override string ToString() => $"Effect of {(Card == null ? "Nothing???" : Card.CardName)}";
 
-		public GameCard GetCause(GameCardBase withRespectTo) => Source;
+		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 
-		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger trigger)
-			=> new(game: Game, source: Source, effect: this, trigger: trigger, subeffect: subeffect);
+		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger? trigger)
+			=> new(game: Game, source: Card, effect: this, trigger: trigger, subeffect: subeffect);
 	}
 }

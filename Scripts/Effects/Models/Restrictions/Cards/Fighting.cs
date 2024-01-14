@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		/// Can be null to represent checking whether the card is in any fight at all
 		/// </summary>
 		[JsonProperty] //DisallowNull means the json can't specify null
-		public IIdentity<GameCardBase> fightingWho;
+		public IIdentity<IGameCardInfo>? fightingWho;
 		/// <summary>
 		/// Whether the character must be the defender in the fight in question
 		/// </summary>
@@ -32,7 +32,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 				throw new System.ArgumentException("Can't require a card to be attacking and defending using the same Fighting object");
 		}
 
-		private bool IsValidFight(GameCardBase card, IResolutionContext context, IStackable stackEntry)
+		private bool IsValidFight(IGameCardInfo card, IResolutionContext context, IStackable stackEntry)
 		{
 			if (!(stackEntry is Attack attack)) return false;
 
@@ -55,7 +55,8 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			return attack.attacker == fightingWhoCard || attack.defender == fightingWhoCard;
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> InitializationContext.game.StackEntries.Any(stackEntry => IsValidFight(card, context, stackEntry));
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+			=> card != null
+			&& InitializationContext.game.StackController.StackEntries.Any(stackEntry => IsValidFight(card, context, stackEntry));
 	}
 }

@@ -40,9 +40,19 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			useDummyResolutionContext ??= true; //Default to true, but in a way that can be overridden by child classes like TriggerGamestateRestrictionBase
 		}
 
-		protected virtual IResolutionContext ContextToConsider(TriggeringEventContext triggeringContext, IResolutionContext resolutionContext)
+		protected virtual IResolutionContext ContextToConsider
+			(TriggeringEventContext? triggeringContext, IResolutionContext resolutionContext)
 			=> UseDummyResolutionContext
 				? IResolutionContext.Dummy(triggeringContext)
 				: resolutionContext;
+
+		protected override sealed bool IsValidLogic(TriggeringEventContext? item, IResolutionContext context)
+		{
+	   		var NullTriggeringContext = "Triggering event context was null? If you see this, consider if it's allowable";
+			_ = item ?? throw new System.ArgumentNullException(NullTriggeringContext);
+			return IsValidContext(item, context);
+		}
+		
+		protected abstract bool IsValidContext(TriggeringEventContext item, IResolutionContext context);
 	}
 }

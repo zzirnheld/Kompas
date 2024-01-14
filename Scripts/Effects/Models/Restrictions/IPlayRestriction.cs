@@ -3,13 +3,13 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models.Restrictions
 {
-	public interface IPlayRestriction : IRestriction<(Space s, Player p)>
+	public interface IPlayRestriction : IRestriction<(Space? s, IPlayer? p)>
 	{
 		public static IPlayRestriction CreateDefault() => new Play.PlayRestriction();
 
-		public bool IsRecommendedNormalPlay((Space s, Player p) item);
-		public bool IsRecommendedPlay((Space s, Player p) item, IResolutionContext context);
+		public bool IsRecommendedNormalPlay((Space? s, IPlayer? p) item);
+		public bool IsRecommendedPlay((Space? s, IPlayer? p) item, IResolutionContext context);
 
-		public bool IsValidIgnoringAdjacency((Space s, Player p) item, IResolutionContext context);
+		public bool IsValidIgnoringAdjacency((Space? s, IPlayer? p) item, IResolutionContext context);
 	}
 }

@@ -6,8 +6,10 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	public class Subtypes : CardRestrictionBase
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string[] subtypes;
+		#nullable restore
 
 		[JsonProperty]
 		public bool exclude = false; //default to include
@@ -23,8 +25,9 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			if (subtypes == null) throw new System.ArgumentNullException("subtypes");
 		}
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 		{
+			if (card == null) return false;
 			bool HasSubtype(string subtype) => spell ? card.SpellSubtypes.Contains(subtype) : card.HasSubtype(subtype);
 			bool includes = any
 				? subtypes.Any(HasSubtype)

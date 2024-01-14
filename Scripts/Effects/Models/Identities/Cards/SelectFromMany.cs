@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Selectors;
@@ -5,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Cards
 {
-	public class SelectFromMany : ContextualParentIdentityBase<GameCardBase>
+	public class SelectFromMany : ContextualParentIdentityBase<IGameCardInfo>
 	{
 		[JsonProperty]
-		public ISelector<GameCardBase> selector = new RandomCard();
+		public ISelector<IGameCardInfo> selector = new RandomCard();
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> cards = new ManyCards.All();
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -18,7 +19,11 @@ namespace Kompas.Effects.Models.Identities.Cards
 			cards.Initialize(initializationContext);
 		}
 
-		protected override GameCardBase AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> selector.Select(cards.From(context, secondaryContext));
+		protected override IGameCardInfo? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		{
+			var cards = this.cards.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			return selector.Select(cards);
+		}
 	}
 }

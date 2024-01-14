@@ -8,10 +8,12 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	public class Displacement : SpaceRestrictionBase
 	{
 		//One of these should be non-null. The other one will be replaced by the space to be tested
+		#nullable disable
 		[JsonProperty]
 		public IIdentity<Space> from;
 		[JsonProperty]
 		public IIdentity<Space> to;
+		#nullable restore
 
 		[JsonProperty]
 		public IIdentity<Space> displacementToMatch = new Identities.Spaces.TargetIndex();
@@ -27,8 +29,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			if (from == null && to == null) throw new ArgumentException("Specified neither 'from' nor 'to' spaces in direction restriction - what displacement are we testing?");
 		}
 
-		protected override bool IsValidLogic(Space space, IResolutionContext context)
+		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 		{
+			if (space == null) return false;
+			
 			var origin = from?.From(context) ?? space;
 			var destination = to?.From(context) ?? space;
 

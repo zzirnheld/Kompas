@@ -1,30 +1,21 @@
 using Godot;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Gamestate.Locations.Controllers
 {
-	public partial class HandController : Node
+	public abstract partial class HandController : Node
 	{
-		public Hand HandModel { get; init; }
-
-		public void Refresh() => SpreadOutCards();
-
-		//TODO
-		public void SpreadOutCards()
+		private Hand? _handModel;
+		public Hand HandModel
 		{
-			throw new System.NotImplementedException();
-			//leftDummy.transform.localPosition = new Vector3(2.25f * (((float)hand.Count / -2f) + -1f + 0.5f), 0, 0);
-			//rightDummy.transform.localPosition = new Vector3(2.25f * (((float)hand.Count / -2f) + (float)hand.Count + 0.5f), 0, 0);
-			//iterate through children, set the z coord
-				/*
-			for (int i = 0; i < HandModel.HandSize; i++)
-			{
-				hand[i].CardController.transform.parent = transform;
-				float offset = ((float)hand.Count / -2f) + (float)i + 0.5f;
-				hand[i].CardController.transform.localPosition = new Vector3(2.25f * offset, 0, 0);
-				hand[i].CardController.SetRotation();
-				hand[i].CardController.gameObject.SetActive(true);
-			}*/
+			get => _handModel ?? throw new UnassignedReferenceException();
+			set => _handModel = value;
 		}
+
+		public void Refresh() => SpreadAllCards();
+
+		protected abstract void SpreadAllCards();
 	}
 }

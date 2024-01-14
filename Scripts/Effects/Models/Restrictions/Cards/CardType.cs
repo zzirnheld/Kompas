@@ -8,8 +8,8 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public char cardType;
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> card.CardType == cardType;
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+			=> card?.CardType == cardType;
 	}
 
 	public class Character : CardType

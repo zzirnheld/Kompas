@@ -36,7 +36,7 @@
 					}
 				}
 			],
-			"operation": { "$type": "KompasCore.Effects.Identities.NumberOperations.Sum, Kompas" }
+			"operation": { "$type": "Kompas.Effects.Models.Identities.NumberOperations.Sum, Kompas" }
 		},
 		"secondNumber": {
 			"$type": "Identify.Numbers:Distance:",

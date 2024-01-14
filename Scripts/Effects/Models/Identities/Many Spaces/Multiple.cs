@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Gamestate;
+using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManySpaces
 {
 	public class Multiple : ContextualParentIdentityBase<IReadOnlyCollection<Space>>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space>[] spaces;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -17,6 +20,8 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 		}
 
 		protected override IReadOnlyCollection<Space> AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> spaces.Select(s => s.From(context, secondaryContext)).ToArray();
+			=> spaces.Select(s => s.From(context, secondaryContext))
+				.NonNull()
+				.ToArray();
 	}
 }

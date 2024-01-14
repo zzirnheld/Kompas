@@ -1,3 +1,4 @@
+using System;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
@@ -6,7 +7,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 	public class HandSize : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty]
-		public IIdentity<Player> player = new Players.TargetIndex();
+		public IIdentity<IPlayer> player = new Players.TargetIndex();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -15,13 +16,17 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		}
 
 		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> player.From(context, secondaryContext).hand.HandSize;
+		{
+			var player = this.player.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			return player.Hand.HandSize;
+		}
 	}
 	
 	public class HandSizeLimit : ContextualParentIdentityBase<int>
 	{
 		[JsonProperty]
-		public IIdentity<Player> player = new Players.TargetIndex();
+		public IIdentity<IPlayer> player = new Players.TargetIndex();
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -30,6 +35,10 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		}
 
 		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-			=> player.From(context, secondaryContext).HandSizeLimit;
+		{
+			var player = this.player.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			return player.HandSizeLimit;
+		}
 	}
 }

@@ -1,15 +1,17 @@
+using System;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Effects.Subeffects
 {
 	/// <summary>
 	/// Not abstract because it's instantiated as part of loading subeffects
 	/// </summary>
-	public class Subeffect
+	public abstract class Subeffect
 	{
 		#region reasons for impossible
 		public const string TargetWasNull = "No target to affect";
@@ -49,18 +51,9 @@ namespace Kompas.Effects.Subeffects
 			public int? cardInfoTargetIndex;
 			public int? playerTargetIndex;
 			public int? stackableTargetIndex;
-
-			public TargetingContext OrElse(TargetingContext other) => new TargetingContext()
-			{
-				cardTargetIndex = cardTargetIndex ?? other.cardTargetIndex,
-				spaceTargetIndex = spaceTargetIndex ?? other.spaceTargetIndex,
-				cardInfoTargetIndex = cardInfoTargetIndex ?? other.cardInfoTargetIndex,
-				playerTargetIndex = playerTargetIndex ?? other.playerTargetIndex,
-				stackableTargetIndex = stackableTargetIndex ?? other.stackableTargetIndex,
-			};
 		}
 
-		public TargetingContext CurrTargetingContext => new TargetingContext()
+		public TargetingContext CurrTargetingContext => new()
 		{
 			cardTargetIndex = targetIndex,
 			spaceTargetIndex = spaceIndex,
@@ -69,15 +62,23 @@ namespace Kompas.Effects.Subeffects
 			stackableTargetIndex = stackableIndex
 		};
 
-		public virtual Effect Effect { get; }
-		public virtual Player Controller { get; }
-		public virtual Game Game { get; }
+		protected abstract Effect? _Effect { get; }
+		public Effect Effect => _Effect
+			?? throw new NotInitializedException();
+		protected abstract IGame? _Game { get; }
+		public IGame Game => _Game
+			?? throw new NotInitializedException();
 
 		public int SubeffIndex { get; protected set; }
 
-		public GameCard Source => Effect.Source;
-		public IResolutionContext ResolutionContext => Effect.CurrentResolutionContext;
-		public TriggeringEventContext CurrentTriggerContext => Effect.CurrTriggerContext;
+		public IResolutionContext ResolutionContext
+		{
+			get
+			{
+				_ = Effect ?? throw new System.NullReferenceException("Checked resolution context of the subeffect before its effect was assigned!");
+				return Effect.CurrentResolutionContext ?? throw new NotInitializedException();
+			}
+		}
 
 		/// <summary>
 		/// Represents the type of subeffect this is
@@ -121,7 +122,7 @@ namespace Kompas.Effects.Subeffects
 		/// <summary>
 		/// Index for the subeffect to jump to, if it's not going to the next one for some reason
 		/// </summary>
-		public int[] jumpIndices;
+		public int[]? jumpIndices;
 
 		/// <summary>
 		/// Which of the jump indices to jump to.
@@ -152,23 +153,46 @@ namespace Kompas.Effects.Subeffects
 		public int Count => (Effect.X * xMultiplier / xDivisor) + xModifier;
 		#endregion effect x
 
-		public GameCard CardTarget => Effect.GetTarget(targetIndex);
-		public Space SpaceTarget => Effect.GetSpace(spaceIndex);
-		public GameCardInfo CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex);
-		public Player PlayerTarget => Effect.GetPlayer(playerIndex);
-		public IStackable StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
+		public GameCard CardTarget => Effect.GetTarget(targetIndex)
+			?? throw new NullCardException(TargetWasNull);
+		public Space SpaceTarget => Effect.GetSpace(spaceIndex)
+			?? throw new NullSpaceException(TargetWasNull);
+		public GameCardInfo? CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex);
+		public IPlayer PlayerTarget => Effect.GetPlayer(playerIndex)
+			?? throw new NullPlayerException(TargetWasNull);
+		public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
-		public GameCard GetCardTarget(TargetingContext overrideContext = null)
-			=> Effect.GetTarget(overrideContext.OrElse(CurrTargetingContext).cardTargetIndex.Value);
-		public Space GetSpaceTarget(TargetingContext overrideContext = null)
-			=> Effect.GetSpace(overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex.Value);
-		public Player GetPlayerTarget(TargetingContext overrideContext = null)
-			=> Effect.GetPlayer(overrideContext.OrElse(CurrTargetingContext).playerTargetIndex.Value);
-		public IStackable GetStackableTarget(TargetingContext overrideContext = null)
-			=> EffectHelper.GetItem(Effect.StackableTargets, overrideContext.OrElse(CurrTargetingContext).stackableTargetIndex.Value);
+		public GameCard? GetCardTarget(TargetingContext? overrideContext = null)
+		{
+			int num = overrideContext.OrElse(CurrTargetingContext).cardTargetIndex
+				?? throw new System.InvalidOperationException("No card target index to grab card target for!");
+			return Effect.GetTarget(num);
+		}
 
+		public Space? GetSpaceTarget(TargetingContext? overrideContext = null)
+		{
+			int index = overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex
+				?? throw new System.InvalidOperationException("No space target index to grab space target for!");
+			return Effect.GetSpace(index);
+		}
 
-		public int JumpIndex => EffectHelper.GetItem(jumpIndices, jumpIndicesIndex);
+		public IPlayer? GetPlayerTarget(TargetingContext? overrideContext = null)
+		{
+			var index = overrideContext.OrElse(CurrTargetingContext).playerTargetIndex
+				?? throw new System.InvalidOperationException("No player target index to grab player target for!");
+			return Effect.GetPlayer(index);
+		}
+		public IStackable GetStackableTarget(TargetingContext? overrideContext = null)
+		{
+			var index = overrideContext.OrElse(CurrTargetingContext).stackableTargetIndex
+				?? throw new System.InvalidOperationException("No stackable target index to grab stackable target for!");
+			return EffectHelper.GetItem(Effect.StackableTargets, index)
+				?? throw new System.InvalidOperationException("No stackable target at index");
+		}
+
+		public int JumpIndex => EffectHelper.GetItem(jumpIndices
+			?? throw new System.InvalidOperationException("No jump indices, but a subeffect needed one!"),
+			jumpIndicesIndex);
 
 		public void RemoveTarget()
 		{
@@ -176,5 +200,18 @@ namespace Kompas.Effects.Subeffects
 
 			Effect.RemoveTarget(CardTarget);
 		}
+	}
+
+	public static class TargetingContextExtensions
+	{
+		public static Subeffect.TargetingContext OrElse
+			(this Subeffect.TargetingContext? context, Subeffect.TargetingContext? other) => new()
+		{
+			cardTargetIndex = context?.cardTargetIndex ?? other?.cardTargetIndex,
+			spaceTargetIndex = context?.spaceTargetIndex ?? other?.spaceTargetIndex,
+			cardInfoTargetIndex = context?.cardInfoTargetIndex ?? other?.cardInfoTargetIndex,
+			playerTargetIndex = context?.playerTargetIndex ?? other?.playerTargetIndex,
+			stackableTargetIndex = context?.stackableTargetIndex ?? other?.stackableTargetIndex,
+		};
 	}
 }

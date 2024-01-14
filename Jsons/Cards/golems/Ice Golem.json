@@ -1,14 +1,14 @@
 {
 	"cardType": 67,
 	"cardName": "Ice Golem",
-	"effText": "Golem.\nWhen I become active, negate a character within [my N] spaces of me, until your next turn.",
+	"effText": "GOLEM.\nWhen I become active, negate a character within [my N] spaces of me, until your next turn.",
 	"effects": [
 		{
 			"blurb": "Fun Not Allowed",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
-					"$type": "Restrict.Triggering:CardsMatch:",
+					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}

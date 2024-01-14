@@ -8,15 +8,15 @@ using System.Linq;
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
 	//TODO: this can probably be merged with/generalized to a "card is" sort of restriction,
-	// where there's an additional IIdentity<GameCardBase> that defines the card to actually be tested in terms of the incoming card?
+	// where there's an additional IIdentity<IGameCard> that defines the card to actually be tested in terms of the incoming card?
 	public abstract class AugmentRestrictionBase : CardRestrictionBase
 	{
 		[JsonProperty]
-		public IRestriction<GameCardBase> cardRestriction;
+		public IRestriction<IGameCardInfo>? cardRestriction;
 		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<GameCardBase>> manyCards;
+		public IIdentity<IReadOnlyCollection<IGameCardInfo>>? manyCards;
 		[JsonProperty]
-		public IIdentity<GameCardBase> singleCard;
+		public IIdentity<IGameCardInfo>? singleCard;
 
 		/// <summary>
 		/// Returns a predicate that tests the test card with the following order of priorities:
@@ -24,12 +24,17 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		/// If no CardRestriction is defined, but a list of cards is defined, checks if the test card is one of those cards.
 		/// If neither is defined, but a single card identity is defined, checks if the test card is that card.
 		/// </summary>
-		protected Func<GameCardBase, bool> IsValidAug(IResolutionContext context) => card =>
+		protected Func<IGameCardInfo?, bool> IsValidAug(IResolutionContext context) => card =>
 		{
 			if (cardRestriction != null) return cardRestriction.IsValid(card, context);
-			if (manyCards != null) return manyCards.From(context, null).Contains(card);
-			if (singleCard != null) return singleCard.From(context, null) == card;
-			throw new System.ArgumentNullException("augment", $"No augment provided for {this.GetType()} CardRestrictionElement");
+			if (manyCards != null)
+			{
+				var cards = manyCards.From(context, context)
+					?? throw new InvalidOperationException();
+				return card != null && cards.Contains(card);
+			}
+			if (singleCard != null) return singleCard.From(context, context) == card;
+			throw new System.ArgumentNullException(nameof(card), $"No augment provided for {this.GetType()} CardRestrictionElement");
 		};
 
 		public override void Initialize(EffectInitializationContext initializationContext)
@@ -56,15 +61,18 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool all = false; //default to any
 
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context) 
-			=> all
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+		{
+			if (card == null) return false;
+			return all
 				? card.Augments.All(IsValidAug(context))
 				: card.Augments.Any(IsValidAug(context));
+		}
 	}
 
 	public class Augments : AugmentRestrictionBase
 	{
-		protected override bool IsValidLogic(GameCardBase card, IResolutionContext context)
-			=> IsValidAug(context)(card.AugmentedCard);
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+			=> card != null && IsValidAug(context)(card.AugmentedCard);
 	}
 }

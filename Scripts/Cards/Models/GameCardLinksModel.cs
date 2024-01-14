@@ -7,8 +7,8 @@ using Kompas.Effects.Models;
 namespace Kompas.Cards.Controllers
 {
 	/// <summary>
-    /// Controls the CardLinks relevant to a particular GameCard
-    /// </summary>
+	/// Controls the CardLinks relevant to a particular GameCard
+	/// </summary>
 	public class GameCardLinksModel
 	{
 		public GameCard Card { get; }
@@ -29,7 +29,7 @@ namespace Kompas.Cards.Controllers
 		public void CreateLink(IEnumerable<int> cardIDs, Effect effect, Color linkColor)
 		{
 			var cardLink = new CardLink(new HashSet<int>(cardIDs), effect, linkColor);
-			foreach(var card in cardIDs.Select(Card.Game.GetCardWithID))
+			foreach(var card in cardIDs.Select(Card.Game.LookupCardByID))
 			{
 				card?.CardLinkHandler.AddLink(cardLink);
 			}
@@ -42,7 +42,7 @@ namespace Kompas.Cards.Controllers
 			var equivLink = links.FirstOrDefault(link => link.Matches(cardIDs, effect));
 			if (equivLink == default) return;
 
-			foreach(var card in equivLink.CardIDs.Select(Card.Game.GetCardWithID))
+			foreach(var card in equivLink.CardIDs.Select(Card.Game.LookupCardByID))
 			{
 				card?.CardLinkHandler.RemoveLink(equivLink);
 			}

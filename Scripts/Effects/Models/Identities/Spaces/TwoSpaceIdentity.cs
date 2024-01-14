@@ -1,12 +1,13 @@
+using System;
 using Kompas.Effects.Models.Relationships.Spaces;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Spaces
 {
-
 	public class TwoSpaceIdentity : ContextualParentIdentityBase<Space>
 	{
+		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public IIdentity<Space> firstSpace;
 		[JsonProperty(Required = Required.Always)]
@@ -14,6 +15,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 
 		[JsonProperty(Required = Required.Always)]
 		public ITwoSpaceIdentity relationship;
+		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
@@ -22,10 +24,12 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			base.Initialize(initializationContext);
 		}
 
-		protected override Space AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
-			Space first = firstSpace.From(context, secondaryContext);
-			Space second = secondSpace.From(context, secondaryContext);
+			var first = firstSpace.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			var second = secondSpace.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
 			return relationship.SpaceFrom(first, second);
 		}
 	}

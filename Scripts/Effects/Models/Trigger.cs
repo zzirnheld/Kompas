@@ -7,11 +7,11 @@ namespace Kompas.Effects.Models
 {
 	public class TriggerData
 	{
-		public string triggerCondition;
-		public IRestriction<TriggeringEventContext> triggerRestriction;
+		public string? triggerCondition;
+		public IRestriction<TriggeringEventContext>? triggerRestriction;
 
 		public bool optional = false;
-		public string blurb;
+		public string? blurb;
 		public bool showX = false;
 		public int orderPriority = 0; //positive means it goes on the stack after anything, negative before
 	}
@@ -83,25 +83,29 @@ namespace Kompas.Effects.Models
 		};
 
 		public TriggerData TriggerData { get; }
-		public abstract GameCard Source { get; }
-		public abstract Effect Effect { get; protected set; }
+		public abstract GameCard Card { get; }
+		public abstract Effect Effect { get; }
 
-		public string TriggerCondition => TriggerData.triggerCondition;
-		public IRestriction<TriggeringEventContext> TriggerRestriction => TriggerData.triggerRestriction;
+		public string TriggerCondition => TriggerData.triggerCondition
+			?? throw new InvalidOperationException("Trigger data didn't have a trigger condition");
+		public IRestriction<TriggeringEventContext> TriggerRestriction => TriggerData.triggerRestriction
+			?? throw new InvalidOperationException("Trigger data didn't have a trigger restriction");
 		public bool Optional => TriggerData.optional;
-		public string Blurb => TriggerData.blurb ?? Effect.blurb;
+		public string Blurb => TriggerData.blurb ?? Effect.blurb ?? string.Empty;
 
 		public Trigger(TriggerData triggerData, Effect effect)
 		{
+			var initializationContext = new EffectInitializationContext(game: effect.Game, source: effect.Card, effect: effect, trigger: this);
 			TriggerData = triggerData;
-			Effect = effect;
+			_ = triggerData.triggerCondition ?? throw new ArgumentNullException(nameof(triggerData), "Null trigger condition!");
+			_ = triggerData.triggerRestriction ?? throw new ArgumentNullException(nameof(triggerData), "Null trigger restriction!");
 			try
 			{
-				triggerData.triggerRestriction.Initialize(new EffectInitializationContext(game: effect.Game, source: effect.Source, effect: effect, trigger: this));
+				triggerData.triggerRestriction.Initialize(initializationContext);
 			}
 			catch (NullReferenceException)
 			{
-				GD.PrintErr($"Issue initializing {Blurb} trigger of {effect.Source}");
+				GD.PrintErr($"Issue initializing {Blurb} trigger of {effect.Card}");
 				throw;
 			}
 		}

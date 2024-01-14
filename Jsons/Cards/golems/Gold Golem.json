@@ -1,14 +1,14 @@
 {
 	"cardType": 67,
 	"cardName": "Gold Golem",
-	"effText": "Golem.\nWhen I become active, draw 1 card.",
+	"effText": "GOLEM.\nWhen I become active, draw 1 card.",
 	"effects": [
 		{
 			"blurb": "Draw draw draw",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
-					"$type": "Restrict.Triggering:CardsMatch:",
+					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },
 					"other": { "$type": "Identify.Cards:ThisCardNow:" }
 				}

@@ -6,9 +6,9 @@ namespace Kompas.Gamestate.Exceptions
 	public class CardNotHereException : KompasException
 	{
 		public readonly Location location;
-		public readonly GameCardBase card;
+		public readonly IGameCardInfo card;
 
-		public CardNotHereException(Location location, GameCardBase card, string debugMessage = "", string message = "")
+		public CardNotHereException(Location location, IGameCardInfo card, string debugMessage = "", string message = "")
 			: base(debugMessage, message)
 		{
 			this.card = card;
