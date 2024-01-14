@@ -36,8 +36,8 @@ namespace Kompas.Client.Gamestate
 		private Control? _canDeclineFurtherTargetsButton;
 		private Control CanDeclineFurtherTargetsButton => _canDeclineFurtherTargetsButton ?? throw new UnassignedReferenceException();
 		[Export]
-		private LinkedSpacesController? _spacesController;
-		private LinkedSpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
+		private SpacesController? _spacesController;
+		private SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
 
 		private ClientTopLeftCardView? _topLeftCardView;
 		public ClientTopLeftCardView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();
@@ -172,24 +172,9 @@ namespace Kompas.Client.Gamestate
 				=> card.PlayRestriction.IsValid((s, card.ControllingPlayer), ResolutionContext.PlayerTrigger(null, card.Game));
 			static bool canMoveTo(Space s, GameCard card)
 				=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
-			foreach (var spaceCtrl in Array.Empty<SpaceController>())
-			{
-				if (card == null)
-				{
-					spaceCtrl.ToggleHighlight(SpaceHighlight.CanMove, false);
-					return;
-				}
-
-				if (card.Location == Location.Board)
-					spaceCtrl.ToggleHighlight(SpaceHighlight.CanMove, canMoveTo(spaceCtrl.Space, card));
-				else if (card.Location == Location.Hand)
-				{
-					bool recommend = recommendPlayTo(spaceCtrl.Space, card);
-					if (recommend) spaceCtrl.ToggleHighlight(SpaceHighlight.RecommendPlay, recommend);
-					else spaceCtrl.ToggleHighlight(SpaceHighlight.UnrecommendedPlay, canPlayTo(spaceCtrl.Space, card));
-
-				}
-			}
+			if (card == null) SpacesController.DisplayNone();
+			else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => recommendPlayTo(s, card));
+			else if (card.Location == Location.Hand) SpacesController.DisplayCanPlay(s => canMoveTo(s, card));
 		}
 	}
 }

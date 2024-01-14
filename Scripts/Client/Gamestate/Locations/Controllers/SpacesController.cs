@@ -1,10 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
-using Kompas.Cards.Controllers;
-using Kompas.Client.Gamestate.Controllers;
-using Kompas.Gamestate;
-using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
@@ -38,13 +32,28 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			base._Ready();
 
-			CanMove.Display(_ => false, false);
-			CanPlay.Display(_ => false, false);
-
 			CanMove.UpdateMaterial(CanMoveMaterial);
 			CanPlay.UpdateMaterial(CanPlayMaterial);
 
-			CanPlay.Display(space => space.DistanceTo((2, 1)) < 3, false);
+			DisplayNone();
+		}
+
+		public void DisplayNone()
+		{
+			CanMove.Display(_ => false, false);
+			CanPlay.Display(_ => false, false);
+		}
+
+		public void DisplayCanMove(LinkedSpacesController.ShouldShowSpace predicate)
+		{
+			CanMove.Display(predicate, false);
+			CanPlay.Display(_ => false, false);
+		}
+
+		public void DisplayCanPlay(LinkedSpacesController.ShouldShowSpace predicate)
+		{
+			CanMove.Display(_ => false, false);
+			CanPlay.Display(predicate, false);
 		}
 
 		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
