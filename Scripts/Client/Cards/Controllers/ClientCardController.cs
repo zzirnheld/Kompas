@@ -7,6 +7,9 @@ using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
+using Kompas.Client.Gamestate.Locations.Controllers;
+using Kompas.Gamestate;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Cards.Controllers
 {
@@ -29,9 +32,9 @@ namespace Kompas.Client.Cards.Controllers
 		private ClientGameController? gameController;
 
 		private ClientCardView? _cardView;
-		public ClientCardView? CardView
+		public ClientCardView CardView
 		{
-			get => _cardView;
+			get => _cardView ?? throw new NotInitializedException();
 			private set
 			{
 				if (_cardView != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card view!");
@@ -39,7 +42,18 @@ namespace Kompas.Client.Cards.Controllers
 			}
 		}
 
+		private LinkedSpacesController? _aoeController;
+		private LinkedSpacesController AOEController
+		{
+			get => _aoeController ?? throw new NotInitializedException();
+			set
+			{
+				if (_aoeController != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card aoe controller!");
+				_aoeController = value;
+			}
+		}
 
+		//TODO move these events to the card?
 		public event EventHandler<GameCard?>? AnythingRefreshed;
 		public event EventHandler<GameCard?>? StatsRefreshed;
 		public event EventHandler<GameCard?>? LinksRefreshed;
@@ -57,6 +71,8 @@ namespace Kompas.Client.Cards.Controllers
 					?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
 				CardView = new (InfoDisplayer ?? throw new System.InvalidOperationException("You didn't populate the client card ctrl's info displayer"), value);
 				gameController = value.ClientGame.ClientGameController;
+				AOEController = gameController.TargetingController.SpacesController.AddAOE();
+				Card.LocationChanged += (_, _) => RefreshAOE();
 			}
 		}
 
@@ -92,6 +108,11 @@ namespace Kompas.Client.Cards.Controllers
 			gameController.UseEffectDialog.Display(this);
 		}
 
+		public void RefreshAOE()
+		{
+			AOEController.Display(Card.SpaceInAOE, true);
+		}
+
 		/// <summary>
 		/// TODO reimpl for godot
 		/// Updates the model to show the little revealed eye iff the card:<br/>
@@ -101,8 +122,6 @@ namespace Kompas.Client.Cards.Controllers
 		/// </summary>
 		public void RefreshRevealed()
 		{
-			_ = CardView ?? throw new System.NullReferenceException("Forgot to init");
-			_ = Card ?? throw new System.NullReferenceException("Not yet init");
 			CardView.Refresh();
 			//Revealed = Card.KnownToEnemy && Card.InHiddenLocation && !Card.OwningPlayer.Friendly;
 			AnythingRefreshed?.Invoke(this, Card);
@@ -110,8 +129,6 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void RefreshLinks()
 		{
-			_ = CardView ?? throw new System.NullReferenceException("Forgot to init");
-			_ = Card ?? throw new System.NullReferenceException("Not yet init");
 			CardView.Refresh();
 			//throw new System.NotImplementedException();
 			AnythingRefreshed?.Invoke(this, Card);
@@ -120,7 +137,6 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void RefreshAugments()
 		{
-			_ = Card ?? throw new System.NullReferenceException("Not yet init");
 			foreach (var card in Card.Augments)
 			{
 				var node = card.CardController.Node
@@ -135,8 +151,6 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void RefreshStats()
 		{
-			_ = CardView ?? throw new System.NullReferenceException("Forgot to init");
-			_ = Card ?? throw new System.NullReferenceException("Not yet init");
 			CardView.Refresh();
 			AnythingRefreshed?.Invoke(this, Card);
 			StatsRefreshed?.Invoke(this, Card);
@@ -151,7 +165,6 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void RefreshTargeting()
 		{
-			_ = CardView ?? throw new System.NullReferenceException("Forgot to init");
 			CardView.Refresh();
 		}
 	}

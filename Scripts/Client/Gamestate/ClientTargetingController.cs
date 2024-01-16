@@ -37,7 +37,7 @@ namespace Kompas.Client.Gamestate
 		private Control CanDeclineFurtherTargetsButton => _canDeclineFurtherTargetsButton ?? throw new UnassignedReferenceException();
 		[Export]
 		private SpacesController? _spacesController;
-		private SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
+		public SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
 
 		private ClientTopLeftCardView? _topLeftCardView;
 		public ClientTopLeftCardView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();

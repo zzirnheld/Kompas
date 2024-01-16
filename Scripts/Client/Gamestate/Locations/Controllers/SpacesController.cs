@@ -31,7 +31,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		/** Used to adjust height to avoid z-fighting */
 		private Node3D? _lastSpacesController;
-		private Node3D lastSpacesController
+		private Node3D LastSpacesController
 		{
 			get => _lastSpacesController ?? throw new NotReadyYetException();
 			set => _lastSpacesController = value ?? throw new NullReferenceException();
@@ -46,7 +46,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 			DisplayNone();
 
-			lastSpacesController = CanMove;
+			LastSpacesController = CanMove;
 		}
 
 		public void DisplayNone()
@@ -70,13 +70,15 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		//TODO: this will make the other controller responsible for updating Display on LinkedSpaceController,
 		//and destroying it if necessary.
 		//Is this what I want?
-		public LinkedSpaceController AddAOE()
+		public LinkedSpacesController AddAOE()
 		{
-			if (LinkedSpaces.Instantiate() is not LinkedSpaceController ctrl)
-				throw new System.ArgumentNullException(nameof(LinkedSpaceController), "Was not the right type");
+			if (LinkedSpaces.Instantiate() is not LinkedSpacesController ctrl)
+				throw new System.ArgumentNullException(nameof(LinkedSpacesController), "Was not the right type");
 
-			ctrl.Position = lastSpacesController.Position + (Vector3.Up * 0.001f);
-			lastSpacesController = ctrl;
+			ctrl.GetParent()?.RemoveChild(ctrl);
+			AddChild(ctrl);
+			ctrl.Position = LastSpacesController.Position + (Vector3.Up * 0.0001f);
+			LastSpacesController = ctrl;
 			return ctrl;
 		}
 
