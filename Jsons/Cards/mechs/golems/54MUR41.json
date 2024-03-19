@@ -18,6 +18,13 @@
 			"$type": "Restrict.Gamestate:CardFitsRestriction:",
 			"card": { "$type": "Identify.Cards:ThisCardNow:" },
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
+		} ],
+		"movementCosts": [ {
+			"numberIdentity": {
+				"$type": "Identify.Numbers:Distance:",
+				"firstSpace": { "$type": "Identify.Spaces:ContextSpace:" },
+				"secondSpace": { "$type": "Identify.Spaces:ContextSpace:", "secondaryContext": true }
+			}
 		} ]
 	},
 	"keywords": [

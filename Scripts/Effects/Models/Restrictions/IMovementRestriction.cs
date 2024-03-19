@@ -8,5 +8,7 @@ namespace Kompas.Effects.Models.Restrictions
 			=> new Spaces.MovementRestriction();
 
 		public bool WouldBeValidNormalMoveInOpenGamestate(Space space);
-	} //TODO add the get movement cost thing here	
+
+		public int MovementCost(IGame game, Space from, Space to);
+	}
 }

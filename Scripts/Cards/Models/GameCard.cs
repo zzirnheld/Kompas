@@ -241,7 +241,11 @@ namespace Kompas.Cards.Models
 		/// Accumulates the distance to <paramref name="to"/> into the number of spaces this card moved this turn.
 		/// </summary>
 		/// <param name="to">The space being moved to</param>
-		public void CountSpacesMovedTo((int x, int y) to) => SpacesMoved += Game.Board.ShortestEmptyPath(this, to);
+		public void CountSpacesMovedTo((int x, int y) to)
+		{
+			var from = Position ?? throw new InvalidOperationException("Can't count spaces moved while not on board!");
+			SpacesMoved += MovementRestriction.MovementCost(Game, from, to);
+		}
 
 		#region augments
 

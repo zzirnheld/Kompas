@@ -18,7 +18,7 @@
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction":
 					{
-						"blurb": "Mask to attach to the Nimble Dancer",
+						"blurb": "Mask to attach to the Durable Dancer",
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Augment:" },
