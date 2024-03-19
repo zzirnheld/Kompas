@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Chain Dispel",
-	"effText": "Choose an adjacent spell.\nRepeat the following any number of times: Choose a spell adjacent to the last chosen spell.\nDispel all chosen spells.",
+	"effText": "Choose an adjacent spell.\nAny number of times, choose another spell adjacent to the last chosen spell.\nDispel all chosen spells.",
 	"effects": [
 		{
 			"triggerData": {

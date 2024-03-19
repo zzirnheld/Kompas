@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Mach the Porcupine",
-	"effText": "Speedemon.\nWhen I move, give me +1 W.\nAfter I fight, set my W to 0.",
+	"effText": "Speedemon.\n• When I move, give me +1 W.\n• After I fight, set my W to 0.",
 	"effects": [
 		{
 			"blurb": "go fast (req'd)",

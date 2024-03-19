@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Forlorn Invocation",
-	"effText": "Flashback.\nCast only adjacent to an Invoker.\nInvoke a NON-Spirit.",
+	"effText": "Flashback.\nCast only adjacent to an Invoker.\n• Invoke a NON-Spirit.",
 	"effects": [
 		{
 			"triggerData": {

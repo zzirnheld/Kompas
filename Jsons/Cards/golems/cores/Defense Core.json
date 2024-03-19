@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Defense Core",
-	"effText": "Recoverable.\nWhile equipped, activate this GOLEM. When they defend, give them +4 EW.",
+	"effText": "Recoverable.\n• While equipped, activate this GOLEM.\n• When they defend, give them +4 EW.",
 	"effects": [
 		{
 			"blurb": "Defense Activate!",
