@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Heavypresence",
-	"effText": "Shape.\nWhen I attack a character, I push them 1 space directly away. If I can't, annihilate them.",
+	"effText": "SHAPE.\nWhen I attack a character, I push them 1 space directly away. If I can't, annihilate them.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Riali, Master of Irrealities",
-	"effText": "Shape.\nWhen a Shaper kills themselves, revive them where they died, with all movement expended.",
+	"effText": "SHAPE.\nWhen a Shaper kills themselves, revive them where they died, with all movement expended.",
 	"effects": [
 		{
 			"blurb": "Empower the Shaper",

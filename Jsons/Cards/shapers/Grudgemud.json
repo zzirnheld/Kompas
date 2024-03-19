@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Grudgemud",
-	"effText": "Shape.\nWhen I'm summoned, annhilate a friendly SX Ethereal to give me +X EW.",
+	"effText": "SHAPE.\nWhen I'm summoned, annhilate a friendly SX Ethereal to give me +X EW.",
 	"effects": [
 		{
 			"triggerData": {

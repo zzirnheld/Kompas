@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Pale Ardentfire",
-	"effText": "Shape.\nWhen I lose XE, give me +X W.",
+	"effText": "SHAPE.\nWhen I lose XE, give me +X W.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Runedmemory",
-	"effText": "Shape.\nWhen I move X spaces, hand->cast a C X Shaping.",
+	"effText": "SHAPE.\nWhen I move X spaces, hand->cast a C X Shaping.",
 	"effects": [
 		{
 			"triggerData": {

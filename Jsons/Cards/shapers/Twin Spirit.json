@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Twin Spirit",
-	"effText": "Shape.\nWhen I'm hand->summoned, deck->summon a copy of me.",
+	"effText": "SHAPE.\nWhen I'm hand->summoned, deck->summon a copy of me.",
 	"effects": [
 		{
 			"triggerData": {

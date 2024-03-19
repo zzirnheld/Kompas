@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Irrilmist",
-	"effText": "Shape. Evasive.\nWhen a Shaper Shapes through me, hand me and teleport an Ethereal to where I was.",
+	"effText": "SHAPE. Evasive.\nWhen a Shaper Shapes through me, hand me and teleport an Ethereal to where I was.",
 	"effects": [
 		{
 			"triggerData": {

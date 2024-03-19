@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Manyself",
-	"effText": "Shape.\nWhen a Shaper Shapes through me, give me +2 NSW.",
+	"effText": "SHAPE.\nWhen a Shaper Shapes through me, give me +2 NSW.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Blue Linewalker",
-	"effText": "Linewalk.\nWhen I move X spaces, give me and adjacent characters -X W.",
+	"effText": "LINEWALK.\nWhen I move X spaces, give me and adjacent characters -X W.",
 	"effects": [
 		{
 			"blurb": "Blue Linewalked",

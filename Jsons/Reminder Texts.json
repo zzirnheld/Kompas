@@ -1,12 +1,14 @@
 {
 	"keywordReminderTexts": [
 		{
-			"keyword": "Linewalk.",
+			"keywordRegex": "LINEWALK",
+			"keyword": "Linewalk",
 			"reminder": "You can move me through any number of empty spaces on my diagonal, as if it were 1 space (for N purposes)."
 		},
 		{
-			"keyword": "Shape.",
-			"reminder": "I can move through X Ethereal characters to an empty space, then I lose X E. This also counts as moving 1 space for N purposes."
+			"keywordRegex": "SHAPE",
+			"keyword": "Shape",
+			"reminder": "I can move through X Ethereal characters to an empty space, after which I lose X E. This counts as 1 of my N spaces to move each turn."
 		},
 		{
 			"keyword": "Vessel.",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Yellow Linewalker",
-	"effText": "Linewalk.\nWhen I move X spaces, gain X pips, then give your opponent X - 2 pips.",
+	"effText": "LINEWALK.\nWhen I move X spaces, gain X pips, then give your opponent X - 2 pips.",
 	"effects": [
 		{
 			"blurb": "Yellow Linewalked",

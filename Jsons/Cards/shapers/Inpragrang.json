@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Inpragrang",
-	"effText": "Shape.\nWhen I move, move a distinct Shaper to a space adjacent to me",
+	"effText": "SHAPE.\nWhen I move, move a distinct Shaper to a space adjacent to me",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Maya, Mistress of Reality",
-	"effText": "Shape.\nWhen a friendly Shaper moves X spaces, hand->discard 1 card, give me -X E, and draw X cards.",
+	"effText": "SHAPE.\nWhen a friendly Shaper moves X spaces, hand->discard 1 card, give me -X E, and draw X cards.",
 	"effects": [
 		{
 			"blurb": "Shape ideas",
