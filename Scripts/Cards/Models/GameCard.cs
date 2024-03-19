@@ -244,7 +244,7 @@ namespace Kompas.Cards.Models
 		public void CountSpacesMovedTo((int x, int y) to)
 		{
 			var from = Position ?? throw new InvalidOperationException("Can't count spaces moved while not on board!");
-			SpacesMoved += MovementRestriction.MovementCost(Game, from, to);
+			SpacesMoved += MovementRestriction.GetMovementCost(from, to, Game);
 		}
 
 		#region augments
