@@ -91,5 +91,10 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			foreach (var space in Spaces.Values) space.UpdateMaterial(material);
 		}
+
+		public void UpdateTransparency(float t)
+		{
+			foreach (var space in Spaces.Values) space.UpdateTransparency(t);
+		}
 	}
 }

@@ -1,5 +1,8 @@
 using System;
 using Godot;
+using Kompas.Cards.Controllers;
+using Kompas.Gamestate;
+using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
@@ -29,6 +32,14 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private Material? _canPlayMaterial;
 		private Material CanPlayMaterial => _canPlayMaterial ?? throw new UnassignedReferenceException();
 
+		[Export]
+		private SpacesClickingController? _spacesClickingController;
+		private SpacesClickingController SpacesClickingController => _spacesClickingController ?? throw new UnassignedReferenceException();
+
+		[Export]
+		private PlaceInSpaceController? _placeInSpaceController;
+		private PlaceInSpaceController PlaceInSpaceController => _placeInSpaceController ?? throw new UnassignedReferenceException();
+
 		/** Used to adjust height to avoid z-fighting */
 		private Node3D? _lastSpacesController;
 		private Node3D LastSpacesController
@@ -47,6 +58,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			DisplayNone();
 
 			LastSpacesController = CanMove;
+
+			SpacesClickingController.LeftClick += (_, space) => Clicked(space.x, space.y);
 		}
 
 		public void DisplayNone()
@@ -83,5 +96,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		}
 
 		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
+
+		public void Place(ICardController card) => PlaceInSpaceController.Place(card);
 	}
 }

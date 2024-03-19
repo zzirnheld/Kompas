@@ -89,6 +89,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			card.Node.Position = CardOffset;
 			var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
 			card.Node.Rotation = new Vector3(0, rotation, 0);
+			card.Node.Scale = Vector3.One;
 		}
 
 		public void ToggleHighlight(SpaceHighlight highlight, bool show) => SpaceTargetingController.ToggleHighlight(highlight, show);
@@ -98,6 +99,13 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			Tile.MaterialOverride = material;
 			if (Plus1X != null) Plus1X.MaterialOverride = material;
 			if (Plus1Y != null) Plus1Y.MaterialOverride = material;
+		}
+
+		public void UpdateTransparency(float t)
+		{
+			Tile.Transparency = t;
+			if (Plus1X != null) Plus1X.Transparency = t;
+			if (Plus1Y != null) Plus1Y.Transparency = t;
 		}
 	}
 }
