@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 
@@ -8,7 +9,7 @@ namespace Kompas.Effects.Models.Identities
 	/// An identity that needs context, either for itself or to pass on to its children.
 	/// </summary>
 	public abstract class ContextualParentIdentityBase<ReturnType> : ContextInitializeableBase,
-		IIdentity<ReturnType>
+		IIdentity<ReturnType>, IIdentity<IReadOnlyCollection<ReturnType>>
 	{
 		[JsonProperty]
 		public bool secondaryContext = false;
@@ -47,6 +48,14 @@ namespace Kompas.Effects.Models.Identities
 			if (effectContext.stackableEvent is Attack eventAttack) return eventAttack;
 			if (effectContext.stackableCause is Attack causeAttack) return causeAttack;
 			else throw new NullCardException("Stackable event wasn't an attack!");
+		}
+
+		IReadOnlyCollection<ReturnType>? IIdentity<IReadOnlyCollection<ReturnType>>.From(IResolutionContext context, IResolutionContext secondaryContext)
+		{
+			ReturnType? item = From(context, secondaryContext);
+			return item == null
+				? default
+				: new ReturnType[] { item };
 		}
 	}
 }

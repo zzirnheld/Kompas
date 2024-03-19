@@ -22,8 +22,12 @@
 			},
 			{
 				"condition": {
-					"$type": "Restrict.Spaces:SameDiagonal:",
-					"other": { "$type": "Identify.Spaces:ContextSpace:", "secondaryContext": true }
+					"$type": "Restrict.Gamestate:SpacesFitRestriction:",
+					"spaces": { "$type": "Identify.Spaces:ContextSpace:" },
+					"spaceRestriction": {
+						"$type": "Restrict.Spaces:SameDiagonal:",
+						"other": { "$type": "Identify.Spaces:ContextSpace:", "secondaryContext": true }
+					}
 				},
 				"cost": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 			}

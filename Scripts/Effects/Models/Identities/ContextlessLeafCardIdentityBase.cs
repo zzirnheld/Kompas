@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
@@ -8,7 +7,7 @@ using Kompas.Gamestate.Locations;
 namespace Kompas.Effects.Models.Identities
 {
 	public abstract class ContextlessLeafCardIdentityBase : ContextlessLeafIdentityBase<IGameCardInfo>,
-		IIdentity<Space>, IIdentity<IReadOnlyCollection<IGameCardInfo>>
+		IIdentity<Space>, IIdentity<IReadOnlyCollection<Space>>
 	{
 		Space? IIdentity<Space>.From(IResolutionContext? context, IResolutionContext? secondaryContext)
 		{
@@ -18,10 +17,12 @@ namespace Kompas.Effects.Models.Identities
 			return item.Position ?? throw new NullSpaceOnBoardException(item);
 		}
 
-		IReadOnlyCollection<IGameCardInfo>?
-			IIdentity<IReadOnlyCollection<IGameCardInfo>>.From(IResolutionContext? context, IResolutionContext? secondaryContext)
-			=> Item == null
-			? Array.Empty<IGameCardInfo>()
-			: new [] { Item };
+		IReadOnlyCollection<Space>? IIdentity<IReadOnlyCollection<Space>>.From(IResolutionContext context, IResolutionContext secondaryContext)
+		{
+			Space? item = ((IIdentity<Space>) this).From(context, secondaryContext);
+			return item == null
+				? default
+				: new Space[] { item };
+		}
 	}
 }
