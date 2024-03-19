@@ -4,7 +4,7 @@ namespace Kompas.Cards.Loading
 {
 	public class DeckBuilderCardRepository : CardRepository
 	{
-		public static DeckBuilderCard CreateDeckBuilderCard(string cardName)
+		public DeckBuilderCard CreateDeckBuilderCard(string cardName)
 		{
 			var json = GetJsonFromName(cardName)
 				?? throw new System.NullReferenceException($"{cardName} doesn't correspond to a json");
@@ -13,10 +13,10 @@ namespace Kompas.Cards.Loading
 			return CreateDeckBuilderCard(serializableCard);
 		}
 
-		public static DeckBuilderCard CreateDeckBuilderCard(SerializableCard serializableCard)
+		public DeckBuilderCard CreateDeckBuilderCard(SerializableCard serializableCard)
 		{
 			_ = serializableCard.cardName ?? throw new System.NullReferenceException($"{serializableCard} had no name");
-			return new(serializableCard, cardFileNames[serializableCard.cardName]);
+			return new(serializableCard, cardFileNames[serializableCard.cardName], AddKeywordHints(serializableCard.effText ?? string.Empty));
 		}
 	}
 }

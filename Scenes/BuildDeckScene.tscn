@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dyd4kwq4w0phs"]
+[gd_scene load_steps=21 format=3 uid="uid://dyd4kwq4w0phs"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderController.cs" id="1_vu5h4"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_l8goj"]
@@ -17,10 +17,11 @@
 [ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="14_uu30b"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/SaveAsController.cs" id="15_gjys2"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="17_wecxo"]
+[ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="18_71cwr"]
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="19_rydhv"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="20_xotc0"]
 
-[node name="Deck Builder Controller" type="Control" node_paths=PackedStringArray("_cardInfoDisplayer", "_deckController")]
+[node name="Deck Builder Controller" type="Control" node_paths=PackedStringArray("_cardInfoDisplayer", "_deckController", "_reminderTextPopup")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +31,7 @@ grow_vertical = 2
 script = ExtResource("1_vu5h4")
 _cardInfoDisplayer = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Card Info VBox/Card Info Dimensions")
 _deckController = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Cards Parent/MarginContainer/Deck Builder Deck Controller")
+_reminderTextPopup = NodePath("Reminder Text")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.176471, 0.137255, 0.294118, 1)
@@ -89,12 +91,6 @@ size_flags_stretch_ratio = 5.86
 
 [node name="Card Info Dimensions" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Card Info VBox" instance=ExtResource("4_b7iar")]
 layout_mode = 2
-
-[node name="Reminder Texts" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Card Info/MarginContainer/Card Info VBox"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("2_l8goj")
 
 [node name="Deck View" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -543,6 +539,10 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+
+[node name="Reminder Text" parent="." instance=ExtResource("18_71cwr")]
+visible = false
+layout_mode = 1
 
 [node name="Escape Menu Stuff" type="Control" parent="."]
 visible = false

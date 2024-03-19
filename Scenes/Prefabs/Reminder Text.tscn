@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnskajqolchmv"]
+
+[ext_resource type="Script" path="res://Scripts/Client/UI/ReminderTextPopup.cs" id="1_fcqfw"]
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_2beiv"]
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="3_1nnxy"]
+
+[node name="Reminder Text" type="Control" node_paths=PackedStringArray("_keyword", "_reminderText")]
+layout_mode = 3
+anchor_right = 0.2
+anchor_bottom = 0.2
+offset_left = 150.0
+offset_top = 200.0
+offset_right = 150.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_fcqfw")
+_keyword = NodePath("PanelContainer/VBoxContainer/Keyword Label")
+_reminderText = NodePath("PanelContainer/VBoxContainer/Reminder Text Label")
+
+[node name="Reminder Text Background" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2beiv")
+
+[node name="Reminder Text Background" type="TextureRect" parent="Reminder Text Background"]
+self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2beiv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -0.400024
+offset_bottom = 50.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("3_1nnxy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Keyword Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("3_1nnxy")
+text = "Keyword:"
+autowrap_mode = 2
+
+[node name="Reminder Text Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("3_1nnxy")
+text = "An example of reminder text"
+autowrap_mode = 2

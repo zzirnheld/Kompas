@@ -54,7 +54,7 @@ namespace Kompas.UI.DeckBuilder
 		private void ShowInSearch(SerializableCard serializableCard)
 		{
 			GD.Print($"Showing {serializableCard}");
-			var card = DeckBuilderCardRepository.CreateDeckBuilderCard(serializableCard);
+			var card = DeckBuilderController.CardRepository.CreateDeckBuilderCard(serializableCard);
 			ShowInSearch(card);
 		}
 

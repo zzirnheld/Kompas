@@ -168,8 +168,8 @@ namespace Kompas.Client.Gamestate
 		{
 			static bool recommendPlayTo(Space s, GameCard card)
 				=> card.PlayRestriction.IsRecommendedNormalPlay((s, card.ControllingPlayer));
-			static bool canPlayTo(Space s, GameCard card)
-				=> card.PlayRestriction.IsValid((s, card.ControllingPlayer), ResolutionContext.PlayerTrigger(null, card.Game));
+			//static bool canPlayTo(Space s, GameCard card)
+			//	=> card.PlayRestriction.IsValid((s, card.ControllingPlayer), ResolutionContext.PlayerTrigger(null, card.Game));
 			static bool canMoveTo(Space s, GameCard card)
 				=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
 			if (card == null) SpacesController.DisplayNone();

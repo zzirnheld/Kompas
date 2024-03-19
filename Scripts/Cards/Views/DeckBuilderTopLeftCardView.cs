@@ -1,15 +1,24 @@
+using Godot;
+using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
+using Kompas.Client.UI;
 using Kompas.UI.CardInfoDisplayers;
-using Kompas.UI.CardInfoDisplayers.DeckBuilder;
 
 namespace Kompas.Cards.Views
 {
-	//TODO: this will change once i'm using something that isn't the placeholder card info displaying
-	public class DeckBuilderTopLeftCardView : FocusableCardViewBase<DeckBuilderCard, ControlInfoDisplayer>
+	public class DeckBuilderTopLeftCardView : TopLeftCardViewBase<DeckBuilderCard>
 	{
-		public DeckBuilderTopLeftCardView(ControlInfoDisplayer infoDisplayer)
-			: base(infoDisplayer)
-		{ }
+		protected override CardRepository CardRepository { get; }
+
+		public DeckBuilderTopLeftCardView(ControlInfoDisplayer infoDisplayer, ReminderTextPopup reminderTextPopup,
+			CardRepository cardRepository)
+			: base(infoDisplayer, reminderTextPopup)
+		{
+			GD.Print("Creating dbtlcv");
+			CardRepository = cardRepository;
+
+			infoDisplayer.MouseEntered += () => GD.Print("HEY! GUYS!");
+		}
 
 		public void Show(DeckBuilderCard? card) => base.Show(card);
 	}

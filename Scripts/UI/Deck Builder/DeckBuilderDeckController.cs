@@ -161,7 +161,7 @@ namespace Kompas.UI.DeckBuilder
 			
 			if (decklist.avatarName != null)
 			{
-				var avatar = DeckBuilderCardRepository.CreateDeckBuilderCard(decklist.avatarName);
+				var avatar = DeckBuilderController.CardRepository.CreateDeckBuilderCard(decklist.avatarName);
 				AvatarController.UpdateAvatar(avatar);
 			}
 
@@ -174,7 +174,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private void AddToDeck(string cardName)
 		{
-			var card = DeckBuilderCardRepository.CreateDeckBuilderCard(cardName);
+			var card = DeckBuilderController.CardRepository.CreateDeckBuilderCard(cardName);
 			AddToDeck(card);
 		}
 

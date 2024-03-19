@@ -9,7 +9,9 @@ namespace Kompas.Cards.Models
 		public override int BaseC { get; }
 		public override int BaseA { get; }
 
-		public DeckBuilderCard(SerializableCard card, string fileName)
+		public override string BBCodeEffText { get; }
+
+		public DeckBuilderCard(SerializableCard card, string fileName, string bbCodeEffText)
 			: base((card.n, card.e, card.s, card.w, card.c, card.a),
 					card.subtext, card.spellTypes,
 					card.unique,
@@ -24,6 +26,8 @@ namespace Kompas.Cards.Models
 			BaseW = card.w;
 			BaseC = card.c;
 			BaseA = card.a;
+
+			BBCodeEffText = bbCodeEffText;
 		}
 	}
 }
