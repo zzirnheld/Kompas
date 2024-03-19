@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Slight Golemodifications",
-	"effText": "Repositionable.\nWhen turns start, swap a friendly S X Golem here for an S <= X+1 one in your discard. The new Golem gets the old one's Cores.",
+	"effText": "Repositionable.\nWhen turns start, swap a friendly S X Golem here for an S <= X+1 one in your discard. Give the new Golem the old one's Cores.",
 	"effects": [
 		{
 			"blurb": "Modify Golem (Slightly)",
@@ -93,5 +93,5 @@
 	"c": 3,
 	"spellTypes": [ "Radial" ],
 	"radius": 1,
-	"subtypeText": ""
+	"subtypeText": "Radius 1"
 }
