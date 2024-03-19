@@ -35,9 +35,26 @@
 			]
 		}
 	],
-	"keywords": [
-		"Linewalk"
-	],
+	"movementRestriction": {
+		"$type": "Restrict.Spaces:MovementRestriction:",
+		"movementCosts": [
+			{
+				"cost": {
+					"$type": "Identify.Numbers:Distance:",
+					"firstSpace": { "$type": "Identify.Spaces:ContextSpace:" },
+					"secondSpace": { "$type": "Identify.Spaces:ContextSpace:", "secondaryContext": true },
+					"throughRestriction": { "$type": "Restrict.Spaces:Empty:" }
+				}
+			},
+			{
+				"condition": {
+					"$type": "Restrict.Spaces:SameDiagonal:",
+					"other": { "$type": "Identify.Spaces:ContextSpace:", "secondaryContext": true }
+				},
+				"cost": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
+			}
+		]
+	},
 	"n": 1,
 	"e": 1,
 	"s": 5,

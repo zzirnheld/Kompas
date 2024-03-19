@@ -73,7 +73,7 @@
 			"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 		} ],
 		"movementCosts": [ {
-			"numberIdentity": {
+			"cost": {
 				"$type": "Identify.Numbers:Distance:",
 				"firstSpace": { "$type": "Identify.Spaces:ContextSpace:" },
 				"secondSpace": { "$type": "Identify.Spaces:ContextSpace:", "secondaryContext": true }

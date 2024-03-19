@@ -67,25 +67,38 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			}
 		}
 
-		[JsonProperty] //Not always required because default elems exist
-		public IList<IIdentity<int>> movementCosts = new List<IIdentity<int>>()
+		public class MovementCost
 		{
-			new Identities.Numbers.Distance()
+			public IGamestateRestriction condition = new Restrictions.Gamestate.AlwaysValid();
+			#nullable disable
+			[JsonProperty(Required = Required.Always)]
+			public IIdentity<int> cost;
+			#nullable enable
+		}
+
+		[JsonProperty] //Not always required because default elems exist
+		public IList<MovementCost> movementCosts = new List<MovementCost>()
+		{
+			new()
 			{
-				firstSpace = new Identities.Spaces.ContextSpace(),
-				secondSpace = new Identities.Spaces.ContextSpace() { secondaryContext = true },
-				throughRestriction = new Restrictions.Spaces.Empty()
+				cost = new Identities.Numbers.Distance()
+				{
+					firstSpace = new Identities.Spaces.ContextSpace(),
+					secondSpace = new Identities.Spaces.ContextSpace() { secondaryContext = true },
+					throughRestriction = new Restrictions.Spaces.Empty()
+				}
 			}
 		};
 
 		//FUTURE: have this also support Shape? would need to decide how to UX choosing shape vs not shape for creature moving to space adj to friendly
-		public int MovementCost(IGame game, Space from, Space to)
+		public int GetMovementCost(Space from, Space to, IGame game)
 		{
 			var primaryCtxt = IResolutionContext.Dummy(new TriggeringEventContext(game, space: from));
 			var secondaryCtxt = IResolutionContext.Dummy(new TriggeringEventContext(game, space: to));
 
 			return movementCosts
-				.Select(elem => elem.From(primaryCtxt, secondaryCtxt))
+				.Where(cost => cost.condition.IsValid(primaryCtxt))
+				.Select(cost => cost.cost.From(primaryCtxt, secondaryCtxt))
 				.Min();
 		}
 
