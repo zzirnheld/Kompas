@@ -32,12 +32,6 @@ namespace Kompas.Gamestate.Locations.Controllers
 		{
 			var pos = card.Card.Position
 				?? throw new InvalidOperationException($"Can't place {card} because its position is null!");
-
-			if (!SpaceToPosition.ContainsKey(pos))
-			{
-				GD.PushWarning($"No space set up for {pos}");
-				return;
-			}
 			SpaceToPosition[pos].Place(card);
 		}
 	}

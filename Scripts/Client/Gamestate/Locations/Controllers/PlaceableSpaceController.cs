@@ -20,6 +20,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			card.Node.Visible = true;
 			card.Node.Scale = Vector3.One;
 			card.Node.Position = Vector3.Zero;
+			var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
+			card.Node.Rotation = new Vector3(0, rotation, 0);
 		}
 	}
 }
