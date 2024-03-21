@@ -3,7 +3,7 @@
 		{
 			"keywordRegex": "LINEWALK",
 			"keyword": "Linewalk",
-			"reminder": "You can move me through any number of empty spaces on my diagonal, as if it were 1 space (for N purposes)."
+			"reminder": "Each 1 N I have lets me move any number of empty spaces along a diagonal."
 		},
 		{
 			"keywordRegex": "SHAPE",
@@ -20,7 +20,7 @@
 		},
 		{
 			"keyword": "Ificate.",
-			"reminder": "When I'm hand->discarded, discard->cast a DIFFERENT Crazy Idea for 1 pip."
+			"reminder": "When I'm hand->discarded, discard->cast a DIFFERENT Crazy Idea for 1 pip. This is purposefully obtuse."
 		},
 		{
 			"keyword": "Recoverable.",
