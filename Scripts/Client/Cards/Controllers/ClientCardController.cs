@@ -8,7 +8,6 @@ using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Locations.Controllers;
-using Kompas.Gamestate;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Cards.Controllers
@@ -29,7 +28,6 @@ namespace Kompas.Client.Cards.Controllers
 
 		private const string FocusedAnimationName = "Rotate";
 		private const string ResetAnimationName = "RESET";
-		private ClientGameController? gameController;
 
 		private ClientCardView? _cardView;
 		public ClientCardView CardView
@@ -70,11 +68,12 @@ namespace Kompas.Client.Cards.Controllers
 				_card = value
 					?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
 				CardView = new (InfoDisplayer ?? throw new System.InvalidOperationException("You didn't populate the client card ctrl's info displayer"), value);
-				gameController = value.ClientGame.ClientGameController;
-				AOEController = gameController.TargetingController.SpacesController.AddAOE();
+				AOEController = GameController.TargetingController.SpacesController.AddAOE();
 				Card.LocationChanged += (_, _) => RefreshAOE();
 			}
 		}
+
+		private ClientGameController GameController => Card.ClientGame.ClientGameController;
 
 		public void Delete() => QueueFree();
 
@@ -82,36 +81,26 @@ namespace Kompas.Client.Cards.Controllers
 		{
 			base._Ready();
 			_ = MouseController ?? throw new System.NullReferenceException("Forgot to init");
-			MouseController.MouseOver += (_, _) => ShowInTopLeft();
-			MouseController.LeftClick += (_, _) => FocusInTopLeft();
+			MouseController.HoverBegin += (_, _) => Hover();
+			MouseController.HoverEnd += (_, _) => Unhover();
+			MouseController.LeftClick += (_, doubleClick) => Select(doubleClick);
 			MouseController.RightClick += (_, _) => ShowEffectDialog();
 		}
 
-		public void ShowInTopLeft()
+		public void Hover() => GameController.TargetingController.Highlight(Card);
+		public void Unhover() => GameController.TargetingController.Unhighlight(Card);
+
+		public void Select(bool superSelect)
 		{
-			_ = gameController ?? throw new System.InvalidOperationException("Forgot to init");
-			_ = gameController.TargetingController ?? throw new System.InvalidOperationException("Forgot to init");
-			gameController.TargetingController.Highlight(Card);
+			if (superSelect) GameController.TargetingController.SuperSelect(Card);
+			else GameController.TargetingController.Select(Card);
 		}
 
-		public void FocusInTopLeft()
-		{
-			_ = gameController ?? throw new System.InvalidOperationException("Forgot to init");
-			_ = gameController.TargetingController ?? throw new System.InvalidOperationException("Forgot to init");
-			gameController.TargetingController.Select(Card);
-		}
+		//TODO: right clicking an enemy should show a dialog that includes an attack button,
+		//in case that's more natural for some people.
+		public void ShowEffectDialog() => GameController.UseEffectDialog.Display(this);
 
-		public void ShowEffectDialog()
-		{
-			_ = gameController ?? throw new System.InvalidOperationException("Forgot to init");
-			_ = gameController.UseEffectDialog ?? throw new System.InvalidOperationException("Forgot to init");
-			gameController.UseEffectDialog.Display(this);
-		}
-
-		public void RefreshAOE()
-		{
-			AOEController.Display(Card.SpaceInAOE, true);
-		}
+		public void RefreshAOE() => AOEController.Display(Card.SpaceInAOE, true);
 
 		/// <summary>
 		/// TODO reimpl for godot

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Runespeaker",
-	"effText": "Runecast, and hand a different Rune from your deck's top 10 cards.",
+	"effText": "Runecast, and deck->hand a different Rune from your deck's top 10 cards.",
 	"effects": [
 		{
 			"activationRestriction": {

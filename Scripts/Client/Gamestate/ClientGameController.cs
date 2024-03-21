@@ -29,7 +29,7 @@ namespace Kompas.Client.Gamestate
 		public CurrentStateController CurrentStateController => _currentStateController ?? throw new UnassignedReferenceException();
 		[Export]
 		private UseEffectDialog? _useEffectDialog;
-		public UseEffectDialog? UseEffectDialog => _useEffectDialog ?? throw new UnassignedReferenceException();
+		public UseEffectDialog UseEffectDialog => _useEffectDialog ?? throw new UnassignedReferenceException();
 		[Export]
 		private ClientStackView? _stackView;
 		public ClientStackView StackView => _stackView ?? throw new UnassignedReferenceException();

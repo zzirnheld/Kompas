@@ -1,11 +1,9 @@
 using System;
-using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.UI;
-using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Cards.Views
@@ -19,7 +17,7 @@ namespace Kompas.Client.Cards.Views
 			: base(infoDisplayer, reminderTextPopup)
 		{ }
 		
-		public void Select(ClientGameCard? card) => base.Focus(card);
+		public new void Focus(ClientGameCard? card) => base.Focus(card);
 		public void Hover(ClientGameCard? card, bool refresh = false) => base.Show(card, refresh);
 
 		protected override void Show(ClientGameCard? card, bool refresh = false)

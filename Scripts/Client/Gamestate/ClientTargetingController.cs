@@ -47,8 +47,10 @@ namespace Kompas.Client.Gamestate
 		/// The view already contains the logic for focusing on a given card, for entirely historical reasons.
 		/// I could rip that out and move it here, but why bother
 		/// </summary>
-		public ClientGameCard? FocusedCard => TopLeftCardView.FocusedCard;
+		public ClientGameCard? SelectedCard => TopLeftCardView.FocusedCard;
 		public ClientGameCard? ShownCard => TopLeftCardView.ShownCard;
+
+		private ClientGameCard? LastSelectedCard { get; set; }
 
 		private ISearch? _currentSearch;
 		private ISearch? CurrentSearch
@@ -95,25 +97,47 @@ namespace Kompas.Client.Gamestate
 		{
 			//TODO make client notifier a static helper class
 			GD.Print($"Selecting {space}");
-			var notifier = FocusedCard?.ClientGame.ClientGameController.Notifier;
-			if (FocusedCard?.Location == Location.Board) notifier?.RequestMove(FocusedCard, space.x, space.y);
-			if (FocusedCard?.Location == Location.Hand) notifier?.RequestPlay(FocusedCard, space.x, space.y);
+			var notifier = SelectedCard?.ClientGame.ClientGameController.Notifier;
+			if (SelectedCard?.Location == Location.Board) notifier?.RequestMove(SelectedCard, space.x, space.y);
+			if (SelectedCard?.Location == Location.Hand) notifier?.RequestPlay(SelectedCard, space.x, space.y);
 			CurrentSearch?.Select(space);
 		}
 
+		/// <summary>
+		/// Performs targeting actions for the selection of a particular card
+        /// (as opposed to just hovering over it).
+		/// </summary>
 		public void Select(ClientGameCard? card)
 		{
 			GD.Print($"Selecting {card}");
-			TopLeftCardView?.Select(card);
+			LastSelectedCard = SelectedCard;
+
+			TopLeftCardView.Focus(card);
 			if (card == null) return;
 
 			CurrentSearch?.Select(card);
 		}
 
-		public void Highlight(ClientGameCard? card)
+		/// <summary>
+        /// Performs actions for the specific selection of the given <paramref name="card"/>,
+        /// then selects it normally.
+        /// <br/>
+        /// Usually, this means that the <see cref="LastSelectedCard"/>
+        /// will try to attack <paramref name="card"/>.
+        /// </summary>
+		public void SuperSelect(ClientGameCard card)
 		{
-			//GD.Print($"Selecting {card}");
-			TopLeftCardView?.Hover(card);
+			var notifier = LastSelectedCard?.ClientGame.ClientGameController.Notifier;
+			if (LastSelectedCard?.Location == Location.Board) notifier?.RequestAttack(LastSelectedCard, card);
+
+			Select(card);
+		}
+
+		public void Highlight(ClientGameCard? card) => TopLeftCardView.Hover(card);
+
+		public void Unhighlight(ClientGameCard? card)
+		{
+			if (ShownCard == card) TopLeftCardView.Hover(null);
 		}
 
 		public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
