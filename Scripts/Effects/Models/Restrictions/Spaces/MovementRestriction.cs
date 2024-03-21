@@ -9,8 +9,44 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 {
 	public class MovementRestriction : DualRestrictionBase<Space>, IMovementRestriction
 	{
+		public class MovementCost : ContextInitializeableBase
+		{
+			public IGamestateRestriction condition = new Restrictions.Gamestate.AlwaysValid();
+			#nullable disable
+			[JsonProperty(Required = Required.Always)]
+			public IIdentity<int> cost;
+			#nullable enable
+
+			public override void Initialize(EffectInitializationContext initializationContext)
+			{
+				base.Initialize(initializationContext);
+				condition.Initialize(initializationContext);
+				cost.Initialize(initializationContext);
+			}
+		}
+
+		[JsonProperty] //Not always required because default elems exist
+		public IList<MovementCost> movementCosts = new List<MovementCost>()
+		{
+			new()
+			{
+				cost = new Identities.Numbers.Distance()
+				{
+					firstSpace = new Identities.Spaces.ContextSpace(),
+					secondSpace = new Identities.Spaces.ContextSpace() { secondaryContext = true },
+					throughRestriction = new Restrictions.Spaces.Empty()
+				}
+			}
+		};
+
 		public bool moveThroughCards = false; //TODO check this flag when determining how much "movement" the move should cost.
 												//ideally implement some sort of "get move cost to" function here, which can be replaced by an Identity as applicable
+
+		public override void Initialize(EffectInitializationContext initializationContext)
+		{
+			base.Initialize(initializationContext);
+			foreach (var cost in movementCosts) cost.Initialize(initializationContext);
+		}
 
 		protected override IEnumerable<IRestriction<Space>> DefaultRestrictions
 		{
@@ -66,29 +102,6 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 				yield return new Gamestate.FriendlyTurn();
 			}
 		}
-
-		public class MovementCost
-		{
-			public IGamestateRestriction condition = new Restrictions.Gamestate.AlwaysValid();
-			#nullable disable
-			[JsonProperty(Required = Required.Always)]
-			public IIdentity<int> cost;
-			#nullable enable
-		}
-
-		[JsonProperty] //Not always required because default elems exist
-		public IList<MovementCost> movementCosts = new List<MovementCost>()
-		{
-			new()
-			{
-				cost = new Identities.Numbers.Distance()
-				{
-					firstSpace = new Identities.Spaces.ContextSpace(),
-					secondSpace = new Identities.Spaces.ContextSpace() { secondaryContext = true },
-					throughRestriction = new Restrictions.Spaces.Empty()
-				}
-			}
-		};
 
 		//FUTURE: have this also support Shape? would need to decide how to UX choosing shape vs not shape for creature moving to space adj to friendly
 		public int GetMovementCost(Space from, Space to, IGame game)

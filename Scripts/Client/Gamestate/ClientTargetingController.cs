@@ -11,6 +11,7 @@ using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Client.Gamestate.Search;
 using Kompas.Client.UI;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.Identities.ManyCards;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Gamestate;
@@ -94,7 +95,9 @@ namespace Kompas.Client.Gamestate
 		{
 			//TODO make client notifier a static helper class
 			GD.Print($"Selecting {space}");
-			FocusedCard?.ClientGame.ClientGameController.Notifier.RequestPlay(FocusedCard, space.x, space.y);
+			var notifier = FocusedCard?.ClientGame.ClientGameController.Notifier;
+			if (FocusedCard?.Location == Location.Board) notifier?.RequestMove(FocusedCard, space.x, space.y);
+			if (FocusedCard?.Location == Location.Hand) notifier?.RequestPlay(FocusedCard, space.x, space.y);
 			CurrentSearch?.Select(space);
 		}
 
