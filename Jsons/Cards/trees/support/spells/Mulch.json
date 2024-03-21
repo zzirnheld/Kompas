@@ -1,7 +1,7 @@
 {
 	"cardType":83,
 	"cardName":"Mulch",
-	"effText":"When a Tree dies, heal friendly Trees.",
+	"effText":"When a Tree dies, DOHEAL friendly Trees.",
 	"effects":[
 		{
 			"blurb":"Mulch",

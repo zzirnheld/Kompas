@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Dreamscape",
-	"effText": "The first time each turn a Shaper moves, give them +1 N and heal them.",
+	"effText": "The first time each turn a Shaper moves, give them +1 N and DOHEAL them.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Gapfillermist",
-	"effText": "SHAPE.\nWhen a Shaper Shapes through me, heal them, reshuffle me, and draw 1 card.",
+	"effText": "SHAPE.\nWhen a Shaper Shapes through me, DOHEAL them, reshuffle me, and draw 1 card.",
 	"effects": [
 		{
 			"blurb": "Condense",

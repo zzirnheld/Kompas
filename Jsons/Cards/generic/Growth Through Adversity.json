@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Growth Through Adversity",
-	"effText": "When you heal a character, give them +5 E.",
+	"effText": "When you HEALTRIGGER a character, give them +5 E.",
 	"effects": [
 		{
 			"triggerData": {

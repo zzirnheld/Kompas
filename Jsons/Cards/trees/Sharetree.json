@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Sharetree",
-	"effText": "When I gain E, heal a character.",
+	"effText": "When I gain E, DOHEAL a character.",
 	"effects": [
 		{
 			"triggerData": {

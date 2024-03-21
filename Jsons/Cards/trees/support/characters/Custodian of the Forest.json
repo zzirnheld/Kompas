@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Custodian of the Forest",
-	"effText": "When you hurt a summon, heal it.",
+	"effText": "When you hurt a summon, DOHEAL it.",
 	"effects": [
 		{
 			"blurb": "Nurse to health",

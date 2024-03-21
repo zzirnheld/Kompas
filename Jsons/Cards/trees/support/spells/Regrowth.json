@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Regrowth",
-	"effText": "When turns start, heal a Tree.",
+	"effText": "When turns start, DOHEAL a Tree.",
 	"effects": [
 		{
 			"triggerData": {

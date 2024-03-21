@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Repairman",
-	"effText": "When an adjacent Structure survives losing E, heal it.",
+	"effText": "When an adjacent Structure survives losing E, DOHEAL it.",
 	"effects": [
 		{
 			"blurb": "Repair",

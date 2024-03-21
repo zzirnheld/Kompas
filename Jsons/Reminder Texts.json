@@ -71,7 +71,7 @@
 		},
 		{
 			"keywordRegex": "MARTYR",
-			"keyword": "To be Martyred",
+			"keyword": "martyr",
 			"reminder": "Dying during an enemy turn."
 		},
 		{
@@ -212,8 +212,14 @@
 			"reminder": "A character with less E than printed (the E number is red)."
 		},
 		{
+			"keywordRegex": "DOHEAL",
 			"keyword": "heal",
-			"reminder": "Increase a character's E to its starting value (the E number is black). If the character has more E than they started with, nothing happens."
+			"reminder": "Increase a character's E to its starting value (the E number is black).\nIf the character has more E than they started with, nothing happens."
+		},
+		{
+			"keywordRegex": "HEALTRIGGER",
+			"keyword": "fully heal",
+			"reminder": "A character is fully healed when they go from being hurt (the E number is red) to no longer being hurt."
 		},
 		{
 			"keyword": "Modular",
