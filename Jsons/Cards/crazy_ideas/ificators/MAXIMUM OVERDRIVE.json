@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "MAXIMUM OVERDRIVE",
-	"effText": "Ificate.\nGive an adjacent character -7 W. If they're Crazy, also give them +5 N.",
+	"effText": "IFICATE.\nGive an adjacent character -7 W. If they're Crazy, also give them +5 N.",
 	"effects": [
 		{
 			"triggerData": {

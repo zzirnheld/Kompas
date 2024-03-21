@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Haguaughan Invoker",
-	"effText": "When I start turns adjacent to an enemy Avatar, I Invoke a character that costs less than me.",
+	"effText": "When I start turns adjacent to an enemy Avatar, I INVOKE a character that costs less than me.",
 	"effects": [
 		{
 			"triggerData": {

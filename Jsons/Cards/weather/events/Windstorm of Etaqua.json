@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Windstorm of Etaqua",
-	"effText": "Weather Event: Each moves all characters there, to a random space.",
+	"effText": "WTHREVNT: Each moves all characters there, to a random space.",
 	"effects": [
 		{
 			"blurb": "Blow away",

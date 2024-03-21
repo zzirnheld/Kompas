@@ -1,7 +1,7 @@
 {
 	"cardType":83,
 	"cardName": "Thinkfog",
-	"effText": "Weather Condition: Their controller can pay 1 pip to draw 1 card.",
+	"effText": "WTHRCOND: Their controller can pay 1 pip to draw 1 card.",
 	"effects": [
 		{
 			"triggerData":

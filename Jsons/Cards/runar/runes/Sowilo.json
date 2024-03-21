@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Sowilo",
-	"effText": "Runic.\nGive an adjacent character -1 E. Give another +1 E. Draw 1 card.",
+	"effText": "RUNIC.\nGive an adjacent character -1 E. Give another +1 E. Draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

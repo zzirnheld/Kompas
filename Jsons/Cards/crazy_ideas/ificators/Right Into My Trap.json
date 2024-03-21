@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Right Into My Trap",
-	"effText": "Ificate.\nWhen an enemy moves adjacent to a Crazy card, give them -5 W.",
+	"effText": "IFICATE.\nWhen an enemy moves adjacent to a Crazy card, give them -5 W.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Jera",
-	"effText": "Runic.\nIf it's your turn, gain 3 pips and end your turn.",
+	"effText": "RUNIC.\nIf it's your turn, gain 3 pips and end your turn.",
 	"effects": [
 		{
 			"triggerData": {

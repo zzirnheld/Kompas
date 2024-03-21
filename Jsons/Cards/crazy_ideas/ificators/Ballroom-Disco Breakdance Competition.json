@@ -1,8 +1,8 @@
 {
 	"cardType": 83,
 	"cardName": "Ballroom-Disco Breakdance Competition",
-	"effText": "Ificate.\nAny character that enters the competition loses all their N until another character enters.",
-	"technicalEffText": "Ificate.\nWhen an N X character arrives here, give them -X N until the next time this effect activates.",
+	"effText": "IFICATE.\nAny character that enters the competition loses all their N until another character enters.",
+	"technicalEffText": "IFICATE.\nWhen an N X character arrives here, give them -X N until the next time this effect activates.",
 	"effects": [
 		{
 			"triggerData": {

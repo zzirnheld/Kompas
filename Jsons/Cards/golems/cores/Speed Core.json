@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Speed Core",
-	"effText": "Recoverable.\nWhile equipped, activate this Golem and give them +1 N.",
+	"effText": "RECOVERABLE.\nWhile equipped, activate this Golem and give them +1 N.",
 	"effects": [
 		{
 			"triggerData": {

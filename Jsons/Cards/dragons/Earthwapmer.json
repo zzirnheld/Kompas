@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Earthwapmer",
-	"effText": "Territorial.\nWhen I attack, hand a friendly Dragon.",
+	"effText": "TERRITORIAL.\nWhen I attack, hand a friendly Dragon.",
 	"effects": [
 		{
 			"blurb": "Earthwap",

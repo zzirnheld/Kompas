@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Overwhelming Ball Skills",
-	"effText": "Comeback Play.\nWhen you augment an enemy character, give them -1 NW.",
+	"effText": "COMEBACKPLAY.\nWhen you augment an enemy character, give them -1 NW.",
 	"effects": [
 		{
 			"triggerData": {

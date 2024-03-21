@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Novice Invocation",
-	"effText": "Flashback.\nCast only adjacent to an Invoker.\nInvoke a Spirit.",
+	"effText": "Flashback.\nCast only adjacent to an Invoker.\nINVOKE a Spirit.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Flashflood",
-	"effText": "Weather Condition: -1 N.",
+	"effText": "WTHRCOND: -1 N.",
 	"effects": [
 		{
 			"blurb": "Floodwaters",

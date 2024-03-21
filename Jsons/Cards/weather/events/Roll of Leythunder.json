@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Roll of Leythunder",
-	"effText": "Weather Event: Each dispels all enemy spells there.",
+	"effText": "WTHREVNT: Each dispels all enemy spells there.",
 	"effects": [
 		{
 			"blurb": "Leythunder",

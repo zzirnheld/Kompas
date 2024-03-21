@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Perthro",
-	"effText": "Runic.\nHand up to 3 spells from your deck's top 10 cards",
+	"effText": "RUNIC.\nHand up to 3 spells from your deck's top 10 cards",
 	"effects": [
 		{
 			"triggerData": {

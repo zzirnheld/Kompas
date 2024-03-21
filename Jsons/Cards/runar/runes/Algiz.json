@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Algiz",
-	"effText": "Runic.\nGive an adjacent character +4 E.",
+	"effText": "RUNIC.\nGive an adjacent character +4 E.",
 	"effects": [
 		{
 			"triggerData": {

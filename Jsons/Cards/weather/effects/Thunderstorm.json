@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Thunderstorm",
-	"effText": "Weather Condition: -3 E.",
+	"effText": "WTHRCOND: -3 E.",
 	"effects": [
 		{
 			"blurb": "Thunderstrike",

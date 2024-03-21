@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Wispflux Generator",
-	"effText": "When turns start, Invoke a Wisp to a random valid space.",
+	"effText": "When turns start, INVOKE a Wisp to a random valid space.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Sportsball",
-	"effText": "Pass Back. Recoverable.\nBouncy, twice each turn.",
+	"effText": "Pass Back. RECOVERABLE.\nBouncy, twice each turn.",
 	"effects": [
 		{
 			"triggerData": {

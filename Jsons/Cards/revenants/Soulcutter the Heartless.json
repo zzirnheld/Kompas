@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Soulcutter the Heartless",
-	"effText": "Revenant.\nWhen a card is annihilated, hand->discard a Revenant, then draw 1 card.",
+	"effText": "REVENANT.\nWhen a card is annihilated, hand->discard a Revenant, then draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

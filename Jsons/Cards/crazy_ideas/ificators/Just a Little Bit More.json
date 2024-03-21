@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Just a Little Bit More",
-	"effText": "Ificate.\nRummage. Move a card 1 space.",
+	"effText": "IFICATE.\nRummage. Move a card 1 space.",
 	"effects": [
 		{
 			"triggerData": {

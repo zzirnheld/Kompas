@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Segascanturian Invoker",
-	"effText": "When an enemy arrives adjacent to me, I Invoke a character that costs less than me.",
+	"effText": "When an enemy arrives adjacent to me, I INVOKE a character that costs less than me.",
 	"effects": [
 		{
 			"triggerData": {

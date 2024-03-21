@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Dagaz",
-	"effText": "Runic.\nWhen you cast another Rune, gain 1 pip.",
+	"effText": "RUNIC.\nWhen you cast another Rune, gain 1 pip.",
 	"effects": [
 		{
 			"triggerData": {

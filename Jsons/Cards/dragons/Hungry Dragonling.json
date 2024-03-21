@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Hungry Dragonling",
-	"effText": "Territorial.\nWhen I fight, give me +7 S.",
+	"effText": "TERRITORIAL.\nWhen I fight, give me +7 S.",
 	"effects": [
 		{
 			"blurb": "Damage Boost",

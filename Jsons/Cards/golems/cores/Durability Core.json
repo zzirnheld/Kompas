@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Durability Core",
-	"effText": "Recoverable.\nWhile equipped, activate this Golem and give them +5 E.",
+	"effText": "RECOVERABLE.\nWhile equipped, activate this Golem and give them +5 E.",
 	"effects": [
 		{
 			"blurb": "Activate",

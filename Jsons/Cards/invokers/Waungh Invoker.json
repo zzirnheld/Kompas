@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Waungh Invoker",
-	"effText": "When I attack, I Invoke a character that costs less than me.",
+	"effText": "When I attack, I INVOKE a character that costs less than me.",
 	"effects": [
 		{
 			"triggerData": {

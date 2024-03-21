@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Ehwaz",
-	"effText": "Runic.\nGive an adjacent character +2 N.",
+	"effText": "RUNIC.\nGive an adjacent character +2 N.",
 	"effects": [
 		{
 			"triggerData": {

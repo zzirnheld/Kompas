@@ -11,31 +11,38 @@
 			"reminder": "I can move through X Ethereal characters to an empty space, after which I lose X E. This counts as 1 of my N spaces to move each turn."
 		},
 		{
-			"keyword": "Vessel.",
+			"keywordRegex": "VESSEL",
+			"keyword": "Vessel",
 			"reminder": "You can destroy a Memory attached to me to echo me."
 		},
 		{
-			"keyword": "Revenant.",
+			"keywordRegex": "REVENANT",
+			"keyword": "Revenant",
 			"reminder": "When I die, annihilate me.\nYou can pip revive me at half cost."
 		},
 		{
-			"keyword": "Ificate.",
+			"keywordRegex": "IFICATE",
+			"keyword": "Ificate",
 			"reminder": "When I'm hand->discarded, discard->cast a DIFFERENT Crazy Idea for 1 pip. This is purposefully obtuse."
 		},
 		{
-			"keyword": "Recoverable.",
+			"keywordRegex": "RECOVERABLE",
+			"keyword": "Recoverable",
 			"reminder": "When this character dies (while I'm equipped), discard->hand me."
 		},
 		{
-			"keyword": "Territorial.",
+			"keywordRegex": "TERRITORIAL",
+			"keyword": "Territorial",
 			"reminder": "When turns start, I attack an adjacent character."
 		},
 		{
-			"keyword": "Comeback Play.",
+			"keywordRegex": "COMEBACKPLAY",
+			"keyword": "Comeback Play",
 			"reminder": "When you start friendly turns controlling a Sportsball, discard->cast me."
 		},
 		{
-			"keyword": "Runic.",
+			"keywordRegex": "RUNIC",
+			"keyword": "Runic",
 			"reminder": "Can't be cast normally."
 		},
 		{
@@ -48,19 +55,23 @@
 			"reminder": "When I fight, kill me.\nWhen another character arrives adjacent to a Supplicant:"
 		},
 		{
+			"keywordRegex": "WTHRCOND",
 			"keyword": "Weather Condition",
 			"reminder": "When a non-Weather character arrives here, apply the listed effect.\nWhen turns start, deck->cast a Weather Condition adjacent to me, then annihilate me."
 		},
 		{
+			"keywordRegex": "WTHREVNT",
 			"keyword": "Weather Event",
 			"reminder": "Summon me only where Weather overlaps other Weather.\nWhen I'm summoned, each Weather Condition I'm in:"
 		},
 		{
+			"keywordRegex": "SPINASTORM",
 			"keyword": "Spin a Storm",
 			"reminder": "Hand->summon a Weather Event in that Weather Condition's overlap with other Weather."
 		},
 		{
-			"keyword": "martyr",
+			"keywordRegex": "MARTYR",
+			"keyword": "To be Martyred",
 			"reminder": "Dying during an enemy turn."
 		},
 		{
@@ -68,8 +79,9 @@
 			"reminder": "When I'm summoned, or when turns start, move me 1 space. When I move:"
 		},
 		{
+			"keywordRegex": "INVOKE",
 			"keyword": "Invoke",
-			"reminder": "Discard your deck's top card until you discard an appropriate character. Revive them."
+			"reminder": "Topdeck->discard until you discard an appropriate card. Discard->play it."
 		},
 		{
 			"keyword": "Flashback.",

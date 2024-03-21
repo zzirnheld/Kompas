@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Gyfu",
-	"effText": "Runic.\nGive X enemy characters +1 EW. Gain X pips.",
+	"effText": "RUNIC.\nGive X enemy characters +1 EW. Gain X pips.",
 	"effects": [
 		{
 			"triggerData": {

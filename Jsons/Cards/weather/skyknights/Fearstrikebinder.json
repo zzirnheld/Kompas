@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Fearstrikebinder",
-	"effText": "When a friendly defends in Weather, Spin a Storm there.",
+	"effText": "When a friendly defends in Weather, SPINASTORM there.",
 	"effects": [
 		{
 			"blurb": "Bind the fear",

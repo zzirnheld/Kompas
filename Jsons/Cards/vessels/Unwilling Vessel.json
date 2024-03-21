@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Unwilling Vessel",
-	"effText": "Vessel.\nWhen turns start, destroy an A X Memory attached to me. Give me +X ESW. Move me up to X spaces.",
+	"effText": "VESSEL.\nWhen turns start, destroy an A X Memory attached to me. Give me +X ESW. Move me up to X spaces.",
 	"effects": [
 		{
 			"blurb": "No!",

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Fungibility",
-	"effText": "When you summon a Fungus normally, tribute it. Invoke a Fungus where it was.",
+	"effText": "When you summon a Fungus normally, tribute it. INVOKE a Fungus where it was.",
 	"effects": [
 		{
 			"blurb": "Funge",

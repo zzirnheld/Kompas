@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Ihwaz",
-	"effText": "Runic.\nPip revive a character at half cost (rounding down).",
+	"effText": "RUNIC.\nPip revive a character at half cost (rounding down).",
 	"effects": [
 		{
 			"triggerData": {

@@ -14,6 +14,11 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	/// </summary>
 	public class CompareDistance : SpaceRestrictionBase
 	{
+		/// <summary>
+        /// Whether the distance should be through the shortest empty path.
+        /// If true, will check the shortest path through empty spaces.
+        /// If false, considers the pure taxicab distance.
+        /// </summary>
 		[JsonProperty]
 		public bool shortestEmptyPath = false;
 		#nullable disable

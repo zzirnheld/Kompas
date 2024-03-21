@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Noughtbinder",
-	"effText": "After an enemy turn starts, if they don't do anything before your next turn starts, Spin a Storm in Weather I'm in.",
+	"effText": "After an enemy turn starts, if they don't do anything before your next turn starts, SPINASTORM in Weather I'm in.",
 	"effects": [
 		{
 			"blurb": "Bind the curiosity",

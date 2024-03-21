@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Harvald S Thonstrop",
-	"effText": "The first time each round an enemy card is revealed, I Invoke a character with less S than me.",
+	"effText": "The first time each round an enemy card is revealed, I INVOKE a character with less S than me.",
 	"effects": [
 		{
 			"blurb": "I knEW IT",

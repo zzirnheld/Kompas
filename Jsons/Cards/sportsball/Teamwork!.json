@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Teamwork!",
-	"effText": "Comeback Play.\nThe first time each stack you augment a character, draw 1.",
+	"effText": "COMEBACKPLAY.\nThe first time each stack you augment a character, draw 1.",
 	"effects": [
 		{
 			"triggerData": {

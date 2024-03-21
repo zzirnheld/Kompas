@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Fehu",
-	"effText": "Runic.\nDraw 2.",
+	"effText": "RUNIC.\nDraw 2.",
 	"effects": [
 		{
 			"triggerData": {

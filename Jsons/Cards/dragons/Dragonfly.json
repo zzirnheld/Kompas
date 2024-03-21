@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Dragonfly",
-	"effText": "Territorial.\nWhen I fight, give me +1 N.",
+	"effText": "TERRITORIAL.\nWhen I fight, give me +1 N.",
 	"effects": [
 		{
 			"blurb": "Speed Boost",

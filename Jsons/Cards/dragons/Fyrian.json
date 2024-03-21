@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Fyrian",
-	"effText": "Territorial.\nWhen I attack, give my target and characters adjacent to them -3 E.",
+	"effText": "TERRITORIAL.\nWhen I attack, give my target and characters adjacent to them -3 E.",
 	"effects": [
 		{
 			"blurb": "Fire Breath",

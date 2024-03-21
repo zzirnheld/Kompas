@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Crispbreeze",
-	"effText": "Weather Condition: +1 W.",
+	"effText": "WTHRCOND: +1 W.",
 	"effects": [
 		{
 			"blurb": "Crispy",

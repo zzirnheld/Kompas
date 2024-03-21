@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Aeolian",
-	"effText": "Territorial.\nWhen I attack a character, move them X spaces (as far as you want), then give them -X E.",
+	"effText": "TERRITORIAL.\nWhen I attack a character, move them X spaces (as far as you want), then give them -X E.",
 	"effects": [
 		{
 			"blurb": "Air Breath",

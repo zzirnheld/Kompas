@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Invoke the Invoker",
-	"effText": "Flashback.\nShow a Spirit. Invoke an Invoker. Topdeck that Spirit.",
+	"effText": "Flashback.\nShow a Spirit. INVOKE an Invoker. Topdeck that Spirit.",
 	"effects": [
 		{
 			"triggerData": {

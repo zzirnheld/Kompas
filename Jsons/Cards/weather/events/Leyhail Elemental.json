@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Leyhail Elemental",
-	"effText": "Weather Event: Each looks at each character there, and gives their controller 1 pip.",
+	"effText": "WTHREVNT: Each looks at each character there, and gives their controller 1 pip.",
 	"effects": [
 		{
 			"blurb": "Leyhailstones",

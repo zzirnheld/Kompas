@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Immagic Drought",
-	"effText": "Weather Event: Each negates all enemy characters there, until the next turn starts.",
+	"effText": "WTHREVNT: Each negates all enemy characters there, until the next turn starts.",
 	"effects": [
 		{
 			"blurb": "Dessicate",

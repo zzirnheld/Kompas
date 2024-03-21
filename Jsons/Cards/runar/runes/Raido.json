@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Raido",
-	"effText": "Runic.\nTeleport an adjacent card anywhere.",
+	"effText": "RUNIC.\nTeleport an adjacent card anywhere.",
 	"effects": [
 		{
 			"triggerData": {

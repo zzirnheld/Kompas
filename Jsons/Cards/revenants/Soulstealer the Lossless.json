@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Soulstealer the Lossless",
-	"effText": "Revenant.\nWhen a card is annihilated, give friendly Ethereals +1 E.",
+	"effText": "REVENANT.\nWhen a card is annihilated, give friendly Ethereals +1 E.",
 	"effects": [
 		{
 			"triggerData": {

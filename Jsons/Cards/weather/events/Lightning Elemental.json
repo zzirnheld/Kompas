@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Lightning Elemental",
-	"effText": "Weather Event: Each gives an enemy there -7 E.",
+	"effText": "WTHREVNT: Each gives an enemy there -7 E.",
 	"effects": [
 		{
 			"blurb": "Strike Lightning",

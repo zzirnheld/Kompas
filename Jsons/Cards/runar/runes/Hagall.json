@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Hagall",
-	"effText": "Runic.\nWhen turns start, I give all characters here -2 NEW.",
+	"effText": "RUNIC.\nWhen turns start, I give all characters here -2 NEW.",
 	"effects": [
 		{
 			"triggerData": {

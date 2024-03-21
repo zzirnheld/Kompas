@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Tiwaz",
-	"effText": "Runic.\nWhen a friendly character here attacks, give them +1 ESW (before the fight resolves).",
+	"effText": "RUNIC.\nWhen a friendly character here attacks, give them +1 ESW (before the fight resolves).",
 	"effects": [
 		{
 			"triggerData": {

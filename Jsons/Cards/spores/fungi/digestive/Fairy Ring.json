@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Fairy Ring",
-	"effText": "Spores.\nThe first time each stack a friendly Fungus pulses an enemy, Invoke a Fungus.",
+	"effText": "Spores.\nThe first time each stack a friendly Fungus pulses an enemy, INVOKE a Fungus.",
 	"effects": [
 		{
 			"blurb": "Ring around the enemy enemy",

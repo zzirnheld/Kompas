@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Yeeterator",
-	"effText": "Ificate.\nThe first time each stack another card moves to a space here, teleport them to a corner. If you can't, annihilate me.",
+	"effText": "IFICATE.\nThe first time each stack another card moves to a space here, teleport them to a corner. If you can't, annihilate me.",
 	"effects": [
 		{
 			"triggerData": {

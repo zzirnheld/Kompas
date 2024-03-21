@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Puffyclouds",
-	"effText": "Weather Condition: +1 S.",
+	"effText": "WTHRCOND: +1 S.",
 	"effects": [
 		{
 			"blurb": "Inspiring clouds",

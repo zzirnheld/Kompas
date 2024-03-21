@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Growing Boye",
-	"effText": "Territorial.\nWhen I fight, give me +11 S.",
+	"effText": "TERRITORIAL.\nWhen I fight, give me +11 S.",
 	"effects": [
 		{
 			"blurb": "Damage Boost",

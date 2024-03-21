@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Dapplesun",
-	"effText": "Weather Condition: +1 E.",
+	"effText": "WTHRCOND: +1 E.",
 	"effects": [
 		{
 			"blurb": "Sun smiles",

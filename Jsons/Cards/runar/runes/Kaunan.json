@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Kaunan",
-	"effText": "Runic.\nGive an adjacent character -3 EW.",
+	"effText": "RUNIC.\nGive an adjacent character -3 EW.",
 	"effects": [
 		{
 			"triggerData": {

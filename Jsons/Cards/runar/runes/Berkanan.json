@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Berkanan",
-	"effText": "Runic.\nSet an adjacent summon's W to 0 and E to 5.",
+	"effText": "RUNIC.\nSet an adjacent summon's W to 0 and E to 5.",
 	"effects": [
 		{
 			"triggerData": {

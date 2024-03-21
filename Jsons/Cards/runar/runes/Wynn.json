@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Wynn",
-	"effText": "Runic.\nDispel an adjacent spell.",
+	"effText": "RUNIC.\nDispel an adjacent spell.",
 	"effects": [
 		{
 			"triggerData": {

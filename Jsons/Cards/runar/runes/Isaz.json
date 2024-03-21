@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Isaz",
-	"effText": "Runic.\nSet adjacent characters' N to 0.",
+	"effText": "RUNIC.\nSet adjacent characters' N to 0.",
 	"effects": [
 		{
 			"triggerData": {

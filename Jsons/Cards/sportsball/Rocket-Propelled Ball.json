@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Rocket-Propelled Ball",
-	"effText": "Comeback Play.\nWhen you augment an enemy character, move them 1 space.",
+	"effText": "COMEBACKPLAY.\nWhen you augment an enemy character, move them 1 space.",
 	"effects": [
 		{
 			"triggerData": {

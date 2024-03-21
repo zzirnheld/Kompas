@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Combustion Core",
-	"effText": "Recoverable.\nWhen turns start, pulse this Golem (activate, then deactivate them).",
+	"effText": "RECOVERABLE.\nWhen turns start, pulse this Golem (activate, then deactivate them).",
 	"effects": [
 		{
 			"blurb": "Choo Choo Activate",

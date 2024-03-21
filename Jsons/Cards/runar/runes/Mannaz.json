@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Mannaz",
-	"effText": "Runic.\nHand a character from your deck's top 10 cards.",
+	"effText": "RUNIC.\nHand a character from your deck's top 10 cards.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Brainstorm",
-	"effText": "Weather Condition: Their controller draws 1 card, then hand->bottomdecks 1 card.",
+	"effText": "WTHRCOND: Their controller draws 1 card, then hand->bottomdecks 1 card.",
 	"effects": [
 		{
 			"triggerData": {

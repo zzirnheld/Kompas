@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Sportyball",
-	"effText": "Pass Back. Recoverable.\nSticky, twice each turn.",
+	"effText": "Pass Back. RECOVERABLE.\nSticky, twice each turn.",
 	"effects": [
 		{
 			"triggerData": {

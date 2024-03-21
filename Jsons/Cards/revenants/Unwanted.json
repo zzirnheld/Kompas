@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Unwanted",
-	"effText": "Revenant.\nWhen I'm summoned, hand->discard a Revenant and draw 1.",
+	"effText": "REVENANT.\nWhen I'm summoned, hand->discard a Revenant and draw 1.",
 	"effects": [
 		{
 			"triggerData": {

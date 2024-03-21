@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Passingbinder",
-	"effText": "When an enemy dies in Weather, Spin a Storm there.",
+	"effText": "When an enemy dies in Weather, SPINASTORM there.",
 	"effects": [
 		{
 			"blurb": "Bind the soul",

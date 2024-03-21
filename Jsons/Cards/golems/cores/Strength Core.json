@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Strength Core",
-	"effText": "Recoverable.\nWhile equipped, activate this Golem and give them +4 W.",
+	"effText": "RECOVERABLE.\nWhile equipped, activate this Golem and give them +4 W.",
 	"effects": [
 		{
 			"triggerData": {

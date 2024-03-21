@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Contingency Core",
-	"effText": "Recoverable.\n• While equipped, activate this Golem.\n• When this Golem dies, revive them where they were.",
+	"effText": "RECOVERABLE.\n• While equipped, activate this Golem.\n• When this Golem dies, revive them where they were.",
 	"effects": [
 		{
 			"triggerData": {

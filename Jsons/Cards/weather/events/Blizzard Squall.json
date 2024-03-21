@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Blizzard Squall",
-	"effText": "Weather Event: Each sets the N of all enemies there to 0.",
+	"effText": "WTHREVNT: Each sets the N of all enemies there to 0.",
 	"effects": [
 		{
 			"blurb": "Freeze",

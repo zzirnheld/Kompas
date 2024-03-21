@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Thurisaz",
-	"effText": "Runic.\nDouble an adjacent character's W.",
+	"effText": "RUNIC.\nDouble an adjacent character's W.",
 	"effects": [
 		{
 			"triggerData": {

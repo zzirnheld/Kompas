@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Getcha Getcha Getcha",
-	"effText": "Comeback Play.\nWhen you augment a character, give them +1 N.",
+	"effText": "COMEBACKPLAY.\nWhen you augment a character, give them +1 N.",
 	"effects": [
 		{
 			"triggerData": {

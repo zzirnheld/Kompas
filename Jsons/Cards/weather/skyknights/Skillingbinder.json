@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Skillingbinder",
-	"effText": "When an enemy in Weather uses their effect, Spin a Storm there.",
+	"effText": "When an enemy in Weather uses their effect, SPINASTORM there.",
 	"effects": [
 		{
 			"blurb": "Bind the show of skill",

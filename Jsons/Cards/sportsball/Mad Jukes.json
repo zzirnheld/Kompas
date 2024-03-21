@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Mad Jukes",
-	"effText": "Comeback Play.\nWhen a friendly character arrives while wielding Augments with total A X, give adjacent characters -X W.",
+	"effText": "COMEBACKPLAY.\nWhen a friendly character arrives while wielding Augments with total A X, give adjacent characters -X W.",
 	"effects": [
 		{
 			"triggerData": {

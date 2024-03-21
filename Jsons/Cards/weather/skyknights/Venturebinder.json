@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Venturebinder",
-	"effText": "When an enemy character enters Weather, Spin a Storm there.",
+	"effText": "When an enemy character enters Weather, SPINASTORM there.",
 	"effects": [
 		{
 			"blurb": "Bind the curiosity",

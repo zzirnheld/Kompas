@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Skybinder",
-	"effText": "When you Spin a Storm, reshuffle all your annihilated Weather.",
+	"effText": "When you SPINASTORM, reshuffle all your annihilated Weather.",
 	"effects": [
 		{
 			"blurb": "Bind weather",

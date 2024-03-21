@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Blizzard",
-	"effText": "Weather Condition: -Their N until they leave.",
+	"effText": "WTHRCOND: -Their N until they leave.",
 	"effects": [
 		{
 			"blurb": "Out in the cold",

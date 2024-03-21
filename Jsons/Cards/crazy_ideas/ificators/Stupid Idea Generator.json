@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Stupid Idea Generator",
-	"effText": "Ificate.\nWhen turns start, rummage.",
+	"effText": "IFICATE.\nWhen turns start, rummage.",
 	"effects": [
 		{
 			"triggerData": {

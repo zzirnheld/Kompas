@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Soulmartyr the Peaceless",
-	"effText": "Revenant.\nWhen a card is annihilated, give friendly Ethereals +1 W.",
+	"effText": "REVENANT.\nWhen a card is annihilated, give friendly Ethereals +1 W.",
 	"effects": [
 		{
 			"triggerData": {

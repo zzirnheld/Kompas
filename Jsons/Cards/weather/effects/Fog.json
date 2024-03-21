@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Fog",
-	"effText": "Weather Condition: -Their W until they leave.",
+	"effText": "WTHRCOND: -Their W until they leave.",
 	"effects": [
 		{
 			"blurb": "Can't see",

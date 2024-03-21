@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Wait Hold Up",
-	"effText": "Ificate.\nRummage. Move an enemy up to 3 spaces.",
+	"effText": "IFICATE.\nRummage. Move an enemy up to 3 spaces.",
 	"effects": [
 		{
 			"triggerData": {

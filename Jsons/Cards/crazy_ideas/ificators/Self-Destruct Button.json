@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Self-Destruct Button",
-	"effText": "Ificate.\nTribute another Crazy Idea. Discard->hand all your Crazy Ideas. Hand->discard up to 3 cards.",
+	"effText": "IFICATE.\nTribute another Crazy Idea. Discard->hand all your Crazy Ideas. Hand->discard up to 3 cards.",
 	"effects": [
 		{
 			"triggerData": {

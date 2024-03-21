@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Thundersun",
-	"effText": "Weather Condition: Five times per turn, give both players 1 pip.",
+	"effText": "WTHRCOND: Five times per turn, give both players 1 pip.",
 	"effects": [
 		{
 			"triggerData": {

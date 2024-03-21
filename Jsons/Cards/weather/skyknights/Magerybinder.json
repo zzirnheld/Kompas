@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Magerybinder",
-	"effText": "When an enemy casts a spell in Weather, Spin a Storm there.",
+	"effText": "When an enemy casts a spell in Weather, SPINASTORM there.",
 	"effects": [
 		{
 			"blurb": "Bind the magic",

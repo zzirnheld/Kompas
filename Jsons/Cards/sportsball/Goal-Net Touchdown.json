@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Goal-Net Touchdown",
-	"effText": "Comeback Play.\nWhen a character arrives adjacent to an enemy Avatar, apply their Augment(s) to that Avatar.",
+	"effText": "COMEBACKPLAY.\nWhen a character arrives adjacent to an enemy Avatar, apply their Augment(s) to that Avatar.",
 	"effects": [
 		{
 			"triggerData": {

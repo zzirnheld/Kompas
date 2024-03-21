@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Drainfog",
-	"effText": "Weather Condition: Their controller hand->discards 2 cards, then draws 1.",
+	"effText": "WTHRCOND: Their controller hand->discards 2 cards, then draws 1.",
 	"effects": [
 		{
 			"blurb": "So tired",
