@@ -138,7 +138,8 @@ namespace Kompas.Cards.Models
 		public override IPlayRestriction PlayRestriction { get; }
 
 		//controller/owners
-		public IPlayer ControllingPlayer { get; set; }
+		public PlayerType ControllingPlayer { get; set; }
+		IPlayer IGameCardInfo.ControllingPlayer => ControllingPlayer;
 		public PlayerType OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
 		IPlayer IGameCard.OwningPlayer => OwningPlayer;
 		public int ControllingPlayerIndex => ControllingPlayer?.Index ?? 0;

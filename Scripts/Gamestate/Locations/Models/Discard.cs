@@ -14,7 +14,9 @@ namespace Kompas.Gamestate.Locations.Models
 		: ILocationModel<CardType, PlayerType>, IDiscard
 			where CardType : class, IGameCard<CardType, PlayerType>
 			where PlayerType : IPlayer<CardType, PlayerType>
-	{ }
+	{
+		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
+	}
 
 	public abstract class Discard<CardType, PlayerType>
 		: OwnedLocationModel<CardType, PlayerType>, IDiscard<CardType, PlayerType>

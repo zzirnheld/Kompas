@@ -17,7 +17,9 @@ namespace Kompas.Gamestate.Locations.Models
 	public interface IHand<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IHand
 		where CardType : class, IGameCard<CardType, PlayerType>
 		where PlayerType : IPlayer<CardType, PlayerType>
-	{ }
+	{
+		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
+	}
 
 	public abstract class Hand<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IHand<CardType, PlayerType>
 		where CardType : class, IGameCard<CardType, PlayerType>

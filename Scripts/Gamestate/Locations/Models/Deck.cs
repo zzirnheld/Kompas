@@ -20,6 +20,8 @@ namespace Kompas.Gamestate.Locations.Models
 		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public new CardType? Topdeck { get; }
+		
+		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
 
 		public void PushTopdeck(CardType card, IStackable? stackSrc = null);
 

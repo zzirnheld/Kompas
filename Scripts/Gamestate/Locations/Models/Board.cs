@@ -25,6 +25,9 @@ namespace Kompas.Gamestate.Locations.Models
 	{
 		public new CardType? GetCardAt(Space space);
 		public new IEnumerable<CardType> CardsAdjacentTo(Space? space);
+
+		public void Play(CardType card, Space to, PlayerType controller, IStackable? stackSrc = null);
+		public void Move(CardType card, Space to, bool normal, PlayerType? mover, IStackable? stackSrc = null);
 	}
 
 	public static class BoardExensions
@@ -331,7 +334,7 @@ namespace Kompas.Gamestate.Locations.Models
 			if (temp != null) boardController.Place(temp.CardController);
 		}
 
-		public void Move(CardType card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
+		public void Move(CardType card, Space to, bool normal, PlayerType? mover, IStackable? stackSrc = null)
 		{
 			if (card.AugmentedCard != null)
 			{

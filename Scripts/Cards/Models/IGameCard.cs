@@ -25,6 +25,8 @@ namespace Kompas.Cards.Models
 
 		public void Remove(IStackable? stackSrc = null);
 		public void CountSpacesMovedTo(Space space);
+
+		public void SetNegated(bool negated, IStackable? stackSrc = null);
 	}
 
 	public interface IGameCard<CardType, PlayerType> : IGameCard
@@ -33,8 +35,11 @@ namespace Kompas.Cards.Models
 	{
 		public new CardType Card { get; }
 
+		public new IGame<CardType, PlayerType> Game { get; }
+
 		public new ILocationModel<CardType, PlayerType> LocationModel { get; set; }
 		public new PlayerType OwningPlayer { get; }
+		public new PlayerType ControllingPlayer { get; }
 
 		public new IEnumerable<CardType> Augments { get; }
 		//Interesting note on why this isn't a protected set:

@@ -11,10 +11,10 @@ using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Cards.Models
 {
-	public class ServerGameCard : GameCard<ServerGameCard>
+	public class ServerGameCard : GameCard<ServerGameCard, ServerPlayer>
 	{
 		public ServerGame ServerGame { get; }
-		public override IGame<ServerGameCard> Game => ServerGame;
+		public override IGame<ServerGameCard, ServerPlayer> Game => ServerGame;
 
 		public ServerEffect[] ServerEffects { get; init; }
 		public override IReadOnlyCollection<Effect> Effects => ServerEffects;

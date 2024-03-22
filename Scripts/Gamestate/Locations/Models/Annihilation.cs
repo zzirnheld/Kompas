@@ -13,7 +13,9 @@ namespace Kompas.Gamestate.Locations.Models
 	public interface IAnnihilation<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IAnnihilation
 		where CardType : class, IGameCard<CardType, PlayerType>
 		where PlayerType : IPlayer<CardType, PlayerType>
-	{ }
+	{
+		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
+	}
 
 	public abstract class Annihilation<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IAnnihilation<CardType, PlayerType>
 		where CardType : class, IGameCard<CardType, PlayerType>
