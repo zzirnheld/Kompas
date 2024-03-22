@@ -16,7 +16,7 @@
 				{
 					"$type": "Restrict.Triggering:Not:",
 					"inverted": {
-						"$type": "Restrict.Triggering:StackablesMatch:",
+						"$type": "Restrict.Gamestate:StackablesMatch:",
 						"firstStackable": { "$type": "Identify.Stackables:StackableCause:" },
 						"secondStackable": { "$type": "Identify.Stackables:ThisEffect:" }
 					}

@@ -291,6 +291,6 @@ namespace Kompas.Server.Effects.Models
 			}
 		}
 
-		public override string ToString() => $"Effect {EffectIndex} of {Card?.CardName}";
+		public override string ToString() => $"Effect {EffectIndex} of {_card?.CardName}";
 	}
 }

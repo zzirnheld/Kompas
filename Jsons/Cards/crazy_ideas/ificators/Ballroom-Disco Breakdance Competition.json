@@ -36,7 +36,7 @@
 					"nMultiplier": -1,
 					"endCondition": "Effect Pushed to Stack",
 					"triggerRestriction": {
-						"$type": "Restrict.Triggering:StackablesMatch:",
+						"$type": "Restrict.Gamestate:StackablesMatch:",
 						"firstStackable": { "$type": "Identify.Stackables:StackableEvent:" },
 						"secondStackable": { "$type": "Identify.Stackables:ThisEffect:" }
 					}

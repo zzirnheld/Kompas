@@ -41,7 +41,7 @@
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
-						{ "$type": "Restrict.Triggering:EnemyTurn:" },
+						{ "$type": "Restrict.Gamestate:EnemyTurn:" },
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:ThisCardNow:" },

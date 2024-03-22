@@ -25,6 +25,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			base._Ready();
 			CameraController.Arrived += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Arrived(); };
 			CameraController.Departed += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Departed(); };
+			CardArranger.Close();
 		}
 
 		private void Arrived() => CardArranger.Open();
@@ -33,7 +34,6 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		protected override void SpreadOut()
 		{
-			foreach (var card in DeckModel.Cards) card.CardController.Node.Visible = true;//false;
 			CardArranger.Arrange(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
 		}
 	}

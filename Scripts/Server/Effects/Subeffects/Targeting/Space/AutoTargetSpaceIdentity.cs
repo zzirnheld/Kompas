@@ -12,7 +12,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		#nullable disable
 		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Space> subeffectSpaceIdentity;
+		public IIdentity<Space> spaceIdentity;
 		#nullable restore
 
 		public IRestriction<Space> spaceRestriction = new AlwaysValid();
@@ -20,12 +20,12 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
 			base.Initialize(eff, subeffIndex);
-			subeffectSpaceIdentity.Initialize(initializationContext: DefaultInitializationContext);
+			spaceIdentity.Initialize(initializationContext: DefaultInitializationContext);
 		}
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			var space = subeffectSpaceIdentity.From(ResolutionContext, ResolutionContext);
+			var space = spaceIdentity.From(ResolutionContext, ResolutionContext);
 			
 			if (space == null) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 			if (!spaceRestriction.IsValid(space, ResolutionContext)) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));

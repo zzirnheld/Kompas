@@ -45,7 +45,7 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Restrict.Triggering:StackablesMatch:",
+								"$type": "Restrict.Gamestate:StackablesMatch:",
 								"firstStackable": { "$type": "Identify.Stackables:StackableEvent:", "secondaryContext": true },
 								"secondStackable": { "$type": "Identify.Stackables:StackableEvent:" }
 							}
@@ -64,7 +64,7 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Restrict.Triggering:StackablesMatch:",
+								"$type": "Restrict.Gamestate:StackablesMatch:",
 								"firstStackable": { "$type": "Identify.Stackables:StackableEvent:", "secondaryContext": true },
 								"secondStackable": { "$type": "Identify.Stackables:StackableEvent:" }
 							}

@@ -15,7 +15,7 @@
 							"card": { "$type": "Identify.Cards:CardBefore:" },
 							"other": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
-						{ "$type": "Restrict.Triggering:EnemyTurn:" }
+						{ "$type": "Restrict.Gamestate:EnemyTurn:" }
 					]
 				}
 			},

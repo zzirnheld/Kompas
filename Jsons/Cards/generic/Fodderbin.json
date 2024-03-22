@@ -11,7 +11,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{ "$type": "Restrict.Gamestate:MaxPerStack:" },
-						{ "$type": "Restrict.Triggering:EnemyTurn:" },
+						{ "$type": "Restrict.Gamestate:EnemyTurn:" },
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },

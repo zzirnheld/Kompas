@@ -57,7 +57,7 @@
 					"fallOffRestriction": {
 						"elements": [
 							{
-								"$type": "Restrict.Triggering:StackablesMatch:",
+								"$type": "Restrict.Gamestate:StackablesMatch:",
 								"firstStackable": { "$type": "Identify.Stackables:StackableIndex:" },
 								"secondStackable": { "$type": "Identify.Stackables:StackableCause:" }
 							}
@@ -67,7 +67,7 @@
 					"triggerRestriction": {
 						"elements": [
 							{
-								"$type": "Restrict.Triggering:StackablesMatch:",
+								"$type": "Restrict.Gamestate:StackablesMatch:",
 								"firstStackable": { "$type": "Identify.Stackables:StackableIndex:" },
 								"secondStackable": { "$type": "Identify.Stackables:StackableCause:" }
 							},

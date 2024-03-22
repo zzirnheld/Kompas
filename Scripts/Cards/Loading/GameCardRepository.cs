@@ -79,7 +79,13 @@ namespace Kompas.Cards.Loading
 			catch (System.ArgumentException argEx)
 			{
 				//Catch JSON parse error
-				GD.PrintErr($"Failed to load {json}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
+				GD.PushError($"Failed to load {json}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
+				return default;
+			}
+			catch (JsonSerializationException serEx)
+			{
+				//Catch JSON parse error
+				GD.PushError($"Failed to load {json}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
 				return default;
 			}
 
