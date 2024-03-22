@@ -10,13 +10,16 @@ namespace Kompas.Gamestate.Locations.Models
 	public interface IDiscard : ILocationModel
 	{ }
 
-	public interface IDiscard<CardType> : ILocationModel<CardType>, IDiscard
-		where CardType : GameCard
+	public interface IDiscard<CardType, PlayerType>
+		: ILocationModel<CardType, PlayerType>, IDiscard
+			where CardType : class, IGameCard<CardType, PlayerType>
+			where PlayerType : IPlayer<CardType, PlayerType>
 	{ }
 
-	public abstract class Discard<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IDiscard<CardType>
-		where CardType : GameCard
-		where PlayerType : IPlayer
+	public abstract class Discard<CardType, PlayerType>
+		: OwnedLocationModel<CardType, PlayerType>, IDiscard<CardType, PlayerType>
+			where CardType : class, IGameCard<CardType, PlayerType>
+			where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		private readonly DiscardController discardController;
 

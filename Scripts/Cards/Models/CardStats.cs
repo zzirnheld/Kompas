@@ -1,6 +1,6 @@
 namespace Kompas.Cards.Models
 {
-	public struct CardStats
+	public readonly struct CardStats
 	{
 		public readonly int n;
 		public readonly int e;
@@ -19,7 +19,9 @@ namespace Kompas.Cards.Models
 			this.a = a;
 		}
 
-		public void Deconstruct(out int n, out int e, out int s, out int w, out int c, out int a)
+		public static CardStats Of(IGameCardInfo card) => new(card.N, card.E, card.S, card.W, card.C, card.A);
+
+		public readonly void Deconstruct(out int n, out int e, out int s, out int w, out int c, out int a)
 		{
 			n = this.n;
 			e = this.e;
@@ -42,7 +44,7 @@ namespace Kompas.Cards.Models
 		public static CardStats operator *(CardStats stats, int m) => m * stats;
 
 		public static implicit operator CardStats((int n, int e, int s, int w, int c, int a) stats)
-			=> new CardStats(stats.n, stats.e, stats.s, stats.w, stats.c, stats.a);
+			=> new(stats.n, stats.e, stats.s, stats.w, stats.c, stats.a);
 
 		/// <summary>
 		/// Returns a CardStats where any non-null stat given replaces the value in this CardStats.

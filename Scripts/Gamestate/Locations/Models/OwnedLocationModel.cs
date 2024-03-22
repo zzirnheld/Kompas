@@ -12,9 +12,9 @@ namespace Kompas.Gamestate.Locations.Models
 	/// Base class for ILocationModels owned by a player (from whom we can infer what game they're in).
 	/// Must have an ordering to the list.
 	/// </summary>
-	public abstract class OwnedLocationModel<CardType, PlayerType> : ILocationModel<CardType>
-		where CardType : class, IGameCard<CardType>
-		where PlayerType : IPlayer
+	public abstract class OwnedLocationModel<CardType, PlayerType> : ILocationModel<CardType, PlayerType>
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public PlayerType Owner { get; }
 

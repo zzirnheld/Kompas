@@ -9,6 +9,7 @@ namespace Kompas.Gamestate
 	public class Space
 	{
 		public const int BoardLen = 7;
+		public const int NoPathExists = int.MaxValue;
 		public const int MaxIndex = BoardLen - 1;
 		public static readonly Space Invalid = (-69, -420);
 

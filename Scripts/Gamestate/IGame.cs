@@ -100,12 +100,13 @@ namespace Kompas.Gamestate
 		public event EventHandler<IPlayer> TurnChanged;
 	}
 
-	public interface IGame<CardType> : IGame
-		where CardType : IGameCard<CardType>
+	public interface IGame<CardType, PlayerType> : IGame
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public new IReadOnlyCollection<CardType> Cards { get; }
 		public new CardType? LookupCardByID(int id);
-		public new IBoard<CardType> Board { get; }
+		public new IBoard<CardType, PlayerType> Board { get; }
 	}
 
 	public interface IStackController

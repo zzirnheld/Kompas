@@ -14,13 +14,17 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public interface IBoard : ILocationModel
 	{
-		public IGameCard? GetCardAt(Space space);
+		public IGameCard? GetCardAt(Space? space);
+		public IEnumerable<IGameCard> CardsAdjacentTo(Space? space);
+		public int ShortestPath(Space? from, Space? to, Predicate<IGameCardInfo?> throughPredicate);
 	}
 
-	public interface IBoard<CardType> : ILocationModel<CardType>, IBoard
-		where CardType : IGameCard<CardType>
+	public interface IBoard<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IBoard
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public new CardType? GetCardAt(Space space);
+		public new IEnumerable<CardType> CardsAdjacentTo(Space? space);
 	}
 
 	public static class BoardExensions
@@ -31,16 +35,13 @@ namespace Kompas.Gamestate.Locations.Models
 
 	}
 
-	public abstract class Board<CardType, PlayerType> : ILocationModel<CardType>, IBoard<CardType>
-		where CardType : class, IGameCard<CardType>
-		where PlayerType : IPlayer
+	public abstract class Board<CardType, PlayerType> : IBoard<CardType, PlayerType>
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
-		public const int SpacesInGrid = 7;
-		public const int NoPathExists = int.MaxValue;
-
 		public Location Location => Location.Board;
 
-		protected readonly CardType?[,] board = new CardType[SpacesInGrid, SpacesInGrid];
+		protected readonly CardType?[,] board = new CardType[Space.BoardLen, Space.BoardLen];
 		public IEnumerable<CardType> Cards { get { foreach (var card in board) if (card != null) yield return card; } }
 		IEnumerable<IGameCard> ILocationModel.Cards => Cards;
 
@@ -88,7 +89,7 @@ namespace Kompas.Gamestate.Locations.Models
 			int dist = ShortestPath(friendlyAvatar.Position, enemyAvatar.Position, s => s != space && IsSpaceEmptyOfSpells(s));
 
 			//if it's not in a relevant location, everything is fine
-			return dist < NoPathExists;
+			return dist < Space.NoPathExists;
 		}
 
 		public CardType? GetCardAt(Space? s)
@@ -99,9 +100,9 @@ namespace Kompas.Gamestate.Locations.Models
 			var (x, y) = s;
 			return board[x, y];
 		}
-		IGameCard? IBoard.GetCardAt(Space space) => GetCardAt(space);
+		IGameCard? IBoard.GetCardAt(Space? space) => GetCardAt(space);
 
-		public List<CardType> CardsAdjacentTo(Space? space)
+		public IEnumerable<CardType> CardsAdjacentTo(Space? space)
 		{
 			var list = new List<CardType>();
 			if (space == null)
@@ -118,6 +119,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 			return list;
 		}
+		IEnumerable<IGameCard> IBoard.CardsAdjacentTo(Space? space) => CardsAdjacentTo(space);
 
 		public List<CardType> CardsWhere(Predicate<IGameCard> predicate)
 		{
@@ -147,7 +149,7 @@ namespace Kompas.Gamestate.Locations.Models
 			=> AreConnectedBySpaces(source, destination, s => restriction.IsValid(s, context));
 
 		public static bool AreConnectedBySpaces(Space source, Space destination, Func<Space, bool> predicate)
-			=> destination.AdjacentSpaces.Any(destAdj => ShortestPath(source, destAdj, predicate) < NoPathExists);
+			=> destination.AdjacentSpaces.Any(destAdj => ShortestPath(source, destAdj, predicate) < Space.NoPathExists);
 
 		public static bool AreConnectedByNumberOfSpacesFittingPredicate
 			(Space? source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
@@ -157,7 +159,7 @@ namespace Kompas.Gamestate.Locations.Models
 			=> ShortestEmptyPath(src.Position, dest);
 
 		public int ShortestEmptyPath(Space? src, Space dest)
-			=> board[dest.x, dest.y] == null ? ShortestPath(src, dest, this.IsEmpty) : NoPathExists;
+			=> board[dest.x, dest.y] == null ? ShortestPath(src, dest, this.IsEmpty) : Space.NoPathExists;
 
 		public int ShortestPath(IGameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
 			=> ShortestPath(src.Position, space, c => restriction.IsValid(c, context));
@@ -176,7 +178,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public static int ShortestPath(Space? start, Space? destination, Func<Space, bool> throughPredicate)
 		{
 			if (start == destination) return 0;
-			if (start == null || destination == null) return NoPathExists;
+			if (start == null || destination == null) return Space.NoPathExists;
 
 			int[,] dist = new int[7, 7];
 			bool[,] seen = new bool[7, 7];
@@ -212,7 +214,7 @@ namespace Kompas.Gamestate.Locations.Models
 				}
 			}
 
-			return dist[destination.x, destination.y] <= 0 ? NoPathExists : dist[destination.x, destination.y];
+			return dist[destination.x, destination.y] <= 0 ? Space.NoPathExists : dist[destination.x, destination.y];
 		}
 		#endregion
 

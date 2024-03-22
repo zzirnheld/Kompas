@@ -6,9 +6,9 @@ namespace Kompas.Gamestate.Exceptions
 	public class NullAugmentException : KompasException
 	{
 		public readonly IStackable? augmentSrc;
-		public readonly GameCard augmentedCard;
+		public readonly IGameCard augmentedCard;
 
-		public NullAugmentException(IStackable? augmentSrc, GameCard augmentedCard, string debugMessage, string message = "")
+		public NullAugmentException(IStackable? augmentSrc, IGameCard augmentedCard, string debugMessage, string message = "")
 			: base(debugMessage, message)
 		{
 			this.augmentSrc = augmentSrc;

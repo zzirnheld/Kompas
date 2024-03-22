@@ -17,6 +17,7 @@ namespace Kompas.Cards.Models
 		public IGame Game { get; }
 
 		public string CardName { get; }
+		public string FileName { get; }
 
 		public char Type { get; }
 
@@ -24,10 +25,12 @@ namespace Kompas.Cards.Models
 		public Location Location { get; }
 		public Space? Position { get; }
 
+		public string EffText { get; }
 		public string SubtypeText { get; }
 
 		public string[] SpellSubtypes { get; }
 		public int Radius { get; }
+		public int Duration { get; }
 
 		public bool Activated { get; }
 		public bool Negated { get; }
@@ -53,12 +56,13 @@ namespace Kompas.Cards.Models
 		public int BaseA { get; }
 		public bool Hurt => Type == 'C' && Location == Location.Board && E < BaseE;
 
-		public IReadOnlyCollection<IGameCard> Augments { get; }
+		public IEnumerable<IGameCard> Augments { get; }
 		public IGameCard? AugmentedCard { get; }
 		public int SpacesCanMove { get; }
 
 		public IPlayRestriction PlayRestriction { get; }
 		public IMovementRestriction MovementRestriction { get; }
+		public IRestriction<IGameCardInfo> AttackingDefenderRestriction { get; }
 
 		public IPlayer ControllingPlayer { get; }
 		public Space? SubjectivePosition

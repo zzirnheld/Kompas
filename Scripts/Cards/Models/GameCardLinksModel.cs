@@ -11,12 +11,12 @@ namespace Kompas.Cards.Controllers
 	/// </summary>
 	public class GameCardLinksModel
 	{
-		public GameCard Card { get; }
+		public IGameCard Card { get; }
 
-		private readonly List<CardLink> links = new List<CardLink>();
+		private readonly List<CardLink> links = new();
 		public IReadOnlyCollection<CardLink> Links => links;
 
-		public GameCardLinksModel(GameCard card)
+		public GameCardLinksModel(IGameCard card)
 		{
 			Card = card;
 		}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations
 {
@@ -10,8 +11,9 @@ namespace Kompas.Gamestate.Locations
 		public IEnumerable<IGameCard> Cards { get; }
 	}
 
-	public interface ILocationModel<CardType> : ILocationModel
-		where CardType : IGameCard<CardType>
+	public interface ILocationModel<CardType, PlayerType> : ILocationModel
+		where CardType : IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public new IEnumerable<CardType> Cards { get; }
 

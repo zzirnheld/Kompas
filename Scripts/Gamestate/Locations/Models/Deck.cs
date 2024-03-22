@@ -12,11 +12,12 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public interface IDeck : ILocationModel
 	{
-		public GameCard? Topdeck { get; }
+		public IGameCard? Topdeck { get; }
 	}
 
-	public interface IDeck<CardType> : ILocationModel<CardType>, IDeck
-		where CardType : GameCard
+	public interface IDeck<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IDeck
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public new CardType? Topdeck { get; }
 
@@ -27,9 +28,9 @@ namespace Kompas.Gamestate.Locations.Models
 		public void ShuffleIn(CardType card, IStackable? stackSrc = null);
 	}
 
-	public abstract class Deck<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IDeck<CardType>
-		where CardType : GameCard
-		where PlayerType : IPlayer
+	public abstract class Deck<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IDeck<CardType, PlayerType>
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		private readonly IList<CardType> deck = new List<CardType>();
 		public override IEnumerable<CardType> Cards => deck;
@@ -47,8 +48,8 @@ namespace Kompas.Gamestate.Locations.Models
 		public override int IndexOf(CardType card) => deck.IndexOf(card);
 		public int DeckSize => deck.Count;
 		public CardType? Topdeck => deck.FirstOrDefault();
-		GameCard? IDeck.Topdeck => Topdeck;
-		public GameCard? Bottomdeck => deck.LastOrDefault();
+		IGameCard? IDeck.Topdeck => Topdeck;
+		public IGameCard? Bottomdeck => deck.LastOrDefault();
 
 		protected override bool AllowAlreadyHereWhenAdd => true;
 
@@ -95,10 +96,10 @@ namespace Kompas.Gamestate.Locations.Models
 			foreach (var card in toShuffleInOrder) PushBottomdeck(card, stackSrc);
 		}
 
-		public IReadOnlyCollection<GameCard> CardsThatFitRestriction(IRestriction<IGameCardInfo> cardRestriction, ResolutionContext context)
+		public IReadOnlyCollection<CardType> CardsThatFitRestriction(IRestriction<IGameCardInfo> cardRestriction, ResolutionContext context)
 		{
-			var cards = new List<GameCard>();
-			foreach (GameCard c in deck)
+			var cards = new List<CardType>();
+			foreach (var c in deck)
 			{
 				if (c != null && cardRestriction.IsValid(c, context))
 					cards.Add(c);

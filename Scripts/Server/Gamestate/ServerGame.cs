@@ -23,7 +23,7 @@ using KompasServer.Effects;
 
 namespace Kompas.Server.Gamestate
 {
-	public class ServerGame : IGame
+	public class ServerGame : IGame<ServerGameCard>
 	{
 		public const int MinDeckSize = 49;
 		public const int AvatarEBonus = 15;
@@ -35,8 +35,8 @@ namespace Kompas.Server.Gamestate
 			?? throw new UseFactoryException();
 		IStackController IGame.StackController => StackController;
 
-		private IBoard<ServerGameCard>? _board;
-		public IBoard<ServerGameCard> Board => _board
+		private IBoard<ServerGameCard, ServerPlayer>? _board;
+		public IBoard<ServerGameCard, ServerPlayer> Board => _board
 			?? throw new UseFactoryException();
 		IBoard IGame.Board => Board;
 
@@ -49,7 +49,8 @@ namespace Kompas.Server.Gamestate
 
 		//Dictionary of cards, and the forwardings to make that convenient
 		private readonly Dictionary<int, ServerGameCard> cardsByID = new();
-		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
+		public IReadOnlyCollection<ServerGameCard> Cards => cardsByID.Values;
+		IReadOnlyCollection<IGameCard> IGame.Cards => Cards;
 
 		//Players
 		private ServerPlayer[]? _serverPlayers;

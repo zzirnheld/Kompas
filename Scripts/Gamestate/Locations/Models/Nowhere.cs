@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public sealed class Nowhere<CardType> : ILocationModel<CardType>
-		where CardType : class, IGameCard<CardType>
+	public sealed class Nowhere<CardType, PlayerType> : ILocationModel<CardType, PlayerType>
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		private static readonly Nowhere<CardType> _singleton = new();
 		public static Nowhere<CardType> Instance => _singleton;

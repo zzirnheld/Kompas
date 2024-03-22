@@ -14,13 +14,14 @@ namespace Kompas.Gamestate.Locations.Models
 		public int HandSize { get; }
 	}
 
-	public interface IHand<CardType> : ILocationModel<CardType>, IHand
-		where CardType : IGameCard<CardType>
+	public interface IHand<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IHand
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{ }
 
-	public abstract class Hand<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IHand<CardType>
-		where CardType : IGameCard<CardType>
-		where PlayerType : IPlayer
+	public abstract class Hand<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IHand<CardType, PlayerType>
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		private readonly IList<CardType> hand = new List<CardType>();
 		public override IEnumerable<CardType> Cards => hand;

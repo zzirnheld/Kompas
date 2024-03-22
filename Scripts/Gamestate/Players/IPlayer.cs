@@ -19,7 +19,7 @@ namespace Kompas.Gamestate.Players
 		/// Just to let the player know. Should not be referenced, unless I want to add "gains more pips next turn" effects that aren't delayed for some reason
 		/// </summary>
 		public int PipsNextTurn { set; }
-		public GameCard Avatar { get; set; }
+		public IGameCard Avatar { get; set; }
 
 		//other game data
 		/// <summary>
@@ -43,12 +43,12 @@ namespace Kompas.Gamestate.Players
 	}
 
 	public interface IPlayer<CardType, PlayerType> : IPlayer
-		where CardType : GameCard
+		where CardType : class, IGameCard<CardType, PlayerType>
 		where PlayerType : IPlayer<CardType, PlayerType>
 	{
-		public new IDeck<CardType> Deck { get; }
-		public new IDiscard<CardType> Discard { get; }
-		public new IHand<CardType> Hand { get; }
-		public new IAnnihilation<CardType> Annihilation { get; }
+		public new IDeck<CardType, PlayerType> Deck { get; }
+		public new IDiscard<CardType, PlayerType> Discard { get; }
+		public new IHand<CardType, PlayerType> Hand { get; }
+		public new IAnnihilation<CardType, PlayerType> Annihilation { get; }
 	}
 }

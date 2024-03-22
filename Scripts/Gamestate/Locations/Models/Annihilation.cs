@@ -10,13 +10,14 @@ namespace Kompas.Gamestate.Locations.Models
 	public interface IAnnihilation : ILocationModel
 	{ }
 
-	public interface IAnnihilation<CardType> : ILocationModel<CardType>, IAnnihilation
-		where CardType : GameCard
+	public interface IAnnihilation<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IAnnihilation
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{ }
 
-	public abstract class Annihilation<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IAnnihilation<CardType>
-		where CardType : GameCard
-		where PlayerType : IPlayer
+	public abstract class Annihilation<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IAnnihilation<CardType, PlayerType>
+		where CardType : class, IGameCard<CardType, PlayerType>
+		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		private readonly IList<CardType> cards = new List<CardType>();
 		public override IEnumerable<CardType> Cards => cards;

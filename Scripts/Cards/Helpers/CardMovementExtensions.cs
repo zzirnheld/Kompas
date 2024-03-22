@@ -8,7 +8,9 @@ namespace Kompas.Cards.Movement
 {
 	public static class GameCardMovementExtensions
 	{
-		public static void Discard(this GameCard card, IStackable? stackSrc = null)
+		public static void Discard<CardType, PlayerType>(this CardType card, IStackable? stackSrc = null)
+			where CardType : class, IGameCard<CardType, PlayerType>
+			where PlayerType : IPlayer<CardType, PlayerType>
 			=> card.ControllingPlayer.Discard.Add(card, stackableCause: stackSrc);
 
 		public static void Hand(this GameCard card, IPlayer controllingPlayer, IStackable? stackSrc = null)

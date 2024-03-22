@@ -19,7 +19,7 @@ namespace Kompas.Cards.Models
 		public abstract bool Summoned { get; }
 		public abstract bool IsAvatar { get; }
 
-		public abstract IReadOnlyCollection<GameCard> AdjacentCards { get; }
+		public abstract IEnumerable<IGameCard> AdjacentCards { get; }
 
 		public abstract IPlayRestriction PlayRestriction { get; }
 		public abstract IMovementRestriction MovementRestriction { get; }
@@ -62,8 +62,6 @@ namespace Kompas.Cards.Models
 		}
 
 		public abstract Location Location { get; protected set; }
-		public abstract GameCard? AugmentedCard { get; protected set; }
-		public abstract IReadOnlyCollection<GameCard> Augments { get; protected set; }
 		/// <summary>
 		/// Represents whether this card is currently known to the enemy of this player.
 		/// TODO: make this also be accurate on client, remembering what thigns have been revealed
@@ -142,6 +140,7 @@ namespace Kompas.Cards.Models
 		public void AddToStats(CardStats buff, IStackable? stackSrc = null)
 			=> SetStats(Stats + buff, stackSrc);
 
+		/*
 		public void SwapCharStats(GameCard other, bool swapN = true, bool swapE = true, bool swapS = true, bool swapW = true)
 		{
 			int[] aNewStats = new int[4];
@@ -154,6 +153,6 @@ namespace Kompas.Cards.Models
 
 			SetCharStats(aNewStats[0], aNewStats[1], aNewStats[2], aNewStats[3]);
 			other.SetCharStats(bNewStats[0], bNewStats[1], bNewStats[2], bNewStats[3]);
-		}
+		}*/
 	}
 }

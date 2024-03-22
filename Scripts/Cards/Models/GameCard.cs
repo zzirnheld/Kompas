@@ -16,15 +16,18 @@ using Kompas.Gamestate.Players;
 namespace Kompas.Cards.Models
 {
 
-	public abstract class GameCard<CardType>
-		: GameCardBase, IGameCard<CardType>
-			where CardType : IGameCard<CardType>
+	public abstract class GameCard<CardType, PlayerType>
+		: GameCardBase, IGameCard<CardType, PlayerType>
+			where CardType : class, IGameCard<CardType, PlayerType>
+			where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public abstract ICardController CardController { get; }
-		public abstract IGame<CardType> Game { get; }
+		public abstract IGame<CardType, PlayerType> Game { get; }
+		IGame IGameCardInfo.Game => Game;
 
 		public int ID { get; private set; }
-		public IGameCard Card => this;
+		public abstract CardType Card { get; }
+		IGameCard IGameCardInfo.Card => Card;
 
 		protected SerializableCard InitialCardValues { get; private set; }
 
@@ -81,16 +84,16 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public int IndexInList => LocationModel?.IndexOf(this) ?? -1;
+		public int IndexInList => LocationModel?.IndexOf(Card) ?? -1;
 		public bool InHiddenLocation => IGame.IsHiddenLocation(Location);
 
-		public override IReadOnlyCollection<IGameCard<CardType>> AdjacentCards
-			=> Game?.Board.CardsAdjacentTo(Position) ?? new List<GameCard>();
+		public override IEnumerable<CardType> AdjacentCards
+			=> Game?.Board.CardsAdjacentTo(Position) ?? new List<CardType>();
 		#endregion positioning
 
 		#region Augments
-		private readonly List<GameCard> augmentsList = new();
-		public override IReadOnlyCollection<GameCard> Augments
+		private readonly List<CardType> augmentsList = new();
+		public IEnumerable<CardType> Augments
 		{
 			get => augmentsList;
 			protected set
@@ -99,12 +102,13 @@ namespace Kompas.Cards.Models
 				augmentsList.AddRange(value);
 			}
 		}
+		IEnumerable<IGameCard> IGameCardInfo.Augments => Augments;
 
-		private GameCard? augmentedCard;
-		public override GameCard? AugmentedCard
+		private CardType? augmentedCard;
+		public CardType? AugmentedCard
 		{
 			get => augmentedCard;
-			protected set
+			set
 			{
 				GD.Print($"{CardName} augmenting {augmentedCard} will now be augmenting {value}");
 				augmentedCard = value;
@@ -115,6 +119,7 @@ namespace Kompas.Cards.Models
 				}
 			}
 		}
+		IGameCard? IGameCardInfo.AugmentedCard => AugmentedCard;
 
 		#endregion
 
@@ -134,7 +139,8 @@ namespace Kompas.Cards.Models
 
 		//controller/owners
 		public IPlayer ControllingPlayer { get; set; }
-		public IPlayer OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
+		public PlayerType OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
+		IPlayer IGameCard.OwningPlayer => OwningPlayer;
 		public int ControllingPlayerIndex => ControllingPlayer?.Index ?? 0;
 		public int OwnerIndex => OwningPlayer?.Index ?? -1;
 
@@ -154,8 +160,8 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		private ILocationModel<CardType> locationModel = Nowhere.Instance;
-		public ILocationModel<CardType> LocationModel
+		private ILocationModel<CardType, PlayerType> locationModel = Nowhere<CardType, PlayerType>.Instance;
+		public ILocationModel<CardType, PlayerType> LocationModel
 		{
 			get => locationModel;
 			set
@@ -165,6 +171,7 @@ namespace Kompas.Cards.Models
 				Location = value.Location;
 			}
 		}
+		ILocationModel IGameCard.LocationModel => LocationModel;
 
 		public string BaseJson => CardRepository.GetJsonFromName(CardName)
 			?? throw new System.NullReferenceException($"{CardName} doesn't have an associated json?");
@@ -181,11 +188,11 @@ namespace Kompas.Cards.Models
 			sb.Append(base.ToString());
 			sb.Append($", ID={ID}, Controlled by {ControllingPlayerIndex}, Owned by {OwnerIndex}, In Location {location}, Position {Position}, ");
 			if (AugmentedCard != null) sb.Append($"Augmenting {AugmentedCard.CardName} ID={AugmentedCard.ID}, ");
-			if (Augments.Count > 0) sb.Append($"Augments are {string.Join(", ", Augments.Select(c => $"{c.CardName} ID={c.ID}"))}");
+			if (Augments.Any()) sb.Append($"Augments are {string.Join(", ", Augments.Select(c => $"{c.CardName} ID={c.ID}"))}");
 			return sb.ToString();
 		}
 
-		protected GameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer)
+		protected GameCard(SerializableCard serializeableCard, int id, PlayerType owningPlayer)
 			: base(serializeableCard.Stats,
 					   serializeableCard.subtext, serializeableCard.spellTypes,
 					   serializeableCard.unique,
@@ -244,7 +251,7 @@ namespace Kompas.Cards.Models
 		/// Accumulates the distance to <paramref name="to"/> into the number of spaces this card moved this turn.
 		/// </summary>
 		/// <param name="to">The space being moved to</param>
-		public void CountSpacesMovedTo((int x, int y) to)
+		public void CountSpacesMovedTo(Space to)
 		{
 			var from = Position ?? throw new InvalidOperationException("Can't count spaces moved while not on board!");
 			int cost = MovementRestriction.GetMovementCost(from, to, Game);
@@ -254,7 +261,7 @@ namespace Kompas.Cards.Models
 
 		#region augments
 
-		public virtual void AddAugment(GameCard augment, IStackable? stackSrc = null)
+		public virtual void AddAugment(CardType augment, IStackable? stackSrc = null)
 		{
 			//can't add a null augment
 			if (augment == null)
@@ -267,16 +274,19 @@ namespace Kompas.Cards.Models
 			augment.Remove(stackSrc);
 
 			augmentsList.Add(augment);
-			augment.AugmentedCard = this;
+			augment.AugmentedCard = Card;
 		}
 
 		protected virtual void Detach(IStackable? stackSrc = null)
 		{
 			if (AugmentedCard == null) throw new NotAugmentingException(this);
 
-			AugmentedCard.augmentsList.Remove(this);
+			AugmentedCard.RemoveAugment(Card);
 			AugmentedCard = null;
 		}
+
+		//TODO see if any way to narrow down - perhaps making the type param tighter that CardType must be a GameCard<type, type> ?
+		public void RemoveAugment(CardType augment) => augmentsList.Remove(augment);
 		#endregion augments
 
 		#region statfuncs
@@ -341,7 +351,7 @@ namespace Kompas.Cards.Models
 			if (Location == Location.Nowhere) return;
 
 			if (AugmentedCard != null) Detach(stackSrc);
-			else LocationModel.Remove(this);
+			else LocationModel.Remove(Card);
 		}
 
 		public virtual void Reveal(IStackable? stackSrc = null)

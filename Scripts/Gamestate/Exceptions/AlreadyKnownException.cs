@@ -4,9 +4,9 @@ namespace Kompas.Gamestate.Exceptions
 {
 	public class AlreadyKnownException : KompasException
 	{
-		public readonly GameCard card;
+		public readonly IGameCard card;
 
-		public AlreadyKnownException(GameCard card, string debugMessage = "", string message = "")
+		public AlreadyKnownException(IGameCard card, string debugMessage = "", string message = "")
 			: base(debugMessage, message)
 		{
 			this.card = card;
