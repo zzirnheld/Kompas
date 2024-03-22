@@ -10,6 +10,7 @@ namespace Kompas.Cards.Models
 	public interface IGameCard : IGameCardInfo
 	{
 		public int ID { get; }
+		public string BaseJson { get; }
 
 		public GameCardLinksModel CardLinkHandler { get; }
 
@@ -21,6 +22,7 @@ namespace Kompas.Cards.Models
 		public IPlayer OwningPlayer { get; }
 
 		public int SpacesMoved { get; }
+		public int AttacksThisTurn { get; }
 		public IEnumerable<IGameCard> AdjacentCards { get; }
 
 		public void Remove(IStackable? stackSrc = null);

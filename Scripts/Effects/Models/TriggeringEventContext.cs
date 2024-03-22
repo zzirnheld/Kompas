@@ -108,9 +108,9 @@ namespace Kompas.Effects.Models
 		}
 
 		public TriggeringEventContext(IGame game,
-								 GameCard? CardBefore = null,
-								 GameCard? secondaryCardBefore = null,
-								 GameCard? eventCauseOverride = null,
+								 IGameCard? CardBefore = null,
+								 IGameCard? secondaryCardBefore = null,
+								 IGameCard? eventCauseOverride = null,
 								 IStackable? stackableCause = null,
 								 IStackable? stackableEvent = null,
 								 IPlayer? player = null,

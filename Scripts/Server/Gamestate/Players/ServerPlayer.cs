@@ -17,7 +17,7 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Gamestate.Players
 {
-	public class ServerPlayer : IPlayer
+	public class ServerPlayer : IPlayer<ServerGameCard, ServerPlayer>
 	{
 		private ServerNetworker? _networker;
 		public ServerNetworker Networker => _networker
@@ -44,8 +44,8 @@ namespace Kompas.Server.Gamestate.Players
 		}
 		public int PipsNextTurn { set { } }
 
-		private GameCard? _avatar;
-		public GameCard Avatar
+		private ServerGameCard? _avatar;
+		public ServerGameCard Avatar
 		{
 			get => _avatar ?? throw new NotInitializedException();
 			set
@@ -56,28 +56,29 @@ namespace Kompas.Server.Gamestate.Players
 				_avatar = value;
 			}
 		}
+		IGameCard IPlayer.Avatar => Avatar;
 
 		public bool Friendly => false; //no such thing in the hostile lands of "the server"
 
 		public int Index { get; }
 
-		private IDeck<ServerGameCard>? _deck;
-		public IDeck<ServerGameCard> Deck => _deck
+		private IDeck<ServerGameCard, ServerPlayer>? _deck;
+		public IDeck<ServerGameCard, ServerPlayer> Deck => _deck
 			?? throw new UseFactoryException();
 		IDeck IPlayer.Deck => Deck;
 
-		private IDiscard<ServerGameCard>? _discard;
-		public IDiscard<ServerGameCard> Discard => _discard
+		private IDiscard<ServerGameCard, ServerPlayer>? _discard;
+		public IDiscard<ServerGameCard, ServerPlayer> Discard => _discard
 			?? throw new UseFactoryException();
 		IDiscard IPlayer.Discard => Discard;
 
-		private IHand<ServerGameCard>? _hand;
-		public IHand<ServerGameCard> Hand => _hand
+		private IHand<ServerGameCard, ServerPlayer>? _hand;
+		public IHand<ServerGameCard, ServerPlayer> Hand => _hand
 			?? throw new UseFactoryException();
 		IHand IPlayer.Hand => Hand;
 
-		private IAnnihilation<ServerGameCard>? _annihilation;
-		public IAnnihilation<ServerGameCard> Annihilation => _annihilation
+		private IAnnihilation<ServerGameCard, ServerPlayer>? _annihilation;
+		public IAnnihilation<ServerGameCard, ServerPlayer> Annihilation => _annihilation
 			?? throw new UseFactoryException();
 		IAnnihilation IPlayer.Annihilation => Annihilation;
 
@@ -130,7 +131,7 @@ namespace Kompas.Server.Gamestate.Players
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		public async Task TryAugment(GameCard? aug, Space? space)
+		public async Task TryAugment(ServerGameCard? aug, Space? space)
 		{
 			if (aug == null || space == null) return;
 			try
@@ -149,7 +150,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 		}
 
-		public async Task TryPlay(GameCard? card, Space? space)
+		public async Task TryPlay(ServerGameCard? card, Space? space)
 		{
 			if (card == null || space == null) return;
 			try
@@ -172,7 +173,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 		}
 
-		public async Task TryMove(GameCard? toMove, Space? space)
+		public async Task TryMove(ServerGameCard? toMove, Space? space)
 		{
 			if (toMove == null || space == null) return;
 			//if it's not a valid place to do, put the cards back
@@ -208,7 +209,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 		}
 
-		public async Task TryAttack(GameCard? attacker, GameCard? defender)
+		public async Task TryAttack(ServerGameCard? attacker, ServerGameCard? defender)
 		{
 			if (attacker == null || defender == null) return;
 			ServerNotifier.NotifyBothPutBack(new IPlayer[] {this, Enemy});

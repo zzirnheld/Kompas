@@ -43,12 +43,12 @@ namespace Kompas.Networking.Packets
 
 		//TODO allow for card to be added with stats not as defaults.
 		//this will require using a json library that allows for polymorphism-ish stuff
-		public AddCardPacket(GameCard card, bool invert = false)
+		public AddCardPacket(IGameCard card, bool invert = false)
 			: this(card, card.KnownToEnemy, invert)
 		{ }
 
-		public AddCardPacket(GameCard card, bool known, bool invert = false)
-			: this(cardId: card.ID, json: card.BaseJson, location: card.Location, controllerIndex: card.ControllingPlayerIndex,
+		public AddCardPacket(IGameCard card, bool known, bool invert = false)
+			: this(cardId: card.ID, json: card.BaseJson, location: card.Location, controllerIndex: card.ControllingPlayer.Index,
 				  x: card.Position?.x ?? 0, y: card.Position?.y ?? 0, attached: card.AugmentedCard != null, known: known, invert: invert)
 		{ }
 

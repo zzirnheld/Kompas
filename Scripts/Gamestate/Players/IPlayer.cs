@@ -19,7 +19,7 @@ namespace Kompas.Gamestate.Players
 		/// Just to let the player know. Should not be referenced, unless I want to add "gains more pips next turn" effects that aren't delayed for some reason
 		/// </summary>
 		public int PipsNextTurn { set; }
-		public IGameCard Avatar { get; set; }
+		public IGameCard Avatar { get; }
 
 		//other game data
 		/// <summary>

@@ -23,7 +23,7 @@ using KompasServer.Effects;
 
 namespace Kompas.Server.Gamestate
 {
-	public class ServerGame : IGame<ServerGameCard>
+	public class ServerGame : IGame<ServerGameCard, ServerPlayer>
 	{
 		public const int MinDeckSize = 49;
 		public const int AvatarEBonus = 15;
@@ -270,9 +270,9 @@ namespace Kompas.Server.Gamestate
 		}
 		#endregion turn
 
-		public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null)
+		public List<ServerGameCard> DrawX(ServerPlayer controller, int x, IStackable? stackSrc = null)
 		{
-			List<GameCard> drawn = new();
+			List<ServerGameCard> drawn = new();
 			int cardsDrawn;
 			for (cardsDrawn = 0; cardsDrawn < x; cardsDrawn++)
 			{
@@ -290,12 +290,12 @@ namespace Kompas.Server.Gamestate
 			StackController.TriggerForCondition(Trigger.DrawX, context);
 			return drawn;
 		}
-		public GameCard? Draw(IPlayer player, IStackable? stackSrc = null)
+		public ServerGameCard? Draw(IPlayer player, IStackable? stackSrc = null)
 			=> DrawX(player, 1, stackSrc).FirstOrDefault();
 
 		/// <param name="manual">Whether a player instigated the attack without an effect.</param>
 		/// <returns>The Attack object created by starting this attack</returns>
-		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false)
+		public ServerAttack Attack(ServerGameCard attacker, ServerGameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false)
 		{
 			GD.Print($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
 			//push the attack to the stack, then check if any player wants to respond before resolving it
@@ -307,9 +307,9 @@ namespace Kompas.Server.Gamestate
 			return attack;
 		}
 
-		public GameCard? LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
+		public ServerGameCard? LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
 
-		public ServerPlayer ServerControllerOf(GameCard card) => ServerPlayers[card.ControllingPlayerIndex];
+		public ServerPlayer ServerControllerOf(ServerGameCard card) => ServerPlayers[card.ControllingPlayerIndex];
 
 		public void DumpGameInfo()
 		{

@@ -2,13 +2,15 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Cards.Models;
 
 namespace Kompas.Server.Gamestate.Extensions
 {
 	public static class ServerValidityCheckerExtensions
 	{
-		public static bool IsValidNormalPlay(this ServerGame game, GameCard card, Space to, IPlayer player)
+		public static bool IsValidNormalPlay(this ServerGame game, ServerGameCard card, Space to, IPlayer player)
 		{
 			if (card == null) return false;
 			if (game.DebugMode)
@@ -21,7 +23,7 @@ namespace Kompas.Server.Gamestate.Extensions
 			return card.PlayRestriction.IsValid((to, player), ResolutionContext.PlayerTrigger(null, game));
 		}
 
-		public static bool IsValidNormalAttach(this ServerGame game, GameCard card, Space to, IPlayer player)
+		public static bool IsValidNormalAttach(this ServerGame game, ServerGameCard card, Space to, IPlayer player)
 		{
 			if (game.DebugMode)
 			{
@@ -35,7 +37,7 @@ namespace Kompas.Server.Gamestate.Extensions
 				&& card.PlayRestriction.IsValid((to, player), ResolutionContext.PlayerTrigger(null, game));
 		}
 
-		public static bool IsValidNormalMove(this ServerGame game, GameCard toMove, Space to, IPlayer by)
+		public static bool IsValidNormalMove(this ServerGame game, ServerGameCard toMove, Space to, IPlayer by)
 		{
 			if (game.DebugMode)
 			{
@@ -48,7 +50,7 @@ namespace Kompas.Server.Gamestate.Extensions
 			else return toMove.MovementRestriction.IsValid(to, ResolutionContext.PlayerTrigger(null, game));
 		}
 
-		public static bool IsValidNormalAttack(this ServerGame game, GameCard attacker, GameCard defender, IPlayer instigator)
+		public static bool IsValidNormalAttack(this ServerGame game, ServerGameCard attacker, ServerGameCard defender, IPlayer instigator)
 		{
 			if (game.DebugMode)
 			{

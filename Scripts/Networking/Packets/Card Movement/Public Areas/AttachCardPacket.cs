@@ -24,8 +24,8 @@ namespace Kompas.Networking.Packets
 			this.y = invert ? 6 - y : y;
 		}
 
-		public AttachCardPacket(GameCard card, int x, int y, bool invert = false)
-			: this(card.ID, card.BaseJson, card.ControllingPlayerIndex, x, y, invert: invert)
+		public AttachCardPacket(IGameCard card, int x, int y, bool invert = false)
+			: this(card.ID, card.BaseJson, card.ControllingPlayer.Index, x, y, invert: invert)
 		{ }
 
 		public override Packet Copy() => new AttachCardPacket(cardId, json, controllerIndex, x, y);

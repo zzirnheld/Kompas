@@ -5,6 +5,7 @@ using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Networking;
@@ -17,7 +18,7 @@ namespace Kompas.Server.Effects.Models
 
 		private ServerStackController EffCtrl => ServerGame.StackController;
 
-		public ServerAttack(ServerGame serverGame, IPlayer instigator, GameCard attacker, GameCard defender)
+		public ServerAttack(ServerGame serverGame, IPlayer instigator, ServerGameCard attacker, ServerGameCard defender)
 			: base(instigator, attacker, defender)
 		{
 			ServerGame = serverGame

@@ -76,60 +76,60 @@ namespace Kompas.Server.Networking
 		#endregion game stats
 
 		#region card location
-		public static void NotifyAttach(IPlayer player, GameCard toAttach, Space space, bool wasKnown)
+		public static void NotifyAttach(IPlayer player, IGameCard toAttach, Space space, bool wasKnown)
 			=> SendToBothInverting(player, new AttachCardPacket(toAttach, space.x, space.y, invert: player.Index != 0), wasKnown);
 
 		/// <summary>
 		/// Notifies that the IPlayer corresponding to this notifier played a given card
 		/// </summary>
-		public static void NotifyPlay(IPlayer player, GameCard toPlay, Space space, bool wasKnown)
+		public static void NotifyPlay(IPlayer player, IGameCard toPlay, Space space, bool wasKnown)
 		{
 			//if this card is an augment, don't bother notifying about it. attach will take care of it.
 			if (toPlay.Type == 'A') return;
 
 			//tell everyone to do it
-			var p = new PlayCardPacket(toPlay.ID, toPlay.BaseJson, toPlay.ControllingPlayerIndex, space.x, space.y, invert: player.Index != 0);
+			var p = new PlayCardPacket(toPlay.ID, toPlay.BaseJson, toPlay.ControllingPlayer.Index, space.x, space.y, invert: player.Index != 0);
 			var q = p.GetInversion(wasKnown);
 			SendPackets(player, p, player.Enemy, q);
 		}
 
-		public static void NotifyMove(IPlayer player, GameCard toMove, Space space)
+		public static void NotifyMove(IPlayer player, IGameCard toMove, Space space)
 			=> SendToBothInverting(player, new MoveCardPacket(toMove.ID, space.x, space.y, invert: player.Index != 0));
 
-		public static void NotifyDiscard(IPlayer player, GameCard toDiscard, bool wasKnown)
+		public static void NotifyDiscard(IPlayer player, IGameCard toDiscard, bool wasKnown)
 			=> SendToBothInverting(player, new DiscardCardPacket(toDiscard, invert: player.Index != 0), wasKnown);
 
-		public static void NotifyRehand(IPlayer player, GameCard toRehand, bool wasKnown)
+		public static void NotifyRehand(IPlayer player, IGameCard toRehand, bool wasKnown)
 			=> SendToBothInverting(player, new RehandCardPacket(toRehand.ID), wasKnown);
 
 		public static void NotifyDecrementHand(IPlayer player) => SendPacket(player, new ChangeEnemyHandCountPacket(-1));
 
-		public static void NotifyAnnhilate(IPlayer player, GameCard toAnnhilate, bool wasKnown)
-			=> SendToBothInverting(player, new AnnihilateCardPacket(toAnnhilate.ID, toAnnhilate.BaseJson, toAnnhilate.ControllingPlayerIndex, invert: player.Index != 0),
+		public static void NotifyAnnhilate(IPlayer player, IGameCard toAnnhilate, bool wasKnown)
+			=> SendToBothInverting(player, new AnnihilateCardPacket(toAnnhilate.ID, toAnnhilate.BaseJson, toAnnhilate.ControllingPlayer.Index, invert: player.Index != 0),
 				known: wasKnown);
 
-		public static void NotifyTopdeck(IPlayer player, GameCard card, bool wasKnown)
-			=> SendToBothInverting(player, new TopdeckCardPacket(card.ID, card.OwnerIndex, invert: player.Index != 0),
+		public static void NotifyTopdeck(IPlayer player, IGameCard card, bool wasKnown)
+			=> SendToBothInverting(player, new TopdeckCardPacket(card.ID, card.OwningPlayer.Index, invert: player.Index != 0),
 				known: wasKnown);
 
-		public static void NotifyBottomdeck(IPlayer player, GameCard card, bool wasKnown)
-			=> SendToBothInverting(player, new BottomdeckCardPacket(card.ID, card.OwnerIndex, invert: player.Index != 0),
+		public static void NotifyBottomdeck(IPlayer player, IGameCard card, bool wasKnown)
+			=> SendToBothInverting(player, new BottomdeckCardPacket(card.ID, card.OwningPlayer.Index, invert: player.Index != 0),
 				known: wasKnown);
 
-		public static void NotifyReshuffle(IPlayer player, GameCard toReshuffle, bool wasKnown)
-			=> SendToBothInverting(player, new ReshuffleCardPacket(toReshuffle.ID, toReshuffle.OwnerIndex, invert: player.Index != 0),
+		public static void NotifyReshuffle(IPlayer player, IGameCard toReshuffle, bool wasKnown)
+			=> SendToBothInverting(player, new ReshuffleCardPacket(toReshuffle.ID, toReshuffle.OwningPlayer.Index, invert: player.Index != 0),
 				known: wasKnown);
 
-		public static void NotifyCreateCard(IPlayer player, GameCard added, bool wasKnown)
+		public static void NotifyCreateCard(IPlayer player, IGameCard added, bool wasKnown)
 			=> SendToBothInverting(player, new AddCardPacket(added, invert: player.Index != 0), known: wasKnown);
 
-		public static void NotifyRevealCard(IPlayer player, GameCard revealed)
+		public static void NotifyRevealCard(IPlayer player, IGameCard revealed)
 		{
 			NotifyDecrementHand(player);
 			SendPacket(player, new AddCardPacket(revealed, invert: player.Index != 0));
 		}
 
-		public static void NotifyKnownToEnemy(IPlayer player, GameCard toUpdate, bool wasKnown)
+		public static void NotifyKnownToEnemy(IPlayer player, IGameCard toUpdate, bool wasKnown)
 			=> SendToBothInverting(player, new UpdateKnownToEnemyPacket(toUpdate.KnownToEnemy, toUpdate.ID), known: wasKnown);
 
 		public static void GetHandSizeChoices(IPlayer player, int[] cardIds, string listRestrictionJson)
@@ -139,25 +139,25 @@ namespace Kompas.Server.Networking
 		#endregion card location
 
 		#region card stats
-		public static void NotifyStats(IPlayer player, GameCard card)
-			=> SendToBothInverting(player, new ChangeCardNumericStatsPacket(card.ID, card.Stats, card.SpacesMoved), card.KnownToEnemy);
+		public static void NotifyStats(IPlayer player, IGameCard card)
+			=> SendToBothInverting(player, new ChangeCardNumericStatsPacket(card.ID, CardStats.Of(card), card.SpacesMoved), card.KnownToEnemy);
 
-		public static void NotifySpacesMoved(IPlayer player, GameCard card)
+		public static void NotifySpacesMoved(IPlayer player, IGameCard card)
 			=> SendToBothInverting(player, new SpacesMovedPacket(card.ID, card.SpacesMoved), card.KnownToEnemy);
 
-		public static void NotifyAttacksThisTurn(IPlayer player, GameCard card)
+		public static void NotifyAttacksThisTurn(IPlayer player, IGameCard card)
 		{
 			GD.Print("Notifying about attacks this turn...");
 			SendToBothInverting(player, new AttacksThisTurnPacket(card.ID, card.AttacksThisTurn), card.KnownToEnemy);
 		}
 
-		public static void NotifySetNegated(IPlayer player, GameCard card, bool negated)
+		public static void NotifySetNegated(IPlayer player, IGameCard card, bool negated)
 			=> SendToBothInverting(player, new NegateCardPacket(card.ID, negated), card.KnownToEnemy);
 
-		public static void NotifyActivate(IPlayer player, GameCard card, bool activated)
+		public static void NotifyActivate(IPlayer player, IGameCard card, bool activated)
 			=> SendToBothInverting(player, new ActivateCardPacket(card.ID, activated), card.KnownToEnemy);
 
-		public static void NotifyChangeController(IPlayer player, GameCard card, IPlayer controller)
+		public static void NotifyChangeController(IPlayer player, IGameCard card, IPlayer controller)
 			=> SendToBothInverting(player, new ChangeCardControllerPacket(card.ID, controller.Index, invert: player.Index != 0), card.KnownToEnemy);
 		#endregion card stats
 
@@ -169,7 +169,7 @@ namespace Kompas.Server.Networking
 			=> SendPacket(player, new GetSpaceTargetPacket(cardName, targetBlurb, spaces, recommendedSpaces));
 		#endregion request targets
 
-		public static void NotifyAttackStarted(IPlayer instigator, GameCard atk, GameCard def)
+		public static void NotifyAttackStarted(IPlayer instigator, IGameCard atk, IGameCard def)
 			=> SendToAll(new AttackStartedPacket(atk.ID, def.ID, instigator.Index), new IPlayer[] {instigator, instigator.Enemy});
 
 		#region other effect stuff
@@ -197,18 +197,18 @@ namespace Kompas.Server.Networking
 
 		public static void StackEmpty(IPlayer[] players) => SendToAll(new StackEmptyPacket(), players);
 
-		public static void AddTarget(GameCard source, int effIndex, GameCard target, IPlayer[] players)
+		public static void AddTarget(IGameCard source, int effIndex, IGameCard target, IPlayer[] players)
 			=> SendToAll(new AddTargetPacket(source.ID, effIndex, target.ID), players);
 
-		public static void AddHiddenTarget(IPlayer player, GameCard source, int effIndex, GameCard target)
+		public static void AddHiddenTarget(IPlayer player, IGameCard source, int effIndex, IGameCard target)
 			=> SendPacket(player, new AddTargetPacket(source.ID, effIndex, target.ID));
 
-		public static void RemoveTarget(GameCard source, int effIndex, GameCard target, IPlayer[] players)
+		public static void RemoveTarget(IGameCard source, int effIndex, IGameCard target, IPlayer[] players)
 			=> SendToAll(new RemoveTargetPacket(source.ID, effIndex, target.ID), players);
 
 		public static void GetXForEffect(IPlayer player) => SendPacket(player, new GetPlayerChooseXPacket());
 
-		public static void NotifyEffectX(GameCard effSrc, int effIndex, int x, IPlayer[] players)
+		public static void NotifyEffectX(IGameCard effSrc, int effIndex, int x, IPlayer[] players)
 		{
 			var p = new SetEffectsXPacket(effSrc.ID, effIndex, x);
 			SendToAll(p, players);
