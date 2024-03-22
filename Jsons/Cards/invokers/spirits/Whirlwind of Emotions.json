@@ -23,7 +23,7 @@
 								"elements": [
 									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Restrict.Cards:Location:",
+										"$type": "Restrict.Cards:AtLocation:",
 										"locations": [ "Discard" ]
 									}
 								]
@@ -52,7 +52,7 @@
 									{ "$type": "Restrict.Cards:Friendly:" },
 									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Restrict.Cards:Location:",
+										"$type": "Restrict.Cards:AtLocation:",
 										"locations": [ "Hand", "Discard" ]
 									},
 									{
@@ -78,7 +78,7 @@
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Restrict.Cards:Location:",
+								"$type": "Restrict.Cards:AtLocation:",
 								"locations": [ "Hand", "Discard" ]
 							},
 							{
@@ -114,7 +114,7 @@
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:Character:" },
 							{
-								"$type": "Restrict.Cards:Location:",
+								"$type": "Restrict.Cards:AtLocation:",
 								"locations": [ "Hand", "Discard" ]
 							},
 							{

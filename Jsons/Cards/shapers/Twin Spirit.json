@@ -18,7 +18,7 @@
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },		
 							"cardRestriction": {
-								"$type": "Restrict.Cards:Location:",
+								"$type": "Restrict.Cards:AtLocation:",
 								"locations": [ "Hand" ]
 							}
 						}

@@ -18,7 +18,7 @@
 								"elements": [
 									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Restrict.Cards:Location:",
+										"$type": "Restrict.Cards:AtLocation:",
 										"locations": [ "Discard" ]
 									}
 								]
@@ -28,7 +28,7 @@
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:ThisCardNow:" },
 							"cardRestriction": {
-								"$type": "Restrict.Cards:Location:",
+								"$type": "Restrict.Cards:AtLocation:",
 								"locations": [ "Discard" ]
 							}
 						}

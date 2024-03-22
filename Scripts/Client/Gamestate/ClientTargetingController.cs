@@ -1,19 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Kompas.Cards.Models;
-using Kompas.Cards.Movement;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
-using Kompas.Client.Gamestate.Controllers;
 using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Client.Gamestate.Search;
 using Kompas.Client.UI;
-using Kompas.Effects.Models;
-using Kompas.Effects.Models.Identities.ManyCards;
 using Kompas.Effects.Models.Restrictions;
-using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
 using Kompas.Shared.Enumerable;
@@ -200,8 +194,8 @@ namespace Kompas.Client.Gamestate
 			static bool canMoveTo(Space s, GameCard card)
 				=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
 			if (card == null) SpacesController.DisplayNone();
-			else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => recommendPlayTo(s, card));
-			else if (card.Location == Location.Hand) SpacesController.DisplayCanPlay(s => canMoveTo(s, card));
+			else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => canMoveTo(s, card));
+			else if (card.Location == Location.Hand) SpacesController.DisplayCanPlay(s => recommendPlayTo(s, card));
 		}
 	}
 }

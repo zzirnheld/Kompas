@@ -19,7 +19,7 @@
 							"elements": [
 									{ "$type": "Restrict.Cards:Enemy:" },
 									{
-										"$type": "Restrict.Cards:Location:",
+										"$type": "Restrict.Cards:AtLocation:",
 										"locations": [ "Deck" ]
 									}
 								]

@@ -24,7 +24,7 @@
 							"elements": [
 									{ "$type": "Restrict.Cards:Character:" },
 									{
-										"$type": "Restrict.Cards:Location:",
+										"$type": "Restrict.Cards:AtLocation:",
 										"locations": [ "Discard" ]
 									},
 									{

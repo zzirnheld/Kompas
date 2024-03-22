@@ -573,10 +573,10 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_7idqb")
 
 [node name="Can Move Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.005, 0)
 
 [node name="Can Play Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.005, 0)
 
 [node name="Place In Spaces" type="Node3D" parent="3D/Board/Spaces" node_paths=PackedStringArray("_positionsParent")]
 transform = Transform3D(-0.05, 4.37114e-09, 0, -4.37114e-09, -0.05, 0, 0, 0, 0.05, 0, 0, 0)

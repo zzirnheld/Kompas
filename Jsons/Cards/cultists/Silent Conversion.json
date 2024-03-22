@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Silent Conversion",
-	"effText": "Kill a character adjacent to me and a Cultist. Deck->summon a Cultist Mook where they were.",
+	"effText": "Kill a character adjacent to both me and a Cultist. Deck->summon a Cultist Mook where they were.",
 	"effects": [
 		{
 			"triggerData": {

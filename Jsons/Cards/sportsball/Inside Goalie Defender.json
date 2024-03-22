@@ -25,7 +25,7 @@
 							"elements": [
 									{ "$type": "Restrict.Cards:Friendly:" },
 									{
-										"$type": "Restrict.Cards:Location:",
+										"$type": "Restrict.Cards:AtLocation:",
 										"locations": [ "Board" ]
 									},
 									{ "$type": "Restrict.Cards:Avatar:" },

@@ -85,7 +85,7 @@
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:CanPlay:" },
 							{
-								"$type": "Restrict.Cards:Location:",
+								"$type": "Restrict.Cards:AtLocation:",
 								"locations": [ "Deck", "Discard" ]
 							},
 							{

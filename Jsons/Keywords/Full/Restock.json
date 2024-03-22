@@ -17,7 +17,7 @@
                     "$type": "Restrict.Cards:AllOf:",
                     "elements": [
                             {
-                                "$type": "Restrict.Cards:Location:",
+                                "$type": "Restrict.Cards:AtLocation:",
                                 "locations": [ "Board" ]
                             }
                         ]
@@ -39,7 +39,7 @@
                     "useDummyResolutionContext": false,
                     "card": { "$type": "Identify.Cards:TargetIndex:" },
                     "cardRestriction": {
-                        "$type": "Restrict.Cards:Location:",
+                        "$type": "Restrict.Cards:AtLocation:",
                         "locations": [ "Discard" ]
                     }
                 }
