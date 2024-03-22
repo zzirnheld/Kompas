@@ -20,10 +20,10 @@ namespace Kompas.Client.Gamestate.Search
 			this.validSpaces = new HashSet<Space>(validSpaces);
 		}
 
-		public bool IsCurrentTarget(GameCard card) => false;
-		public bool IsValidTarget(GameCard card) => false;
+		public bool IsCurrentTarget(IGameCard card) => false;
+		public bool IsValidTarget(IGameCard card) => false;
 
-		public void Select(GameCard card)
+		public void Select(IGameCard card)
 		{
 			if (card.Position?.IsValid ?? false) Select(card.Position);
 		}

@@ -9,7 +9,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	public class Swap : ServerSubeffect
 	{
 		public int SecondTargetIndex = -2;
-		public GameCard SecondTarget => Effect.GetTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
+		public IGameCardSecondTarget => Effect.GetTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
 		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> GetCardTarget(overrideContext) == null || SecondTarget == null;
 

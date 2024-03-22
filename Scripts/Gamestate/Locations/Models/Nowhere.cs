@@ -9,8 +9,8 @@ namespace Kompas.Gamestate.Locations.Models
 		where CardType : class, IGameCard<CardType, PlayerType>
 		where PlayerType : IPlayer<CardType, PlayerType>
 	{
-		private static readonly Nowhere<CardType> _singleton = new();
-		public static Nowhere<CardType> Instance => _singleton;
+		private static readonly Nowhere<CardType, PlayerType> _singleton = new();
+		public static Nowhere<CardType, PlayerType> Instance => _singleton;
 
 		public Location Location => Location.Nowhere;
 

@@ -5,7 +5,28 @@ using Kompas.Cards.Loading;
 
 namespace Kompas.Cards.Models
 {
-	public abstract class CardBase : IComparable
+	public interface ICard : IComparable
+	{
+		public string CardName { get; }
+		public char Type { get; }
+
+		public int N { get; }
+		public int E { get; }
+		public int S { get; }
+		public int W { get; }
+		public int C { get; }
+		public int A { get; }
+
+		public int Cost { get; }
+
+		public string SubtypeText { get; }
+		public string EffText { get; }
+		public string BBCodeEffText { get; }
+
+		public Texture2D? CardFaceImage { get; }
+	}
+
+	public abstract class CardBase : ICard
 	{
 		public const string SimpleSubtype = "Simple";
 		public const string EnchantSubtype = "Enchant";

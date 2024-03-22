@@ -1,3 +1,4 @@
+using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
 using System;
 using System.Linq;
@@ -17,10 +18,10 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			int? cValue = c?.From(ResolutionContext, ResolutionContext);
 			int? aValue = a?.From(ResolutionContext, ResolutionContext);
 
-			int? turnsOnBoardChange	 = turnsOnBoard?.From(ResolutionContext, ResolutionContext);
-			int? attacksThisTurnChange  = attacksThisTurn?.From(ResolutionContext, ResolutionContext);
-			int? spacesMovedChange	  = spacesMoved?.From(ResolutionContext, ResolutionContext);
-			int? durationChange		 = duration?.From(ResolutionContext, ResolutionContext);
+			int? turnsOnBoardChange		= turnsOnBoard?.From(ResolutionContext, ResolutionContext);
+			int? attacksThisTurnChange	= attacksThisTurn?.From(ResolutionContext, ResolutionContext);
+			int? spacesMovedChange		= spacesMoved?.From(ResolutionContext, ResolutionContext);
+			int? durationChange		 	= duration?.From(ResolutionContext, ResolutionContext);
 
 			var cards = this.cards.From(ResolutionContext, ResolutionContext)
 				?? throw new InvalidOperationException();
@@ -28,12 +29,12 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			{
 				ValidateCardOnBoard(card);
 
-				card.SetStats(card.Stats.ReplaceWith((nValue, eValue, sValue, wValue, cValue, aValue)), Effect);
+				card.SetStats(CardStats.Of(card).ReplaceWith((nValue, eValue, sValue, wValue, cValue, aValue)), Effect);
 
-				if (turnsOnBoardChange.HasValue)	card.TurnsOnBoard	   = turnsOnBoardChange.Value;
-				if (attacksThisTurnChange.HasValue) card.AttacksThisTurn	= attacksThisTurnChange.Value;
-				if (spacesMovedChange.HasValue)	 card.SpacesMoved		= spacesMovedChange.Value;
-				if (durationChange.HasValue)		card.Duration		   = durationChange.Value;
+				if (turnsOnBoardChange.HasValue)	card.TurnsOnBoard	 = turnsOnBoardChange.Value;
+				if (attacksThisTurnChange.HasValue) card.AttacksThisTurn = attacksThisTurnChange.Value;
+				if (spacesMovedChange.HasValue)	 	card.SpacesMoved	 = spacesMovedChange.Value;
+				if (durationChange.HasValue)		card.Duration		 = durationChange.Value;
 			}
 
 			return Task.FromResult(ResolutionInfo.Next);

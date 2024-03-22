@@ -34,7 +34,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public IIdentity<int>? spacesMoved;
 		public IIdentity<int>? duration;
 
-		protected IEnumerable<GameCard> CardsToAffect
+		protected IEnumerable<IGameCard> CardsToAffect
 			=> cards.From(ResolutionContext, IResolutionContext.NotResolving)
 					?.Select(c => c.Card)
 					?? throw new InvalidOperationException();
@@ -62,7 +62,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			duration?.Initialize(initContext);
 		}
 
-		protected void ValidateCardOnBoard(GameCard card)
+		protected void ValidateCardOnBoard(IGameCard card)
 		{
 			if (forbidNotBoard && card.Location != Location.Board)
 				throw new InvalidLocationException(card.Location, card, ChangedStatsOfCardOffBoard);

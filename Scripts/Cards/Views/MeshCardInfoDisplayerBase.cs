@@ -31,19 +31,6 @@ namespace Kompas.Cards.Views
 
 		public bool ShowingInfo { set => Visible = value; }
 
-		public virtual void DisplayCardImage(CardBase card)
-		{
-			_ = CardImageObjects ?? throw new System.NullReferenceException("Failed to init");
-
-			foreach (var obj in CardImageObjects)
-			{
-				if (obj.MaterialOverride is not BaseMaterial3D mat)
-					throw new System.InvalidOperationException($"{obj}'s material is not a BaseMaterial3D, can't set its albedo texture");
-
-				mat.AlbedoTexture = card.CardFaceImage;
-			}
-		}
-
 		/* Testing */
 		public override void _Ready()
 		{
@@ -61,7 +48,20 @@ namespace Kompas.Cards.Views
 			foreach (var obj in FrameObjects) obj.MaterialOverride = material;
 		}
 
-		public abstract void DisplayCardNumericStats(CardBase card);
-		public abstract void DisplayCardRulesText(CardBase card);
+		public abstract void DisplayCardNumericStats(ICard card);
+		public abstract void DisplayCardRulesText(ICard card);
+
+		public virtual void DisplayCardImage(ICard card)
+		{
+			_ = CardImageObjects ?? throw new System.NullReferenceException("Failed to init");
+
+			foreach (var obj in CardImageObjects)
+			{
+				if (obj.MaterialOverride is not BaseMaterial3D mat)
+					throw new System.InvalidOperationException($"{obj}'s material is not a BaseMaterial3D, can't set its albedo texture");
+
+				mat.AlbedoTexture = card.CardFaceImage;
+			}
+		}
 	}
 }

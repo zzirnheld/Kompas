@@ -21,7 +21,7 @@ namespace Kompas.Networking.Packets
 			this.cardIds = cardIds;
 		}
 
-		public ListChoicesPacket(IEnumerable<GameCard> cards) : this(cards.Select(c => c.ID).ToArray()) { }
+		public ListChoicesPacket(IEnumerable<IGameCard> cards) : this(cards.Select(c => c.ID).ToArray()) { }
 
 		public override Packet Copy() => new ListChoicesPacket()
 		{

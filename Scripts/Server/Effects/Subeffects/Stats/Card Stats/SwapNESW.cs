@@ -1,4 +1,5 @@
-﻿using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Cards.Models;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Newtonsoft.Json;
 using System.Threading.Tasks;

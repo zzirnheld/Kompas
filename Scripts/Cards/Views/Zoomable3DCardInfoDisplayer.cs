@@ -30,7 +30,7 @@ namespace Kompas.Cards.Views
 
 		public bool ShowingInfo { set => Visible = value; }
 
-		public void DisplayCardImage(CardBase card)
+		public void DisplayCardImage(ICard card)
 		{
 			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
 			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
@@ -39,7 +39,7 @@ namespace Kompas.Cards.Views
 			ZoomedIn.DisplayCardImage(card);
 		}
 
-		public void DisplayCardNumericStats(CardBase card)
+		public void DisplayCardNumericStats(ICard card)
 		{
 			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
 			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
@@ -48,7 +48,7 @@ namespace Kompas.Cards.Views
 			ZoomedIn.DisplayCardNumericStats(card);
 		}
 
-		public void DisplayCardRulesText(CardBase card)
+		public void DisplayCardRulesText(ICard card)
 		{
 			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
 			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");

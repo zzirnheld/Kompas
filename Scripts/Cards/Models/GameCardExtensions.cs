@@ -8,6 +8,20 @@ namespace Kompas.Cards.Models
 {
 	public static class GameCardExtensions
 	{
+		public static void SwapCharStats(this IGameCard source, IGameCard other, bool swapN = true, bool swapE = true, bool swapS = true, bool swapW = true)
+		{
+			int[] aNewStats = new int[4];
+			int[] bNewStats = new int[4];
+
+			(aNewStats[0], bNewStats[0]) = swapN ? (other.N, source.N) : (source.N, other.N);
+			(aNewStats[1], bNewStats[1]) = swapE ? (other.E, source.E) : (source.E, other.E);
+			(aNewStats[2], bNewStats[2]) = swapS ? (other.S, source.S) : (source.S, other.S);
+			(aNewStats[3], bNewStats[3]) = swapW ? (other.W, source.W) : (source.W, other.W);
+
+			source.SetCharStats(aNewStats[0], aNewStats[1], aNewStats[2], aNewStats[3]);
+			other.SetCharStats(bNewStats[0], bNewStats[1], bNewStats[2], bNewStats[3]);
+		}
+
 		public static bool HasSubtype(this IGameCardInfo card, string subtype) => card.SubtypeText.ToLower().Contains(subtype.ToLower());
 
 		public static int RadiusDistanceTo(this IGameCardInfo card, Space space)

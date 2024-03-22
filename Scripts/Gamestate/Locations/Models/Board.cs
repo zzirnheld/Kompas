@@ -17,6 +17,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public IGameCard? GetCardAt(Space? space);
 		public IEnumerable<IGameCard> CardsAdjacentTo(Space? space);
 		public int ShortestPath(Space? from, Space? to, Predicate<IGameCardInfo?> throughPredicate);
+		public int ShortestPath(Space? from, Space? to, Predicate<Space?> throughPredicate);
 	}
 
 	public interface IBoard<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IBoard
@@ -43,6 +44,7 @@ namespace Kompas.Gamestate.Locations.Models
 		where PlayerType : IPlayer<CardType, PlayerType>
 	{
 		public Location Location => Location.Board;
+		public bool IsLocation(Location location, bool friendly) => location == Location;
 
 		protected readonly CardType?[,] board = new CardType[Space.BoardLen, Space.BoardLen];
 		public IEnumerable<CardType> Cards { get { foreach (var card in board) if (card != null) yield return card; } }

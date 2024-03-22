@@ -18,7 +18,7 @@ namespace Kompas.Client.Effects.Models
 		public override IPlayer OwningPlayer => owningPlayer ?? throw new System.NullReferenceException("Tried to get owning player of uninitialized effect");
 
 		private ClientGameCard? card;
-		public override GameCard Card => card ?? throw new System.NullReferenceException("Tried to get card of uninitialized effect");
+		public override IGameCard Card => card ?? throw new System.NullReferenceException("Tried to get card of uninitialized effect");
 
 		private ClientGame? _clientGame;
 		public ClientGame ClientGame
@@ -55,13 +55,13 @@ namespace Kompas.Client.Effects.Models
 				ClientTrigger = new ClientTrigger(triggerData, this);
 		}
 
-		public override void AddTarget(GameCard card)
+		public override void AddTarget(IGameCard card)
 		{
 			base.AddTarget(card);
 			//card.CardController.gameCardViewController.Refresh();
 		}
 
-		public override void RemoveTarget(GameCard card)
+		public override void RemoveTarget(IGameCard card)
 		{
 			base.RemoveTarget(card);
 			//card.CardController.gameCardViewController.Refresh();

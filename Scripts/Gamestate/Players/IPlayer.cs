@@ -46,6 +46,8 @@ namespace Kompas.Gamestate.Players
 		where CardType : class, IGameCard<CardType, PlayerType>
 		where PlayerType : IPlayer<CardType, PlayerType>
 	{
+		public new PlayerType Enemy { get; }
+
 		public new IDeck<CardType, PlayerType> Deck { get; }
 		public new IDiscard<CardType, PlayerType> Discard { get; }
 		public new IHand<CardType, PlayerType> Hand { get; }

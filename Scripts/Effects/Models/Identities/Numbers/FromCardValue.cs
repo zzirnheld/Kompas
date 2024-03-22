@@ -58,7 +58,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public int modifier = 0;
 
-		public GameCard? SourceCard => InitializationContext.source;
+		public IGameCard? SourceCard => InitializationContext.source;
 
 		//FUTURE: Make this more definitive
 		public string DisplayName => value;
@@ -78,7 +78,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 				AugmentCost => card.A,
 
 				Cost => card.Cost,
-				NumberOfAugments => card.Augments.Count,
+				NumberOfAugments => card.Augments.Count(),
 				DistanceToCard => SourceCard != null ? card.DistanceTo(SourceCard) : throw new System.InvalidOperationException("Source card was null"),
 				Index => card.IndexInList,
 				SpacesCanMove => card.SpacesCanMove,
@@ -88,7 +88,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			return intermediateValue * multiplier / divisor + modifier;
 		}
 
-		public void SetValueOf(GameCard card, int num, IStackable? stackSrc = null)
+		public void SetValueOf(IGameCard card, int num, IStackable? stackSrc = null)
 		{
 			if (card == null) throw new System.ArgumentException("Cannot set value of null card", nameof(card));
 

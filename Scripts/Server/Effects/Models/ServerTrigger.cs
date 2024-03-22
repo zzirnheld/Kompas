@@ -12,7 +12,7 @@ namespace Kompas.Server.Effects.Models
 	{
 		public ServerEffect ServerEffect { get; private set; }
 
-		public override GameCard Card => ServerEffect.Card;
+		public override IGameCard Card => ServerEffect.Card;
 		public override Effect Effect => ServerEffect;
 
 		private bool responded = false;

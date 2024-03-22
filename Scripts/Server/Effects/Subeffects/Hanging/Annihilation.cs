@@ -20,10 +20,10 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		/// </summary>
 		private class AnnihilationEffect : HangingEffect
 		{
-			private readonly GameCard target;
+			private readonly IGameCardtarget;
 
 			public AnnihilationEffect(EndCondition end, EndCondition fallOff,
-				ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target)
+				ServerEffect sourceEff, IResolutionContext resolutionContext, IGameCardtarget)
 				: base(end, fallOff, sourceEff, resolutionContext, removeIfEnd: true)
 			{
 				this.target = target;

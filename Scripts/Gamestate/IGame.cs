@@ -107,6 +107,9 @@ namespace Kompas.Gamestate
 		public new IReadOnlyCollection<CardType> Cards { get; }
 		public new CardType? LookupCardByID(int id);
 		public new IBoard<CardType, PlayerType> Board { get; }
+
+		public new PlayerType[] Players { get; }
+		public new PlayerType TurnPlayer { get; }
 	}
 
 	public interface IStackController

@@ -83,7 +83,7 @@ namespace Kompas.Effects.Models
 		};
 
 		public TriggerData TriggerData { get; }
-		public abstract GameCard Card { get; }
+		public abstract IGameCard Card { get; }
 		public abstract Effect Effect { get; }
 
 		public string TriggerCondition => TriggerData.triggerCondition

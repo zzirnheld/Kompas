@@ -8,10 +8,10 @@ namespace Kompas.Client.Gamestate.Search
 	{
 		public event EventHandler SearchFinished;
 
-		public void Select(GameCard card);
+		public void Select(IGameCard card);
 		public void Select(Space space);
 
-		public bool IsValidTarget(GameCard card);
-		public bool IsCurrentTarget(GameCard card);
+		public bool IsValidTarget(IGameCard card);
+		public bool IsCurrentTarget(IGameCard card);
 	}
 }

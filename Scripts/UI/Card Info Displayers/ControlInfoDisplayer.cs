@@ -71,13 +71,13 @@ namespace Kompas.UI.CardInfoDisplayers
 			};
 		}
 
-		public void DisplayCardImage(CardBase card)
+		public void DisplayCardImage(ICard card)
 		{
 			Image.Texture = card.CardFaceImage;
 			FrameImage.Texture = card.Type == 'C' ? CardRepository.CharCardFrameTexture : CardRepository.NoncharCardFrameTexture;
 		}
 
-		public void DisplayCardNumericStats(CardBase card)
+		public void DisplayCardNumericStats(ICard card)
 		{
 			N.Text = $"{card.N}";
 			E.Text = $"{card.E}";
@@ -85,7 +85,7 @@ namespace Kompas.UI.CardInfoDisplayers
 			W.Text = $"{card.W}";
 		}
 
-		public void DisplayCardRulesText(CardBase card)
+		public void DisplayCardRulesText(ICard card)
 		{
 			CardName.ShrinkableText = card.CardName;
 			Subtypes.ShrinkableText = card.SubtypeText;

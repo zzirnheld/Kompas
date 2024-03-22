@@ -22,10 +22,10 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		/// </summary>
 		private class DiscardEffect : HangingEffect
 		{
-			private readonly GameCard target;
+			private readonly IGameCardtarget;
 
 			public DiscardEffect(EndCondition end, EndCondition fallOff,
-				ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target)
+				ServerEffect sourceEff, IResolutionContext resolutionContext, IGameCardtarget)
 				: base(end, fallOff, sourceEff, resolutionContext, removeIfEnd: false)
 			{
 				this.target = target;

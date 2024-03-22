@@ -20,7 +20,7 @@ namespace Kompas.Cards.Views
 		[Export]
 		private Label3D? Subtypes { get; set; }
 
-		public override void DisplayCardNumericStats(CardBase card)
+		public override void DisplayCardNumericStats(ICard card)
 		{
 			_ = N ?? throw new System.NullReferenceException("Failed to init");
 			_ = E ?? throw new System.NullReferenceException("Failed to init");
@@ -33,7 +33,7 @@ namespace Kompas.Cards.Views
 			W.Text = $"{card.W}";
 		}
 
-		public override void DisplayCardRulesText(CardBase card)
+		public override void DisplayCardRulesText(ICard card)
 		{
 			_ = CardName ?? throw new System.NullReferenceException("Failed to init");
 			_ = Subtypes ?? throw new System.NullReferenceException("Failed to init");

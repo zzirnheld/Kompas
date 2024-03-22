@@ -57,7 +57,7 @@ namespace Kompas.Cards.Loading
 		}
 
 		protected TGameCard? InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, Validate? validation = null)
-			where TGameCard : GameCard
+			where TGameCard : IGameCard
 		{
 			GD.Print($"Loading {JsonPrettify(json)}");
 			TSerializableCard? cardInfo;

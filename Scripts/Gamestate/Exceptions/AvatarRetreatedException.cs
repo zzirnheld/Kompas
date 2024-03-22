@@ -4,9 +4,9 @@ namespace Kompas.Gamestate.Exceptions
 {
 	public class AvatarRetreatedException : KompasException
 	{
-		public readonly GameCard card;
+		public readonly IGameCard card;
 
-		public AvatarRetreatedException(GameCard card, string debugMessage = "", string message = "")
+		public AvatarRetreatedException(IGameCard card, string debugMessage = "", string message = "")
 			: base(debugMessage, message)
 		{
 			this.card = card;

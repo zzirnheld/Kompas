@@ -10,6 +10,8 @@ namespace Kompas.Gamestate.Locations
 		public Location Location { get; }
 
 		public IEnumerable<IGameCard> Cards { get; }
+
+		public bool IsLocation(Location location, bool friendly);
 	}
 
 	public interface ILocationModel<CardType, PlayerType> : ILocationModel

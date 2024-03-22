@@ -4,9 +4,9 @@ namespace Kompas.Gamestate.Exceptions
 {
 	public class InvalidCardException : KompasException
 	{
-		public readonly GameCard card;
+		public readonly IGameCard card;
 
-		public InvalidCardException(GameCard card, string debugMessage = "", string message = "")
+		public InvalidCardException(IGameCard card, string debugMessage = "", string message = "")
 			: base(debugMessage, message)
 		{
 			this.card = card;

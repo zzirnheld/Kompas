@@ -14,9 +14,9 @@ namespace Kompas.Client.Gamestate.Search
 	/// </summary>
 	public class CardSearch : ISearch
 	{
-		public readonly GameCard[] toSearch;
+		public readonly IGameCard[] toSearch;
 		public readonly IListRestriction listRestriction;
-		public readonly IList<GameCard> searched = new List<GameCard>();
+		public readonly IList<IGameCard> searched = new List<IGameCard>();
 
 		private readonly IGame game;
 		protected readonly ClientNotifier clientNotifier;
@@ -55,7 +55,7 @@ namespace Kompas.Client.Gamestate.Search
 			}
 		}
 
-		protected CardSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+		protected CardSearch(IEnumerable<IGameCard> toSearch, IListRestriction listRestriction,
 			IGame game, ClientTargetingController targetingController, ClientNotifier clientNotifier)
 		{
 			this.toSearch = toSearch.ToArray();
@@ -70,7 +70,7 @@ namespace Kompas.Client.Gamestate.Search
 		public SearchUIController clientSearchUICtrl;
 		public ConfirmTargetsUIController confirmTargetsCtrl; */
 
-		public static CardSearch? StartSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+		public static CardSearch? StartSearch(IEnumerable<IGameCard> toSearch, IListRestriction listRestriction,
 			IGame game, ClientTargetingController targetingController, ClientNotifier notifier)
 		{
 			//if the list is empty, don't search
@@ -87,7 +87,7 @@ namespace Kompas.Client.Gamestate.Search
 		/// </summary>
 		/// <param name="nextTarget"></param>
 		/// <returns></returns>
-		public void Select(GameCard nextTarget)
+		public void Select(IGameCard nextTarget)
 		{
 			//if it's already selected, deselect it
 			if (searched.Contains(nextTarget)) RemoveTarget(nextTarget);
@@ -99,7 +99,7 @@ namespace Kompas.Client.Gamestate.Search
 		/// Adds the target to the current list of targets, if applicable
 		/// </summary>
 		/// <param name="nextTarget"></param>
-		private void AddTarget(GameCard nextTarget)
+		private void AddTarget(IGameCard nextTarget)
 		{
 			GD.Print($"Tried to add {nextTarget} as next target");
 
@@ -128,7 +128,7 @@ namespace Kompas.Client.Gamestate.Search
 			nextTarget.CardController.RefreshTargeting();
 		}
 
-		public void RemoveTarget(GameCard target)
+		public void RemoveTarget(IGameCard target)
 		{
 			GD.Print($"Tried to remove {target} as next target");
 			searched.Remove(target);
@@ -147,7 +147,7 @@ namespace Kompas.Client.Gamestate.Search
 			SendTargets(searched);
 		}
 
-		private void SendTargets(IList<GameCard> choices)
+		private void SendTargets(IList<IGameCard> choices)
 		{
 			GD.Print($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} ");
 
@@ -156,10 +156,10 @@ namespace Kompas.Client.Gamestate.Search
 			SearchFinished?.Invoke(this, EventArgs.Empty);
 		}
 
-		protected virtual void SendChoices(IList<GameCard> choices)
+		protected virtual void SendChoices(IList<IGameCard> choices)
 			=> clientNotifier.RequestListChoices(choices);
 
-		public bool IsValidTarget(GameCard card) => toSearch.Contains(card);
-		public bool IsCurrentTarget(GameCard card) => searched.Contains(card);
+		public bool IsValidTarget(IGameCard card) => toSearch.Contains(card);
+		public bool IsCurrentTarget(IGameCard card) => searched.Contains(card);
 	}
 }

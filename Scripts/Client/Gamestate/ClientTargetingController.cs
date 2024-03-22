@@ -187,17 +187,17 @@ namespace Kompas.Client.Gamestate
 			GameController.Notifier.DeclineAnotherTarget();
 		}
 
-		public bool IsValidTarget(GameCard card) => CurrentSearch?.IsValidTarget(card) ?? false;
-		public bool IsSelectedTarget(GameCard card) => CurrentSearch?.IsCurrentTarget(card) ?? false;
-		public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
+		public bool IsValidTarget(IGameCard card) => CurrentSearch?.IsValidTarget(card) ?? false;
+		public bool IsSelectedTarget(IGameCard card) => CurrentSearch?.IsCurrentTarget(card) ?? false;
+		public bool IsUnselectedValidTarget(IGameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
 
-		public void ShowCanDoHighlights(GameCard? card)
+		public void ShowCanDoHighlights(IGameCard? card)
 		{
-			static bool recommendPlayTo(Space s, GameCard card)
+			static bool recommendPlayTo(Space s, IGameCard card)
 				=> card.PlayRestriction.IsRecommendedNormalPlay((s, card.ControllingPlayer));
-			//static bool canPlayTo(Space s, GameCard card)
+			//static bool canPlayTo(Space s, IGameCard)
 			//	=> card.PlayRestriction.IsValid((s, card.ControllingPlayer), ResolutionContext.PlayerTrigger(null, card.Game));
-			static bool canMoveTo(Space s, GameCard card)
+			static bool canMoveTo(Space s, IGameCard card)
 				=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
 			if (card == null) SpacesController.DisplayNone();
 			else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => recommendPlayTo(s, card));

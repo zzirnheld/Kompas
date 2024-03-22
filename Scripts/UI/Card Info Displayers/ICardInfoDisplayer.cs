@@ -17,18 +17,18 @@ namespace Kompas.UI.CardInfoDisplayers
 		/// Display the ShownCard's rules text, like its name, type line, and effect text.
 		/// Called only when the card's info changes, or is refreshed
 		/// </summary>
-		public void DisplayCardRulesText(CardBase card);
+		public void DisplayCardRulesText(ICard card);
 
 		/// <summary>
 		/// Display the ShownCard's stats
 		/// Called only when the card's info changes, or is refreshed
 		/// </summary>
-		public void DisplayCardNumericStats(CardBase card);
+		public void DisplayCardNumericStats(ICard card);
 
 		/// <summary>
 		/// Display the ShownCard's image, as appropriate
 		/// Called only when the card's info changes, or is refreshed
 		/// </summary>
-		public void DisplayCardImage(CardBase card);
+		public void DisplayCardImage(ICard card);
 	}
 }

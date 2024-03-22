@@ -37,7 +37,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		}
 
 		private (IEnumerable<TriggeringEventContext> moveContexts, IEnumerable<TriggeringEventContext> leaveContexts)
-			GetContextsForMove(GameCard card, Space from, Space to, IPlayer? player, IStackable? stackSrc)
+			GetContextsForMove(IGameCard card, Space from, Space to, IPlayer? player, IStackable? stackSrc)
 		{
 			int distance = from.DistanceTo(to);
 

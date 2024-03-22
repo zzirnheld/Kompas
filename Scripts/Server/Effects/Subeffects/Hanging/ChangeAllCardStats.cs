@@ -31,7 +31,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		{
 			var effs = new List<HangingEffect>();
 
-			IEnumerable<GameCard> cards
+			IEnumerable<IGameCard> cards
 				= ServerGame.Cards.Where(c => cardRestriction.IsValid(c, ResolutionContext));
 
 			//First make sure are allowed to set their stats.

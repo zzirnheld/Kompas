@@ -5,8 +5,8 @@ namespace Kompas.UI.CardInfoDisplayers
 	public class NoOpInfoDisplayer : ICardInfoDisplayer
 	{
 		public bool ShowingInfo { set { } }
-		public void DisplayCardImage(CardBase card) { }
-		public void DisplayCardNumericStats(CardBase card) { }
-		public void DisplayCardRulesText(CardBase card) { }
+		public void DisplayCardImage(ICard card) { }
+		public void DisplayCardNumericStats(ICard card) { }
+		public void DisplayCardRulesText(ICard card) { }
 	}
 }

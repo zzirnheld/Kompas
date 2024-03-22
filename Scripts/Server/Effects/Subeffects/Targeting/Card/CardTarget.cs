@@ -47,7 +47,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		[JsonProperty]
 		public Color linkColor = CardLink.DefaultColor; // "r": #, "g" ... etc
 
-		protected IReadOnlyCollection<GameCard>? stashedPotentialTargets;
+		protected IReadOnlyCollection<IGameCard>? stashedPotentialTargets;
 
 		public override void Initialize(ServerEffect eff, int subeffIndex)
 		{
@@ -67,7 +67,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			listRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected IReadOnlyCollection<GameCard> DeterminePossibleTargets()
+		protected IReadOnlyCollection<IGameCard> DeterminePossibleTargets()
 		{
 			var possibleTargets = from card in toSearch.From(ResolutionContext, ResolutionContext)
 									where cardRestriction.IsValid(card, ResolutionContext)
@@ -104,7 +104,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				return ResolutionInfo.Next;
 			}
 
-			IEnumerable<GameCard>? targets = null;
+			IEnumerable<IGameCard>? targets = null;
 			do {
 				targets = await RequestTargets();
 				if (targets == null && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
@@ -113,7 +113,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			return ResolutionInfo.Next;
 		}
 
-		protected async Task<IEnumerable<GameCard>?> RequestTargets()
+		protected async Task<IEnumerable<IGameCard>?> RequestTargets()
 		{
 			string name = Effect.Card.CardName;
 			_ = stashedPotentialTargets ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");
@@ -125,9 +125,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			return await ServerGame.Awaiter.GetCardListTargets(player, name, blurb, targetIds, listRestriction);
 		}
 
-		public bool AddListIfLegal(IEnumerable<GameCard>? choices)
+		public bool AddListIfLegal(IEnumerable<IGameCard>? choices)
 		{
-			GD.Print($"Potentially adding list {string.Join(",", choices ?? new List<GameCard>())}");
+			GD.Print($"Potentially adding list {string.Join(",", choices ?? new List<IGameCard>())}");
 			if (choices == null) return false;
 
 			_ = stashedPotentialTargets ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");
@@ -141,17 +141,17 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			return true;
 		}
 
-		private static void ShuffleIfAppropriate(IEnumerable<GameCard> potentialTargets)
+		private static void ShuffleIfAppropriate(IEnumerable<IGameCard> potentialTargets)
 		{
 			//TODO replace with polymorphic "shuffle if appropriate" method
 			var decksViewed = potentialTargets.Where(c => c.Location == Location.Deck)
 							.GroupBy(c => c.LocationModel)
 							.Select(grouping => grouping.Key)
-							.Cast<Kompas.Gamestate.Locations.Models.Deck>(); //If this cast fails, we have a non-deck controller trying to act like one. If you do this, make it an interface
+							.Cast<Kompas.Gamestate.Locations.Models.IDeck>(); //If this cast fails, we have a non-deck controller trying to act like one. If you do this, make it an interface
 			foreach (var deck in decksViewed) deck.Shuffle();
 		}
 
-		protected virtual void AddList(IEnumerable<GameCard> choices)
+		protected virtual void AddList(IEnumerable<IGameCard> choices)
 		{
 			var cardToLinkWith = toLinkWith?.From(ResolutionContext, ResolutionContext)?.Card;
 			foreach (var c in choices)

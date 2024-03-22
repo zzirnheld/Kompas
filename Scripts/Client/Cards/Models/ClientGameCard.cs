@@ -5,6 +5,7 @@ using Kompas.Cards.Models;
 using Kompas.Client.Cards.Controllers;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate;
+using Kompas.Client.Gamestate.Players;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
@@ -13,10 +14,12 @@ using Kompas.Shared.Enumerable;
 
 namespace Kompas.Client.Cards.Models
 {
-	public class ClientGameCard : GameCard
+	public class ClientGameCard : GameCard<ClientGameCard, ClientPlayer>
 	{
 		public ClientGame ClientGame { get; protected set; }
-		public override IGame Game => ClientGame;
+		public override IGame<ClientGameCard, ClientPlayer> Game => ClientGame;
+
+		public override ClientGameCard Card => this;
 
 		public override Location Location
 		{
@@ -54,7 +57,7 @@ namespace Kompas.Client.Cards.Models
 		}
 
 		private ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
-			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar)
+			ClientPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar)
 			: base (serializedCard, id, owningPlayer)
 		{
 			//TODO: game should add card after creating it
@@ -73,7 +76,7 @@ namespace Kompas.Client.Cards.Models
 		/// Factory method to create card and initialize the relevant things with a non-leaked this instance
 		/// </summary>
 		public static ClientGameCard Create(SerializableCard serializedCard, int id, ClientGame game,
-			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
+			ClientPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
 		{
 			ClientGameCard ret = new(serializedCard, id, game, owningPlayer, effects, cardController, isAvatar);
 

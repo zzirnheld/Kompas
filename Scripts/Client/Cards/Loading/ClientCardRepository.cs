@@ -33,7 +33,7 @@ namespace Kompas.Client.Cards.Loading
 
 		private string SanitizeJson(string json) => json; //TODO
 
-		public ClientGameCard? InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
+		public ClientGameCard? InstantiateClientNonAvatar(string json, ClientPlayer owner, int id, ClientGame game)
 		{
 			var card = InstantiateGameCard(SanitizeJson(json),
 				(cardInfo, effects, ctrl) => ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl));

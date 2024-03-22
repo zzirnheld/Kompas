@@ -11,6 +11,7 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public interface IHand : ILocationModel
 	{
+		public IGameCard this[int index] { get; }
 		public int HandSize { get; }
 	}
 
@@ -18,6 +19,8 @@ namespace Kompas.Gamestate.Locations.Models
 		where CardType : class, IGameCard<CardType, PlayerType>
 		where PlayerType : IPlayer<CardType, PlayerType>
 	{
+		public new CardType this[int index] { get; }
+
 		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
 	}
 
@@ -41,6 +44,7 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 
 		public CardType this[int index] => hand[index];
+		IGameCard IHand.this[int index] => this[index];
 
 		public override int IndexOf(CardType card) => hand.IndexOf(card);
 

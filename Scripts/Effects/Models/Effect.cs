@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models
 		public abstract IGame Game { get; }
 
 		public int EffectIndex { get; private set; }
-		public abstract GameCard Card { get; }
+		public abstract IGameCard Card { get; }
 		public abstract IPlayer OwningPlayer { get; }
 
 		//subeffects
@@ -29,7 +29,7 @@ namespace Kompas.Effects.Models
 		public int SubeffectIndex { get; protected set; }
 
 		//Targets
-		public IList<GameCard> CardTargets => CurrentResolutionContext?.CardTargets
+		public IList<IGameCard> CardTargets => CurrentResolutionContext?.CardTargets
 			?? throw new EffectNotResolvingException(this);
 		public IList<Space> SpaceTargets => CurrentResolutionContext?.SpaceTargets
 			?? throw new EffectNotResolvingException(this);
@@ -42,7 +42,7 @@ namespace Kompas.Effects.Models
 
 		//we don't care about informing players of the contents of these. yet. but we might later
 		public readonly List<IPlayer> playerTargets = new();
-		public readonly List<GameCard> rest = new();
+		public readonly List<IGameCard> rest = new();
 
 		public IdentityOverrides identityOverrides = new();
 
@@ -113,19 +113,19 @@ namespace Kompas.Effects.Models
 		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
 
-		public GameCard? GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
+		public IGameCard? GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
 		public Space? GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
 		public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 
 
-		public virtual void AddTarget(GameCard card) {
+		public virtual void AddTarget(IGameCard card) {
 			CardTargets.Add(card);
 		}
-		public virtual void RemoveTarget(GameCard card) => CardTargets.Remove(card);
+		public virtual void RemoveTarget(IGameCard card) => CardTargets.Remove(card);
 
 		public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
 
-		public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest)
+		public T TestWithCardTarget<T>(IGameCard? target, System.Func<T> toTest)
 		{
 			if (target != null) CardTargets.Add(target);
 			var ret = toTest();
@@ -136,7 +136,7 @@ namespace Kompas.Effects.Models
 
 		public override string ToString() => $"Effect of {(Card == null ? "Nothing???" : Card.CardName)}";
 
-		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
+		public IGameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 
 		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger? trigger)
 			=> new(game: Game, source: Card, effect: this, trigger: trigger, subeffect: subeffect);

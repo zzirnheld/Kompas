@@ -54,13 +54,15 @@ namespace Kompas.Server.Gamestate
 
 		//Players
 		private ServerPlayer[]? _serverPlayers;
-		private ServerPlayer[] ServerPlayers => _serverPlayers
+		public ServerPlayer[] Players => _serverPlayers
 			?? throw new NotInitializedException();
-		public IPlayer[] Players => ServerPlayers;
+		IPlayer[] IGame.Players => Players;
 
-		private IPlayer? _turnPlayer;
-		public IPlayer TurnPlayer => _turnPlayer
+		private ServerPlayer? _turnPlayer;
+		public ServerPlayer TurnPlayer => _turnPlayer
 			?? throw new NotInitializedException();
+		IPlayer IGame.TurnPlayer => TurnPlayer;
+
 		private int cardCount = 0;
 
 		public bool GameHasStarted { get; private set; } = false;
@@ -122,7 +124,7 @@ namespace Kompas.Server.Gamestate
 			if (players.Length != 2) throw new System.ArgumentException("Games support only exactly 2 players!", nameof(players));
 
 			_serverPlayers = players;
-			foreach (ServerPlayer p in ServerPlayers) GetDeckFrom(p);
+			foreach (var p in Players) GetDeckFrom(p);
 
 		}
 
@@ -244,7 +246,7 @@ namespace Kompas.Server.Gamestate
 			if (notFirstTurn) Draw(TurnPlayer);
 
 			//do hand size
-			StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
+			StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), Players[TurnPlayer.Index], default);
 
 			TurnChanged?.Invoke(this, TurnPlayer);
 
@@ -290,7 +292,7 @@ namespace Kompas.Server.Gamestate
 			StackController.TriggerForCondition(Trigger.DrawX, context);
 			return drawn;
 		}
-		public ServerGameCard? Draw(IPlayer player, IStackable? stackSrc = null)
+		public ServerGameCard? Draw(ServerPlayer player, IStackable? stackSrc = null)
 			=> DrawX(player, 1, stackSrc).FirstOrDefault();
 
 		/// <param name="manual">Whether a player instigated the attack without an effect.</param>
@@ -308,8 +310,7 @@ namespace Kompas.Server.Gamestate
 		}
 
 		public ServerGameCard? LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
-
-		public ServerPlayer ServerControllerOf(ServerGameCard card) => ServerPlayers[card.ControllingPlayerIndex];
+		IGameCard? IGame.LookupCardByID(int id) => LookupCardByID(id);
 
 		public void DumpGameInfo()
 		{

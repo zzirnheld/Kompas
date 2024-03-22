@@ -46,7 +46,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public override bool IsImpossible (TargetingContext? overrideContext = null)
 			=> !Game.Cards.Any(c => cardRestriction.IsValid(c, ResolutionContext));
 
-		private static GameCard GetRandomCard(GameCard[] cards)
+		private static IGameCard GetRandomCard(IGameCard[] cards)
 		{
 			var random = new System.Random();
 			return cards[random.Next(cards.Length)];
@@ -54,8 +54,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override Task<ResolutionInfo> Resolve()
 		{
-			GameCard? potentialTarget = null;
-			IEnumerable<GameCard>? potentialTargets = null;
+			IGameCard? potentialTarget = null;
+			IEnumerable<IGameCard>? potentialTargets = null;
 			try
 			{
 				var gameCardInfos = toSearch.From(ResolutionContext, ResolutionContext)
@@ -82,7 +82,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 
-		private GameCard GetMaximum(IEnumerable<GameCard> potentialTargets)
+		private IGameCard GetMaximum(IEnumerable<IGameCard> potentialTargets)
 		{
 			_ = tiebreakerValue ?? throw new InvalidOperationException();
 			return potentialTargets

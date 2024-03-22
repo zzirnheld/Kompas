@@ -18,7 +18,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 		public class NegationEffect : HangingEffect
 		{
-			private readonly GameCard target;
+			private readonly IGameCardtarget;
 			private readonly bool negated;
 
 			public NegationEffect(EndCondition end, EndCondition fallOff,

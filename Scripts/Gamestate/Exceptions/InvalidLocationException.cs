@@ -6,9 +6,9 @@ namespace Kompas.Gamestate.Exceptions
 	public class InvalidLocationException : KompasException
 	{
 		public readonly Location location;
-		public readonly GameCard card;
+		public readonly IGameCard card;
 
-		public InvalidLocationException(Location location, GameCard card, string debugMessage = "", string message = "")
+		public InvalidLocationException(Location location, IGameCard card, string debugMessage = "", string message = "")
 			: base(debugMessage, message)
 		{
 			this.location = location;

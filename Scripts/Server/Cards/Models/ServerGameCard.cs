@@ -212,7 +212,7 @@ namespace Kompas.Server.Cards.Models
 
 			var cardsThisLeft = Location == Location.Board ?
 				Game.BoardController.CardsAndAugsWhere(c => c != null && c.CardInAOE(this)).ToList() :
-				new List<GameCard>();
+				new List<IGameCard>();
 			var leaveContexts = cardsThisLeft.Select(c =>
 				new TriggeringEventContext(game: ServerGame, CardBefore: this, secondaryCardBefore: c, stackableCause: stackSrc, player: player)).ToArray();
 

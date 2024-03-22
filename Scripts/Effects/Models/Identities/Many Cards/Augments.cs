@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Kompas.Cards.Models;
 using Newtonsoft.Json;
 
@@ -22,7 +23,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 		{
 			var card = this.card.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
-			return card.Augments;
+			return card.Augments.ToArray();
 		}
 	}
 }

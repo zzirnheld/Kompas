@@ -16,11 +16,11 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		
 		private class ActivationEffect : HangingEffect
 		{
-			private readonly GameCard target;
+			private readonly IGameCardtarget;
 			private readonly ServerSubeffect source;
 
 			public ActivationEffect(EndCondition end, EndCondition fallOff,
-				ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target, ServerSubeffect source)
+				ServerEffect sourceEff, IResolutionContext resolutionContext, IGameCardtarget, ServerSubeffect source)
 				: base(end, fallOff, sourceEff, resolutionContext, removeIfEnd: true)
 			{
 				this.target = target ?? throw new System.ArgumentNullException(nameof(target), "Cannot target a null card for a hanging activation");

@@ -16,7 +16,7 @@ namespace Kompas.Cards.Views
 		private Label3D? W { get; set; }
 
 		//Text is a noop
-		public override void DisplayCardNumericStats(CardBase card)
+		public override void DisplayCardNumericStats(ICard card)
 		{
 			_ = N ?? throw new System.NullReferenceException("Failed to init");
 			_ = E ?? throw new System.NullReferenceException("Failed to init");
@@ -28,6 +28,6 @@ namespace Kompas.Cards.Views
 			Cost.Text = $"{card.Cost}";
 			W.Text = $"{card.W}";
 		}
-		public override void DisplayCardRulesText(CardBase card) { }
+		public override void DisplayCardRulesText(ICard card) { }
 	}
 }

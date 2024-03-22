@@ -10,7 +10,7 @@ namespace Kompas.Cards.Views
 	/// Most implementations will need to forward calls to a Control or Node3D that actually has references to the relevant fields
 	/// </summary>
 	public abstract class CardViewBase<CardType, DisplayerType>
-		where CardType : CardBase
+		where CardType : class, ICard
 		where DisplayerType : ICardInfoDisplayer
 	{
 		/// <summary>

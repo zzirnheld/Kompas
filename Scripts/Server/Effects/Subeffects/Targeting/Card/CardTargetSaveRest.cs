@@ -39,7 +39,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			return base.NoPossibleTargets();
 		}
 
-		protected override void AddList(IEnumerable<GameCard> choices)
+		protected override void AddList(IEnumerable<IGameCard> choices)
 		{
 			_ = restRestriction ?? throw new NotInitializedException();
 			base.AddList(choices);

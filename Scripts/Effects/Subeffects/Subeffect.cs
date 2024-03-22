@@ -153,7 +153,7 @@ namespace Kompas.Effects.Subeffects
 		public int Count => (Effect.X * xMultiplier / xDivisor) + xModifier;
 		#endregion effect x
 
-		public GameCard CardTarget => Effect.GetTarget(targetIndex)
+		public IGameCard CardTarget => Effect.GetTarget(targetIndex)
 			?? throw new NullCardException(TargetWasNull);
 		public Space SpaceTarget => Effect.GetSpace(spaceIndex)
 			?? throw new NullSpaceException(TargetWasNull);
@@ -162,7 +162,7 @@ namespace Kompas.Effects.Subeffects
 			?? throw new NullPlayerException(TargetWasNull);
 		public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
-		public GameCard? GetCardTarget(TargetingContext? overrideContext = null)
+		public IGameCard? GetCardTarget(TargetingContext? overrideContext = null)
 		{
 			int num = overrideContext.OrElse(CurrTargetingContext).cardTargetIndex
 				?? throw new System.InvalidOperationException("No card target index to grab card target for!");

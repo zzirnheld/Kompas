@@ -13,6 +13,8 @@ namespace Kompas.Gamestate.Locations.Models
 	public interface IDeck : ILocationModel
 	{
 		public IGameCard? Topdeck { get; }
+
+		public void Shuffle();
 	}
 
 	public interface IDeck<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IDeck

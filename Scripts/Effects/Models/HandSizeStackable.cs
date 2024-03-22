@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models
 {
 	public abstract class HandSizeStackable : IStackable
 	{
-		public GameCard? Card => null;
+		public IGameCard? Card => null;
 
 		protected readonly IGame game;
 		protected readonly IPlayer player;
@@ -36,6 +36,6 @@ namespace Kompas.Effects.Models
 			return ret;
 		}
 
-		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
+		public IGameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 	}
 }

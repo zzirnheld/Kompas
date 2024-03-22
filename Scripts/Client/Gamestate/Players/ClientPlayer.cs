@@ -12,7 +12,8 @@ namespace Kompas.Client.Gamestate.Players
 {
 	public class ClientPlayer : IPlayer<ClientGameCard, ClientPlayer>
 	{
-		public IPlayer Enemy { get; set; }
+		public ClientPlayer Enemy { get; set; }
+		IPlayer IPlayer.Enemy => Enemy;
 
 		//TODO: this is a delegate/lazy getter because the Networker isn't initialized until after the game is created on the client.
 		//Reorganize to be like the server
@@ -25,23 +26,23 @@ namespace Kompas.Client.Gamestate.Players
 		public IGame Game => game;
 
 
-		public IDeck<ClientGameCard> Deck { get; private set; }
+		public IDeck<ClientGameCard, ClientPlayer> Deck { get; private set; }
 		IDeck IPlayer.Deck => Deck;
 
-		public IHand<ClientGameCard> Hand { get; private set; }
+		public IHand<ClientGameCard, ClientPlayer> Hand { get; private set; }
 		IHand IPlayer.Hand => Hand;
 
-		public IDiscard<ClientGameCard> Discard { get; private set; }
+		public IDiscard<ClientGameCard, ClientPlayer> Discard { get; private set; }
 		IDiscard IPlayer.Discard => Discard;
 
-		public IAnnihilation<ClientGameCard> Annihilation { get; private set; }
+		public IAnnihilation<ClientGameCard, ClientPlayer> Annihilation { get; private set; }
 		IAnnihilation IPlayer.Annihilation => Annihilation;
 
 		public PlayerController PlayerController { get; }
 
 		public int Index { get; }
-		private GameCard? _avatar;
-		public GameCard Avatar
+		private ClientGameCard? _avatar;
+		public ClientGameCard Avatar
 		{
 			get => _avatar ?? throw new UnassignedReferenceException();
 			set
@@ -50,6 +51,7 @@ namespace Kompas.Client.Gamestate.Players
 				PlayerController.Avatar = value;
 			}
 		}
+		IGameCard IPlayer.Avatar => Avatar;
 
 		public bool Friendly => Index == 0;
 

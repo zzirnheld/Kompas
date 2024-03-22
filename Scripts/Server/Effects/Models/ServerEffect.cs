@@ -30,7 +30,7 @@ namespace Kompas.Server.Effects.Models
 		public ServerStackController EffectsController => ServerGame.StackController;
 
 		private ServerGameCard? _card;
-		public override GameCard Card => _card
+		public override IGameCard Card => _card
 			?? throw new NotInitializedException();
 
 		private ServerPlayer? _ownerServerPlayer;
@@ -65,7 +65,7 @@ namespace Kompas.Server.Effects.Models
 		{
 			_card = card;
 			_serverGame = game;
-			_ownerServerPlayer = game.ServerControllerOf(card);
+			_ownerServerPlayer = card.ControllingPlayer;
 			base.SetInfo(effectIndex);
 
 			if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
@@ -245,29 +245,29 @@ namespace Kompas.Server.Effects.Models
 		}
 		#endregion resolution
 
-		public override void AddTarget(GameCard card) => AddTarget(card);
+		public override void AddTarget(IGameCard card) => AddTarget(card);
 
-		public void AddTarget(GameCard card, IPlayer? onlyOneToKnow = null)
+		public void AddTarget(IGameCard card, IPlayer? onlyOneToKnow = null)
 		{
 			base.AddTarget(card);
 			NotifyAddCardTarget(card, onlyOneToKnow);
 		}
 
-		private void NotifyAddCardTarget(GameCard card, IPlayer? onlyOneToKnow = null)
+		private void NotifyAddCardTarget(IGameCard card, IPlayer? onlyOneToKnow = null)
 		{
 			if (onlyOneToKnow != null) ServerNotifier.AddHiddenTarget(onlyOneToKnow, Card, EffectIndex, card);
 			else ServerNotifier.AddTarget(Card, EffectIndex, card, Game.Players);
 		}
 
-		public override void RemoveTarget(GameCard card)
+		public override void RemoveTarget(IGameCard card)
 		{
 			base.RemoveTarget(card);
 			ServerNotifier.RemoveTarget(Card, EffectIndex, card, Game.Players);
 		}
 
-		public void CreateCardLink(Color linkColor, IPlayer? onlyPlayerToKnow = null, params GameCard[] cards)
+		public void CreateCardLink(Color linkColor, IPlayer? onlyPlayerToKnow = null, params IGameCard[] cards)
 		{
-			GameCard[] validCards = cards.Where(c => c != null).ToArray();
+			IGameCard[] validCards = cards.Where(c => c != null).ToArray();
 			//if (validCards.Length <= 1) return; //Don't create a link between one non-null card? nah, do, so we can delete it as expected later
 
 			var link = new CardLink(new HashSet<int>(validCards.Select(c => c.ID)), this, linkColor);

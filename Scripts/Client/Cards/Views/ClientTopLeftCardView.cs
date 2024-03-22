@@ -31,7 +31,7 @@ namespace Kompas.Client.Cards.Views
 		/// <summary>
 		/// If <paramref name="card"/> is the shown card, refreshes its shown information
 		/// </summary>
-		private void Refresh(GameCard? card)
+		private void Refresh(ICard? card)
 		{
 			if (card == ShownCard && card != null) Refresh();
 		}

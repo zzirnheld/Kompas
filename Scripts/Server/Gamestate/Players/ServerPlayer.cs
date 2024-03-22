@@ -27,9 +27,10 @@ namespace Kompas.Server.Gamestate.Players
 		public ServerGame ServerGame { get; }
 		public IGame Game => ServerGame;
 
-		private IPlayer? _enemy;
-		public IPlayer Enemy => _enemy
+		private ServerPlayer? _enemy;
+		public ServerPlayer Enemy => _enemy
 			?? throw new UseFactoryException();
+		IPlayer IPlayer.Enemy => Enemy;
 
 		private int _pips;
 		public int Pips

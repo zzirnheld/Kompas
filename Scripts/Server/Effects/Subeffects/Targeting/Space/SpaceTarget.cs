@@ -45,7 +45,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		/// <returns><see langword="true"/> if there's a valid space,
 		/// assuming you pick <paramref name="theoreticalTarget"/>,
 		/// <see langword="false"/> otherwise</returns>
-		public bool WillBePossibleIfCardTargeted(GameCard? theoreticalTarget)
+		public bool WillBePossibleIfCardTargeted(IGameCard? theoreticalTarget)
 		{
 			if (theoreticalTarget == null) return false;
 			foreach (var space in Space.Spaces)

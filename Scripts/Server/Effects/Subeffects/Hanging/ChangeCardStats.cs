@@ -62,11 +62,11 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 		protected class ChangeCardStatsEffect : HangingEffect
 		{
-			private readonly GameCard buffRecipient;
+			private readonly IGameCardbuffRecipient;
 			private readonly CardStats buff;
 
 			public ChangeCardStatsEffect(EndCondition end, EndCondition fallOff, ServerEffect sourceEff,
-				IResolutionContext currentContext, GameCard buffRecipient, CardStats buff)
+				IResolutionContext currentContext, IGameCardbuffRecipient, CardStats buff)
 				: base(end, fallOff, sourceEff, currentContext, removeIfEnd: true)
 			{
 				this.buffRecipient = buffRecipient ?? throw new System.ArgumentNullException(nameof(buffRecipient), "Null characcter card in temporary nesw buff");

@@ -52,11 +52,11 @@ namespace Kompas.Client.Cards.Controllers
 		}
 
 		//TODO move these events to the card?
-		public event EventHandler<GameCard?>? AnythingRefreshed;
-		public event EventHandler<GameCard?>? StatsRefreshed;
-		public event EventHandler<GameCard?>? LinksRefreshed;
-		public event EventHandler<GameCard?>? AugmentsRefreshed;
-		public event EventHandler<GameCard?>? TargetingRefreshed;
+		public event EventHandler<IGameCard?>? AnythingRefreshed;
+		public event EventHandler<IGameCard?>? StatsRefreshed;
+		public event EventHandler<IGameCard?>? LinksRefreshed;
+		public event EventHandler<IGameCard?>? AugmentsRefreshed;
+		public event EventHandler<IGameCard?>? TargetingRefreshed;
 
 		private ClientGameCard? _card;
 		public ClientGameCard Card

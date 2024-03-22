@@ -28,12 +28,12 @@ namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 			CardFaceImage.Texture = FallbackCardImageTexture;
 		}
 
-		public void DisplayCardImage(CardBase card)
+		public void DisplayCardImage(ICard card)
 		{
 			CardFaceImage.Texture = card?.CardFaceImage ?? FallbackCardImageTexture;
 		}
 
-		public virtual void DisplayCardNumericStats(CardBase card) { }
-		public virtual void DisplayCardRulesText(CardBase card) { }
+		public virtual void DisplayCardNumericStats(ICard card) { }
+		public virtual void DisplayCardRulesText(ICard card) { }
 	}
 }

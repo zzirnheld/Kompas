@@ -34,9 +34,9 @@ namespace Kompas.Server.Networking
 
 		//TODO also make sure that when decline target is set, it also wakes up relevant targeting semaphores
 		public bool DeclineTarget { get; set; }
-		public GameCard? CardTarget { get; set; }
-		private IEnumerable<GameCard>? cardListTargets;
-		public IEnumerable<GameCard>? CardListTargets
+		public IGameCard? CardTarget { get; set; }
+		private IEnumerable<IGameCard>? cardListTargets;
+		public IEnumerable<IGameCard>? CardListTargets
 		{
 			get => cardListTargets;
 			set
@@ -138,7 +138,7 @@ namespace Kompas.Server.Networking
 		/// <param name="listRestrictionJson">The list resriction, if any</param>
 		/// <returns>The cards the person chose and false if they chose targets;<br></br>
 		/// null and true if they declined to choose targets</returns>
-		public async Task<IEnumerable<GameCard>?> GetCardListTargets
+		public async Task<IEnumerable<IGameCard>?> GetCardListTargets
 			(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, IListRestriction listRestriction)
 		{
 			ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestriction);

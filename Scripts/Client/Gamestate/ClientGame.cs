@@ -19,32 +19,35 @@ using Kompas.Shared;
 
 namespace Kompas.Client.Gamestate
 {
-	public class ClientGame : IGame
+	public class ClientGame : IGame<ClientGameCard, ClientPlayer>
 	{
 		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
 		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
 		public CardRepository CardRepository => ClientCardRepository;
 
-		public ClientBoard ClientBoard { get; private set; }
-		public Board Board => ClientBoard;
+		public IBoard<ClientGameCard, ClientPlayer> Board { get; private set; }
+		IBoard IGame.Board => Board;
 
 		public ClientStackController StackController { get; }
 
 		IStackController IGame.StackController => StackController;
 
 		private readonly ClientPlayer[] clientPlayers = new ClientPlayer[2];
-		public IPlayer[] Players => clientPlayers;
+		public ClientPlayer[] Players => clientPlayers;
+		IPlayer[] IGame.Players => Players;
 		public ClientPlayer FriendlyPlayer => clientPlayers[0];
 
 		public ClientGameController ClientGameController { get; private set; }
 		public GameController GameController => ClientGameController;
 
 		private readonly Dictionary<int, ClientGameCard> cardsByID = new();
-		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
+		public IReadOnlyCollection<ClientGameCard> Cards => cardsByID.Values;
+		IReadOnlyCollection<IGameCard> IGame.Cards => Cards;
 
 		public bool GameOver { get; private set; }
 		public int TurnPlayerIndex { get; set; }
-		public IPlayer TurnPlayer => Players[TurnPlayerIndex];
+		public ClientPlayer TurnPlayer => Players[TurnPlayerIndex];
+		IPlayer IGame.TurnPlayer => TurnPlayer;
 		public int FirstTurnPlayer { get; set; } //TODO
 		public int RoundCount { get; set; } = 1;
 		public int TurnCount { get; set; } = 1;
@@ -56,7 +59,7 @@ namespace Kompas.Client.Gamestate
 		public bool canZoom = false;
 
 		//dirty card set
-		private readonly HashSet<GameCard> dirtyCardList = new();
+		private readonly HashSet<IGameCard> dirtyCardList = new();
 
 		public event EventHandler<IPlayer> TurnChanged;
 
@@ -89,7 +92,7 @@ namespace Kompas.Client.Gamestate
 		{
 			var ret = new ClientGame(gameController);
 
-			ret.ClientBoard = new ClientBoard(gameController.BoardController
+			ret.Board = new ClientBoard(gameController.BoardController
 				?? throw new System.NullReferenceException("Failed to init"));
 
 			var playerControllers = gameController.PlayerControllers;
@@ -160,7 +163,7 @@ namespace Kompas.Client.Gamestate
 			//if (player == 1) uiController.connectionUIController.deckAcceptedUIController.ShowEnemyAvatar(avatar.FileName);
 		}
 
-		public void Delete(GameCard card)
+		public void Delete(ClientGameCard card)
 		{
 			card.Remove();
 			cardsByID.Remove(card.ID);
@@ -188,11 +191,12 @@ namespace Kompas.Client.Gamestate
 			TurnChanged?.Invoke(this, TurnPlayer);
 		}
 
-		public GameCard? LookupCardByID(int id)
+		public ClientGameCard? LookupCardByID(int id)
 		{
 			if (cardsByID.TryGetValue(id, out var ret)) return ret;
 			return null;
 		}
+		IGameCard? IGame.LookupCardByID(int id) => LookupCardByID(id);
 
 		//TODO move to GameController:
 		/*

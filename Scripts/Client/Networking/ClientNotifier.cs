@@ -26,17 +26,17 @@ namespace Kompas.Client.Networking
 
 		
 		#region Normal Request Actions
-		public void RequestPlay(GameCard card, int toX, int toY)
+		public void RequestPlay(IGameCard card, int toX, int toY)
 		{
 			GD.Print($"Requesting to play {card} to {toX}, {toY}");
 			if (card.Type == 'A') Send(new AugmentActionPacket(card.ID, toX, toY));
 			else Send(new PlayActionPacket(card.ID, toX, toY));
 		}
 
-		public void RequestMove(GameCard card, int toX, int toY)
+		public void RequestMove(IGameCard card, int toX, int toY)
 			=> Send(new MoveActionPacket(card.ID, toX, toY));
 
-		public void RequestAttack(GameCard attacker, GameCard defender)
+		public void RequestAttack(IGameCard attacker, IGameCard defender)
 			=> Send(new AttackActionPacket(attacker.ID, defender.ID));
 
 		public void RequestDecklistImport(Decklist decklist)
@@ -44,9 +44,9 @@ namespace Kompas.Client.Networking
 
 		public void RequestEndTurn() => Send(new EndTurnActionPacket());
 
-		public void RequestTarget(GameCard card) => Send(new CardTargetPacket(card.ID));
+		public void RequestTarget(IGameCard card) => Send(new CardTargetPacket(card.ID));
 
-		public void RequestActivateEffect(GameCard card, int index)
+		public void RequestActivateEffect(IGameCard card, int index)
 			=> Send(new ActivateEffectActionPacket(card.ID, index));
 
 		public void RequestSetX(int x) => Send(new SelectXPacket(x));
@@ -55,7 +55,7 @@ namespace Kompas.Client.Networking
 
 		public void RequestSpaceTarget(int x, int y) => Send(new SpaceTargetPacket(x, y));
 
-		public void RequestListChoices(IEnumerable<GameCard> choices) => Send(new ListChoicesPacket(choices));
+		public void RequestListChoices(IEnumerable<IGameCard> choices) => Send(new ListChoicesPacket(choices));
 
 		public void RequestHandSizeChoices(int[] cardIds) => Send(new SendHandSizeChoicesPacket(cardIds));
 
