@@ -14,14 +14,14 @@ namespace Kompas.Gamestate.Locations
 		public bool IsLocation(Location location, bool friendly);
 	}
 
-	public interface ILocationModel<CardType, PlayerType> : ILocationModel
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public interface ILocationModel<TCard, TPlayer> : ILocationModel
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public new IEnumerable<CardType> Cards { get; }
+		public new IEnumerable<TCard> Cards { get; }
 
-		public int IndexOf(CardType card);
+		public int IndexOf(TCard card);
 
-		public void Remove(CardType card);
+		public void Remove(TCard card);
 	}
 }

@@ -10,37 +10,37 @@ namespace Kompas.Gamestate.Locations.Models
 	public interface IAnnihilation : ILocationModel
 	{ }
 
-	public interface IAnnihilation<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IAnnihilation
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public interface IAnnihilation<TCard, TPlayer> : ILocationModel<TCard, TPlayer>, IAnnihilation
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
+		public void Add(TCard card, int? index = null, IStackable? stackableCause = null);
 	}
 
-	public abstract class Annihilation<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IAnnihilation<CardType, PlayerType>
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public abstract class Annihilation<TCard, TPlayer> : OwnedLocationModel<TCard, TPlayer>, IAnnihilation<TCard, TPlayer>
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		private readonly IList<CardType> cards = new List<CardType>();
-		public override IEnumerable<CardType> Cards => cards;
+		private readonly IList<TCard> cards = new List<TCard>();
+		public override IEnumerable<TCard> Cards => cards;
 
 		public override Location Location => Location.Annihilation;
 		private readonly AnnihilationController annihilationController;
 
-		protected Annihilation(PlayerType owner, AnnihilationController annihilationController) : base(owner)
+		protected Annihilation(TPlayer owner, AnnihilationController annihilationController) : base(owner)
 		{
 			this.annihilationController = annihilationController;
 			annihilationController.AnnihilationModel = this;
 		}
 
-		protected override void PerformAdd(CardType card, int? index, IStackable? stackableCause)
+		protected override void PerformAdd(TCard card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) cards.Insert(index.Value, card);
 			else cards.Add(card);
 			annihilationController.Refresh();
 		}
 
-		public override void Remove(CardType card)
+		public override void Remove(TCard card)
 		{
 			if (!cards.Contains(card))
 				throw new CardNotHereException(Location.Annihilation, card, "Card was not in annihilation, couldn't be removed");
@@ -49,6 +49,6 @@ namespace Kompas.Gamestate.Locations.Models
 			annihilationController.Refresh();
 		}
 
-		public override int IndexOf(CardType card) => cards.IndexOf(card);
+		public override int IndexOf(TCard card) => cards.IndexOf(card);
 	}
 }

@@ -12,18 +12,18 @@ namespace Kompas.Gamestate.Locations.Models
 	/// Base class for ILocationModels owned by a player (from whom we can infer what game they're in).
 	/// Must have an ordering to the list.
 	/// </summary>
-	public abstract class OwnedLocationModel<CardType, PlayerType> : ILocationModel<CardType, PlayerType>
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public abstract class OwnedLocationModel<TCard, TPlayer> : ILocationModel<TCard, TPlayer>
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public PlayerType Owner { get; }
+		public TPlayer Owner { get; }
 
 		public abstract Location Location { get; }
 
-		public abstract IEnumerable<CardType> Cards { get; }
+		public abstract IEnumerable<TCard> Cards { get; }
 		IEnumerable<IGameCard> ILocationModel.Cards => Cards;
 
-		public OwnedLocationModel(PlayerType owner)
+		public OwnedLocationModel(TPlayer owner)
 		{
 			Owner = owner;
 		}
@@ -33,19 +33,19 @@ namespace Kompas.Gamestate.Locations.Models
 			&& friendly == Owner.Friendly;
 
 
-		public abstract int IndexOf(CardType card);
+		public abstract int IndexOf(TCard card);
 
-		public abstract void Remove(CardType card);
+		public abstract void Remove(TCard card);
 
 		protected virtual bool AllowAlreadyHereWhenAdd => false;
 
-		protected abstract void PerformAdd(CardType card, int? index, IStackable? stackableCause);
+		protected abstract void PerformAdd(TCard card, int? index, IStackable? stackableCause);
 
 		/// <summary>
 		/// Adds the card to this owned game location at the relevant index.
 		/// DOES NOT set the controller (that will need to be done manually by the implementer)
 		/// </summary>
-		public void Add(CardType card, int? index = null, IStackable? stackableCause = null)
+		public void Add(TCard card, int? index = null, IStackable? stackableCause = null)
 		{
 			GD.Print($"Trying to {Location} {card}");
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
@@ -67,6 +67,6 @@ namespace Kompas.Gamestate.Locations.Models
 			PerformAdd(card, index, stackableCause);
 		}
 
-		public abstract void TakeControlOf(CardType card);
+		public abstract void TakeControlOf(TCard card);
 	}
 }

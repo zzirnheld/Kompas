@@ -42,15 +42,15 @@ namespace Kompas.Gamestate.Players
 		public PlayerController PlayerController { get; }
 	}
 
-	public interface IPlayer<CardType, PlayerType> : IPlayer
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public interface IPlayer<TCard, TPlayer> : IPlayer
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public new PlayerType Enemy { get; }
+		public new TPlayer Enemy { get; }
 
-		public new IDeck<CardType, PlayerType> Deck { get; }
-		public new IDiscard<CardType, PlayerType> Discard { get; }
-		public new IHand<CardType, PlayerType> Hand { get; }
-		public new IAnnihilation<CardType, PlayerType> Annihilation { get; }
+		public new IDeck<TCard, TPlayer> Deck { get; }
+		public new IDiscard<TCard, TPlayer> Discard { get; }
+		public new IHand<TCard, TPlayer> Hand { get; }
+		public new IAnnihilation<TCard, TPlayer> Annihilation { get; }
 	}
 }

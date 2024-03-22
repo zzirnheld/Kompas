@@ -18,7 +18,7 @@ namespace Kompas.Server.Effects.Models
 
 		private ServerStackController EffCtrl => ServerGame.StackController;
 
-		public ServerAttack(ServerGame serverGame, IPlayer instigator, ServerGameCard attacker, ServerGameCard defender)
+		public ServerAttack(ServerGame serverGame, IPlayer instigator, IGameCard attacker, IGameCard defender)
 			: base(instigator, attacker, defender)
 		{
 			ServerGame = serverGame

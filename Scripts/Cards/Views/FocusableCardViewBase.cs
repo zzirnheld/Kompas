@@ -7,21 +7,21 @@ namespace Kompas.Cards.Views
 	/// <summary>
 	/// Defines the behavior for displaying card information, while not specifying the details of the implementation
 	/// </summary>
-	public abstract class FocusableCardViewBase<CardType, DisplayerType>
-		: CardViewBase<CardType, DisplayerType>
-		where CardType : CardBase
-		where DisplayerType : ICardInfoDisplayer
+	public abstract class FocusableCardViewBase<TCard, DisTPlayer>
+		: CardViewBase<TCard, DisTPlayer>
+		where TCard : CardBase
+		where DisTPlayer : ICardInfoDisplayer
 	{
 		/// <summary>
 		/// The card being "focused" on.
 		/// If we're not currently doing something like hovering over another card,
 		/// this is the one we should be showing, as a fallback
 		/// </summary>
-		public CardType? FocusedCard { get; private set; }
+		public TCard? FocusedCard { get; private set; }
 
 		public event EventHandler<CardChange>? FocusChange;
 
-		protected FocusableCardViewBase(DisplayerType infoDisplayer)
+		protected FocusableCardViewBase(DisTPlayer infoDisplayer)
 			: base(infoDisplayer)
 		{ }
 
@@ -30,7 +30,7 @@ namespace Kompas.Cards.Views
 		/// If we're not currently doing something like hovering over another card, this is the one we should be showing
 		/// </summary>
 		/// <param name="card"></param>
-		protected virtual void Focus(CardType? card)
+		protected virtual void Focus(TCard? card)
 		{
 			var oldFocus = FocusedCard;
 			FocusedCard = card;
@@ -38,7 +38,7 @@ namespace Kompas.Cards.Views
 			Show(card);
 		}
 
-		protected override void Show(CardType? card, bool refresh = false)
+		protected override void Show(TCard? card, bool refresh = false)
 		{
 			base.Show(card ?? FocusedCard, refresh);
 		}

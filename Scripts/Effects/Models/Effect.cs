@@ -10,16 +10,33 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
+	public interface IEffect : IStackable
+	{
+		public IPlayer OwningPlayer { get; }
+
+		public bool Negated { get; set; }
+
+		public void ResetForTurn(IPlayer turnPlayer);
+		public void ResetForStack();
+	}
+
 	/// <summary>
 	/// Effects will only be resolved on server. Clients will just get to know what effects they can use
-	/// </summary>
-	public abstract class Effect : IStackable
+    /// </summary>
+    /// <typeparam name="TCard">The type of card that this effect is from/can act on (client/server)</typeparam>
+    /// <typeparam name="TPlayer">The type of player that this effect is from/can act on (client/server)</typeparam>
+	public abstract class Effect<TCard, TPlayer> : IEffect
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : class, IPlayer<TCard, TPlayer>
 	{
-		public abstract IGame Game { get; }
+		public abstract IGame<TCard, TPlayer> Game { get; }
 
 		public int EffectIndex { get; private set; }
-		public abstract IGameCard Card { get; }
-		public abstract IPlayer OwningPlayer { get; }
+		public abstract TCard Card { get; }
+		IGameCard IStackable.Card => Card;
+
+		public abstract TPlayer OwningPlayer { get; }
+		IPlayer IEffect.OwningPlayer => OwningPlayer;
 
 		//subeffects
 		public abstract Subeffect[] Subeffects { get; }
@@ -29,7 +46,7 @@ namespace Kompas.Effects.Models
 		public int SubeffectIndex { get; protected set; }
 
 		//Targets
-		public IList<IGameCard> CardTargets => CurrentResolutionContext?.CardTargets
+		public IList<TCard> CardTargets => CurrentResolutionContext?.CardTargets
 			?? throw new EffectNotResolvingException(this);
 		public IList<Space> SpaceTargets => CurrentResolutionContext?.SpaceTargets
 			?? throw new EffectNotResolvingException(this);
@@ -69,7 +86,7 @@ namespace Kompas.Effects.Models
 		public string? blurb;
 		public int arg; //used for keyword arguments, and such
 
-		public abstract IResolutionContext? CurrentResolutionContext { get; }
+		public abstract IResolutionContext<TCard, TPlayer>? CurrentResolutionContext { get; }
 		public TriggeringEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
 		public int TimesUsedThisTurn { get; protected set; }
 		public int TimesUsedThisRound { get; protected set; }
@@ -101,6 +118,11 @@ namespace Kompas.Effects.Models
 			if (turnPlayer == Card?.ControllingPlayer) TimesUsedThisRound = 0;
 		}
 
+		public void ResetForStack()
+		{
+			TimesUsedThisStack = 0;
+		}
+
 		public void Reset()
 		{
 			TimesUsedThisRound = 0;
@@ -108,7 +130,7 @@ namespace Kompas.Effects.Models
 		}
 
 		public virtual bool CanBeActivatedBy(IPlayer controller)
-			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game));
+			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, IResolutionContext.PlayerTrigger(this, Game));
 
 		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
@@ -118,14 +140,14 @@ namespace Kompas.Effects.Models
 		public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 
 
-		public virtual void AddTarget(IGameCard card) {
+		public virtual void AddTarget(TCard card) {
 			CardTargets.Add(card);
 		}
-		public virtual void RemoveTarget(IGameCard card) => CardTargets.Remove(card);
+		public virtual void RemoveTarget(TCard card) => CardTargets.Remove(card);
 
 		public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
 
-		public T TestWithCardTarget<T>(IGameCard? target, System.Func<T> toTest)
+		public T TestWithCardTarget<T>(TCard? target, System.Func<T> toTest)
 		{
 			if (target != null) CardTargets.Add(target);
 			var ret = toTest();

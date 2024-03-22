@@ -185,7 +185,7 @@ namespace Kompas.Cards.Models
 									   string? subtext, string[] spellTypes,
 									   bool unique,
 									   int radius, int duration,
-									   char cardType, string? cardName, string? fileName,
+									   char TCard, string? cardName, string? fileName,
 									   string? effText,
 									   string? subtypeText)
 		{
@@ -193,14 +193,14 @@ namespace Kompas.Cards.Models
 
 			FileName = fileName
 				?? throw new System.NullReferenceException($"{cardName} had no associated file?");
-			SetInfo(null, subtext, spellTypes, unique, radius, duration, cardType, cardName, effText, subtypeText);
+			SetInfo(null, subtext, spellTypes, unique, radius, duration, TCard, cardName, effText, subtypeText);
 		}
 
 		protected void SetInfo(CardStats? stats,
 									   string? subtext, string[] spellTypes,
 									   bool unique,
 									   int radius, int duration,
-									   char cardType, string? cardName,
+									   char TCard, string? cardName,
 									   string? effText,
 									   string? subtypeText)
 		{
@@ -216,7 +216,7 @@ namespace Kompas.Cards.Models
 			Unique = unique;
 			Radius = radius;
 			Duration = duration;
-			Type = cardType;
+			Type = TCard;
 			CardName = cardName ?? throw new ArgumentNullException(nameof(cardName), $"A card is missing a name.");
 			EffText = effText ?? throw new ArgumentNullException(nameof(effText), $"Card {CardName} is missing effect text");
 			SubtypeText = subtypeText ?? string.Empty;
@@ -227,7 +227,7 @@ namespace Kompas.Cards.Models
 				serializableCard.subtext, serializableCard.spellTypes,
 				serializableCard.unique,
 				serializableCard.radius, serializableCard.duration,
-				serializableCard.cardType, serializableCard.cardName,
+				serializableCard.TCard, serializableCard.cardName,
 				serializableCard.effText, serializableCard.subtypeText);
 
 		protected virtual void SetStats(CardStats cardStats)

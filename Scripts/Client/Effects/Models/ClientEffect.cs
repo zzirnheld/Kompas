@@ -12,13 +12,15 @@ using Kompas.Gamestate.Players;
 namespace Kompas.Client.Effects.Models
 {
 	//TODO refactor into serialized - unserialized thing? Or reformat like Identities?
-	public class ClientEffect : Effect, IClientStackable
+	public class ClientEffect : Effect<ClientGameCard, ClientPlayer>, IClientStackable
 	{
-		private IPlayer? owningPlayer;
-		public override IPlayer OwningPlayer => owningPlayer ?? throw new System.NullReferenceException("Tried to get owning player of uninitialized effect");
+		private ClientPlayer? _owningPlayer;
+		public override ClientPlayer OwningPlayer => _owningPlayer
+			?? throw new System.NullReferenceException("Tried to get owning player of uninitialized effect");
 
-		private ClientGameCard? card;
-		public override IGameCard Card => card ?? throw new System.NullReferenceException("Tried to get card of uninitialized effect");
+		private ClientGameCard? _card;
+		public override ClientGameCard Card => _card
+			?? throw new System.NullReferenceException("Tried to get card of uninitialized effect");
 
 		private ClientGame? _clientGame;
 		public ClientGame ClientGame
@@ -26,42 +28,43 @@ namespace Kompas.Client.Effects.Models
 			get => _clientGame ?? throw new System.NullReferenceException("Tried to get game of uninitialized effect");
 			private set => _clientGame = value;
 		}
+		public override IGame<ClientGameCard, ClientPlayer> Game => ClientGame;
+
 		private ClientTrigger? _clientTrigger;
 		public ClientTrigger ClientTrigger
 		{
 			get => _clientTrigger ?? throw new System.NullReferenceException("Tried to get trigger of uninitialized effect");
 			private set => _clientTrigger = value;
 		}
-		public override IGame Game => ClientGame;
 
 		public DummySubeffect[] DummySubeffects { get; } = Array.Empty<DummySubeffect>();
 		public override Subeffect[] Subeffects => DummySubeffects;
 		public override Trigger Trigger => ClientTrigger;
 
-		private IResolutionContext? currentResolutionContext;
-		public override IResolutionContext CurrentResolutionContext
-			=> currentResolutionContext ??= ResolutionContext.PlayerTrigger(this, Game);
+		private IResolutionContext<ClientGameCard, ClientPlayer>? _currentResolutionContext;
+		public override IResolutionContext<ClientGameCard, ClientPlayer> CurrentResolutionContext
+			=> _currentResolutionContext ??= IResolutionContext.PlayerTrigger(this, Game);
 		//TODO controller? should have some way to track it client-side otherwise if effects ever can be activated by not the card's ocntroller something will break
 
 		public string StackableBlurb => blurb ?? string.Empty;
 
-		public void SetInfo(ClientGameCard card, ClientGame clientGame, int effectIndex, IPlayer owningPlayer)
+		public void SetInfo(ClientGameCard card, ClientGame clientGame, int effectIndex, ClientPlayer owningPlayer)
 		{
-			this.card = card;
+			this._card = card;
 			ClientGame = clientGame;
-			this.owningPlayer = owningPlayer;
+			this._owningPlayer = owningPlayer;
 			base.SetInfo(effectIndex);
 			if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
 				ClientTrigger = new ClientTrigger(triggerData, this);
 		}
 
-		public override void AddTarget(IGameCard card)
+		public override void AddTarget(ClientGameCard card)
 		{
 			base.AddTarget(card);
 			//card.CardController.gameCardViewController.Refresh();
 		}
 
-		public override void RemoveTarget(IGameCard card)
+		public override void RemoveTarget(ClientGameCard card)
 		{
 			base.RemoveTarget(card);
 			//card.CardController.gameCardViewController.Refresh();

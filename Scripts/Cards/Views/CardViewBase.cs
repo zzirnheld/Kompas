@@ -9,26 +9,26 @@ namespace Kompas.Cards.Views
 	/// Defines the behavior for displaying card information, while not specifying the details of the implementation.
 	/// Most implementations will need to forward calls to a Control or Node3D that actually has references to the relevant fields
 	/// </summary>
-	public abstract class CardViewBase<CardType, DisplayerType>
-		where CardType : class, ICard
-		where DisplayerType : ICardInfoDisplayer
+	public abstract class CardViewBase<TCard, DisTPlayer>
+		where TCard : class, ICard
+		where DisTPlayer : ICardInfoDisplayer
 	{
 		/// <summary>
 		/// The card currently being shown to the user.
 		/// </summary>
-		public CardType? ShownCard { get; private set; }
+		public TCard? ShownCard { get; private set; }
 
-		public DisplayerType InfoDisplayer { get; }
+		public DisTPlayer InfoDisplayer { get; }
 
 		public class CardChange
 		{
-			public CardType? Old { get; init; }
-			public CardType? New { get; init; }
+			public TCard? Old { get; init; }
+			public TCard? New { get; init; }
 		}
 
 		public event EventHandler<CardChange>? ChangeShownCard;
 
-		protected CardViewBase(DisplayerType infoDisplayer)
+		protected CardViewBase(DisTPlayer infoDisplayer)
 		{
 			InfoDisplayer = infoDisplayer;
 		}
@@ -46,7 +46,7 @@ namespace Kompas.Cards.Views
 		/// </summary>
 		/// <param name="card"></param>
 		/// <param name="refresh"></param>
-		protected virtual void Show(CardType? card, bool refresh = false)
+		protected virtual void Show(TCard? card, bool refresh = false)
 		{
 			//Unless explicitly refreshing card, if already showing that card, no-op.
 			if (card == ShownCard && !refresh) return;
@@ -68,7 +68,7 @@ namespace Kompas.Cards.Views
 			InfoDisplayer.ShowingInfo = false;
 		}
 
-		protected virtual void Display(CardType shownCard)
+		protected virtual void Display(TCard shownCard)
 		{
 			//If not showing nothing, make sure we're showing information
 			InfoDisplayer.ShowingInfo = true;

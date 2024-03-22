@@ -22,7 +22,7 @@ namespace Kompas.Client.Cards.Loading
 		{
 			void validation(SerializableCard cardInfo)
 			{
-				if (cardInfo.cardType != 'C') throw new System.NotImplementedException("Card type for client avatar isn't character!");
+				if (cardInfo.TCard != 'C') throw new System.NotImplementedException("Card type for client avatar isn't character!");
 			}
 
 			ClientGameCard ConstructAvatar(ClientSerializableCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
@@ -77,7 +77,7 @@ namespace Kompas.Client.Cards.Loading
 				}
 
 				return new SelectDeckCard(serializableCard.Stats, serializableCard.subtext, serializableCard.spellTypes, serializableCard.unique,
-					serializableCard.radius, serializableCard.duration, serializableCard.cardType, serializableCard.cardName,
+					serializableCard.radius, serializableCard.duration, serializableCard.TCard, serializableCard.cardName,
 					fileName, //TODO signature that takes in serializablecard, TODO signature in card base for the same, TODO fileName
 					serializableCard.effText, serializableCard.subtypeText);
 			}

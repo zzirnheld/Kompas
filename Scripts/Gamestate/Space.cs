@@ -61,6 +61,59 @@ namespace Kompas.Gamestate
 		public int DistanceTo(Space other) => TaxicabDistanceTo(other);
 		public Space DisplacementTo(Space other) => (other.x - x, other.y - y);
 
+		public static int DistanceBetween(Space? start, Space? destination, Predicate<Space> through)
+			=> start?.DistanceTo(destination, through) ?? NoPathExists;
+
+		/// <summary>
+		/// A really bad Dijkstra's because this is a fun side project and I'm not feeling smart today
+		/// </summary>
+		/// <param name="start">The card to start looking from</param>
+		/// <param name="x">The x coordinate you want a distance to</param>
+		/// <param name="y">The y coordinate you want a distance to</param>
+		/// <param name="throughPredicate">What all cards you go through must fit</param>
+		/// <returns></returns>
+		public int DistanceTo(Space? destination, Predicate<Space> throughPredicate)
+		{
+			if (this == destination) return 0;
+			if (destination == null) return NoPathExists;
+
+			int[,] dist = new int[7, 7];
+			bool[,] seen = new bool[7, 7];
+
+			var queue = new Queue<Space>();
+
+			queue.Enqueue(this); //TODO add a unit test, then remove one of these enqueues
+			dist[x, y] = 0;
+			seen[x, y] = true;
+
+			//set up the structures with the source node
+			queue.Enqueue(this);
+
+			//iterate until the queue is empty, in which case you'll have seen all connected cards that fit the restriction.
+			while (queue.Any())
+			{
+				//consider the adjacent cards to the next node in the queue
+				var curr = queue.Dequeue();
+				var (currX, currY) = curr;
+				foreach (var next in curr.AdjacentSpaces.Where(throughPredicate.Invoke))
+				{
+					var (nextX, nextY) = next;
+					//if that adjacent card is never seen before, initialize its distance and add it to the structures
+					if (!seen[nextX, nextY])
+					{
+						seen[nextX, nextY] = true;
+						queue.Enqueue(next);
+						dist[nextX, nextY] = dist[currX, currY] + 1;
+					}
+					//otherwise, relax its distance if appropriate
+					else if (dist[currX, currY] + 1 < dist[nextX, nextY])
+						dist[nextX, nextY] = dist[currX, currY] + 1;
+				}
+			}
+
+			return dist[destination.x, destination.y] <= 0 ? Space.NoPathExists : dist[destination.x, destination.y];
+		}
+
 		public bool IsAdjacentTo(Space other) => DistanceTo(other) == 1;
 		public IReadOnlyCollection<Space> AdjacentSpaces
 		{
@@ -143,6 +196,19 @@ namespace Kompas.Gamestate
 			else if (diff.y % diff.x == 0) return (Math.Sign(diff.x), Math.Sign(diff.y) * (diff.y / diff.x));
 			else return diff;
 		}
+
+		public static bool AreConnectedBy(Space? start, Space destination, Predicate<Space> through)
+			=> start?.IsConnectedTo(destination, through) ?? false;
+
+		public bool IsConnectedTo(Space? destination, Predicate<Space> by)
+		{
+			if (destination == null) return false;
+			return destination.AdjacentSpaces.Any(destAdj => DistanceTo(destAdj, by) < NoPathExists);
+		}
+
+		public static bool AreConnectedCheckPathLength
+			(Space? source, Space destination, Predicate<Space> spacePredicate, Predicate<int> distancePredicate)
+			=> destination.AdjacentSpaces.Any(destAdj => distancePredicate(DistanceBetween(source, destAdj, spacePredicate)));
 
 		public static Space operator *(Space s, int i) => (s.x * i, s.y * i);
 		public static Space operator +(Space a, Space b) => (a.x + b.x, a.y + b.y);

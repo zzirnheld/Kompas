@@ -10,40 +10,40 @@ namespace Kompas.Gamestate.Locations.Models
 	public interface IDiscard : ILocationModel
 	{ }
 
-	public interface IDiscard<CardType, PlayerType>
-		: ILocationModel<CardType, PlayerType>, IDiscard
-			where CardType : class, IGameCard<CardType, PlayerType>
-			where PlayerType : IPlayer<CardType, PlayerType>
+	public interface IDiscard<TCard, TPlayer>
+		: ILocationModel<TCard, TPlayer>, IDiscard
+			where TCard : class, IGameCard<TCard, TPlayer>
+			where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
+		public void Add(TCard card, int? index = null, IStackable? stackableCause = null);
 	}
 
-	public abstract class Discard<CardType, PlayerType>
-		: OwnedLocationModel<CardType, PlayerType>, IDiscard<CardType, PlayerType>
-			where CardType : class, IGameCard<CardType, PlayerType>
-			where PlayerType : IPlayer<CardType, PlayerType>
+	public abstract class Discard<TCard, TPlayer>
+		: OwnedLocationModel<TCard, TPlayer>, IDiscard<TCard, TPlayer>
+			where TCard : class, IGameCard<TCard, TPlayer>
+			where TPlayer : IPlayer<TCard, TPlayer>
 	{
 		private readonly DiscardController discardController;
 
-		protected readonly IList<CardType> discard = new List<CardType>();
+		protected readonly IList<TCard> discard = new List<TCard>();
 
 		public override Location Location => Location.Discard;
-		public override IEnumerable<CardType> Cards => discard;
+		public override IEnumerable<TCard> Cards => discard;
 
-		protected Discard(PlayerType owner, DiscardController discardController) : base(owner)
+		protected Discard(TPlayer owner, DiscardController discardController) : base(owner)
 		{
 			this.discardController = discardController;
 			discardController.DiscardModel = this;
 		}
 
-		protected override void PerformAdd(CardType card, int? index, IStackable? stackableCause)
+		protected override void PerformAdd(TCard card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) discard.Insert(index.Value, card);
 			else discard.Add(card);
 			discardController.Refresh();
 		}
 
-		public override void Remove(CardType card)
+		public override void Remove(TCard card)
 		{
 			if (!discard.Contains(card)) throw new CardNotHereException(Location.Discard, card);
 
@@ -51,6 +51,6 @@ namespace Kompas.Gamestate.Locations.Models
 			discardController.Refresh();
 		}
 
-		public override int IndexOf(CardType card) => discard.IndexOf(card);
+		public override int IndexOf(TCard card) => discard.IndexOf(card);
 	}
 }

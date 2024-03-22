@@ -16,17 +16,17 @@ using Kompas.Gamestate.Players;
 namespace Kompas.Cards.Models
 {
 
-	public abstract class GameCard<CardType, PlayerType>
-		: GameCardBase, IGameCard<CardType, PlayerType>
-			where CardType : class, IGameCard<CardType, PlayerType>
-			where PlayerType : IPlayer<CardType, PlayerType>
+	public abstract class GameCard<TCard, TPlayer>
+		: GameCardBase, IGameCard<TCard, TPlayer>
+			where TCard : class, IGameCard<TCard, TPlayer>
+			where TPlayer : IPlayer<TCard, TPlayer>
 	{
 		public abstract ICardController CardController { get; }
-		public abstract IGame<CardType, PlayerType> Game { get; }
+		public abstract IGame<TCard, TPlayer> Game { get; }
 		IGame IGameCardInfo.Game => Game;
 
 		public int ID { get; private set; }
-		public abstract CardType Card { get; }
+		public abstract TCard Card { get; }
 		IGameCard IGameCardInfo.Card => Card;
 
 		protected SerializableCard InitialCardValues { get; private set; }
@@ -87,13 +87,13 @@ namespace Kompas.Cards.Models
 		public int IndexInList => LocationModel?.IndexOf(Card) ?? -1;
 		public bool InHiddenLocation => IGame.IsHiddenLocation(Location);
 
-		public override IEnumerable<CardType> AdjacentCards
-			=> Game?.Board.CardsAdjacentTo(Position) ?? new List<CardType>();
+		public override IEnumerable<TCard> AdjacentCards
+			=> Game?.Board.CardsAdjacentTo(Position) ?? new List<TCard>();
 		#endregion positioning
 
 		#region Augments
-		private readonly List<CardType> augmentsList = new();
-		public IEnumerable<CardType> Augments
+		private readonly List<TCard> augmentsList = new();
+		public IEnumerable<TCard> Augments
 		{
 			get => augmentsList;
 			protected set
@@ -104,8 +104,8 @@ namespace Kompas.Cards.Models
 		}
 		IEnumerable<IGameCard> IGameCardInfo.Augments => Augments;
 
-		private CardType? augmentedCard;
-		public CardType? AugmentedCard
+		private TCard? augmentedCard;
+		public TCard? AugmentedCard
 		{
 			get => augmentedCard;
 			set
@@ -124,7 +124,7 @@ namespace Kompas.Cards.Models
 		#endregion
 
 		#region effects
-		public abstract IReadOnlyCollection<Effect> Effects { get; }
+		public abstract IReadOnlyCollection<IEffect> Effects { get; }
 		#endregion effects
 
 		//movement
@@ -138,9 +138,9 @@ namespace Kompas.Cards.Models
 		public override IPlayRestriction PlayRestriction { get; }
 
 		//controller/owners
-		public PlayerType ControllingPlayer { get; set; }
+		public TPlayer ControllingPlayer { get; set; }
 		IPlayer IGameCardInfo.ControllingPlayer => ControllingPlayer;
-		public PlayerType OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
+		public TPlayer OwningPlayer { get; } //TODO hoist to superclass, this never changes after card construction
 		IPlayer IGameCard.OwningPlayer => OwningPlayer;
 		public int ControllingPlayerIndex => ControllingPlayer?.Index ?? 0;
 		public int OwnerIndex => OwningPlayer?.Index ?? -1;
@@ -161,8 +161,8 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		private ILocationModel<CardType, PlayerType> locationModel = Nowhere<CardType, PlayerType>.Instance;
-		public ILocationModel<CardType, PlayerType> LocationModel
+		private ILocationModel<TCard, TPlayer> locationModel = Nowhere<TCard, TPlayer>.Instance;
+		public ILocationModel<TCard, TPlayer> LocationModel
 		{
 			get => locationModel;
 			set
@@ -193,12 +193,12 @@ namespace Kompas.Cards.Models
 			return sb.ToString();
 		}
 
-		protected GameCard(SerializableCard serializeableCard, int id, PlayerType owningPlayer)
+		protected GameCard(SerializableCard serializeableCard, int id, TPlayer owningPlayer)
 			: base(serializeableCard.Stats,
 					   serializeableCard.subtext, serializeableCard.spellTypes,
 					   serializeableCard.unique,
 					   serializeableCard.radius, serializeableCard.duration,
-					   serializeableCard.cardType, serializeableCard.cardName, CardRepository.FileNameFor(serializeableCard.cardName),
+					   serializeableCard.TCard, serializeableCard.cardName, CardRepository.FileNameFor(serializeableCard.cardName),
 					   serializeableCard.effText,
 					   serializeableCard.subtypeText)
 		{
@@ -236,7 +236,7 @@ namespace Kompas.Cards.Models
 		/// </summary>
 		public virtual void ResetForTurn(IPlayer turnPlayer)
 		{
-			foreach (Effect eff in Effects) eff.ResetForTurn(turnPlayer);
+			foreach (IEffect eff in Effects) eff.ResetForTurn(turnPlayer);
 
 			SpacesMoved = 0;
 			AttacksThisTurn = 0;
@@ -245,7 +245,7 @@ namespace Kompas.Cards.Models
 
 		public void ResetForStack()
 		{
-			foreach (var e in Effects) e.TimesUsedThisStack = 0;
+			foreach (var e in Effects) e.ResetForStack();
 		}
 
 		/// <summary>
@@ -262,7 +262,7 @@ namespace Kompas.Cards.Models
 
 		#region augments
 
-		public virtual void AddAugment(CardType augment, IStackable? stackSrc = null)
+		public virtual void AddAugment(TCard augment, IStackable? stackSrc = null)
 		{
 			//can't add a null augment
 			if (augment == null)
@@ -286,8 +286,8 @@ namespace Kompas.Cards.Models
 			AugmentedCard = null;
 		}
 
-		//TODO see if any way to narrow down - perhaps making the type param tighter that CardType must be a GameCard<type, type> ?
-		public void RemoveAugment(CardType augment) => augmentsList.Remove(augment);
+		//TODO see if any way to narrow down - perhaps making the type param tighter that TCard must be a GameCard<type, type> ?
+		public void RemoveAugment(TCard augment) => augmentsList.Remove(augment);
 		#endregion augments
 
 		#region statfuncs

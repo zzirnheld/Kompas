@@ -25,7 +25,7 @@ namespace Kompas.Server.Cards.Loading
 
 			var card = JsonConvert.DeserializeObject<SerializableCard>(cardJsons[name],
 					new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-			return card?.cardType == 'C';
+			return card?.TCard == 'C';
 		}
 
 		public static ServerSubeffect[]? InstantiateServerPartialKeyword(string keyword)

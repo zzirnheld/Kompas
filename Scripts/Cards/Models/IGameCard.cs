@@ -46,31 +46,31 @@ namespace Kompas.Cards.Models
 		public void TakeDamage(int damage, IStackable? stackSrc = null);
 	}
 
-	public interface IGameCard<CardType, PlayerType> : IGameCard
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public interface IGameCard<TCard, TPlayer> : IGameCard
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public new CardType Card { get; }
+		public new TCard Card { get; }
 
-		public new IGame<CardType, PlayerType> Game { get; }
+		public new IGame<TCard, TPlayer> Game { get; }
 
-		public new ILocationModel<CardType, PlayerType> LocationModel { get; set; }
-		public new PlayerType OwningPlayer { get; }
-		public new PlayerType ControllingPlayer { get; }
+		public new ILocationModel<TCard, TPlayer> LocationModel { get; set; }
+		public new TPlayer OwningPlayer { get; }
+		public new TPlayer ControllingPlayer { get; }
 
-		public new IEnumerable<CardType> Augments { get; }
+		public new IEnumerable<TCard> Augments { get; }
 		//Interesting note on why this isn't a protected set:
 		//C# can't know at compile time that we'll be the same inheritor of IGameCard<C, P>
 		//that is trying to set AugmentedCard as the type being set on.
 		//Therefore, it treats those as two different "protected"s.
-		public new CardType? AugmentedCard { get; set; }
+		public new TCard? AugmentedCard { get; set; }
 
-		public void AddAugment(CardType card, IStackable? stackSrc = null);
+		public void AddAugment(TCard card, IStackable? stackSrc = null);
 
 		/// <summary>
         /// Removes the augment.
         /// This can't be protected because any given card doesn't know for sure that it's in the other cards' inheritance hierarchy.
         /// </summary>
-		public void RemoveAugment(CardType card);
+		public void RemoveAugment(TCard card);
 	}
 }

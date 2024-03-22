@@ -7,7 +7,7 @@ namespace Kompas.Cards.Models
 	public class SerializableCard
 	{
 		//card type
-		public char cardType;
+		public char TCard;
 
 		//perma-values
 		public string? cardName;

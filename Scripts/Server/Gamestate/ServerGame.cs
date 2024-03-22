@@ -297,7 +297,7 @@ namespace Kompas.Server.Gamestate
 
 		/// <param name="manual">Whether a player instigated the attack without an effect.</param>
 		/// <returns>The Attack object created by starting this attack</returns>
-		public ServerAttack Attack(ServerGameCard attacker, ServerGameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false)
+		public ServerAttack Attack(IGameCard attacker, IGameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false)
 		{
 			GD.Print($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
 			//push the attack to the stack, then check if any player wants to respond before resolving it

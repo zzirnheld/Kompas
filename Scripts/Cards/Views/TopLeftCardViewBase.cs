@@ -6,8 +6,8 @@ using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Views
 {
-	public abstract class TopLeftCardViewBase<CardType> : FocusableCardViewBase<CardType, ControlInfoDisplayer>
-		where CardType : CardBase
+	public abstract class TopLeftCardViewBase<TCard> : FocusableCardViewBase<TCard, ControlInfoDisplayer>
+		where TCard : CardBase
 	{
 		private ReminderTextPopup ReminderTextPopup { get; }
 		

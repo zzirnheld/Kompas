@@ -16,19 +16,19 @@ namespace Kompas.Gamestate.Locations.Models
 	{
 		public IGameCard? GetCardAt(Space? space);
 		public IEnumerable<IGameCard> CardsAdjacentTo(Space? space);
-		public int ShortestPath(Space? from, Space? to, Predicate<IGameCardInfo?> throughPredicate);
-		public int ShortestPath(Space? from, Space? to, Predicate<Space?> throughPredicate);
+
+		public int DistanceBetween(Space? from, Space? to, Predicate<IGameCardInfo?> throughPredicate);
 	}
 
-	public interface IBoard<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IBoard
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public interface IBoard<TCard, TPlayer> : ILocationModel<TCard, TPlayer>, IBoard
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public new CardType? GetCardAt(Space space);
-		public new IEnumerable<CardType> CardsAdjacentTo(Space? space);
+		public new TCard? GetCardAt(Space space);
+		public new IEnumerable<TCard> CardsAdjacentTo(Space? space);
 
-		public void Play(CardType card, Space to, PlayerType controller, IStackable? stackSrc = null);
-		public void Move(CardType card, Space to, bool normal, PlayerType? mover, IStackable? stackSrc = null);
+		public void Play(TCard card, Space to, TPlayer controller, IStackable? stackSrc = null);
+		public void Move(TCard card, Space to, bool normal, TPlayer? mover, IStackable? stackSrc = null);
 	}
 
 	public static class BoardExensions
@@ -37,17 +37,23 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public static bool IsEmpty(this IBoard board, Space? s) => s != null && s.IsValid && board.GetCardAt(s) == null;
 
+		public static bool AreConnectedBySpaces(this IBoard board, Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
+			=> board.AreConnectedBySpaces(source, destination, c => restriction.IsValid(c, context));
+
+		public static bool AreConnectedBySpaces(this IBoard board, Space source, Space destination, Func<IGameCard?, bool> throughPredicate)
+			=> Space.AreConnectedBy(source, destination, s => throughPredicate(board.GetCardAt(s)));
+
 	}
 
-	public abstract class Board<CardType, PlayerType> : IBoard<CardType, PlayerType>
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public abstract class Board<TCard, TPlayer> : IBoard<TCard, TPlayer>
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
 		public Location Location => Location.Board;
 		public bool IsLocation(Location location, bool friendly) => location == Location;
 
-		protected readonly CardType?[,] board = new CardType[Space.BoardLen, Space.BoardLen];
-		public IEnumerable<CardType> Cards { get { foreach (var card in board) if (card != null) yield return card; } }
+		protected readonly TCard?[,] board = new TCard[Space.BoardLen, Space.BoardLen];
+		public IEnumerable<TCard> Cards { get { foreach (var card in board) if (card != null) yield return card; } }
 		IEnumerable<IGameCard> ILocationModel.Cards => Cards;
 
 		private readonly BoardController boardController;
@@ -59,7 +65,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		//helper methods
 		#region helper methods
-		public int IndexOf(CardType card)
+		public int IndexOf(TCard card)
 		{
 			if (card.Location != Location.Board) return int.MinValue;
 			_ = card.Position ?? throw new System.NullReferenceException("Card in play doesn't have a space!");
@@ -91,13 +97,13 @@ namespace Kompas.Gamestate.Locations.Models
 			var enemyAvatar = card.ControllingPlayer.Enemy.Avatar;
 			_ = friendlyAvatar.Position ?? throw new System.NullReferenceException("Avatar didn't have a position!?");
 			_ = enemyAvatar.Position ?? throw new System.NullReferenceException("Avatar didn't have a position!?");
-			int dist = ShortestPath(friendlyAvatar.Position, enemyAvatar.Position, s => s != space && IsSpaceEmptyOfSpells(s));
+			int dist = Space.DistanceBetween(friendlyAvatar.Position, enemyAvatar.Position, s => s != space && IsSpaceEmptyOfSpells(s));
 
 			//if it's not in a relevant location, everything is fine
 			return dist < Space.NoPathExists;
 		}
 
-		public CardType? GetCardAt(Space? s)
+		public TCard? GetCardAt(Space? s)
 		{
 			if (s == null) return null;
 			if (!s.IsValid) return null;
@@ -107,9 +113,9 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 		IGameCard? IBoard.GetCardAt(Space? space) => GetCardAt(space);
 
-		public IEnumerable<CardType> CardsAdjacentTo(Space? space)
+		public IEnumerable<TCard> CardsAdjacentTo(Space? space)
 		{
-			var list = new List<CardType>();
+			var list = new List<TCard>();
 			if (space == null)
 			{
 				//GD.PrintErr("Asking for cards adjacent to a null space");
@@ -126,16 +132,16 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 		IEnumerable<IGameCard> IBoard.CardsAdjacentTo(Space? space) => CardsAdjacentTo(space);
 
-		public List<CardType> CardsWhere(Predicate<IGameCard> predicate)
+		public List<TCard> CardsWhere(Predicate<IGameCard> predicate)
 		{
-			var list = new List<CardType>();
+			var list = new List<TCard>();
 			foreach (var card in Cards) if (predicate(card)) list.Add(card);
 			return list;
 		}
 
-		public List<CardType> CardsAndAugsWhere(Predicate<IGameCard> predicate)
+		public List<TCard> CardsAndAugsWhere(Predicate<IGameCard> predicate)
 		{
-			var list = new List<CardType>();
+			var list = new List<TCard>();
 			foreach (var card in Cards)
 			{
 				if (predicate(card)) list.Add(card);
@@ -144,87 +150,23 @@ namespace Kompas.Gamestate.Locations.Models
 			return list;
 		}
 
-		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
-			=> AreConnectedBySpaces(source, destination, c => restriction.IsValid(c, context));
-
-		public bool AreConnectedBySpaces(Space source, Space destination, Func<IGameCard?, bool> throughPredicate)
-			=> AreConnectedBySpaces(source, destination, s => throughPredicate(GetCardAt(s)));
-
-		public static bool AreConnectedBySpaces(Space source, Space destination, IRestriction<Space> restriction, IResolutionContext context)
-			=> AreConnectedBySpaces(source, destination, s => restriction.IsValid(s, context));
-
-		public static bool AreConnectedBySpaces(Space source, Space destination, Func<Space, bool> predicate)
-			=> destination.AdjacentSpaces.Any(destAdj => ShortestPath(source, destAdj, predicate) < Space.NoPathExists);
-
-		public static bool AreConnectedByNumberOfSpacesFittingPredicate
-			(Space? source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
-			=> destination.AdjacentSpaces.Any(destAdj => distancePredicate(ShortestPath(source, destAdj, spacePredicate)));
-
 		public int ShortestEmptyPath(IGameCard src, Space dest)
 			=> ShortestEmptyPath(src.Position, dest);
 
 		public int ShortestEmptyPath(Space? src, Space dest)
-			=> board[dest.x, dest.y] == null ? ShortestPath(src, dest, this.IsEmpty) : Space.NoPathExists;
+			=> board[dest.x, dest.y] == null
+				? Space.DistanceBetween(src, dest, this.IsEmpty)
+				: Space.NoPathExists;
 
-		public int ShortestPath(IGameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
-			=> ShortestPath(src.Position, space, c => restriction.IsValid(c, context));
+		public int DistanceBetween(IGameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
+			=> DistanceBetween(src.Position, space, c => restriction.IsValid(c, context));
 
-		public int ShortestPath(Space? src, Space? dest, Predicate<IGameCardInfo?> throughPredicate)
-			=> ShortestPath(src, dest, s => throughPredicate(GetCardAt(s)));
-
-		/// <summary>
-		/// A really bad Dijkstra's because this is a fun side project and I'm not feeling smart today
-		/// </summary>
-		/// <param name="start">The card to start looking from</param>
-		/// <param name="x">The x coordinate you want a distance to</param>
-		/// <param name="y">The y coordinate you want a distance to</param>
-		/// <param name="throughPredicate">What all cards you go through must fit</param>
-		/// <returns></returns>
-		public static int ShortestPath(Space? start, Space? destination, Func<Space, bool> throughPredicate)
-		{
-			if (start == destination) return 0;
-			if (start == null || destination == null) return Space.NoPathExists;
-
-			int[,] dist = new int[7, 7];
-			bool[,] seen = new bool[7, 7];
-
-			var queue = new Queue<Space>();
-
-			queue.Enqueue(start);
-			dist[start.x, start.y] = 0;
-			seen[start.x, start.y] = true;
-
-			//set up the structures with the source node
-			queue.Enqueue(start);
-
-			//iterate until the queue is empty, in which case you'll have seen all connected cards that fit the restriction.
-			while (queue.Any())
-			{
-				//consider the adjacent cards to the next node in the queue
-				var curr = queue.Dequeue();
-				var (currX, currY) = curr;
-				foreach (var next in curr.AdjacentSpaces.Where(throughPredicate))
-				{
-					var (nextX, nextY) = next;
-					//if that adjacent card is never seen before, initialize its distance and add it to the structures
-					if (!seen[nextX, nextY])
-					{
-						seen[nextX, nextY] = true;
-						queue.Enqueue(next);
-						dist[nextX, nextY] = dist[currX, currY] + 1;
-					}
-					//otherwise, relax its distance if appropriate
-					else if (dist[currX, currY] + 1 < dist[nextX, nextY])
-						dist[nextX, nextY] = dist[currX, currY] + 1;
-				}
-			}
-
-			return dist[destination.x, destination.y] <= 0 ? Space.NoPathExists : dist[destination.x, destination.y];
-		}
+		public int DistanceBetween(Space? src, Space? dest, Predicate<IGameCardInfo?> throughPredicate)
+			=> Space.DistanceBetween(src, dest, s => throughPredicate(GetCardAt(s)));
 		#endregion
 
 		#region game mechanics
-		public void Remove(CardType toRemove)
+		public void Remove(TCard toRemove)
 		{
 			if (toRemove.Location != Location.Board)
 				throw new CardNotHereException(Location, toRemove, $"Tried to remove {toRemove} not on board");
@@ -246,7 +188,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <param name="toPlay">Card to be played</param>
 		/// <param name="toX">X coordinate to play the card to</param>
 		/// <param name="toY">Y coordinate to play the card to</param>
-		public virtual void Play(CardType toPlay, Space to, PlayerType player, IStackable? stackSrc = null)
+		public virtual void Play(TCard toPlay, Space to, TPlayer player, IStackable? stackSrc = null)
 		{
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");
@@ -286,10 +228,10 @@ namespace Kompas.Gamestate.Locations.Models
 			}
 		}
 
-		protected abstract void TakeControl(CardType card, PlayerType player);
+		protected abstract void TakeControl(TCard card, TPlayer player);
 
 		//movement
-		protected virtual void Swap(CardType card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
+		protected virtual void Swap(TCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
 		{
 			GD.Print($"Swapping {card?.CardName} to {to}");
 
@@ -336,7 +278,7 @@ namespace Kompas.Gamestate.Locations.Models
 			if (temp != null) boardController.Place(temp.CardController);
 		}
 
-		public void Move(CardType card, Space to, bool normal, PlayerType? mover, IStackable? stackSrc = null)
+		public void Move(TCard card, Space to, bool normal, TPlayer? mover, IStackable? stackSrc = null)
 		{
 			if (card.AugmentedCard != null)
 			{

@@ -3,38 +3,38 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Cards
 {
-	public class CardType : CardRestrictionBase
+	public class TCard : CardRestrictionBase
 	{
 		[JsonProperty]
-		public char cardType;
+		public char TCard;
 
 		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-			=> card?.Type == cardType;
+			=> card?.Type == TCard;
 	}
 
-	public class Character : CardType
+	public class Character : TCard
 	{
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
-			cardType = 'C';
+			TCard = 'C';
 			base.Initialize(initializationContext);
 		}
 	}
 
-	public class Spell : CardType
+	public class Spell : TCard
 	{
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
-			cardType = 'S';
+			TCard = 'S';
 			base.Initialize(initializationContext);
 		}
 	}
 
-	public class Augment : CardType
+	public class Augment : TCard
 	{
 		public override void Initialize(EffectInitializationContext initializationContext)
 		{
-			cardType = 'A';
+			TCard = 'A';
 			base.Initialize(initializationContext);
 		}
 	}

@@ -15,21 +15,21 @@ namespace Kompas.Gamestate.Locations.Models
 		public int HandSize { get; }
 	}
 
-	public interface IHand<CardType, PlayerType> : ILocationModel<CardType, PlayerType>, IHand
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public interface IHand<TCard, TPlayer> : ILocationModel<TCard, TPlayer>, IHand
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		public new CardType this[int index] { get; }
+		public new TCard this[int index] { get; }
 
-		public void Add(CardType card, int? index = null, IStackable? stackableCause = null);
+		public void Add(TCard card, int? index = null, IStackable? stackableCause = null);
 	}
 
-	public abstract class Hand<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IHand<CardType, PlayerType>
-		where CardType : class, IGameCard<CardType, PlayerType>
-		where PlayerType : IPlayer<CardType, PlayerType>
+	public abstract class Hand<TCard, TPlayer> : OwnedLocationModel<TCard, TPlayer>, IHand<TCard, TPlayer>
+		where TCard : class, IGameCard<TCard, TPlayer>
+		where TPlayer : IPlayer<TCard, TPlayer>
 	{
-		private readonly IList<CardType> hand = new List<CardType>();
-		public override IEnumerable<CardType> Cards => hand;
+		private readonly IList<TCard> hand = new List<TCard>();
+		public override IEnumerable<TCard> Cards => hand;
 
 		public override Location Location => Location.Hand;
 
@@ -37,18 +37,18 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public int HandSize => hand.Count;
 
-		protected Hand(PlayerType owner, HandController handController) : base(owner)
+		protected Hand(TPlayer owner, HandController handController) : base(owner)
 		{
 			this.handController = handController;
 			handController.HandModel = this; //TODO: is there another, better way to initialize HandModel? without leaking this
 		}
 
-		public CardType this[int index] => hand[index];
+		public TCard this[int index] => hand[index];
 		IGameCard IHand.this[int index] => this[index];
 
-		public override int IndexOf(CardType card) => hand.IndexOf(card);
+		public override int IndexOf(TCard card) => hand.IndexOf(card);
 
-		protected override void PerformAdd(CardType card, int? index, IStackable? stackableCause)
+		protected override void PerformAdd(TCard card, int? index, IStackable? stackableCause)
 		{
 			GD.Print($"Adding {card}");
 			if (index.HasValue) hand.Insert(index.Value, card);
@@ -56,7 +56,7 @@ namespace Kompas.Gamestate.Locations.Models
 			handController.Refresh();
 		}
 
-		public override void Remove(CardType card)
+		public override void Remove(TCard card)
 		{
 			if (!hand.Contains(card)) throw new CardNotHereException(Location, card,
 				$"Hand of \n{string.Join(", ", hand.Select(c => c.CardName))}\n doesn't contain {card}, can't remove it!");

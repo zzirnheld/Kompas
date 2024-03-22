@@ -81,10 +81,10 @@ namespace Kompas.Cards.Models
 							string? subtext, string[] spellTypes,
 							bool unique,
 							int radius, int duration,
-							char cardType, string? cardName, string? fileName,
+							char TCard, string? cardName, string? fileName,
 							string? effText,
 							string? subtypeText)
-			: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText)
+			: base(stats, subtext, spellTypes, unique, radius, duration, TCard, cardName, fileName, effText, subtypeText)
 		{}
 
 		/* This must happen through setters, not properties, so that notifications and stack sending

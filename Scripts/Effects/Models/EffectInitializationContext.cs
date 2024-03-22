@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models
 		public readonly IGame game;
 		public readonly IGameCard? source;
 
-		public readonly Effect? effect;
+		public readonly IEffect? effect;
 
 		public readonly Trigger? trigger;
 		public readonly Subeffect? subeffect;
@@ -24,12 +24,12 @@ namespace Kompas.Effects.Models
 		public readonly IContextInitializeable? parent;
 
 		public EffectInitializationContext(IGame game, IGameCard? source, 
-			Effect? effect = default, Trigger? trigger = default, Subeffect? subeffect = default, IPlayer? controller = default)
+			IEffect? effect = default, Trigger? trigger = default, Subeffect? subeffect = default, IPlayer? controller = default)
 			: this (game, source, effect, trigger, subeffect, controller, default)
 		{ }
 
 		private EffectInitializationContext(IGame game, IGameCard? source,
-			Effect? effect, Trigger? trigger, Subeffect? subeffect, IPlayer? controller, IContextInitializeable? parent)
+			IEffect? effect, Trigger? trigger, Subeffect? subeffect, IPlayer? controller, IContextInitializeable? parent)
 		{
 			this.game = game;
 			this.source = source;

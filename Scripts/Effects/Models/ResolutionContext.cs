@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
-	public class ResolutionContext : IResolutionContext
+	public class ResolutionContext<TCard, TPlayer>
+		: IResolutionContext<TCard, TPlayer>
+			where TCard : class, IGameCard<TCard, TPlayer>
+			where TPlayer : IPlayer<TCard, TPlayer>
 	{
 		public TriggeringEventContext? TriggerContext { get; }
 
 		// Used for resuming delayed effects
 		public int StartIndex { get; }
-		public IList<IGameCard> CardTargets { get; }
+		public IList<TCard> CardTargets { get; }
 		public IList<GameCardInfo> CardInfoTargets { get; }
 		public IGameCard? DelayedCardTarget { get; }
 		public IList<Space> SpaceTargets { get; }
@@ -22,12 +26,9 @@ namespace Kompas.Effects.Models
 
 		public int X { get; set; }
 
-		public static ResolutionContext PlayerTrigger(Effect? effect, IGame game)
-			=> new(new TriggeringEventContext(game: game, stackableEvent: effect));
-
 		public ResolutionContext(TriggeringEventContext triggerContext)
 		: this(triggerContext, 0,
-			Enumerable.Empty<IGameCard>(), default,
+			Enumerable.Empty<TCard>(), default,
 			Enumerable.Empty<GameCardInfo>(),
 			Enumerable.Empty<Space>(), default,
 			Enumerable.Empty<IStackable>(), default)
@@ -35,7 +36,7 @@ namespace Kompas.Effects.Models
 
 		public ResolutionContext(TriggeringEventContext? triggerContext,
 			int startIndex,
-			IEnumerable<IGameCard> cardTargets, IGameCard? delayedCardTarget,
+			IEnumerable<TCard> cardTargets, IGameCard? delayedCardTarget,
 			IEnumerable<GameCardInfo> cardInfoTargets,
 			IEnumerable<Space> spaceTargets, Space? delayedSpaceTarget,
 			IEnumerable<IStackable> stackableTargets, IStackable? delayedStackableTarget)
@@ -63,11 +64,12 @@ namespace Kompas.Effects.Models
 			else return new List<T>(list);
 		}
 
-		public IResolutionContext Copy => new ResolutionContext(TriggerContext, StartIndex,
-			CardTargets, DelayedCardTarget,
-			CardInfoTargets,
-			SpaceTargets, DelayedSpaceTarget,
-			StackableTargets, DelayedStackableTarget);
+		public IResolutionContext<TCard, TPlayer> Copy
+			=> new ResolutionContext<TCard, TPlayer>(TriggerContext, StartIndex,
+				CardTargets, DelayedCardTarget,
+				CardInfoTargets,
+				SpaceTargets, DelayedSpaceTarget,
+				StackableTargets, DelayedStackableTarget);
 
 		public override string ToString()
 		{

@@ -41,7 +41,7 @@ namespace Kompas.Client.Cards.Models
 		public override bool IsAvatar => isAvatar;
 
 		public ClientEffect[] ClientEffects { get; }
-		public override IReadOnlyCollection<Effect> Effects => ClientEffects;
+		public override IReadOnlyCollection<IEffect> Effects => ClientEffects;
 		public ClientCardController ClientCardController { get; }
 		public override ICardController CardController => ClientCardController;
 

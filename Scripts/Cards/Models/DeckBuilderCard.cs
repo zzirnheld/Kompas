@@ -16,7 +16,7 @@ namespace Kompas.Cards.Models
 					card.subtext, card.spellTypes,
 					card.unique,
 					card.radius, card.duration,
-					card.cardType, card.cardName, fileName,
+					card.TCard, card.cardName, fileName,
 					card.effText,
 					card.subtypeText)
 		{
