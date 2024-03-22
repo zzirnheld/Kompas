@@ -15,11 +15,11 @@ namespace Kompas.Gamestate.Locations.Models
 	}
 
 	public interface IHand<CardType> : ILocationModel<CardType>, IHand
-		where CardType : GameCard
+		where CardType : IGameCard<CardType>
 	{ }
 
 	public abstract class Hand<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IHand<CardType>
-		where CardType : GameCard
+		where CardType : IGameCard<CardType>
 		where PlayerType : IPlayer
 	{
 		private readonly IList<CardType> hand = new List<CardType>();
@@ -37,7 +37,7 @@ namespace Kompas.Gamestate.Locations.Models
 			handController.HandModel = this; //TODO: is there another, better way to initialize HandModel? without leaking this
 		}
 
-		public GameCard this[int index] => hand[index];
+		public CardType this[int index] => hand[index];
 
 		public override int IndexOf(CardType card) => hand.IndexOf(card);
 

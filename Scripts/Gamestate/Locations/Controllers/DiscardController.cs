@@ -7,8 +7,8 @@ namespace Kompas.Gamestate.Locations.Controllers
 {
 	public abstract partial class DiscardController : Node //TODO shared parent class for location controllers? similar to models?
 	{
-		private Discard? _discardModel;
-		public Discard DiscardModel
+		private IDiscard? _discardModel;
+		public IDiscard DiscardModel
 		{
 			get => _discardModel ?? throw new UnassignedReferenceException();
 			set => _discardModel = value;

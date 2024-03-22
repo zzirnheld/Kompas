@@ -56,7 +56,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 	{
 		protected override bool IsValidLogic(Space? item, IResolutionContext context)
 			=> item != null
-			&& (InitializationContext.source?.CardType != 'S'
+			&& (InitializationContext.source?.Type != 'S'
 			|| InitializationContext.game.Board.ValidSpellSpaceFor(InitializationContext.source, item));
 	}
 }

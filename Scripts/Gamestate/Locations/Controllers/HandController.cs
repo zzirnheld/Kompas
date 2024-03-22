@@ -7,8 +7,8 @@ namespace Kompas.Gamestate.Locations.Controllers
 {
 	public abstract partial class HandController : Node
 	{
-		private Hand? _handModel;
-		public Hand HandModel
+		private IHand? _handModel;
+		public IHand HandModel
 		{
 			get => _handModel ?? throw new UnassignedReferenceException();
 			set => _handModel = value;

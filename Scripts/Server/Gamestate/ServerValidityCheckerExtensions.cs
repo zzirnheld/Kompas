@@ -30,7 +30,7 @@ namespace Kompas.Server.Gamestate.Extensions
 			}
 
 			//Debug.Log($"Checking validity augment of {card.CardName} to {to}, on {boardCtrl.GetCardAt(to)}");
-			return card != null && card.CardType == 'A' && to.IsValid
+			return card != null && card.Type == 'A' && to.IsValid
 				&& !game.Board.IsEmpty(to)
 				&& card.PlayRestriction.IsValid((to, player), ResolutionContext.PlayerTrigger(null, game));
 		}

@@ -85,7 +85,7 @@ namespace Kompas.Server.Networking
 		public static void NotifyPlay(IPlayer player, GameCard toPlay, Space space, bool wasKnown)
 		{
 			//if this card is an augment, don't bother notifying about it. attach will take care of it.
-			if (toPlay.CardType == 'A') return;
+			if (toPlay.Type == 'A') return;
 
 			//tell everyone to do it
 			var p = new PlayCardPacket(toPlay.ID, toPlay.BaseJson, toPlay.ControllingPlayerIndex, space.x, space.y, invert: player.Index != 0);

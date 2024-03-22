@@ -13,7 +13,7 @@ namespace Kompas.Gamestate.Locations.Models
 	/// Must have an ordering to the list.
 	/// </summary>
 	public abstract class OwnedLocationModel<CardType, PlayerType> : ILocationModel<CardType>
-		where CardType : GameCard
+		where CardType : class, IGameCard<CardType>
 		where PlayerType : IPlayer
 	{
 		public PlayerType Owner { get; }
@@ -21,7 +21,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public abstract Location Location { get; }
 
 		public abstract IEnumerable<CardType> Cards { get; }
-		IEnumerable<GameCard> ILocationModel.Cards => Cards;
+		IEnumerable<IGameCard> ILocationModel.Cards => Cards;
 
 		public OwnedLocationModel(PlayerType owner)
 		{

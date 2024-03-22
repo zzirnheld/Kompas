@@ -7,11 +7,11 @@ namespace Kompas.Gamestate.Locations
 	{
 		public Location Location { get; }
 
-		public IEnumerable<GameCard> Cards { get; }
+		public IEnumerable<IGameCard> Cards { get; }
 	}
 
 	public interface ILocationModel<CardType> : ILocationModel
-		where CardType : GameCard
+		where CardType : IGameCard<CardType>
 	{
 		public new IEnumerable<CardType> Cards { get; }
 

@@ -18,6 +18,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			this.game = game;
 		}
 
+		public override void TakeControlOf(ServerGameCard card) => card.ServerController = Owner;
+
 		protected override void PerformAdd(ServerGameCard card, int? index, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: game, CardBefore: card, stackableCause: stackSrc, player: Owner);

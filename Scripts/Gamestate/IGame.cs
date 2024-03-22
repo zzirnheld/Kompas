@@ -14,7 +14,7 @@ namespace Kompas.Gamestate
 {
 	public static class GameExtensions
 	{
-		public static bool BoardHasCopyOf(this IGame game, GameCard card)
+		public static bool BoardHasCopyOf(this IGame game, IGameCard card)
 			=> game.Board.Cards.Any(copy
 				=> copy?.Location == Location.Board
 				&& copy.ControllingPlayer == card.ControllingPlayer
@@ -72,7 +72,7 @@ namespace Kompas.Gamestate
 
 		//game data
 		public CardRepository CardRepository { get; }
-		public IReadOnlyCollection<GameCard> Cards { get; }
+		public IReadOnlyCollection<IGameCard> Cards { get; }
 
 		/// <summary>
 		/// Number of rounds that have started since the game began.
@@ -90,7 +90,7 @@ namespace Kompas.Gamestate
 		/// </summary>
 		public int Leyload { get; set; }
 
-		public GameCard? LookupCardByID(int id);
+		public IGameCard? LookupCardByID(int id);
 
 		public IStackController StackController { get; }
 
@@ -101,8 +101,10 @@ namespace Kompas.Gamestate
 	}
 
 	public interface IGame<CardType> : IGame
-		where CardType : GameCard
+		where CardType : IGameCard<CardType>
 	{
+		public new IReadOnlyCollection<CardType> Cards { get; }
+		public new CardType? LookupCardByID(int id);
 		public new IBoard<CardType> Board { get; }
 	}
 

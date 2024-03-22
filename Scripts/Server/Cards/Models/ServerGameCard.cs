@@ -267,7 +267,7 @@ namespace Kompas.Server.Cards.Models
 
 			//kill if applicable
 			GD.Print($"E changed from {oldE} to {E}. Should it die?");
-			if (E <= 0 && CardType == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
+			if (E <= 0 && Type == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
 		}
 
 		public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)

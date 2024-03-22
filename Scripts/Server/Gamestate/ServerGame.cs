@@ -38,6 +38,8 @@ namespace Kompas.Server.Gamestate
 		private IBoard<ServerGameCard>? _board;
 		public IBoard<ServerGameCard> Board => _board
 			?? throw new UseFactoryException();
+		IBoard IGame.Board => Board;
+
 		private ServerAwaiter? _awaiter;
 		public ServerAwaiter Awaiter => _awaiter
 			?? throw new UseFactoryException();

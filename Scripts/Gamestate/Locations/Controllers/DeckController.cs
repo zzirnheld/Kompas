@@ -7,8 +7,8 @@ namespace Kompas.Gamestate.Locations.Controllers
 {
 	public abstract partial class DeckController : Node //TODO shared parent class for location controllers? similar to models?
 	{
-		private Deck? _deckModel;
-		public Deck DeckModel
+		private IDeck? _deckModel;
+		public IDeck DeckModel
 		{
 			get => _deckModel ?? throw new UnassignedReferenceException();
 			set => _deckModel = value;

@@ -15,7 +15,7 @@ namespace Kompas.Cards.Models
 	public class GameCardInfo : GameCardBase, IGameCardInfo
 	{
 		#region immutable aspects
-		public GameCard Card { get; }
+		public IGameCard Card { get; }
 		public IGame Game { get; }
 
 		public int IndexInList { get; }
@@ -70,7 +70,7 @@ namespace Kompas.Cards.Models
 						card.Subtext, card.SpellSubtypes,
 						card.Unique,
 						card.Radius, card.Duration,
-						card.CardType, card.CardName, card.FileName,
+						card.Type, card.CardName, card.FileName,
 						card.EffText,
 						card.SubtypeText)
 		{

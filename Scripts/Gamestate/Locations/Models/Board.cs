@@ -14,11 +14,11 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public interface IBoard : ILocationModel
 	{
-		public GameCard? GetCardAt(Space space);
+		public IGameCard? GetCardAt(Space space);
 	}
 
 	public interface IBoard<CardType> : ILocationModel<CardType>, IBoard
-		where CardType : GameCard
+		where CardType : IGameCard<CardType>
 	{
 		public new CardType? GetCardAt(Space space);
 	}
@@ -32,7 +32,7 @@ namespace Kompas.Gamestate.Locations.Models
 	}
 
 	public abstract class Board<CardType, PlayerType> : ILocationModel<CardType>, IBoard<CardType>
-		where CardType : GameCard
+		where CardType : class, IGameCard<CardType>
 		where PlayerType : IPlayer
 	{
 		public const int SpacesInGrid = 7;
@@ -42,7 +42,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected readonly CardType?[,] board = new CardType[SpacesInGrid, SpacesInGrid];
 		public IEnumerable<CardType> Cards { get { foreach (var card in board) if (card != null) yield return card; } }
-		IEnumerable<GameCard> ILocationModel.Cards => Cards;
+		IEnumerable<IGameCard> ILocationModel.Cards => Cards;
 
 		private readonly BoardController boardController;
 
@@ -63,7 +63,7 @@ namespace Kompas.Gamestate.Locations.Models
 		private bool IsSpaceEmptyOfSpells(Space space)
 		{
 			var cardThere = GetCardAt(space);
-			return cardThere == null || cardThere.CardType != 'S';
+			return cardThere == null || cardThere.Type != 'S';
 		}
 
 		/// <summary>
@@ -76,10 +76,10 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <paramref name="x"/> and <paramref name="y"/> are next to an Avatar, 
 		/// and there's already another spell next to that Avatar. <br></br> 
 		/// <see langword="true"/> otherwise.</returns>
-		public bool ValidSpellSpaceFor(GameCard? card, Space space)
+		public bool ValidSpellSpaceFor(IGameCard? card, Space space)
 		{
 			//true for non-spells
-			if (card == null || card.CardType != 'S') return true;
+			if (card == null || card.Type != 'S') return true;
 
 			var friendlyAvatar = card.ControllingPlayer.Avatar;
 			var enemyAvatar = card.ControllingPlayer.Enemy.Avatar;
@@ -99,11 +99,11 @@ namespace Kompas.Gamestate.Locations.Models
 			var (x, y) = s;
 			return board[x, y];
 		}
-		GameCard? IBoard.GetCardAt(Space space) => GetCardAt(space);
+		IGameCard? IBoard.GetCardAt(Space space) => GetCardAt(space);
 
-		public List<GameCard> CardsAdjacentTo(Space? space)
+		public List<CardType> CardsAdjacentTo(Space? space)
 		{
-			var list = new List<GameCard>();
+			var list = new List<CardType>();
 			if (space == null)
 			{
 				//GD.PrintErr("Asking for cards adjacent to a null space");
@@ -119,16 +119,16 @@ namespace Kompas.Gamestate.Locations.Models
 			return list;
 		}
 
-		public List<GameCard> CardsWhere(Predicate<GameCard> predicate)
+		public List<CardType> CardsWhere(Predicate<IGameCard> predicate)
 		{
-			var list = new List<GameCard>();
+			var list = new List<CardType>();
 			foreach (var card in Cards) if (predicate(card)) list.Add(card);
 			return list;
 		}
 
-		public List<GameCard> CardsAndAugsWhere(Predicate<GameCard> predicate)
+		public List<CardType> CardsAndAugsWhere(Predicate<IGameCard> predicate)
 		{
-			var list = new List<GameCard>();
+			var list = new List<CardType>();
 			foreach (var card in Cards)
 			{
 				if (predicate(card)) list.Add(card);
@@ -140,7 +140,7 @@ namespace Kompas.Gamestate.Locations.Models
 		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
 			=> AreConnectedBySpaces(source, destination, c => restriction.IsValid(c, context));
 
-		public bool AreConnectedBySpaces(Space source, Space destination, Func<GameCard?, bool> throughPredicate)
+		public bool AreConnectedBySpaces(Space source, Space destination, Func<IGameCard?, bool> throughPredicate)
 			=> AreConnectedBySpaces(source, destination, s => throughPredicate(GetCardAt(s)));
 
 		public static bool AreConnectedBySpaces(Space source, Space destination, IRestriction<Space> restriction, IResolutionContext context)
@@ -153,13 +153,13 @@ namespace Kompas.Gamestate.Locations.Models
 			(Space? source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
 			=> destination.AdjacentSpaces.Any(destAdj => distancePredicate(ShortestPath(source, destAdj, spacePredicate)));
 
-		public int ShortestEmptyPath(GameCard src, Space dest)
+		public int ShortestEmptyPath(IGameCard src, Space dest)
 			=> ShortestEmptyPath(src.Position, dest);
 
 		public int ShortestEmptyPath(Space? src, Space dest)
 			=> board[dest.x, dest.y] == null ? ShortestPath(src, dest, this.IsEmpty) : NoPathExists;
 
-		public int ShortestPath(GameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
+		public int ShortestPath(IGameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
 			=> ShortestPath(src.Position, space, c => restriction.IsValid(c, context));
 
 		public int ShortestPath(Space? src, Space? dest, Predicate<IGameCardInfo?> throughPredicate)
@@ -239,7 +239,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <param name="toPlay">Card to be played</param>
 		/// <param name="toX">X coordinate to play the card to</param>
 		/// <param name="toY">Y coordinate to play the card to</param>
-		public virtual void Play(CardType toPlay, Space to, IPlayer player, IStackable? stackSrc = null)
+		public virtual void Play(CardType toPlay, Space to, PlayerType player, IStackable? stackSrc = null)
 		{
 			if (toPlay == null)
 				throw new NullCardException($"Null card to play to {to}");
@@ -253,7 +253,7 @@ namespace Kompas.Gamestate.Locations.Models
 			GD.Print($"In boardctrl, playing {toPlay.CardName} currently in {toPlay.Location} to {to}");
 
 			//augments can't be played to a regular space.
-			if (toPlay.CardType == 'A')
+			if (toPlay.Type == 'A')
 			{
 				//augments therefore just get put on whatever card is on that space rn.
 				var augmented = GetCardAt(to)
@@ -261,7 +261,7 @@ namespace Kompas.Gamestate.Locations.Models
 				//assuming there is a card there, try and add the augment. if it don't work, it borked.
 				augmented.AddAugment(toPlay, stackSrc);
 
-				toPlay.ControllingPlayer = player;
+				TakeControl(toPlay, player);
 			}
 			//otherwise, put a card to the requested space
 			else
@@ -273,11 +273,13 @@ namespace Kompas.Gamestate.Locations.Models
 				toPlay.Position = to;
 				toPlay.LocationModel = this;
 
-				toPlay.ControllingPlayer = player;
+				TakeControl(toPlay, player);
 
 				boardController.Place(toPlay.CardController);
 			}
 		}
+
+		protected abstract void TakeControl(CardType card, PlayerType player);
 
 		//movement
 		protected virtual void Swap(CardType card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)

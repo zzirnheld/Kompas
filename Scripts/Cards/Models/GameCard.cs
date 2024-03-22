@@ -15,13 +15,16 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
-	public abstract class GameCard : GameCardBase, IGameCardInfo
+
+	public abstract class GameCard<CardType>
+		: GameCardBase, IGameCard<CardType>
+			where CardType : IGameCard<CardType>
 	{
 		public abstract ICardController CardController { get; }
-		public abstract IGame Game { get; }
+		public abstract IGame<CardType> Game { get; }
 
 		public int ID { get; private set; }
-		public GameCard Card => this;
+		public IGameCard Card => this;
 
 		protected SerializableCard InitialCardValues { get; private set; }
 
@@ -56,7 +59,7 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public override bool Summoned => CardType != 'C' || Location == Location.Board;
+		public override bool Summoned => Type != 'C' || Location == Location.Board;
 		public virtual bool CanRemove => true;
 		public virtual int CombatDamage => W;
 		#endregion stats
@@ -81,7 +84,7 @@ namespace Kompas.Cards.Models
 		public int IndexInList => LocationModel?.IndexOf(this) ?? -1;
 		public bool InHiddenLocation => IGame.IsHiddenLocation(Location);
 
-		public override IReadOnlyCollection<GameCard> AdjacentCards
+		public override IReadOnlyCollection<IGameCard<CardType>> AdjacentCards
 			=> Game?.Board.CardsAdjacentTo(Position) ?? new List<GameCard>();
 		#endregion positioning
 
@@ -151,8 +154,8 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		private ILocationModel locationModel = Nowhere.Instance;
-		public ILocationModel LocationModel
+		private ILocationModel<CardType> locationModel = Nowhere.Instance;
+		public ILocationModel<CardType> LocationModel
 		{
 			get => locationModel;
 			set

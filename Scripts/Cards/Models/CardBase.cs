@@ -90,7 +90,7 @@ namespace Kompas.Cards.Models
 		public string[] SpellSubtypes { get; private set; } = System.Array.Empty<string>();
 		public int Radius { get; private set; }
 		public int Duration { get; set; }
-		public char CardType { get; private set; }
+		public char Type { get; private set; }
 		public string CardName { get; private set; } = string.Empty;
 		public string SubtypeText { get; private set; } = string.Empty;
 
@@ -113,12 +113,12 @@ namespace Kompas.Cards.Models
 		{
 			get
 			{
-				return CardType switch
+				return Type switch
 				{
 					'C' => S,
 					'S' => C,
 					'A' => A,
-					_ => throw new System.NotImplementedException($"Cost not implemented for card type {CardType}"),
+					_ => throw new System.NotImplementedException($"Cost not implemented for card type {Type}"),
 				};
 			}
 		}
@@ -126,7 +126,7 @@ namespace Kompas.Cards.Models
 		{
 			get
 			{
-				if (CardType == 'S')
+				if (Type == 'S')
 				{
 					return (SpellSubtypes.FirstOrDefault()) switch
 					{
@@ -145,12 +145,12 @@ namespace Kompas.Cards.Models
 		{
 			get
 			{
-				return CardType switch
+				return Type switch
 				{
 					'C' => $"N: {N} / E: {E} / S: {S} / W: {W}",
 					'S' => $"C {C}",
 					'A' => $"A {A}",
-					_ => throw new System.NotImplementedException($"Stats string not implemented for card type {CardType}"),
+					_ => throw new System.NotImplementedException($"Stats string not implemented for card type {Type}"),
 				};
 			}
 		}
@@ -195,7 +195,7 @@ namespace Kompas.Cards.Models
 			Unique = unique;
 			Radius = radius;
 			Duration = duration;
-			CardType = cardType;
+			Type = cardType;
 			CardName = cardName ?? throw new ArgumentNullException(nameof(cardName), $"A card is missing a name.");
 			EffText = effText ?? throw new ArgumentNullException(nameof(effText), $"Card {CardName} is missing effect text");
 			SubtypeText = subtypeText ?? string.Empty;

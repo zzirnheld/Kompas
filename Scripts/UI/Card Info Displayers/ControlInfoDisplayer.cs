@@ -74,7 +74,7 @@ namespace Kompas.UI.CardInfoDisplayers
 		public void DisplayCardImage(CardBase card)
 		{
 			Image.Texture = card.CardFaceImage;
-			FrameImage.Texture = card.CardType == 'C' ? CardRepository.CharCardFrameTexture : CardRepository.NoncharCardFrameTexture;
+			FrameImage.Texture = card.Type == 'C' ? CardRepository.CharCardFrameTexture : CardRepository.NoncharCardFrameTexture;
 		}
 
 		public void DisplayCardNumericStats(CardBase card)

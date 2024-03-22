@@ -11,11 +11,15 @@ using Kompas.Shared;
 namespace Kompas.Gamestate.Locations.Models
 {
 	public interface IDeck : ILocationModel
-	{ }
+	{
+		public GameCard? Topdeck { get; }
+	}
 
 	public interface IDeck<CardType> : ILocationModel<CardType>, IDeck
 		where CardType : GameCard
 	{
+		public new CardType? Topdeck { get; }
+
 		public void PushTopdeck(CardType card, IStackable? stackSrc = null);
 
 		public void PushBottomdeck(CardType card, IStackable? stackSrc = null);
@@ -42,7 +46,8 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public override int IndexOf(CardType card) => deck.IndexOf(card);
 		public int DeckSize => deck.Count;
-		public GameCard? Topdeck => deck.FirstOrDefault();
+		public CardType? Topdeck => deck.FirstOrDefault();
+		GameCard? IDeck.Topdeck => Topdeck;
 		public GameCard? Bottomdeck => deck.LastOrDefault();
 
 		protected override bool AllowAlreadyHereWhenAdd => true;

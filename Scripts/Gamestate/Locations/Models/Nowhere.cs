@@ -4,17 +4,18 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public sealed class Nowhere : ILocationModel
+	public sealed class Nowhere<CardType> : ILocationModel<CardType>
+		where CardType : class, IGameCard<CardType>
 	{
-		private static readonly Nowhere _singleton = new();
-		public static Nowhere Instance => _singleton;
+		private static readonly Nowhere<CardType> _singleton = new();
+		public static Nowhere<CardType> Instance => _singleton;
 
 		public Location Location => Location.Nowhere;
 
-		public IEnumerable<GameCard> Cards => Enumerable.Empty<GameCard>();
+		public IEnumerable<CardType> Cards => Enumerable.Empty<CardType>();
+		IEnumerable<IGameCard> ILocationModel.Cards => Cards;
+		public int IndexOf(CardType card) => -1;
 
-		public int IndexOf(GameCard card) => -1;
-
-		public void Remove(GameCard card) { }
+		public void Remove(CardType card) { }
 	}
 }
