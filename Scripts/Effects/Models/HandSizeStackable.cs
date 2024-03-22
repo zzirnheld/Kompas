@@ -13,14 +13,16 @@ namespace Kompas.Effects.Models
 		protected readonly IGame game;
 		protected readonly IPlayer player;
 
+		private IRestriction<IGameCardInfo>? handSizeCardRestriction;
+		public IRestriction<IGameCardInfo> HandSizeCardRestriction => handSizeCardRestriction ??= CreateHandSizeCardRestriction();
+
+		public IPlayer? ControllingPlayer => player;
+
 		protected HandSizeStackable(IGame game, IPlayer player)
 		{
 			this.game = game;
 			this.player = player;
 		}
-
-		private IRestriction<IGameCardInfo>? handSizeCardRestriction;
-		public IRestriction<IGameCardInfo> HandSizeCardRestriction => handSizeCardRestriction ??= CreateHandSizeCardRestriction();
 
 		private IRestriction<IGameCardInfo> CreateHandSizeCardRestriction()
 		{

@@ -43,7 +43,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 				: card.MovementRestriction.IsValid(space, context);
 
 		private bool FitsThroughRestriction(Space? source, Space dest, IResolutionContext context)
-			=> Kompas.Gamestate.Locations.Models.Board.AreConnectedByNumberOfSpacesFittingPredicate(source, dest,
+			=> Space.AreConnectedByCheckPathLen(source, dest,
 				s => throughRestriction.IsValid(s, context), d => distanceRestriction.IsValid(d, context));
 
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)

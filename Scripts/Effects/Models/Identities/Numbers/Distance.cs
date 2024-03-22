@@ -38,7 +38,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 			var contextToConsider = ContextToConsider(context, secondaryContext)
 				?? throw new InvalidOperationException();
 			bool through(Space s) => throughRestriction.IsValid(s, contextToConsider);
-			return Gamestate.Locations.Models.Board.ShortestPath(first, second, through);
+			return Space.DistanceBetween(first, second, through);
 		}
 	}
 }

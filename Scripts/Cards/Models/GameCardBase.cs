@@ -292,11 +292,11 @@ namespace Kompas.Cards.Models
 				|| (xDiffCard == yDiffCard && xDiffSpace == yDiffSpace);
 		}
 
-		public static int ShortestPath(this IGameCardInfo card, Space space, Predicate<IGameCardInfo?> throughPredicate)
+		public static int DistanceTo(this IGameCardInfo card, Space space, Predicate<IGameCardInfo?> throughPredicate)
 		{
-			if (card.Location != Location.Board) return Board.NoPathExists;
+			if (card.Location != Location.Board) return Space.NoPathExists;
 			_ = card.Position ?? throw new System.NullReferenceException("A card in play with a null space can't get a shortest path to anything!");
-			return card.Game.Board.ShortestPath(card.Position, space, throughPredicate);
+			return card.Game.Board.DistanceBetween(card.Position, space, throughPredicate);
 		}
 	}
 

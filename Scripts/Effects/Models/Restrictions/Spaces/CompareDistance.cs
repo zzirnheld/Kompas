@@ -45,7 +45,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			if (origin == null) return false;
 
 			int distance = shortestEmptyPath
-				? InitializationContext.game.Board.ShortestEmptyPath(origin, space)
+				? InitializationContext.game.Board.EmptyDistanceBetween(origin, space)
 				: origin.DistanceTo(space);
 
 			int number = this.number.From(context);

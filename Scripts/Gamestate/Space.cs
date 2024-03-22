@@ -9,6 +9,7 @@ namespace Kompas.Gamestate
 	public class Space
 	{
 		public const int BoardLen = 7;
+		public const int NoPathExists = int.MaxValue;
 		public const int MaxIndex = BoardLen - 1;
 		public static readonly Space Invalid = (-69, -420);
 
@@ -59,6 +60,63 @@ namespace Kompas.Gamestate
 		public int RadiusDistanceTo(Space other) => Math.Max(Math.Abs(x - other.x), Math.Abs(y - other.y));
 		public int DistanceTo(Space other) => TaxicabDistanceTo(other);
 		public Space DisplacementTo(Space other) => (other.x - x, other.y - y);
+
+		public static bool AreConnectedBy(Space source, Space destination, Func<Space, bool> predicate)
+			=> destination.AdjacentSpaces.Any(destAdj => DistanceBetween(source, destAdj, predicate) < NoPathExists);
+
+		public static bool AreConnectedByCheckPathLen
+			(Space? source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
+			=> destination.AdjacentSpaces.Any(destAdj => distancePredicate(DistanceBetween(source, destAdj, spacePredicate)));
+
+		/// <summary>
+		/// A really bad Dijkstra's because this is a fun side project and I'm not feeling smart today
+		/// </summary>
+		/// <param name="start">The card to start looking from</param>
+		/// <param name="x">The x coordinate you want a distance to</param>
+		/// <param name="y">The y coordinate you want a distance to</param>
+		/// <param name="throughPredicate">What all cards you go through must fit</param>
+		/// <returns></returns>
+		public static int DistanceBetween(Space? start, Space? destination, Func<Space, bool> throughPredicate)
+		{
+			if (start == destination) return 0;
+			if (start == null || destination == null) return NoPathExists;
+
+			int[,] dist = new int[7, 7];
+			bool[,] seen = new bool[7, 7];
+
+			var queue = new Queue<Space>();
+
+			queue.Enqueue(start);
+			dist[start.x, start.y] = 0;
+			seen[start.x, start.y] = true;
+
+			//set up the structures with the source node
+			queue.Enqueue(start);
+
+			//iterate until the queue is empty, in which case you'll have seen all connected cards that fit the restriction.
+			while (queue.Any())
+			{
+				//consider the adjacent cards to the next node in the queue
+				var curr = queue.Dequeue();
+				var (currX, currY) = curr;
+				foreach (var next in curr.AdjacentSpaces.Where(throughPredicate))
+				{
+					var (nextX, nextY) = next;
+					//if that adjacent card is never seen before, initialize its distance and add it to the structures
+					if (!seen[nextX, nextY])
+					{
+						seen[nextX, nextY] = true;
+						queue.Enqueue(next);
+						dist[nextX, nextY] = dist[currX, currY] + 1;
+					}
+					//otherwise, relax its distance if appropriate
+					else if (dist[currX, currY] + 1 < dist[nextX, nextY])
+						dist[nextX, nextY] = dist[currX, currY] + 1;
+				}
+			}
+
+			return dist[destination.x, destination.y] <= 0 ? NoPathExists : dist[destination.x, destination.y];
+		}
 
 		public bool IsAdjacentTo(Space other) => DistanceTo(other) == 1;
 		public IReadOnlyCollection<Space> AdjacentSpaces

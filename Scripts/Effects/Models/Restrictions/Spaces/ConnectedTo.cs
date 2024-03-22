@@ -36,7 +36,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		protected override bool IsValidLogic(Space? space, IResolutionContext context)
 			=> space != null
 			&& (spaces.From(context)
-				?.All(s => Board.AreConnectedBySpaces(s, space, byRestriction, context))
+				?.All(s => Board.AreConnectedBy(s, space, byRestriction, context))
 				?? false);
 	}
 }

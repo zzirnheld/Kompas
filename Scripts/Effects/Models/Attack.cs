@@ -11,6 +11,8 @@ namespace Kompas.Effects.Models
 
 		public GameCard Card => attacker;
 
+		public IPlayer? ControllingPlayer => instigator;
+
 		/// <summary>
 		/// Constructor should be called when the attack is declared
 		/// </summary>

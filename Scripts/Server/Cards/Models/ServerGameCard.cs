@@ -14,7 +14,6 @@ using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
-using Kompas.Server.Gamestate.Players;
 using Kompas.Server.Networking;
 using Kompas.Shared.Enumerable;
 
@@ -31,7 +30,6 @@ namespace Kompas.Server.Cards.Models
 		public override bool IsAvatar { get; }
 
 		public override ICardController CardController { get; }
-
 
 		private bool knownToEnemy = false;
 		public override bool KnownToEnemy

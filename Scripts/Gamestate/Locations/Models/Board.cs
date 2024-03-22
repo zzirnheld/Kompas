@@ -14,12 +14,9 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public abstract class Board : ILocationModel
 	{
-		public const int SpacesInGrid = 7;
-		public const int NoPathExists = int.MaxValue;
-
 		public Location Location => Location.Board;
 
-		protected readonly GameCard?[,] board = new GameCard[SpacesInGrid, SpacesInGrid];
+		protected readonly GameCard?[,] board = new GameCard[Space.BoardLen, Space.BoardLen];
 		public IEnumerable<GameCard> Cards { get { foreach (var card in board) if (card != null) yield return card; } }
 
 		private readonly BoardController boardController;
@@ -63,10 +60,10 @@ namespace Kompas.Gamestate.Locations.Models
 			var enemyAvatar = card.ControllingPlayer.Enemy.Avatar;
 			_ = friendlyAvatar.Position ?? throw new System.NullReferenceException("Avatar didn't have a position!?");
 			_ = enemyAvatar.Position ?? throw new System.NullReferenceException("Avatar didn't have a position!?");
-			int dist = ShortestPath(friendlyAvatar.Position, enemyAvatar.Position, s => s != space && IsSpaceEmptyOfSpells(s));
+			int dist = Space.DistanceBetween(friendlyAvatar.Position, enemyAvatar.Position, s => s != space && IsSpaceEmptyOfSpells(s));
 
 			//if it's not in a relevant location, everything is fine
-			return dist < NoPathExists;
+			return dist < Space.NoPathExists;
 		}
 
 		public bool Surrounded(Space s) => s.AdjacentSpaces.All(s => !IsEmpty(s));
@@ -119,83 +116,26 @@ namespace Kompas.Gamestate.Locations.Models
 			return list;
 		}
 
-		public bool AreConnectedBySpaces(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
-			=> AreConnectedBySpaces(source, destination, c => restriction.IsValid(c, context));
+		public bool AreConnectedBy(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
+			=> AreConnectedBy(source, destination, c => restriction.IsValid(c, context));
 
-		public bool AreConnectedBySpaces(Space source, Space destination, Func<GameCard?, bool> throughPredicate)
-			=> AreConnectedBySpaces(source, destination, s => throughPredicate(GetCardAt(s)));
+		public static bool AreConnectedBy(Space source, Space destination, IRestriction<Space> restriction, IResolutionContext context)
+			=> Space.AreConnectedBy(source, destination, s => restriction.IsValid(s, context));
 
-		public static bool AreConnectedBySpaces(Space source, Space destination, IRestriction<Space> restriction, IResolutionContext context)
-			=> AreConnectedBySpaces(source, destination, s => restriction.IsValid(s, context));
+		public bool AreConnectedBy(Space source, Space destination, Func<GameCard?, bool> throughPredicate)
+			=> Space.AreConnectedBy(source, destination, s => throughPredicate(GetCardAt(s)));
 
-		public static bool AreConnectedBySpaces(Space source, Space destination, Func<Space, bool> predicate)
-			=> destination.AdjacentSpaces.Any(destAdj => ShortestPath(source, destAdj, predicate) < NoPathExists);
+		public int EmptyDistanceBetween(GameCard src, Space dest)
+			=> EmptyDistanceBetween(src.Position, dest);
 
-		public static bool AreConnectedByNumberOfSpacesFittingPredicate
-			(Space? source, Space destination, Func<Space, bool> spacePredicate, Func<int, bool> distancePredicate)
-			=> destination.AdjacentSpaces.Any(destAdj => distancePredicate(ShortestPath(source, destAdj, spacePredicate)));
+		public int EmptyDistanceBetween(Space? src, Space dest)
+			=> board[dest.x, dest.y] == null ? Space.DistanceBetween(src, dest, IsEmpty) : Space.NoPathExists;
 
-		public int ShortestEmptyPath(GameCard src, Space dest)
-			=> ShortestEmptyPath(src.Position, dest);
+		public int DistanceBetween(GameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
+			=> DistanceBetween(src.Position, space, c => restriction.IsValid(c, context));
 
-		public int ShortestEmptyPath(Space? src, Space dest)
-			=> board[dest.x, dest.y] == null ? ShortestPath(src, dest, IsEmpty) : NoPathExists;
-
-		public int ShortestPath(GameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context)
-			=> ShortestPath(src.Position, space, c => restriction.IsValid(c, context));
-
-		public int ShortestPath(Space? src, Space? dest, Predicate<IGameCardInfo?> throughPredicate)
-			=> ShortestPath(src, dest, s => throughPredicate(GetCardAt(s)));
-
-		/// <summary>
-		/// A really bad Dijkstra's because this is a fun side project and I'm not feeling smart today
-		/// </summary>
-		/// <param name="start">The card to start looking from</param>
-		/// <param name="x">The x coordinate you want a distance to</param>
-		/// <param name="y">The y coordinate you want a distance to</param>
-		/// <param name="throughPredicate">What all cards you go through must fit</param>
-		/// <returns></returns>
-		public static int ShortestPath(Space? start, Space? destination, Func<Space, bool> throughPredicate)
-		{
-			if (start == destination) return 0;
-			if (start == null || destination == null) return NoPathExists;
-
-			int[,] dist = new int[7, 7];
-			bool[,] seen = new bool[7, 7];
-
-			var queue = new Queue<Space>();
-
-			queue.Enqueue(start);
-			dist[start.x, start.y] = 0;
-			seen[start.x, start.y] = true;
-
-			//set up the structures with the source node
-			queue.Enqueue(start);
-
-			//iterate until the queue is empty, in which case you'll have seen all connected cards that fit the restriction.
-			while (queue.Any())
-			{
-				//consider the adjacent cards to the next node in the queue
-				var curr = queue.Dequeue();
-				var (currX, currY) = curr;
-				foreach (var next in curr.AdjacentSpaces.Where(throughPredicate))
-				{
-					var (nextX, nextY) = next;
-					//if that adjacent card is never seen before, initialize its distance and add it to the structures
-					if (!seen[nextX, nextY])
-					{
-						seen[nextX, nextY] = true;
-						queue.Enqueue(next);
-						dist[nextX, nextY] = dist[currX, currY] + 1;
-					}
-					//otherwise, relax its distance if appropriate
-					else if (dist[currX, currY] + 1 < dist[nextX, nextY])
-						dist[nextX, nextY] = dist[currX, currY] + 1;
-				}
-			}
-
-			return dist[destination.x, destination.y] <= 0 ? NoPathExists : dist[destination.x, destination.y];
-		}
+		public int DistanceBetween(Space? src, Space? dest, Predicate<IGameCardInfo?> throughPredicate)
+			=> Space.DistanceBetween(src, dest, s => throughPredicate(GetCardAt(s)));
 		#endregion
 
 		#region game mechanics
