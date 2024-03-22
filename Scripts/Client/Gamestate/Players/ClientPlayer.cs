@@ -1,4 +1,5 @@
 using Kompas.Cards.Models;
+using Kompas.Client.Cards.Models;
 using Kompas.Client.Gamestate.Locations.Models;
 using Kompas.Client.Networking;
 using Kompas.Gamestate;
@@ -9,7 +10,7 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Players
 {
-	public class ClientPlayer : IPlayer
+	public class ClientPlayer : IPlayer<ClientGameCard, ClientPlayer>
 	{
 		public IPlayer Enemy { get; set; }
 
@@ -23,10 +24,18 @@ namespace Kompas.Client.Gamestate.Players
 		private readonly ClientGame game;
 		public IGame Game => game;
 
-		public Deck Deck { get; private set; }
-		public Hand Hand { get; private set; }
-		public Discard Discard { get; private set; }
-		public Annihilation Annihilation { get; private set; }
+
+		public IDeck<ClientGameCard> Deck { get; private set; }
+		IDeck IPlayer.Deck => Deck;
+
+		public IHand<ClientGameCard> Hand { get; private set; }
+		IHand IPlayer.Hand => Hand;
+
+		public IDiscard<ClientGameCard> Discard { get; private set; }
+		IDiscard IPlayer.Discard => Discard;
+
+		public IAnnihilation<ClientGameCard> Annihilation { get; private set; }
+		IAnnihilation IPlayer.Annihilation => Annihilation;
 
 		public PlayerController PlayerController { get; }
 

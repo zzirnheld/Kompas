@@ -32,13 +32,23 @@ namespace Kompas.Gamestate.Players
 		public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
 
 		//friendly
-		public abstract Deck Deck { get; }
-		public abstract Discard Discard { get; }
-		public abstract Hand Hand { get; }
-		public abstract Annihilation Annihilation { get; }
+		public IDeck Deck { get; }
+		public IDiscard Discard { get; }
+		public IHand Hand { get; }
+		public IAnnihilation Annihilation { get; }
 
 		public Space SubjectiveCoords(Space space) => Index == 0 ? space : space.Inverse;
 
 		public PlayerController PlayerController { get; }
+	}
+
+	public interface IPlayer<CardType, PlayerType> : IPlayer
+		where CardType : GameCard
+		where PlayerType : IPlayer<CardType, PlayerType>
+	{
+		public new IDeck<CardType> Deck { get; }
+		public new IDiscard<CardType> Discard { get; }
+		public new IHand<CardType> Hand { get; }
+		public new IAnnihilation<CardType> Annihilation { get; }
 	}
 }

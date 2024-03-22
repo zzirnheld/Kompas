@@ -8,9 +8,15 @@ namespace Kompas.Gamestate.Locations
 		public Location Location { get; }
 
 		public IEnumerable<GameCard> Cards { get; }
+	}
 
-		public int IndexOf(GameCard card);
+	public interface ILocationModel<CardType> : ILocationModel
+		where CardType : GameCard
+	{
+		public new IEnumerable<CardType> Cards { get; }
 
-		public void Remove(GameCard card);
+		public int IndexOf(CardType card);
+
+		public void Remove(CardType card);
 	}
 }

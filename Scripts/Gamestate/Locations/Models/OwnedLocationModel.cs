@@ -12,15 +12,18 @@ namespace Kompas.Gamestate.Locations.Models
 	/// Base class for ILocationModels owned by a player (from whom we can infer what game they're in).
 	/// Must have an ordering to the list.
 	/// </summary>
-	public abstract class OwnedLocationModel : ILocationModel
+	public abstract class OwnedLocationModel<CardType, PlayerType> : ILocationModel<CardType>
+		where CardType : GameCard
+		where PlayerType : IPlayer
 	{
-		public IPlayer Owner { get; }
+		public PlayerType Owner { get; }
 
 		public abstract Location Location { get; }
 
-		public abstract IEnumerable<GameCard> Cards { get; }
+		public abstract IEnumerable<CardType> Cards { get; }
+		IEnumerable<GameCard> ILocationModel.Cards => Cards;
 
-		public OwnedLocationModel(IPlayer owner)
+		public OwnedLocationModel(PlayerType owner)
 		{
 			Owner = owner;
 		}
@@ -29,19 +32,20 @@ namespace Kompas.Gamestate.Locations.Models
 			=> location == Location
 			&& friendly == Owner.Friendly;
 
-		public abstract int IndexOf(GameCard card);
 
-		public abstract void Remove(GameCard card);
+		public abstract int IndexOf(CardType card);
+
+		public abstract void Remove(CardType card);
 
 		protected virtual bool AllowAlreadyHereWhenAdd => false;
 
-		protected abstract void PerformAdd(GameCard card, int? index, IStackable? stackableCause);
+		protected abstract void PerformAdd(CardType card, int? index, IStackable? stackableCause);
 
 		/// <summary>
 		/// Adds the card to this owned game location at the relevant index.
 		/// DOES NOT set the controller (that will need to be done manually by the implementer)
 		/// </summary>
-		public void Add(GameCard card, int? index = null, IStackable? stackableCause = null)
+		public void Add(CardType card, int? index = null, IStackable? stackableCause = null)
 		{
 			GD.Print($"Trying to {Location} {card}");
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
@@ -59,8 +63,10 @@ namespace Kompas.Gamestate.Locations.Models
 			GD.Print($"{card} successfully removed, moving");
 			card.LocationModel = this;
 			card.Position = null;
-			card.ControllingPlayer = Owner;
+			TakeControlOf(card);
 			PerformAdd(card, index, stackableCause);
 		}
+
+		public abstract void TakeControlOf(CardType card);
 	}
 }

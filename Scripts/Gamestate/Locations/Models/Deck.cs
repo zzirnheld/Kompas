@@ -10,29 +10,44 @@ using Kompas.Shared;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public abstract class Deck : OwnedLocationModel
+	public interface IDeck : ILocationModel
+	{ }
+
+	public interface IDeck<CardType> : ILocationModel<CardType>, IDeck
+		where CardType : GameCard
 	{
-		private readonly List<GameCard> deck = new();
-		public override IEnumerable<GameCard> Cards => deck;
+		public void PushTopdeck(CardType card, IStackable? stackSrc = null);
+
+		public void PushBottomdeck(CardType card, IStackable? stackSrc = null);
+
+		public void ShuffleIn(CardType card, IStackable? stackSrc = null);
+	}
+
+	public abstract class Deck<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IDeck<CardType>
+		where CardType : GameCard
+		where PlayerType : IPlayer
+	{
+		private readonly IList<CardType> deck = new List<CardType>();
+		public override IEnumerable<CardType> Cards => deck;
 
 		public override Location Location => Location.Deck;
 
 		private readonly DeckController deckController;
 
-		protected Deck(IPlayer owner, DeckController deckController) : base(owner)
+		protected Deck(PlayerType owner, DeckController deckController) : base(owner)
 		{
 			this.deckController = deckController;
 			deckController.DeckModel = this;
 		}
 
-		public override int IndexOf(GameCard card) => deck.IndexOf(card);
+		public override int IndexOf(CardType card) => deck.IndexOf(card);
 		public int DeckSize => deck.Count;
 		public GameCard? Topdeck => deck.FirstOrDefault();
 		public GameCard? Bottomdeck => deck.LastOrDefault();
 
 		protected override bool AllowAlreadyHereWhenAdd => true;
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
+		protected override void PerformAdd(CardType card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) deck.Insert(index.Value, card);
 			else deck.Add(card);
@@ -41,13 +56,13 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 
 		//adding and removing cards
-		public virtual void PushTopdeck(GameCard card, IStackable? stackSrc = null)
+		public virtual void PushTopdeck(CardType card, IStackable? stackSrc = null)
 			=> Add(card, index: 0, stackableCause: stackSrc);
 
-		public virtual void PushBottomdeck(GameCard card, IStackable? stackSrc = null)
+		public virtual void PushBottomdeck(CardType card, IStackable? stackSrc = null)
 			=> Add(card, stackableCause: stackSrc);
 
-		public virtual void ShuffleIn(GameCard card, IStackable? stackSrc = null)
+		public virtual void ShuffleIn(CardType card, IStackable? stackSrc = null)
 		{
 			Add(card, stackableCause: stackSrc);
 			Shuffle();
@@ -56,7 +71,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// <summary>
 		/// Random access remove from deck
 		/// </summary>
-		public override void Remove(GameCard card)
+		public override void Remove(CardType card)
 		{
 			if (!deck.Contains(card))
 				throw new CardNotHereException(Location, card, $"Couldn't remove {card.CardName} from deck, it wasn't in deck!");
@@ -69,15 +84,15 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public void Shuffle() => CollectionsHelper.ShuffleInPlace(deck);
 
-		public void BottomdeckMany(IEnumerable<GameCard> cards, IStackable? stackSrc = null)
+		public void BottomdeckMany(IEnumerable<CardType> cards, IStackable? stackSrc = null)
 		{
 			var toShuffleInOrder = CollectionsHelper.Shuffle(cards.ToList());
 			foreach (var card in toShuffleInOrder) PushBottomdeck(card, stackSrc);
 		}
 
-		public List<GameCard> CardsThatFitRestriction(IRestriction<IGameCardInfo> cardRestriction, ResolutionContext context)
+		public IReadOnlyCollection<GameCard> CardsThatFitRestriction(IRestriction<IGameCardInfo> cardRestriction, ResolutionContext context)
 		{
-			List<GameCard> cards = new List<GameCard>();
+			var cards = new List<GameCard>();
 			foreach (GameCard c in deck)
 			{
 				if (c != null && cardRestriction.IsValid(c, context))

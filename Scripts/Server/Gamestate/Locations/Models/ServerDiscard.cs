@@ -3,20 +3,27 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Cards.Models;
+using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
-	public class ServerDiscard : Discard
+	public class ServerDiscard : Discard<ServerGameCard, ServerPlayer>
 	{
 		private readonly ServerGame game;
 
-		public ServerDiscard(IPlayer owner, DiscardController discardController, ServerGame game)
+		public ServerDiscard(ServerPlayer owner, DiscardController discardController, ServerGame game)
 			: base(owner, discardController)
 		{
 			this.game = game;
 		}
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
+		public override void TakeControlOf(ServerGameCard card)
+		{
+			card.ServerController = Owner;
+		}
+
+		protected override void PerformAdd(ServerGameCard card, int? index, IStackable? stackSrc = null)
 		{
 			GameCard? cause = null;
 			if (stackSrc is Effect eff) cause = eff.Card;

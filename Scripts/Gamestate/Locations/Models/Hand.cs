@@ -9,10 +9,21 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public abstract class Hand : OwnedLocationModel
+	public interface IHand : ILocationModel
 	{
-		private readonly List<GameCard> hand = new();
-		public override IEnumerable<GameCard> Cards => hand;
+		public int HandSize { get; }
+	}
+
+	public interface IHand<CardType> : ILocationModel<CardType>, IHand
+		where CardType : GameCard
+	{ }
+
+	public abstract class Hand<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IHand<CardType>
+		where CardType : GameCard
+		where PlayerType : IPlayer
+	{
+		private readonly IList<CardType> hand = new List<CardType>();
+		public override IEnumerable<CardType> Cards => hand;
 
 		public override Location Location => Location.Hand;
 
@@ -20,7 +31,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public int HandSize => hand.Count;
 
-		protected Hand(IPlayer owner, HandController handController) : base(owner)
+		protected Hand(PlayerType owner, HandController handController) : base(owner)
 		{
 			this.handController = handController;
 			handController.HandModel = this; //TODO: is there another, better way to initialize HandModel? without leaking this
@@ -28,9 +39,9 @@ namespace Kompas.Gamestate.Locations.Models
 
 		public GameCard this[int index] => hand[index];
 
-		public override int IndexOf(GameCard card) => hand.IndexOf(card);
+		public override int IndexOf(CardType card) => hand.IndexOf(card);
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
+		protected override void PerformAdd(CardType card, int? index, IStackable? stackableCause)
 		{
 			GD.Print($"Adding {card}");
 			if (index.HasValue) hand.Insert(index.Value, card);
@@ -38,7 +49,7 @@ namespace Kompas.Gamestate.Locations.Models
 			handController.Refresh();
 		}
 
-		public override void Remove(GameCard card)
+		public override void Remove(CardType card)
 		{
 			if (!hand.Contains(card)) throw new CardNotHereException(Location, card,
 				$"Hand of \n{string.Join(", ", hand.Select(c => c.CardName))}\n doesn't contain {card}, can't remove it!");

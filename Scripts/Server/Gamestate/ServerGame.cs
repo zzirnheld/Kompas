@@ -35,8 +35,8 @@ namespace Kompas.Server.Gamestate
 			?? throw new UseFactoryException();
 		IStackController IGame.StackController => StackController;
 
-		private Board? _board;
-		public Board Board => _board
+		private IBoard<ServerGameCard>? _board;
+		public IBoard<ServerGameCard> Board => _board
 			?? throw new UseFactoryException();
 		private ServerAwaiter? _awaiter;
 		public ServerAwaiter Awaiter => _awaiter

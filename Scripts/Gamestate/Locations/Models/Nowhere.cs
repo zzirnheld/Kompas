@@ -6,7 +6,7 @@ namespace Kompas.Gamestate.Locations.Models
 {
 	public sealed class Nowhere : ILocationModel
 	{
-		private static readonly Nowhere _singleton = new Nowhere();
+		private static readonly Nowhere _singleton = new();
 		public static Nowhere Instance => _singleton;
 
 		public Location Location => Location.Nowhere;

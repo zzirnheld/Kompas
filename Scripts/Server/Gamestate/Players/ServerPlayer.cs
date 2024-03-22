@@ -8,6 +8,7 @@ using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Networking;
+using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate.Extensions;
 using Kompas.Server.Gamestate.Locations.Models;
@@ -60,18 +61,25 @@ namespace Kompas.Server.Gamestate.Players
 
 		public int Index { get; }
 
-		private Deck? _deck;
-		public Deck Deck => _deck
+		private IDeck<ServerGameCard>? _deck;
+		public IDeck<ServerGameCard> Deck => _deck
 			?? throw new UseFactoryException();
-		private Discard? _discard;
-		public Discard Discard => _discard
+		IDeck IPlayer.Deck => Deck;
+
+		private IDiscard<ServerGameCard>? _discard;
+		public IDiscard<ServerGameCard> Discard => _discard
 			?? throw new UseFactoryException();
-		private Hand? _hand;
-		public Hand Hand => _hand
+		IDiscard IPlayer.Discard => Discard;
+
+		private IHand<ServerGameCard>? _hand;
+		public IHand<ServerGameCard> Hand => _hand
 			?? throw new UseFactoryException();
-		private Annihilation? _annihilation;
-		public Annihilation Annihilation => _annihilation
+		IHand IPlayer.Hand => Hand;
+
+		private IAnnihilation<ServerGameCard>? _annihilation;
+		public IAnnihilation<ServerGameCard> Annihilation => _annihilation
 			?? throw new UseFactoryException();
+		IAnnihilation IPlayer.Annihilation => Annihilation;
 
 		public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
 

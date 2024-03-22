@@ -20,9 +20,6 @@ namespace Kompas.Gamestate
 				&& copy.ControllingPlayer == card.ControllingPlayer
 				&& copy.CardName == card.CardName);
 
-		public static bool IsValidSpellSpaceFor(this IGame game, GameCard card, Space space)
-			=> game.Board.ValidSpellSpaceFor(card, space);
-
 		public static bool IsValidStandardPlaySpace(this IGame game, Space? space, IPlayer? player)
 		{
 			/*GD.Print($"Checking whether player {player?.index} can play a card to {space}. Cards adjacent to that space are" +
@@ -67,7 +64,7 @@ namespace Kompas.Gamestate
 		public Settings Settings { get; }
 
 		//game mechanics
-		public Board Board { get; }
+		public IBoard Board { get; }
 
 		public IPlayer[] Players { get; }
 		public IPlayer TurnPlayer { get; }
@@ -101,6 +98,12 @@ namespace Kompas.Gamestate
 		public static bool IsHiddenLocation(Location l) => HiddenLocations.Contains(l);
 		
 		public event EventHandler<IPlayer> TurnChanged;
+	}
+
+	public interface IGame<CardType> : IGame
+		where CardType : GameCard
+	{
+		public new IBoard<CardType> Board { get; }
 	}
 
 	public interface IStackController

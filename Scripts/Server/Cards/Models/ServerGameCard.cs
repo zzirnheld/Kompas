@@ -21,23 +21,22 @@ namespace Kompas.Server.Cards.Models
 
 		public override bool IsAvatar { get; }
 
-		public override ICardController CardController { get; }
+		public ServerCardController ServerCardController { get; private set; }
+		public override ICardController CardController => ServerCardController;
 
-		public override bool KnownToEnemy { get; set; }
+		public override 
 
-		public ServerGameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
+		public ServerGameCard(SerializableCard serializeableCard, int id, ServerPlayer owningPlayer,
 			ServerGame game, ServerCardController cardController, ServerEffect[] effects, bool isAvatar)
 			: base(serializeableCard, id, owningPlayer)
 		{
 			ServerGame = game;
 			ServerEffects = effects;
-			CardController = cardController;
+			ServerCardController = cardController;
 			IsAvatar = isAvatar;
 		}
 
-		/*
-		public ServerCardController ServerCardController { get; private set; }
-		public override CardController CardController => ServerCardController;
+		
 
 		public ServerEffectsController EffectsController => ServerGame?.effectsController;
 		public ServerNotifier ServerNotifier => ServerController?.notifier;
@@ -364,6 +363,5 @@ namespace Kompas.Server.Cards.Models
 			base.SetActivated(activated, stackSrc);
 		}
 		#endregion stats
-	} */
 	}
 }

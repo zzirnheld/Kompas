@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
-using Kompas.Cards.Movement;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
@@ -15,7 +13,7 @@ using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
-	public class ServerBoard : Board
+	public class ServerBoard : Board<ServerGameCard, ServerPlayer>
 	{
 		private readonly ServerGame serverGame;
 
@@ -26,7 +24,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			this.serverGame = serverGame;
 		}
 
-		public override void Play(GameCard toPlay, Space to, IPlayer controller, IStackable? stackSrc = null)
+		public override void Play(ServerGameCard toPlay, Space to, IPlayer controller, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: serverGame, CardBefore: toPlay, stackableCause: stackSrc, player: controller, space: to);
 			bool wasKnown = toPlay.KnownToEnemy;
@@ -75,7 +73,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			return (moveContexts, leaveContexts);
 		}
 
-		protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
+		protected override void Swap(ServerGameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
 		{
 			//calculate distance before doing the swap
 			var from = card.Position?.Copy;

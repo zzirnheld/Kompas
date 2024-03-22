@@ -7,29 +7,38 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public abstract class Discard : OwnedLocationModel
+	public interface IDiscard : ILocationModel
+	{ }
+
+	public interface IDiscard<CardType> : ILocationModel<CardType>, IDiscard
+		where CardType : GameCard
+	{ }
+
+	public abstract class Discard<CardType, PlayerType> : OwnedLocationModel<CardType, PlayerType>, IDiscard<CardType>
+		where CardType : GameCard
+		where PlayerType : IPlayer
 	{
 		private readonly DiscardController discardController;
 
-		protected readonly List<GameCard> discard = new();
+		protected readonly IList<CardType> discard = new List<CardType>();
 
 		public override Location Location => Location.Discard;
-		public override IEnumerable<GameCard> Cards => discard;
+		public override IEnumerable<CardType> Cards => discard;
 
-		protected Discard(IPlayer owner, DiscardController discardController) : base(owner)
+		protected Discard(PlayerType owner, DiscardController discardController) : base(owner)
 		{
 			this.discardController = discardController;
 			discardController.DiscardModel = this;
 		}
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
+		protected override void PerformAdd(CardType card, int? index, IStackable? stackableCause)
 		{
 			if (index.HasValue) discard.Insert(index.Value, card);
 			else discard.Add(card);
 			discardController.Refresh();
 		}
 
-		public override void Remove(GameCard card)
+		public override void Remove(CardType card)
 		{
 			if (!discard.Contains(card)) throw new CardNotHereException(Location.Discard, card);
 
@@ -37,6 +46,6 @@ namespace Kompas.Gamestate.Locations.Models
 			discardController.Refresh();
 		}
 
-		public override int IndexOf(GameCard card) => discard.IndexOf(card);
+		public override int IndexOf(CardType card) => discard.IndexOf(card);
 	}
 }
