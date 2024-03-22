@@ -6,6 +6,7 @@ namespace Kompas.Effects.Models
 	public interface IStackable
 	{
 		GameCard? Card { get; }
+		IPlayer? ControllingPlayer { get; }
 
 		GameCard? GetCause (IGameCardInfo? withRespectTo);
 	}

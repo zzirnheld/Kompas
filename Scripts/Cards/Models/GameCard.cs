@@ -257,7 +257,7 @@ namespace Kompas.Cards.Models
 			if (augment == null)
 				throw new NullAugmentException(stackSrc, this, "Can't add a null augment");
 			if (Location != Location.Board)
-				throw new CardNotHereException(Location.Board, this, $"Can't put an augment on a card not in {Location}!");
+				throw new CardNotHereException(Location.Board, this, $"Can't put an augment on a card not on Board!!");
 
 			GD.Print($"Attaching {augment.CardName} from {augment.Location} to {CardName} in {Location}");
 

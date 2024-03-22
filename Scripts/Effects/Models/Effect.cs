@@ -20,6 +20,7 @@ namespace Kompas.Effects.Models
 		public int EffectIndex { get; private set; }
 		public abstract GameCard Card { get; }
 		public abstract IPlayer OwningPlayer { get; }
+		public IPlayer ControllingPlayer => OwningPlayer; //FUTURE: effects can change control. for now, assume same player
 
 		//subeffects
 		public abstract Subeffect[] Subeffects { get; }
