@@ -122,7 +122,8 @@ namespace Kompas.Client.Gamestate
 		public void SuperSelect(ClientGameCard card)
 		{
 			var notifier = LastSelectedCard?.ClientGame.ClientGameController.Notifier;
-			if (LastSelectedCard?.Location == Location.Board) notifier?.RequestAttack(LastSelectedCard, card);
+			if (LastSelectedCard?.Location == Location.Board && card.Location == Location.Board)
+				notifier?.RequestAttack(LastSelectedCard, card);
 
 			Select(card);
 		}

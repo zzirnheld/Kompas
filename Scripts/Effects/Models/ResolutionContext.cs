@@ -69,6 +69,8 @@ namespace Kompas.Effects.Models
 			SpaceTargets, DelayedSpaceTarget,
 			StackableTargets, DelayedStackableTarget);
 
+		public bool IsDummy => false;
+
 		public override string ToString()
 		{
 			var sb = new System.Text.StringBuilder();

@@ -75,7 +75,8 @@ namespace Kompas.Effects.Models.Restrictions
 			=> IsValidIgnoring(item, context, r => false);
 
 		protected bool IsValidIgnoring(RestrictedType? item, IResolutionContext context, IAllOf<RestrictedType>.ShouldIgnore ignorePredicate)
-			=> context.TriggerContext?.stackableCause == null
+		//If we have a resolution context and it's a real one, or it's a dummy context but the trigger was from an effect, then this check is "by effect"
+			=> context.IsDummy && context.TriggerContext?.stackableCause == null
 				? NormalRestriction.IsValidIgnoring(item, context, ignorePredicate)
 				: EffectRestriction.IsValidIgnoring(item, context, ignorePredicate);
 	}

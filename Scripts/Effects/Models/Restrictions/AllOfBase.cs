@@ -52,7 +52,7 @@ namespace Kompas.Effects.Models.Restrictions
 			.All(r => Validate(r, item, context));
 
 
-		private const bool DEBUG = false; //TODO factor out to global flag/checkbox
+		private const bool DEBUG = true; //TODO factor out to global flag/checkbox
 		/// <summary>
 		/// Override if you want to change the validation function called on each child,
 		/// like have a client-side variant

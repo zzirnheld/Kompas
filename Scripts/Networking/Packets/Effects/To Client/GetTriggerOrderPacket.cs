@@ -1,5 +1,10 @@
-﻿using Kompas.Client.Gamestate;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Kompas.Client.Gamestate;
+using Kompas.Client.Gamestate.Players;
+using Kompas.Effects.Models;
 using Kompas.Networking.Packets;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Networking.Packets
 {
@@ -30,17 +35,19 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			throw new System.NotImplementedException();
-			/*
-			List<Trigger> triggers = new();
-			for (int i = 0; i < sourceCardIds.Length; i++)
+			_ = sourceCardIds ?? throw new System.NullReferenceException("sourceCardIDs");
+			_ = effIndices ?? throw new System.NullReferenceException("effIndices");
+			IList<Trigger> triggers = new List<Trigger>();
+			foreach (var (index, ID) in sourceCardIds.Enumerate())
 			{
-				var card = clientGame.LookupCardByID(sourceCardIds[i]);
-				var trigger = card?.Effects.ElementAt(effIndices[i]).Trigger;
+				if (ID == null) continue;
+				var card = clientGame.LookupCardByID(ID.Value);
+				var trigger = card?.Effects.ElementAt(effIndices[index]).Trigger;
 				if (trigger != null) triggers.Add(trigger);
 			}
-			clientGame.clientUIController.effectsUIController.triggerOrderUI.OrderTriggers(triggers);
-			*/
+
+			//For now, just send off the same order
+			clientGame.ClientGameController.Notifier.ChooseTriggerOrder(triggers.Select((t, i) => (t, i)));
 		}
 	}
 }

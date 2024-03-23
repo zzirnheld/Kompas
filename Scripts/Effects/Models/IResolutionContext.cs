@@ -33,6 +33,8 @@ namespace Kompas.Effects.Models
 
 		public IResolutionContext Copy { get; }
 
+		public bool IsDummy { get; }
+
 
 		/// <summary>
 		/// Used for places that need a resolution context (like triggers calling any other identity), but to enforce never having 
@@ -53,6 +55,8 @@ namespace Kompas.Effects.Models
 			public int X { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
 			public IResolutionContext Copy => new DummyResolutionContext(TriggerContext);
+
+			public bool IsDummy => true;
 
 			public DummyResolutionContext(TriggeringEventContext? triggerContext)
 			{
