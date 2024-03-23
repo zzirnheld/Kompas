@@ -92,9 +92,13 @@ namespace Kompas.Client.Gamestate
 			//TODO make client notifier a static helper class
 			GD.Print($"Selecting {space}");
 			var notifier = SelectedCard?.ClientGame.ClientGameController.Notifier;
-			if (SelectedCard?.Location == Location.Board) notifier?.RequestMove(SelectedCard, space.x, space.y);
-			if (SelectedCard?.Location == Location.Hand) notifier?.RequestPlay(SelectedCard, space.x, space.y);
-			CurrentSearch?.Select(space);
+			if (CurrentSearch != null) CurrentSearch?.Select(space);
+			else
+			{
+				if (SelectedCard?.Location == Location.Board) notifier?.RequestMove(SelectedCard, space.x, space.y);
+				if (SelectedCard?.Location == Location.Hand) notifier?.RequestPlay(SelectedCard, space.x, space.y);
+			}
+
 		}
 
 		/// <summary>

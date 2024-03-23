@@ -39,6 +39,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="gui_input" from="Button" to="." method="Clicked"]
-[connection signal="mouse_entered" from="Button" to="." method="ShowInTopLeft"]
 [connection signal="mouse_entered" from="Button" to="." method="MouseEnter"]
+[connection signal="mouse_entered" from="Button" to="." method="ShowInTopLeft"]
 [connection signal="mouse_exited" from="Button" to="." method="MouseExit"]
