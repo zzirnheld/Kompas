@@ -90,7 +90,7 @@ namespace Kompas.Server.Cards.Models
 			}
 		}
 
-		public ServerGameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
+		private ServerGameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
 			ServerGame game, ServerCardController cardController, ServerEffect[] effects, bool isAvatar)
 			: base(serializeableCard, id, owningPlayer)
 		{
@@ -98,9 +98,18 @@ namespace Kompas.Server.Cards.Models
 			ServerEffects = effects;
 			CardController = cardController;
 			IsAvatar = isAvatar;
+		}
+
+		public static ServerGameCard Create(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
+			ServerGame game, ServerCardController cardController, ServerEffect[] effects, bool isAvatar)
+		{
+			var ret = new ServerGameCard(serializeableCard, id, owningPlayer,
+				game, cardController, effects, isAvatar);
 
 			foreach (var (index, eff) in effects.Enumerate())
-				eff.SetInfo(this, ServerGame, index);
+				eff.SetInfo(ret, game, index);
+
+			return ret;
 		}
 
 		public ServerStackController EffectsController => ServerGame?.StackController
