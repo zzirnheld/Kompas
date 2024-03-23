@@ -32,6 +32,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected abstract bool IsValidLogic(IResolutionContext context);
 
+		//Fulfill trigger restriction contract
+		public abstract bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext);
+
 		//Fulfill list restriction contract
 		public bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context) => true;
 		public IEnumerable<IGameCardInfo> Deduplicate(IEnumerable<IGameCardInfo> options) => options;

@@ -34,6 +34,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 				? spacesItem.Any(s => spaceRestriction.IsValid(s, ContextToConsider(context, secondaryContext)))
 				: spacesItem.All(s => spaceRestriction.IsValid(s, ContextToConsider(context, secondaryContext)));
 		}
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> true;
 	}
 
 	public class SpaceFitsRestriction : SpacesFitRestriction

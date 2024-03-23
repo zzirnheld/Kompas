@@ -272,16 +272,16 @@ namespace Kompas.Cards.Loading
 				.Select(SerializableCardFromJson)
 				.NonNull();
 		
-		public static IRestriction<TriggeringEventContext>[]? InstantiateTriggerKeyword(string keyword)
+		public static ITriggerRestriction[]? InstantiateTriggerKeyword(string keyword)
 		{
 			if (!triggerKeywordJsons.ContainsKey(keyword))
 			{
 				GD.PrintErr($"No trigger keyword json found for {keyword}");
-				return System.Array.Empty<IRestriction<TriggeringEventContext>>();
+				return System.Array.Empty<ITriggerRestriction>();
 			}
 			try
 			{
-				return JsonConvert.DeserializeObject<IRestriction<TriggeringEventContext>[]>
+				return JsonConvert.DeserializeObject<ITriggerRestriction[]>
 					(triggerKeywordJsons[keyword], CardLoadingSettings);
 			}
 			catch (JsonReaderException)

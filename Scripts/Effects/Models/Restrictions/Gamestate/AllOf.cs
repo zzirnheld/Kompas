@@ -22,6 +22,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected override bool IsValidLogic(IResolutionContext context)
 			=> elements.All(r => r.IsValid(context));
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> elements.All(elem => IsStillValidTriggeringContext(context, dummyContext));
 	}
 
 	public class Not : GamestateRestrictionBase
@@ -39,16 +42,27 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected override bool IsValidLogic(IResolutionContext context)
 			=> !negated.IsValid(context);
+
+		//NOTE: We can't just use IsStillValidTriggeringContext because that function assumes that the restriction previously evaluated to TRUE,
+		//and the whole point of Not is that we already know that inverted evaluated to false
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> IsValid(context, dummyContext);
 	}
 	
 	public class AlwaysValid : GamestateRestrictionBase 
 	{
 		protected override bool IsValidLogic(IResolutionContext context) => true;
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> true;
 	}
 
 	public class NeverValid : GamestateRestrictionBase
 	{
 		protected override bool IsValidLogic(IResolutionContext context) => false;
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> true;
 	}
 
 	public class ThisCardInPlay : GamestateRestrictionBase
@@ -58,5 +72,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			var source = InitializationContext.source ?? throw new System.NullReferenceException("No source card");
 			return source.Location == Location.Board;
 		}
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> true;
 	}
 }

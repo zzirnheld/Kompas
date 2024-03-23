@@ -22,7 +22,7 @@ namespace Kompas.Server.Effects.Models
 
 		public readonly struct EndCondition
 		{
-			public IRestriction<TriggeringEventContext> Restriction { get; init; }
+			public ITriggerRestriction Restriction { get; init; }
 			public string Condition { get; init; }
 		}
 

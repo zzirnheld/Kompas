@@ -28,5 +28,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			int second = secondNumber.From(context, secondaryContext);
 			return comparison.Compare(first, second);
 		}
+
+		//Because of the existence of EffectUses, this must reevaluate
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> IsValidContext(context, dummyContext);
 	}
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Kompas.Effects.Models.Restrictions.Triggering
 {
-	public abstract class TriggerRestrictionBase : RestrictionBase<TriggeringEventContext>
+	public abstract class TriggerRestrictionBase : RestrictionBase<TriggeringEventContext>, ITriggerRestriction
 	{
-		public static readonly IRestriction<TriggeringEventContext>[] DefaultFallOffRestrictions = {
+		public static readonly ITriggerRestriction[] DefaultFallOffRestrictions = {
 			new Gamestate.CardsMatch(){
 				card = new Identities.Cards.ThisCardNow(),
 				other = new Identities.Cards.CardBefore()
@@ -18,8 +18,9 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			typeof(Gamestate.MaxPerStack)
 		});
 
-		public static IRestriction<TriggeringEventContext> AllOf(IList<IRestriction<TriggeringEventContext>> elements)
-			=> new AllOf() { elements = elements };
+		public static ITriggerRestriction AllOf(IList<ITriggerRestriction> elements)
+			//Compiler needed the help to know that an ITriggerRestriction is an IRestriction<TriggeringEventContext>
+			=> new AllOf() { elements = new List<IRestriction<TriggeringEventContext>>(elements) };
 
 		public bool? useDummyResolutionContext;
 
@@ -54,5 +55,14 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		}
 		
 		protected abstract bool IsValidContext(TriggeringEventContext item, IResolutionContext context);
+
+		/// <summary>
+        /// If IsValidContext initially evaluated to true, is this restriction still valid after other triggers have made it onto the stack?
+        /// <br/>
+        /// IMPL Notes:<br/>
+        /// Return true if the state won't change based JUST on items going onto the stack.
+        /// Evaluate the restriction again if items going onto the stack could affect whether this is valid.
+        /// </summary>
+		public abstract bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext);
 	}
 }

@@ -14,7 +14,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		//BEWARE: once per turn might not work for these as impl rn, because it's kind of ill-defined.
 		//this is only a problem if I one day start creating hanging effects that can later trigger once each turn.
 		[JsonProperty]
-		public IRestriction<TriggeringEventContext> triggerRestriction = new AlwaysValid();
+		public ITriggerRestriction triggerRestriction = new AlwaysValid();
 		#nullable disable
 		[JsonProperty (Required = Required.Always)]
 		public string endCondition;
@@ -23,7 +23,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 		[JsonProperty]
 		public string fallOffCondition = Trigger.Remove;
 		[JsonProperty]
-		public IRestriction<TriggeringEventContext>? fallOffRestriction;
+		public ITriggerRestriction? fallOffRestriction;
 		
 		public virtual bool ContinueResolution => true;
 
@@ -39,7 +39,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			Restriction = GetFallOffRestriction()
 		};
 
-		private IRestriction<TriggeringEventContext> GetFallOffRestriction()
+		private ITriggerRestriction GetFallOffRestriction()
 		{
 			var restriction = fallOffRestriction
 				?? (fallOffCondition == Trigger.Remove ?

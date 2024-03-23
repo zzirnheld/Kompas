@@ -11,5 +11,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 				?? throw new IllDefinedException();
 			return !InitializationContext.game.BoardHasCopyOf(card);
 		}
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> true;
 	}
 }

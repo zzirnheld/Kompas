@@ -25,5 +25,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			var item = stackable.From(IResolutionContext.Dummy(context), secondaryContext);
 			return restriction.IsValid(item, ContextToConsider(context, secondaryContext));
 		}
+
+		//In case I add a restriction like "has stackable triggered yet" so it should check whether one was already pushed to stack in the meantime
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> IsValid(context, dummyContext);
 	}
 }

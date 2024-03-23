@@ -6,5 +6,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	{
 		protected override bool IsValidLogic(IResolutionContext context)
 			=> InitializationContext.game.StackController.StackEntries.Any(e => e == InitializationContext.effect);
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> IsValid(context, dummyContext);
 	}
 }

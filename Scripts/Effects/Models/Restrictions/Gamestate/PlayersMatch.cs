@@ -22,5 +22,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 			=> firstPlayer.From(context, secondaryContext) == secondPlayer.From(context, secondaryContext);
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> true;
 	}
 }

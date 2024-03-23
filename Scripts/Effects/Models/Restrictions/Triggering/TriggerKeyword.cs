@@ -6,11 +6,12 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 {
 	public class TriggerKeyword : TriggerRestrictionBase
 	{
+		//If I wanted to remove nullable disable/enable, the pattern I would want would match the NotInitializedExceptions found in Godot code
 		#nullable disable
 		[JsonProperty(Required = Required.Always)]
 		public string keyword;
-		[JsonProperty(Required = Required.Always)]
-		private IRestriction<TriggeringEventContext> [] elements;
+		//Initialized after json loaded
+		private ITriggerRestriction[] elements;
 		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)
@@ -21,5 +22,8 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 
 		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 			=> elements.All(tre => tre.IsValid(context, secondaryContext));
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> elements.All(tre => tre.IsStillValidTriggeringContext(context, dummyContext));
 	}
 }

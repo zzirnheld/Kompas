@@ -59,5 +59,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		{
 			return $"{card} or {anyOf} must be {cardRestriction}";
 		}
+
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+			=> true;
 	}
 }

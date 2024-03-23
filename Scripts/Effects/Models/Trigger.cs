@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions;
@@ -8,12 +9,23 @@ namespace Kompas.Effects.Models
 	public class TriggerData
 	{
 		public string? triggerCondition;
-		public IRestriction<TriggeringEventContext>? triggerRestriction;
+		public ITriggerRestriction? triggerRestriction;
 
 		public bool optional = false;
 		public string? blurb;
 		public bool showX = false;
 		public int orderPriority = 0; //positive means it goes on the stack after anything, negative before
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			sb.Append(blurb);
+			sb.Append(" when ");
+			sb.Append(triggerCondition);
+			sb.Append(" if ");
+			sb.Append(triggerRestriction);
+			return sb.ToString();
+		}
 	}
 
 	public abstract class Trigger
@@ -88,7 +100,7 @@ namespace Kompas.Effects.Models
 
 		public string TriggerCondition => TriggerData.triggerCondition
 			?? throw new InvalidOperationException("Trigger data didn't have a trigger condition");
-		public IRestriction<TriggeringEventContext> TriggerRestriction => TriggerData.triggerRestriction
+		public ITriggerRestriction TriggerRestriction => TriggerData.triggerRestriction
 			?? throw new InvalidOperationException("Trigger data didn't have a trigger restriction");
 		public bool Optional => TriggerData.optional;
 		public string Blurb => TriggerData.blurb ?? Effect.blurb ?? string.Empty;
@@ -109,5 +121,7 @@ namespace Kompas.Effects.Models
 				throw;
 			}
 		}
+
+		public override string ToString() => TriggerData.ToString();
 	}
 }
