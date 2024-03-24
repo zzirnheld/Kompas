@@ -23,8 +23,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		protected override bool IsValidLogic(IResolutionContext context)
 			=> elements.All(r => r.IsValid(context));
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
-			=> elements.All(elem => elem.IsStillValidTriggeringContext(context, dummyContext));
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+			=> elements.All(elem => elem.IsStillValidTriggeringContext(context));
 	}
 
 	public class Not : GamestateRestrictionBase
@@ -45,15 +45,15 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		//NOTE: We can't just use IsStillValidTriggeringContext because that function assumes that the restriction previously evaluated to TRUE,
 		//and the whole point of Not is that we already know that inverted evaluated to false
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
-			=> IsValid(context, dummyContext);
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+			=> IsValid(context, IResolutionContext.NotResolving(context));
 	}
 	
 	public class AlwaysValid : GamestateRestrictionBase 
 	{
 		protected override bool IsValidLogic(IResolutionContext context) => true;
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 
@@ -61,7 +61,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	{
 		protected override bool IsValidLogic(IResolutionContext context) => false;
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 
@@ -73,7 +73,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			return source.Location == Location.Board;
 		}
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 }

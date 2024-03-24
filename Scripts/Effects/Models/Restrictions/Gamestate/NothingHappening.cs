@@ -6,7 +6,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			=> InitializationContext.game.StackController.NothingHappening;
 
 		//Definitely do not reevaluate, otherwise it will always fail lol.
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 }

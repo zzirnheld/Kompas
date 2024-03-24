@@ -20,12 +20,10 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			secondStackable.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
-		{
-			return firstStackable.From(context, secondaryContext) == secondStackable.From(context, secondaryContext);
-		}
+		protected override bool IsValidLogic(IResolutionContext context)
+			=> firstStackable.From(context) == secondStackable.From(context);
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 }

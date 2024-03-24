@@ -16,8 +16,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		//private bool LogFalse() { GD.Print($"{Uses} exceeded {max} in {InitializationContext.effect}"); return false; }
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
-			=> IsValid(context, dummyContext);
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+			=> IsValid(IResolutionContext.NotResolving(context));
 	}
 
 	public class MaxPerTurn : MaxPer

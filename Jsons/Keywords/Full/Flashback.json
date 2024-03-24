@@ -14,7 +14,6 @@
 				"$type": "Restrict.Gamestate:Not:",
 				"negated": {
 					"$type": "Restrict.Gamestate:CardFitsRestriction:",
-					"useDummyResolutionContext": false,
 					"card": { "$type": "Identify.Cards:TargetIndex:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AtLocation:",

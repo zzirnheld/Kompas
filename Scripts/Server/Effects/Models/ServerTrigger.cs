@@ -85,7 +85,7 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="context"></param>
 		/// <returns></returns>
 		public bool StillValidForContext(TriggeringEventContext context)
-			=> TriggerRestriction.IsStillValidTriggeringContext(context, IResolutionContext.NotResolving(context));
+			=> TriggerRestriction.IsStillValidTriggeringContext(context);
 
 		/// <summary>
 		/// Resets Confirmed and Responded, for the next time this effect might be triggered

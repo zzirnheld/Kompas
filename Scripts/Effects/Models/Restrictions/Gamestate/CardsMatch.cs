@@ -29,14 +29,14 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			if (AllNull(other, anyOf)) throw new System.ArgumentNullException("other", "No card to compare the card to in trigger restriction element");
 		}
 
-		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidLogic(IResolutionContext context)
 		{
-			var first = card.From(context, secondaryContext)?.Card;
+			var first = card.From(context)?.Card;
 
-			if (other != null && first != other.From(context, secondaryContext)?.Card) return false;
+			if (other != null && first != other.From(context)?.Card) return false;
 			if (anyOf != null)
 			{
-				var cards = anyOf.From(context, secondaryContext);
+				var cards = anyOf.From(context);
 				if (cards == null) throw new InvalidOperationException();
 				if (!cards.Any(c => c?.Card == first)) return false;
 			}
@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			return true;
 		}
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 }

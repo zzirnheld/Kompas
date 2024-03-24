@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 			=> elements.All(tre => tre.IsValid(context, secondaryContext));
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
-			=> elements.All(tre => tre.IsStillValidTriggeringContext(context, dummyContext));
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+			=> elements.All(tre => tre.IsStillValidTriggeringContext(context));
 	}
 }

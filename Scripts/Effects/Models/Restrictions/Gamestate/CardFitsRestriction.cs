@@ -35,15 +35,14 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidLogic(IResolutionContext context)
 		{
-			var contextToConsider = ContextToConsider(context, secondaryContext);
-			bool IsValidCard(IGameCardInfo? c) => cardRestriction.IsValid(c, contextToConsider);
+			bool IsValidCard(IGameCardInfo? c) => cardRestriction.IsValid(c, context);
 
-			if (card != null && !IsValidCard(FromIdentity(card, context, secondaryContext))) return false;
+			if (card != null && !IsValidCard(card.From(context))) return false;
 			if (anyOf != null)
 			{
-				var cards = FromIdentity(anyOf, context, secondaryContext)
+				var cards = anyOf.From(context)
 					?? throw new InvalidOperationException();
 				if (!cards.Any(IsValidCard)) return false;
 			} 
@@ -51,16 +50,12 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			return true;
 		}
 
-		protected virtual IdentityType? FromIdentity<IdentityType>
-			(IIdentity<IdentityType> identity, TriggeringEventContext triggeringEventContext, IResolutionContext resolutionContext)
-			=> identity.From(triggeringEventContext, resolutionContext);
-
 		public override string ToString()
 		{
 			return $"{card} or {anyOf} must be {cardRestriction}";
 		}
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 }

@@ -26,16 +26,16 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			spaceRestriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidLogic(IResolutionContext context)
 		{
-			var spacesItem = spaces.From(context, secondaryContext)
+			var spacesItem = spaces.From(context)
 				?? throw new InvalidOperationException();
 			return any
-				? spacesItem.Any(s => spaceRestriction.IsValid(s, ContextToConsider(context, secondaryContext)))
-				: spacesItem.All(s => spaceRestriction.IsValid(s, ContextToConsider(context, secondaryContext)));
+				? spacesItem.Any(s => spaceRestriction.IsValid(s, context))
+				: spacesItem.All(s => spaceRestriction.IsValid(s, context));
 		}
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 

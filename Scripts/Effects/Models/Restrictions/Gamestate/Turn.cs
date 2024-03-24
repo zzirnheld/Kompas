@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		protected override bool IsValidLogic(IResolutionContext context)
 			=> InitializationContext.game.TurnPlayer == TurnPlayer.From(context);
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
+		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;
 	}
 

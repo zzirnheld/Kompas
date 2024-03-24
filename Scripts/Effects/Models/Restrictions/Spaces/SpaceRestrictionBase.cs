@@ -10,6 +10,6 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public bool IsValid(TriggeringEventContext? item, IResolutionContext context) => IsValid(item?.Space, context);
 		public bool IsValid((Space? s, IPlayer? p) item, IResolutionContext context) => IsValid(item.s, context);
 
-		public bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext) => true;
+		public bool IsStillValidTriggeringContext(TriggeringEventContext context) => true;
 	}
 }
