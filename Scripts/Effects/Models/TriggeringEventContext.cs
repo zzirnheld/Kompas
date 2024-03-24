@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
@@ -165,24 +166,151 @@ namespace Kompas.Effects.Models
 			}
 		}
 
-		public static TriggeringEventContext Capture(Action action, IGame game,
-			GameCard? cardBefore = null, GameCard? secondaryCardBefore = null,
-			GameCard? eventCauseOverride = null,
-			IStackable? stackableCause = null, IStackable? stackableEvent = null,
-			IPlayer? player = null,
-			int? x = null,
-			Space? space = null)
+		public override string ToString() => cachedToString;
+
+		/// <summary>
+        /// Usage: start the builder before you take the action,
+        /// then call <see cref="ITriggeringEventContextBuilder.CacheToFinalize"/> after the operation
+        /// to simultaneously cache the data after the operation, and then return you the finished TriggeringEventContext.
+        /// </summary>
+        /// <param name="game">The only thing you must provide is a Game</param>
+		public static ITriggeringEventContextBuilder BuildContext(IGame game)
+			=> new TriggeringEventContextBuilder(game);
+
+		/// <summary>
+        /// Usage: start the builder before you take the action,
+        /// then call <see cref="CacheToFinalize"/> after the operation
+        /// to simultaneously cache the data after the operation, and then return you the finished TriggeringEventContext.
+        /// </summary>
+        /// <param name="game">The only thing you must provide is a Game</param>
+		public interface ITriggeringEventContextBuilder
 		{
-			var ret = new TriggeringEventContext(game,
-				cardBefore: cardBefore, secondaryCardBefore: secondaryCardBefore,
-				eventCauseOverride: eventCauseOverride,
-				stackableCause: stackableCause, stackableEvent: stackableEvent,
-				player: player, x: x, space: space);
-			action();
-			ret.CacheCardInfoAfter();
-			return ret;
+			public ITriggeringEventContextBuilder PrimarilyAffecting(GameCard mainCard);
+			public ITriggeringEventContextBuilder SecondarilyAffecting(GameCard secondaryCard);
+			public ITriggeringEventContextBuilder AffectingBoth(GameCard mainCard, GameCard? secondaryCard);
+			public ITriggeringEventContextBuilder At(Space? space);
+			public ITriggeringEventContextBuilder Affecting(IPlayer? player);
+			public ITriggeringEventContextBuilder X(int x);
+			public ITriggeringEventContextBuilder CausedBy(GameCard? cardCause);
+			public ITriggeringEventContextBuilder CausedBy(IStackable? stackableCause);
+			public ITriggeringEventContextBuilder During(IStackable? stackableEvent);
+
+			public ITriggeringEventContextBuilder Clone();
+
+			public TriggeringEventContext CacheToFinalize();
 		}
 
-		public override string ToString() => cachedToString;
+		protected class TriggeringEventContextBuilder
+			: ITriggeringEventContextBuilder
+		{
+			private readonly IGame game;
+
+			private GameCardInfo? mainCardBefore;
+			private GameCardInfo? secondaryCardBefore;
+			private GameCardInfo? cardCauseBefore;
+
+			private IStackable? stackableCause;
+			private IStackable? stackableEvent;
+
+			private IPlayer? player;
+			private int? x;
+			private Space? space;
+
+			public TriggeringEventContextBuilder(IGame game)
+			{
+				this.game = game;
+			}
+
+			public ITriggeringEventContextBuilder PrimarilyAffecting(GameCard mainCard)
+			{
+				mainCardBefore = GameCardInfo.CardInfoOf(mainCard);
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder SecondarilyAffecting(GameCard secondaryCard)
+			{
+				secondaryCardBefore = GameCardInfo.CardInfoOf(secondaryCard);
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder AffectingBoth(GameCard mainCard, GameCard? secondaryCard = null)
+			{
+				mainCardBefore = GameCardInfo.CardInfoOf(mainCard);
+				if (secondaryCard != null) secondaryCardBefore = GameCardInfo.CardInfoOf(secondaryCard);
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder At(Space? space)
+			{
+				this.space = space;
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder Affecting(IPlayer? player)
+			{
+				this.player = player;
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder CausedBy(GameCard? cardCause)
+			{
+				cardCauseBefore = GameCardInfo.CardInfoOf(cardCause);
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder CausedBy(IStackable? stackableCause)
+			{
+				this.stackableCause = stackableCause;
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder During(IStackable? stackableEvent)
+			{
+				this.stackableEvent = stackableEvent;
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder X(int x)
+			{
+				this.x = x;
+
+				return this;
+			}
+
+			public ITriggeringEventContextBuilder Clone()
+			{
+				return new TriggeringEventContextBuilder(game)
+				{
+					mainCardBefore = mainCardBefore,
+					secondaryCardBefore = secondaryCardBefore,
+					cardCauseBefore = cardCauseBefore,
+
+					stackableCause = stackableCause,
+					stackableEvent = stackableEvent,
+
+					player = player,
+					x = x,
+					space = space,
+				};
+			}
+
+			public TriggeringEventContext CacheToFinalize()
+			{
+				var ret = new TriggeringEventContext(game,
+					mainCardBefore, secondaryCardBefore, cardCauseBefore,
+					stackableCause, stackableEvent, player, x, space);
+
+				ret.CacheCardInfoAfter();
+				return ret;
+			}
+		}
 	}
 }

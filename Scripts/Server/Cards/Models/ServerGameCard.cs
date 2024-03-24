@@ -159,28 +159,34 @@ namespace Kompas.Server.Cards.Models
 		{
 			bool wasKnown = augment.KnownToEnemy;
 
-			var attachedContext = new TriggeringEventContext(game: ServerGame, cardBefore: augment, secondaryCardBefore: this,
-				space: Position, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer ?? ControllingPlayer);
-			var augmentedContext = new TriggeringEventContext(game: ServerGame, cardBefore: this, secondaryCardBefore: augment,
-				space: Position, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer ?? ControllingPlayer);
+			var sharedBuilder = TriggeringEventContext.BuildContext(Game)
+				.At(Position)
+				.CausedBy(stackSrc)
+				.Affecting(stackSrc?.ControllingPlayer ?? ControllingPlayer);
+			var attachedBuilder = sharedBuilder.Clone()
+				.AffectingBoth(augment, this);
+			var augmentedBuilder = sharedBuilder.Clone()
+				.AffectingBoth(this, augment);
 			
 			base.AddAugment(augment, stackSrc);
 			_ = Position ?? throw new NullSpaceOnBoardException(this);
 
-			attachedContext.CacheCardInfoAfter();
-			augmentedContext.CacheCardInfoAfter();
-			EffectsController.TriggerForCondition(Trigger.AugmentAttached, attachedContext);
-			EffectsController.TriggerForCondition(Trigger.Augmented, augmentedContext);
+			EffectsController.TriggerForCondition(Trigger.AugmentAttached, attachedBuilder.CacheToFinalize());
+			EffectsController.TriggerForCondition(Trigger.Augmented, augmentedBuilder.CacheToFinalize());
 
 			ServerNotifier.NotifyAttach(augment.ControllingPlayer, augment, Position, wasKnown);
 		}
 
 		protected override void Detach(GameCard augment, IStackable? stackSrc = null)
 		{
-			var context = TriggeringEventContext.Capture(() => base.Detach(augment, stackSrc),
-				game: ServerGame, cardBefore: augment, secondaryCardBefore: this,
-				stackableCause: stackSrc, player: stackSrc?.ControllingPlayer ?? ControllingPlayer);
-			EffectsController.TriggerForCondition(Trigger.AugmentDetached, context);
+			var builder = TriggeringEventContext.BuildContext(Game)
+				.AffectingBoth(augment, this)
+				.CausedBy(stackSrc)
+				.Affecting(stackSrc?.ControllingPlayer ?? ControllingPlayer);
+
+			base.Detach(augment, stackSrc);
+
+			EffectsController.TriggerForCondition(Trigger.AugmentDetached, builder.CacheToFinalize());
 		}
 
 		public override void Remove(IStackable? stackSrc = null)
@@ -188,24 +194,23 @@ namespace Kompas.Server.Cards.Models
 			//GD.Print($"Trying to remove {CardName} from {Location}");
 
 			//proc the trigger before actually removing anything
-			var player = stackSrc?.ControllingPlayer ?? ControllingPlayer;
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: player);
+			var sharedBuilder = TriggeringEventContext.BuildContext(Game)
+				.CausedBy(stackSrc)
+				.Affecting(stackSrc?.ControllingPlayer ?? ControllingPlayer)
+				.PrimarilyAffecting(this);
+			var removeBuilder = sharedBuilder.Clone();
 
 			var cardsThisLeft = Location == Location.Board ?
 				Game.Board.CardsAndAugsWhere(c => c != null && c.CardInAOE(this)).ToList() :
 				new List<GameCard>();
-			var leaveContexts = cardsThisLeft.Select(c =>
-				new TriggeringEventContext(game: ServerGame, cardBefore: this, secondaryCardBefore: c, stackableCause: stackSrc, player: player)).ToArray();
+			var leaveBuilders = cardsThisLeft
+				.Select(c => sharedBuilder.Clone().SecondarilyAffecting(c))
+				.ToArray();
 
 			base.Remove(stackSrc);
 
-			context.CacheCardInfoAfter();
-			foreach (var lc in leaveContexts)
-			{
-				lc.CacheCardInfoAfter();
-			}
-			EffectsController.TriggerForCondition(Trigger.Remove, context);
-			EffectsController.TriggerForCondition(Trigger.LeaveAOE, leaveContexts.ToArray());
+			EffectsController.TriggerForCondition(Trigger.Remove, removeBuilder.CacheToFinalize());
+			EffectsController.TriggerForCondition(Trigger.LeaveAOE, leaveBuilders.Select(builder => builder.CacheToFinalize()).ToArray());
 			//copy the colleciton  so that you can edit the original
 			var augments = Augments.ToArray();
 			foreach (var aug in augments) aug.Discard(stackSrc);

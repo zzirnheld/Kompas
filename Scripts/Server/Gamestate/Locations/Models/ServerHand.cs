@@ -18,12 +18,16 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
+			//var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
+			var builder = TriggeringEventContext.BuildContext(game)
+				.AffectingBoth(card)
+				.CausedBy(stackSrc)
+				.Affecting(Owner);
 			bool wasKnown = card.KnownToEnemy;
-			
+
 			base.PerformAdd(card, index, stackSrc);
-			
-			context.CacheCardInfoAfter();
+
+			var context = builder.CacheToFinalize();
 			game.StackController.TriggerForCondition(Trigger.Rehand, context);
 			Networking.ServerNotifier.NotifyRehand(Owner, card, wasKnown);
 		}
