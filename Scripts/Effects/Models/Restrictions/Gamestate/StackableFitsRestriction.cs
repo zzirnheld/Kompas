@@ -22,7 +22,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
 		{
-			var item = stackable.From(IResolutionContext.Dummy(context), secondaryContext);
+			var item = stackable.From(IResolutionContext.NotResolving(context), secondaryContext);
 			return restriction.IsValid(item, ContextToConsider(context, secondaryContext));
 		}
 

@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		protected virtual IResolutionContext ContextToConsider
 			(TriggeringEventContext? triggeringContext, IResolutionContext resolutionContext)
 			=> UseDummyResolutionContext
-				? IResolutionContext.Dummy(triggeringContext)
+				? IResolutionContext.NotResolving(triggeringContext)
 				: resolutionContext;
 
 		protected override sealed bool IsValidLogic(TriggeringEventContext? item, IResolutionContext context)

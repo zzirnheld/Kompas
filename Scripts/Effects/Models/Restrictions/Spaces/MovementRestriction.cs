@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Identities;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Newtonsoft.Json;
 
@@ -106,8 +107,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		//FUTURE: have this also support Shape? would need to decide how to UX choosing shape vs not shape for creature moving to space adj to friendly
 		public int GetMovementCost(Space from, Space to, IGame game)
 		{
-			var primaryCtxt = IResolutionContext.Dummy(new TriggeringEventContext(game, space: from));
-			var secondaryCtxt = IResolutionContext.Dummy(new TriggeringEventContext(game, space: to));
+			var primaryCtxt = IResolutionContext.NotResolving(new TriggeringEventContext(game, space: from));
+			var secondaryCtxt = IResolutionContext.NotResolving(new TriggeringEventContext(game, space: to));
 
 			return movementCosts
 				.Where(cost => cost.condition.IsValid(primaryCtxt))
@@ -116,7 +117,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		}
 
 		public bool WouldBeValidNormalMoveInOpenGamestate(Space item)
-				=> NormalRestriction.IsValidIgnoring(item, ResolutionContext.PlayerTrigger(null, InitializationContext.game),
-					restriction => restriction is Gamestate.NothingHappening); //ignore req that nothing is happening
+		{
+			var owner = InitializationContext.Owner ?? throw new NullPlayerException("Need non-null owner to check whether could move in open gamestate");
+			return NormalRestriction.IsValidIgnoring(item, IResolutionContext.PlayerAction(owner),
+							restriction => restriction is Gamestate.NothingHappening); //ignore req that nothing is happening
+		}
 	}
 }

@@ -18,7 +18,7 @@ namespace Kompas.Server.Gamestate.Extensions
 			}
 
 			//Debug.Log($"Checking validity of playing {card.CardName} to {to}");
-			return card.PlayRestriction.IsValid((to, player), ResolutionContext.PlayerTrigger(null, game));
+			return card.PlayRestriction.IsValid((to, player), IResolutionContext.PlayerAction(player));
 		}
 
 		public static bool IsValidNormalAttach(this ServerGame game, GameCard card, Space to, IPlayer player)
@@ -32,7 +32,7 @@ namespace Kompas.Server.Gamestate.Extensions
 			//Debug.Log($"Checking validity augment of {card.CardName} to {to}, on {boardCtrl.GetCardAt(to)}");
 			return card != null && card.CardType == 'A' && to.IsValid
 				&& !game.Board.IsEmpty(to)
-				&& card.PlayRestriction.IsValid((to, player), ResolutionContext.PlayerTrigger(null, game));
+				&& card.PlayRestriction.IsValid((to, player), IResolutionContext.PlayerAction(player));
 		}
 
 		public static bool IsValidNormalMove(this ServerGame game, GameCard toMove, Space to, IPlayer by)
@@ -45,7 +45,7 @@ namespace Kompas.Server.Gamestate.Extensions
 
 			//Debug.Log($"Checking validity of moving {toMove.CardName} to {to}");
 			if (toMove.Position == to) return false;
-			else return toMove.MovementRestriction.IsValid(to, ResolutionContext.PlayerTrigger(null, game));
+			else return toMove.MovementRestriction.IsValid(to, IResolutionContext.PlayerAction(by));
 		}
 
 		public static bool IsValidNormalAttack(this ServerGame game, GameCard attacker, GameCard defender, IPlayer instigator)
@@ -57,7 +57,7 @@ namespace Kompas.Server.Gamestate.Extensions
 			}
 
 			//Debug.Log($"Checking validity of attack of {attacker.CardName} on {defender} by {instigator.index}");
-			return attacker.AttackingDefenderRestriction.IsValid(defender, context: ResolutionContext.PlayerTrigger(null, game));
+			return attacker.AttackingDefenderRestriction.IsValid(defender, IResolutionContext.PlayerAction(instigator));
 		}
 	}
 }

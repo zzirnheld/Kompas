@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions
 	public static class IActivationRestrictionExtensions
 	{
 		public static bool IsPotentiallyValidActivation(this IActivationRestriction restriction, IPlayer activator)
-			=> restriction.IsValidIgnoring(activator, IResolutionContext.NotResolving,
+			=> restriction.IsValidIgnoring(activator, IResolutionContext.PlayerAction(activator),
 				restriction => restriction is not Gamestate.NothingHappening);
 	}
 }

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using System;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Effects.Models.Restrictions.Spaces
 {
@@ -37,10 +38,14 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		}
 
 		private bool FitsMovementRestriction(IGameCardInfo card, Space space, IResolutionContext context)
-			=> normalMove 
-				? card.MovementRestriction.IsValid(space,
-					ResolutionContext.PlayerTrigger(InitializationContext.effect, InitializationContext.game))
-				: card.MovementRestriction.IsValid(space, context);
+		{
+			if (normalMove)
+			{
+				var owner = InitializationContext.Owner ?? throw new NullPlayerException("Need to be owned by a player to check normal move");
+				return card.MovementRestriction.IsValid(space, IResolutionContext.PlayerAction(owner));
+			}
+			else return card.MovementRestriction.IsValid(space, context);
+		}
 
 		private bool FitsThroughRestriction(Space? source, Space dest, IResolutionContext context)
 			=> Space.AreConnectedByCheckPathLen(source, dest,

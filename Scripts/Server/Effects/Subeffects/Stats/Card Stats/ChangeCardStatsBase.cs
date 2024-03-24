@@ -35,7 +35,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public IIdentity<int>? duration;
 
 		protected IEnumerable<GameCard> CardsToAffect
-			=> cards.From(ResolutionContext, IResolutionContext.NotResolving)
+			=> cards.From(ResolutionContext)
 					?.Select(c => c.Card)
 					?? throw new InvalidOperationException();
 

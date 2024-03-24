@@ -77,7 +77,7 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="x">If the action that triggered this has a value of x, it goes here. Otherwise, null.</param>
 		/// <returns>Whether all restrictions of the trigger are fulfilled.</returns>
 		public bool ValidForTriggeringContext(TriggeringEventContext context)
-			=> !Card.Negated && TriggerRestriction.IsValid(context, IResolutionContext.Dummy(context));
+			=> !Card.Negated && TriggerRestriction.IsValid(context, IResolutionContext.NotResolving(context));
 
 		/// <summary>
 		/// Rechecks any trigger restrictions that might have changed between the trigger triggering and being ordered.
@@ -85,7 +85,7 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="context"></param>
 		/// <returns></returns>
 		public bool StillValidForContext(TriggeringEventContext context)
-			=> TriggerRestriction.IsStillValidTriggeringContext(context, IResolutionContext.Dummy(context));
+			=> TriggerRestriction.IsStillValidTriggeringContext(context, IResolutionContext.NotResolving(context));
 
 		/// <summary>
 		/// Resets Confirmed and Responded, for the next time this effect might be triggered

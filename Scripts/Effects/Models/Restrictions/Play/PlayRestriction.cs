@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Identities.Numbers;
@@ -106,7 +107,7 @@ namespace Kompas.Effects.Models.Restrictions.Play
 		}
 
 		public bool IsRecommendedNormalPlay((Space? s, IPlayer? p) item)
-			=> IsRecommendedPlay(item, ResolutionContext.PlayerTrigger(null, InitializationContext.game));
+			=> IsRecommendedPlay(item, IResolutionContext.PlayerAction(item.p ?? throw new NullReferenceException("No player to play!")));
 
 		public bool IsRecommendedPlay((Space? s, IPlayer? p) item, IResolutionContext context)
 			=> IsValid(item, context)
