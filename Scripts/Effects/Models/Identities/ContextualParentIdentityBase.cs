@@ -45,8 +45,8 @@ namespace Kompas.Effects.Models.Identities
 
 		protected Attack GetAttack(TriggeringEventContext effectContext)
 		{
-			if (effectContext.stackableEvent is Attack eventAttack) return eventAttack;
-			if (effectContext.stackableCause is Attack causeAttack) return causeAttack;
+			if (effectContext.StackableEvent is Attack eventAttack) return eventAttack;
+			if (effectContext.StackableCause is Attack causeAttack) return causeAttack;
 			else throw new NullCardException("Stackable event wasn't an attack!");
 		}
 

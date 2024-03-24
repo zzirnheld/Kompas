@@ -99,7 +99,7 @@ namespace Kompas.Server.Effects.Models
 
 		public async Task Ask(IPlayer player, TriggeringEventContext context)
 		{
-			int x = context?.x ?? 0;
+			int x = context?.X ?? 0;
 			//Assume for now that optional triggers are always asked to the card's owner
 			Confirmed = await ServerEffect.ServerGame.Awaiter.GetOptionalTriggerChoice(player, this, x, TriggerData.showX);
 			Responded = true;

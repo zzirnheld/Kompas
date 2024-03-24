@@ -16,13 +16,19 @@ namespace Kompas.Client.Cards.Controllers
 	public partial class ClientCardController : Node3D, ICardController
 	{
 		[Export]
-		private Zoomable3DCardInfoDisplayer? InfoDisplayer { get; set; }
+		private Zoomable3DCardInfoDisplayer? _infoDisplayer;
+		private Zoomable3DCardInfoDisplayer InfoDisplayer => _infoDisplayer
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private CardMouseController? MouseController { get; set; }
+		private CardMouseController? _mouseController;
+		private CardMouseController MouseController => _mouseController
+			?? throw new UnassignedReferenceException();
 
 		[Export]
-		private AnimationPlayer? AnimationPlayer { get; set; }
+		private AnimationPlayer? _animationPlayer;
+		private AnimationPlayer AnimationPlayer => _animationPlayer
+			?? throw new UnassignedReferenceException();
 
 		Node3D ICardController.Node => this;
 		IGameCardInfo ICardController.Card => Card;
@@ -68,7 +74,7 @@ namespace Kompas.Client.Cards.Controllers
 				if (_card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
 				_card = value
 					?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
-				CardView = new (InfoDisplayer ?? throw new System.InvalidOperationException("You didn't populate the client card ctrl's info displayer"), value);
+				CardView = new (InfoDisplayer, value);
 				AOEController = GameController.TargetingController.SpacesController.AddAOE();
 				
 				Card.LocationChanged += (_, _) => RefreshAOE();
@@ -83,7 +89,6 @@ namespace Kompas.Client.Cards.Controllers
 		public override void _Ready()
 		{
 			base._Ready();
-			_ = MouseController ?? throw new System.NullReferenceException("Forgot to init");
 			MouseController.HoverBegin += (_, _) => Hover();
 			MouseController.HoverEnd += (_, _) => Unhover();
 			MouseController.LeftClick += (_, doubleClick) => Select(doubleClick);
@@ -153,7 +158,6 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void ShowFocused(bool value)
 		{
-			_ = AnimationPlayer ?? throw new System.NullReferenceException("Forgot to init");
 			if (value) AnimationPlayer.Play(FocusedAnimationName);
 			else AnimationPlayer.Play(ResetAnimationName);
 		}

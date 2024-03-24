@@ -54,7 +54,7 @@ namespace Kompas.Effects.Models
 			StackableTargets = Clone(stackableTargets);
 			DelayedStackableTarget = delayedStackableTarget;
 
-			X = TriggerContext?.x ?? 0;
+			X = TriggerContext?.X ?? 0;
 		}
 
 		private static List<T> Clone<T>(IEnumerable<T> list)

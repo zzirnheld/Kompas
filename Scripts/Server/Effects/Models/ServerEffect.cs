@@ -137,7 +137,7 @@ namespace Kompas.Server.Effects.Models
 			if (context.CardTargets != null) foreach(var tgt in context.CardTargets) NotifyAddCardTarget(tgt);
 			
 			playerTargets.Add(context.ControllingPlayer);
-			if (context.TriggerContext?.stackableCause != null) StackableTargets.Add(context.TriggerContext.stackableCause);
+			if (context.TriggerContext?.StackableCause != null) StackableTargets.Add(context.TriggerContext.StackableCause);
 
 			//notify relevant to this effect starting
 			ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);

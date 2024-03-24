@@ -10,7 +10,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 
 		protected override IGameCardInfo? AbstractItemFrom(TriggeringEventContext context)
 			=> secondaryCard
-				? context.secondaryCardInfoBefore
-				: context.mainCardInfoBefore;
+				? context.SecondaryCardInfoBefore
+				: context.MainCardInfoBefore;
 	}
 }
