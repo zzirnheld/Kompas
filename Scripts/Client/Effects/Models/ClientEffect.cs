@@ -40,7 +40,7 @@ namespace Kompas.Client.Effects.Models
 
 		private IResolutionContext? currentResolutionContext;
 		public override IResolutionContext CurrentResolutionContext
-			=> currentResolutionContext ??= ResolutionContext.PlayerTrigger(this, Game);
+			=> currentResolutionContext ??= ResolutionContext.PlayerTriggeredEffect(this, Game);
 		//TODO controller? should have some way to track it client-side otherwise if effects ever can be activated by not the card's ocntroller something will break
 
 		public string StackableBlurb => blurb ?? string.Empty;

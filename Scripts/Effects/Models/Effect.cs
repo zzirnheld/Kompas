@@ -109,7 +109,7 @@ namespace Kompas.Effects.Models
 		}
 
 		public virtual bool CanBeActivatedBy(IPlayer controller)
-			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, ResolutionContext.PlayerTrigger(this, Game));
+			=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, IResolutionContext.PlayerAction(controller));
 
 		public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 			=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);

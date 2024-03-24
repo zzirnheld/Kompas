@@ -1,20 +1,46 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
+	//TODO: consider adding ControllingPlayer to IResolutionContext
 	public interface IResolutionContext
 	{
 		/// <summary>
-		/// Use this resolution context to test for a hypothetical resolution
-		/// (but only if you expect resolution context to not be referenced)
+		/// Represents a lack of resolution information.<br/>
+        /// Many places, we have the option of passing in a secondary resolution context.<br/>
+        /// This can represent many things, usually in the vein of "stashed resolution context",
+        /// like for a delayed effect - we want to test against both the triggering event context
+        /// + the resolution context when effect resolution was suspended.
+        /// Consumers of such restrictions, etc. should only reference the secondary context if they know it's semantically relevant.
 		/// </summary>
-		public static IResolutionContext NotResolving
+		public static IResolutionContext Empty
 			=> new DummyResolutionContext(null);
 
-		public static IResolutionContext Dummy(TriggeringEventContext? triggeringEventContext)
+		/// <summary>
+        /// Wraps a <see cref="TriggeringEventContext"/>,
+        /// representing triggering conditions existing even while an effect is not currently resolving.
+        /// Used to be able to pass into restrictions that could be checked when an event is resolving,
+        /// or while a player does something via other gamerules. (i.e. play by effect vs play by normal gamerule)<br/>
+        /// <see cref="CanResolve"/> will be false for <see cref="IResolutionContext"/>s created in this way.<br/>
+        /// FUTURE: split out the places that take a resolution context into taking a resolution context + a triggering event context,
+        /// so it's semantically obvious that the triggering event context can be present even if there is no actual resolution context
+        /// </summary>
+        /// <param name="triggeringEventContext"></param>
+        /// <returns></returns>
+		public static IResolutionContext NotResolving(TriggeringEventContext? triggeringEventContext)
 			=> new DummyResolutionContext(triggeringEventContext);
+
+		/// <summary>
+        /// Represents a player taking an action that an Effect might otherwise cause.
+        /// Ex: playing a card.
+        /// We have to pass in an IResolutionContext to restrictions that might want to check details about how it happened,
+        /// so we wrap a TriggeringEventContext that simply says a player did it normally.
+        /// </summary>
+		public static IResolutionContext PlayerAction(IPlayer agent)
+			=> NotResolving(new(agent.Game, player: agent));
 
 		/// <summary>
 		/// Information describing the event that triggered this effect to occur, if any such event happened. (If it's player-triggered, this is null.) 
@@ -33,7 +59,7 @@ namespace Kompas.Effects.Models
 
 		public IResolutionContext Copy { get; }
 
-		public bool IsDummy { get; }
+		public bool CanResolve { get; }
 
 
 		/// <summary>
@@ -56,7 +82,7 @@ namespace Kompas.Effects.Models
 
 			public IResolutionContext Copy => new DummyResolutionContext(TriggerContext);
 
-			public bool IsDummy => true;
+			public bool CanResolve => false;
 
 			public DummyResolutionContext(TriggeringEventContext? triggerContext)
 			{

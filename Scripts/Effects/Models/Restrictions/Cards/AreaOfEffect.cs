@@ -32,7 +32,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context, IIdentityResolution identityResolution)
 		{
 			if (card == null) return false;
 			var wantedCards = cards.From(context)

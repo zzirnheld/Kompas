@@ -45,7 +45,7 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="context"></param>
 		/// <returns></returns>
 		public virtual bool ShouldBeCanceled(TriggeringEventContext context)
-			=> FallOff?.Restriction.IsValid(context, IResolutionContext.NotResolving) ?? false;
+			=> FallOff?.Restriction.IsValid(context, StashedContext) ?? false;
 
 		/// <summary>
 		/// Determines whether the hanging effect should go ahead and resolve

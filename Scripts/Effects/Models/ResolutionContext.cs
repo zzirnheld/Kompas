@@ -22,7 +22,13 @@ namespace Kompas.Effects.Models
 
 		public int X { get; set; }
 
-		public static ResolutionContext PlayerTrigger(Effect? effect, IGame game)
+		public bool CanResolve => true;
+
+		/// <summary>
+        /// Describes the resolution of an effect that was triggered by the player.<br/>
+        /// (NOT a situation in which a player is attempting to do something "normally" - that's what <see cref="IResolutionContext.PlayerAction"/> is for)
+        /// </summary>
+		public static ResolutionContext PlayerTriggeredEffect(Effect? effect, IGame game)
 			=> new(new TriggeringEventContext(game: game, stackableEvent: effect));
 
 		public ResolutionContext(TriggeringEventContext triggerContext)
@@ -68,8 +74,6 @@ namespace Kompas.Effects.Models
 			CardInfoTargets,
 			SpaceTargets, DelayedSpaceTarget,
 			StackableTargets, DelayedStackableTarget);
-
-		public bool IsDummy => false;
 
 		public override string ToString()
 		{
