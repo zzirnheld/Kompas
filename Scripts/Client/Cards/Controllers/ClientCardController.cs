@@ -8,6 +8,7 @@ using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Locations.Controllers;
+using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Cards.Controllers
@@ -130,8 +131,11 @@ namespace Kompas.Client.Cards.Controllers
 			{
 				var node = card.CardController.Node
 					?? throw new System.NullReferenceException("ClientCardController must have non-null nodes!");
-				node.GetParent()?.RemoveChild(node);
-				AddChild(node);
+				this.TransferChild(node);
+				node.Visible = true;
+				node.Scale = Vector3.One * 0.2f;
+				var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
+				node.Rotation = new Vector3(0, rotation, 0);
 				node.Position = Vector3.Up * 0.05f; //TODO better spread
 			}
 			AnythingRefreshed?.Invoke(this, Card);

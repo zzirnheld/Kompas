@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			=> elements.All(r => r.IsValid(context));
 
 		public override bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
-			=> elements.All(elem => IsStillValidTriggeringContext(context, dummyContext));
+			=> elements.All(elem => elem.IsStillValidTriggeringContext(context, dummyContext));
 	}
 
 	public class Not : GamestateRestrictionBase

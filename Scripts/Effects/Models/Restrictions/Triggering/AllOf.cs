@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Triggering
 {
-	public class AllOf : AllOfBase<TriggeringEventContext>, ITriggerRestriction
+	public class AllOf : AllOfBase<TriggeringEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
 		protected override bool LogSoloElements => false;
 
@@ -14,13 +14,13 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		/// </summary>
 		/// <returns></returns>
 		public bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
-			=> elements.All(elem => IsStillValidTriggeringContext(context, dummyContext));
+			=> elements.All(elem => elem.IsStillValidTriggeringContext(context, dummyContext));
 	}
 
-	public class AnyOf : AnyOfBase<TriggeringEventContext>, ITriggerRestriction
+	public class AnyOf : AnyOfBase<TriggeringEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
 		public bool IsStillValidTriggeringContext(TriggeringEventContext context, IResolutionContext dummyContext)
-			=> elements.Any(elem => IsStillValidTriggeringContext(context, dummyContext));
+			=> elements.Any(elem => elem.IsStillValidTriggeringContext(context, dummyContext));
 	}
 
 	public class Not : TriggerRestrictionBase

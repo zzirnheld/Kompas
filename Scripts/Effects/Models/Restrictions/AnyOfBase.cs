@@ -3,11 +3,16 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions
 {
-	public abstract class AnyOfBase<RestrictedType> : RestrictionBase<RestrictedType>
+	public abstract class AnyOfBase<RestrictedType> : AnyOfBase<RestrictedType, IRestriction<RestrictedType>>
+	{ }
+
+	public abstract class AnyOfBase<RestrictedType, ElementRestrictionType>
+		: RestrictionBase<RestrictedType>
+			where ElementRestrictionType : IRestriction<RestrictedType>
 	{
 		#nullable disable
 		[JsonProperty(Required = Required.Always)]
-		public IRestriction<RestrictedType>[] elements;
+		public ElementRestrictionType[] elements;
 		#nullable restore
 
 		public override void Initialize(EffectInitializationContext initializationContext)

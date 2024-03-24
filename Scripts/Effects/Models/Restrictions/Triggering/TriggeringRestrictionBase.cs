@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 
 		public static ITriggerRestriction AllOf(IList<ITriggerRestriction> elements)
 			//Compiler needed the help to know that an ITriggerRestriction is an IRestriction<TriggeringEventContext>
-			=> new AllOf() { elements = new List<IRestriction<TriggeringEventContext>>(elements) };
+			=> new AllOf() { elements = elements };
 
 		public bool? useDummyResolutionContext;
 
