@@ -31,6 +31,7 @@ namespace Kompas.Client.Cards.Views
 			card.CardController.AnythingRefreshed += Refresh;
 		}
 
+		//This is its own function, not a lambda, so it can unsubscribe.
 		private void Refresh(object? _, GameCard? card) => Refresh(card);
 
 		/// <summary>
