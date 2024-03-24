@@ -207,6 +207,7 @@ namespace Kompas.Server.Gamestate
 			GD.Print($"Starting game. IPlayer 0 avatar is null? {Players[0].Avatar == null}. IPlayer 1 is null? {Players[1].Avatar == null}.");
 			Players[0].Pips = 0;
 			Players[1].Pips = 0;
+			Leyload = 1;
 
 			//determine who goes first and tell the players
 			FirstTurnPlayer = new System.Random().NextDouble() > 0.5f ? 0 : 1;
