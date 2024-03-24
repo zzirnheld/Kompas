@@ -35,14 +35,14 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 		}
 
-		protected override bool IsValidLogic(IResolutionContext context)
+		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			bool IsValidCard(IGameCardInfo? c) => cardRestriction.IsValid(c, context);
 
-			if (card != null && !IsValidCard(card.From(context))) return false;
+			if (card != null && !IsValidCard(card.From(context, secondaryContext))) return false;
 			if (anyOf != null)
 			{
-				var cards = anyOf.From(context)
+				var cards = anyOf.From(context, secondaryContext)
 					?? throw new InvalidOperationException();
 				if (!cards.Any(IsValidCard)) return false;
 			} 

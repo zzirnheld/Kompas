@@ -20,8 +20,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			stackable.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IResolutionContext context)
-			=> restriction.IsValid(stackable.From(context), context);
+		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+			=> restriction.IsValid(stackable.From(context, secondaryContext), context);
 
 		//In case I add a restriction like "has stackable triggered yet" so it should check whether one was already pushed to stack in the meantime
 		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)

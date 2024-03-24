@@ -20,8 +20,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			secondPlayer.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IResolutionContext context)
-			=> firstPlayer.From(context) == secondPlayer.From(context);
+		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+			=> firstPlayer.From(context, secondaryContext) == secondPlayer.From(context, secondaryContext);
 
 		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> true;

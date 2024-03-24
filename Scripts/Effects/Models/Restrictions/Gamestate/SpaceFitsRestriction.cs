@@ -26,9 +26,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			spaceRestriction.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidLogic(IResolutionContext context)
+		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
 		{
-			var spacesItem = spaces.From(context)
+			var spacesItem = spaces.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
 			return any
 				? spacesItem.Any(s => spaceRestriction.IsValid(s, context))
