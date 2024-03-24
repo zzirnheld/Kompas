@@ -18,6 +18,11 @@ namespace Kompas.Server.Networking
 		private PackedScene GamePrefab => _gamePrefab
 			?? throw new UnassignedReferenceException();
 
+		[Export]
+		private CheckBox? _debugMode;
+		public bool DebugMode => _debugMode?.ButtonPressed
+			?? throw new UnassignedReferenceException();
+
 		private ServerCardRepository? CardRepo { get; set; }
 
 		private TcpListener? listener;
@@ -54,7 +59,7 @@ namespace Kompas.Server.Networking
 					var gameController = GamePrefab.Instantiate() as ServerGameController
 						?? throw new System.NotSupportedException("Server Game prefab wasn't a ServerGameController!");
 					AddChild(gameController);
-					gameController.Init(new TcpClient[] { currentlyWaitingTcpClient, client }, CardRepo);
+					gameController.Init(new TcpClient[] { currentlyWaitingTcpClient, client }, CardRepo, () => DebugMode);
 					games.Add(gameController);
 					currentlyWaitingTcpClient = null;
 				}

@@ -42,7 +42,8 @@ namespace Kompas.Server.Gamestate
 		public ServerAwaiter Awaiter => _awaiter
 			?? throw new UseFactoryException();
 
-		public bool DebugMode => true;
+		private readonly Func<bool> _debugMode;
+		public bool DebugMode => _debugMode();
 
 
 		//Dictionary of cards, and the forwardings to make that convenient
@@ -97,15 +98,16 @@ namespace Kompas.Server.Gamestate
 
 		public event EventHandler<IPlayer>? TurnChanged;
 
-		private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo)
+		private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
 		{
 			ServerGameController = gameController;
 			serverCardRepository = cardRepo;
+			_debugMode = debugMode;
 		}
 
-		public static ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo)
+		public static ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
 		{
-			ServerGame ret = new(gameController, cardRepo);
+			ServerGame ret = new(gameController, cardRepo, debugMode);
 
 			ret._stackController = new ServerStackController(ret);
 			ret._board = new ServerBoard(gameController.BoardController, ret);

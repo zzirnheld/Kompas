@@ -25,10 +25,10 @@ namespace Kompas.Server.Gamestate
 		public IReadOnlyCollection<ServerNetworker> Networkers => _networkers
 			?? throw new NotInitializedException();
 
-		public void Init(TcpClient[] tcpClients, ServerCardRepository cardRepository)
+		public void Init(TcpClient[] tcpClients, ServerCardRepository cardRepository, System.Func<bool> debugMode)
 		{
 			_cardRepository = cardRepository;
-			_serverGame = ServerGame.Create(this, CardRepository);
+			_serverGame = ServerGame.Create(this, CardRepository, debugMode);
 			
 			var players = ServerPlayer.Create(this,
 				(player, index) => new ServerNetworker(tcpClients[index], player, ServerGame));

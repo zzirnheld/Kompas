@@ -3,6 +3,13 @@
 [ext_resource type="Script" path="res://Scripts/Server/ServerController.cs" id="1_1e66d"]
 [ext_resource type="PackedScene" uid="uid://cfx5khx5vsd52" path="res://Scenes/Prefabs/Server Game/ServerGame.tscn" id="2_k7psn"]
 
-[node name="ServerScene" type="Node"]
+[node name="ServerScene" type="Node" node_paths=PackedStringArray("_debugMode")]
 script = ExtResource("1_1e66d")
 _gamePrefab = ExtResource("2_k7psn")
+_debugMode = NodePath("CheckBox")
+
+[node name="CheckBox" type="CheckBox" parent="."]
+offset_right = 24.0
+offset_bottom = 24.0
+button_pressed = true
+text = "Debug mode"
