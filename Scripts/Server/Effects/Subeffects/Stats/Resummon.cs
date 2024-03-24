@@ -14,7 +14,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			else if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, "Target not on board :(");
 
-			var ctxt = new TriggeringEventContext(game: ServerGame, CardBefore: CardTarget, 
+			var ctxt = new TriggeringEventContext(game: ServerGame, cardBefore: CardTarget, 
 				stackableCause: Effect, player: PlayerTarget, space: CardTarget.Position);
 			ctxt.CacheCardInfoAfter();
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Play, ctxt);

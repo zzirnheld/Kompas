@@ -109,11 +109,10 @@ namespace Kompas.Cards.Models
 				{
 					Position = augmentedCard.Position;
 					LocationModel = augmentedCard.LocationModel;
-					augmentedCard.CardController.RefreshAugments();
 				}
 			}
 		}
-
+		public event EventHandler<IReadOnlyCollection<GameCard>>? AugmentsChanged;
 		#endregion
 
 		#region effects
@@ -148,7 +147,6 @@ namespace Kompas.Cards.Models
 			{
 				location = value;
 				LocationChanged?.Invoke(this, Position);
-				GD.Print($"Card {ID} named {CardName} location set to {Location}");
 			}
 		}
 
@@ -158,7 +156,7 @@ namespace Kompas.Cards.Models
 			get => locationModel;
 			set
 			{
-				GD.Print($"{CardName} moving from {locationModel} to {value}");
+				GD.Print($"{CardName}#{ID} moving from {locationModel} to {value}");
 				locationModel = value;
 				Location = value.Location;
 			}
@@ -266,14 +264,16 @@ namespace Kompas.Cards.Models
 
 			augmentsList.Add(augment);
 			augment.AugmentedCard = this;
+			AugmentsChanged?.Invoke(this, Augments);
 		}
 
-		protected virtual void Detach(IStackable? stackSrc = null)
+		protected virtual void Detach(GameCard augment, IStackable? stackSrc = null)
 		{
-			if (AugmentedCard == null) throw new NotAugmentingException(this);
+			if (augment.AugmentedCard != this) throw new NotAugmentingException(augment);
 
-			AugmentedCard.augmentsList.Remove(this);
-			AugmentedCard = null;
+			augmentsList.Remove(augment);
+			augment.AugmentedCard = null;
+			AugmentsChanged?.Invoke(this, Augments);
 		}
 		#endregion augments
 
@@ -338,7 +338,7 @@ namespace Kompas.Cards.Models
 		{
 			if (Location == Location.Nowhere) return;
 
-			if (AugmentedCard != null) Detach(stackSrc);
+			if (AugmentedCard != null) AugmentedCard.Detach(this, stackSrc);
 			else LocationModel.Remove(this);
 		}
 

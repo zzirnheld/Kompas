@@ -155,7 +155,7 @@ namespace Kompas.Server.Effects.Controllers
 						case CardBase.VanishingSubtype:
 							if (c.TurnsOnBoard >= c.Duration)
 							{
-								TriggeringEventContext context = new(game: game, CardBefore: c);
+								TriggeringEventContext context = new(game: game, cardBefore: c);
 								c.Discard();
 								context.CacheCardInfoAfter();
 								TriggerForCondition(Trigger.Vanish, context);

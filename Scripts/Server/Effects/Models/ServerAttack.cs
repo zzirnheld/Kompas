@@ -32,9 +32,9 @@ namespace Kompas.Server.Effects.Models
 		{
 			ServerNotifier.NotifyAttackStarted(instigator, attacker, defender);
 
-			var attackerContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender, 
+			var attackerContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender, 
 				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
-			var defenderContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker, 
+			var defenderContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker, 
 				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
 			attackerContext.CacheCardInfoAfter();
 			defenderContext.CacheCardInfoAfter();
@@ -52,9 +52,9 @@ namespace Kompas.Server.Effects.Models
 
 		public Task StartResolution(IServerResolutionContext context)
 		{
-			var attackerContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender, 
+			var attackerContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender, 
 				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
-			var defenderContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker, 
+			var defenderContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker, 
 				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
 			if (StillValidAttack)
 			{
@@ -73,13 +73,13 @@ namespace Kompas.Server.Effects.Models
 			//get damage from both, before either takes any damage, in case effects matter on hp
 			int attackerDmg = attacker.CombatDamage;
 			int defenderDmg = defender.CombatDamage;
-			var attackerDealContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender,
+			var attackerDealContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender,
 				stackableCause: this, stackableEvent: this, player: instigator, x: attackerDmg);
-			var defenderDealContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker,
+			var defenderDealContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker,
 				stackableCause: this, stackableEvent: this, player: instigator, x: defenderDmg);
-			var attackerTakeContext = new TriggeringEventContext(game: ServerGame, CardBefore: attacker, secondaryCardBefore: defender,
+			var attackerTakeContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender,
 				stackableCause: this, stackableEvent: this, player: instigator, x: defenderDmg);
-			var defenderTakeContext = new TriggeringEventContext(game: ServerGame, CardBefore: defender, secondaryCardBefore: attacker,
+			var defenderTakeContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker,
 				stackableCause: this, stackableEvent: this, player: instigator, x: attackerDmg);
 			//deal the damage
 			defender.TakeDamage(attackerDmg, stackSrc: this);

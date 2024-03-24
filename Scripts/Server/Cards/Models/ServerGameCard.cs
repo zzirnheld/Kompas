@@ -159,9 +159,9 @@ namespace Kompas.Server.Cards.Models
 		{
 			bool wasKnown = augment.KnownToEnemy;
 
-			var attachedContext = new TriggeringEventContext(game: ServerGame, CardBefore: augment, secondaryCardBefore: this,
+			var attachedContext = new TriggeringEventContext(game: ServerGame, cardBefore: augment, secondaryCardBefore: this,
 				space: Position, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer ?? ControllingPlayer);
-			var augmentedContext = new TriggeringEventContext(game: ServerGame, CardBefore: this, secondaryCardBefore: augment,
+			var augmentedContext = new TriggeringEventContext(game: ServerGame, cardBefore: this, secondaryCardBefore: augment,
 				space: Position, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer ?? ControllingPlayer);
 			
 			base.AddAugment(augment, stackSrc);
@@ -175,13 +175,11 @@ namespace Kompas.Server.Cards.Models
 			ServerNotifier.NotifyAttach(augment.ControllingPlayer, augment, Position, wasKnown);
 		}
 
-		protected override void Detach(IStackable? stackSrc = null)
+		protected override void Detach(GameCard augment, IStackable? stackSrc = null)
 		{
-			var formerlyAugmentedCard = AugmentedCard;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, secondaryCardBefore: formerlyAugmentedCard,
+			var context = TriggeringEventContext.Capture(() => base.Detach(augment, stackSrc),
+				game: ServerGame, cardBefore: augment, secondaryCardBefore: this,
 				stackableCause: stackSrc, player: stackSrc?.ControllingPlayer ?? ControllingPlayer);
-			base.Detach(stackSrc);
-			context.CacheCardInfoAfter();
 			EffectsController.TriggerForCondition(Trigger.AugmentDetached, context);
 		}
 
@@ -191,13 +189,13 @@ namespace Kompas.Server.Cards.Models
 
 			//proc the trigger before actually removing anything
 			var player = stackSrc?.ControllingPlayer ?? ControllingPlayer;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: player);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: player);
 
 			var cardsThisLeft = Location == Location.Board ?
 				Game.Board.CardsAndAugsWhere(c => c != null && c.CardInAOE(this)).ToList() :
 				new List<GameCard>();
 			var leaveContexts = cardsThisLeft.Select(c =>
-				new TriggeringEventContext(game: ServerGame, CardBefore: this, secondaryCardBefore: c, stackableCause: stackSrc, player: player)).ToArray();
+				new TriggeringEventContext(game: ServerGame, cardBefore: this, secondaryCardBefore: c, stackableCause: stackSrc, player: player)).ToArray();
 
 			base.Remove(stackSrc);
 
@@ -215,7 +213,7 @@ namespace Kompas.Server.Cards.Models
 
 		public override void Reveal(IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
 			base.Reveal(stackSrc);
 			context.CacheCardInfoAfter();
 			EffectsController.TriggerForCondition(Trigger.Revealed, context);
@@ -228,7 +226,7 @@ namespace Kompas.Server.Cards.Models
 		public override void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (n == N) return;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: n - N);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: n - N);
 			base.SetN(n, stackSrc);
 			context.CacheCardInfoAfter();
 			EffectsController?.TriggerForCondition(Trigger.NChange, context);
@@ -240,7 +238,7 @@ namespace Kompas.Server.Cards.Models
 		{
 			if (e == E) return;
 			int oldE = E;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: e - E);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: e - E);
 			base.SetE(e, stackSrc);
 			context.CacheCardInfoAfter();
 			EffectsController?.TriggerForCondition(Trigger.EChange, context);
@@ -255,7 +253,7 @@ namespace Kompas.Server.Cards.Models
 		public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (s == S) return;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: s - S);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: s - S);
 			base.SetS(s, stackSrc);
 			context.CacheCardInfoAfter();
 			EffectsController?.TriggerForCondition(Trigger.SChange, context);
@@ -266,7 +264,7 @@ namespace Kompas.Server.Cards.Models
 		public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (w == W) return;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: w - W);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: w - W);
 			base.SetW(w, stackSrc);
 			context.CacheCardInfoAfter();
 			EffectsController?.TriggerForCondition(Trigger.WChange, context);
@@ -277,7 +275,7 @@ namespace Kompas.Server.Cards.Models
 		public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (c == C) return;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: c - C);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: c - C);
 			base.SetC(c, stackSrc);
 			context.CacheCardInfoAfter();
 			EffectsController?.TriggerForCondition(Trigger.CChange, context);
@@ -288,7 +286,7 @@ namespace Kompas.Server.Cards.Models
 		public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			if (a == A) return;
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: a - A);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: a - A);
 			base.SetA(a, stackSrc);
 			context.CacheCardInfoAfter();
 			EffectsController?.TriggerForCondition(Trigger.AChange, context);
@@ -322,7 +320,7 @@ namespace Kompas.Server.Cards.Models
 				//so that the client can know how many negations a card has
 				ServerNotifier.NotifySetNegated(ControllingPlayer, this, negated);
 
-				var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
+				var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
 				context.CacheCardInfoAfter();
 				if (negated) EffectsController.TriggerForCondition(Trigger.Negate, context);
 			}
@@ -331,7 +329,7 @@ namespace Kompas.Server.Cards.Models
 
 		public override void SetActivated(bool activated, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: ServerGame, CardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
+			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
 			if (Activated != activated)
 			{
 				//Notify of value being set to, even if it won't actually change whether the card is activated or not,

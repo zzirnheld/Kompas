@@ -70,7 +70,9 @@ namespace Kompas.Client.Cards.Controllers
 					?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
 				CardView = new (InfoDisplayer ?? throw new System.InvalidOperationException("You didn't populate the client card ctrl's info displayer"), value);
 				AOEController = GameController.TargetingController.SpacesController.AddAOE();
+				
 				Card.LocationChanged += (_, _) => RefreshAOE();
+				Card.AugmentsChanged += (_, _) => RefreshAugments();
 			}
 		}
 

@@ -1,3 +1,4 @@
+using System;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
@@ -108,7 +109,7 @@ namespace Kompas.Effects.Models
 		}
 
 		public TriggeringEventContext(IGame game,
-								 GameCard? CardBefore = null,
+								 GameCard? cardBefore = null,
 								 GameCard? secondaryCardBefore = null,
 								 GameCard? eventCauseOverride = null,
 								 IStackable? stackableCause = null,
@@ -117,11 +118,11 @@ namespace Kompas.Effects.Models
 								 int? x = null,
 								 Space? space = null)
 			: this(game: game,
-				   mainCardInfoBefore: GameCardInfo.CardInfoOf(CardBefore),
+				   mainCardInfoBefore: GameCardInfo.CardInfoOf(cardBefore),
 				   secondaryCardInfoBefore: GameCardInfo.CardInfoOf(secondaryCardBefore),
 				   //Set the event cause either as the override if one is provided,
 				   //or as the stackable's cause if not.
-				   cardCause: GameCardInfo.CardInfoOf(eventCauseOverride ?? stackableCause?.GetCause(CardBefore)),
+				   cardCause: GameCardInfo.CardInfoOf(eventCauseOverride ?? stackableCause?.GetCause(cardBefore)),
 				   stackableCause: stackableCause,
 				   stackableEvent: stackableEvent,
 				   player: player,
@@ -160,6 +161,24 @@ namespace Kompas.Effects.Models
 				else
 					CauseCardInfoAfter = GameCardInfo.CardInfoOf(cardCauseBefore.Card);
 			}
+		}
+
+		public static TriggeringEventContext Capture(Action action, IGame game,
+			GameCard? cardBefore = null, GameCard? secondaryCardBefore = null,
+			GameCard? eventCauseOverride = null,
+			IStackable? stackableCause = null, IStackable? stackableEvent = null,
+			IPlayer? player = null,
+			int? x = null,
+			Space? space = null)
+		{
+			var ret = new TriggeringEventContext(game,
+				cardBefore: cardBefore, secondaryCardBefore: secondaryCardBefore,
+				eventCauseOverride: eventCauseOverride,
+				stackableCause: stackableCause, stackableEvent: stackableEvent,
+				player: player, x: x, space: space);
+			action();
+			ret.CacheCardInfoAfter();
+			return ret;
 		}
 
 		public override string ToString() => cachedToString;

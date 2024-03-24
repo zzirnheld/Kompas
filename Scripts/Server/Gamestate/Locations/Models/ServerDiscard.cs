@@ -29,7 +29,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				else throw new System.ArgumentException($"Why is {card} neither the attacker nor defender, nor augmenting them, " +
 					$"in the attack {atk} that caused it to be discarded?");
 			}
-			var context = new TriggeringEventContext(game: game, CardBefore: card, secondaryCardBefore: cause, stackableCause: stackSrc, player: Owner);
+			var context = new TriggeringEventContext(game: game, cardBefore: card, secondaryCardBefore: cause, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
 			
 			base.PerformAdd(card, index, stackSrc);
