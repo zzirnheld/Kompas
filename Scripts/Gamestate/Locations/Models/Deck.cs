@@ -34,10 +34,14 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
+			base.PerformAdd(card, index, stackableCause);
+			deckController.Refresh();
+		}
+
+		protected override void AddToCollection(GameCard card, int? index)
+		{
 			if (index.HasValue) deck.Insert(index.Value, card);
 			else deck.Add(card);
-
-			deckController.Refresh();
 		}
 
 		//adding and removing cards

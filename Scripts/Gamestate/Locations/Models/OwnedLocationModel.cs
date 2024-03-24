@@ -35,8 +35,6 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected virtual bool AllowAlreadyHereWhenAdd => false;
 
-		protected abstract void PerformAdd(GameCard card, int? index, IStackable? stackableCause);
-
 		/// <summary>
 		/// Adds the card to this owned game location at the relevant index.
 		/// DOES NOT set the controller (that will need to be done manually by the implementer)
@@ -57,10 +55,21 @@ namespace Kompas.Gamestate.Locations.Models
 			}
 
 			GD.Print($"{card} successfully removed, moving");
+			PerformAdd(card, index, stackableCause);
+		}
+
+		/// <summary>
+        /// Perform the operations that will place <see cref="card"/> at this location.
+        /// Can be optionally overridden to add logic after validation, but before/after the add occurs
+        /// </summary>
+		protected virtual void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
+		{
 			card.LocationModel = this;
 			card.Position = null;
 			card.ControllingPlayer = Owner;
-			PerformAdd(card, index, stackableCause);
+			AddToCollection(card, index);
 		}
+
+		protected abstract void AddToCollection(GameCard card, int? index);
 	}
 }

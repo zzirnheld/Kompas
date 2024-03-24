@@ -20,6 +20,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		{
 			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
+			
 			base.PerformAdd(card, index, stackSrc);
 			
 			context.CacheCardInfoAfter();

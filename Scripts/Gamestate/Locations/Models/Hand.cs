@@ -32,10 +32,14 @@ namespace Kompas.Gamestate.Locations.Models
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
-			GD.Print($"Adding {card}");
+			base.PerformAdd(card, index, stackableCause);
+			handController.Refresh();
+		}
+
+		protected override void AddToCollection(GameCard card, int? index)
+		{
 			if (index.HasValue) hand.Insert(index.Value, card);
 			else hand.Add(card);
-			handController.Refresh();
 		}
 
 		public override void Remove(GameCard card)

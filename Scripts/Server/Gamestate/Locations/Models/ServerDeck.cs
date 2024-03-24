@@ -21,11 +21,12 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		protected override void PerformAdd(GameCard card, int? index = null, IStackable? stackSrc = null)
 		{
 			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
+
 			base.PerformAdd(card, index, stackSrc);
 
 			context.CacheCardInfoAfter();
 			game.StackController.TriggerForCondition(Trigger.ToDeck, context);
-			Networking.ServerNotifier.NotifyDeckCount(Owner, Cards.Count());
+			ServerNotifier.NotifyDeckCount(Owner, Cards.Count());
 		}
 
 		public override void PushBottomdeck(GameCard card, IStackable? stackSrc = null)
@@ -44,6 +45,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		{
 			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
+
 			base.PushTopdeck(card, stackSrc);
 			
 			context.CacheCardInfoAfter();
@@ -55,6 +57,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		{
 			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
+			
 			base.ShuffleIn(card, stackSrc);
 			
 			context.CacheCardInfoAfter();
