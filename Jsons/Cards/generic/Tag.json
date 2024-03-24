@@ -61,7 +61,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:PlayersMatch:",
+							"$type": "Restrict.Gamestate:PlayersMatch:",
 							"card": { 
 								"$type": "Identify.Players:ControllerOf:",
 								"card": {

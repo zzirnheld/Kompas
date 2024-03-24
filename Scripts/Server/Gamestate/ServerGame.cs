@@ -129,12 +129,12 @@ namespace Kompas.Server.Gamestate
 		private void GetDeckFrom(ServerPlayer player) => ServerNotifier.GetDecklist(player);
 
 		//TODO for future logic like limited cards, etc.
-		private bool ValidDeck(List<string> deck)
+		private bool ValidDeck(Decklist deck)
 		{
 			//first name should be that of the Avatar
-			if (!ServerCardRepository.CardNameIsCharacter(deck[0]))
+			if (!ServerCardRepository.CardNameIsCharacter(deck.avatarName))
 			{
-				GD.PrintErr($"{deck[0]} isn't a character, so it can't be the Avatar");
+				GD.PrintErr($"{deck.avatarName} isn't a character, so it can't be the Avatar");
 				return false;
 			}
 			if (DebugMode)
@@ -142,7 +142,7 @@ namespace Kompas.Server.Gamestate
 				GD.PushWarning("Debug mode enabled, always accepting a decklist");
 				return true;
 			}
-			if (deck.Count < MinDeckSize)
+			if (deck.deck.Count < MinDeckSize)
 			{
 				GD.PrintErr($"Deck {deck} too small");
 				return false;
@@ -155,7 +155,7 @@ namespace Kompas.Server.Gamestate
 		{
 			//TODO sanitize
 
-			if (ValidDeck(decklist.deck)) ServerNotifier.DeckAccepted(player);
+			if (ValidDeck(decklist)) ServerNotifier.DeckAccepted(player);
 			else
 			{
 				GetDeckFrom(player);

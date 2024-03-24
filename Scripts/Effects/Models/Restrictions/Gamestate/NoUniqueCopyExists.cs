@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		{
 			var card = InitializationContext.source
 				?? throw new IllDefinedException();
-			return !InitializationContext.game.BoardHasCopyOf(card);
+			return !card.Unique || !InitializationContext.game.BoardHasCopyOf(card);
 		}
 
 		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)

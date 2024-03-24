@@ -15,7 +15,7 @@
 						"cardRestriction": { "$type": "Restrict.Cards:Active:" }
 					},
 					{
-						"$type": "Restrict.Triggering:PlayersMatch:",
+						"$type": "Restrict.Gamestate:PlayersMatch:",
 						"card": { "$type": "Identify.Players:TriggeringPlayer:" },
 						"other": { "$type": "Identify.Players:EnemyPlayer:" }
 					}

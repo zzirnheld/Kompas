@@ -14,10 +14,9 @@
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
-							
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+							"cardRestriction": {
+								"$type": "Restrict.Cards:AllOf:",
+								"elements": [
 									{ "$type": "Restrict.Cards:Character:" },
 									{ "$type": "Restrict.Cards:Friendly:" },
 									{

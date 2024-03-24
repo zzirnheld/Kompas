@@ -16,7 +16,7 @@
 							"space": { "$type": "Identify.Cards:ThisCardNow:" }
 						},
 						{
-							"$type": "Restrict.Triggering:PlayersMatch:",
+							"$type": "Restrict.Gamestate:PlayersMatch:",
 							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
 							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}

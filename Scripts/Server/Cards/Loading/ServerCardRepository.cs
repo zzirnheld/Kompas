@@ -19,8 +19,9 @@ namespace Kompas.Server.Cards.Loading
 		{
 		}
 
-		public static bool CardNameIsCharacter(string name)
+		public static bool CardNameIsCharacter(string? name)
 		{
+			if (null == name) return false;
 			if (!CardExists(name)) return false;
 
 			var card = JsonConvert.DeserializeObject<SerializableCard>(cardJsons[name],

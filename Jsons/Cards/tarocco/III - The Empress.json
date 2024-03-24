@@ -12,7 +12,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:PlayersMatch:",
+							"$type": "Restrict.Gamestate:PlayersMatch:",
 							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
 							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
 						}

@@ -231,7 +231,7 @@ namespace Kompas.Cards.Loading
 			return json;
 		}
 
-		public static bool CardExists(string cardName) => CardNames.Contains(cardName);
+		public static bool CardExists(string? cardName) => CardNames.Contains(cardName);
 
 		public static string? GetJsonFromName(string name)
 		{
