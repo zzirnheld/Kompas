@@ -69,11 +69,11 @@ albedo_texture = ExtResource("2_n2png")
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_n2png")
 
-[node name="Client Card" type="Node3D" node_paths=PackedStringArray("InfoDisplayer", "MouseController", "AnimationPlayer")]
+[node name="Client Card" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_animationPlayer")]
 script = ExtResource("1_rjf3w")
-InfoDisplayer = NodePath("Node3D/Actual Card Model")
-MouseController = NodePath("Node3D/Mouse Controller")
-AnimationPlayer = NodePath("AnimationPlayer")
+_infoDisplayer = NodePath("Node3D/Actual Card Model")
+_mouseController = NodePath("Node3D/Mouse Controller")
+_animationPlayer = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
