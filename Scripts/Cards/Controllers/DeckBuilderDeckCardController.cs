@@ -31,7 +31,7 @@ namespace Kompas.Cards.Controllers
 			}
 			else
 			{
-				if (leftClickStayedOnThisCard) GD.Print($"Pressed and released on {Name}");
+				if (leftClickStayedOnThisCard) Logger.Log($"Pressed and released on {Name}");
 
 				//regardless
 				DeckController.Dragging = null;

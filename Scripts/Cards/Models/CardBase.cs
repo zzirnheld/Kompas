@@ -190,7 +190,7 @@ namespace Kompas.Cards.Models
 			//set sprites if they aren't already set correctly 
 			//(check this by card name. cards should never have a pic that doesn't match their name)
 			if (cardName != CardName) CardFaceImage = cardRepository.LoadSprite(FileName);
-			else GD.Print("Names match. Set Info not updating pics.");
+			else Logger.Log("Names match. Set Info not updating pics.");
 
 			Subtext = subtext ?? string.Empty; //TODO un-deprecate and use as an override for constructed subtype text from the subtypes array
 			SpellSubtypes = spellTypes;

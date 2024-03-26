@@ -41,7 +41,7 @@ namespace Kompas.Client.Networking
 			var card = clientGame.LookupCardByID(sourceCardId);
 			if (card == null)
 			{
-				GD.PrintWarning($"Could not find card with id {sourceCardId}");
+				Logger.Warn($"Could not find card with id {sourceCardId}");
 				return;
 			}
 			if (card.Effects.ElementAt(effIndex).Trigger is not ClientTrigger trigger) return;

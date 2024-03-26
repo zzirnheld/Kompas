@@ -36,7 +36,7 @@ namespace Kompas.Client.Networking
 		{
 			if (cardIDs == null)
 			{
-				GD.PushError("No cardIDs for getting hand size choices");
+				Logger.Err("No cardIDs for getting hand size choices");
 				return;
 			}
 			IListRestriction? listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson)

@@ -34,12 +34,12 @@ namespace Kompas.Server.Networking
 				return Task.CompletedTask;
 			else if (serverGame.DebugMode)
 			{
-				GD.PrintErr($"Debug discarding card with id {cardId}");
+				Logger.Err($"Debug discarding card with id {cardId}");
 				card.Discard();
 			}
 			else
 			{
-				GD.PrintErr($"Tried to debug discard card with id {cardId} while NOT in debug mode!");
+				Logger.Err($"Tried to debug discard card with id {cardId} while NOT in debug mode!");
 				ServerNotifier.NotifyPutBack(player);
 			}
 			return Task.CompletedTask;

@@ -21,8 +21,8 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 		protected override IEnumerable<HangingEffect> CreateHangingEffects()
 		{
-			GD.Print($"Is context null? {ResolutionContext == null}");
-			GD.Print($"Are jump indices null? {jumpIndices == null}");
+			Logger.Log($"Is context null? {ResolutionContext == null}");
+			Logger.Log($"Are jump indices null? {jumpIndices == null}");
 			var context = ResolutionContext ?? throw new EffectNotResolvingException(Effect);
 			var controller = ServerEffect.CurrentServerResolutionContext?.ControllingPlayer
 				?? throw new InvalidOperationException();
@@ -54,7 +54,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 
 			public override bool ShouldResolve(TriggeringEventContext context)
 			{
-				GD.Print($"Checking if delayed hanging effect should end for context {context}, {numTimesDelayed}/{numTimesToDelay}");
+				Logger.Log($"Checking if delayed hanging effect should end for context {context}, {numTimesDelayed}/{numTimesToDelay}");
 				//first check any other logic
 				if (!base.ShouldResolve(context)) return false;
 

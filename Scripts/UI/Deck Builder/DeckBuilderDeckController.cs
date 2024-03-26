@@ -105,7 +105,7 @@ namespace Kompas.UI.DeckBuilder
 			
 			if (currentDeckCtrls.Count > 0)
 			{
-				GD.PrintErr("Didn't delete all cards succesfully!?");
+				Logger.Err("Didn't delete all cards succesfully!?");
 				currentDeckCtrls.Clear();
 			}
 		}
@@ -123,7 +123,7 @@ namespace Kompas.UI.DeckBuilder
 			int indexToSelect;
 			if (currentDeck.deckName == null)
 			{
-				GD.PushWarning("Deleted deck with no name!?");
+				Logger.Warn("Deleted deck with no name!?");
 				indexToSelect = 0;
 			}
 			else
@@ -149,11 +149,11 @@ namespace Kompas.UI.DeckBuilder
 
 		private void LoadDeck(string deckName)
 		{
-			GD.Print($"loading {deckName}");
+			Logger.Log($"loading {deckName}");
 			var decklist = DeckAccess.Load(deckName);
 			if (decklist == null)
 			{
-				GD.PrintErr($"Failed to load deck {deckName} in deck edit");
+				Logger.Err($"Failed to load deck {deckName} in deck edit");
 				return;
 			}
 
@@ -216,7 +216,7 @@ namespace Kompas.UI.DeckBuilder
 			_ = currentDeck ?? throw new InvalidOperationException("Can't drag card through a null deck!");
 
 			int argIndex = currentDeckCtrls.IndexOf(card);
-			if (argIndex < 0) { GD.Print($"{card} not in deck"); return; }
+			if (argIndex < 0) { Logger.Log($"{card} not in deck"); return; }
 
 			int draggingIndex = currentDeckCtrls.IndexOf(Dragging);
 
@@ -238,7 +238,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private void AddDeckName(string deckName)
 		{
-			GD.Print($"Adding deck name {deckName}");
+			Logger.Log($"Adding deck name {deckName}");
 			deckNames.Add(deckName);
 			DeckNameSelect.AddItem(deckName);
 		}

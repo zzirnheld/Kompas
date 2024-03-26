@@ -131,7 +131,7 @@ namespace Kompas.Cards.Loading
 
 		private static string? LoadFileAsText(string path)
 		{
-			//GD.Print($"Trying to load {path}");
+			//Logger.Log($"Trying to load {path}");
 			if (!FileAccess.FileExists(path)) return null;
 
 			using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
@@ -140,7 +140,7 @@ namespace Kompas.Cards.Loading
 
 			/*
 			var json = ResourceLoader.Load<Json>(path);
-			GD.Print($"{Json.Stringify(json)}\n\n{json.GetParsedText()}");
+			Logger.Log($"{Json.Stringify(json)}\n\n{json.GetParsedText()}");
 			Json.Stringify(json);
 			return json.GetParsedText(); */
 		}
@@ -166,7 +166,7 @@ namespace Kompas.Cards.Loading
 				var jsonAsset = LoadFileAsText($"{CardJsonsFolderPath}/{filenameClean}.json");
 				if (jsonAsset == null)
 				{
-					GD.PrintErr($"Failed to load json file for {filenameClean}");
+					Logger.Err($"Failed to load json file for {filenameClean}");
 					continue;
 				}
 				string json = jsonAsset;
@@ -188,7 +188,7 @@ namespace Kompas.Cards.Loading
 				cardFileNames.Add(cardName, filename);
 			}
 
-			//GD.Print(string.Join(", ", CardNames));
+			//Logger.Log(string.Join(", ", CardNames));
 		}
 
 		protected static SerializableCard? SerializableCardFromJson(string json)
@@ -199,7 +199,7 @@ namespace Kompas.Cards.Loading
 			}
 			catch (JsonException e)
 			{
-				GD.PrintErr($"Failed to load {json}. Error\n{e}");
+				Logger.Err($"Failed to load {json}. Error\n{e}");
 				return null;
 			}
 		}
@@ -211,10 +211,10 @@ namespace Kompas.Cards.Loading
 			var lines = file.Replace('\r', '\n')
 				.Split('\n')
 				.Where(s => !string.IsNullOrEmpty(s));
-			GD.Print($"Keywords list: \n{string.Join("\n", lines.Select(line => $"{line} length {line.Length}"))}");
+			Logger.Log($"Keywords list: \n{string.Join("\n", lines.Select(line => $"{line} length {line.Length}"))}");
 			foreach (string line in lines)
 			{
-				GD.Print($"Loading {line} from {folderPath}/{line}");
+				Logger.Log($"Loading {line} from {folderPath}/{line}");
 				string json = LoadFileAsText($"{folderPath}/{line}.json")
 					?? throw new System.NullReferenceException($"Failed to load {line}");
 				json = ReplacePlaceholders(json);
@@ -249,7 +249,7 @@ namespace Kompas.Cards.Loading
 			if (name == null || !cardJsons.ContainsKey(name))
 			{
 				//This log exists exclusively for debugging purposes
-				GD.PrintErr($"No json found for name \"{name ?? "null"}\" of length {name?.Length ?? 0}");
+				Logger.Err($"No json found for name \"{name ?? "null"}\" of length {name?.Length ?? 0}");
 				return null;
 			}
 
@@ -272,7 +272,7 @@ namespace Kompas.Cards.Loading
 			string path = $"{CardImagesPath}/{cardFileName}.png";
 			if (!ResourceLoader.Exists(path))
 			{
-				GD.Print($"Warning: texture not found at {cardFileName}");
+				Logger.Log($"Warning: texture not found at {cardFileName}");
 				return null;
 			}
 			else return ResourceLoader.Load<Texture2D>(path);
@@ -287,7 +287,7 @@ namespace Kompas.Cards.Loading
 		{
 			if (!triggerKeywordJsons.ContainsKey(keyword))
 			{
-				GD.PrintErr($"No trigger keyword json found for {keyword}");
+				Logger.Err($"No trigger keyword json found for {keyword}");
 				return System.Array.Empty<ITriggerRestriction>();
 			}
 			try
@@ -297,7 +297,7 @@ namespace Kompas.Cards.Loading
 			}
 			catch (JsonReaderException)
 			{
-				GD.PrintErr($"Failed to instantiate {keyword}");
+				Logger.Err($"Failed to instantiate {keyword}");
 				throw;
 			}
 		}

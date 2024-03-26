@@ -35,7 +35,7 @@ namespace Kompas.Client.Networking
 			var effect = card?.Effects.ElementAt(effectIndex);
 			if (effect is not ClientEffect eff)
 			{
-				GD.PushError($"Couldn't find effect {effectIndex} of {cardID}");
+				Logger.Err($"Couldn't find effect {effectIndex} of {cardID}");
 				return;
 			}
 

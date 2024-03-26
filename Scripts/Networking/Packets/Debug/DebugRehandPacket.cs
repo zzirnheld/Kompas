@@ -35,12 +35,12 @@ namespace Kompas.Server.Networking
 			/*
 			else if (serverGame.DebugMode)
 			{
-				GD.PrintErr($"Debug rehanding card with id {cardId}");
+				Logger.Err($"Debug rehanding card with id {cardId}");
 				card.Rehand();
 			}
 			else
 			{
-				GD.PrintErr($"Tried to debug rehand card with id {cardId} while NOT in debug mode!");
+				Logger.Err($"Tried to debug rehand card with id {cardId} while NOT in debug mode!");
 				Notifier.NotifyPutBack();
 			}
 			return Task.CompletedTask;

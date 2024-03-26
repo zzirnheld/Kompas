@@ -13,7 +13,7 @@ namespace Kompas.Server.Gamestate.Extensions
 			if (card == null) return false;
 			if (game.DebugMode)
 			{
-				GD.PushWarning("Debug mode, always return true for valid play");
+				Logger.Warn("Debug mode, always return true for valid play");
 				return true;
 			}
 
@@ -25,7 +25,7 @@ namespace Kompas.Server.Gamestate.Extensions
 		{
 			if (game.DebugMode)
 			{
-				GD.PushWarning("Debug mode, always return true for valid augment");
+				Logger.Warn("Debug mode, always return true for valid augment");
 				return true;
 			}
 
@@ -39,7 +39,7 @@ namespace Kompas.Server.Gamestate.Extensions
 		{
 			if (game.DebugMode)
 			{
-				GD.PushWarning("Debug mode, always return true for valid move");
+				Logger.Warn("Debug mode, always return true for valid move");
 				return true;
 			}
 
@@ -52,7 +52,7 @@ namespace Kompas.Server.Gamestate.Extensions
 		{
 			if (game.DebugMode)
 			{
-				GD.PushWarning("Debug mode, always return true for valid attack");
+				Logger.Warn("Debug mode, always return true for valid attack");
 				return attacker != null && defender != null;
 			}
 

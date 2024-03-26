@@ -26,7 +26,7 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Search(string basicText)
 		{
-			GD.Print($"Searching {basicText}");
+			Logger.Log($"Searching {basicText}");
 			if (basicText.Length < 3)
 			{
 				Clear();
@@ -53,7 +53,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private void ShowInSearch(SerializableCard serializableCard)
 		{
-			GD.Print($"Showing {serializableCard}");
+			Logger.Log($"Showing {serializableCard}");
 			var card = DeckBuilderController.CardRepository.CreateDeckBuilderCard(serializableCard);
 			ShowInSearch(card);
 		}

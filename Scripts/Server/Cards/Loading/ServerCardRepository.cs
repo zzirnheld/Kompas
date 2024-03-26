@@ -33,7 +33,7 @@ namespace Kompas.Server.Cards.Loading
 		{
 			if (!partialKeywordJsons.ContainsKey(keyword))
 			{
-				GD.PrintErr($"No partial keyword json found for {keyword}");
+				Logger.Err($"No partial keyword json found for {keyword}");
 				return System.Array.Empty<ServerSubeffect>();
 			}
 

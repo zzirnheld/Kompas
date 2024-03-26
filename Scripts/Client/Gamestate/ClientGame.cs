@@ -21,6 +21,7 @@ namespace Kompas.Client.Gamestate
 {
 	public class ClientGame : IGame
 	{
+
 		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
 		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
 		public ICardRepository CardRepository => ClientCardRepository;
@@ -128,7 +129,7 @@ namespace Kompas.Client.Gamestate
 			if (cardsByID.ContainsKey(card.ID))
 			{
 				//Note: It's currently sending two packets for the other person's avatar!?
-				GD.PushError($"Tried to add {card} #{card.ID} but the lookup already had {cardsByID[card.ID]} there!");
+				Logger.Err($"Tried to add {card} #{card.ID} but the lookup already had {cardsByID[card.ID]} there!");
 			}
 
 			cardsByID.Add(card.ID, card);

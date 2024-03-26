@@ -26,7 +26,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 				.Cast<LinkedSpaceController>()
 				.ToDictionary(lsc => lsc.Coords);
 
-			if (Spaces.Values.Any(s => s.GetParent() != LinkedSpacesParent)) GD.PushError($"{Name} AAAAAAAAAAAAA");
+			if (Spaces.Values.Any(s => s.GetParent() != LinkedSpacesParent)) Logger.Err($"{Name} AAAAAAAAAAAAA");
 
 			//for testing
 			//Display(s => Math.Abs(s.x - 1) + Math.Abs(s.y - 2) <= 2);

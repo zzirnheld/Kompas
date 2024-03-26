@@ -28,7 +28,7 @@ namespace Kompas.Client.Networking
 			var card = clientGame.LookupCardByID(cardId);
 			if (card == null)
 			{
-				GD.PushError($"Can't delete card {cardId}");
+				Logger.Err($"Can't delete card {cardId}");
 				return;
 			}
 			clientGame.Delete(card);

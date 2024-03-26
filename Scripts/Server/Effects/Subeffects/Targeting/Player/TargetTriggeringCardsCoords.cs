@@ -20,7 +20,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			if (!cardInfo.Position.IsValid) throw new InvalidSpaceException(cardInfo.Position, NoValidSpaceTarget);
 
 			ServerEffect.AddSpace(cardInfo.Position.Copy);
-			GD.Print($"Just added {SpaceTarget} from {cardInfo}");
+			Logger.Log($"Just added {SpaceTarget} from {cardInfo}");
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

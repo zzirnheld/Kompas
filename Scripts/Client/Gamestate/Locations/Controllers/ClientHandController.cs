@@ -64,8 +64,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			float scale = (handWidth * HandWidthProportion) / (CardOffset * Math.Max(HandModel.HandSize, MinHandCountForScale));
 			NodeParent.Scale = scale * Vector3.One;
-			GD.Print($"{handWidth} * {HandWidthProportion} / {CardOffset} * {HandModel.HandSize} = {NodeParent.Scale.X}");
-			GD.Print($"Spreading {HandModel.HandSize} = {HandModel.Cards.Count()} cards: {string.Join(", ", HandModel.Cards.Select(c => c.CardName))}");
+			Logger.Log($"{handWidth} * {HandWidthProportion} / {CardOffset} * {HandModel.HandSize} = {NodeParent.Scale.X}");
+			Logger.Log($"Spreading {HandModel.HandSize} = {HandModel.Cards.Count()} cards: {string.Join(", ", HandModel.Cards.Select(c => c.CardName))}");
 			for (int i = 0; i < HandModel.HandSize; i++)
 			{
 				var node = HandModel[i].CardController.Node;
@@ -78,7 +78,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 				
 				node.Rotation = Vector3.Zero;
 				node.Visible = true;
-				GD.Print($"Placing {HandModel[i].CardName} at {node.Position}");
+				Logger.Log($"Placing {HandModel[i].CardName} at {node.Position}");
 			}
 		}
 	}

@@ -31,16 +31,16 @@ namespace Kompas.Client.Networking
 		*/
 		public static async Task<TcpClient?> Connect(string ip)
 		{
-			GD.Print($"Connect to {ip}?");
+			Logger.Log($"Connect to {ip}?");
 			if (connecting) return null;
 
 			connecting = true;
 			
-			GD.Print($"Try to connect to {ip}");
+			Logger.Log($"Try to connect to {ip}");
 			var address = IPAddress.Parse(ip);
 			TcpClient tcpClient = new();
 			await tcpClient.ConnectAsync(address, port);
-			GD.Print($"Connect to {ip} succeeded or failed");
+			Logger.Log($"Connect to {ip} succeeded or failed");
 			
 			connecting = false;
 			return tcpClient;
@@ -131,12 +131,12 @@ namespace Kompas.Client.Networking
 		{
 			if (packetInfo.command == Packet.Invalid)
 			{
-				GD.PrintErr("Invalid packet");
+				Logger.Err("Invalid packet");
 				return Task.CompletedTask;
 			}
 
 			var p = FromJson(packetInfo.command, packetInfo.json);
-			GD.Print($"Parsing packet {packetInfo.command}");
+			Logger.Log($"Parsing packet {packetInfo.command}");
 			p?.Execute(game);
 
 			//clean up any visual differences after the latest packet.

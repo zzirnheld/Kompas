@@ -31,10 +31,10 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="subeffIndex">The index in the subeffect array of its parent <paramref name="eff"/> this subeffect is.</param>
 		public virtual void Initialize(ServerEffect eff, int subeffIndex)
 		{
-			//GD.Print($"Finishing setup for new subeffect of type {GetType()}");
+			//Logger.Log($"Finishing setup for new subeffect of type {GetType()}");
 			_serverEffect = eff;
 			SubeffIndex = subeffIndex;
-			if (xMultiplier == 1 && xModifier != 0) GD.Print($"x mulitplier {xMultiplier}, relies on default on eff of {Effect.Card}");
+			if (xMultiplier == 1 && xModifier != 0) Logger.Log($"x mulitplier {xMultiplier}, relies on default on eff of {Effect.Card}");
 		}
 
 		/// <summary>

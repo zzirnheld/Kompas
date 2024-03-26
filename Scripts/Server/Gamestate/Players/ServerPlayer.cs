@@ -136,7 +136,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 			catch (KompasException ke)
 			{
-				GD.PrintErr(ke);
+				Logger.Err(ke);
 				ServerNotifier.NotifyPutBack(this);
 			}
 		}
@@ -153,13 +153,13 @@ namespace Kompas.Server.Gamestate.Players
 				}
 				else
 				{
-					GD.PushWarning($"Player {Index} attempted an invalid play of {card} to {space}.");
+					Logger.Warn($"Player {Index} attempted an invalid play of {card} to {space}.");
 					ServerNotifier.NotifyPutBack(this);
 				}
 			}
 			catch (KompasException ke)
 			{
-				GD.PrintErr($"Player {Index} attempted an invalid play of {card} to {space}. Resulting exception:\n{ke}");
+				Logger.Err($"Player {Index} attempted an invalid play of {card} to {space}. Resulting exception:\n{ke}");
 				ServerNotifier.NotifyPutBack(this);
 			}
 		}
@@ -179,7 +179,7 @@ namespace Kompas.Server.Gamestate.Players
 			}
 			catch (KompasException ke)
 			{
-				GD.PrintErr(ke);
+				Logger.Err(ke);
 				ServerNotifier.NotifyPutBack(this);
 			}
 		}
@@ -191,7 +191,7 @@ namespace Kompas.Server.Gamestate.Players
 		/// <param name="controller"></param>
 		public async Task TryActivateEffect(IServerEffect? effect)
 		{
-			GD.Print($"Player {Index} trying to activate effect of {effect?.Card?.CardName}");
+			Logger.Log($"Player {Index} trying to activate effect of {effect?.Card?.CardName}");
 			if (effect != null && effect.CanBeActivatedBy(this))
 			{
 				var context = ServerResolutionContext.PlayerTrigger(effect, Game, this);

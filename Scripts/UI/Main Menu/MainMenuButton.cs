@@ -16,7 +16,7 @@ namespace Kompas.UI.MainMenu
 			MouseEntered += () =>
 			{
 				var targetPosition = GlobalPosition + (Size / 2);
-				GD.Print($"Look towards {GlobalPosition} + {(Size / 2)} = {targetPosition}!");
+				Logger.Log($"Look towards {GlobalPosition} + {(Size / 2)} = {targetPosition}!");
 				SpinningLogo.LookTowards(targetPosition);
 			};
 		}

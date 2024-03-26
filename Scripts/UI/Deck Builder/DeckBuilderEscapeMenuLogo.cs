@@ -106,7 +106,7 @@ namespace Kompas.UI.DeckBuilder
 
 		private float DetermineRotationDuration()
 		{
-			GD.Print($"Starting escape menu rotation when time is {Time}, rotation duration was {rotationDuration}");
+			Logger.Log($"Starting escape menu rotation when time is {Time}, rotation duration was {rotationDuration}");
 			if (Time > rotationDuration) return BaseRotationDuration;
 			else if (Time == 0f) return BaseRotationDuration;
 			else return Time;

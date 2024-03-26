@@ -16,7 +16,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			var context = Effect.CurrentResolutionContext ?? throw new EffectNotResolvingException(Effect);
 			context.X = TrueCount;
-			GD.Print($"Setting X to {Effect.X}");
+			Logger.Log($"Setting X to {Effect.X}");
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

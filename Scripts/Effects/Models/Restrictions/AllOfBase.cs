@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models.Restrictions
 			foreach (var element in elements) element.Initialize(childInitializationContext);
 
 			//Debug log for eliminiating trivial AllOfs
-			if (LogSoloElements && elements.Count == 1) GD.Print($"only one element on {GetType()} on eff of {initializationContext.source}");
+			if (LogSoloElements && elements.Count == 1) Logger.Log($"only one element on {GetType()} on eff of {initializationContext.source}");
 		}
 
 		protected override bool IsValidLogic(RestrictedType? item, IResolutionContext context) => elements
@@ -60,7 +60,7 @@ namespace Kompas.Effects.Models.Restrictions
 		protected virtual bool Validate(ElementRestrictionType element, RestrictedType? item, IResolutionContext context)
 		{
 			bool ret = element.IsValid(item, context);
-			if (DEBUG && !ret) GD.Print($"{item} failed by {element}");
+			if (DEBUG && !ret) Logger.Log($"{item} failed by {element}");
 			return ret;
 		}
 	}

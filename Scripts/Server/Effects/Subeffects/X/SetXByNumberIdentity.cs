@@ -14,7 +14,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		{
 			base.Initialize(eff, subeffIndex);
 			/*var ctxt = DefaultRestrictionContext;
-			Godot.GD.Print($"Initializing with {ctxt}");
+			Godot.Logger.Log($"Initializing with {ctxt}");
 			numberIdentity.Initialize(initializationContext: ctxt);*/
 			numberIdentity.Initialize(initializationContext: DefaultInitializationContext);
 		}

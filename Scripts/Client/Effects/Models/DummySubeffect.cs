@@ -20,14 +20,14 @@ namespace Kompas.Client.Effects.Models
 		{
 			var subeff = JsonConvert.DeserializeObject<Subeffect>(json);
 
-			GD.Print($"Creating subeffect from json {json}");
+			Logger.Log($"Creating subeffect from json {json}");
 			DummySubeffect toReturn;
 
 			toReturn = new DummySubeffect();
 
 			if (toReturn != null)
 			{
-				GD.Print($"Finishing setup for new effect of type {subeff?.GetType()}");
+				Logger.Log($"Finishing setup for new effect of type {subeff?.GetType()}");
 				toReturn.Initialize(parent, subeffIndex);
 			}
 

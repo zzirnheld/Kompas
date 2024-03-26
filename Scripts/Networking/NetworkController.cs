@@ -64,7 +64,7 @@ namespace Kompas.Networking
 			catch (System.ArgumentException argEx)
 			{
 				//Catch JSON parse error
-				GD.PrintErr($"Failed to deserialize packet from json \"{json}\", " +
+				Logger.Err($"Failed to deserialize packet from json \"{json}\", " +
 					$"argument exception with message {argEx.Message}");
 				return (Packet.Invalid, string.Empty);
 			}

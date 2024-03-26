@@ -25,10 +25,10 @@ namespace Kompas.Server.Networking
 			/*
 			if (serverGame.DebugMode)
 			{
-				GD.PrintErr($"Debug drawing");
+				Logger.Err($"Debug drawing");
 				serverGame.Draw(player);
 			}
-			else GD.PrintErr($"Tried to debug draw while NOT in debug mode!");
+			else Logger.Err($"Tried to debug draw while NOT in debug mode!");
 			return Task.CompletedTask;
 			*/
 		}

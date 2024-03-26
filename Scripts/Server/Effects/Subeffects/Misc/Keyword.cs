@@ -23,7 +23,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				?? throw new InvalidOperationException($"Failed to instantiate {keyword}");
 			foreach (var s in subeffects)
 			{
-				GD.Print($"Loaded subeff with jump indices {s.jumpIndices}");
+				Logger.Log($"Loaded subeff with jump indices {s.jumpIndices}");
 			}
 			ServerEffect.InsertSubeffects(subeffIndex + 1, subeffects);
 			//The subeffects will then be initialized by the calling Effect

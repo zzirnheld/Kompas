@@ -14,10 +14,10 @@ namespace Kompas.Cards.Views
 			CardRepository cardRepository)
 			: base(infoDisplayer, reminderTextPopup)
 		{
-			GD.Print("Creating dbtlcv");
+			Logger.Log("Creating dbtlcv");
 			CardRepository = cardRepository;
 
-			infoDisplayer.MouseEntered += () => GD.Print("HEY! GUYS!");
+			infoDisplayer.MouseEntered += () => Logger.Log("HEY! GUYS!");
 		}
 
 		public void Show(DeckBuilderCard? card) => base.Show(card);

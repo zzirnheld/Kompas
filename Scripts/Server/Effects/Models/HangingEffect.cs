@@ -56,7 +56,7 @@ namespace Kompas.Server.Effects.Models
 		{
 			//if we've already ended this hanging effect, we shouldn't end it again.
 			if (ended) return false;
-			GD.Print($"Checking whether {this} should end for triggering context {context},"
+			Logger.Log($"Checking whether {this} should end for triggering context {context},"
 				+ $"with saved resolution context {StashedContext}");
 			return End.Restriction.IsValid(context, StashedContext);
 		}

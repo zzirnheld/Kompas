@@ -20,7 +20,7 @@ namespace Kompas.Server.Networking
 	{
 		public static void SendPacket(IPlayer player, Packet? packet)
 		{
-			if (packet != null) GD.Print($"Sending packet to {player.Index} with info {packet}");
+			if (packet != null) Logger.Log($"Sending packet to {player.Index} with info {packet}");
 			player.Networker.SendPacket(packet);
 		}
 
@@ -147,7 +147,7 @@ namespace Kompas.Server.Networking
 
 		public static void NotifyAttacksThisTurn(IPlayer player, GameCard card)
 		{
-			GD.Print("Notifying about attacks this turn...");
+			Logger.Log("Notifying about attacks this turn...");
 			SendToBothInverting(player, new AttacksThisTurnPacket(card.ID, card.AttacksThisTurn), card.KnownToEnemy);
 		}
 

@@ -70,7 +70,7 @@ namespace Kompas.UI.MainMenu
 		public void SpinOut()
 		{
 			//TODO: the top right and bottom left are blocking corners of the main menu from receiving clicks, so consider adding logic to disable their colliders until spin starts
-			GD.Print("Spin out!");
+			Logger.Log("Spin out!");
 			RotateTowards(start => start.With(rotation: SplashScreenEndRadians, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor));
 			splashScreenStarted = true;
 		}

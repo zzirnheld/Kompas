@@ -28,7 +28,7 @@ namespace Kompas.UI.DeckBuilder
 			DeckNameEdit.Text = null;
 			if (!AllowedDeckName(deckName))
 			{
-				GD.PushError($"{deckName} is an invalid deck name!");
+				Logger.Err($"{deckName} is an invalid deck name!");
 				return;
 			};
 			DeckBuilderDeckController.NewDeck(deckName ?? string.Empty);

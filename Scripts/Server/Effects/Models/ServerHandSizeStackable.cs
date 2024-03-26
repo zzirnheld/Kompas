@@ -11,7 +11,7 @@ using Kompas.Server.Gamestate;
 using Kompas.Server.Networking;
 using Kompas.Shared.Enumerable;
 
-namespace KompasServer.Effects
+namespace Kompas.Server.Effects.Models
 {
 	public class ServerHandSizeStackable : HandSizeStackable, IServerStackable
 	{
@@ -30,7 +30,7 @@ namespace KompasServer.Effects
 
 		private async Task RequestTargets()
 		{
-			GD.Print("Trying to request hand size targets");
+			Logger.Log("Trying to request hand size targets");
 			awaitingChoices = true;
 
 			var context = new ResolutionContext(new TriggeringEventContext(game: game, stackableCause: this, stackableEvent: this));

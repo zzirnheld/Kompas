@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected override bool IsValidLogic(IResolutionContext context) => Uses < Max; // ? true : LogFalse();
 
-		//private bool LogFalse() { GD.Print($"{Uses} exceeded {max} in {InitializationContext.effect}"); return false; }
+		//private bool LogFalse() { Logger.Log($"{Uses} exceeded {max} in {InitializationContext.effect}"); return false; }
 
 		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
 			=> IsValid(IResolutionContext.NotResolving(context));

@@ -26,7 +26,7 @@ namespace Kompas.Gamestate.Locations.Controllers
 				}
 			}
 
-			LeftClick += (_, space) => GD.Print($"Clicked {space}");
+			LeftClick += (_, space) => Logger.Log($"Clicked {space}");
 		}
 
 		private CollisionObject3D.InputEventEventHandler CreateInputEventHandler(Space space)

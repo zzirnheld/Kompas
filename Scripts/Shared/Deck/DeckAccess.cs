@@ -19,7 +19,7 @@ namespace Kompas.Shared
 			{
 				if (deckFileName[^5..] != ".json")
 				{
-					GD.PrintErr($"{deckFileName} is not a deck, but it was in the deck folder...");
+					Logger.Err($"{deckFileName} is not a deck, but it was in the deck folder...");
 					continue;
 				} 
 				string deckName = deckFileName[..^5];
@@ -36,7 +36,7 @@ namespace Kompas.Shared
 			using var deck = FileAccess.Open($"{DeckFolderPath}/{decklist.deckName}.json", FileAccess.ModeFlags.Write);
 			if (deck == null)
 			{
-				GD.Print(FileAccess.GetOpenError());
+				Logger.Log(FileAccess.GetOpenError());
 				return;
 			}
 			string json = JsonConvert.SerializeObject(decklist);
@@ -50,7 +50,7 @@ namespace Kompas.Shared
 			using var deckFolder = DirAccess.Open(DeckFolderPath);
 			if (deckFolder == null)
 			{
-				GD.Print(DirAccess.GetOpenError());
+				Logger.Log(DirAccess.GetOpenError());
 				return;
 			}
 
@@ -64,7 +64,7 @@ namespace Kompas.Shared
 
 			using var deck = FileAccess.Open(path, FileAccess.ModeFlags.Read);
 			string json = deck.GetAsText();
-			GD.Print($"Loading {json}");
+			Logger.Log($"Loading {json}");
 			return JsonConvert.DeserializeObject<Decklist>(json);
 		}
 

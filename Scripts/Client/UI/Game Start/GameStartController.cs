@@ -47,7 +47,7 @@ namespace Kompas.Client.UI.GameStart
 
 			foreach (State s in Enum.GetValues(typeof(State)))
 			{
-				if (!Tabs.ContainsKey(s)) GD.PrintErr($"No tab defined for game start state {s}");
+				if (!Tabs.ContainsKey(s)) Logger.Err($"No tab defined for game start state {s}");
 			}
 
 			ChangeState(State.ChooseHost);
@@ -63,7 +63,7 @@ namespace Kompas.Client.UI.GameStart
 		{
 			if (connectionTask != null)
 			{
-				GD.Print("Already trying to connect!");
+				Logger.Log("Already trying to connect!");
 				return;
 			}
 
@@ -82,7 +82,7 @@ namespace Kompas.Client.UI.GameStart
 			}
 			catch (SocketException e)
 			{
-				GD.PrintErr($"Failed to connect to {ip}. Stack trace:\n{e.StackTrace}");
+				Logger.Err($"Failed to connect to {ip}. Stack trace:\n{e.StackTrace}");
 				FailedToConnect();
 				return;
 			}
@@ -93,14 +93,14 @@ namespace Kompas.Client.UI.GameStart
 
 		private void FailedToConnect()
 		{
-			GD.Print("Failed!");
+			Logger.Log("Failed!");
 
 			ChangeState(State.ChooseHost);
 		}
 
 		private void SuccessfullyConnected(TcpClient tcpClient)
 		{
-			GD.Print("Succeeded!");
+			Logger.Log("Succeeded!");
 
 			ChangeState(State.WaitingForPlayer);
 			GameController.SuccessfullyConnected(tcpClient);
@@ -113,7 +113,7 @@ namespace Kompas.Client.UI.GameStart
 
 		private void ChangeState(State state)
 		{
-			GD.Print($"Changing state to {state}");
+			Logger.Log($"Changing state to {state}");
 
 			foreach (State s in Enum.GetValues(typeof(State)))
 			{

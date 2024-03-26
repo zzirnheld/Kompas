@@ -128,7 +128,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		private async Task StackEmptied()
 		{
-			//GD.Print($"Stack is emptied");
+			//Logger.Log($"Stack is emptied");
 			//stack ends
 			foreach (var c in game.Cards) c.ResetForStack();
 			ClearSpells();
@@ -176,7 +176,7 @@ namespace Kompas.Server.Effects.Controllers
 			}
 			if (context == null) throw new System.InvalidOperationException($"Stackable {stackable} wasn't associated with a context!");
 			
-			//GD.Print($"Resolving next stack entry: {stackable}, {context}");
+			//Logger.Log($"Resolving next stack entry: {stackable}, {context}");
 			//inform the players that they no longer can respond, in case they were somehow still thinking they could
 			foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
 
@@ -241,7 +241,7 @@ namespace Kompas.Server.Effects.Controllers
 			//if there's no triggers, skip all this logic
 			if (!stillValid.Any())
 			{
-				GD.Print($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
+				Logger.Log($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
 				return;
 			}
 
@@ -311,7 +311,7 @@ namespace Kompas.Server.Effects.Controllers
 			//then dequeue twice, which would not consider that set of triggers.
 			if (currentlyCheckingResponses || CurrStackEntry != null)
 			{
-				GD.Print($"Checked response while currently checking for response {currentlyCheckingResponses} " +
+				Logger.Log($"Checked response while currently checking for response {currentlyCheckingResponses} " +
 					$"or curr stack entry not null {CurrStackEntry != null}");
 				return;
 			}
@@ -358,7 +358,7 @@ namespace Kompas.Server.Effects.Controllers
 		{
 			if (!game.GameHasStarted) return;
 
-			GD.Print($"Triggering for condition {condition}, context {context}");
+			Logger.Log($"Triggering for condition {condition}, context {context}");
 			//first resolve any hanging effects
 			ResolveHangingEffects(condition, context);
 
@@ -371,7 +371,7 @@ namespace Kompas.Server.Effects.Controllers
 					.ToArray();
 				if (!validTriggers.Any()) return;
 				var triggers = new TriggersTriggered(triggers: validTriggers, context: context);
-				GD.Print($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Card.ID + t.Blurb))}");
+				Logger.Log($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Card.ID + t.Blurb))}");
 				triggeredTriggers.Enqueue(triggers);
 			}
 
@@ -381,7 +381,7 @@ namespace Kompas.Server.Effects.Controllers
 		#region register to trigger condition
 		public void RegisterTrigger(string condition, ServerTrigger trigger)
 		{
-			GD.Print($"Registering a new trigger from card {trigger.ServerEffect.Card.CardName} to condition {condition}");
+			Logger.Log($"Registering a new trigger from card {trigger.ServerEffect.Card.CardName} to condition {condition}");
 			if (!triggerMap.ContainsKey(condition))
 				triggerMap.Add(condition, new List<ServerTrigger>());
 
@@ -390,7 +390,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string? fallOffCondition = default)
 		{
-			GD.Print($"Registering a new hanging effect to condition {condition}");
+			Logger.Log($"Registering a new hanging effect to condition {condition}");
 			if (!hangingEffectMap.ContainsKey(condition))
 				hangingEffectMap.Add(condition, new List<HangingEffect>());
 
@@ -401,7 +401,7 @@ namespace Kompas.Server.Effects.Controllers
 
 		private void RegisterHangingEffectFallOff(string condition, HangingEffect hangingEff)
 		{
-			GD.Print($"Registering a new hanging effect to condition {condition}");
+			Logger.Log($"Registering a new hanging effect to condition {condition}");
 			if (!hangingEffectFallOffMap.ContainsKey(condition))
 				hangingEffectFallOffMap.Add(condition, new List<HangingEffect>());
 

@@ -25,7 +25,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			catch (SystemException exception)
 				when (exception is NullReferenceException || exception is ArgumentException)
 			{
-				GD.PrintErr(exception);
+				Logger.Err(exception);
 				return false;
 			}
 		}

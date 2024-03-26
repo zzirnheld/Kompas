@@ -25,14 +25,14 @@ namespace Kompas.Gamestate
 
 		public static bool IsValidStandardPlaySpace(this IGame game, Space? space, IPlayer? player)
 		{
-			GD.Print($"Checking whether player {player?.Index} can play a card to {space}. Cards adjacent to that space are" +
+			Logger.Log($"Checking whether player {player?.Index} can play a card to {space}. Cards adjacent to that space are" +
 				$"{string.Join(",", (space ?? Space.Invalid).AdjacentSpaces.Select(game.Board.GetCardAt).Where(c => c != null).Select(c => $" {c?.CardName}-{c?.ControllingPlayer?.Index} "))}");
 
 			bool cardIsFriendly(IGameCardInfo? card)
 			{
 				bool isFriendly = card?.ControllingPlayer == player;
-				//if (card != null) GD.Print($"{card} controlld by {card.ControllingPlayer.Index} vs {player?.Index}");
-				//if (isFriendly) GD.Print($"{card} is at {card?.Position} adjacent and friendy to {space}");
+				//if (card != null) Logger.Log($"{card} controlld by {card.ControllingPlayer.Index} vs {player?.Index}");
+				//if (isFriendly) Logger.Log($"{card} is at {card?.Position} adjacent and friendy to {space}");
 				return isFriendly;
 			}
 
@@ -49,13 +49,13 @@ namespace Kompas.Gamestate
 			else
 			{
 				bool surrounded = !Space.Spaces.Any(s => game.Board.IsEmpty(s) && existsFriendlyAdjacent(s));
-				if (surrounded) GD.Print($"{player} is surrounded!");
+				if (surrounded) Logger.Log($"{player} is surrounded!");
 				return surrounded;
 			}
 		}
 	}
 
-	public interface IGame
+    public interface IGame
 	{
 		public const string CardListPath = "Card Jsons/Card List";
 

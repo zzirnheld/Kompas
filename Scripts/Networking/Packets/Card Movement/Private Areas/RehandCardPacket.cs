@@ -32,7 +32,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			GD.Print($"Trying to hand {cardId} {clientGame.LookupCardByID(cardId)}");
+			Logger.Log($"Trying to hand {cardId} {clientGame.LookupCardByID(cardId)}");
 			clientGame.LookupCardByID(cardId)?.Rehand();
 		}
 	}

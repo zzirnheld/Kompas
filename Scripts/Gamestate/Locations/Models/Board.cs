@@ -85,7 +85,7 @@ namespace Kompas.Gamestate.Locations.Models
 			var list = new List<GameCard>();
 			if (space == null)
 			{
-				//GD.PrintErr("Asking for cards adjacent to a null space");
+				//Logger.Err("Asking for cards adjacent to a null space");
 				return list;
 			}
 
@@ -172,7 +172,7 @@ namespace Kompas.Gamestate.Locations.Models
 			if (!ValidSpellSpaceFor(toPlay, to))
 				throw new InvalidSpaceException(to, $"Tried to play {toPlay} to space {to}. This isn't ok, that's an invalid spell spot.");
 
-			GD.Print($"In boardctrl, playing {toPlay.CardName} currently in {toPlay.Location} to {to}");
+			Logger.Log($"In boardctrl, playing {toPlay.CardName} currently in {toPlay.Location} to {to}");
 
 			//augments can't be played to a regular space.
 			if (toPlay.CardType == 'A')
@@ -204,7 +204,7 @@ namespace Kompas.Gamestate.Locations.Models
 		//movement
 		protected virtual void Swap(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
 		{
-			GD.Print($"Swapping {card?.CardName} to {to}");
+			Logger.Log($"Swapping {card?.CardName} to {to}");
 
 			if (!to.IsValid)
 				throw new InvalidSpaceException(to);

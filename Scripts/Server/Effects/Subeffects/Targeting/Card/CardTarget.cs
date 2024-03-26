@@ -87,7 +87,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			//if there's no possible valid combo, throw effect impossible
 			if (!listRestriction.AllowsValidChoice(stashedPotentialTargets, ResolutionContext))
 			{
-				GD.Print($"List restriction {listRestriction} finds no possible list of targets among potential targets" +
+				Logger.Log($"List restriction {listRestriction} finds no possible list of targets among potential targets" +
 					$"{string.Join(",", stashedPotentialTargets.Select(c => c.CardName))}");
 				return await NoPossibleTargets();
 			}
@@ -95,12 +95,12 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			//If there's no potential targets, but no targets is a valid choice, then just go to the next effect
 			if (!stashedPotentialTargets.Any())
 			{
-				GD.Print("An empty list of targets was a valid choice, but there's no targets that can be chosen. Skipping to next effect...");
+				Logger.Log("An empty list of targets was a valid choice, but there's no targets that can be chosen. Skipping to next effect...");
 				return ResolutionInfo.Next;
 			}
 			else if (listRestriction.GetMaximum(ResolutionContext) == 0)
 			{
-				GD.Print("An empty list of targets was a valid choice, and the max to be chosen was 0. Skipping to next effect...");
+				Logger.Log("An empty list of targets was a valid choice, and the max to be chosen was 0. Skipping to next effect...");
 				return ResolutionInfo.Next;
 			}
 
@@ -118,7 +118,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			string name = Effect.Card.CardName;
 			_ = stashedPotentialTargets ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");
 			int[] targetIds = stashedPotentialTargets.Select(c => c.ID).ToArray();
-			GD.Print($"Potential targets {string.Join(", ", targetIds)}");
+			Logger.Log($"Potential targets {string.Join(", ", targetIds)}");
 			listRestriction.PrepareForSending(ResolutionContext);
 
 			var player = PlayerTarget ?? throw new InvalidOperationException("Tried to send targets to noone!");
@@ -127,7 +127,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public bool AddListIfLegal(IEnumerable<GameCard>? choices)
 		{
-			GD.Print($"Potentially adding list {string.Join(",", choices ?? new List<GameCard>())}");
+			Logger.Log($"Potentially adding list {string.Join(",", choices ?? new List<GameCard>())}");
 			if (choices == null) return false;
 
 			_ = stashedPotentialTargets ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");

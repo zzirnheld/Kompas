@@ -139,7 +139,7 @@ namespace Kompas.Gamestate
 					Space s = (x, yCoord);
 					if (s.IsValid) list.Add(s);
 				}
-				//GD.Print($"Spacesadjacent to {this} are {string.Join(", ", list.Select(s => s.ToString()))}");
+				//Logger.Log($"Spacesadjacent to {this} are {string.Join(", ", list.Select(s => s.ToString()))}");
 				return list;
 			}
 		}
@@ -206,7 +206,7 @@ namespace Kompas.Gamestate
 
 		public static bool operator ==(Space? a, Space? b)
 		{
-			//GD.Print($"Comparing {a} to {b}");
+			//Logger.Log($"Comparing {a} to {b}");
 			if (a is null) return b is null;
 			else if (b is null) return false;
 			else return a.x == b.x && a.y == b.y;

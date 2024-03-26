@@ -14,7 +14,7 @@ namespace Kompas.Networking.Packets
 
 		public SendHandSizeChoicesPacket(int[] cardIds) : this()
 		{
-			GD.Print($"Hand size choices {string.Join(", ", cardIds)}");
+			Logger.Log($"Hand size choices {string.Join(", ", cardIds)}");
 			this.cardIds = cardIds;
 		}
 
@@ -33,7 +33,7 @@ namespace Kompas.Server.Networking
 		{
 			if (cardIds == null)
 			{
-				GD.PushError("No cardIDs for hand size choices");
+				Logger.Err("No cardIDs for hand size choices");
 				return Task.CompletedTask;
 			}
 			serverGame.Awaiter.HandSizeChoices = cardIds;

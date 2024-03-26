@@ -41,7 +41,7 @@ namespace Kompas.Gamestate.Locations.Models
 		/// </summary>
 		public void Add(GameCard card, int? index = null, IStackable? stackableCause = null)
 		{
-			GD.Print($"Trying to {Location} {card}");
+			Logger.Log($"Trying to {Location} {card}");
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
 			if (!AllowAlreadyHereWhenAdd && this == card.LocationModel) throw new AlreadyHereException(Location);
 
@@ -50,11 +50,11 @@ namespace Kompas.Gamestate.Locations.Models
 			try { card.Remove(stackableCause); }
 			catch (AvatarRetreatedException)
 			{
-				GD.PushWarning($"{card}, an Avatar, retreated");
+				Logger.Warn($"{card}, an Avatar, retreated");
 				return;
 			}
 
-			GD.Print($"{card} successfully removed, moving");
+			Logger.Log($"{card} successfully removed, moving");
 			PerformAdd(card, index, stackableCause);
 		}
 

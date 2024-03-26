@@ -80,7 +80,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			}
 			else
 			{
-				GD.Print($"No valid coords exist for {Effect.Card?.CardName} effect");
+				Logger.Log($"No valid coords exist for {Effect.Card?.CardName} effect");
 				return ResolutionInfo.Impossible(NoValidSpaceTarget);
 			}
 		}
@@ -90,13 +90,13 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			//evaluate the target. if it's valid, confirm it as the target (that's what the true is for)
 			if (space.IsValid && spaceRestriction.IsValid(space, ResolutionContext))
 			{
-				GD.Print($"Adding {space} as coords");
+				Logger.Log($"Adding {space} as coords");
 				ServerEffect.AddSpace(space);
 				_ = PlayerTarget ?? throw new System.InvalidOperationException("Deleted a player target!?");
 				ServerNotifier.AcceptTarget(PlayerTarget);
 				return true;
 			}
-			//else GD.PrintErr($"{x}, {y} not valid for restriction {spaceRestriction}");
+			//else Logger.Err($"{x}, {y} not valid for restriction {spaceRestriction}");
 
 			return false;
 		}

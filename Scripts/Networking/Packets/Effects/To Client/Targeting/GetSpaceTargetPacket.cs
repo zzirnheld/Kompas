@@ -33,7 +33,7 @@ namespace Kompas.Client.Networking
 		{
 			if (cardName == null || targetBlurb == null || possibleSpaces == null || recommendedSpaces == null)
 			{
-				GD.PushWarning("Missing something in get space target packet");
+				Logger.Warn("Missing something in get space target packet");
 				return;
 			}
 			clientGame.ClientGameController.TargetingController

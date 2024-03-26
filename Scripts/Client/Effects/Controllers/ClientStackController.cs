@@ -48,7 +48,7 @@ namespace Kompas.Client.Effects.Controllers
 			var (topStackable, _) = stack.Pop();
 			while (stackable != topStackable && !stack.Empty)
 			{
-				GD.PushError($"Resolving stackable {stackable} that was not on top. {topStackable} was, instead");
+				Logger.Err($"Resolving stackable {stackable} that was not on top. {topStackable} was, instead");
 				(topStackable, _) = stack.Pop();
 			}
 			stackView.Resolving(stackable);

@@ -28,13 +28,13 @@ namespace Kompas.Cards.Loading
 			foreach (var (index, keyword) in card.keywords.Enumerate())
 			{
 				if (!keywordJsons.ContainsKey(keyword))
-					GD.PrintErr($"Failed to add {keyword} length {keyword.Length} to {card.cardName}"
+					Logger.Err($"Failed to add {keyword} length {keyword.Length} to {card.cardName}"
 					+ $"Not present in {string.Join(", ", keywordJsons.Keys)}");
 				var keywordJson = keywordJsons[keyword];
 				var eff = JsonConvert.DeserializeObject<TEffect>(keywordJson, CardLoadingSettings);
 				if (eff == null)
 				{
-					GD.PushError($"Failed to load {keywordJson}");
+					Logger.Err($"Failed to load {keywordJson}");
 					continue;
 				}
 				eff.arg = card.keywordArgs.Length > index ? card.keywordArgs[index] : 0;
@@ -59,7 +59,7 @@ namespace Kompas.Cards.Loading
 		protected TGameCard? InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, Validate? validation = null)
 			where TGameCard : GameCard
 		{
-			GD.Print($"Loading {JsonPrettify(json)}");
+			Logger.Log($"Loading {JsonPrettify(json)}");
 			TSerializableCard? cardInfo;
 			var effects = new List<TEffect>();
 
@@ -68,7 +68,7 @@ namespace Kompas.Cards.Loading
 				cardInfo = JsonConvert.DeserializeObject<TSerializableCard>(json, CardLoadingSettings);
 				if (cardInfo == null)
 				{
-					GD.PushError($"Failed to load {json}");
+					Logger.Err($"Failed to load {json}");
 					return default;
 				}
 				validation?.Invoke(cardInfo);
@@ -79,13 +79,13 @@ namespace Kompas.Cards.Loading
 			catch (System.ArgumentException argEx)
 			{
 				//Catch JSON parse error
-				GD.PushError($"Failed to load {json}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
+				Logger.Err($"Failed to load {json}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
 				return default;
 			}
 			catch (JsonSerializationException serEx)
 			{
 				//Catch JSON parse error
-				GD.PushError($"Failed to load {json}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
+				Logger.Err($"Failed to load {json}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
 				return default;
 			}
 

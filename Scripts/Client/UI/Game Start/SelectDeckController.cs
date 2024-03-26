@@ -54,7 +54,7 @@ namespace Kompas.Client.UI.GameStart
 			var decklist = DeckAccess.Load(deckNames[index]);
 			if (decklist == null)
 			{
-				GD.PushError($"No deck found for {deckNames[index]}");
+				Logger.Err($"No deck found for {deckNames[index]}");
 				return;
 			}
 			ShowDeck(decklist);
@@ -68,13 +68,13 @@ namespace Kompas.Client.UI.GameStart
 				var card = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(cardName);
 				if (card == null)
 				{
-					GD.PushError($"Couldn't init card {cardName}");
+					Logger.Err($"Couldn't init card {cardName}");
 					continue;
 				}
 				var ctrl = CreateCardController();
 				ctrl.Init(card);
 
-				GD.Print($"Loaded {cardName}");
+				Logger.Log($"Loaded {cardName}");
 
 				DeckContainer.AddChild(ctrl);
 			}
@@ -83,7 +83,7 @@ namespace Kompas.Client.UI.GameStart
 			var avatar = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(avatarName);
 			if (avatar == null)
 			{
-				GD.PushError($"Couldn't init avatar {decklist.avatarName}");
+				Logger.Err($"Couldn't init avatar {decklist.avatarName}");
 				return;
 			}
 			AvatarController.Init(avatar);
@@ -106,7 +106,7 @@ namespace Kompas.Client.UI.GameStart
 			var decklist = DeckAccess.Load(deckNames[DeckSelect.Selected]);
 			if (decklist == null)
 			{
-				GD.PushError($"No deck found for {deckNames[DeckSelect.Selected]}");
+				Logger.Err($"No deck found for {deckNames[DeckSelect.Selected]}");
 				return;
 			}
 			GameStartController.GameController.Notifier.RequestDecklistImport(decklist);

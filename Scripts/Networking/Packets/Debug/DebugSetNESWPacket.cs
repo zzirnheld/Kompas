@@ -43,12 +43,12 @@ namespace Kompas.Server.Networking
 				return Task.CompletedTask;
 			else if (serverGame.DebugMode)
 			{
-				GD.PrintErr($"Debug setting NESW to {n}, {e}, {s}, {w} of card with id {cardId}");
+				Logger.Err($"Debug setting NESW to {n}, {e}, {s}, {w} of card with id {cardId}");
 				card.SetCharStats(n, e, s, w);
 			}
 			else
 			{
-				GD.PrintErr($"Tried to debug set NESW of card with id {cardId} while NOT in debug mode!");
+				Logger.Err($"Tried to debug set NESW of card with id {cardId} while NOT in debug mode!");
 				card.CardController.PutBack();
 			}
 			return Task.CompletedTask;

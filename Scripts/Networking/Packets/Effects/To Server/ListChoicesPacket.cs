@@ -38,7 +38,7 @@ namespace Kompas.Server.Networking
 		{
 			if (cardIds == null)
 			{
-				GD.PushWarning("Null card ids for choices");
+				Logger.Warn("Null card ids for choices");
 				return Task.CompletedTask;
 			}
 			var choices = cardIds.Select(c => serverGame.LookupCardByID(c)).NonNull().Distinct();

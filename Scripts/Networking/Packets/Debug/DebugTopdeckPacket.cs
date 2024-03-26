@@ -35,12 +35,12 @@ namespace Kompas.Server.Networking
 				return Task.CompletedTask;
 			else if (serverGame.DebugMode)
 			{
-				GD.PrintErr($"Debug topdecking card with id {cardId}");
+				Logger.Err($"Debug topdecking card with id {cardId}");
 				card.Topdeck();
 			}
 			else
 			{
-				GD.PrintErr($"Tried to debug topdeck card with id {cardId} while NOT in debug mode!");
+				Logger.Err($"Tried to debug topdeck card with id {cardId} while NOT in debug mode!");
 				Notifier.NotifyPutBack();
 			}
 			return Task.CompletedTask;

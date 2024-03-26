@@ -32,7 +32,7 @@ namespace Kompas.Client.Gamestate.Search
 		{
 			if (!validSpaces.Contains(space))
 			{
-				GD.Print($"{space} is not a valid choice.");
+				Logger.Log($"{space} is not a valid choice.");
 				return;
 			}
 

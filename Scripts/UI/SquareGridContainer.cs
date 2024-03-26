@@ -55,7 +55,7 @@ namespace Kompas.UI
 			//FUTURE: test edge cases with non-exact multiples
 			var y = (Size.X / ColumnCount) * (Mathf.Ceil((GetChildCount() - 1) / ColumnCount) + 1);
 			CustomMinimumSize = new(Size.X, y);
-			GD.Print($"Custom minimum size from {Size} to {CustomMinimumSize}");
+			Logger.Log($"Custom minimum size from {Size} to {CustomMinimumSize}");
 			scalingCustomMin = false;
 		}
 
@@ -73,7 +73,7 @@ namespace Kompas.UI
 
 			child.Visible = true;
 
-			GD.Print($"Sclaing {child} to {child.Size} at {child.Position}");
+			Logger.Log($"Sclaing {child} to {child.Size} at {child.Position}");
 		}
 	}
 }

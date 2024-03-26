@@ -45,7 +45,7 @@ namespace Kompas.Client.Gamestate.Controllers
 		{
 			if (card.Node == null)
 			{
-				GD.PushWarning("Tried to place a card with a null Node!");
+				Logger.Warn("Tried to place a card with a null Node!");
 				return;
 			}
 

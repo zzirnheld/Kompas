@@ -38,7 +38,7 @@ namespace Kompas.Server.Networking
 		{
 			if (cardIds == null || effIndices == null || orders == null)
 			{
-				GD.PushWarning("Null trigger order");
+				Logger.Warn("Null trigger order");
 				return Task.CompletedTask;
 			}
 			serverGame.Awaiter.TriggerOrders = (cardIds, effIndices, orders);

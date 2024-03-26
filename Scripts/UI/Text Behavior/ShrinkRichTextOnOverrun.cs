@@ -40,10 +40,10 @@ namespace Kompas.UI.TextBehavior
 		/// <param name="bbCodeText">The BBCode text that we should actually display (but includes tags we should ignore)</param>
 		public void SetShrinkableText(string text, string bbCodeText)
 		{
-			//GD.Print($"Shrinkable rich text set to {Text}");
+			//Logger.Log($"Shrinkable rich text set to {Text}");
 			if (!IsVisibleInTree() || Size.Y == 0)
 			{
-				GD.Print($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
+				Logger.Log($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
 				Text = bbCodeText;
 				rawText = text;
 				return;
@@ -62,7 +62,7 @@ namespace Kompas.UI.TextBehavior
 				nextFontSizeToTry--;
 			}
 
-			if (nextFontSizeToTry <= MinFontSize) GD.PrintErr($"{text} is too long, boiiii");
+			if (nextFontSizeToTry <= MinFontSize) Logger.Err($"{text} is too long, boiiii");
 
 			Text = bbCodeText;
 			rawText = text;

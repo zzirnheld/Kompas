@@ -25,7 +25,7 @@ namespace Kompas.Cards.Views
 		{
 			if (ShownCard == null)
 			{
-				GD.PushWarning($"Somehow hovered over keyword {keyword} while shown card was null... ignoring.");
+				Logger.Warn($"Somehow hovered over keyword {keyword} while shown card was null... ignoring.");
 				return;
 			}
 

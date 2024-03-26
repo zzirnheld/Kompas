@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models
 		{
 			if (Initialized)
 			{
-				GD.Print($"Was already initialized with {InitializationContext}, but now being initialized with {initializationContext}");
+				Logger.Log($"Was already initialized with {InitializationContext}, but now being initialized with {initializationContext}");
 			}
 			InitializationContext = initializationContext;
 

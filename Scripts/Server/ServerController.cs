@@ -35,7 +35,7 @@ namespace Kompas.Server.Networking
 			try { listener = new TcpListener(IPAddress.Any, Networker.port); }
 			catch (System.Exception e)
 			{
-				GD.PrintErr(e.Message);
+				Logger.Err(e.Message);
 				return;
 			}
 

@@ -42,7 +42,7 @@ namespace Kompas.Client.Networking
 		{
 			if (sourceCardName == null || targetBlurb == null || potentialTargetIDs == null)
 			{
-				GD.PushError("Nulls for card target client packet");
+				Logger.Err("Nulls for card target client packet");
 				return;
 			}
 			IListRestriction listRestriction = this.listRestriction ?? IListRestriction.SingleElement;

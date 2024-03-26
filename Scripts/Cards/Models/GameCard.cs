@@ -68,7 +68,7 @@ namespace Kompas.Cards.Models
 			get => _position;
 			set
 			{
-				if (null != value) GD.Print($"Position of {CardName} set to {value}");
+				if (null != value) Logger.Log($"Position of {CardName} set to {value}");
 
 				_position = value;
 				if (Location == Location.Board) LocationChanged?.Invoke(this, Position);
@@ -103,7 +103,7 @@ namespace Kompas.Cards.Models
 			get => augmentedCard;
 			protected set
 			{
-				GD.Print($"{CardName} augmenting {augmentedCard} will now be augmenting {value}");
+				Logger.Log($"{CardName} augmenting {augmentedCard} will now be augmenting {value}");
 				augmentedCard = value;
 				if (augmentedCard != null)
 				{
@@ -156,7 +156,7 @@ namespace Kompas.Cards.Models
 			get => locationModel;
 			set
 			{
-				GD.Print($"{CardName}#{ID} moving from {locationModel} to {value}");
+				Logger.Log($"{CardName}#{ID} moving from {locationModel} to {value}");
 				locationModel = value;
 				Location = value.Location;
 			}
@@ -209,7 +209,7 @@ namespace Kompas.Cards.Models
 			PlayRestriction = serializeableCard.PlayRestriction ?? IPlayRestriction.CreateDefault();
 			PlayRestriction.Initialize(initContext);
 
-			GD.Print($"Finished setting up info for card {CardName}");
+			Logger.Log($"Finished setting up info for card {CardName}");
 
 			UpdateBBCodeEffectText(EffText);
 			EffTextChanged += (_, effText) => UpdateBBCodeEffectText(effText);
@@ -246,7 +246,7 @@ namespace Kompas.Cards.Models
 			var from = Position ?? throw new InvalidOperationException("Can't count spaces moved while not on board!");
 			int cost = MovementRestriction.GetMovementCost(from, to, Game);
 			SpacesMoved += cost;
-			GD.Print($"Moving {this} to {to} cost {cost}");
+			Logger.Log($"Moving {this} to {to} cost {cost}");
 		}
 
 		#region augments
@@ -259,7 +259,7 @@ namespace Kompas.Cards.Models
 			if (Location != Location.Board)
 				throw new CardNotHereException(Location.Board, this, $"Can't put an augment on a card not on Board!!");
 
-			GD.Print($"Attaching {augment.CardName} from {augment.Location} to {CardName} in {Location}");
+			Logger.Log($"Attaching {augment.CardName} from {augment.Location} to {CardName} in {Location}");
 
 			augment.Remove(stackSrc);
 

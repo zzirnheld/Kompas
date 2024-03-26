@@ -42,7 +42,7 @@ namespace Kompas.Server.Networking
 			set
 			{
 				cardListTargets = value;
-				//GD.Print($"Card list targets set to {(value == null ? "null" : string.Join(", ", value))}");
+				//Logger.Log($"Card list targets set to {(value == null ? "null" : string.Join(", ", value))}");
 			}
 		}
 		public (int, int)? SpaceTarget { get; set; }

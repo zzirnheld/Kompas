@@ -17,7 +17,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				return Task.FromResult(ResolutionInfo.Impossible(NoValidSpaceTarget));
 
 			var displacement = secondarySpace.DirectionFromThisTo(SpaceTarget);
-			GD.Print($"Displacement from {secondarySpace} to {SpaceTarget} is {displacement}");
+			Logger.Log($"Displacement from {secondarySpace} to {SpaceTarget} is {displacement}");
 
 			Effect.AddSpace(displacement);
 			return Task.FromResult(ResolutionInfo.Next);

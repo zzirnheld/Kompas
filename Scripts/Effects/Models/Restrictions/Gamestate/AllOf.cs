@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		{
 			base.Initialize(initializationContext);
 			foreach (var element in elements) element.Initialize(initializationContext);
-			if (LogSoloElements && elements.Count == 1) GD.PrintErr($"only one element on {GetType()} on eff of {initializationContext.source}");
+			if (LogSoloElements && elements.Count == 1) Logger.Err($"only one element on {GetType()} on eff of {initializationContext.source}");
 		}
 
 		protected override bool IsValidLogic(IResolutionContext context)

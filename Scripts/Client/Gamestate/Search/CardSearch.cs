@@ -76,11 +76,11 @@ namespace Kompas.Client.Gamestate.Search
 			//if the list is empty, don't search
 			if (!toSearch.Any()) return null;
 
-			GD.Print($"Searching a list of {toSearch.Count()} cards: {string.Join(",", toSearch.Select(c => c.CardName))}");
+			Logger.Log($"Searching a list of {toSearch.Count()} cards: {string.Join(",", toSearch.Select(c => c.CardName))}");
 			return new(toSearch, listRestriction, game, targetingController, notifier);
 		}
 
-		public void Select(Space space) => GD.Print("Selecting a space while searching for a card does nothing");
+		public void Select(Space space) => Logger.Log("Selecting a space while searching for a card does nothing");
 
 		/// <summary>
 		/// Adds the target, and sends off the list of targets as necessary 
@@ -101,19 +101,19 @@ namespace Kompas.Client.Gamestate.Search
 		/// <param name="nextTarget"></param>
 		private void AddTarget(GameCard nextTarget)
 		{
-			GD.Print($"Tried to add {nextTarget} as next target");
+			Logger.Log($"Tried to add {nextTarget} as next target");
 
 			//check if the target is a valid potential target
 			if (!toSearch.Contains(nextTarget))
 			{
-				GD.PushError($"Tried to target card {nextTarget.CardName} that isn't a valid target");
+				Logger.Err($"Tried to target card {nextTarget.CardName} that isn't a valid target");
 				return;
 			}
 
 			if (listRestriction.Deduplicate(searched).Count()
 				== listRestriction.Deduplicate(searched.Append(nextTarget)).Count())
 			{
-				GD.PushError($"Allowed user to target non-distinct card {nextTarget} when they had already seen {string.Join(",", searched.Select(c => c.CardName))}");
+				Logger.Err($"Allowed user to target non-distinct card {nextTarget} when they had already seen {string.Join(",", searched.Select(c => c.CardName))}");
 				return;
 			}
 
@@ -130,7 +130,7 @@ namespace Kompas.Client.Gamestate.Search
 
 		public void RemoveTarget(GameCard target)
 		{
-			GD.Print($"Tried to remove {target} as next target");
+			Logger.Log($"Tried to remove {target} as next target");
 			searched.Remove(target);
 			target.CardController.RefreshTargeting();
 		}
@@ -149,7 +149,7 @@ namespace Kompas.Client.Gamestate.Search
 
 		private void SendTargets(IList<GameCard> choices)
 		{
-			GD.Print($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} ");
+			Logger.Log($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} ");
 
 			SendChoices(choices);
 			foreach (var card in game.Cards) card.CardController.RefreshTargeting();

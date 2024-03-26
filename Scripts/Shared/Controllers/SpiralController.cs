@@ -51,12 +51,12 @@ namespace Kompas.Shared.Controllers
 
 				if (nextAngle > 1000f)
 				{
-					GD.PushError("TOO far!");
+					Logger.Err("TOO far!");
 					break;
 				}
 			}
 
-			GD.Print($"Item {index} goes at angle {nextAngle}");
+			Logger.Log($"Item {index} goes at angle {nextAngle}");
 
 			return nextAngle;
 		}

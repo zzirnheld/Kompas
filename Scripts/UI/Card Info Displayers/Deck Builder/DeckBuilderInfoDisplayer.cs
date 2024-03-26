@@ -20,7 +20,7 @@ namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 		public override void _Ready()
 		{
 			base._Ready();
-			Resized += () => GD.Print($"Resizing {Name}");
+			Resized += () => Logger.Log($"Resizing {Name}");
 		}
 
 		public void Clear()

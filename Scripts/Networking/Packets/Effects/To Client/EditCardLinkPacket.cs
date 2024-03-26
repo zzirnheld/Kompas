@@ -60,7 +60,7 @@ namespace Kompas.Client.Networking
 		{
 			if (linkedCardsIDs == null)
 			{
-				GD.PushWarning("null card ids or color for link");
+				Logger.Warn("null card ids or color for link");
 				return;
 			}
 

@@ -72,7 +72,7 @@ namespace Kompas.Client.Cards.Loading
 				var serializableCard = JsonConvert.DeserializeObject<SerializableCard>(SanitizeJson(json), CardLoadingSettings);
 				if (serializableCard == null)
 				{
-					GD.PushError($"Failed to load {json}");
+					Logger.Err($"Failed to load {json}");
 					return null;
 				}
 
@@ -84,7 +84,7 @@ namespace Kompas.Client.Cards.Loading
 			catch (System.ArgumentException argEx)
 			{
 				//Catch JSON parse error
-				GD.PrintErr($"Failed to load {json}, argument exception with message {argEx.Message}");
+				Logger.Err($"Failed to load {json}, argument exception with message {argEx.Message}");
 				return null;
 			}
 		}

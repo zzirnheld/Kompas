@@ -27,7 +27,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public override Task<ResolutionInfo> Resolve()
 		{
 			//loop again if necessary
-			GD.Print($"im in ur loop of type {GetType()}, the one that jumps to {JumpIndex}");
+			Logger.Log($"im in ur loop of type {GetType()}, the one that jumps to {JumpIndex}");
 			if (ShouldContinueLoop)
 			{
 				//tell the client to enable the button to exit the loop

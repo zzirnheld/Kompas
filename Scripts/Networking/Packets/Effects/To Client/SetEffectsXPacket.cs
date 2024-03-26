@@ -35,7 +35,7 @@ namespace Kompas.Client.Networking
 			var card = clientGame.LookupCardByID(sourceCardId);
 			if (card != null)
 			{
-				GD.Print($"{card} ;;;;\n {card.Effects} ;;;;\n {card.Effects.ElementAt(effIndex)}");
+				Logger.Log($"{card} ;;;;\n {card.Effects} ;;;;\n {card.Effects.ElementAt(effIndex)}");
 				card.Effects.ElementAt(effIndex).X = x;
 			}
 		}

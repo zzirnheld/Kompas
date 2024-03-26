@@ -51,7 +51,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 			else if (forbidNotBoard && CardTarget.Location != Location.Board)
 				throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
 
-			GD.Print($"Creating temp NESW buff effect during context {ResolutionContext}");
+			Logger.Log($"Creating temp NESW buff effect during context {ResolutionContext}");
 
 			var temp = new ChangeCardStatsEffect(end: End, fallOff: FallOff,
 				sourceEff: ServerEffect, currentContext: ResolutionContext,

@@ -35,7 +35,7 @@ namespace Kompas.UI.TextBehavior
 			{
 				if (!IsVisibleInTree() || Size.Y == 0 || Size.X == 0)
 				{
-					GD.Print($"Not properly visible yet, not resizing text {Name} for overrun");
+					Logger.Log($"Not properly visible yet, not resizing text {Name} for overrun");
 					Text = value;
 					return;
 				}

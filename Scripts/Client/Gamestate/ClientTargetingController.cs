@@ -90,7 +90,7 @@ namespace Kompas.Client.Gamestate
 		public void Select(Space space)
 		{
 			//TODO make client notifier a static helper class
-			GD.Print($"Selecting {space}");
+			Logger.Log($"Selecting {space}");
 			var notifier = SelectedCard?.ClientGame.ClientGameController.Notifier;
 			if (CurrentSearch != null) CurrentSearch?.Select(space);
 			else
@@ -107,7 +107,7 @@ namespace Kompas.Client.Gamestate
 		/// </summary>
 		public void Select(ClientGameCard? card)
 		{
-			GD.Print($"Selecting {card}");
+			Logger.Log($"Selecting {card}");
 			LastSelectedCard = SelectedCard;
 
 			TopLeftCardView.Focus(card);
@@ -147,7 +147,7 @@ namespace Kompas.Client.Gamestate
 
 			if (CurrentSearch == null)
 			{
-				GD.PrintErr("Failed to initalize search.");
+				Logger.Err("Failed to initalize search.");
 				return;
 			}
 

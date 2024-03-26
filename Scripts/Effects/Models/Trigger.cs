@@ -117,7 +117,7 @@ namespace Kompas.Effects.Models
 			}
 			catch (NullReferenceException)
 			{
-				GD.PrintErr($"Issue initializing {Blurb} trigger of {effect.Card}");
+				Logger.Err($"Issue initializing {Blurb} trigger of {effect.Card}");
 				throw;
 			}
 		}

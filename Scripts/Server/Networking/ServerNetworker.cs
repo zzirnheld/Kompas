@@ -65,7 +65,7 @@ namespace Kompas.Server.Networking
 
 		public override async Task Tick()
 		{
-			//GD.Print("SERVER NET CTRL UPDATE");
+			//Logger.Log("SERVER NET CTRL UPDATE");
 			await base.Tick();
 			if (packets.Count != 0) await ProcessPacket(packets.Dequeue());
 			//if (sGame.Players.Any(p => p.TcpClient != null && !p.TcpClient.Connected)) Destroy(sGame.gameObject); //TODO notify player that no
@@ -75,16 +75,16 @@ namespace Kompas.Server.Networking
 		{
 			if (packetInfo.command == Packet.Invalid)
 			{
-				GD.PushError($"Invalid packet {packetInfo.json}");
+				Logger.Err($"Invalid packet {packetInfo.json}");
 				return;
 			}
 
-			GD.Print($"Processing {packetInfo.json} from {player}");
+			Logger.Log($"Processing {packetInfo.json} from {player}");
 
 			var packet = FromJson(packetInfo.command, packetInfo.json);
 			if (packet == null)
 			{
-				GD.PushError($"Couldn't deserialize {packetInfo.json} as a packet");
+				Logger.Err($"Couldn't deserialize {packetInfo.json} as a packet");
 				return;
 			}
 			await packet.Execute(game, player);

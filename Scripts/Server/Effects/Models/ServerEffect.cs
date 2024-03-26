@@ -138,7 +138,7 @@ namespace Kompas.Server.Effects.Models
 		#region resolution
 		public async Task StartResolution(IServerResolutionContext context)
 		{
-			GD.Print($"Resolving effect {EffectIndex} of {Card.CardName} in context {context}");
+			Logger.Log($"Resolving effect {EffectIndex} of {Card.CardName} in context {context}");
 
 			//set context parameters
 			CurrentServerResolutionContext = context;
@@ -184,12 +184,12 @@ namespace Kompas.Server.Effects.Models
 						else resolve = false; //stop if that subeffect index is out of bounds
 						break;
 					case ResolutionResult.Impossible:
-						GD.Print($"Effect of {Card?.CardName} was impossible at index {index} because {result.reason}. Going to OnImpossible if applicable");
+						Logger.Log($"Effect of {Card?.CardName} was impossible at index {index} because {result.reason}. Going to OnImpossible if applicable");
 						result = await EffectImpossible(result.reason);
 						break;
 					case ResolutionResult.End:
 						//TODO send to player why resolution ended (including "[cardname] effect finished resolving")
-						GD.Print($"Finished resolution of effect of {Card?.CardName} because {result.reason}");
+						Logger.Log($"Finished resolution of effect of {Card?.CardName} because {result.reason}");
 						resolve = false;
 						break;
 					default:
@@ -204,7 +204,7 @@ namespace Kompas.Server.Effects.Models
 			{
 				return ResolutionInfo.Impossible("Subeffect index out of bounds.");
 			}
-			GD.Print($"Resolving subeffect of type {subeffects[index].GetType()}");
+			Logger.Log($"Resolving subeffect of type {subeffects[index].GetType()}");
 			SubeffectIndex = index;
 			ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);
 			try
@@ -213,7 +213,7 @@ namespace Kompas.Server.Effects.Models
 			}
 			catch (KompasException e)
 			{
-				GD.PushWarning($"Caught {e.GetType()} while resolving {subeffects[index].GetType()} at {index}." +
+				Logger.Warn($"Caught {e.GetType()} while resolving {subeffects[index].GetType()} at {index}." +
 					$"\nStack trace:\n{e.StackTrace}");
 				return ResolutionInfo.Impossible(e.Message);
 			}
@@ -239,7 +239,7 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		public async Task<ResolutionInfo> EffectImpossible(string why)
 		{
-			GD.Print($"Effect of {Card.CardName} is being declared impossible at subeffect {subeffects[SubeffectIndex].GetType()} because {why}");
+			Logger.Log($"Effect of {Card.CardName} is being declared impossible at subeffect {subeffects[SubeffectIndex].GetType()} because {why}");
 			if (OnImpossible == null)
 			{
 				//TODO make the notifier tell the client why the effect was impossible
@@ -290,7 +290,7 @@ namespace Kompas.Server.Effects.Models
 			var link = cardLinks.ElementAtWrapped(index);
 			if (link == null)
 			{
-				GD.PushError($"No card link at index {index}");
+				Logger.Err($"No card link at index {index}");
 				return;
 			}
 

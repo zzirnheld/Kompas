@@ -73,7 +73,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			}
 			catch (System.InvalidOperationException)
 			{
-				GD.PrintErr($"More than one card fit the card restriction {cardRestriction} " +
+				Logger.Err($"More than one card fit the card restriction {cardRestriction} " +
 					$"for the effect {Effect.blurb} of {Effect.Card.CardName}. Those cards were {potentialTargets}");
 				return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 			}

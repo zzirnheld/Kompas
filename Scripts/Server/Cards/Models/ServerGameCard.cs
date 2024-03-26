@@ -139,7 +139,7 @@ namespace Kompas.Server.Cards.Models
 			if (InitialCardValues == null)
 			{
 				//TODO make an exception, see if it works anyway
-				GD.PushWarning("Tried to reset card whose info was never set! This should only be the case at game start");
+				Logger.Warn("Tried to reset card whose info was never set! This should only be the case at game start");
 				return;
 			}
 
@@ -191,7 +191,7 @@ namespace Kompas.Server.Cards.Models
 
 		public override void Remove(IStackable? stackSrc = null)
 		{
-			//GD.Print($"Trying to remove {CardName} from {Location}");
+			//Logger.Log($"Trying to remove {CardName} from {Location}");
 
 			//proc the trigger before actually removing anything
 			var sharedBuilder = TriggeringEventContext.BuildContext(Game)
@@ -251,7 +251,7 @@ namespace Kompas.Server.Cards.Models
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 
 			//kill if applicable
-			GD.Print($"E changed from {oldE} to {E}. Should it die?");
+			Logger.Log($"E changed from {oldE} to {E}. Should it die?");
 			if (E <= 0 && CardType == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
 		}
 
