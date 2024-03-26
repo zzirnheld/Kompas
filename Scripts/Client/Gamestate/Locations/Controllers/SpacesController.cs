@@ -33,6 +33,13 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private Material CanPlayMaterial => _canPlayMaterial ?? throw new UnassignedReferenceException();
 
 		[Export]
+		private LinkedSpacesController? _canTarget;
+		private LinkedSpacesController CanTarget => _canTarget ?? throw new UnassignedReferenceException();
+		[Export]
+		private Material? _canTargetMaterial;
+		private Material CanTargetMaterial => _canTargetMaterial ?? throw new UnassignedReferenceException();
+
+		[Export]
 		private SpacesClickingController? _spacesClickingController;
 		private SpacesClickingController SpacesClickingController => _spacesClickingController ?? throw new UnassignedReferenceException();
 
@@ -54,30 +61,43 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 			CanMove.UpdateMaterial(CanMoveMaterial);
 			CanPlay.UpdateMaterial(CanPlayMaterial);
+			CanTarget.UpdateMaterial(CanTargetMaterial);
 
 			DisplayNone();
 
 			LastSpacesController = CanMove;
 
-			SpacesClickingController.LeftClick += (_, space) => Clicked(space.x, space.y);
+			SpacesClickingController.LeftClick += (_, tuple) => Clicked(tuple.space, tuple.doubleClick);
 		}
+
+		private void Clicked(Space space, bool doubleClick) => GameController.TargetingController.Select(space, doubleClick);
 
 		public void DisplayNone()
 		{
 			CanMove.Display(_ => false, false);
 			CanPlay.Display(_ => false, false);
+			CanTarget.Display(_ => false, false);
 		}
 
 		public void DisplayCanMove(LinkedSpacesController.ShouldShowSpace predicate)
 		{
 			CanMove.Display(predicate, false);
 			CanPlay.Display(_ => false, false);
+			CanTarget.Display(_ => false, false);
 		}
 
 		public void DisplayCanPlay(LinkedSpacesController.ShouldShowSpace predicate)
 		{
 			CanMove.Display(_ => false, false);
 			CanPlay.Display(predicate, false);
+			CanTarget.Display(_ => false, false);
+		}
+
+		public void DisplayCanTarget(LinkedSpacesController.ShouldShowSpace predicate)
+		{
+			CanMove.Display(_ => false, false);
+			CanPlay.Display(_ => false, false);
+			CanTarget.Display(predicate, false);
 		}
 
 		//TODO: this will make the other controller responsible for updating Display on LinkedSpaceController,
@@ -94,8 +114,6 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			LastSpacesController = ctrl;
 			return ctrl;
 		}
-
-		public void Clicked(int x, int y) => GameController.TargetingController.Select((x, y));
 
 		public void Place(ICardController card) => PlaceInSpaceController.Place(card);
 	}

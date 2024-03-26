@@ -8,7 +8,10 @@ namespace Kompas.Gamestate.Locations.Controllers
     /// </summary>
 	public partial class SpacesClickingController : Node
 	{
-		public event EventHandler<Space>? LeftClick;
+		/// <summary>
+		/// Space that was clicked + whether it was a double click
+		/// </summary>
+		public event EventHandler<(Space space, bool doubleClick)>? LeftClick;
 
 		public override void _Ready()
 		{
@@ -33,16 +36,11 @@ namespace Kompas.Gamestate.Locations.Controllers
 		{
 			return (Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, long shapeIdx) =>
 			{
-				if (inputEvent is not InputEventMouseButton mouseEvent)
-				{
-					return;
-				}
+				if (inputEvent is not InputEventMouseButton mouseEvent) return;
 
 				//Event where now the mouseEvent is Pressed means it's when the mouse goes down
 				if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
-				{
-					LeftClick?.Invoke(this, space);
-				}
+					LeftClick?.Invoke(this, (space, mouseEvent.DoubleClick));
 			};
 		}
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=92 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://ts4wscqk2wrc" path="res://Scenes/Prefabs/Client Game/Deck Select/SelectDeckCard.tscn" id="10_iqpkk"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDiscardController.cs" id="10_pkr2w"]
 [ext_resource type="Material" uid="uid://c48vhoc0gsq67" path="res://Materials/Space Indicators/Can Move.tres" id="11_3gybj"]
+[ext_resource type="Material" uid="uid://co88ad30txorv" path="res://Materials/Can Target Cue Material.tres" id="12_becll"]
 [ext_resource type="PackedScene" uid="uid://b8hvw0esgmqjf" path="res://Scenes/Prefabs/Client Game/Spiral Card Area Square.tscn" id="14_i4ntf"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/PlaceInSpaceController.cs" id="14_k7smq"]
 [ext_resource type="Theme" uid="uid://cohwg8a7d5jai" path="res://Themes/SmallMarginTheme.tres" id="15_r18a8"]
@@ -262,7 +263,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("2_wywm4")
 
-[node name="Spaces" type="Node3D" parent="3D/Board" node_paths=PackedStringArray("_gameController", "_canMove", "_canPlay", "_spacesClickingController", "_placeInSpaceController")]
+[node name="Spaces" type="Node3D" parent="3D/Board" node_paths=PackedStringArray("_gameController", "_canMove", "_canPlay", "_canTarget", "_spacesClickingController", "_placeInSpaceController")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.002, 0)
 script = ExtResource("5_kcvca")
 _linkedSpaces = ExtResource("9_06muj")
@@ -271,6 +272,8 @@ _canMove = NodePath("Can Move Spaces")
 _canMoveMaterial = ExtResource("11_3gybj")
 _canPlay = NodePath("Can Play Spaces")
 _canPlayMaterial = ExtResource("10_eomph")
+_canTarget = NodePath("Can Target Spaces")
+_canTargetMaterial = ExtResource("12_becll")
 _spacesClickingController = NodePath("Clickables in Order")
 _placeInSpaceController = NodePath("Place In Spaces")
 
@@ -576,6 +579,9 @@ shape = SubResource("ConvexPolygonShape3D_7idqb")
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.005, 0)
 
 [node name="Can Play Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.005, 0)
+
+[node name="Can Target Spaces" parent="3D/Board/Spaces" instance=ExtResource("9_06muj")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.005, 0)
 
 [node name="Place In Spaces" type="Node3D" parent="3D/Board/Spaces" node_paths=PackedStringArray("_positionsParent")]

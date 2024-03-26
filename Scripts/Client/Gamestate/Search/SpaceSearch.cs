@@ -39,5 +39,9 @@ namespace Kompas.Client.Gamestate.Search
 			clientNotifier.RequestSpaceTarget(space.x, space.y);
 			SearchFinished?.Invoke(this, EventArgs.Empty);
 		}
-	}
+
+		public bool IsValidTarget(Space space) => validSpaces.Contains(space);
+
+		public bool IsCurrentTarget(Space space) => false;
+    }
 }

@@ -85,20 +85,31 @@ namespace Kompas.Client.Gamestate
 		}
 
 		/// <summary>
-		/// If applicable, tries to play the current FocusedCard to <paramref name="space"/>
+		/// <list type="bullet">
+		/// 	<item>
+		/// 		<term>If you didn't double-click</term>
+		/// 		<description>We'd highlight space information. If that meant anything.</description>
+		/// 	</item>
+		/// 	<item>
+		/// 		<term>If you did double click:</term>
+		/// 		<description>If we're searching, select the <paramref name="space"/>.
+		/// 			If not, try to play/move the currently selected card to the <paramref name="space"/>
+		/// 		</description>
+		/// 	</item>
+		/// </list>
 		/// </summary>
-		public void Select(Space space)
+		public void Select(Space space, bool doubleClick)
 		{
-			//TODO make client notifier a static helper class
+			if (doubleClick) return;
+
 			Logger.Log($"Selecting {space}");
-			var notifier = SelectedCard?.ClientGame.ClientGameController.Notifier;
-			if (CurrentSearch != null) CurrentSearch?.Select(space);
-			else
+			if (CurrentSearch == null)
 			{
+				var notifier = SelectedCard?.ClientGame.ClientGameController.Notifier;
 				if (SelectedCard?.Location == Location.Board) notifier?.RequestMove(SelectedCard, space.x, space.y);
 				if (SelectedCard?.Location == Location.Hand) notifier?.RequestPlay(SelectedCard, space.x, space.y);
 			}
-
+			else CurrentSearch.Select(space);
 		}
 
 		/// <summary>
@@ -112,8 +123,6 @@ namespace Kompas.Client.Gamestate
 
 			TopLeftCardView.Focus(card);
 			if (card == null) return;
-
-			CurrentSearch?.Select(card);
 		}
 
 		/// <summary>
@@ -128,6 +137,8 @@ namespace Kompas.Client.Gamestate
 			var notifier = LastSelectedCard?.ClientGame.ClientGameController.Notifier;
 			if (LastSelectedCard?.Location == Location.Board && card.Location == Location.Board)
 				notifier?.RequestAttack(LastSelectedCard, card);
+
+			CurrentSearch?.Select(card);
 
 			Select(card);
 		}
@@ -192,6 +203,12 @@ namespace Kompas.Client.Gamestate
 
 		public void ShowCanDoHighlights(GameCard? card)
 		{
+			if (CurrentSearch != null)
+			{
+				SpacesController.DisplayCanTarget(CurrentSearch.IsValidTarget);
+				return;
+			}
+
 			static bool recommendPlayTo(Space s, GameCard card)
 				=> card.PlayRestriction.IsRecommendedNormalPlay((s, card.ControllingPlayer));
 			//static bool canPlayTo(Space s, GameCard card)
