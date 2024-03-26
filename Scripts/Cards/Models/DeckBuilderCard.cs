@@ -1,3 +1,5 @@
+using Kompas.Cards.Loading;
+
 namespace Kompas.Cards.Models
 {
 	public class DeckBuilderCard : CardBase
@@ -11,14 +13,14 @@ namespace Kompas.Cards.Models
 
 		public override string BBCodeEffText { get; }
 
-		public DeckBuilderCard(SerializableCard card, string fileName, string bbCodeEffText)
+		public DeckBuilderCard(SerializableCard card, string fileName, string bbCodeEffText, ICardRepository cardRepository)
 			: base((card.n, card.e, card.s, card.w, card.c, card.a),
 					card.subtext, card.spellTypes,
 					card.unique,
 					card.radius, card.duration,
 					card.cardType, card.cardName, fileName,
 					card.effText,
-					card.subtypeText)
+					card.subtypeText, cardRepository)
 		{
 			BaseN = card.n;
 			BaseE = card.e;

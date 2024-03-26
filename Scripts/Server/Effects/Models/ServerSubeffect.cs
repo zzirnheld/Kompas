@@ -18,7 +18,7 @@ namespace Kompas.Server.Effects.Models
 		private ServerEffect? _serverEffect;
 		public ServerEffect ServerEffect => _serverEffect
 			?? throw new NotInitializedException();
-		public ServerGame ServerGame => ServerEffect.ServerGame;
+		public IServerGame ServerGame => ServerEffect.ServerGame;
 
 		public EffectInitializationContext DefaultInitializationContext
 			=> Effect.CreateInitializationContext(this, default);

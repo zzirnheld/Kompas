@@ -11,7 +11,18 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Cards.Loading
 {
-	public abstract class CardRepository
+	public interface ICardRepository
+	{
+		public string? FileNameFor(string? cardName);
+		public string? GetJsonFromName(string? cardName);
+
+		public string AddKeywordHints(string effText);
+		public ReminderTextInfo LookupKeywordReminderText(string keyword);
+
+		public Texture2D? LoadSprite(string cardFileName);
+	}
+
+	public abstract class CardRepository : ICardRepository
 	{
 		private const string CharCardFramePath = "res://Icons/Card Stuff/Char Frame.svg";
 		private const string NonCharCardFramePath = "res://Icons/Card Stuff/NonChar Frame.svg";
@@ -233,9 +244,9 @@ namespace Kompas.Cards.Loading
 
 		public static bool CardExists(string? cardName) => CardNames.Contains(cardName);
 
-		public static string? GetJsonFromName(string name)
+		public string? GetJsonFromName(string? name)
 		{
-			if (!cardJsons.ContainsKey(name))
+			if (name == null || !cardJsons.ContainsKey(name))
 			{
 				//This log exists exclusively for debugging purposes
 				GD.PrintErr($"No json found for name \"{name ?? "null"}\" of length {name?.Length ?? 0}");
@@ -245,18 +256,18 @@ namespace Kompas.Cards.Loading
 			return cardJsons[name];
 		}
 
-		public static IEnumerable<string> GetJsonsFromNames(IEnumerable<string> names)
+		public IEnumerable<string> GetJsonsFromNames(IEnumerable<string> names)
 			=> names
 				.Select(n => GetJsonFromName(n))
 				.NonNull();
 
-		public static string? FileNameFor(string? cardName)
+		public string? FileNameFor(string? cardName)
 		{
 			if (cardName == null) return null;
 			else return cardFileNames[cardName];
 		}
 
-		public static Texture2D? LoadSprite(string cardFileName)
+		public Texture2D? LoadSprite(string cardFileName)
 		{
 			string path = $"{CardImagesPath}/{cardFileName}.png";
 			if (!ResourceLoader.Exists(path))

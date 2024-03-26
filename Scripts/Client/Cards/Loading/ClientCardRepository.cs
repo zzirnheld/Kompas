@@ -79,7 +79,7 @@ namespace Kompas.Client.Cards.Loading
 				return new SelectDeckCard(serializableCard.Stats, serializableCard.subtext, serializableCard.spellTypes, serializableCard.unique,
 					serializableCard.radius, serializableCard.duration, serializableCard.cardType, serializableCard.cardName,
 					fileName, //TODO signature that takes in serializablecard, TODO signature in card base for the same, TODO fileName
-					serializableCard.effText, serializableCard.subtypeText);
+					serializableCard.effText, serializableCard.subtypeText, this);
 			}
 			catch (System.ArgumentException argEx)
 			{

@@ -13,17 +13,17 @@ namespace Kompas.Effects.Models
 		public static readonly Color DefaultColor = new ("c300c3", 0.8f);
 
 		public HashSet<int> CardIDs { get; }
-		public Effect LinkingEffect { get; }
+		public IEffect LinkingEffect { get; }
 		public Color LinkColor { get; }
 
-		public CardLink(HashSet<int> cardIDs, Effect linkingEffect, Color linkColor)
+		public CardLink(HashSet<int> cardIDs, IEffect linkingEffect, Color linkColor)
 		{
 			CardIDs = cardIDs;
 			LinkingEffect = linkingEffect;
 			LinkColor = linkColor;
 		}
 
-		public bool Matches(IEnumerable<int> cardIDs, Effect linkingEffect)
+		public bool Matches(IEnumerable<int> cardIDs, IEffect linkingEffect)
 		{
 			return LinkingEffect == linkingEffect && CardIDs.SetEquals(cardIDs);
 		}

@@ -16,7 +16,7 @@ namespace Kompas.Cards.Loading
 		public DeckBuilderCard CreateDeckBuilderCard(SerializableCard serializableCard)
 		{
 			_ = serializableCard.cardName ?? throw new System.NullReferenceException($"{serializableCard} had no name");
-			return new(serializableCard, cardFileNames[serializableCard.cardName], AddKeywordHints(serializableCard.effText ?? string.Empty));
+			return new(serializableCard, cardFileNames[serializableCard.cardName], AddKeywordHints(serializableCard.effText ?? string.Empty), this);
 		}
 	}
 }

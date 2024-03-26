@@ -32,7 +32,7 @@ namespace Kompas.Networking.Packets
 			this.linkColor = linkColor;
 		}
 
-		public EditCardLinkPacket(IEnumerable<int> cardIDs, Effect eff, bool add)
+		public EditCardLinkPacket(IEnumerable<int> cardIDs, IEffect eff, bool add)
 			: this(cardIDs.ToArray(), eff.EffectIndex, eff.Card?.ID ?? throw new InvalidOperationException("Eff with no card"),
 				add, CardLink.DefaultColor)
 		{ }

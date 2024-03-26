@@ -19,12 +19,21 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Effects.Models
 {
-	public class ServerEffect : Effect, IServerStackable
+	public interface IServerEffect : IEffect, IServerStackable
+	{
+		public void SetInfo(ServerGameCard card, IServerGame game, int index);
+
+		public bool CanBeActivatedBy(IPlayer player);
+
+		public void PushedToStack(ServerGame serverGame, ServerPlayer controller);
+	}
+
+	public class ServerEffect : Effect, IServerEffect
 	{
 		public const string EffectWasNegated = "Effect was negated";
 
-		private ServerGame? _serverGame;
-		public ServerGame ServerGame => _serverGame
+		private IServerGame? _serverGame;
+		public IServerGame ServerGame => _serverGame
 			?? throw new NotInitializedException();
 		public override IGame Game => ServerGame;
 		public ServerStackController EffectsController => ServerGame.StackController;
@@ -61,7 +70,7 @@ namespace Kompas.Server.Effects.Models
 			}
 		}
 
-		public void SetInfo(ServerGameCard card, ServerGame game, int effectIndex)
+		public void SetInfo(ServerGameCard card, IServerGame game, int effectIndex)
 		{
 			_card = card;
 			_serverGame = game;

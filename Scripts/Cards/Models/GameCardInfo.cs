@@ -72,7 +72,8 @@ namespace Kompas.Cards.Models
 						card.Radius, card.Duration,
 						card.CardType, card.CardName, card.FileName,
 						card.EffText,
-						card.SubtypeText)
+						card.SubtypeText,
+						card.Game.CardRepository)
 		{
 			Card = card;
 			Game = card.Game;

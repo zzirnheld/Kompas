@@ -21,11 +21,11 @@ namespace Kompas.Server.Cards.Models
 {
 	public class ServerGameCard : GameCard
 	{
-		public ServerGame ServerGame { get; }
+		public IServerGame ServerGame { get; }
 		public override IGame Game => ServerGame;
 
-		public ServerEffect[] ServerEffects { get; init; }
-		public override IReadOnlyCollection<Effect> Effects => ServerEffects;
+		public IServerEffect[] ServerEffects { get; init; }
+		public override IReadOnlyCollection<IEffect> Effects => ServerEffects;
 
 		public override bool IsAvatar { get; }
 
@@ -91,8 +91,8 @@ namespace Kompas.Server.Cards.Models
 		}
 
 		private ServerGameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
-			ServerGame game, ServerCardController cardController, ServerEffect[] effects, bool isAvatar)
-			: base(serializeableCard, id, owningPlayer)
+			IServerGame game, ICardController cardController, IServerEffect[] effects, bool isAvatar)
+			: base(serializeableCard, id, owningPlayer, game.CardRepository)
 		{
 			ServerGame = game;
 			ServerEffects = effects;
@@ -101,7 +101,7 @@ namespace Kompas.Server.Cards.Models
 		}
 
 		public static ServerGameCard Create(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
-			ServerGame game, ServerCardController cardController, ServerEffect[] effects, bool isAvatar)
+			IServerGame game, ICardController cardController, IServerEffect[] effects, bool isAvatar)
 		{
 			var ret = new ServerGameCard(serializeableCard, id, owningPlayer,
 				game, cardController, effects, isAvatar);
@@ -143,7 +143,7 @@ namespace Kompas.Server.Cards.Models
 				return;
 			}
 
-			SetInfo(InitialCardValues);
+			SetInfo(InitialCardValues, Game.CardRepository);
 
 			TurnsOnBoard = 0;
 			SpacesMoved = 0;

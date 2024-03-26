@@ -116,7 +116,7 @@ namespace Kompas.Cards.Models
 		#endregion
 
 		#region effects
-		public abstract IReadOnlyCollection<Effect> Effects { get; }
+		public abstract IReadOnlyCollection<IEffect> Effects { get; }
 		#endregion effects
 
 		//movement
@@ -162,7 +162,7 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public string BaseJson => CardRepository.GetJsonFromName(CardName)
+		public string BaseJson => Game.CardRepository.GetJsonFromName(CardName)
 			?? throw new System.NullReferenceException($"{CardName} doesn't have an associated json?");
 
 		public int TurnsOnBoard { get; set; }
@@ -181,14 +181,15 @@ namespace Kompas.Cards.Models
 			return sb.ToString();
 		}
 
-		protected GameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer)
+		protected GameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer, ICardRepository cardRepository)
 			: base(serializeableCard.Stats,
 					   serializeableCard.subtext, serializeableCard.spellTypes,
 					   serializeableCard.unique,
 					   serializeableCard.radius, serializeableCard.duration,
-					   serializeableCard.cardType, serializeableCard.cardName, CardRepository.FileNameFor(serializeableCard.cardName),
+					   serializeableCard.cardType, serializeableCard.cardName, cardRepository.FileNameFor(serializeableCard.cardName),
 					   serializeableCard.effText,
-					   serializeableCard.subtypeText)
+					   serializeableCard.subtypeText,
+					   cardRepository)
 		{
 			CardLinkHandler = new GameCardLinksModel(this);
 

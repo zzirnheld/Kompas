@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Kompas.Cards.Loading;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
@@ -378,8 +379,9 @@ namespace Kompas.Cards.Models
 							int radius, int duration,
 							char cardType, string? cardName, string? fileName,
 							string? effText,
-							string? subtypeText)
-			: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText)
+							string? subtypeText,
+							ICardRepository cardRepository)
+			: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText, cardRepository)
 		{}
 
 		/* This must happen through setters, not properties, so that notifications and stack sending

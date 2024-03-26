@@ -10,7 +10,7 @@ namespace Kompas.Client.Cards.Views
 {
 	public class ClientTopLeftCardView : TopLeftCardViewBase<ClientGameCard>
 	{
-		protected override CardRepository CardRepository => ShownCard?.Game.CardRepository
+		protected override ICardRepository CardRepository => ShownCard?.Game.CardRepository
 			?? throw new InvalidOperationException("Can't access a card repository while not showing cards!");
 
 		public ClientTopLeftCardView(ControlInfoDisplayer infoDisplayer, ReminderTextPopup reminderTextPopup)

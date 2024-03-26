@@ -11,7 +11,7 @@ namespace Kompas.Cards.Views
 	{
 		private ReminderTextPopup ReminderTextPopup { get; }
 		
-		protected abstract CardRepository CardRepository { get; }
+		protected abstract ICardRepository CardRepository { get; }
 
 		protected TopLeftCardViewBase(ControlInfoDisplayer infoDisplayer, ReminderTextPopup reminderTextPopup)
 			: base(infoDisplayer)

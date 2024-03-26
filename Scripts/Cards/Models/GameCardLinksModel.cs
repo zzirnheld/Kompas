@@ -26,7 +26,7 @@ namespace Kompas.Cards.Controllers
 			links.Add(cardLink);
 		}
 
-		public void CreateLink(IEnumerable<int> cardIDs, Effect effect, Color linkColor)
+		public void CreateLink(IEnumerable<int> cardIDs, IEffect effect, Color linkColor)
 		{
 			var cardLink = new CardLink(new HashSet<int>(cardIDs), effect, linkColor);
 			foreach(var card in cardIDs.Select(Card.Game.LookupCardByID))
@@ -37,7 +37,7 @@ namespace Kompas.Cards.Controllers
 
 		private void RemoveLink(CardLink cardLink) => links.Remove(cardLink);
 
-		public void RemoveEquivalentLink(IEnumerable<int> cardIDs, Effect effect)
+		public void RemoveEquivalentLink(IEnumerable<int> cardIDs, IEffect effect)
 		{
 			var equivLink = links.FirstOrDefault(link => link.Matches(cardIDs, effect));
 			if (equivLink == default) return;

@@ -23,13 +23,29 @@ using KompasServer.Effects;
 
 namespace Kompas.Server.Gamestate
 {
-	public class ServerGame : IGame
+	public interface IServerGame : IGame
+	{
+		public bool DebugMode { get; }
+
+		public ServerAwaiter Awaiter { get; }
+
+		public new ServerStackController StackController { get; }
+
+		public ServerPlayer ServerControllerOf(GameCard card);
+
+		public Task SwitchTurn();
+
+		public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null);
+		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false);
+	}
+
+	public class ServerGame : IServerGame
 	{
 		public const int MinDeckSize = 49;
 		public const int AvatarEBonus = 15;
 
 		private readonly ServerCardRepository serverCardRepository;
-		public CardRepository CardRepository => serverCardRepository;
+		public ICardRepository CardRepository => serverCardRepository;
 		private ServerStackController? _stackController;
 		public ServerStackController StackController => _stackController
 			?? throw new UseFactoryException();

@@ -110,12 +110,12 @@ namespace Kompas.Server.Effects.Controllers
 			PushToStack(atk, new ServerResolutionContext(triggerContext, controller));
 		}
 
-		public void PushToStack(ServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext)
+		public void PushToStack(IServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext)
 		{
 			PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
 		}
 
-		public void PushToStack(ServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
+		public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
 		{
 			eff.PushedToStack(game, controller);
 			PushToStack(eff, context);

@@ -166,13 +166,14 @@ namespace Kompas.Cards.Models
 									   int radius, int duration,
 									   char cardType, string? cardName, string? fileName,
 									   string? effText,
-									   string? subtypeText)
+									   string? subtypeText,
+									   ICardRepository cardRepository)
 		{
 			(n, e, s, w, c, a) = stats;
 
 			FileName = fileName
 				?? throw new System.NullReferenceException($"{cardName} had no associated file?");
-			SetInfo(null, subtext, spellTypes, unique, radius, duration, cardType, cardName, effText, subtypeText);
+			SetInfo(null, subtext, spellTypes, unique, radius, duration, cardType, cardName, effText, subtypeText, cardRepository);
 		}
 
 		protected void SetInfo(CardStats? stats,
@@ -181,13 +182,14 @@ namespace Kompas.Cards.Models
 									   int radius, int duration,
 									   char cardType, string? cardName,
 									   string? effText,
-									   string? subtypeText)
+									   string? subtypeText,
+									   ICardRepository cardRepository)
 		{
 			if (stats.HasValue) SetStats(stats.Value);
 
 			//set sprites if they aren't already set correctly 
 			//(check this by card name. cards should never have a pic that doesn't match their name)
-			if (cardName != CardName) CardFaceImage = CardRepository.LoadSprite(FileName);
+			if (cardName != CardName) CardFaceImage = cardRepository.LoadSprite(FileName);
 			else GD.Print("Names match. Set Info not updating pics.");
 
 			Subtext = subtext ?? string.Empty; //TODO un-deprecate and use as an override for constructed subtype text from the subtypes array
@@ -201,13 +203,13 @@ namespace Kompas.Cards.Models
 			SubtypeText = subtypeText ?? string.Empty;
 		}
 
-		protected void SetInfo(SerializableCard serializableCard)
+		protected void SetInfo(SerializableCard serializableCard, ICardRepository cardRepository)
 			=> SetInfo((serializableCard.n, serializableCard.e, serializableCard.s, serializableCard.w, serializableCard.c, serializableCard.a),
 				serializableCard.subtext, serializableCard.spellTypes,
 				serializableCard.unique,
 				serializableCard.radius, serializableCard.duration,
 				serializableCard.cardType, serializableCard.cardName,
-				serializableCard.effText, serializableCard.subtypeText);
+				serializableCard.effText, serializableCard.subtypeText, cardRepository);
 
 		protected virtual void SetStats(CardStats cardStats)
 		{

@@ -75,7 +75,7 @@ namespace Kompas.Gamestate
 		public int FirstTurnPlayer { get; }
 
 		//game data
-		public CardRepository CardRepository { get; }
+		public ICardRepository CardRepository { get; }
 		public IReadOnlyCollection<GameCard> Cards { get; }
 
 		/// <summary>

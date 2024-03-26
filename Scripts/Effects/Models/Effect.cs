@@ -10,10 +10,29 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
+	public interface IEffect : IStackable
+	{
+		public int TimesUsedThisTurn { get; }
+		public int TimesUsedThisRound { get; }
+		public int TimesUsedThisStack { get; set; }
+
+		public bool Negated { get; set; }
+		public int X { get; set; }
+
+		public int EffectIndex { get; }
+
+		public Trigger? Trigger { get; }
+
+		public void Reset();
+
+		public void AddTarget(GameCard card);
+		public void RemoveTarget(GameCard card);
+	}
+
 	/// <summary>
 	/// Effects will only be resolved on server. Clients will just get to know what effects they can use
 	/// </summary>
-	public abstract class Effect : IStackable
+	public abstract class Effect : IEffect
 	{
 		public abstract IGame Game { get; }
 
