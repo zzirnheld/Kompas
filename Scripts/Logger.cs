@@ -33,8 +33,8 @@ namespace Kompas
 		/// </summary>
 		public IKompasLogger KompasLogger { private get; set; } = new KompasLogger();
 
-		public static void Log(object s) => Singleton.KompasLogger.Log(s);
-		public static void Warn(object s) => Singleton.KompasLogger.Warn(s);
-		public static void Err(object s) => Singleton.KompasLogger.Err(s);
+		public static void Log(object? s) => Singleton.KompasLogger.Log(s);
+		public static void Warn(object? s) => Singleton.KompasLogger.Warn(s);
+		public static void Err(object? s) => Singleton.KompasLogger.Err(s);
 	}
 }

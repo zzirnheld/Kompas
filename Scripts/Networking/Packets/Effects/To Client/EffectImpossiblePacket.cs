@@ -17,11 +17,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame) 
 		{
-
-			throw new System.NotImplementedException();
-			/*
-			clientGame.clientUIController.currentStateUIController.EffectImpossible();
-			*/
+			clientGame.ClientGameController.CurrentStateController.ShowCurrentStateInfo("Effect impossible!");
 		} 
 	}
 }

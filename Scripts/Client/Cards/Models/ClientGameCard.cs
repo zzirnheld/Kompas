@@ -53,7 +53,17 @@ namespace Kompas.Client.Cards.Models
 			}
 		}
 
-		private ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
+        public override int SpacesMoved
+        {
+            get => base.SpacesMoved;
+            set
+            {
+                base.SpacesMoved = value;
+				ClientCardController.RefreshStats();
+            }
+        }
+
+        private ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
 			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar)
 			: base (serializedCard, id, owningPlayer, game.CardRepository)
 		{
