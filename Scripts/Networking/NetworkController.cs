@@ -7,11 +7,18 @@ using Newtonsoft.Json;
 
 namespace Kompas.Networking
 {
+	public interface INetworker
+	{
+		public Task ProcessPacket((string command, string json) packetInfo);
+		public Task Tick();
+		public void SendPacket(Packet? packet);
+	}
+
 	/// <summary>
 	/// Handles serializing, sending, deserializing, and receiving packets.
 	/// Usage: Call Update() each frame, or each interval at which you want to check packets
 	/// </summary>
-	public abstract class Networker
+	public abstract class Networker : INetworker
 	{
 		public const int port = 8448;
 

@@ -17,7 +17,7 @@ namespace Kompas.Client.Gamestate.Players
 		//Reorganize to be like the server
 		public delegate Networker GetNetworker();
 		private readonly GetNetworker getNetworker;
-		public Networker Networker => getNetworker();
+		public INetworker Networker => getNetworker();
 
 		//TODO reconsider whether I'll ever need to have an IPlayer be aware of the type of its Game
 		private readonly ClientGame game;

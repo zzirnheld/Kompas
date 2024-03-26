@@ -21,7 +21,7 @@ namespace Kompas.Server.Gamestate.Players
 		private ServerNetworker? _networker;
 		public ServerNetworker Networker => _networker
 			?? throw new UseFactoryException();
-		Networker IPlayer.Networker => Networker;
+		INetworker IPlayer.Networker => Networker;
 
 		public ServerGame ServerGame { get; }
 		public IGame Game => ServerGame;
