@@ -5,9 +5,9 @@ namespace Kompas
 	//Exists for unit testing to be able to override calls to GD.Print, which otherwise segfaults XUnit.
 	public interface IKompasLogger
 	{
-		internal void Log(object s);
-		internal void Warn(object s);
-		internal void Err(object s);
+		void Log(object s);
+		void Warn(object s);
+		void Err(object s);
 	}
 
     internal class KompasLogger : IKompasLogger
