@@ -37,7 +37,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 			throw new System.ArgumentNullException(nameof(card), $"No augment provided for {this.GetType()} CardRestrictionElement");
 		};
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 

@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		[JsonProperty]
 		public bool any = false;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			spaces.Initialize(initializationContext);
@@ -46,7 +46,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		public IIdentity<Space> space;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			spaces = new Identities.ManySpaces.Multiple() { spaces = new[] { space } };
 			base.Initialize(initializationContext);

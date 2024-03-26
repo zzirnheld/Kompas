@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public IIdentity<IGameCardInfo>? sameAs;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			sameAs?.Initialize(initializationContext);
@@ -40,7 +40,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public IIdentity<IGameCardInfo> from = new Identities.Cards.ThisCardNow();
 		public IIdentity<IReadOnlyCollection<IGameCardInfo>>? cards;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			from.Initialize(initializationContext);

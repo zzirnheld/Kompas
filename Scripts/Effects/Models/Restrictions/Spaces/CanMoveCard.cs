@@ -29,7 +29,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		[JsonProperty]
 		public bool normalMove = false;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			toMove.Initialize(initializationContext);

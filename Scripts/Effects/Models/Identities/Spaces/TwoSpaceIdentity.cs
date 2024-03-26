@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 		public ITwoSpaceIdentity relationship;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			firstSpace.Initialize(initializationContext);
 			secondSpace.Initialize(initializationContext);

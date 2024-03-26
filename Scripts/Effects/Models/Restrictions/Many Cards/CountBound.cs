@@ -29,7 +29,7 @@ namespace Kompas.Effects.Models.Restrictions.ManyCards
 		public override void PrepareForSending(IResolutionContext context) => stashedBound = bound.From(context);
 
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 

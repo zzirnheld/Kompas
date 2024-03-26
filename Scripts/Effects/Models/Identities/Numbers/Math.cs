@@ -16,7 +16,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public int modifier = 0;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			number.Initialize(initializationContext);

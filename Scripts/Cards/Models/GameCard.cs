@@ -198,7 +198,7 @@ namespace Kompas.Cards.Models
 			ID = id;
 			InitialCardValues = serializeableCard;
 
-			var initContext = new EffectInitializationContext(owningPlayer.Game, this); //Can't use property because constructor hasn't gotten there yet
+			var initContext = new InitializationContext(owningPlayer.Game, this); //Can't use property because constructor hasn't gotten there yet
 
 			MovementRestriction = serializeableCard.movementRestriction ?? IMovementRestriction.CreateDefault();
 			MovementRestriction.Initialize(initContext);

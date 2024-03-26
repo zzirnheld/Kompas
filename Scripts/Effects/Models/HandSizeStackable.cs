@@ -34,7 +34,7 @@ namespace Kompas.Effects.Models
 					new AtLocation() { locations = new string[]{ "Hand" } }
 				}
 			};
-			ret.Initialize(new EffectInitializationContext(game: game, source: default, controller: player));
+			ret.Initialize(new InitializationContext(game: game, source: default, controller: player));
 			return ret;
 		}
 

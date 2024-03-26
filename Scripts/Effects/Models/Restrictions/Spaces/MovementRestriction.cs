@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 			public IIdentity<int> cost;
 			#nullable enable
 
-			public override void Initialize(EffectInitializationContext initializationContext)
+			public override void Initialize(InitializationContext initializationContext)
 			{
 				base.Initialize(initializationContext);
 				condition.Initialize(initializationContext);
@@ -43,7 +43,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public bool moveThroughCards = false; //TODO check this flag when determining how much "movement" the move should cost.
 												//ideally implement some sort of "get move cost to" function here, which can be replaced by an Identity as applicable
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			foreach (var cost in movementCosts) cost.Initialize(initializationContext);

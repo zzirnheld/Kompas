@@ -21,7 +21,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 		protected IReadOnlyCollection<Location> Locations => locations.Select(LocationHelpers.FromString).ToArray();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			if (locations == null) throw new System.ArgumentNullException("locations");

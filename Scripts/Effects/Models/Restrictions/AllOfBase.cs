@@ -34,7 +34,7 @@ namespace Kompas.Effects.Models.Restrictions
 			return ret;
 		}
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			elements = elements.Safe()
 				.Concat(DefaultElements)

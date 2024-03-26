@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 					};
 				}
 
-				yield return new Gamestate.MaxPerTurn() { max = maxPerTurn };
+				yield return new Gamestate.MaxPerTurn() { max = maxPerTurn, attacks = true };
 				yield return new Gamestate.NothingHappening();
 			}
 		}

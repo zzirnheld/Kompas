@@ -58,7 +58,7 @@ namespace Kompas.Effects.Models.Restrictions
 		/// </summary>
 		protected abstract IEnumerable<IRestriction<RestrictedType>> DefaultNormalRestrictions { get; }
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			

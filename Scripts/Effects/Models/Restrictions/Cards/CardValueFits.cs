@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public IRestriction<int> numberRestriction;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			cardValue.Initialize(initializationContext);

@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.Numbers
 		public INumberRelationship comparison;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			other.Initialize(initializationContext);
@@ -25,7 +25,7 @@ namespace Kompas.Effects.Models.Restrictions.Numbers
 
 	public class Positive : Compare
 	{
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			other ??= Identities.Numbers.Constant.Zero;
 			comparison ??= new Relationships.Numbers.GreaterThan();

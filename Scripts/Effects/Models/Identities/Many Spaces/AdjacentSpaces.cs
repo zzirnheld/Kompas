@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 		public IIdentity<Space> adjacentTo;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			adjacentTo.Initialize(initializationContext);

@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 		public IThreeSpaceRelationship thirdSpaceRelationship;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			firstSpace.Initialize(initializationContext);

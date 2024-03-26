@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 		[JsonProperty]
 		public bool closest = true;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			spaces.Initialize(initializationContext);

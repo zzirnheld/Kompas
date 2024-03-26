@@ -16,7 +16,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 		public IRestriction<IGameCardInfo> cardRestriction;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			cards.Initialize(initializationContext);

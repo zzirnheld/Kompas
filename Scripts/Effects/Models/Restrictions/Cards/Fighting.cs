@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool attacking = false;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			fightingWho?.Initialize(initializationContext);

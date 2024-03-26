@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public bool spell = false; //whether to consider all or spell subtypes
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			if (subtypes == null) throw new System.ArgumentNullException("subtypes");

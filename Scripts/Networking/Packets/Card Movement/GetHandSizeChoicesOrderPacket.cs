@@ -41,7 +41,7 @@ namespace Kompas.Client.Networking
 			}
 			IListRestriction? listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson)
 				?? throw new System.NullReferenceException("Failed to init");
-			listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
+			listRestriction.Initialize(new InitializationContext(game: clientGame, source: default));
 
 			clientGame.ClientGameController.TargetingController.StartHandSizeSearch(cardIDs, listRestriction);
 		}

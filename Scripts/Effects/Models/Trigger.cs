@@ -107,7 +107,7 @@ namespace Kompas.Effects.Models
 
 		public Trigger(TriggerData triggerData, Effect effect)
 		{
-			var initializationContext = new EffectInitializationContext(game: effect.Game, source: effect.Card, effect: effect, trigger: this);
+			var initializationContext = new InitializationContext(game: effect.Game, source: effect.Card, effect: effect, trigger: this);
 			TriggerData = triggerData;
 			_ = triggerData.triggerCondition ?? throw new ArgumentNullException(nameof(triggerData), "Null trigger condition!");
 			_ = triggerData.triggerRestriction ?? throw new ArgumentNullException(nameof(triggerData), "Null trigger restriction!");

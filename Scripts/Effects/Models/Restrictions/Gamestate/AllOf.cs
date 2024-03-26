@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 		protected virtual bool LogSoloElements => true;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			foreach (var element in elements) element.Initialize(initializationContext);
@@ -34,7 +34,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		public IGamestateRestriction negated;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			negated.Initialize(initializationContext);

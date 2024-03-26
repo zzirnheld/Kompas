@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		public CardValue cardValue;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			card.Initialize(initializationContext);

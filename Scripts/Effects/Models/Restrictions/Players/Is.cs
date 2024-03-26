@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 		public IIdentity<IPlayer> player;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			player.Initialize(initializationContext);

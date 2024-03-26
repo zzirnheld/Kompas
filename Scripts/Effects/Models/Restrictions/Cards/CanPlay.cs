@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		[JsonProperty]
 		public IIdentity<IPlayer> player = new Identities.Players.TargetIndex();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			destination?.Initialize(initializationContext);

@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public IRestriction<Space> negated;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			negated.Initialize(initializationContext);
@@ -38,7 +38,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public IIdentity<Space> from;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			from.Initialize(initializationContext);

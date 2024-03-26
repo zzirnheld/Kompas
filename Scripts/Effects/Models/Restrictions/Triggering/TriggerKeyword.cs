@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		private ITriggerRestriction[] elements;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			elements = CardRepository.InstantiateTriggerKeyword(keyword);

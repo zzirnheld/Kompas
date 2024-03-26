@@ -17,7 +17,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public IRestriction<IGameCardInfo> negated;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			negated.Initialize(initializationContext);

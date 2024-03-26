@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		[JsonProperty]
 		public IIdentity<Space> direction = new Identities.Spaces.TargetIndex();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			from?.Initialize(initializationContext);

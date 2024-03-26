@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public IIdentity<IPlayer> playerIdentity;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			playerIdentity.Initialize(initializationContext);
@@ -25,7 +25,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Friendly : Controller
 	{
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			playerIdentity = new FriendlyPlayer();
 			base.Initialize(initializationContext);
@@ -34,7 +34,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Enemy : Controller
 	{
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			playerIdentity = new EnemyPlayer();
 			base.Initialize(initializationContext);

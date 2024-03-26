@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Character : CardType
 	{
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			cardType = 'C';
 			base.Initialize(initializationContext);
@@ -23,7 +23,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Spell : CardType
 	{
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			cardType = 'S';
 			base.Initialize(initializationContext);
@@ -32,7 +32,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 
 	public class Augment : CardType
 	{
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			cardType = 'A';
 			base.Initialize(initializationContext);

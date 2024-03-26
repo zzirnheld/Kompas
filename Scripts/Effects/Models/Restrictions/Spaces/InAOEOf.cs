@@ -27,7 +27,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public IIdentity<Space> alsoInAOE;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			if (cardRestriction != null && anyOf == null) anyOf = new Identities.ManyCards.All();
 

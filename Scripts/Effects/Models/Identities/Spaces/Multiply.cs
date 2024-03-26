@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 		[JsonProperty]
 		public int yMultiplier = 1;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			toMultiply.Initialize(initializationContext);

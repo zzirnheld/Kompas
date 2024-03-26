@@ -30,7 +30,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		[JsonProperty]
 		public INumberRelationship comparison = new Relationships.Numbers.Equal();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			distanceTo.Initialize(initializationContext);
@@ -65,7 +65,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public IIdentity<Space> origin;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			destination.Initialize(initializationContext);
@@ -93,7 +93,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public IIdentity<Space> origin;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			anyDestination ??= new Identities.ManySpaces.Restricted() { restriction = anyDestinationRestriction };
@@ -122,7 +122,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		public IIdentity<Space> origin;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			destination.Initialize(initializationContext);

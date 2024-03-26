@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models
 	/// <summary>
 	/// An object to hold all the parameters required to initialize any restriction/restriction elemnt
 	/// </summary>
-	public readonly struct EffectInitializationContext
+	public readonly struct InitializationContext
 	{
 		public readonly IGame game;
 		public readonly GameCard? source;
@@ -23,12 +23,12 @@ namespace Kompas.Effects.Models
 
 		public readonly IContextInitializeable? parent;
 
-		public EffectInitializationContext(IGame game, GameCard? source, 
+		public InitializationContext(IGame game, GameCard? source, 
 			Effect? effect = default, Trigger? trigger = default, Subeffect? subeffect = default, IPlayer? controller = default)
 			: this (game, source, effect, trigger, subeffect, controller, default)
 		{ }
 
-		private EffectInitializationContext(IGame game, GameCard? source,
+		private InitializationContext(IGame game, GameCard? source,
 			Effect? effect, Trigger? trigger, Subeffect? subeffect, IPlayer? controller, IContextInitializeable? parent)
 		{
 			this.game = game;
@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models
 			this.parent = parent;
 		}
 
-		public EffectInitializationContext Child(IContextInitializeable parent)
+		public InitializationContext Child(IContextInitializeable parent)
 			=> new(game, source, effect, trigger, subeffect, ownerOverride, parent);
 
 		public override string ToString()

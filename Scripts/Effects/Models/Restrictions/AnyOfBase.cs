@@ -15,7 +15,7 @@ namespace Kompas.Effects.Models.Restrictions
 		public ElementRestrictionType[] elements;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			foreach (var restriction in elements) restriction.Initialize(initializationContext);

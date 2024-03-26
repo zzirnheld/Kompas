@@ -12,7 +12,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 		public IRestriction<IPlayer> negated;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			negated.Initialize(initializationContext);

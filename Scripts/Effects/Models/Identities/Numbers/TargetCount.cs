@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public IRestriction<IGameCardInfo> cardRestriction = new Restrictions.Gamestate.AlwaysValid();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			cardRestriction.Initialize(initializationContext);

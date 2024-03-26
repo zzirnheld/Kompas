@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		[JsonProperty]
 		public bool ignoreAdjacency;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			toPlay.Initialize(initializationContext);

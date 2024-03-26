@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		[JsonProperty]
 		public bool excludeSelf = true;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			cardRestriction.Initialize(initializationContext);

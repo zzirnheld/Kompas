@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public IIdentity<IPlayer> player = new Players.TargetIndex();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			player.Initialize(initializationContext);
@@ -28,7 +28,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public IIdentity<IPlayer> player = new Players.TargetIndex();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			player.Initialize(initializationContext);

@@ -15,11 +15,11 @@ namespace Kompas.Effects.Models
 	{
 		protected bool Initialized { get; private set; }
 
-		protected EffectInitializationContext InitializationContext { get; private set; }
+		protected InitializationContext InitializationContext { get; private set; }
 
 		protected virtual IEnumerable<IInitializationRequirement> InitializationRequirements => Enumerable.Empty<IInitializationRequirement>();
 
-		public virtual void Initialize(EffectInitializationContext initializationContext)
+		public virtual void Initialize(InitializationContext initializationContext)
 		{
 			if (Initialized)
 			{

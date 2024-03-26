@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 		public IIdentity<Space> displacement;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			from.Initialize(initializationContext);
@@ -42,7 +42,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 		[JsonProperty]
 		public bool subjective = false;
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			from.Initialize(initializationContext);

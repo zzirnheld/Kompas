@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			cards.Initialize(initializationContext);

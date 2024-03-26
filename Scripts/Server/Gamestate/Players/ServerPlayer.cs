@@ -129,7 +129,9 @@ namespace Kompas.Server.Gamestate.Players
 			{
 				if (ServerGame.IsValidNormalAttach(aug, space, this))
 				{
-					aug.Play(space, this, payCost: true);
+					var cost = aug.Cost;
+					aug.Play(space, this);
+					Pips -= cost;
 					await ServerGame.StackController.CheckForResponse();
 				}
 				else ServerNotifier.NotifyPutBack(this);
@@ -148,7 +150,9 @@ namespace Kompas.Server.Gamestate.Players
 			{
 				if (ServerGame.IsValidNormalPlay(card, space, this))
 				{
-					card.Play(space, this, payCost: true);
+					var cost = card.Cost;
+					card.Play(space, this);
+					Pips -= cost;
 					await ServerGame.StackController.CheckForResponse();
 				}
 				else

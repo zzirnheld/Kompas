@@ -16,7 +16,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		public INumberOperation operation;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 

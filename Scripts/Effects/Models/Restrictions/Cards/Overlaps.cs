@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		public IIdentity<Space> overrideOtherSpace;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			other.Initialize(initializationContext);

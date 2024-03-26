@@ -20,7 +20,7 @@ namespace Kompas.Server.Effects.Models
 			?? throw new NotInitializedException();
 		public IServerGame ServerGame => ServerEffect.ServerGame;
 
-		public EffectInitializationContext DefaultInitializationContext
+		public InitializationContext DefaultInitializationContext
 			=> Effect.CreateInitializationContext(this, default);
 
 		/// <summary>

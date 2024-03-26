@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Identities.ManyCards
 		public IIdentity<IGameCardInfo>[] cards;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			foreach (var i in cards) i.Initialize(initializationContext);

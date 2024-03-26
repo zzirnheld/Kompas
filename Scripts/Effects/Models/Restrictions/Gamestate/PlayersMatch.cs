@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		public IIdentity<IPlayer> secondPlayer;
 		#nullable restore
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			firstPlayer.Initialize(initializationContext);

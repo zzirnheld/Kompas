@@ -2,7 +2,7 @@ namespace Kompas.Effects.Models
 {
 	public interface IContextInitializeable
 	{
-		public void Initialize(EffectInitializationContext initializationContext);
+		public void Initialize(InitializationContext initializationContext);
 
 		/// <summary>
 		/// This is separate from the rest of initialization because it can happen at an arbitrary later time,

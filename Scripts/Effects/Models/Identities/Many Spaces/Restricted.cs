@@ -18,7 +18,7 @@ namespace Kompas.Effects.Models.Identities.ManySpaces
 		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<Space>> spaces = new ManySpaces.All();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			restriction.Initialize(initializationContext);

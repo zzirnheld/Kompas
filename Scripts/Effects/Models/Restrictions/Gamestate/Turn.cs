@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		//If end up needing a version that can leverage trigger restriction elements, will need to split this back out to trigger/gamestate versions
 		protected abstract IIdentity<IPlayer> TurnPlayer { get; }
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			TurnPlayer.Initialize(initializationContext);

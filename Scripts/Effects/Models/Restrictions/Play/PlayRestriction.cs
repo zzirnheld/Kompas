@@ -32,7 +32,7 @@ namespace Kompas.Effects.Models.Restrictions.Play
 		[JsonProperty]
 		public IRestriction<(Space? s, IPlayer? p)>[] recommendations = System.Array.Empty<IRestriction<(Space? s, IPlayer? p)>>();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			foreach (var r in recommendations) r.Initialize(initializationContext);

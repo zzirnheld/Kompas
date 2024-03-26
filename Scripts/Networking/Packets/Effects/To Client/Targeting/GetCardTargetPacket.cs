@@ -46,7 +46,7 @@ namespace Kompas.Client.Networking
 				return;
 			}
 			IListRestriction listRestriction = this.listRestriction ?? IListRestriction.SingleElement;
-			listRestriction.Initialize(new EffectInitializationContext(game: clientGame, source: default));
+			listRestriction.Initialize(new InitializationContext(game: clientGame, source: default));
 
 			clientGame.ClientGameController.TargetingController.StartCardSearch(potentialTargetIDs, listRestriction, targetBlurb);
 		}

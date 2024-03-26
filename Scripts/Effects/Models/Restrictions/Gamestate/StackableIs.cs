@@ -8,7 +8,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		[JsonProperty]
 		public IIdentity<IStackable> stackable = new Identities.Stackables.StackableCause();
 
-		public override void Initialize(EffectInitializationContext initializationContext)
+		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
 			stackable.Initialize(initializationContext);

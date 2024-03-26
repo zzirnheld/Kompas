@@ -110,7 +110,7 @@ namespace Kompas.Effects.Models
 			//unless I want to make a Serializable version of every subeffect. Which might be a good idea anyway (I'd just put them in the same file for convenience)
 			if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
 			blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {Card.CardName}" : blurb;
-			activationRestriction?.Initialize(new EffectInitializationContext(game: Game, source: Card, effect: this));
+			activationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
 			TimesUsedThisTurn = 0;
 		}
 
@@ -158,7 +158,7 @@ namespace Kompas.Effects.Models
 
 		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 
-		public EffectInitializationContext CreateInitializationContext(Subeffect subeffect, Trigger? trigger)
+		public InitializationContext CreateInitializationContext(Subeffect subeffect, Trigger? trigger)
 			=> new(game: Game, source: Card, effect: this, trigger: trigger, subeffect: subeffect);
 	}
 }
