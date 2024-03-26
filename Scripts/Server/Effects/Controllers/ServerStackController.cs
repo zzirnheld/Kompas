@@ -16,7 +16,25 @@ using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Controllers
 {
-	public class ServerStackController : IStackController
+	public interface IServerStackController : IStackController
+	{
+		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext? triggerContext);
+		public void PushToStack(IServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext);
+		public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context);
+		public void PushToStack(IServerStackable eff, IServerResolutionContext context);
+
+		public Task ResolveNextStackEntry();
+		public void Cancel(Effect eff);
+		public Task CheckForResponse();
+
+		public void TriggerForCondition(string condition, params TriggeringEventContext[] contexts);
+		public void TriggerForCondition(string condition, TriggeringEventContext context);
+
+		public void RegisterTrigger(string condition, ServerTrigger trigger);
+		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string? fallOffCondition = default);
+	}
+
+	public class ServerStackController : IServerStackController
 	{
 		private struct TriggersTriggered
 		{
@@ -70,7 +88,6 @@ namespace Kompas.Server.Effects.Controllers
 		{
 			game = serverGame;
 		}
-
 
 		public override string ToString()
 		{

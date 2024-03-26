@@ -12,7 +12,29 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Gamestate.Locations.Models
 {
-	public abstract class Board : ILocationModel
+	public interface IBoard : ILocationModel
+	{
+		public GameCard? GetCardAt(Space? space);
+		public bool IsEmpty(Space? space);
+		public bool Surrounded(Space toTest);
+
+		public bool ValidSpellSpaceFor(GameCard? card, Space space);
+		public IReadOnlyCollection<GameCard> CardsAdjacentTo(Space? space);
+
+		public IEnumerable<GameCard> CardsAndAugsWhere(Predicate<GameCard> predicate);
+
+		public void Play(GameCard toPlay, Space to, IPlayer player, IStackable? stackSrc = null);
+		public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null);
+
+		public bool AreConnectedBy(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context);
+		public bool AreConnectedBy(Space source, Space destination, Func<GameCard?, bool> throughPredicate);
+		public int EmptyDistanceBetween(GameCard src, Space dest);
+		public int EmptyDistanceBetween(Space? src, Space dest);
+		public int DistanceBetween(GameCard src, Space space, IRestriction<IGameCardInfo> restriction, IResolutionContext context);
+		public int DistanceBetween(Space? src, Space? dest, Predicate<IGameCardInfo?> throughPredicate);
+	}
+
+	public abstract class Board : IBoard
 	{
 		public Location Location => Location.Board;
 
@@ -80,7 +102,7 @@ namespace Kompas.Gamestate.Locations.Models
 			return board[x, y];
 		}
 
-		public List<GameCard> CardsAdjacentTo(Space? space)
+		public IReadOnlyCollection<GameCard> CardsAdjacentTo(Space? space)
 		{
 			var list = new List<GameCard>();
 			if (space == null)
@@ -105,15 +127,16 @@ namespace Kompas.Gamestate.Locations.Models
 			return list;
 		}
 
-		public List<GameCard> CardsAndAugsWhere(Predicate<GameCard> predicate)
+		public IEnumerable<GameCard> CardsAndAugsWhere(Predicate<GameCard> predicate)
 		{
-			var list = new List<GameCard>();
 			foreach (var card in Cards)
 			{
-				if (predicate(card)) list.Add(card);
-				if (card != null) list.AddRange(card.Augments.Where(c => predicate(c)));
+				if (predicate(card)) yield return card;
+				if (card != null)
+				{
+					foreach (var aug in card.Augments.Where(c => predicate(c))) yield return aug;
+				}
 			}
-			return list;
 		}
 
 		public bool AreConnectedBy(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context)

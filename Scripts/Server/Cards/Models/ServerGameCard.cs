@@ -112,7 +112,7 @@ namespace Kompas.Server.Cards.Models
 			return ret;
 		}
 
-		public ServerStackController EffectsController => ServerGame?.StackController
+		public IServerStackController EffectsController => ServerGame?.StackController
 			?? throw new System.NullReferenceException("Didn't init server game or its stack controller");
 
 		public override string ToString()

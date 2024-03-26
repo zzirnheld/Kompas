@@ -27,7 +27,7 @@ namespace Kompas.Client.Gamestate
 		public ICardRepository CardRepository => ClientCardRepository;
 
 		public ClientBoard ClientBoard { get; private set; }
-		public Board Board => ClientBoard;
+		public IBoard Board => ClientBoard;
 
 		public ClientStackController StackController { get; }
 

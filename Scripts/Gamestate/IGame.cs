@@ -68,7 +68,7 @@ namespace Kompas.Gamestate
 		public Settings Settings { get; }
 
 		//game mechanics
-		public Board Board { get; }
+		public IBoard Board { get; }
 
 		public IPlayer[] Players { get; }
 		public IPlayer TurnPlayer { get; }

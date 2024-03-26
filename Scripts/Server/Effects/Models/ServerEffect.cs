@@ -36,7 +36,7 @@ namespace Kompas.Server.Effects.Models
 		public IServerGame ServerGame => _serverGame
 			?? throw new NotInitializedException();
 		public override IGame Game => ServerGame;
-		public ServerStackController EffectsController => ServerGame.StackController;
+		public IServerStackController EffectsController => ServerGame.StackController;
 
 		private ServerGameCard? _card;
 		public override GameCard Card => _card

@@ -28,7 +28,7 @@ namespace Kompas.Server.Gamestate
 
 		public ServerAwaiter Awaiter { get; }
 
-		public new ServerStackController StackController { get; }
+		public new IServerStackController StackController { get; }
 
 		public ServerPlayer ServerControllerOf(GameCard card);
 
@@ -45,13 +45,13 @@ namespace Kompas.Server.Gamestate
 
 		private readonly ServerCardRepository serverCardRepository;
 		public ICardRepository CardRepository => serverCardRepository;
-		private ServerStackController? _stackController;
-		public ServerStackController StackController => _stackController
+		private IServerStackController? _stackController;
+		public IServerStackController StackController => _stackController
 			?? throw new UseFactoryException();
 		IStackController IGame.StackController => StackController;
 
 		private Board? _board;
-		public Board Board => _board
+		public IBoard Board => _board
 			?? throw new UseFactoryException();
 		private ServerAwaiter? _awaiter;
 		public ServerAwaiter Awaiter => _awaiter
