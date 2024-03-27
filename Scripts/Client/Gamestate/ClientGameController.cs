@@ -33,6 +33,9 @@ namespace Kompas.Client.Gamestate
 		[Export]
 		private ClientStackView? _stackView;
 		public ClientStackView StackView => _stackView ?? throw new UnassignedReferenceException();
+		[Export]
+		private ClientCameraController? _camera;
+		public ClientCameraController Camera => _camera ?? throw new UnassignedReferenceException();
 
 		[Export]
 		private PackedScene? _cardPrefab;

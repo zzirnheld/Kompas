@@ -4,6 +4,7 @@ using Godot;
 using Kompas.Cards.Models;
 using Kompas.Client.Networking;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Client.Gamestate.Search
 {
@@ -12,7 +13,9 @@ namespace Kompas.Client.Gamestate.Search
 		private readonly IReadOnlySet<Space> validSpaces;
 		private readonly ClientNotifier clientNotifier;
 
-		public event EventHandler? SearchFinished;
+		public IReadOnlyCollection<(Location, bool)> SearchedLocations { get; } = new (Location, bool)[] { (Location.Board, true) };
+
+        public event EventHandler? SearchFinished;
 
 		public SpaceSearch(IEnumerable<Space> validSpaces, ClientNotifier clientNotifier)
 		{

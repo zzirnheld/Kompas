@@ -54,6 +54,10 @@ namespace Kompas.Client.Gamestate
 			{
 				_currentSearch = value;
 				foreach (var card in GameController.Game.Cards) card.CardController.RefreshTargeting();
+				if (value == null) return;
+				var locations = value.SearchedLocations;
+				if (locations.Count == 1) GameController.Camera.GoTo(new ClientCameraController.LookingAt(locations.Single()));
+				//TODO open the deck/discard for each one of these. should GameController or CameraController handle that?
 			}
 		}
 
@@ -100,7 +104,7 @@ namespace Kompas.Client.Gamestate
 		/// </summary>
 		public void Select(Space space, bool doubleClick)
 		{
-			if (doubleClick) return;
+			if (!doubleClick) return;
 
 			Logger.Log($"Selecting {space}");
 			if (CurrentSearch == null)

@@ -1,12 +1,13 @@
 using Godot;
-using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations;
+using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 using System;
+using System.Collections.Generic;
 
 namespace Kompas.Client.UI
 {
-	public partial class ClientCameraController : Node3D
+    public partial class ClientCameraController : Node3D
 	{
 		private const string CameraLeftActionName = "CameraLeft";
 		private const string CameraRightActionName = "CameraRight";
@@ -76,33 +77,42 @@ namespace Kompas.Client.UI
 		{
 			public Location Location { get; init; }
 			public bool Friendly { get; init; }
+
+			public LookingAt((Location location, bool friendly) tuple)
+			{
+				Location = tuple.location;
+				Friendly = tuple.friendly;
+			}
 		}
+
+		private readonly IDictionary<LookingAt, CameraGraphNode> lookingAtToNode
+			= new Dictionary<LookingAt, CameraGraphNode>();
 
 		public event EventHandler<LookingAt>? Departed;
 		public event EventHandler<LookingAt>? Arrived;
 
 		public override void _Ready()
 		{
-			var boardPosition = new CameraGraphNode(CameraPosition.Board, BoardCameraPosition,
+			var boardPosition = RegisterCamera(CameraPosition.Board, BoardCameraPosition,
 				lookingAt: new() { Location = Location.Board });
 
-			var friendlyHandPosition = new CameraGraphNode(CameraPosition.FriendlyHand, BoardCameraPosition,
+			var friendlyHandPosition = RegisterCamera(CameraPosition.FriendlyHand, BoardCameraPosition,
 				lookingAt: new() { Location = Location.Hand, Friendly = true },
 				cameraRotation: FriendlyHandRotation);
 
-			var friendlyDeckPosition = new CameraGraphNode(CameraPosition.FriendlyDeck, FriendlyDeckPosition,
+			var friendlyDeckPosition = RegisterCamera(CameraPosition.FriendlyDeck, FriendlyDeckPosition,
 				lookingAt: new() { Location = Location.Deck, Friendly = true });
 
-			var friendlyDiscardPosition = new CameraGraphNode(CameraPosition.FriendlyDiscard, FriendlyDiscardPosition,
+			var friendlyDiscardPosition = RegisterCamera(CameraPosition.FriendlyDiscard, FriendlyDiscardPosition,
 				lookingAt: new() { Location = Location.Discard, Friendly = true });
 
-			var enemyHandPosition = new CameraGraphNode(CameraPosition.EnemyHand, EnemyHandPosition,
+			var enemyHandPosition = RegisterCamera(CameraPosition.EnemyHand, EnemyHandPosition,
 				lookingAt: new() { Location = Location.Hand, Friendly = false });
 
-			var enemyDeckPosition = new CameraGraphNode(CameraPosition.EnemyDeck, EnemyDeckPosition,
+			var enemyDeckPosition = RegisterCamera(CameraPosition.EnemyDeck, EnemyDeckPosition,
 				lookingAt: new() { Location = Location.Deck, Friendly = false });
 
-			var enemyDiscardPosition = new CameraGraphNode(CameraPosition.EnemyDiscard, EnemyDiscardPosition,
+			var enemyDiscardPosition = RegisterCamera(CameraPosition.EnemyDiscard, EnemyDiscardPosition,
 				lookingAt: new() { Location = Location.Discard, Friendly = false });
 
 			boardPosition.AddReciprocally(
@@ -126,12 +136,26 @@ namespace Kompas.Client.UI
 			_currentPosition = boardPosition;
 		}
 
+		private CameraGraphNode RegisterCamera(CameraPosition position, Node3D cameraNode, LookingAt lookingAt, Vector3? cameraRotation = null)
+		{
+			var ret = new CameraGraphNode(position, cameraNode, lookingAt, cameraRotation);
+			lookingAtToNode[lookingAt] = ret;
+			//TODO: add a camera for "enemy board", that angles more towards their stuff?
+			if (lookingAt.Location == Location.Board) lookingAtToNode[new LookingAt() { Location = Location.Board, Friendly = !lookingAt.Friendly }] = ret;
+			return ret;
+		}
+
 		public override void _Process(double deltaTime)
 		{
 			if (Input.IsActionJustReleased(CameraRightActionName)) 		GoToCameraPosition(CurrentPosition.Right);
 			else if (Input.IsActionJustReleased(CameraLeftActionName)) 	GoToCameraPosition(CurrentPosition.Left);
 			else if (Input.IsActionJustReleased(CameraDownActionName)) 	GoToCameraPosition(CurrentPosition.Down);
 			else if (Input.IsActionJustReleased(CameraUpActionName)) 	GoToCameraPosition(CurrentPosition.Up);
+		}
+
+		public void GoTo(LookingAt lookingAt)
+		{
+			GoToCameraPosition(lookingAtToNode[lookingAt]);
 		}
 
 		private void GoToCameraPosition(CameraGraphNode? node)
@@ -146,8 +170,7 @@ namespace Kompas.Client.UI
 			var fromCameraRotation = Camera.GlobalRotation;
 			//var fromHandRotation = HandObject.GlobalRotation;
 
-			GetParent()?.RemoveChild(this);
-			node.Node.AddChild(this);
+			node.Node.TransferChild(this);
 
 			Camera.GlobalPosition = fromCameraPosition;
 			Camera.GlobalRotation = fromCameraRotation;

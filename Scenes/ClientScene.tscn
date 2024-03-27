@@ -194,13 +194,14 @@ points = PackedVector3Array(0.00356197, 0.495928, 0.910199, 0.0820751, 0.495928,
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_playerControllers", "_boardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_playerControllers", "_boardController")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("../UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
 _currentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)")
 _useEffectDialog = NodePath("../UI/Use Effect")
 _stackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
+_camera = NodePath("../3D/Engine Stuff/Camera Over Board/Camera Controller")
 _cardPrefab = ExtResource("2_q0mge")
 _playerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 _boardController = NodePath("../3D/Board")

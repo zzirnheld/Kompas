@@ -6,6 +6,7 @@ using Kompas.Cards.Models;
 using Kompas.Client.Networking;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Locations;
 
 namespace Kompas.Client.Gamestate.Search
 {
@@ -25,6 +26,8 @@ namespace Kompas.Client.Gamestate.Search
 		/// Triggered when the search completes
 		/// </summary>
 		public event EventHandler? SearchFinished;
+
+		public IReadOnlyCollection<(Location, bool)> SearchedLocations { get; }
 
 		/// <summary>
 		/// Whether the list restriction of this search data determines that enough cards have <b>already</b> been searched 
@@ -64,6 +67,8 @@ namespace Kompas.Client.Gamestate.Search
 
 			this.game = game;
 			this.clientNotifier = clientNotifier;
+
+			SearchedLocations = toSearch.Select(c => (c.Location, c.ControllingPlayer.Friendly)).Distinct().ToArray();
 		}
 
 		/*
