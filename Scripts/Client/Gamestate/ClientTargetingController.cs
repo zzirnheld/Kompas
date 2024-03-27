@@ -54,6 +54,7 @@ namespace Kompas.Client.Gamestate
 			{
 				_currentSearch = value;
 				foreach (var card in GameController.Game.Cards) card.CardController.RefreshTargeting();
+				TopLeftCardView.Refresh();
 				if (value == null) return;
 				var locations = value.SearchedLocations;
 				if (locations.Count == 1) GameController.Camera.GoTo(new ClientCameraController.LookingAt(locations.Single()));
@@ -82,7 +83,7 @@ namespace Kompas.Client.Gamestate
 				change.Old?.ClientCardController.ShowFocused(false);
 				change.New?.ClientCardController.ShowFocused(true);
 			};
-			TopLeftCardView.ChangeShownCard += (_, change) =>
+			TopLeftCardView.CardShown += (_, change) =>
 			{
 				ShowCanDoHighlights(change.New);
 			};

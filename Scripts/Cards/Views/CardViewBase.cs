@@ -26,7 +26,10 @@ namespace Kompas.Cards.Views
 			public CardType? New { get; init; }
 		}
 
-		public event EventHandler<CardChange>? ChangeShownCard;
+		/// <summary>
+		/// When a card is shown, whether that's because we changed what we're showing, or because we refreshed.
+		/// </summary>
+		public event EventHandler<CardChange>? CardShown;
 
 		protected CardViewBase(DisplayerType infoDisplayer)
 		{
@@ -53,7 +56,7 @@ namespace Kompas.Cards.Views
 
 			var old = ShownCard;
 			ShownCard = card;
-			ChangeShownCard?.Invoke(this, new() { Old = old, New = card});
+			CardShown?.Invoke(this, new() { Old = old, New = card});
 
 			//If we're now showing nothing, hide the window and be done
 			if (ShownCard == null) DisplayNothing();
