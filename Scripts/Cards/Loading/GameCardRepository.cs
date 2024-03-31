@@ -17,7 +17,8 @@ namespace Kompas.Cards.Loading
 	{
 		private PackedScene? CardPrefab { get; }
 
-		protected GameCardRepository(PackedScene? cardPrefab)
+		protected GameCardRepository(IFileLoader fileLoader, bool throwExceptions, PackedScene? cardPrefab)
+			: base(fileLoader, throwExceptions)
 		{
 			CardPrefab = cardPrefab;
 		}
@@ -80,13 +81,15 @@ namespace Kompas.Cards.Loading
 			{
 				//Catch JSON parse error
 				Logger.Err($"Failed to load {json}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
-				return default;
+				if (throwExceptions) throw;
+                else return default;
 			}
 			catch (JsonSerializationException serEx)
 			{
 				//Catch JSON parse error
 				Logger.Err($"Failed to load {json}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
-				return default;
+				if (throwExceptions) throw;
+                else return default;
 			}
 
 			var ctrl = GetCardController();

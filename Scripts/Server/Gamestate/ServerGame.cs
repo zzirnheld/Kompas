@@ -36,6 +36,8 @@ namespace Kompas.Server.Gamestate
 
 		public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null);
 		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false);
+
+		public void AddCard(ServerGameCard card);
 	}
 
 	public class ServerGame : IServerGame

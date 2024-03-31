@@ -2,12 +2,11 @@ using System;
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
+using Kompas.Gamestate.Players;
 using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
-using Kompas.Server.Gamestate.Players;
-using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Cards.Loading
@@ -15,9 +14,12 @@ namespace Kompas.Server.Cards.Loading
 	public class ServerCardRepository : GameCardRepository<ServerSerializableCard, ServerEffect, ServerCardController>
 	{
 		public ServerCardRepository()
-			: base(null)
-		{
-		}
+			: this(IFileLoader.Godot, false)
+		{ }
+
+		public ServerCardRepository(IFileLoader fileLoader, bool throwExceptions)
+			: base(fileLoader, throwExceptions, null)
+		{ }
 
 		public static bool CardNameIsCharacter(string? name)
 		{
@@ -45,7 +47,7 @@ namespace Kompas.Server.Cards.Loading
 			return new ServerCardController();
 		}
 
-		public ServerGameCard InstantiateServerCard(string name, ServerGame game, ServerPlayer owner, int id, bool isAvatar = false)
+		public ServerGameCard InstantiateServerCard(string name, IServerGame game, IPlayer owner, int id, bool isAvatar = false)
 		{
 			string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
 

@@ -90,6 +90,8 @@ namespace Kompas.Cards.Loading
 		private static Texture2D? _noncharCardFrameTexture;
 		public static Texture2D NoncharCardFrameTexture => _noncharCardFrameTexture ??= ResourceLoader.Load<Texture2D>(NonCharCardFramePath);
 
+		private readonly IFileLoader fileLoader;
+		protected readonly bool throwExceptions;
 		/*
 		public Game game;
 		public Settings Settings
@@ -103,10 +105,53 @@ namespace Kompas.Cards.Loading
 
 		public static IEnumerable<string> CardJsons => cardJsons.Values;
 
-		protected CardRepository()
+		protected CardRepository(IFileLoader fileLoader, bool throwExceptions)
 		{
+			this.fileLoader = fileLoader;
+			this.throwExceptions = throwExceptions;
 			Initialize();
 		}
+
+		public interface IFileLoader
+		{
+			public static IFileLoader Godot => new FileLoader();
+
+			public string? LoadFileAsText(string path);
+
+			public Texture2D? LoadSprite(string cardFileName);
+		}
+
+		private class FileLoader : IFileLoader
+		{
+			public string? LoadFileAsText(string path)
+			{
+				//Logger.Log($"Trying to load {path}");
+				if (!FileAccess.FileExists(path)) return null;
+
+				using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+
+				return file.GetAsText();
+
+				/*
+				var json = ResourceLoader.Load<Json>(path);
+				Logger.Log($"{Json.Stringify(json)}\n\n{json.GetParsedText()}");
+				Json.Stringify(json);
+				return json.GetParsedText(); */
+			}
+
+			public Texture2D? LoadSprite(string cardFileName)
+			{
+				string path = $"{CardImagesPath}/{cardFileName}.png";
+				if (!ResourceLoader.Exists(path))
+				{
+					Logger.Log($"Warning: texture not found at {cardFileName}");
+					return null;
+				}
+				else return ResourceLoader.Load<Texture2D>(path);
+			}
+		}
+
+		public Texture2D? LoadSprite(string cardFileName) => fileLoader.LoadSprite(cardFileName);
 
 		private void Initialize()
 		{
@@ -120,7 +165,7 @@ namespace Kompas.Cards.Loading
 				InitializeMapFromJsons(PartialKeywordListFilePath, PartialKeywordFolderPath, partialKeywordJsons);
 				InitializeMapFromJsons(TriggerKeywordListFilePath, TriggerKeywordFolderPath, triggerKeywordJsons);
 
-				var reminderJsonAsset = LoadFileAsText(RemindersJsonPath)
+				var reminderJsonAsset = fileLoader.LoadFileAsText(RemindersJsonPath)
 					?? throw new System.NullReferenceException("Failed to load reminders json");
 				Reminders = JsonConvert.DeserializeObject<ReminderTextsContainer>(reminderJsonAsset)
 					?? throw new System.NullReferenceException("Failed to load reminder texts from the json");
@@ -129,27 +174,11 @@ namespace Kompas.Cards.Loading
 			}
 		}
 
-		private static string? LoadFileAsText(string path)
-		{
-			//Logger.Log($"Trying to load {path}");
-			if (!FileAccess.FileExists(path)) return null;
-
-			using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-
-			return file.GetAsText();
-
-			/*
-			var json = ResourceLoader.Load<Json>(path);
-			Logger.Log($"{Json.Stringify(json)}\n\n{json.GetParsedText()}");
-			Json.Stringify(json);
-			return json.GetParsedText(); */
-		}
-
-		private static void InitializeCardJsons()
+		private void InitializeCardJsons()
 		{
 			static bool isCardToIgnore(string name) => string.IsNullOrWhiteSpace(name) || cardNamesToIgnore.Contains(name);
 
-			string? cardFilenameList = LoadFileAsText(CardListFilePath)
+			string? cardFilenameList = fileLoader.LoadFileAsText(CardListFilePath)
 				?? throw new System.NullReferenceException("Failed to load card list");
 			cardFilenameList = cardFilenameList.Replace('\r', '\n');
 			string[] cardFilenameArray = cardFilenameList.Split('\n');
@@ -163,7 +192,7 @@ namespace Kompas.Cards.Loading
 				if (isCardToIgnore(filenameClean) || CardExists(filenameClean)) continue;
 
 				//load the json
-				var jsonAsset = LoadFileAsText($"{CardJsonsFolderPath}/{filenameClean}.json");
+				var jsonAsset = fileLoader.LoadFileAsText($"{CardJsonsFolderPath}/{filenameClean}.json");
 				if (jsonAsset == null)
 				{
 					Logger.Err($"Failed to load json file for {filenameClean}");
@@ -204,9 +233,9 @@ namespace Kompas.Cards.Loading
 			}
 		}
 
-		private static void InitializeMapFromJsons(string filePath, string folderPath, Dictionary<string, string> dict)
+		private void InitializeMapFromJsons(string filePath, string folderPath, Dictionary<string, string> dict)
 		{
-			string file = LoadFileAsText(filePath)
+			string file = fileLoader.LoadFileAsText(filePath)
 				?? throw new System.NullReferenceException($"Failed to load {filePath}");
 			var lines = file.Replace('\r', '\n')
 				.Split('\n')
@@ -215,7 +244,7 @@ namespace Kompas.Cards.Loading
 			foreach (string line in lines)
 			{
 				Logger.Log($"Loading {line} from {folderPath}/{line}");
-				string json = LoadFileAsText($"{folderPath}/{line}.json")
+				string json = fileLoader.LoadFileAsText($"{folderPath}/{line}.json")
 					?? throw new System.NullReferenceException($"Failed to load {line}");
 				json = ReplacePlaceholders(json);
 				dict.Add(line, json);
@@ -265,17 +294,6 @@ namespace Kompas.Cards.Loading
 		{
 			if (cardName == null) return null;
 			else return cardFileNames[cardName];
-		}
-
-		public Texture2D? LoadSprite(string cardFileName)
-		{
-			string path = $"{CardImagesPath}/{cardFileName}.png";
-			if (!ResourceLoader.Exists(path))
-			{
-				Logger.Log($"Warning: texture not found at {cardFileName}");
-				return null;
-			}
-			else return ResourceLoader.Load<Texture2D>(path);
 		}
 
 		public static IEnumerable<SerializableCard> SerializableCards

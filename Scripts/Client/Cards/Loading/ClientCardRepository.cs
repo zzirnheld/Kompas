@@ -15,7 +15,11 @@ namespace Kompas.Client.Cards.Loading
 	public class ClientCardRepository : GameCardRepository<ClientSerializableCard, ClientEffect, ClientCardController>
 	{
 		public ClientCardRepository(PackedScene cardPrefab)
-			: base(cardPrefab)
+			: this(IFileLoader.Godot, false, cardPrefab)
+		{ }
+
+		public ClientCardRepository(IFileLoader fileLoader, bool throwExceptions, PackedScene cardPrefab)
+			: base(fileLoader, throwExceptions, cardPrefab)
 		{ }
 
 		public ClientGameCard? InstantiateClientAvatar(string json, ClientPlayer owner, int id, ClientGame game)
