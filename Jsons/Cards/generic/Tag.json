@@ -19,10 +19,9 @@
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
-							
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+							"cardRestriction": {
+								"$type": "Restrict.Cards:AllOf:",
+								"elements": [
 									{ "$type": "Restrict.Cards:Character:" },
 									{
 										"$type": "Restrict.Cards:Not:",
@@ -62,14 +61,14 @@
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
 							"$type": "Restrict.Gamestate:PlayersMatch:",
-							"card": { 
+							"firstPlayer": { 
 								"$type": "Identify.Players:ControllerOf:",
 								"card": {
 									"$type": "Identify.Cards:AugmentedCard:",
 									"ofThisCard": { "$type": "Identify.Cards:CardBefore:" }
 								}
 							},
-							"other": {
+							"secondPlayer": {
 								"$type": "Identify.Players:ControllerOf:",
 								"card": {
 									"$type": "Identify.Cards:AugmentedCard:",

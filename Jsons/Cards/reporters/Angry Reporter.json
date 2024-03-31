@@ -14,8 +14,8 @@
 					"blurb": "angry WX character that might attack",
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
-						"$type": "Restrict.Players:PlayersMatch:",
-						"player": { "$type": "Identify.Players:TargetIndex:" }
+						"$type": "Restrict.Cards:Controller:",
+						"playerIdentity" :{ "$type": "Identify.Players:TargetIndex:" }
 					}
 				},
 				{
@@ -61,8 +61,8 @@
 						"elements": [
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
-								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Identify.Players:TargetIndex:" }
+								"$type": "Restrict.Cards:Controller:",
+								"playerIdentity": { "$type": "Identify.Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
@@ -97,8 +97,8 @@
 							{
 								"$type": "Restrict.Players:Not:",
 								"negated": {
-									"$type": "Restrict.Players:PlayersMatch:",
-									"player": { "$type": "Identify.Players:TargetIndex:" }
+									"$type": "Restrict.Cards:Controller:",
+									"playerIdentity": { "$type": "Identify.Players:TargetIndex:" }
 								}
 							}
 						]

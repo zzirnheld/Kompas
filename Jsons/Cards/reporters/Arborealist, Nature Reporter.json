@@ -73,8 +73,8 @@
 							{ "$type": "Restrict.Cards:Character:" },
 							{ "$type": "Restrict.Cards:Hidden:" },
 							{
-								"$type": "Restrict.Players:PlayersMatch:",
-								"player": { "$type": "Identify.Players:TargetIndex:" }
+								"$type": "Restrict.Cards:Controller:",
+								"playerIdentity": { "$type": "Identify.Players:TargetIndex:" }
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",

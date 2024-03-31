@@ -39,8 +39,8 @@
 						"enemy": true
 					},
 					"cardRestriction": {
-						"$type": "Restrict.Players:PlayersMatch:",
-						"player": { "$type": "Identify.Players:TargetIndex:" }
+						"$type": "Restrict.Cards:Controller:",
+						"playerIdentity" :{ "$type": "Identify.Players:TargetIndex:" }
 					},
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:AllOf:",

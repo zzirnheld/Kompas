@@ -50,7 +50,7 @@
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
 						{
-							"$type": "Restrict.Triggering:IsAttack:",
+							"$type": "Restrict.Gamestate:IsAttack:",
 							"stackable": { "$type": "Identify.Stackables:StackableCause:" }
 						},
 						{

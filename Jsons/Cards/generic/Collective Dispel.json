@@ -29,7 +29,7 @@
 									"$type": "Restrict.Spaces:AdjacentTo:",
 									"space": { "$type": "Identify.Cards:ThisCardNow:" }
 								},
-								{ "$type": "Restrict.Spaces:Character:" }
+								{ "$type": "Restrict.Cards:Character:" }
 							]
 						}
 					}

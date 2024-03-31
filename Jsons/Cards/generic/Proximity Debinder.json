@@ -18,7 +18,7 @@
 								"card": { "$type": "Identify.Cards:CardBefore:" }
 							}
 						},
-						{ "$type": "Restrict.Triggering:IsAttack:" },
+						{ "$type": "Restrict.Gamestate:IsAttack:" },
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },

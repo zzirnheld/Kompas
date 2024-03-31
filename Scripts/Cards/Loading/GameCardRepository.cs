@@ -88,7 +88,7 @@ namespace Kompas.Cards.Loading
 			{
 				//Catch JSON parse error
 				Logger.Err($"Failed to load {json}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
-				if (throwExceptions) throw;
+				if (throwExceptions) throw new System.InvalidOperationException($"Failed to load {json}", serEx);
                 else return default;
 			}
 
