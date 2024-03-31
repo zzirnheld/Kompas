@@ -33,7 +33,16 @@ namespace Kompas.Cards.Loading
 					Logger.Err($"Failed to add {keyword} length {keyword.Length} to {card.cardName}"
 					+ $"Not present in {string.Join(", ", keywordJsons.Keys)}");
 				var keywordJson = keywordJsons[keyword];
-				var eff = JsonConvert.DeserializeObject<TEffect>(keywordJson, CardLoadingSettings);
+				TEffect? eff;
+				try
+				{
+					eff = JsonConvert.DeserializeObject<TEffect>(keywordJson, CardLoadingSettings);
+				}
+				catch (JsonReaderException jrEx)
+				{
+					Logger.Err($"Failed to load {card} because {jrEx}");
+					throw;
+				}
 				if (eff == null)
 				{
 					Logger.Err($"Failed to load {keywordJson}");

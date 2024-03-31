@@ -25,14 +25,13 @@
 								"other": { "$type": "Identify.Numbers:Constant:", "constant": 0 }
 							}
 						},
-						{ "$type": "Restrict.Triggering:IsEffect:" },
+						{ "$type": "Restrict.Gamestate:IsEffect:" },
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardAfter:" },
-							
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+							"cardRestriction": {
+								"$type": "Restrict.Cards:AllOf:",
+								"elements": [
 									{ "$type": "Restrict.Cards:Hurt:" },
 									{
 										"$type": "Restrict.Cards:AtLocation:",

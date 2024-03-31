@@ -9,7 +9,7 @@ namespace Kompas.Effects.Models.Identities.Cards
 	public class SelectFromMany : ContextualParentIdentityBase<IGameCardInfo>
 	{
 		[JsonProperty]
-		public ISelector<IGameCardInfo> selector = new RandomCard();
+		public ISelector<IGameCardInfo> selector = new Selectors.Cards.RandomCard();
 		[JsonProperty]
 		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
 

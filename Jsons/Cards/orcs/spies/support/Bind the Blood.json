@@ -54,14 +54,10 @@
 						3
 					],
 					"fallOffCondition": "Battle End",
-					"fallOffRestriction": {
-						"elements": [
-							{
-								"$type": "Restrict.Gamestate:StackablesMatch:",
-								"firstStackable": { "$type": "Identify.Stackables:StackableIndex:" },
-								"secondStackable": { "$type": "Identify.Stackables:StackableCause:" }
-							}
-						]
+					"fallOffRestriction": {	
+						"$type": "Restrict.Gamestate:StackablesMatch:",
+						"firstStackable": { "$type": "Identify.Stackables:StackableIndex:" },
+						"secondStackable": { "$type": "Identify.Stackables:StackableCause:" }
 					},
 					"endCondition": "Discard",
 					"triggerRestriction": {

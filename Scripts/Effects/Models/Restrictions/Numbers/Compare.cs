@@ -23,13 +23,9 @@ namespace Kompas.Effects.Models.Restrictions.Numbers
 			=> comparison.Compare(item, other.From(context));
 	}
 
-	public class Positive : Compare
+	public class Positive : RestrictionBase<int>
 	{
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			other ??= Identities.Numbers.Constant.Zero;
-			comparison ??= new Relationships.Numbers.GreaterThan();
-			base.Initialize(initializationContext);
-		}
+		protected override bool IsValidLogic(int item, IResolutionContext context)
+			=> item > 0;
 	}
 }

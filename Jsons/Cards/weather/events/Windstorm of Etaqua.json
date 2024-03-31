@@ -55,7 +55,7 @@
 				},
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
-					"subeffectSpaceIdentity": {
+					"spaceIdentity": {
 						"$type": "Identify.Spaces:SelectFromMany:",
 						"selector": { "$type": "Selectors.Spaces:RandomSpace:" },
 						"spaces": {

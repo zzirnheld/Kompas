@@ -95,7 +95,7 @@
 								"space": { "$type": "Identify.Cards:TargetIndex:" }
 							},
 							{
-								"$type": "Restrict.Players:Not:",
+								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:Controller:",
 									"playerIdentity": { "$type": "Identify.Players:TargetIndex:" }

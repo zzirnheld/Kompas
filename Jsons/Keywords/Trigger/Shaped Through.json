@@ -11,7 +11,7 @@
 		"$type": "Restrict.Gamestate:CompareNumbers:",
 		"firstNumber": {
 			"$type": "Identify.Numbers:Operation:",
-			"Identify.Numbers": [
+			"numbers": [
 				{
 					"$type": "Identify.Numbers:TriggerX:",
 					"multiplier": 0,
@@ -36,7 +36,7 @@
 					}
 				}
 			],
-			"operation": { "$type": "Kompas.Effects.Models.Identities.NumberOperations.Sum, Kompas" }
+			"operation": { "$type": "Kompas.Effects.Models.Identities.Numbers.NumberOperations.Sum, Kompas" }
 		},
 		"secondNumber": {
 			"$type": "Identify.Numbers:Distance:",

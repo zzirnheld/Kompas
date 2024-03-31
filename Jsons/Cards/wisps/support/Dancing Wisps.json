@@ -36,9 +36,9 @@
 				},
 				{
 					"$type": "Subeffect:AutoTargetSpaceIdentity:",
-					"subeffectSpaceIdentity": {
+					"spaceIdentity": {
 						"$type": "Identify.Spaces:SelectFromMany:",
-						"selector": { "$type": "Selectors.Space:RandomSpace:" },
+						"selector": { "$type": "Selectors.Spaces:RandomSpace:" },
 						"spaces": {
 							"$type": "Identify.ManySpaces:Restricted:",
 							"restriction": { "$type": "Restrict.Spaces:Empty:" },

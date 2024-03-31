@@ -522,7 +522,6 @@ speedemons/support/Fanatic Follower
 speedemons/support/Supportive Grandparent
 speedemons/support/ZOOMIN
 speedemons/support/Sound Barrier
-speedemons/support/Grandfather Speed
 speedemons/support/Resonator Resonator
 speedemons/support/Sonic Resonator
 speedemons/support/Ready

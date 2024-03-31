@@ -28,7 +28,7 @@
 							"$type": "Identify.ManySpaces:ThreeSpaceRelationship:",
 							"firstSpace": { "$type": "Identify.Cards:CardBefore:" },
 							"secondSpace": { "$type": "Identify.Spaces:ContextSpace:" },
-							"thirdSpaceRelationship": { "$type": "Relationships.Spaces:Between:" }
+							"thirdSpaceRelationship": { "$type": "Relationships.Spaces.ThreeSpaceRelationships:Between:" }
 						}
 					}
 				},

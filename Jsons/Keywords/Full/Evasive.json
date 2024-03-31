@@ -3,6 +3,7 @@
 	"triggerData": {
 		"triggerCondition": "Battle Start",
 		"triggerRestriction": {
+			"$type": "Restrict.Triggering:AllOf:",
 			"elements": [
 				{
 					"$type": "Restrict.Gamestate:CardsMatch:",
