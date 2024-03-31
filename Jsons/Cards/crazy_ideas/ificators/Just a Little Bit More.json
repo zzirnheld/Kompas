@@ -23,7 +23,7 @@
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:CanMove:",
-						"spaceRestrictionSubeffectIndex": 2
+						"spaceRestrictionSubeffectIndex": 5
 					}
 				},
 				{

@@ -5,6 +5,7 @@ using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Shared;
 using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
@@ -80,14 +81,14 @@ namespace Kompas.Cards.Loading
 			catch (System.ArgumentException argEx)
 			{
 				//Catch JSON parse error
-				Logger.Err($"Failed to load {json}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
+				Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
 				if (throwExceptions) throw;
                 else return default;
 			}
 			catch (JsonSerializationException serEx)
 			{
 				//Catch JSON parse error
-				Logger.Err($"Failed to load {json}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
+				Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
 				if (throwExceptions) throw new System.InvalidOperationException($"Failed to load {json}", serEx);
                 else return default;
 			}

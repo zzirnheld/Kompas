@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models.Restrictions.Cards
 		/// I'll need to figure out a better solution, if one is possible.
 		/// </summary>
 		[JsonProperty]
-		public int spaceRestrictionSubeffectIndex = int.MinValue;
+		public int spaceRestrictionSubeffectIndex = int.MinValue; //TODO give IContextInitializeable a subeff index adjustment function like subeffect
 
 		public override void Initialize(InitializationContext initializationContext)
 		{

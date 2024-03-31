@@ -17,7 +17,9 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		public override void Initialize(InitializationContext initializationContext)
 		{
 			base.Initialize(initializationContext);
-			elements = CardRepository.InstantiateTriggerKeyword(keyword);
+			elements = CardRepository.InstantiateTriggerKeyword(keyword)
+				?? throw new System.InvalidOperationException();
+			foreach (var elem in elements) elem.Initialize(initializationContext);
 		}
 
 		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)

@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Stackables
 		protected abstract bool IsValidLogic(Effect effect);
 	}
 
-	namespace EffectRestrictionElements
+	namespace Effects
 	{
 		public class Keyword : EffectRestrictionElementBase
 		{

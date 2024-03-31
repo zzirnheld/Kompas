@@ -68,15 +68,12 @@
 				{
 					"$type": "Subeffect:AutoTargetCardIdentity:",
 					"subeffectCardIdentity": {
-						"$type": "Identify.Cards:CardAtPosition:",
-						"position": {
-							"$type": "Identify.Spaces:ApplyDisplacement:",
-							"from": { "$type": "Identify.Cards:ThisCardNow:" },
-							"displacement": {
-								"$type": "Identify.Spaces:Displacement:",
-								"from": { "$type": "Identify.Spaces:TargetIndex:", "index": -2 },
-								"to": { "$type": "Identify.Spaces:TargetIndex:", "index": -1 }
-							}
+						"$type": "Identify.Spaces:ApplyDisplacement:",
+						"from": { "$type": "Identify.Cards:ThisCardNow:" },
+						"displacement": {
+							"$type": "Identify.Spaces:Displacement:",
+							"from": { "$type": "Identify.Spaces:TargetIndex:", "index": -2 },
+							"to": { "$type": "Identify.Spaces:TargetIndex:", "index": -1 }
 						}
 					}
 				},

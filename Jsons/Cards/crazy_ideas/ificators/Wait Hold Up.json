@@ -28,7 +28,7 @@
 							{ "$type": "Restrict.Cards:Enemy:" },
 							{
 								"$type": "Restrict.Cards:CanMove:",
-								"spaceRestrictionSubeffectIndex": 2
+								"spaceRestrictionSubeffectIndex": 5
 							}
 						]
 					}
