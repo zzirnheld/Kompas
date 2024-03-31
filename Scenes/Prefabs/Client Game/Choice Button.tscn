@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cikgbik27781"]
+
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="1_cr6ci"]
+
+[node name="Choice Button" type="Button"]
+theme = ExtResource("1_cr6ci")
+theme_override_font_sizes/font_size = 16
+text = "An Option"
