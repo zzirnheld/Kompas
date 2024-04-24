@@ -2,6 +2,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Client.Cards.Loading;
+using Kompas.Client.Effects.Controllers;
 using Kompas.Client.Effects.Views;
 using Kompas.Client.Networking;
 using Kompas.Client.UI;
@@ -36,6 +37,9 @@ namespace Kompas.Client.Gamestate
 		[Export]
 		private ClientCameraController? _camera;
 		public ClientCameraController Camera => _camera ?? throw new UnassignedReferenceException();
+		[Export]
+		private ClientChoicesView? _choicesView;
+		private ClientChoicesView ChoicesView => _choicesView ?? throw new UnassignedReferenceException();
 
 		[Export]
 		private PackedScene? _cardPrefab;
@@ -56,12 +60,18 @@ namespace Kompas.Client.Gamestate
 		/// </summary>
 		public ClientNotifier Notifier => _notifier ?? throw new NotReadyYetException();
 
+		private ClientChoicesController? _choices;
+		public ClientChoicesController Choices => _choices ?? throw new NotReadyYetException();
+
 		public override void _Ready()
 		{
 			base._Ready();
 			game = ClientGame.Create(this);
 			game.TurnChanged += (_, turnPlayer) => TurnStartOperations(turnPlayer);
 			_cardRespository = new ClientCardRepository(CardPrefab);
+
+			_choices = new ClientChoicesController(ChoicesView);
+			Choices.ChooseIndex += (_, index) => Notifier.RequestChooseEffectOption(index);
 		}
 
 		private void TurnStartOperations(IPlayer turnPlayer)

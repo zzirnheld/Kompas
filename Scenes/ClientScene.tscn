@@ -37,7 +37,7 @@
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientStackView.cs" id="22_80qh3"]
-[ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientChoiceView.cs" id="30_ajger"]
+[ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientChoicesView.cs" id="30_7wvtq"]
 [ext_resource type="PackedScene" uid="uid://cikgbik27781" path="res://Scenes/Prefabs/Client Game/Choice Button.tscn" id="30_n6ewi"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
@@ -196,7 +196,7 @@ points = PackedVector3Array(0.00356197, 0.495928, 0.910199, 0.0820751, 0.495928,
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_playerControllers", "_boardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_choicesView", "_playerControllers", "_boardController")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("../UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
@@ -204,6 +204,7 @@ _currentStateController = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane 
 _useEffectDialog = NodePath("../UI/Use Effect")
 _stackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
 _camera = NodePath("../3D/Engine Stuff/Camera Over Board/Camera Controller")
+_choicesView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View")
 _cardPrefab = ExtResource("2_q0mge")
 _playerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 _boardController = NodePath("../3D/Board")
@@ -1126,10 +1127,10 @@ autowrap_mode = 2
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("30_ajger")
+script = ExtResource("30_7wvtq")
 _label = NodePath("MarginContainer/VBoxContainer/Choice Label")
 _choiceButton = ExtResource("30_n6ewi")
-_choicesParent = NodePath("MarginContainer/VBoxContainer/Choices Parent")
+_choicesParent = NodePath("MarginContainer/VBoxContainer/Choices Parent Parent/HFlowContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View"]
 layout_mode = 1
@@ -1153,11 +1154,11 @@ theme_override_font_sizes/font_size = 20
 text = "You must choose!"
 autowrap_mode = 2
 
-[node name="Choices Parent" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View/MarginContainer/VBoxContainer"]
+[node name="Choices Parent Parent" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HFlowContainer" type="HFlowContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View/MarginContainer/VBoxContainer/Choices Parent"]
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View/MarginContainer/VBoxContainer/Choices Parent Parent"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1165,7 +1166,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Choice Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View/MarginContainer/VBoxContainer/Choices Parent/HFlowContainer" instance=ExtResource("30_n6ewi")]
+[node name="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View/MarginContainer/VBoxContainer/Choices Parent Parent/HFlowContainer" instance=ExtResource("30_n6ewi")]
 layout_mode = 2
 
 [node name="No Further Targets Button" type="Button" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer"]

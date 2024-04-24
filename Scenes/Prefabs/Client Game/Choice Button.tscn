@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cikgbik27781"]
+[gd_scene load_steps=3 format=3 uid="uid://cikgbik27781"]
 
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="1_cr6ci"]
+[ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientChoiceView.cs" id="2_03n1d"]
 
 [node name="Choice Button" type="Button"]
+offset_right = 83.0
+offset_bottom = 26.0
 theme = ExtResource("1_cr6ci")
 theme_override_font_sizes/font_size = 16
 text = "An Option"
+script = ExtResource("2_03n1d")

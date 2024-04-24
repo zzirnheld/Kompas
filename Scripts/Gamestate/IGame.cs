@@ -25,8 +25,8 @@ namespace Kompas.Gamestate
 
 		public static bool IsValidStandardPlaySpace(this IGame game, Space? space, IPlayer? player)
 		{
-			Logger.Log($"Checking whether player {player?.Index} can play a card to {space}. Cards adjacent to that space are" +
-				$"{string.Join(",", (space ?? Space.Invalid).AdjacentSpaces.Select(game.Board.GetCardAt).Where(c => c != null).Select(c => $" {c?.CardName}-{c?.ControllingPlayer?.Index} "))}");
+			//Logger.Log($"Checking whether player {player?.Index} can play a card to {space}. Cards adjacent to that space are" +
+			//	$"{string.Join(",", (space ?? Space.Invalid).AdjacentSpaces.Select(game.Board.GetCardAt).Where(c => c != null).Select(c => $" {c?.CardName}-{c?.ControllingPlayer?.Index} "))}");
 
 			bool cardIsFriendly(IGameCardInfo? card)
 			{

@@ -30,8 +30,9 @@ namespace Kompas.Client.Gamestate
 		public IBoard Board => ClientBoard;
 
 		public ClientStackController StackController { get; }
-
 		IStackController IGame.StackController => StackController;
+
+		public ClientChoicesController ChoicesController { get; }
 
 		private readonly ClientPlayer[] clientPlayers = new ClientPlayer[2];
 		public IPlayer[] Players => clientPlayers;
