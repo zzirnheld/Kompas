@@ -76,6 +76,7 @@ namespace Kompas.Client.Cards.Controllers
 					?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
 				CardView = new (InfoDisplayer, value);
 				AOEController = GameController.TargetingController.SpacesController.AddAOE();
+				//TODO: update AOE material accordingly, once that's something I have assigned
 				
 				Card.LocationChanged += (_, _) => RefreshAOE();
 				Card.AugmentsChanged += (_, _) => RefreshAugments();

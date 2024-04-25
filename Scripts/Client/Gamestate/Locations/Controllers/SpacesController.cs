@@ -14,6 +14,10 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private PackedScene LinkedSpaces => _linkedSpaces ?? throw new UnassignedReferenceException();
 
 		[Export]
+		private Material? _defaultAOEMaterial;
+		private Material DefaultAOEMaterial => _defaultAOEMaterial ?? throw new UnassignedReferenceException();
+
+		[Export]
 		private ClientGameController? _gameController;
 		private ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
 		//if this becomes a shared controller, this will need to be moved to a child class
@@ -111,6 +115,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			ctrl.GetParent()?.RemoveChild(ctrl);
 			AddChild(ctrl);
 			ctrl.Position = LastSpacesController.Position + (Vector3.Up * 0.0001f);
+			ctrl.Rotation = LastSpacesController.Rotation;
+			ctrl.UpdateMaterial(DefaultAOEMaterial);
 			LastSpacesController = ctrl;
 			return ctrl;
 		}
