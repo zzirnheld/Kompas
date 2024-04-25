@@ -52,7 +52,6 @@ namespace Kompas.Effects.Models.Restrictions
 			.All(r => Validate(r, item, context));
 
 
-		private const bool DEBUG = false; //TODO factor out to global flag/checkbox
 		/// <summary>
 		/// Override if you want to change the validation function called on each child,
 		/// like have a client-side variant
@@ -60,7 +59,7 @@ namespace Kompas.Effects.Models.Restrictions
 		protected virtual bool Validate(ElementRestrictionType element, RestrictedType? item, IResolutionContext context)
 		{
 			bool ret = element.IsValid(item, context);
-			if (DEBUG && !ret) Logger.Log($"{item} failed by {element}");
+			if (InitializationContext.game.VerboseDebugLogging && !ret) Logger.Log($"{item} failed by {element}");
 			return ret;
 		}
 	}

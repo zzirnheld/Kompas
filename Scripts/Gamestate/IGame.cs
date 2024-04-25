@@ -59,6 +59,9 @@ namespace Kompas.Gamestate
 	{
 		public const string CardListPath = "Card Jsons/Card List";
 
+		public bool Debug { get; }
+		public bool VerboseDebugLogging { get; }
+
 		// The list of locations where cards generally shouldn't be made visible to the opponent
 		public static readonly Location[] HiddenLocations =
 			new Location[] { Location.Nowhere, Location.Deck, Location.Hand };

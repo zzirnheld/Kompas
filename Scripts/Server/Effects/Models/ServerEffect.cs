@@ -122,7 +122,8 @@ namespace Kompas.Server.Effects.Models
 		}
 
 		public override bool CanBeActivatedBy(IPlayer controller)
-			=> ServerGame?.DebugMode ?? false || base.CanBeActivatedBy(controller);
+			=> (ServerGame?.DebugMode ?? false)
+			|| base.CanBeActivatedBy(controller);
 
 		public void PushedToStack(ServerGame game, ServerPlayer controller)
 		{

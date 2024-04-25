@@ -21,6 +21,8 @@ namespace Kompas.Client.Gamestate
 {
 	public class ClientGame : IGame
 	{
+		public bool Debug => false;
+		public bool VerboseDebugLogging => false;
 
 		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
 		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;

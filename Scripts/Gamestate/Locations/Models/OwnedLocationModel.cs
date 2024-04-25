@@ -45,25 +45,22 @@ namespace Kompas.Gamestate.Locations.Models
 			if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
 			if (!AllowAlreadyHereWhenAdd && this == card.LocationModel) throw new AlreadyHereException(Location);
 
-			//Check if the card is successfully removed (if it's not, it's probably an avatar)
-			//TODO replace these with an AvatarRemovedException that gets caught
-			try { card.Remove(stackableCause); }
+			try { PerformAdd(card, index, stackableCause); }
 			catch (AvatarRetreatedException)
 			{
 				Logger.Warn($"{card}, an Avatar, retreated");
 				return;
 			}
-
-			Logger.Log($"{card} successfully removed, moving");
-			PerformAdd(card, index, stackableCause);
 		}
 
 		/// <summary>
         /// Perform the operations that will place <see cref="card"/> at this location.
         /// Can be optionally overridden to add logic after validation, but before/after the add occurs
+		/// IMPL NOTE: removes the card first. If an Avatar is removed, it'll throw an AvatarRetreatedException, which inheritors are not required to handle.
         /// </summary>
 		protected virtual void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
+			card.Remove(stackableCause);
 			card.LocationModel = this;
 			card.Position = null;
 			card.ControllingPlayer = Owner;

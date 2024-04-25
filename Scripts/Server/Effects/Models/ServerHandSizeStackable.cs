@@ -47,6 +47,7 @@ namespace Kompas.Server.Effects.Models
 			}
 
 			var listRestriction = IListRestriction.ConstantCount(overHandSize);
+			listRestriction.Initialize(new InitializationContext(game, source: null));
 			string listRestrictionJson = listRestriction.SerializeToJSON(context);
 
 			int[]? choices = null;

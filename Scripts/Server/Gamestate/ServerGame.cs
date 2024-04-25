@@ -45,6 +45,9 @@ namespace Kompas.Server.Gamestate
 		public const int MinDeckSize = 49;
 		public const int AvatarEBonus = 15;
 
+		public bool Debug => DebugMode;
+		public bool VerboseDebugLogging => DebugMode; //TODO its own checkbox
+
 		private readonly ServerCardRepository serverCardRepository;
 		public ICardRepository CardRepository => serverCardRepository;
 		private IServerStackController? _stackController;
