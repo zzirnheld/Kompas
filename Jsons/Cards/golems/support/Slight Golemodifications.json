@@ -6,6 +6,7 @@
 		{
 			"blurb": "Modify Golem (Slightly)",
 			"triggerData": {
+				"orderPriority": -5,
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},

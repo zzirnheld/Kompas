@@ -35,8 +35,8 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			_ = sourceCardIds ?? throw new System.NullReferenceException("sourceCardIDs");
-			_ = effIndices ?? throw new System.NullReferenceException("effIndices");
+			_ = sourceCardIds ?? throw new System.NullReferenceException(nameof(sourceCardIds));
+			_ = effIndices ?? throw new System.NullReferenceException(nameof(effIndices));
 			IList<Trigger> triggers = new List<Trigger>();
 			foreach (var (index, ID) in sourceCardIds.Enumerate())
 			{
@@ -47,7 +47,7 @@ namespace Kompas.Client.Networking
 			}
 
 			//For now, just send off the same order
-			clientGame.ClientGameController.Notifier.ChooseTriggerOrder(triggers.Select((t, i) => (t, i)));
+			clientGame.ClientGameController.Notifier.ChooseTriggerOrder(triggers.OrderBy(t => t.OrderPriority).Select((t, i) => (t, i)));
 		}
 	}
 }

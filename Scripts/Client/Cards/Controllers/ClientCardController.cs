@@ -9,6 +9,7 @@ using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Godot;
+using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Cards.Controllers
@@ -135,7 +136,7 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void RefreshAugments()
 		{
-			foreach (var card in Card.Augments)
+			foreach (var (index, card) in Card.Augments.Enumerate())
 			{
 				var node = card.CardController.Node
 					?? throw new System.NullReferenceException("ClientCardController must have non-null nodes!");
@@ -144,7 +145,7 @@ namespace Kompas.Client.Cards.Controllers
 				node.Scale = Vector3.One * 0.2f;
 				var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
 				node.Rotation = new Vector3(0, rotation, 0);
-				node.Position = Vector3.Up * 0.05f; //TODO better spread
+				node.Position = (Vector3.Up * 0.05f) + (Vector3.Right * index * 0.05f); //TODO better spread
 			}
 			AnythingRefreshed?.Invoke(this, Card);
 			AugmentsRefreshed?.Invoke(this, Card);

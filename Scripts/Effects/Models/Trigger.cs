@@ -15,6 +15,7 @@ namespace Kompas.Effects.Models
 		public string? blurb;
 		public bool showX = false;
 		public int orderPriority = 0; //positive means it goes on the stack after anything, negative before
+		//TODO use
 
 		public override string ToString()
 		{
@@ -104,6 +105,7 @@ namespace Kompas.Effects.Models
 			?? throw new InvalidOperationException("Trigger data didn't have a trigger restriction");
 		public bool Optional => TriggerData.optional;
 		public string Blurb => TriggerData.blurb ?? Effect.blurb ?? string.Empty;
+		public int OrderPriority => TriggerData.orderPriority;
 
 		public Trigger(TriggerData triggerData, Effect effect)
 		{

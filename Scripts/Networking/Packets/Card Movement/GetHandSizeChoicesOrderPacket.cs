@@ -39,7 +39,8 @@ namespace Kompas.Client.Networking
 				Logger.Err("No cardIDs for getting hand size choices");
 				return;
 			}
-			IListRestriction? listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson)
+			//TODO: make sure this can't deserialize something that isn't an IListRestriction.
+			IListRestriction? listRestriction = JsonConvert.DeserializeObject<IListRestriction>(listRestrictionJson, ListRestrictionExtensions.jsonSerializerSettings)
 				?? throw new System.NullReferenceException("Failed to init");
 			listRestriction.Initialize(new InitializationContext(game: clientGame, source: default));
 

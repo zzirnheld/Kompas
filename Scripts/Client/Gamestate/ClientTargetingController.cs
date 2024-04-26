@@ -9,6 +9,7 @@ using Kompas.Client.Gamestate.Search;
 using Kompas.Client.UI;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
@@ -140,10 +141,17 @@ namespace Kompas.Client.Gamestate
 		public void SuperSelect(ClientGameCard card)
 		{
 			var notifier = LastSelectedCard?.ClientGame.ClientGameController.Notifier;
-			if (LastSelectedCard?.Location == Location.Board && card.Location == Location.Board)
+			if (CurrentSearch != null) CurrentSearch.Select(card);
+			else if (LastSelectedCard?.Location == Location.Board
+				 && card.Location == Location.Board)
 				notifier?.RequestAttack(LastSelectedCard, card);
-
-			CurrentSearch?.Select(card);
+			else if (LastSelectedCard?.Location == Location.Hand
+				 && card.Location == Location.Board
+				 && LastSelectedCard?.CardType == 'A')
+			{
+				_ = card.Position ?? throw new NullSpaceOnBoardException(card);
+				notifier?.RequestPlay(LastSelectedCard, card.Position.x, card.Position.y);
+			}
 
 			Select(card);
 		}

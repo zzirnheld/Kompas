@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Core Scrambling",
-	"effText": "The first time each turn a Golem defends, discard->apply a Golem Core to them. Their attacker attacks them again.",
+	"effText": "The first time each turn a Golem defends, discard->apply a Golem Core to them.",
 	"effects": [
 		{
 			"blurb": "Core? CORE!",
@@ -15,15 +15,9 @@
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
-							
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
-									{
-										"$type": "Restrict.Cards:Subtypes:",
-										"subtypes": [ "Golem" ]
-									}
-								]
+							"cardRestriction": {
+								"$type": "Restrict.Cards:Subtypes:",
+								"subtypes": [ "Golem" ]
 							}
 						}
 					]
@@ -58,15 +52,6 @@
 				{
 					"$type": "Subeffect:Play:",
 					"targetIndex": -2
-				},
-				{
-					"$type":"Subeffect:TargetTriggeringCard:",
-					"contextSecondaryCard":true
-				},
-				{
-					"$type": "Subeffect:Attack:",
-					"targetIndex": -3,
-					"attackerIndex": -1
 				}
 			]
 		}
