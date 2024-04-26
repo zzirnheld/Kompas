@@ -54,7 +54,7 @@ namespace Kompas.Effects.Models.Restrictions
 	{
 		public static readonly JsonSerializerSettings jsonSerializerSettings = new()
 		{
-			TypeNameHandling = TypeNameHandling.All
+			TypeNameHandling = TypeNameHandling.Auto
 		};
 		
 		public static bool HaveEnough(this IListRestriction restriction, int currCount)
@@ -66,7 +66,7 @@ namespace Kompas.Effects.Models.Restrictions
 		public static string SerializeToJSON(this IListRestriction restriction, IResolutionContext context)
 		{
 			restriction.PrepareForSending(context);
-			return JsonConvert.SerializeObject(restriction, jsonSerializerSettings);
+			return JsonConvert.SerializeObject(restriction, typeof(IListRestriction), jsonSerializerSettings);
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace Kompas
 
     internal class KompasLogger : IKompasLogger
     {
-		void IKompasLogger.Err(object? s) => GD.PushError(s);
+		void IKompasLogger.Err(object? s) => GD.PrintErr(s);
 
 		void IKompasLogger.Log(object? s) => GD.Print(s);
 

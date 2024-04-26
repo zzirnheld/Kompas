@@ -74,6 +74,11 @@ namespace Kompas.Client.Gamestate
 			Choices.ChooseIndex += (_, index) => Notifier.RequestChooseEffectOption(index);
 		}
 
+		public override void _Input(InputEvent inputEvent)
+		{
+			//if (inputEvent is InputEventKey keyEvent && keyEvent.Keycode == Key.Escape && !keyEvent.Pressed) GetTree().Quit();
+		}
+
 		private void TurnStartOperations(IPlayer turnPlayer)
 		{
 			_ = CurrentStateController ?? throw new System.NullReferenceException("Failed to initialize");

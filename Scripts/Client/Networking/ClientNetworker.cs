@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -52,7 +53,14 @@ namespace Kompas.Client.Networking
 			if (connecting) return;
 			if (packets.Count == 0) return;
 
-			await ProcessPacket(packets.Dequeue());
+			try
+			{
+				await ProcessPacket(packets.Dequeue());
+			}
+			catch (NullReferenceException e)
+			{
+				Logger.Err(e.ToString() + e.StackTrace);
+			}
 		}
 
 		private static readonly Dictionary<string, System.Type> jsonTypes = new()
