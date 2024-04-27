@@ -37,7 +37,11 @@
 					}
 				},
 				{
-					"$type": "Subeffect:TargetAugmentedCard:"
+					"$type": "Subeffect:AutoTargetCardIdentity:",
+					"subeffectCardIdentity": {
+						"$type": "Identify.Cards:AugmentedCard:",
+						"ofThisCard": { "$type": "Identify.Cards:TargetIndex:", "index": -1 }
+					}
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
