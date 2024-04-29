@@ -42,12 +42,11 @@
 					"$type": "Subeffect:Discard:"
 				},
 				{
-					"$type": "Subeffect:CardTarget:",
-					"blurb": "Silent convert",
+					"$type": "Subeffect:AutoTarget:",
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
-					"cardRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-						"elements": [
+						"cardRestriction": {
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:Character:" },
 							{
@@ -55,7 +54,8 @@
 								"subtypes": [ "Cultist", "Mook" ]
 							}
 						]
-					}
+					},
+					"tiebreakerDirection":"Any"
 				},
 				{
 					"$type": "Subeffect:Play:"

@@ -4,6 +4,7 @@ using Kompas.Client.Networking;
 using Kompas.Effects.Models;
 using Kompas.Shared.Exceptions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Kompas.Client.UI
 {
@@ -44,7 +45,11 @@ namespace Kompas.Client.UI
 		{
 			_clientNotifier = cardController.Card.ClientGame.ClientGameController.Notifier;
 
-			var effects = cardController.Card.Effects;
+			var localPlayer = cardController.Card.ClientGame.FriendlyPlayer;
+			var effects = cardController.Card.Effects
+				.Where(eff => eff.activationRestriction != null)
+				//TODO config/debug mode for whether can currently activate normally
+				.Where(eff => eff.activationRestriction?.IsValid(localPlayer, IResolutionContext.PlayerAction(localPlayer)) ?? false);
 			CardName.Text = cardController.Card.CardName;
 			
 			foreach (var child in buttons)

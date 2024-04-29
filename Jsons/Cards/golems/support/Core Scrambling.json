@@ -12,6 +12,7 @@
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
+						{ "$type": "Restrict.Gamestate:MaxPerTurn:" },
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
@@ -28,20 +29,13 @@
 					"$type": "Subeffect:TargetTriggeringCard:"
 				},
 				{
-					"$type": "Subeffect:TargetTargetsSpace:"
-				},
-				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "CORE!!!1!",
+					"toSearch": { "$type": "Identify.ManyCards:Discard:", "friendly": true, "enemy": false },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:Augment:" },
-							{
-								"$type": "Restrict.Cards:AtLocation:",
-								"locations": [ "Discard" ]
-							},
 							{
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Golem", "Core" ]
@@ -50,8 +44,9 @@
 					}
 				},
 				{
-					"$type": "Subeffect:Play:",
-					"targetIndex": -2
+					"$type": "Subeffect:Attach:",
+					"targetToAttachTo": -2,
+					"targetIndex": -1
 				}
 			]
 		}

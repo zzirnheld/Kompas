@@ -946,12 +946,15 @@ _discardController = NodePath("Enemy Discard")
 _deckController = NodePath("Enemy Deck")
 _annihilationController = NodePath("Enemy Annihilation")
 
-[node name="Enemy Hand" type="Node3D" parent="3D/Enemy Player"]
+[node name="Enemy Hand" type="Node3D" parent="3D/Enemy Player" node_paths=PackedStringArray("_nodeParent")]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
 script = ExtResource("7_hs3e0")
+_nodeParent = NodePath("Enemy Hand Card Parent")
 
 [node name="Enemy Hand Camera Position" type="Node3D" parent="3D/Enemy Player/Enemy Hand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 5, 0)
+
+[node name="Enemy Hand Card Parent" type="Node3D" parent="3D/Enemy Player/Enemy Hand"]
 
 [node name="Enemy Annihilation" type="Node3D" parent="3D/Enemy Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)

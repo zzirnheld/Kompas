@@ -1,5 +1,4 @@
 using Godot;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Shared.Exceptions;
 
@@ -14,6 +13,12 @@ namespace Kompas.Gamestate.Locations.Controllers
 			set => _annihilationModel = value;
 		}
 
-		public void Refresh() { }
+		public void Refresh()
+		{
+			foreach (var card in AnnihilationModel.Cards)
+			{
+				card.CardController.Node.Visible = false; //TODO spread them out somewhere
+			}
+		}
 	}
 }

@@ -43,19 +43,21 @@
 					"eModifier": -2
 				},
 				{
-					"$type": "Subeffect:CardTarget:",
-					"blurb": "Silent Cult Follower to bloodcurse (1/2)",
+					"$type": "Subeffect:AutoTarget:",
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
-					"cardRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-						"elements": [
+					
+						"cardRestriction": {
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Cultist", "Mook" ]
 							}
 						]
-					}
+					},
+					"tiebreakerDirection":"Any"
 				},
 				{
 					"$type": "Subeffect:SpaceTarget:",
@@ -75,19 +77,21 @@
 					"$type": "Subeffect:Play:"
 				},
 				{
-					"$type": "Subeffect:CardTarget:",
-					"blurb": "Silent Cult Follower to bloodcurse (2/2)",
+					"$type": "Subeffect:AutoTarget:",
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
-					"cardRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-						"elements": [
+					
+						"cardRestriction": {
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [
+							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:Character:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Cultist", "Mook" ]
 							}
 						]
-					}
+					},
+					"tiebreakerDirection":"Any"
 				},
 				{
 					"$type": "Subeffect:SpaceTarget:",

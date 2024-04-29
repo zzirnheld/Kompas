@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "XXI - The World",
-	"effText": "When a character dies, draw 1 card, then bottomdeck it if you're above your hand size limit.",
+	"effText": "When a character dies, draw 1 card, but bottomdeck it if your hand was already full.",
 	"effects": [
 		{
 			"blurb": "The World Goes On",
@@ -34,7 +34,8 @@
 					"$type": "Subeffect:TargetTriggeringCard:"
 				},
 				{
-					"$type": "Subeffect:Draw:"
+					"$type": "Subeffect:Draw:",
+					"addAsTarget": true
 				},
 				{
 					"$type": "Subeffect:ConditionalEnd:",

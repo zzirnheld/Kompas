@@ -56,7 +56,13 @@ namespace Kompas.Client.Gamestate
 				_currentSearch = value;
 				foreach (var card in GameController.Game.Cards) card.CardController.RefreshTargeting();
 				TopLeftCardView.Refresh();
-				if (value == null) return;
+				if (value == null)
+				{
+					//When end search, go back to board (FUTURE: go back to what we were last looking at?)
+					GameController.Camera.GoTo(new ClientCameraController.LookingAt((Location.Board, true)));
+					return;
+				}
+
 				var locations = value.SearchedLocations;
 				if (locations.Count == 1) GameController.Camera.GoTo(new ClientCameraController.LookingAt(locations.Single()));
 				//TODO open the deck/discard for each one of these. should GameController or CameraController handle that?

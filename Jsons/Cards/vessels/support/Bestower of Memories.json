@@ -19,10 +19,9 @@
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardAfter:" },
-							
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+							"cardRestriction": {
+								"$type": "Restrict.Cards:AllOf:",
+								"elements": [
 									{
 										"$type": "Restrict.Cards:Subtypes:",
 										"subtypes": [ "Memory" ]
@@ -48,10 +47,9 @@
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Vessel to get a copy of the memory",
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
-					
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+					"cardRestriction": {
+						"$type": "Restrict.Cards:AllOf:",
+						"elements": [
 							{
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Vessel" ]
@@ -60,15 +58,9 @@
 								"$type": "Restrict.Cards:Not:",
 								"negated": {
 									"$type": "Restrict.Cards:HasAugment:",
-									
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
-											{
-												"$type": "Restrict.Cards:Name:",
-												"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
-											}
-										]
+									"cardRestriction": {
+										"$type": "Restrict.Cards:Name:",
+										"sameAs": { "$type": "Identify.Cards:TargetIndex:" }
 									}
 								}
 							}
@@ -78,10 +70,9 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "Copy of the memory to attach",
-					
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+					"cardRestriction": {
+						"$type": "Restrict.Cards:AllOf:",
+						"elements": [
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:CanPlay:" },
 							{

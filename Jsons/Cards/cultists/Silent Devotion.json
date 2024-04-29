@@ -17,12 +17,11 @@
 			},
 			"subeffects": [
 				{
-					"$type": "Subeffect:CardTarget:",
-					"blurb": "New Silent Devotee",
+					"$type": "Subeffect:AutoTarget:",
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
-					"cardRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-						"elements": [
+						"cardRestriction": {
+							"$type": "Restrict.Cards:AllOf:",
+							"elements": [
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{ "$type": "Restrict.Cards:Character:" },
 							{
@@ -30,7 +29,8 @@
 								"subtypes": [ "Cultist", "Mook" ]
 							}
 						]
-					}
+					},
+					"tiebreakerDirection":"Any"
 				},
 				{
 					"$type": "Subeffect:SpaceTarget:",

@@ -13,15 +13,9 @@
 				{
 					"$type": "Subeffect:CardTarget:",
 					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
-					
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
-							{
-								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Crazy", "Idea" ]
-							}
-						]
+					"cardRestriction": {
+						"$type": "Restrict.Cards:Subtypes:",
+						"subtypes": [ "Crazy", "Idea" ]
 					}
 				},
 				{
