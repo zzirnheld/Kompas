@@ -13,12 +13,6 @@ namespace Kompas.Gamestate.Locations.Controllers
 			set => _annihilationModel = value;
 		}
 
-		public void Refresh()
-		{
-			foreach (var card in AnnihilationModel.Cards)
-			{
-				card.CardController.Node.Visible = false; //TODO spread them out somewhere
-			}
-		}
+		public virtual void Refresh() { }
 	}
 }

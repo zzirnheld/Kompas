@@ -36,7 +36,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private static void ScaleCard(ICardController cardController)
 		{
-			cardController.Node.Scale = Vector3.One * (cardController.Card.IsAdjacentTo(c => c != null) ? SurroundedCardScale : UnsurroundedCardScale);
+			cardController.Node.Scale = Vector3.One * SurroundedCardScale;
 		}
 	}
 }
