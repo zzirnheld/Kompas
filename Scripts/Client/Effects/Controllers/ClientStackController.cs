@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Godot;
+using Godot.NativeInterop;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Effects.Views;
 using Kompas.Effects;
@@ -29,19 +30,16 @@ namespace Kompas.Client.Effects.Controllers
 		public void Activated(ClientEffect effect)
 		{
 			effect.IncrementUses();
-			Add(effect);
-			stackView.Activated(effect);
+			var stackable = IResolvingStackable.Resolving(effect, default(IResolutionContext));
+			stack.Push(stackable);
+			stackView.Activated(stackable);
 		}
 
 		public void Attacked(ClientAttack attack)
 		{
-			Add(attack);
-			stackView.Attacked(attack);
-		}
-
-		private void Add(IClientStackable stackable, IResolutionContext? context = default)
-		{
-			stack.Push((stackable, context));
+			var stackable = IResolvingStackable.Resolving(attack, default(IResolutionContext));
+			stack.Push(stackable);
+			stackView.Attacked(stackable);
 		}
 
 		public void Remove(int index)
@@ -51,13 +49,13 @@ namespace Kompas.Client.Effects.Controllers
 
 		public void Resolve(IClientStackable stackable)
 		{
-			var (topStackable, _) = stack.Pop();
-			while (stackable != topStackable && !stack.Empty)
+			var topStackable = stack.Pop();
+			while (stackable != topStackable?.Stackable && !stack.Empty)
 			{
 				Logger.Err($"Resolving stackable {stackable} that was not on top. {topStackable} was, instead");
-				(topStackable, _) = stack.Pop();
+				topStackable = stack.Pop();
 			}
-			stackView.Resolving(stackable);
+			stackView.Resolving(topStackable);
 			CurrStackEntry = stackable;
 		}
 

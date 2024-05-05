@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Godot;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.UI;
+using Kompas.Effects.Models;
 using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 
@@ -34,34 +37,50 @@ namespace Kompas.Client.Effects.Views
 		private PackedScene AttackStackableView => _attackStackableView
 			?? throw new UnassignedReferenceException(nameof(_attackStackableView));
 
-		private readonly Dictionary<IClientStackable, ClientStackElementView> stackableToView = new();
+		//TODO: how to differentiate different activation
+		private readonly Dictionary<IResolvingStackable, ClientStackableView> stackableToView = new();
 
-        public void Activated(ClientEffect effect)
+
+        public void Activated(IResolvingStackable<ClientEffect> stackable)
 		{
-			//TODO initialize the stackable view by the effect. should be a function on the EffectStackableView
+			var view = EffectStackableView.Instantiate<ClientEffectStackableView>();
+			view.Initialize(stackable.Stackable);
+			stackableToView[stackable] = view;
+
+			StackElementsParent.AddChild(view);
 		}
 
-		public void Attacked(ClientAttack attack)
-		{
+		public void Attacked(IResolvingStackable<ClientAttack> stackable)
+		{	
+			var view = EffectStackableView.Instantiate<ClientAttackStackableView>();
+			view.Initialize(stackable.Stackable);
+			stackableToView[stackable] = view;
 
+			StackElementsParent.AddChild(view);
 		}
 
-		public void Resolving(IClientStackable stackable)
+		public void Resolving(IResolvingStackable? stackable)
 		{
+			if (stackable == null)
+			{
+				StackEmptied();
+				return;
+			}
 			var view = stackableToView[stackable];
 			stackableToView.Remove(stackable);
 			CurrentlyResolvingParent.QueueFreeChildren();
 			CurrentlyResolvingParent.TransferChild(view);
 		}
 
-		public void Cancel(IClientStackable stackable)
+		public void Cancel(IResolvingStackable stackable)
 		{
 			stackableToView[stackable].QueueFree();
 			stackableToView.Remove(stackable);
 		}
 
-		public void StackEmptied(IClientStackable stackable)
+		public void StackEmptied()
 		{
+			StackElementsParent.QueueFreeChildren();
 			CurrentlyResolvingParent.QueueFreeChildren();
 		}
 	}

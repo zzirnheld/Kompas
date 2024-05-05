@@ -21,7 +21,7 @@ namespace Kompas.Server.Effects.Controllers
 		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext? triggerContext);
 		public void PushToStack(IServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext);
 		public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context);
-		public void PushToStack(IServerStackable eff, IServerResolutionContext context);
+		public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackEntry);
 
 		public Task ResolveNextStackEntry();
 		public void Cancel(Effect eff);
@@ -120,11 +120,10 @@ namespace Kompas.Server.Effects.Controllers
 		}
 
 		#region the stack
-		//TODO fix these signatures
 
 		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext? triggerContext)
 		{
-			PushToStack(atk, new ServerResolutionContext(triggerContext, controller));
+			PushToStack(IResolvingStackable.Resolving(atk, new ServerResolutionContext(triggerContext, controller)));
 		}
 
 		public void PushToStack(IServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext)
@@ -135,12 +134,13 @@ namespace Kompas.Server.Effects.Controllers
 		public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
 		{
 			eff.PushedToStack(game, controller);
-			PushToStack(eff, context);
+
+			PushToStack(IResolvingStackable.Resolving(eff, context));
 		}
 
-		public void PushToStack(IServerStackable eff, IServerResolutionContext context)
+		public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackElement)
 		{
-			stack.Push((eff, context));
+			stack.Push(stackElement);
 		}
 
 		private async Task StackEmptied()
@@ -185,17 +185,19 @@ namespace Kompas.Server.Effects.Controllers
 
 		public async Task ResolveNextStackEntry()
 		{
-			var (stackable, context) = stack.Pop();
-			if (stackable == null)
+			var stackEntry = stack.Pop();
+			if (stackEntry == null)
 			{
 				await StackEmptied();
 				return;
 			}
-			if (context == null) throw new System.InvalidOperationException($"Stackable {stackable} wasn't associated with a context!");
-			
-			//Logger.Log($"Resolving next stack entry: {stackable}, {context}");
-			//inform the players that they no longer can respond, in case they were somehow still thinking they could
-			foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
+			var stackable = stackEntry.Stackable;
+			var context = stackEntry.Context
+				?? throw new System.InvalidOperationException($"Stackable {stackable} wasn't associated with a context!");
+
+            //Logger.Log($"Resolving next stack entry: {stackable}, {context}");
+            //inform the players that they no longer can respond, in case they were somehow still thinking they could
+            foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
 
 			//set the current stack entry to the appropriate value. this is used to check if something is currently resolving.
 			CurrStackEntry = stackable;
