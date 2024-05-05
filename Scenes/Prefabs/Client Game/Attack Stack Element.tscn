@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://7r43fmww4fd"]
+[gd_scene load_steps=4 format=3 uid="uid://7r43fmww4fd"]
 
 [ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="1_7y8c6"]
+[ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientAttackStackableView.cs" id="1_rett6"]
 [ext_resource type="Texture2D" uid="uid://b4g7cx5sjom6l" path="res://Icons/sword-wound.png" id="2_3p4fy"]
 
-[node name="Attack Stack Element" type="HBoxContainer"]
+[node name="Attack Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_secondaryCardImage")]
 theme_override_constants/separation = 0
+script = ExtResource("1_rett6")
+_primaryCardImage = NodePath("Primary Card")
+_secondaryCardImage = NodePath("Secondary Card")
 
 [node name="Primary Card" type="TextureRect" parent="."]
 layout_mode = 2

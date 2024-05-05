@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Godot;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.UI;
@@ -10,7 +8,7 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Effects.Views
 {
-	public partial class ClientStackView : Node 
+	public partial class ClientStackView : Control 
 	{
 		[Export]
 		private CurrentStateController? _currentStateController;
@@ -22,10 +20,22 @@ namespace Kompas.Client.Effects.Views
 		private Control StackElementsParent => _stackElementsParent
 			?? throw new UnassignedReferenceException(nameof(_stackElementsParent));
 
+		/// <summary>
+		/// The parent node for the currently resolving stackable's view
+		/// </summary>
 		[Export]
 		private Control? _currentlyResolvingParent;
 		private Control CurrentlyResolvingParent => _currentlyResolvingParent
 			?? throw new UnassignedReferenceException(nameof(_currentlyResolvingParent));
+
+		/// <summary>
+		/// The parent node for all of the currently resolving view, including the background.
+		/// </summary>
+		[Export]
+		private Control? _currentlyResolvingPanel;
+		private Control CurrentlyResolvingPanel => _currentlyResolvingPanel
+			?? throw new UnassignedReferenceException(nameof(_currentlyResolvingPanel));
+
 
 		[Export]
 		private PackedScene? _effectStackableView;
@@ -37,12 +47,12 @@ namespace Kompas.Client.Effects.Views
 		private PackedScene AttackStackableView => _attackStackableView
 			?? throw new UnassignedReferenceException(nameof(_attackStackableView));
 
-		//TODO: how to differentiate different activation
 		private readonly Dictionary<IResolvingStackable, ClientStackableView> stackableToView = new();
-
 
         public void Activated(IResolvingStackable<ClientEffect> stackable)
 		{
+			this.Visible = true;
+			
 			var view = EffectStackableView.Instantiate<ClientEffectStackableView>();
 			view.Initialize(stackable.Stackable);
 			stackableToView[stackable] = view;
@@ -51,7 +61,9 @@ namespace Kompas.Client.Effects.Views
 		}
 
 		public void Attacked(IResolvingStackable<ClientAttack> stackable)
-		{	
+		{
+			this.Visible = true;
+
 			var view = EffectStackableView.Instantiate<ClientAttackStackableView>();
 			view.Initialize(stackable.Stackable);
 			stackableToView[stackable] = view;
@@ -66,6 +78,8 @@ namespace Kompas.Client.Effects.Views
 				StackEmptied();
 				return;
 			}
+			this.Visible = true;
+			CurrentlyResolvingPanel.Visible = true;
 			var view = stackableToView[stackable];
 			stackableToView.Remove(stackable);
 			CurrentlyResolvingParent.QueueFreeChildren();
@@ -82,6 +96,8 @@ namespace Kompas.Client.Effects.Views
 		{
 			StackElementsParent.QueueFreeChildren();
 			CurrentlyResolvingParent.QueueFreeChildren();
+			CurrentlyResolvingPanel.Visible = false;
+			this.Visible = false;
 		}
 	}
 }

@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://x48p3g7uw88g"]
+[gd_scene load_steps=3 format=3 uid="uid://x48p3g7uw88g"]
 
+[ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientEffectStackableView.cs" id="1_r53k3"]
 [ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="1_yoypf"]
 
-[node name="Effect Stack Element" type="HBoxContainer"]
+[node name="Effect Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_effectBlurbLabel")]
 theme_override_constants/separation = 0
+script = ExtResource("1_r53k3")
+_primaryCardImage = NodePath("Primary Card")
+_effectBlurbLabel = NodePath("Label")
 
 [node name="Primary Card" type="TextureRect" parent="."]
 layout_mode = 2

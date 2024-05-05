@@ -1120,11 +1120,16 @@ theme = ExtResource("6_5db68")
 text = "Current state placeholder, just for an example"
 autowrap_mode = 2
 
-[node name="Stack View" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_currentStateController")]
+[node name="Stack View" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_currentStateController", "_stackElementsParent", "_currentlyResolvingParent", "_currentlyResolvingPanel")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("22_80qh3")
 _currentStateController = NodePath("../../../..")
+_stackElementsParent = NodePath("MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container")
+_currentlyResolvingParent = NodePath("MarginContainer/All Stack Container/Currently Resolving Margin/Currently Resolving non-Background")
+_currentlyResolvingPanel = NodePath("MarginContainer/All Stack Container/Currently Resolving Margin")
+_effectStackableView = ExtResource("32_hlx7m")
+_attackStackableView = ExtResource("31_r2bet")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View"]
 layout_mode = 1
@@ -1157,20 +1162,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 2
 
-[node name="Attack Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("31_r2bet")]
-layout_mode = 2
-
-[node name="Effect Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("32_hlx7m")]
-layout_mode = 2
-
 [node name="Currently Resolving Margin" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Effect Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin" instance=ExtResource("32_hlx7m")]
+[node name="Currently Resolving non-Background" type="HBoxContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin"]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin"]
@@ -1271,7 +1271,6 @@ texture = ExtResource("20_whe2q")
 text = "You"
 
 [node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("_gameController", "_connectToServer", "_waitingForServer", "_waitingForPlayer", "_selectDeck")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

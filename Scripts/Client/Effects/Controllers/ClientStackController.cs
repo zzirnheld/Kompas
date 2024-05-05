@@ -44,7 +44,13 @@ namespace Kompas.Client.Effects.Controllers
 
 		public void Remove(int index)
 		{
-			stack.Cancel(index);
+			var canceled = stack.Cancel(index);
+			if (canceled == null)
+			{
+				Logger.Err($"Stack index {index} had nothing there");
+				return;
+			}
+			stackView.Cancel(canceled);
 		}
 
 		public void Resolve(IClientStackable stackable)
@@ -61,7 +67,8 @@ namespace Kompas.Client.Effects.Controllers
 
 		public void StackEmptied()
 		{
-
+			stackView.StackEmptied();
+			CurrStackEntry = null;
 		}
 	}
 }
