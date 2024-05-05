@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://7r43fmww4fd"]
+
+[ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="1_7y8c6"]
+[ext_resource type="Texture2D" uid="uid://b4g7cx5sjom6l" path="res://Icons/sword-wound.png" id="2_3p4fy"]
+
+[node name="Attack Stack Element" type="HBoxContainer"]
+theme_override_constants/separation = 0
+
+[node name="Primary Card" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_7y8c6")
+expand_mode = 4
+
+[node name="Attack Icon" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_3p4fy")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Attacks"
+
+[node name="Secondary Card" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_7y8c6")
+expand_mode = 4
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

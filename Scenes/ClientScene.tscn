@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=97 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -41,6 +41,8 @@
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientChoicesView.cs" id="30_7wvtq"]
 [ext_resource type="PackedScene" uid="uid://cikgbik27781" path="res://Scenes/Prefabs/Client Game/Choice Button.tscn" id="30_n6ewi"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
+[ext_resource type="PackedScene" uid="uid://7r43fmww4fd" path="res://Scenes/Prefabs/Client Game/Attack Stack Element.tscn" id="31_r2bet"]
+[ext_resource type="PackedScene" uid="uid://x48p3g7uw88g" path="res://Scenes/Prefabs/Client Game/Effect Stack Element.tscn" id="32_hlx7m"]
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="37_8517u"]
 
@@ -1060,7 +1062,7 @@ size_flags_horizontal = 3
 script = ExtResource("18_d6k15")
 _friendlyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/End Turn Button")
 _enemyTurnParent = NodePath("VBoxContainer/Spacer/VBoxContainer/Enemy Turn Label")
-_currentStateLabel = NodePath("VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/Current State Label")
+_currentStateLabel = NodePath("VBoxContainer/Spacer/VBoxContainer/Current State Margin/Current State Label")
 
 [node name="Right Pane Background" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)"]
 self_modulate = Color(0.176349, 0.13727, 0.294087, 1)
@@ -1104,6 +1106,19 @@ text = "Enemy Turn"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Current State Margin" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Current State Label" type="Label" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Current State Margin"]
+layout_mode = 2
+theme = ExtResource("6_5db68")
+text = "Current state placeholder, just for an example"
+autowrap_mode = 2
+
 [node name="Stack View" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_currentStateController")]
 layout_mode = 2
 size_flags_vertical = 3
@@ -1117,16 +1132,65 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="All Stack Container" type="VBoxContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Stack Margin" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container"]
+layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Current State Label" type="Label" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer"]
+[node name="Stack Container" type="VBoxContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin"]
 layout_mode = 2
-theme = ExtResource("6_5db68")
-text = "Current state placeholder, just for an example"
-autowrap_mode = 2
+alignment = 2
+
+[node name="Attack Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Container" instance=ExtResource("31_r2bet")]
+layout_mode = 2
+
+[node name="Effect Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Container" instance=ExtResource("32_hlx7m")]
+layout_mode = 2
+
+[node name="Currently Resolving Margin" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Effect Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin" instance=ExtResource("32_hlx7m")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin"]
+show_behind_parent = true
+layout_mode = 2
+theme_override_constants/margin_left = -10
+theme_override_constants/margin_top = -10
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -10
+
+[node name="Background Outline" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin/MarginContainer"]
+self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
+layout_mode = 2
+texture = ExtResource("5_i20x8")
+
+[node name="Background Image" type="TextureRect" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin/MarginContainer/Background Outline"]
+self_modulate = Color(0.196078, 0.156863, 0.352941, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i20x8")
 
 [node name="Choice View" type="Control" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_label", "_choicesParent")]
 visible = false
@@ -1199,6 +1263,7 @@ texture = ExtResource("20_whe2q")
 text = "You"
 
 [node name="Game Start" type="Control" parent="UI" node_paths=PackedStringArray("_gameController", "_connectToServer", "_waitingForServer", "_waitingForPlayer", "_selectDeck")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

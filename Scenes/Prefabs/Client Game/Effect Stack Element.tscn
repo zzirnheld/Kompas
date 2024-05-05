@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://x48p3g7uw88g"]
+
+[ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="1_yoypf"]
+
+[node name="Effect Stack Element" type="HBoxContainer"]
+theme_override_constants/separation = 0
+
+[node name="Primary Card" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_yoypf")
+expand_mode = 4
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.9
+text = "Effect Label"
+
+[node name="Secondary Card" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_yoypf")
+expand_mode = 4
