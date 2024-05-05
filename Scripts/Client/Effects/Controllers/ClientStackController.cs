@@ -33,6 +33,12 @@ namespace Kompas.Client.Effects.Controllers
 			stackView.Activated(effect);
 		}
 
+		public void Attacked(ClientAttack attack)
+		{
+			Add(attack);
+			stackView.Attacked(attack);
+		}
+
 		private void Add(IClientStackable stackable, IResolutionContext? context = default)
 		{
 			stack.Push((stackable, context));
@@ -52,6 +58,12 @@ namespace Kompas.Client.Effects.Controllers
 				(topStackable, _) = stack.Pop();
 			}
 			stackView.Resolving(stackable);
+			CurrStackEntry = stackable;
+		}
+
+		public void StackEmptied()
+		{
+
 		}
 	}
 }

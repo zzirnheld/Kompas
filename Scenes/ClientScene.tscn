@@ -1160,12 +1160,6 @@ alignment = 2
 [node name="Attack Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("31_r2bet")]
 layout_mode = 2
 
-[node name="Attack Stack Element2" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("31_r2bet")]
-layout_mode = 2
-
-[node name="Attack Stack Element3" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("31_r2bet")]
-layout_mode = 2
-
 [node name="Effect Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("32_hlx7m")]
 layout_mode = 2
 

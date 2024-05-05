@@ -198,32 +198,6 @@ namespace Kompas.Client.Gamestate
 			return null;
 		}
 
-		//TODO move to GameController:
-		/*
-		public void ShowCardsByZoom(ZoomLevel zoomed)
-		{
-			//TODO make this better with a dirty list
-			foreach (var c in Cards.Where(c => c != null && c.CardController.gameObject.activeSelf))
-			{
-				c.CardController.gameCardViewController.Refresh();
-			}
-		}
-
-		/// <summary>
-		/// Makes cards show again, in case information changed after the packet.
-		/// </summary>
-		public void Refresh()
-		{
-			ShowCardsByZoom(ClientCameraController.Main.ZoomLevel);
-			uiController.cardInfoViewUIController.Refresh();
-		}
-
-		public void EffectActivated(ClientEffect eff)
-		{
-			uiController.SetCurrState($"{(eff.ControllingPlayer.Friendly ? "Friendly" : "Enemy")} {eff.Card.CardName} Effect Activated",
-				eff.blurb);
-		}*/
-
 		public void StackEmptied()
 		{
 			//TODO move to GameController:
@@ -231,6 +205,8 @@ namespace Kompas.Client.Gamestate
 			//uiController.SetCurrState("Nothing Happening");
 			foreach (var c in Cards) c.ResetForStack();
 			//ShowNoTargets();
+
+			StackController.StackEmptied();
 		}
 
 		//TODO move to GameController:
