@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=98 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -42,6 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://cikgbik27781" path="res://Scenes/Prefabs/Client Game/Choice Button.tscn" id="30_n6ewi"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
 [ext_resource type="PackedScene" uid="uid://7r43fmww4fd" path="res://Scenes/Prefabs/Client Game/Attack Stack Element.tscn" id="31_r2bet"]
+[ext_resource type="Script" path="res://Scripts/UI/ScrollToEndContainer.cs" id="31_vpmwg"]
 [ext_resource type="PackedScene" uid="uid://x48p3g7uw88g" path="res://Scenes/Prefabs/Client Game/Effect Stack Element.tscn" id="32_hlx7m"]
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="37_8517u"]
@@ -1140,19 +1141,32 @@ alignment = 2
 
 [node name="Stack Margin" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Stack Container" type="VBoxContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin"]
+[node name="Stack Scroll" type="ScrollContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin"]
 layout_mode = 2
+script = ExtResource("31_vpmwg")
+
+[node name="Stack Container" type="VBoxContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 2
 
-[node name="Attack Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Container" instance=ExtResource("31_r2bet")]
+[node name="Attack Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("31_r2bet")]
 layout_mode = 2
 
-[node name="Effect Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Container" instance=ExtResource("32_hlx7m")]
+[node name="Attack Stack Element2" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("31_r2bet")]
+layout_mode = 2
+
+[node name="Attack Stack Element3" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("31_r2bet")]
+layout_mode = 2
+
+[node name="Effect Stack Element" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Stack Margin/Stack Scroll/Stack Container" instance=ExtResource("32_hlx7m")]
 layout_mode = 2
 
 [node name="Currently Resolving Margin" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container"]
