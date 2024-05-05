@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b4g7cx5sjom6l" path="res://Icons/sword-wound.png" id="2_3p4fy"]
 
 [node name="Attack Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_secondaryCardImage")]
+size_flags_horizontal = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_rett6")
 _primaryCardImage = NodePath("Primary Card")
@@ -15,12 +16,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_7y8c6")
 expand_mode = 4
+stretch_mode = 4
 
 [node name="Attack Icon" type="TextureRect" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_3p4fy")
 expand_mode = 4
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -33,6 +36,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_7y8c6")
 expand_mode = 4
+stretch_mode = 4
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 2

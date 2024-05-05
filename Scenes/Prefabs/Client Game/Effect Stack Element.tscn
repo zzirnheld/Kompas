@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="1_yoypf"]
 
 [node name="Effect Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_effectBlurbLabel")]
+size_flags_horizontal = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_r53k3")
 _primaryCardImage = NodePath("Primary Card")
@@ -14,6 +15,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_yoypf")
 expand_mode = 4
+stretch_mode = 4
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 2

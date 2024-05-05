@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Godot;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.UI;
@@ -47,12 +48,12 @@ namespace Kompas.Client.Effects.Views
 		private PackedScene AttackStackableView => _attackStackableView
 			?? throw new UnassignedReferenceException(nameof(_attackStackableView));
 
-		private readonly Dictionary<IResolvingStackable, ClientStackableView> stackableToView = new();
+		private readonly Dictionary<IResolvingStackable, ClientStackableView> stackableToView = new(new ResolvingStackableEqualityComparer());
 
         public void Activated(IResolvingStackable<ClientEffect> stackable)
 		{
 			this.Visible = true;
-			
+
 			var view = EffectStackableView.Instantiate<ClientEffectStackableView>();
 			view.Initialize(stackable.Stackable);
 			stackableToView[stackable] = view;
@@ -80,6 +81,9 @@ namespace Kompas.Client.Effects.Views
 			}
 			this.Visible = true;
 			CurrentlyResolvingPanel.Visible = true;
+			//Curiously, when you use an IEqualityComparer, the debugger thinks the key isn't present
+			//when it actually is according to the item accessor.
+			//Unclear whether this is a language problem or a problem with the VSCode debugger.
 			var view = stackableToView[stackable];
 			stackableToView.Remove(stackable);
 			CurrentlyResolvingParent.QueueFreeChildren();
