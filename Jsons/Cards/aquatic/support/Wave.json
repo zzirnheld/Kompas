@@ -4,6 +4,7 @@
 	"effText": "Move Water through spaces in Water. Move all characters that were in it, to spaces in it where it is now.",
 	"effects": [
 		{
+			"blurb": "Wave",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -58,16 +59,13 @@
 				},
 				{
 					"$type": "Subeffect:SkipToEffectOnImpossible:",
-					"jumpIndices": [
-						9
-					]
+					"jumpIndices": [ 9 ]
 				},
 				{
 					"$type": "Subeffect:TargetAll:",
-					
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+					"cardRestriction": {
+						"$type": "Restrict.Cards:AllOf:",
+						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
 							{ "$type": "Restrict.Cards:Summoned:" },
 							{
@@ -89,11 +87,10 @@
 							{ "$type": "Restrict.Spaces:Empty:" },
 							{
 								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Identify.Cards:TargetIndex:" }
+								"card": { "$type": "Identify.Cards:TargetIndex:", "index": 0 }
 							}
 						]
-					},
-					"targetIndex": 0
+					}
 				},
 				{
 					"$type": "Subeffect:Move:"
@@ -102,9 +99,7 @@
 					"$type": "Subeffect:LoopWhileHaveTargets:",
 					"delete": true,
 					"remainingTargets": 1,
-					"jumpIndices": [
-						5
-					]
+					"jumpIndices": [ 5 ]
 				},
 				{
 					"$type": "Subeffect:EndResolution:"

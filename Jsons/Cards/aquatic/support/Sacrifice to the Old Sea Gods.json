@@ -4,6 +4,7 @@
 	"effText": "Hand->annihilate an Aquatic card, then me. Deck->cast Water where I was.",
 	"effects": [
 		{
+			"blurb": "Sea God Answers",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

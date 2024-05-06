@@ -6,7 +6,6 @@
 		{
 			"blurb": "Refill",
 			"triggerData": {
-				"blurb": "Refill",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

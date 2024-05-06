@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, gain 1 pip.",
 	"effects": [
 		{
+			"blurb": "Oracular manna",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

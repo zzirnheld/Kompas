@@ -4,6 +4,7 @@
 	"effText": "Draw 3. Hand->annihilate an Aquatic. If you can't, annihilate your hand.",
 	"effects": [
 		{
+			"blurb": "Fish",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, echo your distinct Bones.",
 	"effects": [
 		{
+			"blurb": "Nervous echoes",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

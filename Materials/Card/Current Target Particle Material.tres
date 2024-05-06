@@ -1,0 +1,15 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://cc1en2llxpysy"]
+
+[resource]
+emission_shape_offset = Vector3(0, 1, 0)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+angular_velocity_min = 100.0
+angular_velocity_max = 100.0
+color = Color(0.294118, 1, 0, 1)
+hue_variation_min = -0.5
+hue_variation_max = 0.5

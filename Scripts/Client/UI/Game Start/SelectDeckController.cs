@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate;
+using Kompas.Godot;
 using Kompas.Shared;
 using Kompas.Shared.Exceptions;
 using Kompas.UI;
@@ -91,7 +92,7 @@ namespace Kompas.Client.UI.GameStart
 
 		private void ClearDeck()
 		{
-			foreach (var child in DeckContainer.GetChildren()) child.QueueFree();
+			DeckContainer.ClearChildren();
 		}
 
 		private SelectDeckCardController CreateCardController()

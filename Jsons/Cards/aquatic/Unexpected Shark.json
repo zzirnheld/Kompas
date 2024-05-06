@@ -1,12 +1,11 @@
 {
 	"cardType": 67,
 	"cardName": "Unexpected Shark",
-	"effText": "Waterborn Waterdweller.\nWhen I attack, dispel adjacent spells. ",
+	"effText": "Waterborn Waterdweller.\nWhen I attack, dispel adjacent spells.",
 	"effects": [
 		{
-			"blurb": "Unexpected",
+			"blurb": "Unexspell",
 			"triggerData": {
-				"blurb": "Unexpected",
 				"triggerCondition": "Attack",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",
@@ -36,9 +35,7 @@
 				{
 					"$type": "Subeffect:LoopWhileHaveTargets:",
 					"delete": true,
-					"jumpIndices": [
-						1
-					]
+					"jumpIndices": [ 1 ]
 				}
 			]
 		}

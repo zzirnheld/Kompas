@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, draw 1 card.",
 	"effects": [
 		{
+			"blurb": "Lucky!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

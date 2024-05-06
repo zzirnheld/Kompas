@@ -4,7 +4,7 @@
 	"effText": "When turns start, move your \"Lengthening Elk\" 1 space. Deck->summon a Bone where it was.",
 	"effects": [
 		{
-			"blurb": "Lengthen",
+			"blurb": "Lengthen the Elk",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
