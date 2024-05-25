@@ -32,15 +32,18 @@ namespace Kompas.Server.Effects.Models
 		{
 			ServerNotifier.NotifyAttackStarted(instigator, attacker, defender);
 
-			var attackerContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender, 
-				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
-			var defenderContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker, 
-				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
-			attackerContext.CacheAfterEvent();
-			defenderContext.CacheAfterEvent();
-			EffCtrl.TriggerForCondition(Trigger.Attacks, attackerContext);
-			EffCtrl.TriggerForCondition(Trigger.Defends, defenderContext);
-			EffCtrl.TriggerForCondition(Trigger.Battles, attackerContext, defenderContext);
+			var battlesContext = IEventContext.Build(Trigger.Battles)
+				.CausedBy(stackSrc)
+				.During(this)
+				.CausedBy(attacker)
+				.ForPlayer(instigator);
+			var attackerBattles = battlesContext.Clone().AffectingBoth(attacker, defender);
+			var defenderBattles = battlesContext.Clone().AffectingBoth(defender, attacker);
+			var contexts = EventCapturer.Capture(() => { },
+				attackerBattles.CloneForEvent(Trigger.Attacks),
+				defenderBattles.CloneForEvent(Trigger.Defends),
+				attackerBattles, defenderBattles);
+			EffCtrl.Trigger(contexts);
 		}
 
 		//this is factored out so i can maybe eventually add some indication of whether an attack is still gonna be valid
@@ -52,18 +55,17 @@ namespace Kompas.Server.Effects.Models
 
 		public Task StartResolution(IServerResolutionContext context)
 		{
-			var attackerContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender, 
-				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
-			var defenderContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker, 
-				stackableCause: this, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
-			if (StillValidAttack)
-			{
-				//deal the damage
-				DealDamage();
-				attackerContext.CacheAfterEvent();
-				defenderContext.CacheAfterEvent();
-			}
-			EffCtrl.TriggerForCondition(Trigger.BattleEnds, attackerContext, defenderContext);
+			var battleEndsContext = IEventContext.Build(Trigger.BattleEnds)
+				.CausedBy(this)
+				.During(this)
+				.CausedBy(attacker)
+				.ForPlayer(instigator);
+			var contexts = EventCapturer.Capture(
+				() => { if (StillValidAttack) DealDamage(); },
+				battleEndsContext.Clone().AffectingBoth(attacker, defender),
+				battleEndsContext.Clone().AffectingBoth(defender, attacker)
+			);
+			EffCtrl.Trigger(contexts);
 			//then finish the resolution by just returning that completed the task. (don't need to call anything)
 			return Task.CompletedTask;
 		}
@@ -73,24 +75,29 @@ namespace Kompas.Server.Effects.Models
 			//get damage from both, before either takes any damage, in case effects matter on hp
 			int attackerDmg = attacker.CombatDamage;
 			int defenderDmg = defender.CombatDamage;
-			var attackerDealContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender,
-				stackableCause: this, stackableEvent: this, player: instigator, x: attackerDmg);
-			var defenderDealContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker,
-				stackableCause: this, stackableEvent: this, player: instigator, x: defenderDmg);
-			var attackerTakeContext = new TriggeringEventContext(game: ServerGame, cardBefore: attacker, secondaryCardBefore: defender,
-				stackableCause: this, stackableEvent: this, player: instigator, x: defenderDmg);
-			var defenderTakeContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker,
-				stackableCause: this, stackableEvent: this, player: instigator, x: attackerDmg);
-			//deal the damage
-			defender.TakeDamage(attackerDmg, stackSrc: this);
-			attacker.TakeDamage(defenderDmg, stackSrc: this);
-			attackerDealContext.CacheAfterEvent();
-			defenderDealContext.CacheAfterEvent();
-			attackerTakeContext.CacheAfterEvent();
-			defenderTakeContext.CacheAfterEvent();
-			//trigger effects based on combat damage
-			EffCtrl.TriggerForCondition(Trigger.TakeCombatDamage, attackerTakeContext, defenderTakeContext);
-			EffCtrl.TriggerForCondition(Trigger.DealCombatDamage, attackerDealContext, defenderDealContext);
+
+			var baseContext = IEventContext.Build(Trigger.Anything)
+				.CausedBy(this)
+				.During(this)
+				.ForPlayer(instigator);
+
+			var attackerBase = baseContext.Clone()
+				.AffectingBoth(attacker, defender);
+			var defenderBase = baseContext.Clone()
+				.AffectingBoth(defender, attacker);
+
+			var contexts = EventCapturer.Capture(
+				() => {
+					defender.TakeDamage(attackerDmg, stackSrc: this);
+					attacker.TakeDamage(defenderDmg, stackSrc: this);
+				},
+				attackerBase.CloneForEvent(Trigger.TakeCombatDamage).WithX(defenderDmg),
+				defenderBase.CloneForEvent(Trigger.TakeCombatDamage).WithX(attackerDmg),
+				attackerBase.CloneForEvent(Trigger.DealCombatDamage).WithX(attackerDmg),
+				defenderBase.CloneForEvent(Trigger.DealCombatDamage).WithX(defenderDmg)
+			);
+
+			EffCtrl.Trigger(contexts);
 		}
 	}
 }

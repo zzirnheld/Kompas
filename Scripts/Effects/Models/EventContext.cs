@@ -105,6 +105,7 @@ namespace Kompas.Effects.Models
 		public EventContextBuilder CausedBy(IStackable? stackableCause)
 		{
 			StackableCause = stackableCause;
+			CauseCardBefore ??= GameCardInfo.CardInfoOf(stackableCause?.Card);
 			return this;
 		}
 
