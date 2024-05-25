@@ -1,6 +1,7 @@
 ﻿using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Kompas.Server.Effects.Controllers;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -9,16 +10,20 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			if (CardTarget == null)
-				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != Location.Board)
-				throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
-			else if (CardTarget.E >= CardTarget.BaseE)
-				throw new InvalidCardException(CardTarget, TooMuchEForHeal);
+			var target = CardTarget ?? throw new NullCardException(TargetWasNull);
+			if (forbidNotBoard && target.Location != Location.Board)
+				throw new InvalidLocationException(target.Location, target, ChangedStatsOfCardOffBoard);
+			if (target.E >= target.BaseE)
+				throw new InvalidCardException(target, TooMuchEForHeal);
 
-			int healedFor = CardTarget.BaseE - CardTarget.E;
-			CardTarget.SetE(CardTarget.BaseE, stackSrc: ServerEffect);
-			ServerEffect.EffectsController.TriggerForCondition(Trigger.Healed, new TriggeringEventContext(Game, cardBefore: CardTarget, stackableCause: Effect, player: PlayerTarget, x: healedFor));
+			int healedFor = target.BaseE - target.E;
+			var contexts = IEventContext.Build(Trigger.Healed)
+				.PrimarilyAffecting(target)
+				.CausedBy(Effect)
+				.ForPlayer(PlayerTarget)
+				.WithX(healedFor)
+				.Capture(() => target.SetE(target.BaseE, stackSrc: ServerEffect));
+			ServerEffect.EffectsController.Trigger(contexts);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

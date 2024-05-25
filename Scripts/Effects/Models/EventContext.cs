@@ -3,6 +3,7 @@ using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Effects.Models
 {
@@ -134,6 +135,13 @@ namespace Kompas.Effects.Models
 			X = X,
 			Space = Space,
 		};
+
+		public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, params string[] otherTriggeringEvents)
+		{
+            var incompletes = this.Yield()
+				.Concat(otherTriggeringEvents.Select(CloneForEvent));
+            return EventCapturer.Capture(incompletes, capturableEvent);
+		}
     }
 
 	public static class IncompleteEventContextExtensions

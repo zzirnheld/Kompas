@@ -36,7 +36,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				playContext, playContext.CloneForEvent(Trigger.Arrive));
 
 			EffectsController.Trigger(contexts);
-			
+
 			if (!toPlay.IsAvatar) ServerNotifier.NotifyPlay(controller, toPlay, to, wasKnown);
 		}
 
@@ -51,8 +51,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.Concat(GetIncompleteMoveContexts(at, to, from, mover, stackSrc));
 			var contexts = EventCapturer.Capture(incompletes,
 				() => base.Swap(card, to, normal, mover, stackSrc: stackSrc));
-
-			foreach (var context in contexts) EffectsController.TriggerForCondition(context.TriggeringEvent, context);
+			EffectsController.Trigger(contexts);
 
 			//notify the players
 			ServerNotifier.NotifyMove(mover ?? card.OwningPlayer, card, to);
