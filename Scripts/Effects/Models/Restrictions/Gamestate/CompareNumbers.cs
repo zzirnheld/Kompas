@@ -30,7 +30,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		}
 
 		//Because of the existence of EffectUses, this must reevaluate
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public override bool IsStillValidTriggeringContext(IEventContext context)
 			=> IsValid(IResolutionContext.NotResolving(context));
 	}
 }

@@ -20,7 +20,7 @@ namespace Kompas.Effects.Models
 			=> new DummyResolutionContext(null);
 
 		/// <summary>
-        /// Wraps a <see cref="TriggeringEventContext"/>,
+        /// Wraps a <see cref="IEventContext"/>,
         /// representing triggering conditions existing even while an effect is not currently resolving.
         /// Used to be able to pass into restrictions that could be checked when an event is resolving,
         /// or while a player does something via other gamerules. (i.e. play by effect vs play by normal gamerule)<br/>
@@ -28,28 +28,28 @@ namespace Kompas.Effects.Models
         /// FUTURE: split out the places that take a resolution context into taking a resolution context + a triggering event context,
         /// so it's semantically obvious that the triggering event context can be present even if there is no actual resolution context
         /// </summary>
-        /// <param name="triggeringEventContext"></param>
+        /// <param name="IEventContext"></param>
         /// <returns></returns>
-		public static IResolutionContext NotResolving(TriggeringEventContext? triggeringEventContext)
-			=> new DummyResolutionContext(triggeringEventContext);
+		public static IResolutionContext NotResolving(IEventContext? IEventContext)
+			=> new DummyResolutionContext(IEventContext);
 
 		/// <summary>
         /// Represents a player taking an action that an Effect might otherwise cause.
         /// Ex: playing a card.
         /// We have to pass in an IResolutionContext to restrictions that might want to check details about how it happened,
-        /// so we wrap a TriggeringEventContext that simply says a player did it normally.
+        /// so we wrap a IEventContext that simply says a player did it normally.
         /// </summary>
 		public static IResolutionContext PlayerAction(IPlayer agent)
-			=> NotResolving(new(agent.Game, player: agent));
+			=> NotResolving(new TriggeringEventContext(agent.Game, player: agent));
 
 		/// <summary>
 		/// Information describing the event that triggered this effect to occur, if any such event happened. (If it's player-triggered, this is null.) 
 		/// </summary>
-		public TriggeringEventContext? TriggerContext { get; }
+		public IEventContext? TriggerContext { get; }
 
 		public int StartIndex { get; }
 		public IList<GameCard> CardTargets { get; }
-		public IList<GameCardInfo> CardInfoTargets { get; }
+		public IList<IGameCardInfo> CardInfoTargets { get; }
 		public GameCard? DelayedCardTarget { get; }
 		public IList<Space> SpaceTargets { get; }
 		public Space? DelayedSpaceTarget { get; }
@@ -68,11 +68,11 @@ namespace Kompas.Effects.Models
 		private class DummyResolutionContext : IResolutionContext
 		{
 			private const string NotImplementedMessage = "Dummy resolution context should never have resolution information checked. Use the secondary (aka stashed) resolution context instead.";
-			public TriggeringEventContext? TriggerContext { get; }
+			public IEventContext? TriggerContext { get; }
 
 			public int StartIndex => throw new System.NotImplementedException(NotImplementedMessage);
 			public IList<GameCard> CardTargets => throw new System.NotImplementedException(NotImplementedMessage);
-			public IList<GameCardInfo> CardInfoTargets => throw new System.NotImplementedException(NotImplementedMessage);
+			public IList<IGameCardInfo> CardInfoTargets => throw new System.NotImplementedException(NotImplementedMessage);
 			public GameCard DelayedCardTarget => throw new System.NotImplementedException(NotImplementedMessage);
 			public IList<Space> SpaceTargets => throw new System.NotImplementedException(NotImplementedMessage);
 			public Space DelayedSpaceTarget => throw new System.NotImplementedException(NotImplementedMessage);
@@ -84,7 +84,7 @@ namespace Kompas.Effects.Models
 
 			public bool CanResolve => false;
 
-			public DummyResolutionContext(TriggeringEventContext? triggerContext)
+			public DummyResolutionContext(IEventContext? triggerContext)
 			{
 				TriggerContext = triggerContext;
 			}

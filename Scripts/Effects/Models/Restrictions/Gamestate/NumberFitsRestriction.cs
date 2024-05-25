@@ -24,7 +24,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			=> restriction.IsValid(number.From(context, secondaryContext), context);
 
 		//number could be EffectUses
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public override bool IsStillValidTriggeringContext(IEventContext context)
 			=> IsValid(IResolutionContext.NotResolving(context));
 	}
 }

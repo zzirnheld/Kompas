@@ -12,8 +12,8 @@ namespace Kompas.Server.Effects.Models.Subeffects
 		public override Task<ResolutionInfo> Resolve()
 		{
 			var cardInfo = (after
-				? ResolutionContext.TriggerContext?.MainCardInfoAfter
-				: ResolutionContext.TriggerContext?.MainCardInfoBefore)
+				? ResolutionContext.TriggerContext?.MainCardAfter
+				: ResolutionContext.TriggerContext?.MainCardBefore)
 				?? throw new NullCardException(TargetWasNull);
 			if (cardInfo.Location != Location.Board) throw new InvalidCardException(cardInfo.Card, $"Card wasn't on board at the time!");
 			if (cardInfo.Position == null) throw new NullSpaceOnBoardException(cardInfo.Card);

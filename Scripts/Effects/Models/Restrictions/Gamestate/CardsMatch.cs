@@ -44,7 +44,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			return true;
 		}
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public override bool IsStillValidTriggeringContext(IEventContext context)
 			=> true;
 	}
 }

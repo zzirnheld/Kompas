@@ -30,7 +30,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 			foreach (var c in Game.Board.Cards.Where(c => cardRestriction.IsValid(c, ResolutionContext)))
 			{
 				var ctxt = new TriggeringEventContext(game: ServerGame, cardBefore: c, stackableCause: Effect, player: PlayerTarget, space: c.Position);
-				ctxt.CacheCardInfoAfter();
+				ctxt.CacheAfterEvent();
 				ServerEffect.EffectsController.TriggerForCondition(Trigger.Play, ctxt);
 				ServerEffect.EffectsController.TriggerForCondition(Trigger.Arrive, ctxt);
 			}

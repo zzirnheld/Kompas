@@ -16,7 +16,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 			var ctxt = new TriggeringEventContext(game: ServerGame, cardBefore: CardTarget, 
 				stackableCause: Effect, player: PlayerTarget, space: CardTarget.Position);
-			ctxt.CacheCardInfoAfter();
+			ctxt.CacheAfterEvent();
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Play, ctxt);
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Arrive, ctxt);
 			return Task.FromResult(ResolutionInfo.Next);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Kompas.Effects.Models.Restrictions.Triggering
 {
-	public abstract class TriggerRestrictionBase : RestrictionBase<TriggeringEventContext>, ITriggerRestriction
+	public abstract class TriggerRestrictionBase : RestrictionBase<IEventContext>, ITriggerRestriction
 	{
 		public static readonly ITriggerRestriction[] DefaultFallOffRestrictions = {
 			new Gamestate.CardsMatch(){
@@ -19,17 +19,17 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		});
 
 		public static ITriggerRestriction AllOf(IList<ITriggerRestriction> elements)
-			//Compiler needed the help to know that an ITriggerRestriction is an IRestriction<TriggeringEventContext>
+			//Compiler needed the help to know that an ITriggerRestriction is an IRestriction<IEventContext>
 			=> new AllOf() { elements = elements };
 
-		protected override sealed bool IsValidLogic(TriggeringEventContext? item, IResolutionContext context)
+		protected override sealed bool IsValidLogic(IEventContext? item, IResolutionContext context)
 		{
 	   		var NullTriggeringContext = "Triggering event context was null? If you see this, consider if it's allowable";
 			_ = item ?? throw new System.ArgumentNullException(NullTriggeringContext);
 			return IsValidContext(item, context);
 		}
 		
-		protected abstract bool IsValidContext(TriggeringEventContext item, IResolutionContext context);
+		protected abstract bool IsValidContext(IEventContext item, IResolutionContext context);
 
 		/// <summary>
         /// If IsValidContext initially evaluated to true, is this restriction still valid after other triggers have made it onto the stack?
@@ -38,6 +38,6 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
         /// Return true if the state won't change based JUST on items going onto the stack.
         /// Evaluate the restriction again if items going onto the stack could affect whether this is valid.
         /// </summary>
-		public abstract bool IsStillValidTriggeringContext(TriggeringEventContext context);
+		public abstract bool IsStillValidTriggeringContext(IEventContext context);
 	}
 }

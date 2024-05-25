@@ -35,7 +35,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 				: spacesItem.All(s => spaceRestriction.IsValid(s, context));
 		}
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public override bool IsStillValidTriggeringContext(IEventContext context)
 			=> true;
 	}
 

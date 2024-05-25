@@ -12,7 +12,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			return !card.Unique || !InitializationContext.game.BoardHasCopyOf(card);
 		}
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public override bool IsStillValidTriggeringContext(IEventContext context)
 			=> true;
 	}
 }

@@ -75,7 +75,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				buffRecipient.AddToStats(buff, stackSrc: sourceEff);
 			}
 
-			protected override void ResolveLogic(TriggeringEventContext context)
+			protected override void ResolveLogic(IEventContext context)
 			{
 				try
 				{

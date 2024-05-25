@@ -31,7 +31,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				this.target = target;
 			}
 
-			protected override void ResolveLogic(TriggeringEventContext context)
+			protected override void ResolveLogic(IEventContext context)
 				=> target.Discard(Effect);
 		}
 	}

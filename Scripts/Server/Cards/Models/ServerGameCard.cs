@@ -220,7 +220,7 @@ namespace Kompas.Server.Cards.Models
 		{
 			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
 			base.Reveal(stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController.TriggerForCondition(Trigger.Revealed, context);
 			//logic for actually revealing to client has to happen server-side.
 			KnownToEnemy = true;
@@ -233,7 +233,7 @@ namespace Kompas.Server.Cards.Models
 			if (n == N) return;
 			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: n - N);
 			base.SetN(n, stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController?.TriggerForCondition(Trigger.NChange, context);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
@@ -245,7 +245,7 @@ namespace Kompas.Server.Cards.Models
 			int oldE = E;
 			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: e - E);
 			base.SetE(e, stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController?.TriggerForCondition(Trigger.EChange, context);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
@@ -260,7 +260,7 @@ namespace Kompas.Server.Cards.Models
 			if (s == S) return;
 			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: s - S);
 			base.SetS(s, stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController?.TriggerForCondition(Trigger.SChange, context);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
@@ -271,7 +271,7 @@ namespace Kompas.Server.Cards.Models
 			if (w == W) return;
 			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: w - W);
 			base.SetW(w, stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController?.TriggerForCondition(Trigger.WChange, context);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
@@ -282,7 +282,7 @@ namespace Kompas.Server.Cards.Models
 			if (c == C) return;
 			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: c - C);
 			base.SetC(c, stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController?.TriggerForCondition(Trigger.CChange, context);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
@@ -293,7 +293,7 @@ namespace Kompas.Server.Cards.Models
 			if (a == A) return;
 			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: a - A);
 			base.SetA(a, stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController?.TriggerForCondition(Trigger.AChange, context);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
@@ -326,7 +326,7 @@ namespace Kompas.Server.Cards.Models
 				ServerNotifier.NotifySetNegated(ControllingPlayer, this, negated);
 
 				var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
-				context.CacheCardInfoAfter();
+				context.CacheAfterEvent();
 				if (negated) EffectsController.TriggerForCondition(Trigger.Negate, context);
 			}
 			base.SetNegated(negated, stackSrc);
@@ -341,7 +341,7 @@ namespace Kompas.Server.Cards.Models
 				//so that the client can know how many activations a card has
 				ServerNotifier.NotifyActivate(ControllingPlayer, this, activated);
 
-				context.CacheCardInfoAfter();
+				context.CacheAfterEvent();
 				if (activated) EffectsController.TriggerForCondition(Trigger.Activate, context);
 				else EffectsController.TriggerForCondition(Trigger.Deactivate, context);
 			}

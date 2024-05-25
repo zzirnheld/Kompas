@@ -157,7 +157,7 @@ namespace Kompas.Effects.Subeffects
 			?? throw new NullCardException(TargetWasNull);
 		public Space SpaceTarget => Effect.GetSpace(spaceIndex)
 			?? throw new NullSpaceException(TargetWasNull);
-		public GameCardInfo? CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex);
+		public IGameCardInfo? CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex);
 		public IPlayer PlayerTarget => Effect.GetPlayer(playerIndex)
 			?? throw new NullPlayerException(TargetWasNull);
 		public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);

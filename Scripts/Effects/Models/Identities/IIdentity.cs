@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Identities
 	public static class IdentityExtensions
 	{
 		public static ReturnType? From<ReturnType>(this IIdentity<ReturnType> identity,
-			TriggeringEventContext triggeringContext, IResolutionContext resolutionContext)
+			IEventContext triggeringContext, IResolutionContext resolutionContext)
 				=> identity.From(IResolutionContext.NotResolving(triggeringContext), resolutionContext);
 
 		public static ReturnType? From<ReturnType>(this IIdentity<ReturnType> identity,

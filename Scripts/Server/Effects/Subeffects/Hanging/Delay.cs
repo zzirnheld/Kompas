@@ -52,7 +52,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				numTimesDelayed = 0;
 			}
 
-			public override bool ShouldResolve(TriggeringEventContext context)
+			public override bool ShouldResolve(IEventContext context)
 			{
 				Logger.Log($"Checking if delayed hanging effect should end for context {context}, {numTimesDelayed}/{numTimesToDelay}");
 				//first check any other logic
@@ -71,7 +71,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				}
 			}
 
-			protected override void ResolveLogic(TriggeringEventContext context)
+			protected override void ResolveLogic(IEventContext context)
 			{
 				var myContext = ServerResolutionContext.Resume(StashedContext,
 					context, controller, indexToResumeResolution);

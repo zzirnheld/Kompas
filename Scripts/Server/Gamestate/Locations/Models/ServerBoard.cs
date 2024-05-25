@@ -1,21 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
-using Kompas.Cards.Movement;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
-using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Controllers;
-using Kompas.Server.Gamestate.Players;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
-	public class ServerBoard : Board
+    public class ServerBoard : Board
 	{
 		private readonly ServerGame serverGame;
 
@@ -31,20 +27,20 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			var context = new TriggeringEventContext(game: serverGame, cardBefore: toPlay, stackableCause: stackSrc, player: controller, space: to);
 			bool wasKnown = toPlay.KnownToEnemy;
 			base.Play(toPlay, to, controller, stackSrc: stackSrc);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			EffectsController.TriggerForCondition(Trigger.Play, context);
 			EffectsController.TriggerForCondition(Trigger.Arrive, context);
 
 			if (!toPlay.IsAvatar) ServerNotifier.NotifyPlay(controller, toPlay, to, wasKnown);
 		}
 
-		private (IEnumerable<TriggeringEventContext> moveContexts, IEnumerable<TriggeringEventContext> leaveContexts)
+		private (IEnumerable<IEventContext> moveContexts, IEnumerable<IEventContext> leaveContexts)
 			GetContextsForMove(GameCard card, Space from, Space to, IPlayer? player, IStackable? stackSrc)
 		{
 			int distance = from.DistanceTo(to);
 
-			var moveContexts = new List<TriggeringEventContext>();
-			var leaveContexts = new List<TriggeringEventContext>();
+			var moveContexts = new List<IEventContext>();
+			var leaveContexts = new List<IEventContext>();
 			//Cards that from card is no longer in the AOE of
 			var cardsMoverLeft = CardsAndAugsWhere(c => c != null && c.CardInAOE(card) && !c.SpaceInAOE(to));
 			//Cards that from card no longer has in its aoe
@@ -82,8 +78,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			var at = GetCardAt(to);
 
 			//then trigger appropriate triggers. list of contexts:
-			var moveContexts = new List<TriggeringEventContext>();
-			var leaveContexts = new List<TriggeringEventContext>();
+			var moveContexts = new List<IEventContext>();
+			var leaveContexts = new List<IEventContext>();
 
 			if (from != null)
 			{
@@ -104,7 +100,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 			foreach (var ctxt in moveContexts)
 			{
-				ctxt.CacheCardInfoAfter();
+				ctxt.CacheAfterEvent();
 			}
 
 			EffectsController.TriggerForCondition(Trigger.Move, moveContexts.ToArray());

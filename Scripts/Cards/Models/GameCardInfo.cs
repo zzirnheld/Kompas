@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
@@ -58,6 +59,7 @@ namespace Kompas.Cards.Models
 		/// <param name="card">The card whose information to snapshot</param>
 		/// <returns>A <see cref="GameCardInfo"/> whose information matches the current state of <paramref name="card"/>, 
 		/// or null if <paramref name="card"/> is <see langword="null"/></returns>
+		[return: NotNullIfNotNull("card")]
 		public static GameCardInfo? CardInfoOf(GameCard? card)
 		{
 			if (card == null) return null;

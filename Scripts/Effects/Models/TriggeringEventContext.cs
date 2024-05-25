@@ -1,12 +1,14 @@
 using System;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
-	public class TriggeringEventContext
+    public class TriggeringEventContext
+		: IEventContext
 	{
 		public readonly IGame game;
 
@@ -15,6 +17,7 @@ namespace Kompas.Effects.Models
 		/// stashed before the triggering event
 		/// </summary>
 		public GameCardInfo? MainCardInfoBefore { get; }
+		public IGameCardInfo? MainCardBefore => MainCardInfoBefore;
 
 		/// <summary>
 		/// Information about the secondary card involved in the triggering event,
@@ -22,6 +25,7 @@ namespace Kompas.Effects.Models
 		/// The secondary card is often something like "the other card in the attack"
 		/// </summary>
 		public GameCardInfo? SecondaryCardInfoBefore { get; }
+		public IGameCardInfo? SecondaryCardBefore => SecondaryCardBefore;
 
 		/// <summary>
 		/// The card that caused the triggering event.<br/>
@@ -35,6 +39,7 @@ namespace Kompas.Effects.Models
 		///  (Think a character dying during a fight. That was caused by the other card.)
 		/// </summary>
 		public GameCardInfo? CardCauseBefore { get; }
+		public IGameCardInfo? CauseCardBefore => CardCauseBefore;
 
 		/// <summary>
 		/// The object on the stack that caused this event to occur.
@@ -58,6 +63,7 @@ namespace Kompas.Effects.Models
 		/// stashed immediately after the triggering event occurred.
 		/// </summary>
 		public GameCardInfo? MainCardInfoAfter { get; private set; }
+		public IGameCardInfo? MainCardAfter => MainCardInfoAfter;
 
 		/// <summary>
 		/// The information for the secondary triggering card,
@@ -65,12 +71,14 @@ namespace Kompas.Effects.Models
 		/// The secondary card could be the defender in an "Attack" trigger, etc.
 		/// </summary>
 		public GameCardInfo? SecondaryCardInfoAfter { get; private set; }
+		public IGameCardInfo? SecondaryCardAfter => SecondaryCardInfoAfter;
 
 		/// <summary>
 		/// The information for the card that caused the event,
 		/// stashed immediately after the triggering event occurred.
 		/// </summary>
 		public GameCardInfo? CauseCardInfoAfter { get; private set; }
+		public IGameCardInfo? CauseCardAfter => CauseCardInfoAfter;
 
 		private readonly string cachedToString;
 
@@ -177,6 +185,11 @@ namespace Kompas.Effects.Models
 		public static ITriggeringEventContextBuilder BuildContext(IGame game)
 			=> new TriggeringEventContextBuilder(game);
 
+		public interface IIncompleteTriggeringEventContext
+		{
+			public IEventContext CacheToFinalize();
+		}
+
 		/// <summary>
         /// Usage: start the builder before you take the action,
         /// then call <see cref="CacheToFinalize"/> after the operation
@@ -184,6 +197,7 @@ namespace Kompas.Effects.Models
         /// </summary>
         /// <param name="game">The only thing you must provide is a Game</param>
 		public interface ITriggeringEventContextBuilder
+			: IIncompleteTriggeringEventContext
 		{
 			public ITriggeringEventContextBuilder PrimarilyAffecting(GameCard mainCard);
 			public ITriggeringEventContextBuilder SecondarilyAffecting(GameCard secondaryCard);
@@ -196,8 +210,6 @@ namespace Kompas.Effects.Models
 			public ITriggeringEventContextBuilder During(IStackable? stackableEvent);
 
 			public ITriggeringEventContextBuilder Clone();
-
-			public TriggeringEventContext CacheToFinalize();
 		}
 
 		protected class TriggeringEventContextBuilder
@@ -302,15 +314,16 @@ namespace Kompas.Effects.Models
 				};
 			}
 
-			public TriggeringEventContext CacheToFinalize()
+			public IEventContext CacheToFinalize()
 			{
-				var ret = new TriggeringEventContext(game,
+				var ret = new List<TriggeringEventContext>();
+				var context = new TriggeringEventContext(game,
 					mainCardBefore, secondaryCardBefore, cardCauseBefore,
-					stackableCause, stackableEvent, player, x, space);
-
-				ret.CacheCardInfoAfter();
-				return ret;
+					stackableCause, stackableEvent, player, x, space); //TODO this doesn't work because it's stashing the card info AFTER THE EVENT gdi
+				context.CacheCardInfoAfter();
+				ret.Add(context);
+				return context;
 			}
 		}
-	}
+    }
 }

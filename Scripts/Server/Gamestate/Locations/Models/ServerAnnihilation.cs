@@ -24,7 +24,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			
 			base.PerformAdd(card, index, stackSrc);
 			
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			game.StackController.TriggerForCondition(Trigger.Annhilate, context);
 			ServerNotifier.NotifyAnnhilate(Owner, card, wasKnown);
 		}

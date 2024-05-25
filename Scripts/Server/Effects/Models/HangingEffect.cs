@@ -44,7 +44,7 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		/// <param name="context"></param>
 		/// <returns></returns>
-		public virtual bool ShouldBeCanceled(TriggeringEventContext context)
+		public virtual bool ShouldBeCanceled(IEventContext context)
 			=> FallOff?.Restriction.IsValid(context, StashedContext) ?? false;
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		/// <param name="context">The triggering context pertinent to this effect resolving</param>
 		/// <returns>Whether the hanging effect should go ahead and resolve</returns>
-		public virtual bool ShouldResolve(TriggeringEventContext context)
+		public virtual bool ShouldResolve(IEventContext context)
 		{
 			//if we've already ended this hanging effect, we shouldn't end it again.
 			if (ended) return false;
@@ -67,13 +67,13 @@ namespace Kompas.Server.Effects.Models
 		/// or maybe resuming a delayed effect.
 		/// </summary>
 		/// <param name="context">The context in which the effect is being resolved.</param>
-		public void Resolve(TriggeringEventContext context)
+		public void Resolve(IEventContext context)
 		{
 			ended = true;
 			ResolveLogic(context);
 		}
 
-		protected abstract void ResolveLogic(TriggeringEventContext context);
+		protected abstract void ResolveLogic(IEventContext context);
 
 		public override string ToString()
 		{

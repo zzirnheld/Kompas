@@ -16,9 +16,9 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		protected override void ChangeLocation(GameCard card)
 		{
-			TriggeringEventContext context = new(game: ServerGame, cardBefore: card);
+			IEventContext context = new TriggeringEventContext(game: ServerGame, cardBefore: card);
 			base.ChangeLocation(card);
-			context.CacheCardInfoAfter();
+			context.CacheAfterEvent();
 			ServerEffect.EffectsController.TriggerForCondition(Trigger.Vanish, context);
 		}
 	}

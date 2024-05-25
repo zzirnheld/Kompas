@@ -22,10 +22,10 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			foreach (var elem in elements) elem.Initialize(initializationContext);
 		}
 
-		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidContext(IEventContext context, IResolutionContext secondaryContext)
 			=> elements.All(tre => tre.IsValid(context, secondaryContext));
 
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public override bool IsStillValidTriggeringContext(IEventContext context)
 			=> elements.All(tre => tre.IsStillValidTriggeringContext(context));
 	}
 }

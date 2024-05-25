@@ -12,6 +12,11 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models
 {
+	public static class GameCardInfoExtensions
+	{
+		public static IGameCardInfo Now(this IGameCardInfo card) => GameCardInfo.CardInfoOf(card.Card);
+	}
+
 	/// <summary>
 	/// Something that has all the same information as a card in a game,
 	/// but isn't necessarily the actual card

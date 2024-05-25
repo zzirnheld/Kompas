@@ -28,7 +28,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 				target.SetActivated(true, source.ServerEffect);
 			}
 
-			protected override void ResolveLogic(TriggeringEventContext context)
+			protected override void ResolveLogic(IEventContext context)
 				=> target.SetActivated(false, source.ServerEffect);
 		}
 	}

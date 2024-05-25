@@ -53,7 +53,7 @@ namespace Kompas.Effects.Models
 			?? throw new EffectNotResolvingException(this);
 		public IList<Space> SpaceTargets => CurrentResolutionContext?.SpaceTargets
 			?? throw new EffectNotResolvingException(this);
-		public IList<GameCardInfo> CardInfoTargets => CurrentResolutionContext?.CardInfoTargets
+		public IList<IGameCardInfo> CardInfoTargets => CurrentResolutionContext?.CardInfoTargets
 			?? throw new EffectNotResolvingException(this);
 		public IList<IStackable> StackableTargets => CurrentResolutionContext?.StackableTargets
 			?? throw new EffectNotResolvingException(this);
@@ -90,7 +90,7 @@ namespace Kompas.Effects.Models
 		public int arg; //used for keyword arguments, and such
 
 		public abstract IResolutionContext? CurrentResolutionContext { get; }
-		public TriggeringEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
+		public IEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
 		public int TimesUsedThisTurn { get; protected set; }
 		public int TimesUsedThisRound { get; protected set; }
 		public int TimesUsedThisStack { get; set; }

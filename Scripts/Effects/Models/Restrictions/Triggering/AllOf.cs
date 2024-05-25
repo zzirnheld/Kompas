@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Triggering
 {
-	public class AllOf : AllOfBase<TriggeringEventContext, ITriggerRestriction>, ITriggerRestriction
+	public class AllOf : AllOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
 		protected override bool LogSoloElements => false;
 
@@ -13,13 +13,13 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		/// (Not relevant to delayed things, since those expire after a given number of uses (if at all), so yeah
 		/// </summary>
 		/// <returns></returns>
-		public bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public bool IsStillValidTriggeringContext(IEventContext context)
 			=> elements.All(elem => elem.IsStillValidTriggeringContext(context));
 	}
 
-	public class AnyOf : AnyOfBase<TriggeringEventContext, ITriggerRestriction>, ITriggerRestriction
+	public class AnyOf : AnyOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
-		public bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public bool IsStillValidTriggeringContext(IEventContext context)
 			=> elements.Any(elem => elem.IsStillValidTriggeringContext(context));
 	}
 
@@ -38,10 +38,10 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 
 		//NOTE: We can't just use IsStillValidTriggeringContext because that function assumes that the restriction previously evaluated to TRUE,
 		//and the whole point of Not is that we already know that inverted evaluated to false
-		public override bool IsStillValidTriggeringContext(TriggeringEventContext context)
+		public override bool IsStillValidTriggeringContext(IEventContext context)
 			=> IsValid(context, IResolutionContext.NotResolving(context));
 
-		protected override bool IsValidContext(TriggeringEventContext context, IResolutionContext secondaryContext)
+		protected override bool IsValidContext(IEventContext context, IResolutionContext secondaryContext)
 			=> !inverted.IsValid(context, secondaryContext);
 	}
 }

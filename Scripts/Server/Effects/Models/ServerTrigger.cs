@@ -76,7 +76,7 @@ namespace Kompas.Server.Effects.Models
 		/// <param name="stackTrigger">The effect or attack that triggered this, if any.</param>
 		/// <param name="x">If the action that triggered this has a value of x, it goes here. Otherwise, null.</param>
 		/// <returns>Whether all restrictions of the trigger are fulfilled.</returns>
-		public bool ValidForTriggeringContext(TriggeringEventContext context)
+		public bool ValidForTriggeringContext(IEventContext context)
 			=> !Card.Negated && TriggerRestriction.IsValid(context, IResolutionContext.NotResolving(context));
 
 		/// <summary>
@@ -84,7 +84,7 @@ namespace Kompas.Server.Effects.Models
 		/// </summary>
 		/// <param name="context"></param>
 		/// <returns></returns>
-		public bool StillValidForContext(TriggeringEventContext context)
+		public bool StillValidForContext(IEventContext context)
 			=> TriggerRestriction.IsStillValidTriggeringContext(context);
 
 		/// <summary>
@@ -97,7 +97,7 @@ namespace Kompas.Server.Effects.Models
 			order = -1;
 		}
 
-		public async Task Ask(IPlayer player, TriggeringEventContext context)
+		public async Task Ask(IPlayer player, IEventContext context)
 		{
 			int x = context?.X ?? 0;
 			//Assume for now that optional triggers are always asked to the card's owner

@@ -14,6 +14,6 @@ namespace Kompas.Effects.Models.Identities
 		/// Override this one if you ONLY need to know about the context you should actually be considering
 		/// </summary>
 		/// <param name="contextToConsider">The ActivationContext you actually should be considering.</param>
-		protected abstract ReturnType? AbstractItemFrom(TriggeringEventContext contextToConsider);
+		protected abstract ReturnType? AbstractItemFrom(IEventContext contextToConsider);
 	}
 }

@@ -1,7 +1,7 @@
 namespace Kompas.Effects.Models.Restrictions
 {
-	public interface ITriggerRestriction : IRestriction<TriggeringEventContext>
+	public interface ITriggerRestriction : IRestriction<IEventContext>
 	{
-		public bool IsStillValidTriggeringContext(TriggeringEventContext context);
+		public bool IsStillValidTriggeringContext(IEventContext context);
 	}
 }

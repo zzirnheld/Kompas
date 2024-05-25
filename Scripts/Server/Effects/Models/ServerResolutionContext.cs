@@ -16,7 +16,7 @@ namespace Kompas.Server.Effects.Models
 		public static ServerResolutionContext PlayerTrigger(IEffect effect, IGame game, ServerPlayer controllingPlayer)
 			=> new(new TriggeringEventContext(game: game, stackableEvent: effect), controllingPlayer);
 
-		public ServerResolutionContext(TriggeringEventContext? triggerContext, ServerPlayer controllingPlayer)
+		public ServerResolutionContext(IEventContext? triggerContext, ServerPlayer controllingPlayer)
 		: this(triggerContext, controllingPlayer, 0,
 			Enumerable.Empty<GameCard>(), default,
 			Enumerable.Empty<GameCardInfo>(),
@@ -25,7 +25,7 @@ namespace Kompas.Server.Effects.Models
 		{ }
 
 		public static ServerResolutionContext Resume(IResolutionContext context,
-			TriggeringEventContext newTriggerContext, ServerPlayer controllingPlayer, int startIndex)
+			IEventContext newTriggerContext, ServerPlayer controllingPlayer, int startIndex)
 		{
 			return new ServerResolutionContext(triggerContext: newTriggerContext,
 				controllingPlayer, startIndex,
@@ -35,10 +35,10 @@ namespace Kompas.Server.Effects.Models
 				context.StackableTargets, default);
 		}
 
-		public ServerResolutionContext(TriggeringEventContext? triggerContext,
+		public ServerResolutionContext(IEventContext? triggerContext,
 			ServerPlayer controllingPlayer, int startIndex,
 			IEnumerable<GameCard> cardTargets, GameCard? delayedCardTarget,
-			IEnumerable<GameCardInfo> cardInfoTargets,
+			IEnumerable<IGameCardInfo> cardInfoTargets,
 			IEnumerable<Space> spaceTargets, Space? delayedSpaceTarget,
 			IEnumerable<IStackable> stackableTargets, IStackable? delayedStackableTarget)
 			: base (triggerContext,

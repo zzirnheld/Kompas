@@ -18,8 +18,8 @@ namespace Kompas.Server.Effects.Controllers
 {
 	public interface IServerStackController : IStackController
 	{
-		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext? triggerContext);
-		public void PushToStack(IServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext);
+		public void PushToStack(IServerStackable atk, ServerPlayer controller, IEventContext? triggerContext);
+		public void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext);
 		public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context);
 		public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackEntry);
 
@@ -27,8 +27,8 @@ namespace Kompas.Server.Effects.Controllers
 		public void Cancel(Effect eff);
 		public Task CheckForResponse();
 
-		public void TriggerForCondition(string condition, params TriggeringEventContext[] contexts);
-		public void TriggerForCondition(string condition, TriggeringEventContext context);
+		public void TriggerForCondition(string condition, params IEventContext[] contexts);
+		public void TriggerForCondition(string condition, IEventContext context);
 
 		public void RegisterTrigger(string condition, ServerTrigger trigger);
 		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string? fallOffCondition = default);
@@ -39,9 +39,9 @@ namespace Kompas.Server.Effects.Controllers
 		private struct TriggersTriggered
 		{
 			public IEnumerable<ServerTrigger> triggers;
-			public TriggeringEventContext context;
+			public IEventContext context;
 
-			public TriggersTriggered(IEnumerable<ServerTrigger> triggers, TriggeringEventContext context)
+			public TriggersTriggered(IEnumerable<ServerTrigger> triggers, IEventContext context)
 			{
 				this.triggers = triggers;
 				this.context = context;
@@ -121,12 +121,12 @@ namespace Kompas.Server.Effects.Controllers
 
 		#region the stack
 
-		public void PushToStack(IServerStackable atk, ServerPlayer controller, TriggeringEventContext? triggerContext)
+		public void PushToStack(IServerStackable atk, ServerPlayer controller, IEventContext? triggerContext)
 		{
 			PushToStack(IResolvingStackable.Resolving(atk, new ServerResolutionContext(triggerContext, controller)));
 		}
 
-		public void PushToStack(IServerEffect eff, ServerPlayer controller, TriggeringEventContext triggerContext)
+		public void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext)
 		{
 			PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
 		}
@@ -172,9 +172,9 @@ namespace Kompas.Server.Effects.Controllers
 						case CardBase.VanishingSubtype:
 							if (c.TurnsOnBoard >= c.Duration)
 							{
-								TriggeringEventContext context = new(game: game, cardBefore: c);
+								IEventContext context = new TriggeringEventContext(game: game, cardBefore: c);
 								c.Discard();
-								context.CacheCardInfoAfter();
+								context.CacheAfterEvent();
 								TriggerForCondition(Trigger.Vanish, context);
 							}
 							break;
@@ -344,7 +344,7 @@ namespace Kompas.Server.Effects.Controllers
 			await ResolveNextStackEntry();
 		}
 
-		private void ResolveHangingEffects(string condition, TriggeringEventContext context)
+		private void ResolveHangingEffects(string condition, IEventContext context)
 		{
 			if (hangingEffectMap.ContainsKey(condition))
 			{
@@ -368,12 +368,12 @@ namespace Kompas.Server.Effects.Controllers
 			}
 		}
 
-		public void TriggerForCondition(string condition, params TriggeringEventContext[] contexts)
+		public void TriggerForCondition(string condition, params IEventContext[] contexts)
 		{
 			foreach (var c in contexts) TriggerForCondition(condition, c);
 		}
 
-		public void TriggerForCondition(string condition, TriggeringEventContext context)
+		public void TriggerForCondition(string condition, IEventContext context)
 		{
 			if (!game.GameHasStarted) return;
 

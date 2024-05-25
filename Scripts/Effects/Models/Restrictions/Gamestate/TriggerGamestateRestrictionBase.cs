@@ -25,8 +25,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		//Since we do it this way,
 		//the primary context passed into IsValidLogic will always be a valid current one (or, well, if it's invalid it'll be because we're testing a player action),
 		//and the second one will either duplicate it, or be the secondary context in the case where it's applicable (which is where we're acting like a trigger restriction)
-		public bool IsValid(TriggeringEventContext? triggeringEventContext, IResolutionContext resolutionContext)
-			=> IsValid(IResolutionContext.NotResolving(triggeringEventContext), resolutionContext);
+		public bool IsValid(IEventContext? IEventContext, IResolutionContext resolutionContext)
+			=> IsValid(IResolutionContext.NotResolving(IEventContext), resolutionContext);
 
 		private bool IsValid(IResolutionContext context, IResolutionContext secondaryContext)
 		{
@@ -51,7 +51,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		//Fulfill trigger restriction contract.
 		//Because this fulfills the trigger resolution contract, the IResolutionContext will always be a dummy,
 		//because it's being called while determining what should go on the stack, between resolutions of effects.
-		public abstract bool IsStillValidTriggeringContext(TriggeringEventContext context);
+		public abstract bool IsStillValidTriggeringContext(IEventContext context);
 
 		//Fulfill list restriction contract
 		public bool AllowsValidChoice(IEnumerable<IGameCardInfo> options, IResolutionContext context) => true;

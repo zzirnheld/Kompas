@@ -8,12 +8,12 @@ namespace Kompas.Effects.Models
 {
 	public class ResolutionContext : IResolutionContext
 	{
-		public TriggeringEventContext? TriggerContext { get; }
+		public IEventContext? TriggerContext { get; }
 
 		// Used for resuming delayed effects
 		public int StartIndex { get; }
 		public IList<GameCard> CardTargets { get; }
-		public IList<GameCardInfo> CardInfoTargets { get; }
+		public IList<IGameCardInfo> CardInfoTargets { get; }
 		public GameCard? DelayedCardTarget { get; }
 		public IList<Space> SpaceTargets { get; }
 		public Space? DelayedSpaceTarget { get; }
@@ -31,7 +31,7 @@ namespace Kompas.Effects.Models
 		public static ResolutionContext PlayerTriggeredEffect(Effect? effect, IGame game)
 			=> new(new TriggeringEventContext(game: game, stackableEvent: effect));
 
-		public ResolutionContext(TriggeringEventContext triggerContext)
+		public ResolutionContext(IEventContext triggerContext)
 		: this(triggerContext, 0,
 			Enumerable.Empty<GameCard>(), default,
 			Enumerable.Empty<GameCardInfo>(),
@@ -39,10 +39,10 @@ namespace Kompas.Effects.Models
 			Enumerable.Empty<IStackable>(), default)
 		{ }
 
-		public ResolutionContext(TriggeringEventContext? triggerContext,
+		public ResolutionContext(IEventContext? triggerContext,
 			int startIndex,
 			IEnumerable<GameCard> cardTargets, GameCard? delayedCardTarget,
-			IEnumerable<GameCardInfo> cardInfoTargets,
+			IEnumerable<IGameCardInfo> cardInfoTargets,
 			IEnumerable<Space> spaceTargets, Space? delayedSpaceTarget,
 			IEnumerable<IStackable> stackableTargets, IStackable? delayedStackableTarget)
 		{

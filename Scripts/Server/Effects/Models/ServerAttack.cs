@@ -36,8 +36,8 @@ namespace Kompas.Server.Effects.Models
 				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
 			var defenderContext = new TriggeringEventContext(game: ServerGame, cardBefore: defender, secondaryCardBefore: attacker, 
 				stackableCause: stackSrc, stackableEvent: this, eventCauseOverride: attacker, player: instigator);
-			attackerContext.CacheCardInfoAfter();
-			defenderContext.CacheCardInfoAfter();
+			attackerContext.CacheAfterEvent();
+			defenderContext.CacheAfterEvent();
 			EffCtrl.TriggerForCondition(Trigger.Attacks, attackerContext);
 			EffCtrl.TriggerForCondition(Trigger.Defends, defenderContext);
 			EffCtrl.TriggerForCondition(Trigger.Battles, attackerContext, defenderContext);
@@ -60,8 +60,8 @@ namespace Kompas.Server.Effects.Models
 			{
 				//deal the damage
 				DealDamage();
-				attackerContext.CacheCardInfoAfter();
-				defenderContext.CacheCardInfoAfter();
+				attackerContext.CacheAfterEvent();
+				defenderContext.CacheAfterEvent();
 			}
 			EffCtrl.TriggerForCondition(Trigger.BattleEnds, attackerContext, defenderContext);
 			//then finish the resolution by just returning that completed the task. (don't need to call anything)
@@ -84,10 +84,10 @@ namespace Kompas.Server.Effects.Models
 			//deal the damage
 			defender.TakeDamage(attackerDmg, stackSrc: this);
 			attacker.TakeDamage(defenderDmg, stackSrc: this);
-			attackerDealContext.CacheCardInfoAfter();
-			defenderDealContext.CacheCardInfoAfter();
-			attackerTakeContext.CacheCardInfoAfter();
-			defenderTakeContext.CacheCardInfoAfter();
+			attackerDealContext.CacheAfterEvent();
+			defenderDealContext.CacheAfterEvent();
+			attackerTakeContext.CacheAfterEvent();
+			defenderTakeContext.CacheAfterEvent();
 			//trigger effects based on combat damage
 			EffCtrl.TriggerForCondition(Trigger.TakeCombatDamage, attackerTakeContext, defenderTakeContext);
 			EffCtrl.TriggerForCondition(Trigger.DealCombatDamage, attackerDealContext, defenderDealContext);

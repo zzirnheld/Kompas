@@ -11,7 +11,7 @@ namespace Kompas.Effects.Models.Identities.Numbers
 		[JsonProperty]
 		public int divisor = 1;
 
-		protected override int AbstractItemFrom(TriggeringEventContext contextToConsider)
+		protected override int AbstractItemFrom(IEventContext contextToConsider)
 			=> (contextToConsider.X.GetValueOrDefault() * multiplier / divisor) + modifier;
 	}
 

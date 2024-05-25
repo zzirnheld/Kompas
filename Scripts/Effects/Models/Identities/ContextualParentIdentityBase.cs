@@ -43,7 +43,7 @@ namespace Kompas.Effects.Models.Identities
 			}
 		}
 
-		protected Attack GetAttack(TriggeringEventContext effectContext)
+		protected Attack GetAttack(IEventContext effectContext)
 		{
 			if (effectContext.StackableEvent is Attack eventAttack) return eventAttack;
 			if (effectContext.StackableCause is Attack causeAttack) return causeAttack;
