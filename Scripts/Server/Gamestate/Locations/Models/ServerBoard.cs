@@ -78,49 +78,23 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			var from = card.Position?.Copy;
 			var at = GetCardAt(to);
 
-			//then trigger appropriate triggers. list of contexts:
-			var moveContexts = new List<IEventContext>();
-			var leaveContexts = new List<IEventContext>();
-
-			if (from != null)
-			{
-				var (fromCardMoveContexts, fromCardLeaveContexts) = GetContextsForMove(card, from, to, mover, stackSrc);
-				moveContexts.AddRange(fromCardMoveContexts);
-				leaveContexts.AddRange(fromCardLeaveContexts);
-
-				if (at != null)
-				{
-					var (atCardMoveContexts, atCardLeaveContexts) = GetContextsForMove(at, to, from, mover, stackSrc);
-					moveContexts.AddRange(atCardMoveContexts);
-					leaveContexts.AddRange(atCardLeaveContexts);
-				}
-			}
-
-			//actually perform the swap
-			base.Swap(card, to, normal, mover, stackSrc: stackSrc);
-
-			foreach (var ctxt in moveContexts)
-			{
-				ctxt.CacheAfterEvent();
-			}
-
-			EffectsController.TriggerForCondition(Trigger.Move, moveContexts.ToArray());
-			EffectsController.TriggerForCondition(Trigger.Arrive, moveContexts.ToArray());
-			EffectsController.TriggerForCondition(Trigger.LeaveAOE, leaveContexts.ToArray());
-
-			var contexts = EventCapturer.Capture(GetIncompleteMoveContexts(card, from, to, mover, stackSrc),
+			var incompletes = GetIncompleteMoveContexts(card, from, to, mover, stackSrc)
+				.Concat(GetIncompleteMoveContexts(at, to, from, mover, stackSrc));
+			var contexts = EventCapturer.Capture(incompletes,
 				() => base.Swap(card, to, normal, mover, stackSrc: stackSrc));
 
 			foreach (var context in contexts) EffectsController.TriggerForCondition(context.TriggeringEvent, context);
-			
+
 			//notify the players
 			ServerNotifier.NotifyMove(mover ?? card.OwningPlayer, card, to);
 		}
 
 		private IEnumerable<IIncompleteEventContext>
-			GetIncompleteMoveContexts(GameCard card, Space? from, Space to, IPlayer? player, IStackable? stackSrc)
+			GetIncompleteMoveContexts(GameCard? card, Space? from, Space? to, IPlayer? player, IStackable? stackSrc)
 		{
+			if (card == null) return Enumerable.Empty<IIncompleteEventContext>();
 			if (from == null) return Enumerable.Empty<IIncompleteEventContext>();
+			if (to == null) return Enumerable.Empty<IIncompleteEventContext>();
 
 			int distance = from.DistanceTo(to);
 
