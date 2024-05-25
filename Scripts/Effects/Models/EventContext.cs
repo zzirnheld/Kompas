@@ -234,7 +234,10 @@ namespace Kompas.Effects.Models
 			return capturer.Capture(capturableEvent);
 		}
 
-		public IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent)
+        public static IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent, params IIncompleteEventContext[] incompletes)
+			=> Capture(incompletes, capturableEvent);
+
+        public IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent)
 		{
 			capturableEvent();
 			return incompletes

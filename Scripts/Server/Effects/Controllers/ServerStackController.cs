@@ -34,6 +34,21 @@ namespace Kompas.Server.Effects.Controllers
 		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string? fallOffCondition = default);
 	}
 
+	public static class IServerStackControllerExtensions
+	{
+
+		public static void Trigger(this IServerStackController stack, params IEventContext[] contexts)
+			=> Trigger(stack, contexts);
+
+        public static void Trigger(this IServerStackController stack, IReadOnlyCollection<IEventContext> contexts)
+        {
+			foreach (var context in contexts) Trigger(stack, context);
+        }
+
+		public static void Trigger(this IServerStackController stack, IEventContext context)
+			=> stack.TriggerForCondition(context.TriggeringEvent, context);
+    }
+
 	public class ServerStackController : IServerStackController
 	{
 		private struct TriggersTriggered

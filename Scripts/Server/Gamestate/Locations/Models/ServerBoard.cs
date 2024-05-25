@@ -25,55 +25,24 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 		public override void Play(GameCard toPlay, Space to, IPlayer controller, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: serverGame, cardBefore: toPlay, stackableCause: stackSrc, player: controller, space: to);
 			bool wasKnown = toPlay.KnownToEnemy;
-			base.Play(toPlay, to, controller, stackSrc: stackSrc);
-			context.CacheAfterEvent();
-			EffectsController.TriggerForCondition(Trigger.Play, context);
-			EffectsController.TriggerForCondition(Trigger.Arrive, context);
 
+			var playContext = IEventContext.Build(Trigger.Play)
+				.PrimarilyAffecting(toPlay)
+				.CausedBy(stackSrc)
+				.ForPlayer(controller)
+				.At(to);
+			var contexts = EventCapturer.Capture(() => base.Play(toPlay, to, controller, stackSrc: stackSrc),
+				playContext, playContext.CloneForEvent(Trigger.Arrive));
+
+			EffectsController.Trigger(contexts);
+			
 			if (!toPlay.IsAvatar) ServerNotifier.NotifyPlay(controller, toPlay, to, wasKnown);
 		}
 
-		private (IEnumerable<IEventContext> moveContexts, IEnumerable<IEventContext> leaveContexts)
-			GetContextsForMove(GameCard card, Space from, Space to, IPlayer? player, IStackable? stackSrc)
+        protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
 		{
-			int distance = from.DistanceTo(to);
-
-			var moveContexts = new List<IEventContext>();
-			var leaveContexts = new List<IEventContext>();
-			//Cards that from card is no longer in the AOE of
-			var cardsMoverLeft = CardsAndAugsWhere(c => c != null && c.CardInAOE(card) && !c.SpaceInAOE(to));
-			//Cards that from card no longer has in its aoe
-			var cardsMoverLeftBehind = CardsAndAugsWhere(c => c != null && card.CardInAOE(c) && !card.CardInAOE(c, to));
-
-			//Add contexts for 
-			moveContexts.Add(new TriggeringEventContext(game: serverGame, cardBefore: card, stackableCause: stackSrc, space: to,
-				player: player, x: distance));
-			//Cards that from card is no longer in the AOE of
-			leaveContexts.AddRange(cardsMoverLeft.Select(c =>
-				new TriggeringEventContext(game: serverGame, cardBefore: card, secondaryCardBefore: c, stackableCause: stackSrc, player: player)));
-			//Cards that from card no longer has in its aoe
-			leaveContexts.AddRange(cardsMoverLeftBehind.Select(c =>
-				new TriggeringEventContext(game: serverGame, cardBefore: c, secondaryCardBefore: card, stackableCause: stackSrc, player: player)));
-			//trigger for first card's augments
-			foreach (var aug in card.Augments)
-			{
-				//Add contexts for 
-				moveContexts.Add(new TriggeringEventContext(game: serverGame, cardBefore: aug, stackableCause: stackSrc, space: to,
-					player: player, x: distance));
-				//Cards that from aug is no longer in the AOE of
-				leaveContexts.AddRange(cardsMoverLeft.Select(c =>
-					new TriggeringEventContext(game: serverGame, cardBefore: aug, secondaryCardBefore: c, stackableCause: stackSrc, player: player)));
-				//Cards that from aug no longer has in its aoe
-				leaveContexts.AddRange(cardsMoverLeftBehind.Select(c =>
-					new TriggeringEventContext(game: serverGame, cardBefore: c, secondaryCardBefore: aug, stackableCause: stackSrc, player: player)));
-			}
-			return (moveContexts, leaveContexts);
-		}
-
-		protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
-		{
+			//TODO make a unit test with the old swap triggering event contexts.
 			//calculate distance before doing the swap
 			var from = card.Position?.Copy;
 			var at = GetCardAt(to);
@@ -138,8 +107,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.SecondarilyAffecting(mover);
 			var leftBehind = cardsMoverLeftBehind.Select(moverLeftBehind => baseLeftBehind.Clone().PrimarilyAffecting(moverLeftBehind));
 
-			return 		EnumerableHelper.Yield(moveMover)
-				.Concat(EnumerableHelper.Yield(arriveMover))
+			return moveMover.Yield()
+				.Concat(arriveMover.Yield())
 				.Concat(leaving)
 				.Concat(leftBehind);
 		}
