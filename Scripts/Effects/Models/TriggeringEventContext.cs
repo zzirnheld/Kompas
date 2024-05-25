@@ -80,7 +80,9 @@ namespace Kompas.Effects.Models
 		public GameCardInfo? CauseCardInfoAfter { get; private set; }
 		public IGameCardInfo? CauseCardAfter => CauseCardInfoAfter;
 
-		private readonly string cachedToString;
+        public string TriggeringEvent => throw new NotImplementedException();
+
+        private readonly string cachedToString;
 
 		private TriggeringEventContext(IGame game,
 								  GameCardInfo? mainCardInfoBefore,

@@ -7,6 +7,11 @@ namespace Kompas.Shared.Enumerable
 {
 	public static class EnumerableHelper
 	{
+		public static IEnumerable<T> Yield<T>(this T item)
+		{
+			yield return item;
+		}
+		
 		public static IEnumerable<(int index, T value)> Enumerate<T>(this IEnumerable<T> coll)
 				=> coll.Select((i, val) => (val, i));
 

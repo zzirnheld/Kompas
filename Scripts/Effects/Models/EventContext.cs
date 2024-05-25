@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
@@ -6,6 +8,8 @@ namespace Kompas.Effects.Models
 {
 	public interface IIncompleteEventContext
 	{
+		public string TriggeringEvent { get; }
+
 		/// <summary>
 		/// The main card involved in whatever just happened.
 		/// Could be the only card, could be the attacker, etc.
@@ -43,19 +47,26 @@ namespace Kompas.Effects.Models
 		public Space? Space { get; }
 	}
 
-    public class EventContextBuilder
-        : IIncompleteEventContext
-    {
-        public IGameCardInfo? MainCardBefore { get; private set; }
-        public IGameCardInfo? SecondaryCardBefore { get; private set; }
-        public IGameCardInfo? CauseCardBefore { get; private set; }
+	public class EventContextBuilder
+		: IIncompleteEventContext
+	{
+		public string TriggeringEvent { get; }
 
-        public IStackable? StackableEvent { get; private set; }
-        public IStackable? StackableCause { get; private set; }
+		public EventContextBuilder(string triggeringEvent)
+		{
+			TriggeringEvent = triggeringEvent;
+		}
 
-        public IPlayer? Player { get; private set; }
-        public int? X { get; private set; }
-        public Space? Space { get; private set; }
+		public IGameCardInfo? MainCardBefore { get; private set; }
+		public IGameCardInfo? SecondaryCardBefore { get; private set; }
+		public IGameCardInfo? CauseCardBefore { get; private set; }
+
+		public IStackable? StackableEvent { get; private set; }
+		public IStackable? StackableCause { get; private set; }
+
+		public IPlayer? Player { get; private set; }
+		public int? X { get; private set; }
+		public Space? Space { get; private set; }
 
 		public EventContextBuilder PrimarilyAffecting(IGameCardInfo card)
 		{
@@ -69,12 +80,18 @@ namespace Kompas.Effects.Models
 			return this;
 		}
 
-        public EventContextBuilder AffectingBoth(IGameCardInfo primary, IGameCardInfo secondary)
+		public EventContextBuilder AffectingBoth(IGameCardInfo primary, IGameCardInfo secondary)
 			=> PrimarilyAffecting(primary).SecondarilyAffecting(secondary);
 
 		public EventContextBuilder At(Space space)
 		{
 			Space = space;
+			return this;
+		}
+
+		public EventContextBuilder ForPlayer(IPlayer? player)
+		{
+			Player = player;
 			return this;
 		}
 
@@ -101,11 +118,27 @@ namespace Kompas.Effects.Models
 			X = x;
 			return this;
 		}
+
+		public EventContextBuilder Clone() => CloneForEvent(TriggeringEvent);
+
+		public EventContextBuilder CloneForEvent(string triggeringEvent) => new(triggeringEvent)
+		{
+			MainCardBefore = MainCardBefore,
+			SecondaryCardBefore = SecondaryCardBefore,
+			CauseCardBefore = CauseCardBefore,
+
+			StackableEvent = StackableEvent,
+			StackableCause = StackableCause,
+
+			Player = Player,
+			X = X,
+			Space = Space,
+		};
     }
 
 	public static class IncompleteEventContextExtensions
 	{
-		public static IEventContext CacheAfterEvent(this IIncompleteEventContext incomplete) => new EventContext()
+		public static IEventContext CacheAfterEvent(this IIncompleteEventContext incomplete) => new EventContext(incomplete.TriggeringEvent)
 		{
 			MainCardBefore = incomplete.MainCardBefore,
 			MainCardAfter = incomplete.MainCardBefore?.Now(),
@@ -152,11 +185,21 @@ namespace Kompas.Effects.Models
 		/// Stashed immediately <b>after</b> the event in question happened.
 		/// </summary>
 		public IGameCardInfo? CauseCardAfter { get; }
+
+		public static EventContextBuilder Build(string triggeringEvent)
+			=> new EventContextBuilder(triggeringEvent);
 	}
 
     public class EventContext
         : IEventContext
     {
+		public string TriggeringEvent { get; }
+
+        public EventContext(string triggeringEvent)
+        {
+            TriggeringEvent = triggeringEvent;
+        }
+
         public IGameCardInfo? MainCardBefore { get; init; }
         public IGameCardInfo? MainCardAfter { get; init; }
 
@@ -173,4 +216,30 @@ namespace Kompas.Effects.Models
         public int? X { get; init; }
         public Space? Space { get; init; }
     }
+
+	public class EventCapturer
+	{
+		private readonly IReadOnlyCollection<IIncompleteEventContext> incompletes;
+
+        public EventCapturer(IEnumerable<IIncompleteEventContext> incompletes)
+        {
+            this.incompletes = incompletes.ToArray();
+        }
+
+		public delegate void CapturableEvent();
+
+		public static IReadOnlyCollection<IEventContext> Capture(IEnumerable<IIncompleteEventContext> incompletes, CapturableEvent capturableEvent)
+		{
+			var capturer = new EventCapturer(incompletes);
+			return capturer.Capture(capturableEvent);
+		}
+
+		public IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent)
+		{
+			capturableEvent();
+			return incompletes
+				.Select(incomplete => incomplete.CacheAfterEvent())
+				.ToArray();
+		}
+	}
 }
