@@ -223,73 +223,101 @@ namespace Kompas.Server.Cards.Models
 		}
 
 		#region stats
-		public override void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true)
+		public override void SetN(int newN, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
-			if (n == N) return;
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: n - N);
-			base.SetN(n, stackSrc);
-			context.CacheAfterEvent();
-			EffectsController?.TriggerForCondition(Trigger.NChange, context);
+			if (newN == N) return;
+
+			var contexts = IEventContext.Build(Trigger.NChange)
+				.PrimarilyAffecting(this)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer)
+				.WithX(newN - N)
+				.Capture(() => base.SetN(newN, stackSrc));
+			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
+			EffectsController?.Trigger(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
 
-		public override void SetE(int e, IStackable? stackSrc = null, bool onlyStatBeingSet = true)
+		public override void SetE(int newE, IStackable? stackSrc = null, bool onlyStatBeingSet = true)
 		{
-			if (e == E) return;
-			int oldE = E;
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: e - E);
-			base.SetE(e, stackSrc);
-			context.CacheAfterEvent();
-			EffectsController?.TriggerForCondition(Trigger.EChange, context);
+			if (newE == E) return;
+
+			var contexts = IEventContext.Build(Trigger.EChange)
+				.PrimarilyAffecting(this)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer)
+				.WithX(newE - E)
+				.Capture(() => base.SetE(newE, stackSrc));
+			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
+			EffectsController?.Trigger(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 
 			//kill if applicable
-			Logger.Log($"E changed from {oldE} to {E}. Should it die?");
 			if (E <= 0 && CardType == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
 		}
 
-		public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
+		public override void SetS(int newS, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
-			if (s == S) return;
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: s - S);
-			base.SetS(s, stackSrc);
-			context.CacheAfterEvent();
-			EffectsController?.TriggerForCondition(Trigger.SChange, context);
+			if (newS == S) return;
+
+			var contexts = IEventContext.Build(Trigger.SChange)
+				.PrimarilyAffecting(this)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer)
+				.WithX(newS - S)
+				.Capture(() => base.SetS(newS, stackSrc));
+			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
+			EffectsController?.Trigger(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
 
-		public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
+		public override void SetW(int newW, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
-			if (w == W) return;
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: w - W);
-			base.SetW(w, stackSrc);
-			context.CacheAfterEvent();
-			EffectsController?.TriggerForCondition(Trigger.WChange, context);
+			if (newW == W) return;
+
+			var contexts = IEventContext.Build(Trigger.WChange)
+				.PrimarilyAffecting(this)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer)
+				.WithX(newW - W)
+				.Capture(() => base.SetW(newW, stackSrc));
+			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
+			EffectsController?.Trigger(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
 
-		public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
+		public override void SetC(int newC, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
-			if (c == C) return;
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: c - C);
-			base.SetC(c, stackSrc);
-			context.CacheAfterEvent();
-			EffectsController?.TriggerForCondition(Trigger.CChange, context);
+			if (newC == C) return;
+
+			var contexts = IEventContext.Build(Trigger.CChange)
+				.PrimarilyAffecting(this)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer)
+				.WithX(newC - C)
+				.Capture(() => base.SetC(newC, stackSrc));
+			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
+			EffectsController?.Trigger(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
 
-		public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
+		public override void SetA(int newA, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
-			if (a == A) return;
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer, x: a - A);
-			base.SetA(a, stackSrc);
-			context.CacheAfterEvent();
-			EffectsController?.TriggerForCondition(Trigger.AChange, context);
+			if (newA == A) return;
+
+			var contexts = IEventContext.Build(Trigger.AChange)
+				.PrimarilyAffecting(this)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer)
+				.WithX(newA - A)
+				.Capture(() => base.SetA(newA, stackSrc));
+			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
+			EffectsController?.Trigger(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
@@ -314,33 +342,40 @@ namespace Kompas.Server.Cards.Models
 
 		public override void SetNegated(bool negated, IStackable? stackSrc = null)
 		{
-			if (Negated != negated)
+			bool changed = Negated != negated;
+			//Only trigger effets if go from unnegated to negated
+			if (negated && changed)
 			{
-				//Notify of value being set to, even if it won't actually change whether the card is negated or not
-				//so that the client can know how many negations a card has
-				ServerNotifier.NotifySetNegated(ControllingPlayer, this, negated);
-
-				var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
-				context.CacheAfterEvent();
-				if (negated) EffectsController.TriggerForCondition(Trigger.Negate, context);
+				var contexts = IEventContext.Build(Trigger.Negate)
+					.PrimarilyAffecting(this)
+					.CausedBy(stackSrc)
+					.ForPlayer(stackSrc?.ControllingPlayer)
+					.Capture(() => base.SetNegated(negated, stackSrc));
+				EffectsController.Trigger(contexts);
 			}
-			base.SetNegated(negated, stackSrc);
+			else base.SetNegated(negated, stackSrc);
+			
+			//Notify of value being set to, even if it won't actually change whether the card is negated or not
+			//so that the client can know how many negations a card has
+			if (changed) ServerNotifier.NotifySetNegated(ControllingPlayer, this, negated);
 		}
 
 		public override void SetActivated(bool activated, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
-			if (Activated != activated)
+			bool changed = Activated != activated;
+			//Triggers need to be aware of activating OR deactivating
+			if (changed)
 			{
-				//Notify of value being set to, even if it won't actually change whether the card is activated or not,
-				//so that the client can know how many activations a card has
-				ServerNotifier.NotifyActivate(ControllingPlayer, this, activated);
-
-				context.CacheAfterEvent();
-				if (activated) EffectsController.TriggerForCondition(Trigger.Activate, context);
-				else EffectsController.TriggerForCondition(Trigger.Deactivate, context);
+				var contexts = IEventContext.Build(activated ? Trigger.Activate : Trigger.Deactivate)
+					.PrimarilyAffecting(this)
+					.CausedBy(stackSrc)
+					.ForPlayer(stackSrc?.ControllingPlayer)
+					.Capture(() => base.SetActivated(activated, stackSrc));
+				EffectsController.Trigger(contexts);
 			}
-			base.SetActivated(activated, stackSrc);
+			else base.SetActivated(activated, stackSrc);
+			
+			if (changed) ServerNotifier.NotifyActivate(ControllingPlayer, this, activated);
 		}
 		#endregion stats
 	}
