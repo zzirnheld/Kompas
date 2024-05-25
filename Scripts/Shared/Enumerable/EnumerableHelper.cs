@@ -58,5 +58,11 @@ namespace Kompas.Shared.Enumerable
 		{
 			foreach (var t in source) if (t != null) yield return t;
 		}
-	}
+
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
+			=> source.Concat(item.Yield());
+
+        public static IEnumerable<T> Concat<T>(this T source, IEnumerable<T> other)
+			=> source.Yield().Concat(other);
+    }
 }

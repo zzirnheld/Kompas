@@ -188,24 +188,20 @@ namespace Kompas.Server.Cards.Models
 		{
 			//Logger.Log($"Trying to remove {CardName} from {Location}");
 
-			//proc the trigger before actually removing anything
-			var sharedBuilder = TriggeringEventContext.BuildContext(Game)
-				.CausedBy(stackSrc)
-				.Affecting(stackSrc?.ControllingPlayer ?? ControllingPlayer)
-				.PrimarilyAffecting(this);
-			var removeBuilder = sharedBuilder.Clone();
-
 			var cardsThisLeft = Location == Location.Board ?
 				Game.Board.CardsAndAugsWhere(c => c != null && c.CardInAOE(this)).ToList() :
 				new List<GameCard>();
-			var leaveBuilders = cardsThisLeft
-				.Select(c => sharedBuilder.Clone().SecondarilyAffecting(c))
-				.ToArray();
 
-			base.Remove(stackSrc);
+			EventContextBuilder.Cloner ToLeaveContext(GameCard card)
+				=> ctx => ctx.CloneForEvent(Trigger.LeaveAOE).SecondarilyAffecting(card);
 
-			EffectsController.TriggerForCondition(Trigger.Remove, removeBuilder.CacheToFinalize());
-			EffectsController.TriggerForCondition(Trigger.LeaveAOE, leaveBuilders.Select(builder => builder.CacheToFinalize()).ToArray());
+			IEventContext.Build(Trigger.Remove)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer ?? ControllingPlayer)
+				.PrimarilyAffecting(this)
+				.CaptureAlso(() => base.Remove(stackSrc),
+					cardsThisLeft.Select(ToLeaveContext));
+
 			//copy the colleciton  so that you can edit the original
 			var augments = Augments.ToArray();
 			foreach (var aug in augments) aug.Discard(stackSrc);
