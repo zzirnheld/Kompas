@@ -122,6 +122,7 @@ namespace Kompas.Effects.Models
 
 		public EventContextBuilder Clone() => CloneForEvent(TriggeringEvent);
 
+		//TODO unit test: context.Clone().equals(context)
 		public EventContextBuilder CloneForEvent(string triggeringEvent) => new(triggeringEvent)
 		{
 			MainCardBefore = MainCardBefore,
@@ -194,6 +195,12 @@ namespace Kompas.Effects.Models
 		/// </summary>
 		public IGameCardInfo? CauseCardAfter { get; }
 
+		/// <summary>
+		/// Lets you build up an IEventContext one param at a time.
+		/// Prefer this usage, and its Capture function!
+		/// HOWEVER be wary that the builder is stateful,
+		/// so you'll need to Clone it if you want to reuse builders.
+		/// </summary>
 		public static EventContextBuilder Build(string triggeringEvent)
 			=> new EventContextBuilder(triggeringEvent);
 	}

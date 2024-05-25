@@ -47,8 +47,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			var from = card.Position?.Copy;
 			var at = GetCardAt(to);
 
-			var incompletes = GetIncompleteMoveContexts(card, from, to, mover, stackSrc)
-				.Concat(GetIncompleteMoveContexts(at, to, from, mover, stackSrc));
+			var incompletes = EnumerateMoveContexts(card, from, to, mover, stackSrc)
+				.Concat(EnumerateMoveContexts(at, to, from, mover, stackSrc));
 			var contexts = EventCapturer.Capture(incompletes,
 				() => base.Swap(card, to, normal, mover, stackSrc: stackSrc));
 			EffectsController.Trigger(contexts);
@@ -57,12 +57,11 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			ServerNotifier.NotifyMove(mover ?? card.OwningPlayer, card, to);
 		}
 
-		private IEnumerable<IIncompleteEventContext>
-			GetIncompleteMoveContexts(GameCard? card, Space? from, Space? to, IPlayer? player, IStackable? stackSrc)
+		private IEnumerable<IIncompleteEventContext> EnumerateMoveContexts(GameCard? card, Space? from, Space? to, IPlayer? player, IStackable? stackSrc)
 		{
-			if (card == null) return Enumerable.Empty<IIncompleteEventContext>();
-			if (from == null) return Enumerable.Empty<IIncompleteEventContext>();
-			if (to == null) return Enumerable.Empty<IIncompleteEventContext>();
+			if (card == null) yield break;
+			if (from == null) yield break;
+			if (to == null) yield break;
 
 			int distance = from.DistanceTo(to);
 
@@ -79,37 +78,37 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.ForPlayer(player)
 				.WithX(distance);
 
-			ret.AddRange(EnumerateMoveContexts(baseContext, card, cardsMoverLeft, cardsMoverLeftBehind));
+			foreach (var context in EnumerateMoveContexts(baseContext, card, cardsMoverLeft, cardsMoverLeftBehind))
+				yield return context;
 
 			//trigger for first card's augments
+			//could do a .SelectMany here but I think the double loop is more clear
 			foreach (var aug in card.Augments)
 			{
-				ret.AddRange(EnumerateMoveContexts(baseContext, aug, cardsMoverLeft, cardsMoverLeftBehind));
+				foreach (var context in EnumerateMoveContexts(baseContext, aug, cardsMoverLeft, cardsMoverLeftBehind))
+					yield return context;
 			}
-			return ret;
 		}
 
 		private static IEnumerable<IIncompleteEventContext> EnumerateMoveContexts(EventContextBuilder baseBuilder, GameCard mover,
 			IEnumerable<GameCard> cardsMoverLeft, IEnumerable<GameCard> cardsMoverLeftBehind)
 		{	
-			var moveMover = baseBuilder.CloneForEvent(Trigger.Move)
+			var affectingMover = baseBuilder.CloneForEvent(Trigger.Move)
 				.PrimarilyAffecting(mover);
-			var arriveMover = moveMover.CloneForEvent(Trigger.Arrive);
+			yield return affectingMover;
+			yield return affectingMover.CloneForEvent(Trigger.Arrive);
 
 			//Cards that from card is no longer in the AOE of
 			var baseLeaving = baseBuilder.CloneForEvent(Trigger.LeaveAOE)
 				.PrimarilyAffecting(mover);
-			var leaving = cardsMoverLeft.Select(moverLeft => baseLeaving.Clone().SecondarilyAffecting(moverLeft));
+			foreach (var moverLeft in cardsMoverLeft)
+				yield return baseLeaving.Clone().SecondarilyAffecting(moverLeft);
 
 			//Cards that from card no longer has in its aoe
 			var baseLeftBehind = baseBuilder.CloneForEvent(Trigger.LeaveAOE)
 				.SecondarilyAffecting(mover);
-			var leftBehind = cardsMoverLeftBehind.Select(moverLeftBehind => baseLeftBehind.Clone().PrimarilyAffecting(moverLeftBehind));
-
-			return moveMover.Yield()
-				.Concat(arriveMover.Yield())
-				.Concat(leaving)
-				.Concat(leftBehind);
+			foreach (var moverLeftBehind in cardsMoverLeftBehind)
+				yield return baseLeftBehind.Clone().PrimarilyAffecting(moverLeftBehind);
 		}
 	}
 }
