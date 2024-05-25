@@ -42,7 +42,8 @@ namespace Kompas.Server.Effects.Models
 			var contexts = EventCapturer.Capture(() => { },
 				attackerBattles.CloneForEvent(Trigger.Attacks),
 				defenderBattles.CloneForEvent(Trigger.Defends),
-				attackerBattles, defenderBattles);
+				attackerBattles,
+				defenderBattles);
 			EffCtrl.Trigger(contexts);
 		}
 

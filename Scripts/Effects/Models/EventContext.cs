@@ -84,7 +84,7 @@ namespace Kompas.Effects.Models
 		public EventContextBuilder AffectingBoth(IGameCardInfo primary, IGameCardInfo secondary)
 			=> PrimarilyAffecting(primary).SecondarilyAffecting(secondary);
 
-		public EventContextBuilder At(Space space)
+		public EventContextBuilder At(Space? space)
 		{
 			Space = space;
 			return this;
@@ -138,13 +138,18 @@ namespace Kompas.Effects.Models
 			Space = Space,
 		};
 
-		public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, params string[] otherTriggeringEvents)
-		{
-			var incompletes = this.Yield()
-				.Concat(otherTriggeringEvents.Select(CloneForEvent));
-			return EventCapturer.Capture(incompletes, capturableEvent);
-		}
-	}
+        public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent)
+			=> EventCapturer.Capture(capturableEvent, this);
+
+		public delegate EventContextBuilder AlternateCloneOperation(EventContextBuilder toClone);
+
+		/// <summary>
+		/// Make sure to pass in an identity operation if you want to include this builder as-is.
+		/// </summary>
+        public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, params AlternateCloneOperation[] cloneOperations)
+			=> EventCapturer.Capture(capturableEvent,
+                cloneOperations.Select(op => op(this)).ToArray());
+    }
 
 	public static class IncompleteEventContextExtensions
 	{
@@ -195,6 +200,9 @@ namespace Kompas.Effects.Models
 		/// Stashed immediately <b>after</b> the event in question happened.
 		/// </summary>
 		public IGameCardInfo? CauseCardAfter { get; }
+
+		public static EventContextBuilder Build()
+			=> Build(Trigger.Anything);
 
 		/// <summary>
 		/// Lets you build up an IEventContext one param at a time.

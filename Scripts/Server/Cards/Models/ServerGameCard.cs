@@ -159,34 +159,29 @@ namespace Kompas.Server.Cards.Models
 		{
 			bool wasKnown = augment.KnownToEnemy;
 
-			var sharedBuilder = TriggeringEventContext.BuildContext(Game)
+			var contexts = IEventContext.Build()
 				.At(Position)
 				.CausedBy(stackSrc)
-				.Affecting(stackSrc?.ControllingPlayer ?? ControllingPlayer);
-			var attachedBuilder = sharedBuilder.Clone()
-				.AffectingBoth(augment, this);
-			var augmentedBuilder = sharedBuilder.Clone()
-				.AffectingBoth(this, augment);
-			
-			base.AddAugment(augment, stackSrc);
+				.ForPlayer(stackSrc?.ControllingPlayer ?? ControllingPlayer)
+				.Capture(() => base.AddAugment(augment, stackSrc),
+					ctx => ctx.CloneForEvent(Trigger.AugmentAttached).AffectingBoth(augment, this),
+					ctx => ctx.CloneForEvent(Trigger.Augmented).AffectingBoth(this, augment));
+
+			EffectsController.Trigger(contexts);
+
 			_ = Position ?? throw new NullSpaceOnBoardException(this);
-
-			EffectsController.TriggerForCondition(Trigger.AugmentAttached, attachedBuilder.CacheToFinalize());
-			EffectsController.TriggerForCondition(Trigger.Augmented, augmentedBuilder.CacheToFinalize());
-
 			ServerNotifier.NotifyAttach(augment.ControllingPlayer, augment, Position, wasKnown);
 		}
 
 		protected override void Detach(GameCard augment, IStackable? stackSrc = null)
 		{
-			var builder = TriggeringEventContext.BuildContext(Game)
+			var contexts = IEventContext.Build(Trigger.AugmentDetached)
 				.AffectingBoth(augment, this)
 				.CausedBy(stackSrc)
-				.Affecting(stackSrc?.ControllingPlayer ?? ControllingPlayer);
+				.ForPlayer(stackSrc?.ControllingPlayer ?? ControllingPlayer)
+				.Capture(() => base.Detach(augment, stackSrc));
 
-			base.Detach(augment, stackSrc);
-
-			EffectsController.TriggerForCondition(Trigger.AugmentDetached, builder.CacheToFinalize());
+			EffectsController.Trigger(contexts);
 		}
 
 		public override void Remove(IStackable? stackSrc = null)
