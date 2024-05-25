@@ -347,6 +347,7 @@ namespace Kompas.Cards.Models
 		{
 			//Reveal should only succeed if the card is not known to the enemy
 			if (KnownToEnemy) throw new AlreadyKnownException(this);
+			KnownToEnemy = true;
 		}
 		#endregion moveCard
 	}

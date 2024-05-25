@@ -195,12 +195,14 @@ namespace Kompas.Server.Cards.Models
 			EventContextBuilder.Cloner ToLeaveContext(GameCard card)
 				=> ctx => ctx.CloneForEvent(Trigger.LeaveAOE).SecondarilyAffecting(card);
 
-			IEventContext.Build(Trigger.Remove)
+			var contexts = IEventContext.Build(Trigger.Remove)
 				.CausedBy(stackSrc)
 				.ForPlayer(stackSrc?.ControllingPlayer ?? ControllingPlayer)
 				.PrimarilyAffecting(this)
-				.CaptureAlso(() => base.Remove(stackSrc),
+				.CaptureAdditionalContexts(() => base.Remove(stackSrc),
 					cardsThisLeft.Select(ToLeaveContext));
+
+			EffectsController.Trigger(contexts);
 
 			//copy the colleciton  so that you can edit the original
 			var augments = Augments.ToArray();
@@ -209,12 +211,14 @@ namespace Kompas.Server.Cards.Models
 
 		public override void Reveal(IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: ServerGame, cardBefore: this, stackableCause: stackSrc, player: stackSrc?.ControllingPlayer);
-			base.Reveal(stackSrc);
-			context.CacheAfterEvent();
-			EffectsController.TriggerForCondition(Trigger.Revealed, context);
+			var contexts = IEventContext.Build(Trigger.Revealed)
+				.PrimarilyAffecting(this)
+				.CausedBy(stackSrc)
+				.ForPlayer(stackSrc?.ControllingPlayer)
+				.Capture(() => base.Reveal(stackSrc));
+			EffectsController.Trigger(contexts);
+
 			//logic for actually revealing to client has to happen server-side.
-			KnownToEnemy = true;
 			ServerNotifier.NotifyRevealCard(ControllingPlayer.Enemy, this);
 		}
 

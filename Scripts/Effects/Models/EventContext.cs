@@ -143,11 +143,11 @@ namespace Kompas.Effects.Models
 
 		public delegate EventContextBuilder Cloner(EventContextBuilder toClone);
 
-		public IReadOnlyCollection<IEventContext> CaptureAlso(EventCapturer.CapturableEvent capturableEvent, IEnumerable<Cloner> cloneOperations)
+		public IReadOnlyCollection<IEventContext> CaptureAdditionalContexts(EventCapturer.CapturableEvent capturableEvent, IEnumerable<Cloner> cloneOperations)
 			=> Capture(capturableEvent, cloneOperations.Prepend(ctx => ctx));
 
 		/// <summary>
-		/// Use CaptureAlso if you want to include this builder as-is.
+		/// Use CaptureAdditionalContexts if you want to include this builder as-is.
 		/// </summary>
         public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, params Cloner[] cloneOperations)
 			=> EventCapturer.Capture(capturableEvent,
