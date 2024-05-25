@@ -12,7 +12,7 @@ using Kompas.Shared.Enumerable;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
-    public class ServerBoard : Board
+	public class ServerBoard : Board
 	{
 		private readonly ServerGame serverGame;
 
@@ -40,7 +40,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			if (!toPlay.IsAvatar) ServerNotifier.NotifyPlay(controller, toPlay, to, wasKnown);
 		}
 
-        protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
+		protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
 		{
 			//TODO make a unit test with the old swap triggering event contexts.
 			//calculate distance before doing the swap
@@ -81,8 +81,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 			ret.AddRange(EnumerateMoveContexts(baseContext, card, cardsMoverLeft, cardsMoverLeftBehind));
 
-            //trigger for first card's augments
-            foreach (var aug in card.Augments)
+			//trigger for first card's augments
+			foreach (var aug in card.Augments)
 			{
 				ret.AddRange(EnumerateMoveContexts(baseContext, aug, cardsMoverLeft, cardsMoverLeftBehind));
 			}
@@ -99,10 +99,10 @@ namespace Kompas.Server.Gamestate.Locations.Models
 			//Cards that from card is no longer in the AOE of
 			var baseLeaving = baseBuilder.CloneForEvent(Trigger.LeaveAOE)
 				.PrimarilyAffecting(mover);
-            var leaving = cardsMoverLeft.Select(moverLeft => baseLeaving.Clone().SecondarilyAffecting(moverLeft));
+			var leaving = cardsMoverLeft.Select(moverLeft => baseLeaving.Clone().SecondarilyAffecting(moverLeft));
 
-            //Cards that from card no longer has in its aoe
-            var baseLeftBehind = baseBuilder.CloneForEvent(Trigger.LeaveAOE)
+			//Cards that from card no longer has in its aoe
+			var baseLeftBehind = baseBuilder.CloneForEvent(Trigger.LeaveAOE)
 				.SecondarilyAffecting(mover);
 			var leftBehind = cardsMoverLeftBehind.Select(moverLeftBehind => baseLeftBehind.Clone().PrimarilyAffecting(moverLeftBehind));
 

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Kompas.Client.UI
 {
-    public partial class ClientCameraController : Node3D
+	public partial class ClientCameraController : Node3D
 	{
 		private const string CameraLeftActionName = "CameraLeft";
 		private const string CameraRightActionName = "CameraRight";

@@ -126,7 +126,7 @@ namespace Kompas.Client.Gamestate
 
 		/// <summary>
 		/// Performs targeting actions for the selection of a particular card
-        /// (as opposed to just hovering over it).
+		/// (as opposed to just hovering over it).
 		/// </summary>
 		public void Select(ClientGameCard? card)
 		{
@@ -138,12 +138,12 @@ namespace Kompas.Client.Gamestate
 		}
 
 		/// <summary>
-        /// Performs actions for the specific selection of the given <paramref name="card"/>,
-        /// then selects it normally.
-        /// <br/>
-        /// Usually, this means that the <see cref="LastSelectedCard"/>
-        /// will try to attack <paramref name="card"/>.
-        /// </summary>
+		/// Performs actions for the specific selection of the given <paramref name="card"/>,
+		/// then selects it normally.
+		/// <br/>
+		/// Usually, this means that the <see cref="LastSelectedCard"/>
+		/// will try to attack <paramref name="card"/>.
+		/// </summary>
 		public void SuperSelect(ClientGameCard card)
 		{
 			var notifier = LastSelectedCard?.ClientGame.ClientGameController.Notifier;

@@ -92,14 +92,14 @@ namespace Kompas.Cards.Loading
 				//Catch JSON parse error
 				Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
 				if (throwExceptions) throw;
-                else return default;
+				else return default;
 			}
 			catch (JsonSerializationException serEx)
 			{
 				//Catch JSON parse error
 				Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
 				if (throwExceptions) throw new System.InvalidOperationException($"Failed to load {json}", serEx);
-                else return default;
+				else return default;
 			}
 
 			var ctrl = GetCardController();

@@ -50,7 +50,7 @@ namespace Kompas.Client.Effects.Views
 
 		private readonly Dictionary<IResolvingStackable, ClientStackableView> stackableToView = new(new ResolvingStackableEqualityComparer());
 
-        public void Activated(IResolvingStackable<ClientEffect> stackable)
+		public void Activated(IResolvingStackable<ClientEffect> stackable)
 		{
 			this.Visible = true;
 

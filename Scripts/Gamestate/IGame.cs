@@ -55,7 +55,7 @@ namespace Kompas.Gamestate
 		}
 	}
 
-    public interface IGame
+	public interface IGame
 	{
 		public const string CardListPath = "Card Jsons/Card List";
 

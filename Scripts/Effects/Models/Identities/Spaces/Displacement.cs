@@ -22,13 +22,13 @@ namespace Kompas.Effects.Models.Identities.Spaces
 			displacement.Initialize(initializationContext);
 		}
 
-        IGameCardInfo? IIdentity<IGameCardInfo>.From(IResolutionContext context, IResolutionContext secondaryContext)
-        {
+		IGameCardInfo? IIdentity<IGameCardInfo>.From(IResolutionContext context, IResolutionContext secondaryContext)
+		{
 			Space? space = From(context, secondaryContext);
 			return InitializationContext.game.Board.GetCardAt(space);
-        }
+		}
 
-        protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
 		{
 			var origin = from.From(context, secondaryContext)
 				?? throw new InvalidOperationException();
@@ -36,7 +36,7 @@ namespace Kompas.Effects.Models.Identities.Spaces
 				?? throw new InvalidOperationException();
 			return origin + displ;
 		}
-    }
+	}
 
 	public class Displacement : ContextualParentIdentityBase<Space>
 	{

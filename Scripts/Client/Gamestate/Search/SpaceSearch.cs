@@ -15,7 +15,7 @@ namespace Kompas.Client.Gamestate.Search
 
 		public IReadOnlyCollection<(Location, bool)> SearchedLocations { get; } = new (Location, bool)[] { (Location.Board, true) };
 
-        public event EventHandler? SearchFinished;
+		public event EventHandler? SearchFinished;
 
 		public SpaceSearch(IEnumerable<Space> validSpaces, ClientNotifier clientNotifier)
 		{
@@ -46,5 +46,5 @@ namespace Kompas.Client.Gamestate.Search
 		public bool IsValidTarget(Space space) => validSpaces.Contains(space);
 
 		public bool IsCurrentTarget(Space space) => false;
-    }
+	}
 }

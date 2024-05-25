@@ -32,12 +32,12 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 		protected abstract bool IsValidContext(IEventContext item, IResolutionContext context);
 
 		/// <summary>
-        /// If IsValidContext initially evaluated to true, is this restriction still valid after other triggers have made it onto the stack?
-        /// <br/>
-        /// IMPL Notes:<br/>
-        /// Return true if the state won't change based JUST on items going onto the stack.
-        /// Evaluate the restriction again if items going onto the stack could affect whether this is valid.
-        /// </summary>
+		/// If IsValidContext initially evaluated to true, is this restriction still valid after other triggers have made it onto the stack?
+		/// <br/>
+		/// IMPL Notes:<br/>
+		/// Return true if the state won't change based JUST on items going onto the stack.
+		/// Evaluate the restriction again if items going onto the stack could affect whether this is valid.
+		/// </summary>
 		public abstract bool IsStillValidTriggeringContext(IEventContext context);
 	}
 }

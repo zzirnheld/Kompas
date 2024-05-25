@@ -4,11 +4,11 @@ namespace Kompas.Cards.Loading
 {
 	public class DeckBuilderCardRepository : CardRepository
 	{
-        public DeckBuilderCardRepository()
+		public DeckBuilderCardRepository()
 			: base(IFileLoader.Godot, false)
-        { }
+		{ }
 
-        public DeckBuilderCard CreateDeckBuilderCard(string cardName)
+		public DeckBuilderCard CreateDeckBuilderCard(string cardName)
 		{
 			var json = GetJsonFromName(cardName)
 				?? throw new System.NullReferenceException($"{cardName} doesn't correspond to a json");

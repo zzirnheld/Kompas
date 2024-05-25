@@ -52,7 +52,7 @@ namespace Kompas.Effects.Models
 		IResolutionContext? IResolvingStackable.Context => Context;
 		public ContextType? Context { get; }
 
-        public ResolvingStackable(StackableType stackable, ContextType? context)
+		public ResolvingStackable(StackableType stackable, ContextType? context)
 		{
 			Stackable = stackable;
 			Context = context;
@@ -67,9 +67,9 @@ namespace Kompas.Effects.Models
 		public override int GetHashCode()
 			=> (Stackable, Context).GetHashCode();
 
-        public static bool operator ==(ResolvingStackable<StackableType, ContextType> left, ResolvingStackable<StackableType, ContextType> right) => left.Equals(right);
-        public static bool operator !=(ResolvingStackable<StackableType, ContextType> left, ResolvingStackable<StackableType, ContextType> right) => !(left == right);
-    }
+		public static bool operator ==(ResolvingStackable<StackableType, ContextType> left, ResolvingStackable<StackableType, ContextType> right) => left.Equals(right);
+		public static bool operator !=(ResolvingStackable<StackableType, ContextType> left, ResolvingStackable<StackableType, ContextType> right) => !(left == right);
+	}
 	public class ResolvingStackableEqualityComparer
 		: IEqualityComparer<IResolvingStackable>
 	{

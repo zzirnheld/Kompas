@@ -7,7 +7,7 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
-    public class TriggeringEventContext
+	public class TriggeringEventContext
 		: IEventContext
 	{
 		public readonly IGame game;
@@ -80,9 +80,9 @@ namespace Kompas.Effects.Models
 		public GameCardInfo? CauseCardInfoAfter { get; private set; }
 		public IGameCardInfo? CauseCardAfter => CauseCardInfoAfter;
 
-        public string TriggeringEvent => throw new NotImplementedException();
+		public string TriggeringEvent => throw new NotImplementedException();
 
-        private readonly string cachedToString;
+		private readonly string cachedToString;
 
 		private TriggeringEventContext(IGame game,
 								  GameCardInfo? mainCardInfoBefore,
@@ -119,10 +119,10 @@ namespace Kompas.Effects.Models
 		}
 
 		/// <summary>
-        /// Constructs a new TriggeringEventContext based on the given data.
-        /// Consider using <see cref="Capture"/>,<br/>
-        /// or if you don't, remember to <see cref="CacheCardInfoAfter"/>
-        /// </summary>
+		/// Constructs a new TriggeringEventContext based on the given data.
+		/// Consider using <see cref="Capture"/>,<br/>
+		/// or if you don't, remember to <see cref="CacheCardInfoAfter"/>
+		/// </summary>
 		public TriggeringEventContext(IGame game,
 								 GameCard? cardBefore = null, GameCard? secondaryCardBefore = null,
 								 GameCard? eventCauseOverride = null,
@@ -179,11 +179,11 @@ namespace Kompas.Effects.Models
 		public override string ToString() => cachedToString;
 
 		/// <summary>
-        /// Usage: start the builder before you take the action,
-        /// then call <see cref="ITriggeringEventContextBuilder.CacheToFinalize"/> after the operation
-        /// to simultaneously cache the data after the operation, and then return you the finished TriggeringEventContext.
-        /// </summary>
-        /// <param name="game">The only thing you must provide is a Game</param>
+		/// Usage: start the builder before you take the action,
+		/// then call <see cref="ITriggeringEventContextBuilder.CacheToFinalize"/> after the operation
+		/// to simultaneously cache the data after the operation, and then return you the finished TriggeringEventContext.
+		/// </summary>
+		/// <param name="game">The only thing you must provide is a Game</param>
 		public static ITriggeringEventContextBuilder BuildContext(IGame game)
 			=> new TriggeringEventContextBuilder(game);
 
@@ -193,11 +193,11 @@ namespace Kompas.Effects.Models
 		}
 
 		/// <summary>
-        /// Usage: start the builder before you take the action,
-        /// then call <see cref="CacheToFinalize"/> after the operation
-        /// to simultaneously cache the data after the operation, and then return you the finished TriggeringEventContext.
-        /// </summary>
-        /// <param name="game">The only thing you must provide is a Game</param>
+		/// Usage: start the builder before you take the action,
+		/// then call <see cref="CacheToFinalize"/> after the operation
+		/// to simultaneously cache the data after the operation, and then return you the finished TriggeringEventContext.
+		/// </summary>
+		/// <param name="game">The only thing you must provide is a Game</param>
 		public interface ITriggeringEventContextBuilder
 			: IIncompleteTriggeringEventContext
 		{
@@ -327,5 +327,5 @@ namespace Kompas.Effects.Models
 				return context;
 			}
 		}
-    }
+	}
 }

@@ -12,8 +12,8 @@ namespace Kompas.Cards.Controllers
 		/// </summary>
 		public event EventHandler<bool>? LeftClick;
 		/// <summary>
-        /// Argument: Whether the click was a double click
-        /// </summary>
+		/// Argument: Whether the click was a double click
+		/// </summary>
 		public event EventHandler<bool>? RightClick;
 
 		// Called when the node enters the scene tree for the first time.

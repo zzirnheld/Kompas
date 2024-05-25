@@ -169,5 +169,5 @@ namespace Kompas.Client.Gamestate.Search
 
 		public bool IsValidTarget(Space space) => false;
 		public bool IsCurrentTarget(Space space) => false;
-    }
+	}
 }

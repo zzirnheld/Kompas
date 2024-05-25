@@ -41,11 +41,11 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 			}
 		}
 
-        /// <param name="context">The primary resolution context to be considering.
-        /// Reflects the current state of what's going on in terms of effects/player actions.</param>
-        /// <param name="secondaryContext">A secondary context we might want to consider,
-        /// usually one that's been stashed from another time stuff was happening, ex. for hanging effects. </param>
-        /// <returns></returns>
+		/// <param name="context">The primary resolution context to be considering.
+		/// Reflects the current state of what's going on in terms of effects/player actions.</param>
+		/// <param name="secondaryContext">A secondary context we might want to consider,
+		/// usually one that's been stashed from another time stuff was happening, ex. for hanging effects. </param>
+		/// <returns></returns>
 		protected abstract bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext);
 
 		//Fulfill trigger restriction contract.

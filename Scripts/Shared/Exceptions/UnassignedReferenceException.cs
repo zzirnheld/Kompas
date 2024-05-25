@@ -17,9 +17,9 @@ namespace Kompas.Shared.Exceptions
 			this.fieldName = fieldName;
 		}
 
-        public override string ToString()
-        {
-            return $"{base.ToString()} {fieldName}";
-        }
-    }
+		public override string ToString()
+		{
+			return $"{base.ToString()} {fieldName}";
+		}
+	}
 }

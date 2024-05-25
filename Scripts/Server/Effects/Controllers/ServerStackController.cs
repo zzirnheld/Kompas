@@ -40,14 +40,14 @@ namespace Kompas.Server.Effects.Controllers
 		public static void Trigger(this IServerStackController stack, params IEventContext[] contexts)
 			=> Trigger(stack, contexts);
 
-        public static void Trigger(this IServerStackController stack, IReadOnlyCollection<IEventContext> contexts)
-        {
+		public static void Trigger(this IServerStackController stack, IReadOnlyCollection<IEventContext> contexts)
+		{
 			foreach (var context in contexts) Trigger(stack, context);
-        }
+		}
 
 		public static void Trigger(this IServerStackController stack, IEventContext context)
 			=> stack.TriggerForCondition(context.TriggeringEvent, context);
-    }
+	}
 
 	public class ServerStackController : IServerStackController
 	{
@@ -210,9 +210,9 @@ namespace Kompas.Server.Effects.Controllers
 			var context = stackEntry.Context
 				?? throw new System.InvalidOperationException($"Stackable {stackable} wasn't associated with a context!");
 
-            //Logger.Log($"Resolving next stack entry: {stackable}, {context}");
-            //inform the players that they no longer can respond, in case they were somehow still thinking they could
-            foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
+			//Logger.Log($"Resolving next stack entry: {stackable}, {context}");
+			//inform the players that they no longer can respond, in case they were somehow still thinking they could
+			foreach (var p in game.Players) ServerNotifier.RequestNoResponse(p);
 
 			//set the current stack entry to the appropriate value. this is used to check if something is currently resolving.
 			CurrStackEntry = stackable;

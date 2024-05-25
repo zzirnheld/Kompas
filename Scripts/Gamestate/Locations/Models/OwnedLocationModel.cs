@@ -54,10 +54,10 @@ namespace Kompas.Gamestate.Locations.Models
 		}
 
 		/// <summary>
-        /// Perform the operations that will place <see cref="card"/> at this location.
-        /// Can be optionally overridden to add logic after validation, but before/after the add occurs
+		/// Perform the operations that will place <see cref="card"/> at this location.
+		/// Can be optionally overridden to add logic after validation, but before/after the add occurs
 		/// IMPL NOTE: removes the card first. If an Avatar is removed, it'll throw an AvatarRetreatedException, which inheritors are not required to handle.
-        /// </summary>
+		/// </summary>
 		protected virtual void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 		{
 			card.Remove(stackableCause);

@@ -2,7 +2,7 @@ using Kompas.Gamestate;
 
 namespace Kompas.Client.Gamestate.Controllers
 {
-    public partial interface ISpaceTargetingController
+	public partial interface ISpaceTargetingController
 	{
 		public Space Space {get;}
 		/// <summary>

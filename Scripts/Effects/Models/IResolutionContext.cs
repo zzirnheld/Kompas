@@ -10,35 +10,35 @@ namespace Kompas.Effects.Models
 	{
 		/// <summary>
 		/// Represents a lack of resolution information.<br/>
-        /// Many places, we have the option of passing in a secondary resolution context.<br/>
-        /// This can represent many things, usually in the vein of "stashed resolution context",
-        /// like for a delayed effect - we want to test against both the triggering event context
-        /// + the resolution context when effect resolution was suspended.
-        /// Consumers of such restrictions, etc. should only reference the secondary context if they know it's semantically relevant.
+		/// Many places, we have the option of passing in a secondary resolution context.<br/>
+		/// This can represent many things, usually in the vein of "stashed resolution context",
+		/// like for a delayed effect - we want to test against both the triggering event context
+		/// + the resolution context when effect resolution was suspended.
+		/// Consumers of such restrictions, etc. should only reference the secondary context if they know it's semantically relevant.
 		/// </summary>
 		public static IResolutionContext Empty
 			=> new DummyResolutionContext(null);
 
 		/// <summary>
-        /// Wraps a <see cref="IEventContext"/>,
-        /// representing triggering conditions existing even while an effect is not currently resolving.
-        /// Used to be able to pass into restrictions that could be checked when an event is resolving,
-        /// or while a player does something via other gamerules. (i.e. play by effect vs play by normal gamerule)<br/>
-        /// <see cref="CanResolve"/> will be false for <see cref="IResolutionContext"/>s created in this way.<br/>
-        /// FUTURE: split out the places that take a resolution context into taking a resolution context + a triggering event context,
-        /// so it's semantically obvious that the triggering event context can be present even if there is no actual resolution context
-        /// </summary>
-        /// <param name="IEventContext"></param>
-        /// <returns></returns>
+		/// Wraps a <see cref="IEventContext"/>,
+		/// representing triggering conditions existing even while an effect is not currently resolving.
+		/// Used to be able to pass into restrictions that could be checked when an event is resolving,
+		/// or while a player does something via other gamerules. (i.e. play by effect vs play by normal gamerule)<br/>
+		/// <see cref="CanResolve"/> will be false for <see cref="IResolutionContext"/>s created in this way.<br/>
+		/// FUTURE: split out the places that take a resolution context into taking a resolution context + a triggering event context,
+		/// so it's semantically obvious that the triggering event context can be present even if there is no actual resolution context
+		/// </summary>
+		/// <param name="IEventContext"></param>
+		/// <returns></returns>
 		public static IResolutionContext NotResolving(IEventContext? IEventContext)
 			=> new DummyResolutionContext(IEventContext);
 
 		/// <summary>
-        /// Represents a player taking an action that an Effect might otherwise cause.
-        /// Ex: playing a card.
-        /// We have to pass in an IResolutionContext to restrictions that might want to check details about how it happened,
-        /// so we wrap a IEventContext that simply says a player did it normally.
-        /// </summary>
+		/// Represents a player taking an action that an Effect might otherwise cause.
+		/// Ex: playing a card.
+		/// We have to pass in an IResolutionContext to restrictions that might want to check details about how it happened,
+		/// so we wrap a IEventContext that simply says a player did it normally.
+		/// </summary>
 		public static IResolutionContext PlayerAction(IPlayer agent)
 			=> NotResolving(new TriggeringEventContext(agent.Game, player: agent));
 

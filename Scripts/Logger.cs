@@ -10,14 +10,14 @@ namespace Kompas
 		void Err(object? s);
 	}
 
-    internal class KompasLogger : IKompasLogger
-    {
+	internal class KompasLogger : IKompasLogger
+	{
 		void IKompasLogger.Err(object? s) => GD.PrintErr(s);
 
 		void IKompasLogger.Log(object? s) => GD.Print(s);
 
 		void IKompasLogger.Warn(object? s) => GD.PushWarning(s);
-    }
+	}
 
 	/// <summary>
 	/// Usage: use the Log, Warn, and Err functions on this static class

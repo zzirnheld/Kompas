@@ -25,9 +25,9 @@ namespace Kompas.Effects.Models
 		public bool CanResolve => true;
 
 		/// <summary>
-        /// Describes the resolution of an effect that was triggered by the player.<br/>
-        /// (NOT a situation in which a player is attempting to do something "normally" - that's what <see cref="IResolutionContext.PlayerAction"/> is for)
-        /// </summary>
+		/// Describes the resolution of an effect that was triggered by the player.<br/>
+		/// (NOT a situation in which a player is attempting to do something "normally" - that's what <see cref="IResolutionContext.PlayerAction"/> is for)
+		/// </summary>
 		public static ResolutionContext PlayerTriggeredEffect(Effect? effect, IGame game)
 			=> new(new TriggeringEventContext(game: game, stackableEvent: effect));
 

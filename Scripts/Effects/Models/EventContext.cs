@@ -138,11 +138,11 @@ namespace Kompas.Effects.Models
 
 		public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, params string[] otherTriggeringEvents)
 		{
-            var incompletes = this.Yield()
+			var incompletes = this.Yield()
 				.Concat(otherTriggeringEvents.Select(CloneForEvent));
-            return EventCapturer.Capture(incompletes, capturableEvent);
+			return EventCapturer.Capture(incompletes, capturableEvent);
 		}
-    }
+	}
 
 	public static class IncompleteEventContextExtensions
 	{
@@ -171,7 +171,7 @@ namespace Kompas.Effects.Models
 	/// Should be a superset of the information in IIncompleteEventContext,
 	/// but also including copies of anything that needs to be stashed after the event completes.
 	/// </summary>
-    public interface IEventContext
+	public interface IEventContext
 		: IIncompleteEventContext
 	{
 		/// <summary>
@@ -198,41 +198,41 @@ namespace Kompas.Effects.Models
 			=> new EventContextBuilder(triggeringEvent);
 	}
 
-    public class EventContext
-        : IEventContext
-    {
+	public class EventContext
+		: IEventContext
+	{
 		public string TriggeringEvent { get; }
 
-        public EventContext(string triggeringEvent)
-        {
-            TriggeringEvent = triggeringEvent;
-        }
+		public EventContext(string triggeringEvent)
+		{
+			TriggeringEvent = triggeringEvent;
+		}
 
-        public IGameCardInfo? MainCardBefore { get; init; }
-        public IGameCardInfo? MainCardAfter { get; init; }
+		public IGameCardInfo? MainCardBefore { get; init; }
+		public IGameCardInfo? MainCardAfter { get; init; }
 
-        public IGameCardInfo? SecondaryCardBefore { get; init; }
-        public IGameCardInfo? SecondaryCardAfter { get; init; }
+		public IGameCardInfo? SecondaryCardBefore { get; init; }
+		public IGameCardInfo? SecondaryCardAfter { get; init; }
 
-        public IGameCardInfo? CauseCardBefore { get; init; }
-        public IGameCardInfo? CauseCardAfter { get; init; }
+		public IGameCardInfo? CauseCardBefore { get; init; }
+		public IGameCardInfo? CauseCardAfter { get; init; }
 
-        public IStackable? StackableEvent { get; init; }
-        public IStackable? StackableCause { get; init; }
+		public IStackable? StackableEvent { get; init; }
+		public IStackable? StackableCause { get; init; }
 
-        public IPlayer? Player { get; init; }
-        public int? X { get; init; }
-        public Space? Space { get; init; }
-    }
+		public IPlayer? Player { get; init; }
+		public int? X { get; init; }
+		public Space? Space { get; init; }
+	}
 
 	public class EventCapturer
 	{
 		private readonly IReadOnlyCollection<IIncompleteEventContext> incompletes;
 
-        public EventCapturer(IEnumerable<IIncompleteEventContext> incompletes)
-        {
-            this.incompletes = incompletes.ToArray();
-        }
+		public EventCapturer(IEnumerable<IIncompleteEventContext> incompletes)
+		{
+			this.incompletes = incompletes.ToArray();
+		}
 
 		public delegate void CapturableEvent();
 
@@ -242,10 +242,10 @@ namespace Kompas.Effects.Models
 			return capturer.Capture(capturableEvent);
 		}
 
-        public static IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent, params IIncompleteEventContext[] incompletes)
+		public static IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent, params IIncompleteEventContext[] incompletes)
 			=> Capture(incompletes, capturableEvent);
 
-        public IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent)
+		public IReadOnlyCollection<IEventContext> Capture(CapturableEvent capturableEvent)
 		{
 			capturableEvent();
 			return incompletes

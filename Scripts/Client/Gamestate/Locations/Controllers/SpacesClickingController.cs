@@ -4,8 +4,8 @@ using System;
 namespace Kompas.Gamestate.Locations.Controllers
 {
 	/// <summary>
-    /// This node should ONLY have children that are the Area3Ds for the spaces and they should be in order
-    /// </summary>
+	/// This node should ONLY have children that are the Area3Ds for the spaces and they should be in order
+	/// </summary>
 	public partial class SpacesClickingController : Node
 	{
 		/// <summary>

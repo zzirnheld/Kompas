@@ -6,9 +6,9 @@ namespace Kompas.Godot
 	public static class NodeExtensions
 	{
 		/// <summary>
-        /// Removes the child from its previous parent (if it had any),
+		/// Removes the child from its previous parent (if it had any),
 		/// and adds it as a child of this node.
-        /// </summary>
+		/// </summary>
 		public static void TransferChild(this Node parent, Node child)
 		{
 			child.GetParent()?.RemoveChild(child);
