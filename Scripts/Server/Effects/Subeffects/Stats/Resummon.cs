@@ -1,6 +1,7 @@
 ﻿using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Kompas.Server.Effects.Controllers;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects
@@ -9,16 +10,20 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		public override Task<ResolutionInfo> Resolve()
 		{
-			if (CardTarget == null)
-				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != Location.Board)
-				throw new InvalidLocationException(CardTarget.Location, CardTarget, "Target not on board :(");
+			var target = CardTarget ?? throw new NullCardException(TargetWasNull);
+			if (forbidNotBoard && target.Location != Location.Board)
+				throw new InvalidLocationException(target.Location, target, "Target not on board :(");
 
-			var ctxt = new TriggeringEventContext(game: ServerGame, cardBefore: CardTarget, 
-				stackableCause: Effect, player: PlayerTarget, space: CardTarget.Position);
-			ctxt.CacheAfterEvent();
-			ServerEffect.EffectsController.TriggerForCondition(Trigger.Play, ctxt);
-			ServerEffect.EffectsController.TriggerForCondition(Trigger.Arrive, ctxt);
+			var contexts = IEventContext.Build(Trigger.Play)
+				.PrimarilyAffecting(target)
+				.CausedBy(Effect)
+				.ForPlayer(PlayerTarget)
+				.At(target.Position)
+				.Capture(() => { },
+					ctxt => ctxt,
+					ctxt => ctxt.CloneForEvent(Trigger.Arrive));
+			ServerGame.StackController.Trigger(contexts);
+
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

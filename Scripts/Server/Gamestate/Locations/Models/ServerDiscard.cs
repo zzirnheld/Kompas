@@ -3,6 +3,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Effects.Controllers;
 
 namespace Kompas.Server.Gamestate.Locations.Models
 {
@@ -17,25 +18,16 @@ namespace Kompas.Server.Gamestate.Locations.Models
 		}
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
-		{
-			GameCard? cause = null;
-			if (stackSrc is Effect eff) cause = eff.Card;
-			else if (stackSrc is Attack atk)
-			{
-				if (atk.attacker == card) cause = atk.defender;
-				else if (atk.defender == card) cause = atk.attacker;
-				else if (atk.attacker == card.AugmentedCard) cause = atk.defender;
-				else if (atk.defender == card.AugmentedCard) cause = atk.attacker;
-				else throw new System.ArgumentException($"Why is {card} neither the attacker nor defender, nor augmenting them, " +
-					$"in the attack {atk} that caused it to be discarded?");
-			}
-			var context = new TriggeringEventContext(game: game, cardBefore: card, secondaryCardBefore: cause, stackableCause: stackSrc, player: Owner);
+		{	
 			bool wasKnown = card.KnownToEnemy;
 			
-			base.PerformAdd(card, index, stackSrc);
-			
-			context.CacheAfterEvent();
-			game.StackController.TriggerForCondition(Trigger.Discard, context);
+			var contexts = IEventContext.Build(Trigger.Discard)
+				.PrimarilyAffecting(card)
+				.CausedBy(stackSrc)
+				.ForPlayer(Owner)
+				.Capture(() => base.PerformAdd(card, index, stackSrc));
+			game.StackController.Trigger(contexts);
+
 			Networking.ServerNotifier.NotifyDiscard(Owner, card, wasKnown);
 		}
 	}

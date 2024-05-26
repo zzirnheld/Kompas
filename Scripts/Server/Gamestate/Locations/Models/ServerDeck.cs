@@ -4,6 +4,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Locations.Models
@@ -20,48 +21,55 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 		protected override void PerformAdd(GameCard card, int? index = null, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
+			var contexts = IEventContext.Build(Trigger.ToDeck)
+				.PrimarilyAffecting(card)
+				.CausedBy(stackSrc)
+				.ForPlayer(Owner)
+				.Capture(() => base.PerformAdd(card, index, stackSrc));
+			game.StackController.Trigger(contexts);
 
-			base.PerformAdd(card, index, stackSrc);
-
-			context.CacheAfterEvent();
-			game.StackController.TriggerForCondition(Trigger.ToDeck, context);
 			ServerNotifier.NotifyDeckCount(Owner, Cards.Count());
 		}
 
 		public override void PushBottomdeck(GameCard card, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
 
-			base.PushBottomdeck(card, stackSrc);
-			
-			context.CacheAfterEvent();
-			game.StackController.TriggerForCondition(Trigger.Bottomdeck, context);
+			var contexts = IEventContext.Build(Trigger.Bottomdeck)
+				.PrimarilyAffecting(card)
+				.CausedBy(stackSrc)
+				.ForPlayer(Owner)
+				.Capture(() => base.PushBottomdeck(card, stackSrc));
+			game.StackController.Trigger(contexts);
+
 			ServerNotifier.NotifyBottomdeck(Owner, card, wasKnown);
 		}
 
 		public override void PushTopdeck(GameCard card, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
 
-			base.PushTopdeck(card, stackSrc);
-			
-			context.CacheAfterEvent();
-			game.StackController.TriggerForCondition(Trigger.Topdeck, context);
+			var contexts = IEventContext.Build(Trigger.Topdeck)
+				.PrimarilyAffecting(card)
+				.CausedBy(stackSrc)
+				.ForPlayer(Owner)
+				.Capture(() => base.PushTopdeck(card, stackSrc));
+			game.StackController.Trigger(contexts);
+
 			ServerNotifier.NotifyTopdeck(Owner, card, wasKnown);
 		}
 
 		public override void ShuffleIn(GameCard card, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
-			
-			base.ShuffleIn(card, stackSrc);
-			
-			context.CacheAfterEvent();
-			game.StackController.TriggerForCondition(Trigger.Reshuffle, context);
+
+			var contexts = IEventContext.Build(Trigger.Reshuffle)
+				.PrimarilyAffecting(card)
+				.CausedBy(stackSrc)
+				.ForPlayer(Owner)
+				.Capture(() => base.ShuffleIn(card, stackSrc));
+			game.StackController.Trigger(contexts);
+
 			ServerNotifier.NotifyReshuffle(Owner, card, wasKnown);
 		}
 

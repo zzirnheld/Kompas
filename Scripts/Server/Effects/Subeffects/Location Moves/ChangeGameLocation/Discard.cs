@@ -2,6 +2,7 @@
 using Kompas.Effects.Models;
 using Kompas.Cards.Movement;
 using Kompas.Gamestate.Locations;
+using Kompas.Server.Effects.Controllers;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {
@@ -16,10 +17,11 @@ namespace Kompas.Server.Effects.Models.Subeffects
 	{
 		protected override void ChangeLocation(GameCard card)
 		{
-			IEventContext context = new TriggeringEventContext(game: ServerGame, cardBefore: card);
-			base.ChangeLocation(card);
-			context.CacheAfterEvent();
-			ServerEffect.EffectsController.TriggerForCondition(Trigger.Vanish, context);
+			var contexts = IEventContext.Build(Trigger.Vanish)
+				.PrimarilyAffecting(card)
+				.CausedBy(Effect)
+				.Capture(() => base.ChangeLocation(card));
+			ServerEffect.EffectsController.Trigger(contexts);
 		}
 	}
 }

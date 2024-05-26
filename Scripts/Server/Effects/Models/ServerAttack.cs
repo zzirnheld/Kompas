@@ -35,7 +35,7 @@ namespace Kompas.Server.Effects.Models
 			var battlesContext = IEventContext.Build(Trigger.Battles)
 				.CausedBy(stackSrc)
 				.During(this)
-				.CausedBy(attacker)
+				.CausedBy(attacker) //The attack itself is caused by the attacker
 				.ForPlayer(instigator);
 			var attackerBattles = battlesContext.Clone().AffectingBoth(attacker, defender);
 			var defenderBattles = battlesContext.Clone().AffectingBoth(defender, attacker);
@@ -59,7 +59,7 @@ namespace Kompas.Server.Effects.Models
 			var battleEndsContext = IEventContext.Build(Trigger.BattleEnds)
 				.CausedBy(this)
 				.During(this)
-				.CausedBy(attacker)
+				.CausedBy(attacker) //The attack itself is caused by the attacker
 				.ForPlayer(instigator);
 			var contexts = EventCapturer.Capture(
 				() => { if (StillValidAttack) DealDamage(); },
@@ -78,7 +78,7 @@ namespace Kompas.Server.Effects.Models
 			int defenderDmg = defender.CombatDamage;
 
 			var baseContext = IEventContext.Build(Trigger.Anything)
-				.CausedBy(this)
+				.CausedBy(this) //Damage, however, is caused by the card that did the damage, not by the card that initiated the attack.
 				.During(this)
 				.ForPlayer(instigator);
 

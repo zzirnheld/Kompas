@@ -244,38 +244,43 @@ namespace Kompas.Server.Gamestate
 
 			GameHasStarted = true;
 
-			await TurnStartOperations(notFirstTurn: false);
+			await StartTurn(notFirstTurn: false);
 		}
 		#endregion
 
 		#region turn
-		public async Task TurnStartOperations(bool notFirstTurn = true)
-		{
-			if (notFirstTurn)
-			{
-				if (TurnPlayer.Index == FirstTurnPlayer) RoundCount++;
-				TurnCount++;
-			}
-
-			ServerNotifier.NotifyYourTurn(TurnPlayer);
-			ResetCardsForTurn();
-
-			TurnPlayer.Pips += Leyload;
-			if (notFirstTurn) Draw(TurnPlayer);
-
-			//do hand size
-			StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
-
-			TurnChanged?.Invoke(this, TurnPlayer);
-
+		public async Task StartTurn(bool notFirstTurn = true)
+        {
 			//trigger turn start effects
-			var context = new TriggeringEventContext(game: this, player: TurnPlayer);
-			StackController.TriggerForCondition(Trigger.TurnStart, context);
+			var contexts = IEventContext.Build(Trigger.TurnStart)
+				.ForPlayer(TurnPlayer)
+				.Capture(() => TurnStartOperations(notFirstTurn));
+            StackController.Trigger(contexts);
 
-			await StackController.CheckForResponse();
-		}
-		
-		protected void ResetCardsForTurn()
+            await StackController.CheckForResponse();
+        }
+
+        private void TurnStartOperations(bool notFirstTurn)
+        {
+            if (notFirstTurn)
+            {
+                if (TurnPlayer.Index == FirstTurnPlayer) RoundCount++;
+                TurnCount++;
+            }
+
+            ServerNotifier.NotifyYourTurn(TurnPlayer);
+            ResetCardsForTurn();
+
+            TurnPlayer.Pips += Leyload;
+            if (notFirstTurn) Draw(TurnPlayer);
+
+            //do hand size
+            StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
+
+            TurnChanged?.Invoke(this, TurnPlayer);
+        }
+
+        protected void ResetCardsForTurn()
 		{
 			foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
 		}
@@ -286,29 +291,39 @@ namespace Kompas.Server.Gamestate
 			_turnPlayer = TurnPlayer.Enemy;
 			Logger.Log($"Turn swapping to the turn of index {TurnPlayer.Index}");
 
-			await TurnStartOperations();
+			await StartTurn();
 		}
 		#endregion turn
 
 		public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null)
 		{
-			List<GameCard> drawn = new();
-			int cardsDrawn;
-			for (cardsDrawn = 0; cardsDrawn < x; cardsDrawn++)
+			var cardsDrawn = new List<GameCard>();
+			for (int i = 0; i < x; i++)
 			{
 				var toDraw = controller.Deck.Topdeck;
 				if (toDraw == null) break;
 
-				var eachDrawContext = new TriggeringEventContext(game: this, cardBefore: toDraw, stackableCause: stackSrc, player: controller);
-				toDraw.Hand(controller, stackSrc);
-				eachDrawContext.CacheAfterEvent();
-				StackController.TriggerForCondition(Trigger.EachDraw, eachDrawContext);
+				var eachDrawContext = IEventContext.Build(Trigger.EachDraw)
+					.PrimarilyAffecting(toDraw)
+					.CausedBy(stackSrc)
+					.ForPlayer(controller)
+					.Capture(() => toDraw.Hand(controller, stackSrc));
+				StackController.Trigger(eachDrawContext);
 
-				drawn.Add(toDraw);
+				cardsDrawn.Add(toDraw);
 			}
-			var context = new TriggeringEventContext(game: this, stackableCause: stackSrc, player: controller, x: cardsDrawn);
-			StackController.TriggerForCondition(Trigger.DrawX, context);
-			return drawn;
+
+			//FUTURE: consider having IEventContext have a flexible Cards field, that can be added to and stashed pre-draw for each card being drawn,
+			//then when you CacheAfterEvent it finalizes them all.
+			//Probably means we can't use the IEventContext builder all in one go but that's... probably an acceptable loss?
+			var drawXContext = IEventContext.Build(Trigger.DrawX)
+				.CausedBy(stackSrc)
+				.ForPlayer(controller)
+				.WithX(cardsDrawn.Count)
+				.CacheAfterEvent();
+			StackController.Trigger(drawXContext);
+
+			return cardsDrawn;
 		}
 		public GameCard? Draw(IPlayer player, IStackable? stackSrc = null)
 			=> DrawX(player, 1, stackSrc).FirstOrDefault();

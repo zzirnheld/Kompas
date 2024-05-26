@@ -3,6 +3,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Gamestate.Locations.Models
@@ -19,13 +20,15 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
 		{
-			var context = new TriggeringEventContext(game: game, cardBefore: card, stackableCause: stackSrc, player: Owner);
 			bool wasKnown = card.KnownToEnemy;
 			
-			base.PerformAdd(card, index, stackSrc);
-			
-			context.CacheAfterEvent();
-			game.StackController.TriggerForCondition(Trigger.Annhilate, context);
+			var contexts = IEventContext.Build(Trigger.Annhilate)
+				.PrimarilyAffecting(card)
+				.CausedBy(stackSrc)
+				.ForPlayer(Owner)
+				.Capture(() => base.PerformAdd(card, index, stackSrc));
+			game.StackController.Trigger(contexts);
+
 			ServerNotifier.NotifyAnnhilate(Owner, card, wasKnown);
 		}
 	}

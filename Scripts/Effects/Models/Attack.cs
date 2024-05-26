@@ -25,9 +25,19 @@ namespace Kompas.Effects.Models
 			this.defender = defender ?? throw new System.ArgumentNullException(nameof(defender), "Cannot have null defender");
 		}
 
+		/// <summary>
+		/// Gets the cause of some downstream outcome of the attack,
+		/// w/r/t whatever card that downstream outcome happened to.
+		/// DO NOT USE for getting the cause of the attack starting/ending,
+		/// the cause of that is always the card that initiated the attack.
+		/// </summary>
 		public GameCard? GetCause(IGameCardInfo? withRespectTo)
 		{
-			if (withRespectTo == null) throw new System.ArgumentNullException(nameof(withRespectTo), "Why did you try and get the cause of an attack w/r/t a null card?");
+			if (withRespectTo == null)
+			{
+				Logger.Warn($"Tried to get cause w/r/t null card for attack {this}");
+				return null;
+			}
 			else if (attacker == withRespectTo.Card) return defender;
 			else if (defender == withRespectTo.Card) return attacker;
 			else if (attacker == withRespectTo.AugmentedCard) return defender;

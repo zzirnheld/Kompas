@@ -69,9 +69,15 @@ namespace Kompas.Effects.Models
 		public int? X { get; private set; }
 		public Space? Space { get; private set; }
 
+        private void DetermineCauseCard()
+        {
+            CauseCardBefore ??= GameCardInfo.CardInfoOf(StackableCause?.GetCause(MainCardBefore));
+        }
+
 		public EventContextBuilder PrimarilyAffecting(IGameCardInfo card)
 		{
 			MainCardBefore = card;
+			DetermineCauseCard();
 			return this;
 		}
 
@@ -96,20 +102,27 @@ namespace Kompas.Effects.Models
 			return this;
 		}
 
+		/// <summary>
+		/// Prefer using CausedBy(Effect) before, if you want to further override the cause with this function.
+		/// </summary>
 		public EventContextBuilder CausedBy(GameCard? cardCause)
 		{
 			CauseCardBefore = GameCardInfo.CardInfoOf(cardCause);
 			return this;
 		}
 
+		/// <summary>
+		/// Prefer using this after PrimarilyAffecting so you can get the cause card w/r/t this effect.
+		/// Prefer using CausedBy(GameCard) after, if you want to further override the cause with that function.
+		/// </summary>
 		public EventContextBuilder CausedBy(IStackable? stackableCause)
-		{
-			StackableCause = stackableCause;
-			CauseCardBefore ??= GameCardInfo.CardInfoOf(stackableCause?.Card);
-			return this;
-		}
+        {
+            StackableCause = stackableCause;
+            DetermineCauseCard();
+            return this;
+        }
 
-		public EventContextBuilder During(IStackable? stackableEvent)
+        public EventContextBuilder During(IStackable? stackableEvent)
 		{
 			StackableEvent = stackableEvent;
 			return this;
@@ -137,6 +150,8 @@ namespace Kompas.Effects.Models
 			X = X,
 			Space = Space,
 		};
+
+		public IEventContext CaptureNothing() => this.CacheAfterEvent();
 
         public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent)
 			=> EventCapturer.Capture(capturableEvent, this);

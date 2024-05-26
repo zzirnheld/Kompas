@@ -50,12 +50,14 @@ namespace Kompas.Effects.Models
 		public const string Healed = "Healed";
 
 		//combat
+		//The battle start/end triggers are "caused" by the attacker...
 		public const string Defends = "Defend";
 		public const string Attacks = "Attack";
-		public const string TakeCombatDamage = "Take Combat Damage";
-		public const string DealCombatDamage = "Deal Combat Damage";
 		public const string Battles = "Battle Start";
 		public const string BattleEnds = "Battle End";
+		//...but any downstream effects, like combat damage, are "caused" by the dealer of the damage.
+		public const string TakeCombatDamage = "Take Combat Damage";
+		public const string DealCombatDamage = "Deal Combat Damage";
 
 		//card moving
 		public const string EachDraw = "Each Card Drawn";
