@@ -14,7 +14,7 @@ namespace Kompas.Server.Effects.Models
 		public ServerPlayer ControllingPlayer { get; init; }
 
 		public static ServerResolutionContext PlayerTrigger(IEffect effect, IGame game, ServerPlayer controllingPlayer)
-			=> new(new TriggeringEventContext(game: game, stackableEvent: effect), controllingPlayer);
+			=> new(new EventContext() { StackableEvent = effect }, controllingPlayer);
 
 		public ServerResolutionContext(IEventContext? triggerContext, ServerPlayer controllingPlayer)
 		: this(triggerContext, controllingPlayer, 0,

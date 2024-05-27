@@ -40,7 +40,7 @@ namespace Kompas.Effects.Models
 		/// so we wrap a IEventContext that simply says a player did it normally.
 		/// </summary>
 		public static IResolutionContext PlayerAction(IPlayer agent)
-			=> NotResolving(new TriggeringEventContext(agent.Game, player: agent));
+			=> NotResolving(new EventContext() {Player = agent});
 
 		/// <summary>
 		/// Information describing the event that triggered this effect to occur, if any such event happened. (If it's player-triggered, this is null.) 

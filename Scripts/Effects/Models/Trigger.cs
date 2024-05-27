@@ -31,6 +31,7 @@ namespace Kompas.Effects.Models
 
 	public abstract class Trigger
 	{
+		public const string None = "None";
 		public const string TurnStart = "Turn Start";
 		public const string StackEnd = "Stack End";
 

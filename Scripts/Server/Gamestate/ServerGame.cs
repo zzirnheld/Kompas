@@ -335,7 +335,12 @@ namespace Kompas.Server.Gamestate
 			Logger.Log($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
 			//push the attack to the stack, then check if any player wants to respond before resolving it
 			var attack = new ServerAttack(this, instigator, attacker, defender);
-			StackController.PushToStack(attack, instigator, new TriggeringEventContext(game: this, stackableCause: stackSrc, stackableEvent: attack, player: instigator));
+			var context = IEventContext.Build()
+				.CausedBy(stackSrc)
+				.During(attack)
+				.ForPlayer(instigator)
+				.CaptureNothing();
+			StackController.PushToStack(attack, instigator, context);
 			//check for triggers related to the attack (if this were in the constructor, the triggers would go on the stack under the attack
 			attack.Declare(stackSrc);
 			if (manual) attacker.AttacksThisTurn++;

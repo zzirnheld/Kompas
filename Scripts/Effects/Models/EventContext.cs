@@ -227,7 +227,7 @@ namespace Kompas.Effects.Models
 			=> new EventContext(triggeringEvent);
 
 		public static EventContextBuilder Build()
-			=> Build(Trigger.Anything);
+			=> Build(Trigger.None);
 
 		/// <summary>
 		/// Lets you build up an IEventContext one param at a time.
@@ -244,7 +244,7 @@ namespace Kompas.Effects.Models
 	{
 		public string TriggeringEvent { get; }
 
-		public EventContext(string triggeringEvent)
+		public EventContext(string triggeringEvent = Trigger.None)
 		{
 			TriggeringEvent = triggeringEvent;
 		}

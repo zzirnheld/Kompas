@@ -127,7 +127,6 @@ namespace Kompas.Server.Effects.Models
 
 		public void PushedToStack(ServerGame game, ServerPlayer controller)
 		{
-			IEventContext context = new TriggeringEventContext(game: game, stackableCause: this, stackableEvent: this);
 			var contexts = IEventContext.Build(Trigger.EffectPushedToStack)
 				.CausedBy(this)
 				.During(this)

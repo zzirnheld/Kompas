@@ -33,7 +33,7 @@ namespace Kompas.Server.Effects.Models
 			Logger.Log("Trying to request hand size targets");
 			awaitingChoices = true;
 
-			var context = new ResolutionContext(new TriggeringEventContext(game: game, stackableCause: this, stackableEvent: this));
+			var context = new ResolutionContext(new EventContext() { StackableCause = this, StackableEvent = this });
 			int[] cardIds = game.Cards
 				.Where(c => HandSizeCardRestriction.IsValid(c, context))
 				.Select(c => c.ID)
@@ -69,7 +69,7 @@ namespace Kompas.Server.Effects.Models
 				.ToArray();
 
 			int count = cards.Count();
-			var context = new ResolutionContext(new TriggeringEventContext(game: game, stackableCause: this, stackableEvent: this));
+			var context = new ResolutionContext(new EventContext() { StackableCause = this, StackableEvent = this });
 			int correctCount = game.Cards.Count(c => HandSizeCardRestriction.IsValid(c, context)) - player.HandSizeLimit;
 
 			if (count != correctCount || cards.Any(c => !HandSizeCardRestriction.IsValid(c, context))) return false;
