@@ -167,7 +167,7 @@ namespace Kompas.Server.Cards.Models
 					ctx => ctx.CloneForEvent(Trigger.AugmentAttached).AffectingBoth(augment, this),
 					ctx => ctx.CloneForEvent(Trigger.Augmented).AffectingBoth(this, augment));
 
-			EffectsController.Trigger(contexts);
+			EffectsController.TriggerFor(contexts);
 
 			_ = Position ?? throw new NullSpaceOnBoardException(this);
 			ServerNotifier.NotifyAttach(augment.ControllingPlayer, augment, Position, wasKnown);
@@ -181,7 +181,7 @@ namespace Kompas.Server.Cards.Models
 				.ForPlayer(stackSrc?.ControllingPlayer ?? ControllingPlayer)
 				.Capture(() => base.Detach(augment, stackSrc));
 
-			EffectsController.Trigger(contexts);
+			EffectsController.TriggerFor(contexts);
 		}
 
 		public override void Remove(IStackable? stackSrc = null)
@@ -202,7 +202,7 @@ namespace Kompas.Server.Cards.Models
 				.CaptureAdditionalContexts(() => base.Remove(stackSrc),
 					cardsThisLeft.Select(ToLeaveContext));
 
-			EffectsController.Trigger(contexts);
+			EffectsController.TriggerFor(contexts);
 
 			//copy the colleciton  so that you can edit the original
 			var augments = Augments.ToArray();
@@ -216,7 +216,7 @@ namespace Kompas.Server.Cards.Models
 				.CausedBy(stackSrc)
 				.ForPlayer(stackSrc?.ControllingPlayer)
 				.Capture(() => base.Reveal(stackSrc));
-			EffectsController.Trigger(contexts);
+			EffectsController.TriggerFor(contexts);
 
 			//logic for actually revealing to client has to happen server-side.
 			ServerNotifier.NotifyRevealCard(ControllingPlayer.Enemy, this);
@@ -234,7 +234,7 @@ namespace Kompas.Server.Cards.Models
 				.WithX(newN - N)
 				.Capture(() => base.SetN(newN, stackSrc));
 			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-			EffectsController?.Trigger(contexts);
+			EffectsController?.TriggerFor(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
@@ -250,7 +250,7 @@ namespace Kompas.Server.Cards.Models
 				.WithX(newE - E)
 				.Capture(() => base.SetE(newE, stackSrc));
 			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-			EffectsController?.Trigger(contexts);
+			EffectsController?.TriggerFor(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 
@@ -269,7 +269,7 @@ namespace Kompas.Server.Cards.Models
 				.WithX(newS - S)
 				.Capture(() => base.SetS(newS, stackSrc));
 			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-			EffectsController?.Trigger(contexts);
+			EffectsController?.TriggerFor(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
@@ -285,7 +285,7 @@ namespace Kompas.Server.Cards.Models
 				.WithX(newW - W)
 				.Capture(() => base.SetW(newW, stackSrc));
 			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-			EffectsController?.Trigger(contexts);
+			EffectsController?.TriggerFor(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
@@ -301,7 +301,7 @@ namespace Kompas.Server.Cards.Models
 				.WithX(newC - C)
 				.Capture(() => base.SetC(newC, stackSrc));
 			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-			EffectsController?.Trigger(contexts);
+			EffectsController?.TriggerFor(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
@@ -317,7 +317,7 @@ namespace Kompas.Server.Cards.Models
 				.WithX(newA - A)
 				.Capture(() => base.SetA(newA, stackSrc));
 			//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-			EffectsController?.Trigger(contexts);
+			EffectsController?.TriggerFor(contexts);
 
 			if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 		}
@@ -351,7 +351,7 @@ namespace Kompas.Server.Cards.Models
 					.CausedBy(stackSrc)
 					.ForPlayer(stackSrc?.ControllingPlayer)
 					.Capture(() => base.SetNegated(negated, stackSrc));
-				EffectsController.Trigger(contexts);
+				EffectsController.TriggerFor(contexts);
 			}
 			else base.SetNegated(negated, stackSrc);
 			
@@ -371,7 +371,7 @@ namespace Kompas.Server.Cards.Models
 					.CausedBy(stackSrc)
 					.ForPlayer(stackSrc?.ControllingPlayer)
 					.Capture(() => base.SetActivated(activated, stackSrc));
-				EffectsController.Trigger(contexts);
+				EffectsController.TriggerFor(contexts);
 			}
 			else base.SetActivated(activated, stackSrc);
 			

@@ -26,7 +26,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.CausedBy(stackSrc)
 				.ForPlayer(Owner)
 				.Capture(() => base.PerformAdd(card, index, stackSrc));
-			game.StackController.Trigger(contexts);
+			game.StackController.TriggerFor(contexts);
 
 			ServerNotifier.NotifyDeckCount(Owner, Cards.Count());
 		}
@@ -40,7 +40,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.CausedBy(stackSrc)
 				.ForPlayer(Owner)
 				.Capture(() => base.PushBottomdeck(card, stackSrc));
-			game.StackController.Trigger(contexts);
+			game.StackController.TriggerFor(contexts);
 
 			ServerNotifier.NotifyBottomdeck(Owner, card, wasKnown);
 		}
@@ -54,7 +54,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.CausedBy(stackSrc)
 				.ForPlayer(Owner)
 				.Capture(() => base.PushTopdeck(card, stackSrc));
-			game.StackController.Trigger(contexts);
+			game.StackController.TriggerFor(contexts);
 
 			ServerNotifier.NotifyTopdeck(Owner, card, wasKnown);
 		}
@@ -68,7 +68,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.CausedBy(stackSrc)
 				.ForPlayer(Owner)
 				.Capture(() => base.ShuffleIn(card, stackSrc));
-			game.StackController.Trigger(contexts);
+			game.StackController.TriggerFor(contexts);
 
 			ServerNotifier.NotifyReshuffle(Owner, card, wasKnown);
 		}

@@ -26,7 +26,7 @@ namespace Kompas.Server.Gamestate.Locations.Models
 				.CausedBy(stackSrc)
 				.ForPlayer(Owner)
 				.Capture(() => base.PerformAdd(card, index, stackSrc));
-			game.StackController.Trigger(contexts);
+			game.StackController.TriggerFor(contexts);
 
 			Networking.ServerNotifier.NotifyRehand(Owner, card, wasKnown);
 		}

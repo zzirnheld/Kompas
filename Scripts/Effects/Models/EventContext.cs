@@ -223,6 +223,9 @@ namespace Kompas.Effects.Models
 		/// </summary>
 		public IGameCardInfo? CauseCardAfter { get; }
 
+		public static IEventContext Empty(string triggeringEvent)
+			=> new EventContext(triggeringEvent);
+
 		public static EventContextBuilder Build()
 			=> Build(Trigger.Anything);
 

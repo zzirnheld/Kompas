@@ -27,8 +27,7 @@ namespace Kompas.Server.Effects.Controllers
 		public void Cancel(Effect eff);
 		public Task CheckForResponse();
 
-		public void TriggerForCondition(string condition, params IEventContext[] contexts);
-		public void TriggerForCondition(string condition, IEventContext context);
+		public void TriggerFor(IEventContext context);
 
 		public void RegisterTrigger(string condition, ServerTrigger trigger);
 		public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string? fallOffCondition = default);
@@ -37,16 +36,13 @@ namespace Kompas.Server.Effects.Controllers
 	public static class IServerStackControllerExtensions
 	{
 
-		public static void Trigger(this IServerStackController stack, params IEventContext[] contexts)
-			=> Trigger(stack, contexts);
+		public static void TriggerFor(this IServerStackController stack, params IEventContext[] contexts)
+			=> TriggerFor(stack, contexts);
 
-		public static void Trigger(this IServerStackController stack, IReadOnlyCollection<IEventContext> contexts)
+		public static void TriggerFor(this IServerStackController stack, IReadOnlyCollection<IEventContext> contexts)
 		{
-			foreach (var context in contexts) Trigger(stack, context);
+			foreach (var context in contexts) stack.TriggerFor(context);
 		}
-
-		public static void Trigger(this IServerStackController stack, IEventContext context)
-			=> stack.TriggerForCondition(context.TriggeringEvent, context);
 	}
 
 	public class ServerStackController : IServerStackController
@@ -165,7 +161,7 @@ namespace Kompas.Server.Effects.Controllers
 			foreach (var c in game.Cards) c.ResetForStack();
 			ClearSpells();
 			ServerNotifier.StackEmpty(game.Players);
-			TriggerForCondition(Trigger.StackEnd, new TriggeringEventContext(game: game));
+			this.TriggerFor(IEventContext.Empty(Trigger.StackEnd));
 			//Must check whether I *should* check for response to avoid an infinite loop
 			if (!stack.Empty || triggeredTriggers.Any()) await CheckForResponse();
 		}
@@ -187,10 +183,10 @@ namespace Kompas.Server.Effects.Controllers
 						case CardBase.VanishingSubtype:
 							if (c.TurnsOnBoard >= c.Duration)
 							{
-								IEventContext context = new TriggeringEventContext(game: game, cardBefore: c);
-								c.Discard();
-								context.CacheAfterEvent();
-								TriggerForCondition(Trigger.Vanish, context);
+								var context = IEventContext.Build(Trigger.Vanish)
+									.PrimarilyAffecting(c)
+									.Capture(() => c.Discard());
+								this.TriggerFor(context);
 							}
 							break;
 					}
@@ -383,24 +379,21 @@ namespace Kompas.Server.Effects.Controllers
 			}
 		}
 
-		public void TriggerForCondition(string condition, params IEventContext[] contexts)
-		{
-			foreach (var c in contexts) TriggerForCondition(condition, c);
-		}
+		public void TriggerFor(IEventContext context) => TriggerFor(context, context.TriggeringEvent);
 
-		public void TriggerForCondition(string condition, IEventContext context)
+		private void TriggerFor(IEventContext context, string overrideEvent)
 		{
 			if (!game.GameHasStarted) return;
 
-			Logger.Log($"Triggering for condition {condition}, context {context}");
+			Logger.Log($"Triggering for condition {overrideEvent}, context {context}");
 			//first resolve any hanging effects
-			ResolveHangingEffects(condition, context);
+			ResolveHangingEffects(overrideEvent, context);
 
-			if (triggerMap.ContainsKey(condition))
+			if (triggerMap.ContainsKey(overrideEvent))
 			{
 				/* Needs to be toArray()ed because cards might move out of correct state after this moment.
 				 * Later, when triggers are being ordered, stuff like 1/turn will be rechecked. */
-				var validTriggers = triggerMap[condition]
+				var validTriggers = triggerMap[overrideEvent]
 					.Where(t => t.ValidForTriggeringContext(context))
 					.ToArray();
 				if (!validTriggers.Any()) return;
@@ -409,10 +402,11 @@ namespace Kompas.Server.Effects.Controllers
 				triggeredTriggers.Enqueue(triggers);
 			}
 
-			if (condition != Trigger.Anything) TriggerForCondition(Trigger.Anything, context);
+			if (overrideEvent != Trigger.Anything)
+				TriggerFor(context, Trigger.Anything);
 		}
 
-		#region register to trigger condition
+		#region register trigger
 		public void RegisterTrigger(string condition, ServerTrigger trigger)
 		{
 			Logger.Log($"Registering a new trigger from card {trigger.ServerEffect.Card.CardName} to condition {condition}");

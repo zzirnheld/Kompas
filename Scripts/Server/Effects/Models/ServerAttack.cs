@@ -44,7 +44,7 @@ namespace Kompas.Server.Effects.Models
 				defenderBattles.CloneForEvent(Trigger.Defends),
 				attackerBattles,
 				defenderBattles);
-			EffCtrl.Trigger(contexts);
+			EffCtrl.TriggerFor(contexts);
 		}
 
 		//this is factored out so i can maybe eventually add some indication of whether an attack is still gonna be valid
@@ -66,7 +66,7 @@ namespace Kompas.Server.Effects.Models
 				battleEndsContext.Clone().AffectingBoth(attacker, defender),
 				battleEndsContext.Clone().AffectingBoth(defender, attacker)
 			);
-			EffCtrl.Trigger(contexts);
+			EffCtrl.TriggerFor(contexts);
 			//then finish the resolution by just returning that completed the task. (don't need to call anything)
 			return Task.CompletedTask;
 		}
@@ -98,7 +98,7 @@ namespace Kompas.Server.Effects.Models
 				defenderBase.CloneForEvent(Trigger.DealCombatDamage).WithX(defenderDmg)
 			);
 
-			EffCtrl.Trigger(contexts);
+			EffCtrl.TriggerFor(contexts);
 		}
 	}
 }

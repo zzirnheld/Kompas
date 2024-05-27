@@ -23,7 +23,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				.ForPlayer(PlayerTarget)
 				.WithX(healedFor)
 				.Capture(() => target.SetE(target.BaseE, stackSrc: ServerEffect));
-			ServerEffect.EffectsController.Trigger(contexts);
+			ServerEffect.EffectsController.TriggerFor(contexts);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 	}

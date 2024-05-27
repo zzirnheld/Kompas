@@ -132,7 +132,7 @@ namespace Kompas.Server.Effects.Models
 				.CausedBy(this)
 				.During(this)
 				.Capture(() => { });
-			EffectsController.Trigger(contexts);
+			EffectsController.TriggerFor(contexts);
 			TimesUsedThisRound++;
 			TimesUsedThisTurn++;
 			TimesUsedThisStack++;

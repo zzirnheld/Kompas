@@ -21,7 +21,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				.PrimarilyAffecting(card)
 				.CausedBy(Effect)
 				.Capture(() => base.ChangeLocation(card));
-			ServerEffect.EffectsController.Trigger(contexts);
+			ServerEffect.EffectsController.TriggerFor(contexts);
 		}
 	}
 }

@@ -255,7 +255,7 @@ namespace Kompas.Server.Gamestate
 			var contexts = IEventContext.Build(Trigger.TurnStart)
 				.ForPlayer(TurnPlayer)
 				.Capture(() => TurnStartOperations(notFirstTurn));
-            StackController.Trigger(contexts);
+            StackController.TriggerFor(contexts);
 
             await StackController.CheckForResponse();
         }
@@ -308,7 +308,7 @@ namespace Kompas.Server.Gamestate
 					.CausedBy(stackSrc)
 					.ForPlayer(controller)
 					.Capture(() => toDraw.Hand(controller, stackSrc));
-				StackController.Trigger(eachDrawContext);
+				StackController.TriggerFor(eachDrawContext);
 
 				cardsDrawn.Add(toDraw);
 			}
@@ -321,7 +321,7 @@ namespace Kompas.Server.Gamestate
 				.ForPlayer(controller)
 				.WithX(cardsDrawn.Count)
 				.CacheAfterEvent();
-			StackController.Trigger(drawXContext);
+			StackController.TriggerFor(drawXContext);
 
 			return cardsDrawn;
 		}

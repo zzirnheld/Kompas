@@ -22,7 +22,7 @@ namespace Kompas.Server.Effects.Models.Subeffects
 				.Capture(() => { },
 					ctxt => ctxt,
 					ctxt => ctxt.CloneForEvent(Trigger.Arrive));
-			ServerGame.StackController.Trigger(contexts);
+			ServerGame.StackController.TriggerFor(contexts);
 
 			return Task.FromResult(ResolutionInfo.Next);
 		}
