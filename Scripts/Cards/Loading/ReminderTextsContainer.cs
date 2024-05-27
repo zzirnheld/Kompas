@@ -31,16 +31,19 @@ namespace Kompas.Cards.Loading
 	{
 		[JsonProperty]
 		public string? keywordRegex;
-		
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public string keyword;
-		[JsonProperty(Required = Required.Always)]
-		public string reminder;
-		#nullable restore
 
-		public string KeywordStringKey => keywordRegex ?? keyword;
+		#pragma warning disable IDE0044 // Add readonly modifier
+        [JsonProperty(Required = Required.Always)]
+        private string? keyword;
+        [JsonProperty(Required = Required.Always)]
+        private string? reminder;
+		#pragma warning restore IDE0044 // Add readonly modifier
+
+		public string Keyword => keyword ?? throw new NullReferenceException(nameof(keyword));
+        public string Reminder => reminder ?? throw new NullReferenceException(nameof(reminder));
+
+        public string KeywordStringKey => keywordRegex ?? Keyword;
 		private Regex? _keywordReplaceRegex;
-		public Regex KeywordReplaceRegex => _keywordReplaceRegex ??= new(keywordRegex ?? keyword);
-	}
+		public Regex KeywordReplaceRegex => _keywordReplaceRegex ??= new(keywordRegex ?? Keyword);
+    }
 }

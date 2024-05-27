@@ -330,7 +330,7 @@ namespace Kompas.Cards.Loading
 			string bbCodeEffText = baseEffText;
 			foreach (var reminderTextInfo in Reminders.KeywordToReminder.Values)
 			{
-				string keywordTag = $"[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.keyword}[/url]";
+				string keywordTag = $"[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]";
 				bbCodeEffText = reminderTextInfo.KeywordReplaceRegex.Replace(bbCodeEffText, keywordTag);
 			}
 			return bbCodeEffText;

@@ -19,8 +19,8 @@ namespace Kompas.Client.UI
 
 		public void Display(ReminderTextInfo reminderTextInfo)
 		{
-			Keyword.Text = reminderTextInfo.keyword;
-			ReminderText.Text = reminderTextInfo.reminder;
+			Keyword.Text = reminderTextInfo.Keyword;
+			ReminderText.Text = reminderTextInfo.Reminder;
 			var mousePos = GetViewport().GetMousePosition();
 			OffsetLeft = OffsetRight = mousePos.X;
 			OffsetTop = OffsetBottom = mousePos.Y;
