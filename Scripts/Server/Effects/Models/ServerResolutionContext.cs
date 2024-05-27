@@ -3,6 +3,7 @@ using System.Linq;
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Gamestate.Players;

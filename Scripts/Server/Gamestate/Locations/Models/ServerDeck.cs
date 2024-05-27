@@ -1,6 +1,7 @@
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;

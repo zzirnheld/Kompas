@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
@@ -25,8 +26,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		//Since we do it this way,
 		//the primary context passed into IsValidLogic will always be a valid current one (or, well, if it's invalid it'll be because we're testing a player action),
 		//and the second one will either duplicate it, or be the secondary context in the case where it's applicable (which is where we're acting like a trigger restriction)
-		public bool IsValid(IEventContext? IEventContext, IResolutionContext resolutionContext)
-			=> IsValid(IResolutionContext.NotResolving(IEventContext), resolutionContext);
+		public bool IsValid(IEventContext? context, IResolutionContext resolutionContext)
+			=> IsValid(IResolutionContext.NotResolving(context), resolutionContext);
 
 		private bool IsValid(IResolutionContext context, IResolutionContext secondaryContext)
 		{

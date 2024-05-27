@@ -4,6 +4,7 @@ using Godot;
 using Kompas.Server.Gamestate.Players;
 using System;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {

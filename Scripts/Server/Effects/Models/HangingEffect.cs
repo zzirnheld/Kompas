@@ -1,6 +1,7 @@
 ﻿using Kompas.Effects.Models;
 using Godot;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models
 {

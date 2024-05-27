@@ -1,3 +1,4 @@
+using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.Numbers

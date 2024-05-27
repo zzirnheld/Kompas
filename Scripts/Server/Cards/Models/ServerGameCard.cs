@@ -6,6 +6,7 @@ using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;

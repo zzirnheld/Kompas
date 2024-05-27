@@ -6,6 +6,7 @@ using Godot;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {

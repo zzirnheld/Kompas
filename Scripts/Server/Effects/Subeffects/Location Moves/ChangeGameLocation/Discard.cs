@@ -3,6 +3,7 @@ using Kompas.Effects.Models;
 using Kompas.Cards.Movement;
 using Kompas.Gamestate.Locations;
 using Kompas.Server.Effects.Controllers;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects
 {

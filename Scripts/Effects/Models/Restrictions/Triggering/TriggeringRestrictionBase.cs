@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Effects.Models.Restrictions.Triggering
 {

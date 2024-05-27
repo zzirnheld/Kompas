@@ -1,4 +1,5 @@
 using System;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Effects.Models.Identities
 {

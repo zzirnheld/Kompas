@@ -1,3 +1,4 @@
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models.Identities.Players

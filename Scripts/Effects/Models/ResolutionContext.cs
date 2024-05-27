@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models
 {
-	public class ResolutionContext : IResolutionContext
+    public class ResolutionContext : IResolutionContext
 	{
 		public IEventContext? TriggerContext { get; }
 
@@ -29,7 +29,7 @@ namespace Kompas.Effects.Models
 		/// (NOT a situation in which a player is attempting to do something "normally" - that's what <see cref="IResolutionContext.PlayerAction"/> is for)
 		/// </summary>
 		public static ResolutionContext PlayerTriggeredEffect(Effect? effect)
-			=> new(new EventContext() { StackableEvent = effect });
+			=> new(new TriggeringEvent.EventContext() { StackableEvent = effect });
 
 		public ResolutionContext(IEventContext triggerContext)
 		: this(triggerContext, 0,
@@ -63,7 +63,7 @@ namespace Kompas.Effects.Models
 			X = TriggerContext?.X ?? 0;
 		}
 
-		private static List<T> Clone<T>(IEnumerable<T> list)
+		private static List<T> Clone<T>(IEnumerable<T>? list)
 		{
 			if (list == null) return new List<T>();
 			else return new List<T>(list);

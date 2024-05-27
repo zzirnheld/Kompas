@@ -13,6 +13,7 @@ using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Networking;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Controllers
 {

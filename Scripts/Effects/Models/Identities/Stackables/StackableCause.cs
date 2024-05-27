@@ -1,3 +1,5 @@
+using Kompas.Effects.Models.TriggeringEvent;
+
 namespace Kompas.Effects.Models.Identities.Stackables
 {
 	public class StackableCause : TriggerContextualLeafIdentityBase<IStackable>

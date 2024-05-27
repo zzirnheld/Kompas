@@ -1,5 +1,6 @@
 using System.Linq;
 using Kompas.Cards.Loading;
+using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Restrictions.Triggering

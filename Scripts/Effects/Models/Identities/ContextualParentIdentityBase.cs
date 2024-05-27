@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 

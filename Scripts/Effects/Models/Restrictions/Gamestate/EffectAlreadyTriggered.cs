@@ -1,4 +1,5 @@
 using System.Linq;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Effects.Models.Restrictions.Gamestate
 {

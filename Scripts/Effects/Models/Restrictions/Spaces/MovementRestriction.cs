@@ -107,8 +107,8 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 		//FUTURE: have this also support Shape? would need to decide how to UX choosing shape vs not shape for creature moving to space adj to friendly
 		public int GetMovementCost(Space from, Space to, IGame game)
 		{
-			var primaryCtxt = IResolutionContext.NotResolving(new EventContext() { Space = from });
-			var secondaryCtxt = IResolutionContext.NotResolving(new EventContext() { Space = to });
+			var primaryCtxt = IResolutionContext.NotResolving(new TriggeringEvent.EventContext() { Space = from });
+			var secondaryCtxt = IResolutionContext.NotResolving(new TriggeringEvent.EventContext() { Space = to });
 
 			return movementCosts
 				.Where(cost => cost.condition.IsValid(primaryCtxt))

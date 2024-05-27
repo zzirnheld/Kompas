@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Locations;
 using Newtonsoft.Json;
 

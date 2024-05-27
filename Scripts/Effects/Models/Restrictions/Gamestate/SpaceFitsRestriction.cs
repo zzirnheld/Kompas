@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Identities;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 

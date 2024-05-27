@@ -2,6 +2,7 @@
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Gamestate;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Server.Effects.Controllers;
 using Newtonsoft.Json;
 using System.Linq;

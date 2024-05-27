@@ -7,6 +7,7 @@ using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;

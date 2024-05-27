@@ -4,6 +4,7 @@ using Kompas.Server.Gamestate;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
+using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging
 {

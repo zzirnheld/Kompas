@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 

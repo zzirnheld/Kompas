@@ -1,3 +1,5 @@
+using Kompas.Effects.Models.TriggeringEvent;
+
 namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public class NothingHappening : GamestateRestrictionBase
