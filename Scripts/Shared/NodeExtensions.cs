@@ -38,5 +38,10 @@ namespace Kompas.Godot
 				child.QueueFree();
 			}
 		}
+
+		public static Vector2 GlobalCenter(this Control node)
+		{
+			return node.GlobalPosition + (node.Size / 2);
+		}
 	}
 }

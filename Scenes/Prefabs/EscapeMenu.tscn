@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvqukbgnck5ro"]
+
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="1_4ba04"]
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/EscapeMenuController.cs" id="1_y862k"]
+[ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="3_gbxys"]
+[ext_resource type="PackedScene" uid="uid://ddndf2v4t02jx" path="res://Scenes/Prefabs/EscapeMenuButton.tscn" id="3_jwt2f"]
+[ext_resource type="Script" path="res://Scripts/UI/Deck Builder/DeckBuilderEscapeMenuLogo.cs" id="4_eyb4s"]
+
+[node name="Escape Menu" type="Control" node_paths=PackedStringArray("_logoController", "_buttonsParent")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 2
+script = ExtResource("1_y862k")
+_logoController = NodePath("Spinning Logo On Splash")
+_menuButton = ExtResource("3_jwt2f")
+_buttonsParent = NodePath("Normally Hidden Escape Menu/Escape Menu Buttons/Escape Menu Buttons Margin/Escape Menu Buttons")
+
+[node name="Normally Hidden Escape Menu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Background Haze" type="TextureRect" parent="Normally Hidden Escape Menu"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.611765)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4ba04")
+
+[node name="Escape Menu Buttons" type="Control" parent="Normally Hidden Escape Menu"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Escape Menu Buttons Margin" type="MarginContainer" parent="Normally Hidden Escape Menu/Escape Menu Buttons"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Escape Menu Buttons" type="VBoxContainer" parent="Normally Hidden Escape Menu/Escape Menu Buttons/Escape Menu Buttons Margin"]
+layout_mode = 2
+
+[node name="Spinning Logo On Splash" type="TextureRect" parent="." node_paths=PackedStringArray("_escapeMenuHaze", "_escapeMenuButtons", "_escapeMenuParentToSetVisibility", "_center")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 100.0
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+mouse_filter = 2
+texture = ExtResource("3_gbxys")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("4_eyb4s")
+_escapeMenuHaze = NodePath("../Normally Hidden Escape Menu/Background Haze")
+_escapeMenuButtons = NodePath("../Normally Hidden Escape Menu/Escape Menu Buttons")
+_escapeMenuParentToSetVisibility = NodePath("../Normally Hidden Escape Menu")
+_center = NodePath("Center of Spinning Logo")
+
+[node name="Full Area of Logo" type="Control" parent="Spinning Logo On Splash"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Logo Button" type="Button" parent="Spinning Logo On Splash/Full Area of Logo"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center of Spinning Logo" type="Control" parent="Spinning Logo On Splash"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="resized" from="Spinning Logo On Splash" to="Spinning Logo On Splash" method="Resize"]
+[connection signal="pressed" from="Spinning Logo On Splash/Full Area of Logo/Logo Button" to="Spinning Logo On Splash" method="Toggle"]

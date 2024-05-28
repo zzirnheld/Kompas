@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.UI.MainMenu
@@ -13,12 +14,7 @@ namespace Kompas.UI.MainMenu
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
-			MouseEntered += () =>
-			{
-				var targetPosition = GlobalPosition + (Size / 2);
-				Logger.Log($"Look towards {GlobalPosition} + {(Size / 2)} = {targetPosition}!");
-				SpinningLogo.LookTowards(targetPosition);
-			};
+			MouseEntered += () => SpinningLogo.LookTowards(this.GlobalCenter());
 		}
 	}
 }

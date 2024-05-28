@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddndf2v4t02jx"]
+
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="1_qx52r"]
+
+[node name="Button" type="Button"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_qx52r")
+text = "Back to
+Main Menu"

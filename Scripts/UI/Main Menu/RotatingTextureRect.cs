@@ -156,13 +156,13 @@ namespace Kompas.UI.MainMenu
 
 		public void Resize()
 		{
-			Logger.Log($"Resizing. Size is {Size} and rotation is {Rotation}");
+			//Logger.Log($"Resizing. Size is {Size} and rotation is {Rotation}");
 			PivotOffset = Size / 2;
 		}
 
 		public void LookTowards(Vector2 targetPosition)
 		{
-			Logger.Log($"{Name} looking towards {targetPosition}");
+			//Logger.Log($"{Name} looking towards {targetPosition}");
 			RotateTowards(RotationForVector(targetPosition));
 		}
 
@@ -178,7 +178,7 @@ namespace Kompas.UI.MainMenu
 
 			start = Positioning.Of(this);
 			target = from(start);
-			Logger.Log($"Rotating from {start} to {target}");
+			//Logger.Log($"Rotating from {start} to {target}");
 			Time = 0f;
 		}
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=99 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://x48p3g7uw88g" path="res://Scenes/Prefabs/Client Game/Effect Stack Element.tscn" id="32_hlx7m"]
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="37_8517u"]
+[ext_resource type="PackedScene" uid="uid://cvqukbgnck5ro" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="47_h3vrx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ols17"]
 
@@ -200,7 +201,7 @@ points = PackedVector3Array(0.00356197, 0.495928, 0.910199, 0.0820751, 0.495928,
 
 [node name="Node" type="Node"]
 
-[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_choicesView", "_playerControllers", "_boardController")]
+[node name="Game Controller" type="Node" parent="." node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_choicesView", "_escapeMenu", "_playerControllers", "_boardController")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("../UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
@@ -209,6 +210,7 @@ _useEffectDialog = NodePath("../UI/Use Effect")
 _stackView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
 _camera = NodePath("../3D/Engine Stuff/Camera Over Board/Camera Controller")
 _choicesView = NodePath("../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View")
+_escapeMenu = NodePath("../UI/Escape Menu")
 _cardPrefab = ExtResource("2_q0mge")
 _playerControllers = [NodePath("../3D/Friendly Player"), NodePath("../3D/Enemy Player")]
 _boardController = NodePath("../3D/Board")
@@ -1777,6 +1779,9 @@ alignment = 0
 
 [node name="Reminder Text" parent="UI" instance=ExtResource("37_8517u")]
 visible = false
+layout_mode = 1
+
+[node name="Escape Menu" parent="UI" instance=ExtResource("47_h3vrx")]
 layout_mode = 1
 
 [connection signal="pressed" from="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button" to="Game Controller/Targeting Controller" method="DeclineFurtherTargets"]

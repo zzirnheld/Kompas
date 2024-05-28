@@ -9,12 +9,16 @@ using Kompas.Client.UI;
 using Kompas.Client.UI.GameStart;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
+using Kompas.Shared.Controllers;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate
 {
 	public partial class ClientGameController : GameController
 	{
+		private const string RematchPath = "res://Scenes/ClientScene.tscn";
+		private const string MainMenuPath = "res://Scenes/MainMenuScene.tscn";
+
 		private ClientCardRepository? _cardRespository;
 		public ClientCardRepository CardRepository => _cardRespository
 			?? throw new NotInitializedException();
@@ -40,6 +44,9 @@ namespace Kompas.Client.Gamestate
 		[Export]
 		private ClientChoicesView? _choicesView;
 		private ClientChoicesView ChoicesView => _choicesView ?? throw new UnassignedReferenceException();
+		[Export]
+		private EscapeMenuController? _escapeMenu;
+		private EscapeMenuController EscapeMenu => _escapeMenu ?? throw new UnassignedReferenceException(nameof(_escapeMenu));
 
 		[Export]
 		private PackedScene? _cardPrefab;
@@ -72,6 +79,21 @@ namespace Kompas.Client.Gamestate
 
 			_choices = new ClientChoicesController(ChoicesView);
 			Choices.ChooseIndex += (_, index) => Notifier.RequestChooseEffectOption(index);
+
+			EscapeMenu.Init(
+				new EscapeMenuController.ButtonData() { Text = "Rematch", OnClick = Rematch },
+				new EscapeMenuController.ButtonData() { Text = "Main Menu", OnClick = ToMainMenu }
+			);
+		}
+
+		private void Rematch()
+		{
+			GetTree().ChangeSceneToFile(RematchPath);
+		}
+
+		private void ToMainMenu()
+		{
+			GetTree().ChangeSceneToFile(MainMenuPath);
 		}
 
 		public override void _Input(InputEvent inputEvent)
