@@ -48,7 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.25
 
-[node name="Connect to Server" type="Button" parent="Horizontal Organizer/Menu Buttons"]
+[node name="Connect to Server" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -58,8 +58,9 @@ vs Player"
 icon_alignment = 2
 vertical_icon_alignment = 2
 script = ExtResource("3_s7n5j")
+_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Solo Mode" type="Button" parent="Horizontal Organizer/Menu Buttons"]
+[node name="Solo Mode" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -67,8 +68,9 @@ theme = ExtResource("3_ipls1")
 text = "Incarnate
 vs Artifice"
 script = ExtResource("3_s7n5j")
+_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Build Deck" type="Button" parent="Horizontal Organizer/Menu Buttons"]
+[node name="Build Deck" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -76,8 +78,9 @@ theme = ExtResource("3_ipls1")
 text = "Ponder
 Strategems"
 script = ExtResource("3_s7n5j")
+_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Host Server" type="Button" parent="Horizontal Organizer/Menu Buttons"]
+[node name="Host Server" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -85,14 +88,16 @@ theme = ExtResource("3_ipls1")
 text = "Bind
 Others"
 script = ExtResource("3_s7n5j")
+_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
-[node name="Quit" type="Button" parent="Horizontal Organizer/Menu Buttons"]
+[node name="Quit" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("3_ipls1")
 text = "Escape"
 script = ExtResource("3_s7n5j")
+_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
 
 [node name="Contain Spinning Logo" type="Control" parent="Horizontal Organizer"]
 layout_mode = 2
