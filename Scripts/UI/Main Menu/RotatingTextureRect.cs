@@ -73,7 +73,12 @@ namespace Kompas.UI.MainMenu
 			public override string ToString() => $"Rotation {Rotation},"
 				+ $"{LeftAnchor}+{LeftOffset} / {RightAnchor}+{RightOffset} / {TopAnchor}+{TopOffset} / {BottomAnchor}+{BottomOffset}";
 		}
-		protected Positioning target = new();
+		private Positioning? _target = null;
+		protected Positioning Target
+		{
+			get => _target ?? throw new NotReadyYetException();
+			set => _target = value;
+		}
 
 		private Positioning start;
 		protected float Time { get; private set; } = 0f;
@@ -85,7 +90,7 @@ namespace Kompas.UI.MainMenu
 		public override void _Ready()
 		{
 			Rotation = InitialRotation;
-			start = target = Positioning.Of(this).With(rotation: InitialRotation);
+			start = Target = Positioning.Of(this).With(rotation: InitialRotation);
 			Time = RotationDuration + 1f;
 		}
 
@@ -111,19 +116,19 @@ namespace Kompas.UI.MainMenu
 		/// <param name="x">[0, 1] progress along duration</param>
 		protected virtual void Progress(float x)
 		{
-			Rotation = start.Rotation + ((target.Rotation - start.Rotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
+			Rotation = start.Rotation + ((Target.Rotation - start.Rotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
 
 			float anchorX = ManipulateAnchorTimeProportion(x);
-			AnchorLeft 	 = start.LeftAnchor   + (target.LeftAnchor   - start.LeftAnchor)   * anchorX;
-			AnchorRight  = start.RightAnchor  + (target.RightAnchor  - start.RightAnchor)  * anchorX;
-			AnchorTop 	 = start.TopAnchor	  + (target.TopAnchor 	 - start.TopAnchor)	* anchorX;
-			AnchorBottom = start.BottomAnchor + (target.BottomAnchor - start.BottomAnchor) * anchorX;
+			AnchorLeft 	 = start.LeftAnchor   + (Target.LeftAnchor   - start.LeftAnchor)   * anchorX;
+			AnchorRight  = start.RightAnchor  + (Target.RightAnchor  - start.RightAnchor)  * anchorX;
+			AnchorTop 	 = start.TopAnchor	  + (Target.TopAnchor 	 - start.TopAnchor)	* anchorX;
+			AnchorBottom = start.BottomAnchor + (Target.BottomAnchor - start.BottomAnchor) * anchorX;
 
 			float offsetX = ManipulateOffsetTimeProportion(x);
-			OffsetLeft 	 = start.LeftOffset   + (target.LeftOffset   - start.LeftOffset)   * offsetX;
-			OffsetRight  = start.RightOffset  + (target.RightOffset  - start.RightOffset)  * offsetX;
-			OffsetTop 	 = start.TopOffset	  + (target.TopOffset 	 - start.TopOffset)	* offsetX;
-			OffsetBottom = start.BottomOffset + (target.BottomOffset - start.BottomOffset) * offsetX;
+			OffsetLeft 	 = start.LeftOffset   + (Target.LeftOffset   - start.LeftOffset)   * offsetX;
+			OffsetRight  = start.RightOffset  + (Target.RightOffset  - start.RightOffset)  * offsetX;
+			OffsetTop 	 = start.TopOffset	  + (Target.TopOffset 	 - start.TopOffset)	* offsetX;
+			OffsetBottom = start.BottomOffset + (Target.BottomOffset - start.BottomOffset) * offsetX;
 		}
 
 		protected virtual float ManipulateAnchorTimeProportion(float x) => x;
@@ -132,18 +137,18 @@ namespace Kompas.UI.MainMenu
 
 		protected virtual void Arrive()
 		{
-			Logger.Log($"Arrived at {target.Rotation}!");
-			Rotation = target.Rotation;
+			Logger.Log($"Arrived at {Target.Rotation}!");
+			Rotation = Target.Rotation;
 
-			AnchorTop = target.TopAnchor;
-			AnchorBottom = target.BottomAnchor;
-			AnchorLeft = target.LeftAnchor;
-			AnchorRight = target.RightAnchor;
+			AnchorTop = Target.TopAnchor;
+			AnchorBottom = Target.BottomAnchor;
+			AnchorLeft = Target.LeftAnchor;
+			AnchorRight = Target.RightAnchor;
 
-			OffsetTop = target.TopOffset;
-			OffsetBottom = target.BottomOffset;
-			OffsetLeft = target.LeftOffset;
-			OffsetRight = target.RightOffset;
+			OffsetTop = Target.TopOffset;
+			OffsetBottom = Target.BottomOffset;
+			OffsetLeft = Target.LeftOffset;
+			OffsetRight = Target.RightOffset;
 
 			if (NormalizeAngleOnArrival) NormalizeAngle();
 		}
@@ -166,19 +171,23 @@ namespace Kompas.UI.MainMenu
 			RotateTowards(RotationForVector(targetPosition));
 		}
 
-		public void RotateTowards(float angle) => RotateTowards(start => start.With(rotation: angle));
+        public void RotateTowards(float angle) => RotateTowards(start => (_target ?? start).With(rotation: angle));
 
-		public void RotateTowards(Positioning target) => RotateTowards(start => target);
+        public void RotateTowards(Positioning target) => RotateTowards(start => target);
 
 		public delegate Positioning From(Positioning start);
 
 		public virtual void RotateTowards(From from)
 		{
-			if (ArriveBeforeStartingNext) Arrive();
+			if (ArriveBeforeStartingNext)
+			{
+				Logger.Log($"Arriving at {Target} before starting next rotation");
+				Arrive();
+			}
 
 			start = Positioning.Of(this);
-			target = from(start);
-			//Logger.Log($"Rotating from {start} to {target}");
+			Target = from(start);
+			Logger.Log($"Rotating from {start} to {Target}");
 			Time = 0f;
 		}
 

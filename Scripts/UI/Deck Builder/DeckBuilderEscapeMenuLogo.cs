@@ -71,6 +71,8 @@ namespace Kompas.UI.DeckBuilder
 			if (inputEvent is InputEventKey keyEvent && keyEvent.Keycode == Key.Escape && !keyEvent.Pressed) Toggle();
 		}
 
+		private bool openingOrClosing;
+
 		public void Toggle()
 		{
 			if (open) Close();
@@ -79,12 +81,15 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Open()
 		{
+			openingOrClosing = false;
 			RotateTowards(Opened);
 			open = true;
+			openingOrClosing = true;
 		}
 
 		public void Close()
 		{
+			openingOrClosing = false;
 			//If haven't arrived yet, didn't normalize the angle, so no reason to add the full clockwise rotation
 			//I'd not normalize the angle on arrival, except that otherwise selecting the escape menu buttons wouldn't work.
 			//If rotation is backwards but not about to be normalized, it means we interrupted the main spin out and should go back to normal without the bonus spin
@@ -92,10 +97,12 @@ namespace Kompas.UI.DeckBuilder
 			var target = Rotation < 0 && Rotation > -Math.PI ? closed : closed.With(FullClockwiseRotation);
 			RotateTowards(target);
 			open = false;
+			openingOrClosing = true;
 		}
 
 		public override void RotateTowards(From from)
 		{
+			if (openingOrClosing) return; //Don't skip opening or closing, as a temporary measure while I figure out how to handle the highlight and stuff
 			rotationDuration = DetermineRotationDuration();
 			NormalizeAngle();
 			base.RotateTowards(from);
@@ -109,13 +116,14 @@ namespace Kompas.UI.DeckBuilder
 			Logger.Log($"Starting escape menu rotation when time is {Time}, rotation duration was {rotationDuration}");
 			if (Time > rotationDuration) return BaseRotationDuration;
 			else if (Time == 0f) return BaseRotationDuration;
-			else return Time;
+			else return Time; //This used to return just Time. this was for undoing the rotation when it was moving from open to closed.
 		}
 
 		protected override void Arrive()
 		{
 			base.Arrive();
 			if (!open) EscapeMenuParentToSetVisibility.Visible = false;
+			openingOrClosing = false;
 		}
 	}
 }
