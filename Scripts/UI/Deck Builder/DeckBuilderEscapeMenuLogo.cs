@@ -23,6 +23,9 @@ namespace Kompas.UI.DeckBuilder
 			TopOffset = 0f,
 			BottomOffset = 0f,
 		};
+		/// <summary>
+		/// Determined on Ready as whatever the normal positioning is
+		/// </summary>
 		private Positioning closed;
 
 		[Export]
@@ -37,6 +40,7 @@ namespace Kompas.UI.DeckBuilder
 		private Control? _escapeMenuParentToSetVisibility;
 		private Control EscapeMenuParentToSetVisibility => _escapeMenuParentToSetVisibility
 			?? throw new UnassignedReferenceException();
+
 		private float initialHazeVisibility;
 		private float initialButtonVisibility;
 		private float TargetVisibility => open ? 1f : 0f;
@@ -53,13 +57,21 @@ namespace Kompas.UI.DeckBuilder
 		}
 
 		protected override void Progress(float x)
-		{
-			base.Progress(x);
-			EscapeMenuHaze.Modulate = Visibility(x * x, initialHazeVisibility);
-			EscapeMenuButtons.Modulate = Visibility(ButtonTimeProportion(x), initialButtonVisibility);
-		}
+        {
+            base.Progress(x);
+            ModulateVisibilty(x);
+        }
 
-		private Color Visibility(float x, float initialVisibility)
+		/// <summary>
+		/// Like all other xs in this code, 0.0 to 1.0 for 0 to 100%
+		/// </summary>
+        private void ModulateVisibilty(float x)
+        {
+            EscapeMenuHaze.Modulate = Visibility(x * x, initialHazeVisibility);
+            EscapeMenuButtons.Modulate = Visibility(ButtonTimeProportion(x), initialButtonVisibility);
+        }
+
+        private Color Visibility(float x, float initialVisibility)
 			=> new(1f, 1f, 1f, initialVisibility + (x * (TargetVisibility - initialVisibility)));
 
 		private static float ButtonTimeProportion(float x) => (float)Math.Cbrt(x);
@@ -71,7 +83,9 @@ namespace Kompas.UI.DeckBuilder
 			if (inputEvent is InputEventKey keyEvent && keyEvent.Keycode == Key.Escape && !keyEvent.Pressed) Toggle();
 		}
 
-		private bool openingOrClosing;
+		//Eurgh I hate this setup, but I want to get it working, then find a better solution
+		private bool currentlyOpeningOrClosing;
+		private bool startingOpenOrClose;
 
 		public void Toggle()
 		{
@@ -81,30 +95,34 @@ namespace Kompas.UI.DeckBuilder
 
 		public void Open()
 		{
-			openingOrClosing = false;
+			startingOpenOrClose = true;
 			RotateTowards(Opened);
 			open = true;
-			openingOrClosing = true;
+			currentlyOpeningOrClosing = true;
+			startingOpenOrClose = false;
 		}
 
 		public void Close()
 		{
-			openingOrClosing = false;
+			startingOpenOrClose = true;
+			var target = currentlyOpeningOrClosing ? closed : closed.With(FullClockwiseRotation);
 			//If haven't arrived yet, didn't normalize the angle, so no reason to add the full clockwise rotation
 			//I'd not normalize the angle on arrival, except that otherwise selecting the escape menu buttons wouldn't work.
 			//If rotation is backwards but not about to be normalized, it means we interrupted the main spin out and should go back to normal without the bonus spin
 			//TODO make this more robust, possibly with some flag if it successfully arrived?
-			var target = Rotation < 0 && Rotation > -Math.PI ? closed : closed.With(FullClockwiseRotation);
 			RotateTowards(target);
 			open = false;
-			openingOrClosing = true;
+			currentlyOpeningOrClosing = true;
+			startingOpenOrClose = false;
 		}
 
 		public override void RotateTowards(From from)
 		{
-			if (openingOrClosing) return; //Don't skip opening or closing, as a temporary measure while I figure out how to handle the highlight and stuff
+			if (currentlyOpeningOrClosing && !startingOpenOrClose) NormalizeAngle();
+			if (!open && !startingOpenOrClose && currentlyOpeningOrClosing) return; //Don't allow anything but reopning if currently closing
+			//if (openingOrClosing) return; //Don't skip opening or closing, as a temporary measure while I figure out how to handle the highlight and stuff
 			rotationDuration = DetermineRotationDuration();
-			NormalizeAngle();
+			//NormalizeAngle();
 			base.RotateTowards(from);
 			initialHazeVisibility = EscapeMenuHaze.Modulate.A;
 			initialButtonVisibility = EscapeMenuButtons.Modulate.A;
@@ -116,14 +134,16 @@ namespace Kompas.UI.DeckBuilder
 			Logger.Log($"Starting escape menu rotation when time is {Time}, rotation duration was {rotationDuration}");
 			if (Time > rotationDuration) return BaseRotationDuration;
 			else if (Time == 0f) return BaseRotationDuration;
-			else return Time; //This used to return just Time. this was for undoing the rotation when it was moving from open to closed.
+			else if (currentlyOpeningOrClosing && startingOpenOrClose) return Time; //This used to return just Time. this was for undoing the rotation when it was moving from open to closed.
+			else if (startingOpenOrClose) return BaseRotationDuration;
+			else return BaseRotationDuration - Time;
 		}
 
 		protected override void Arrive()
 		{
 			base.Arrive();
 			if (!open) EscapeMenuParentToSetVisibility.Visible = false;
-			openingOrClosing = false;
+			currentlyOpeningOrClosing = false;
 		}
 	}
 }
