@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Ride the Winds",
-	"effText": "Once each turn, you can move a Flying character 1 space.",
+	"effText": "[USES0] each turn, you can move a Flying character 1 space.",
 	"effects": [
 		{
 			"blurb": "Ride the Winds",

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Masquerade",
-	"effText": "Once each turn, you can hand a Dancer's Mask to deck->attach a Mask to that Dancer.",
+	"effText": "[USES0] each turn, you can hand a Dancer's Mask to deck->attach a Mask to that Dancer.",
 	"effects": [
 		{
 			"blurb": "Continue the masquerade",

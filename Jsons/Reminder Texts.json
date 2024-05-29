@@ -149,7 +149,7 @@
 		},
 		{
 			"keyword": "Runecast",
-			"reminder": "Once each turn, you can pip hand->cast a Rune."
+			"reminder": "[USES0] each turn, you can pip hand->cast a Rune."
 		},
 		{
 			"keyword": "Rummage",

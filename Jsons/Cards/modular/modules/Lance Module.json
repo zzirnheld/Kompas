@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Lance Module",
-	"effText": "Once each turn, this character can attack a character exactly 2 spaces from them. (Doesn't cost normal attack.)",
+	"effText": "[USES0] each turn, this character can attack a character exactly 2 spaces from them. (Doesn't cost normal attack.)",
 	"effects": [
 		{
 			"blurb": "Reaching Attack",

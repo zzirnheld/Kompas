@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Escape Route",
-	"effText": "Once each turn, you can hand an adjacent friendly character.",
+	"effText": "[USES0] each turn, you can hand an adjacent friendly character.",
 	"effects": [
 		{
 			"blurb": "Escape",

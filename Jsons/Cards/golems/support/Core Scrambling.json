@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Core Scrambling",
-	"effText": "The first time each turn a Golem defends, discard->apply a Golem Core to them.",
+	"effText": "The [USES0] time each turn a Golem defends, discard->apply a Golem Core to them.",
 	"effects": [
 		{
 			"blurb": "Core? CORE!",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Reporter Reportar",
-	"effText": "Once each turn, you can reveal an S X Reporter. An enemy can reveal an S X character. If they don't, pip deck->summon an S <= X character at half cost.",
+	"effText": "[USES0] each turn, you can reveal an S X Reporter. An enemy can reveal an S X character. If they don't, pip deck->summon an S <= X character at half cost.",
 	"effects": [
 		{
 			"activationRestriction": {

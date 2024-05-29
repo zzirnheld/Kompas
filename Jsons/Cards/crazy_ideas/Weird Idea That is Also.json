@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Weird Idea That is Also",
-	"effText": "Also, once each turn, you can give me -1 E. Hand->discard 1 card. Also, give a character +1 W.",
+	"effText": "Also, [USES0] each turn, you can give me -1 E. Hand->discard 1 card. Also, give a character +1 W.",
 	"effects": [
 		{
 			"activationRestriction": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Jacob-John Binglejeimer Schmitzel",
-	"effText": "Once each turn, you can hand->discard a card. (That's it.)",
+	"effText": "[USES0] each turn, you can hand->discard a card. (That's it.)",
 	"effects": [
 		{
 			"blurb": "Intern Nonsense",

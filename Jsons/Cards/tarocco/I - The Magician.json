@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "I - The Magician",
-	"effText": "Once each turn, you can hand->bottomdeck X cards to draw X cards.",
+	"effText": "[USES0] each turn, you can hand->bottomdeck X cards to draw X cards.",
 	"effects": [
 		{
 			"blurb": "Redraw",

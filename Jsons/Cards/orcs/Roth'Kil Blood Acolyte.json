@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Roth'Kil Blood Acolyte",
-	"effText": "Once each turn, you can give me -1 E to discard->hand an Orc.",
+	"effText": "[USES0] each turn, you can give me -1 E to discard->hand an Orc.",
 	"effects":[
 		{
 			"blurb": "Quicken the Blood",

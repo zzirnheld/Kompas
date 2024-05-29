@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Guild Ritesmaster",
-	"effText": "Once each turn, you can discard->reshuffle X Warriors to hand->summon an S X Warrior.",
+	"effText": "[USES0] each turn, you can discard->reshuffle X Warriors to hand->summon an S X Warrior.",
 	"effects": [
 		{
 			"blurb": "Recruit",

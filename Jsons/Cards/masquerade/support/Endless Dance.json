@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Endless Dance",
-	"effText": "The first time each turn a Dancer dies, hand->summon a distinct Masked Dancer where they were.",
+	"effText": "The [USES0] time each turn a Dancer dies, hand->summon a distinct Masked Dancer where they were.",
 	"effects": [
 		{
 			"blurb": "The Dance Continues",

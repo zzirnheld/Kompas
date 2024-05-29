@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Timothy",
-	"effText": "The first time each turn you hand->discard a Crazy Idea, play it.",
+	"effText": "The [USES0] time each turn you hand->discard a Crazy Idea, play it.",
 	"effects": [
 		{
 			"triggerData": {

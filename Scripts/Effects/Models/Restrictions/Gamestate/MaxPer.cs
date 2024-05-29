@@ -28,7 +28,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 	public class MaxPerTurn : MaxPer
 	{
-		protected override int Uses => attacks
+		public override int? MaxUsesPerTurn => max;
+
+        protected override int Uses => attacks
 			? InitializationContext.source?.AttacksThisTurn
 				?? throw new IllDefinedException()
 			: InitializationContext.effect?.TimesUsedThisTurn
@@ -37,6 +39,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 	public class MaxPerRound : MaxPer
 	{
+		public override int? MaxUsesPerRound => max;
+
 		protected override int Uses => attacks
 			? throw new IllDefinedException()
 			: InitializationContext.effect?.TimesUsedThisRound
@@ -45,6 +49,8 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 
 	public class MaxPerStack : MaxPer
 	{
+		public override int? MaxUsesPerStack => max;
+
 		protected override int Uses => attacks
 			? throw new IllDefinedException()
 			: InitializationContext.effect?.TimesUsedThisStack

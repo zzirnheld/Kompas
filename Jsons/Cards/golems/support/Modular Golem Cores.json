@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Modular Golem Cores",
-	"effText": "Once each turn, you can swap a friendly Golem's Core for a distinct one in your deck.",
+	"effText": "[USES0] each turn, you can swap a friendly Golem's Core for a distinct one in your deck.",
 	"effects": [
 		{
 			"blurb": "Swap Out Modules",

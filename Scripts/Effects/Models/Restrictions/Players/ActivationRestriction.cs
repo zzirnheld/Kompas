@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
@@ -11,7 +12,44 @@ namespace Kompas.Effects.Models.Restrictions.Players
 		[JsonProperty]
 		public string[] locations = { Location.Board.StringVersion() };
 
-		protected override IEnumerable<IRestriction<IPlayer>> DefaultElements
+		//I don't love doing casting, but it feels viscerally wrong to put a max per turn/round/stack as a property on IRestriction
+        public int? MaxUsesPerTurn
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerTurn max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        public int? MaxUsesPerRound
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerRound max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        public int? MaxUsesPerStack
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerStack max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        protected override IEnumerable<IRestriction<IPlayer>> DefaultElements
 		{
 			get
 			{
