@@ -349,19 +349,23 @@ namespace Kompas.Cards.Loading
 			var eff = effects.ElementAtOrDefault(effIndex);
 			if (eff == null)
 			{
+				//TODO don't print this error if effects is purposefully an empty array, for deck builder, for example.
+				//make this a virtual method?
 				Logger.Err($"Uses index {match.Groups[1].Value} was not within the bounds of the effects array ({effects.Count})!");
 				return string.Empty;
 			}
 
+			string grey = "#a0a0a0";
+
 			//FUTURE: revisit if I add effects with max per stack AND per turn. but that's probably too confusing anyway
 			int? perTurn = eff.MaxPerTurn();
-			if (perTurn != null) return $"({eff.TimesUsedThisTurn}/{perTurn})";
+			if (perTurn != null) return $"{match.Groups[2].Value} [color={grey}]({eff.TimesUsedThisTurn}/{perTurn})[/color]";
 
 			int? perRound = eff.MaxPerRound();
-			if (perRound != null) return $"({eff.TimesUsedThisRound}/{perRound})";
+			if (perRound != null) return $"{match.Groups[2].Value} [color={grey}]({eff.TimesUsedThisRound}/{perRound})[/color]";
 
 			int? perStack = eff.MaxPerStack();
-			if (perStack != null) return $"({eff.TimesUsedThisStack}/{perStack})";
+			if (perStack != null) return $"{match.Groups[2].Value} [color={grey}]({eff.TimesUsedThisStack}/{perStack})[/color]";
 
 			return string.Empty;
 		}
