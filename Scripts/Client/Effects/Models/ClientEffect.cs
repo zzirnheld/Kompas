@@ -27,16 +27,16 @@ namespace Kompas.Client.Effects.Models
 			private set => _clientGame = value;
 		}
 		private ClientTrigger? _clientTrigger;
-		public ClientTrigger ClientTrigger
+		public ClientTrigger? ClientTrigger
 		{
-			get => _clientTrigger ?? throw new System.NullReferenceException("Tried to get trigger of uninitialized effect");
+			get => _clientTrigger;// ?? throw new System.NullReferenceException("Tried to get trigger of uninitialized effect");
 			private set => _clientTrigger = value;
 		}
 		public override IGame Game => ClientGame;
 
 		public DummySubeffect[] DummySubeffects { get; } = Array.Empty<DummySubeffect>();
 		public override Subeffect[] Subeffects => DummySubeffects;
-		public override Trigger Trigger => ClientTrigger;
+		public override Trigger? Trigger => ClientTrigger;
 
 		private IResolutionContext? currentResolutionContext;
 		public override IResolutionContext CurrentResolutionContext

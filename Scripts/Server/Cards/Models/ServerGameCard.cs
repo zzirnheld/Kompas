@@ -109,6 +109,8 @@ namespace Kompas.Server.Cards.Models
 
 			foreach (var (index, eff) in effects.Enumerate())
 				eff.SetInfo(ret, game, index);
+				
+			ret.UpdateBBCodeEffectText();
 
 			return ret;
 		}

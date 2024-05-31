@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Effects.Models.Restrictions
 {
@@ -18,6 +19,11 @@ namespace Kompas.Effects.Models.Restrictions
 			}
 			catch (SystemException exception)
 				when (exception is NullReferenceException || exception is ArgumentException)
+			{
+				Logger.Err(exception);
+				return false;
+			}
+			catch (KompasException exception)
 			{
 				Logger.Err(exception);
 				return false;

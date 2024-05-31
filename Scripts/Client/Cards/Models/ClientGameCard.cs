@@ -91,6 +91,8 @@ namespace Kompas.Client.Cards.Models
 			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index, owningPlayer);
 			game.AddCard(ret);
 
+			ret.UpdateBBCodeEffectText();
+
 			return ret;
 		}
 
