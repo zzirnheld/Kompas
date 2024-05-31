@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Dristzanti, the Illuminator",
-	"effText": "Once each turn, you can deck->cast Light to a space in Shade. Reshuffle all Shade that overlaps with it.",
+	"effText": "[USES.0.Once] each turn, you can deck \u2192 cast Light to a space in Shade. Reshuffle all Shade that overlaps with it.",
 	"effects": [
 		{
 			"blurb": "Illuminate!",

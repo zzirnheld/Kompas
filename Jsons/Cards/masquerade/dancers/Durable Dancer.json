@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Durable Dancer",
-	"effText": "Masquerade.\nWhen I'm summoned, deck->attach a Mask to me.",
+	"effText": "Masquerade.\nWhen I'm summoned, deck \u2192 attach a Mask to me.",
 	"effects": [
 		{
 			"triggerData": {

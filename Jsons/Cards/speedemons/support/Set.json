@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Set",
-	"effText": "If you don't have a discarded \"Ready\", deck->hand one and reshuffle me. If you do, give an adjacent character +1 N and deck->hand \"GO\".",
+	"effText": "If you don't have a discarded \"Ready\", deck \u2192 hand one and reshuffle me. If you do, give an adjacent character +1 N and deck \u2192 hand \"GO\".",
 	"effects": [
 		{
 			"triggerData": {

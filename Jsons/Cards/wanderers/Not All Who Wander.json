@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Not All Who Wander",
-	"effText": "1 turn after you board->reshuffle a Wanderer, draw 1 card.",
+	"effText": "1 turn after you board \u2192 reshuffle a Wanderer, draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

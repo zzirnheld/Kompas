@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Modular Modules",
-	"effText": "Hand->discard an A X Module. Deck->hand X distinct Modukes.\nYou can pay 1 pip and discard->reshuffle 5 cards to discard->hand me.",
+	"effText": "Hand \u2192 discard an A X Module. Deck \u2192 hand X distinct Modukes.\nYou can pay 1 pip and discard \u2192 reshuffle 5 cards to discard \u2192 hand me.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "We Are Yet Unworthy",
-	"effText": "Tribute an adjacent Cultist, hand->reshuffle a card, and annihilate me. Draw 2 cards and gain 2 Pips.",
+	"effText": "Tribute an adjacent Cultist, hand \u2192 reshuffle a card, and annihilate me. Draw 2 cards and gain 2 Pips.",
 	"effects": [
 		{
 			"triggerData": {

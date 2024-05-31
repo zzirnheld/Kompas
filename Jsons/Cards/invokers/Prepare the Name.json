@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Prepare the Name",
-	"effText": "Hand->topdeck a Spirit. Gain 3 pips.",
+	"effText": "Hand \u2192 topdeck a Spirit. Gain 3 pips.",
 	"effects": [
 		{
 			"triggerData": {

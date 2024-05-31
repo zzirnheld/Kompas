@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Knighthood",
-	"effText": "When a Squire with total NESW X survives killing a character, tribute them and deck->summon an S <= X Warrior where they were.",
+	"effText": "When a Squire with total NESW X survives killing a character, tribute them and deck \u2192 summon an S <= X Warrior where they were.",
 	"effects": [
 		{
 			"blurb": "Bestow Knighthood",

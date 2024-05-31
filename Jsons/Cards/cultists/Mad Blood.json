@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Mad Blood",
-	"effText": "When a friendly Cultist dies, annihilate me to deck->summon 2 Cultist Mooks.",
+	"effText": "When a friendly Cultist dies, annihilate me to deck \u2192 summon 2 Cultist Mooks.",
 	"effects": [
 		{
 			"triggerData": {

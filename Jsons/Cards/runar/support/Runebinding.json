@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Runebinding",
-	"effText": "The first time each turn you cast a Rune, deck->hand a Mage.",
+	"effText": "The [USES.0.first] time each turn you cast a Rune, deck \u2192 hand a Mage.",
 	"effects": [
 		{
 			"triggerData": {

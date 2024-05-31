@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "II - The High Priestess",
-	"effText": "Once each turn, you can draw 3 cards, then hand->topdeck 3 cards.",
+	"effText": "[USES.0.Once] each turn, you can draw 3 cards, then hand \u2192 topdeck 3 cards.",
 	"effects": [
 		{
 			"activationRestriction": {

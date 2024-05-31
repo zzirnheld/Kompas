@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Ma Rinner",
-	"effText": "Waterborn.\nWhen turns start, draw 2 cards. Then, unless I'm in Water, hand->bottomdeck 3.",
+	"effText": "Waterborn.\nWhen turns start, draw 2 cards. Then, unless I'm in Water, hand \u2192 bottomdeck 3.",
 	"effects": [
 		{
 			"blurb": "Gone Fishin'",

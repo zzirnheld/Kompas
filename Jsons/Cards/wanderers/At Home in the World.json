@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "At Home in the World",
-	"effText": "1 turn after you board->reshuffle a Wanderer, gain 1 pip.",
+	"effText": "1 turn after you board \u2192 reshuffle a Wanderer, gain 1 pip.",
 	"effects": [
 		{
 			"triggerData": {

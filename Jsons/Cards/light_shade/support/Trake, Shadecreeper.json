@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Trake, Shadecreeper",
-	"effText": "Stealth.\nOnce each turn, you can move Shade I'm in 1 space.",
+	"effText": "Stealth.\n[USES.0.Once] each turn, you can move Shade I'm in 1 space.",
 	"effects": [
 		{
 			"blurb": "Creep",

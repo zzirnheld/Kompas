@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Armillaria Bulbosa",
-	"effText": "Spores.\nWhen a Fungus pulses an enemy, deck-> or discard->summon Mycelium.",
+	"effText": "Spores.\nWhen a Fungus pulses an enemy, deck \u2192  or discard \u2192 summon Mycelium.",
 	"effects": [
 		{
 			"blurb": "Army",

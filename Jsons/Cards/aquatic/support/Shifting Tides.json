@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Shifting Tides",
-	"effText": "When friendly Water vanishes, hand->cast Water where it was, then draw 1 card.",
+	"effText": "When friendly Water vanishes, hand \u2192 cast Water where it was, then draw 1 card.",
 	"effects": [
 		{
 			"blurb": "The Tide Shifts",

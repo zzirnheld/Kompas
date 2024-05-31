@@ -1,11 +1,11 @@
 {
 	"cardType": 83,
 	"cardName": "Revenance",
-	"effText": "When you draw a Revenant, hand->discard it and draw 1.\n(Vanishes when a turn starts.)",
+	"effText": "When you draw a Revenant, hand \u2192 discard it and draw 1.\n(Vanishes when a turn starts.)",
 	"effects": [
 		{
 			"triggerData": {
-				"blurb": "Hand->discard the drawn Revenant to draw 1?",
+				"blurb": "Hand \u2192 discard the drawn Revenant to draw 1?",
 				"triggerCondition": "Each Card Drawn",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

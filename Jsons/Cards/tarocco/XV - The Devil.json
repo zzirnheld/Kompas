@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "XV - The Devil",
-	"effText": "When an enemy deck->hands a card, unless your hand is full, draw 1 card.",
+	"effText": "When an enemy deck \u2192 hands a card, unless your hand is full, draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

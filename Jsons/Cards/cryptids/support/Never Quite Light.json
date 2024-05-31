@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Never Quite Light",
-	"effText": "When a friendly Shadow vanishes here, discard->hand it.",
+	"effText": "When a friendly Shadow vanishes here, discard \u2192 hand it.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Figurehead Jack",
-	"effText": "Draw 1 card. Hand->bottomdeck a Tarocco to draw another card.",
+	"effText": "Draw 1 card. Hand \u2192 bottomdeck a Tarocco to draw another card.",
 	"effects": [
 		{
 			"triggerData": {

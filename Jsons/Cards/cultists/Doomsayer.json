@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Doomsayer",
-	"effText": "Once each turn, you can deck->hand a Cultist.",
+	"effText": "[USES.0.Once] each turn, you can deck \u2192 hand a Cultist.",
 	"effects": [
 		{
 			"blurb": "DOOM cometh!",

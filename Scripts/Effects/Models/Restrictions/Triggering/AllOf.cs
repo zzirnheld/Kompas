@@ -6,7 +6,44 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 {
 	public class AllOf : AllOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
-		protected override bool LogSoloElements => false;
+		//Again, don't love casting, but see ActivationRestriction
+        public int? MaxUsesPerTurn
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerTurn max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        public int? MaxUsesPerRound
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerRound max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        public int? MaxUsesPerStack
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerStack max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        protected override bool LogSoloElements => false;
 
 		/// <summary>
 		/// Reevaluates the trigger to check that any restrictions that could change between it being triggered
@@ -20,6 +57,42 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 
 	public class AnyOf : AnyOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
+        public int? MaxUsesPerTurn
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerTurn max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        public int? MaxUsesPerRound
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerRound max) return max.max;
+				}
+				return null;
+			}
+		}
+
+        public int? MaxUsesPerStack
+		{
+			get
+			{
+				foreach (var elem in elements)
+				{
+					if (elem is Gamestate.MaxPerStack max) return max.max;
+				}
+				return null;
+			}
+		}
+		
 		public bool IsStillValidTriggeringContext(IEventContext context)
 			=> elements.Any(elem => elem.IsStillValidTriggeringContext(context));
 	}

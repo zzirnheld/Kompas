@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Roth'Ka Spymaster",
-	"effText": "Once each turn, you can board->hand a friendly character. If they're a Spy, give them -1 S and draw 1.",
+	"effText": "[USES.0.Once] each turn, you can board \u2192 hand a friendly character. If they're a Spy, give them -1 S and draw 1.",
 	"effects":[
 		{
 			"blurb": "Retrieve",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Nimble Dancer",
-	"effText": "Masquerade.\nWhen I'm summoned, hand->attach a Mask to me.",
+	"effText": "Masquerade.\nWhen I'm summoned, hand \u2192 attach a Mask to me.",
 	"effects": [
 		{
 			"triggerData": {

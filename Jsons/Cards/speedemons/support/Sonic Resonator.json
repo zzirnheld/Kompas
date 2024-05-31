@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Sonic Resonator",
-	"effText": "When a character moves, give me +1 C, but I won't vanish until 2 turns after that.\nWhen I vanish with C X, deck->summon distinct Speedemons with total S <= X.",
+	"effText": "When a character moves, give me +1 C, but I won't vanish until 2 turns after that.\nWhen I vanish with C X, deck \u2192 summon distinct Speedemons with total S <= X.",
 	"effects": [
 		{
 			"blurb": "Sonic +C",

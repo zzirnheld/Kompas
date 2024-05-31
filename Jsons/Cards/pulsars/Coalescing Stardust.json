@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Coalescing Stardust",
-	"effText": "When your Avatar's S changes, change my C by the same amount.\n2 turns after I'm cast, deck->summon a Pulsar with less S than my C.",
+	"effText": "When your Avatar's S changes, change my C by the same amount.\n2 turns after I'm cast, deck \u2192 summon a Pulsar with less S than my C.",
 	"effects": [
 		{
 			"blurb": "Coalesce +C",

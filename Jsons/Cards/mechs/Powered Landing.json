@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Powered Landing",
-	"effText": "When you summon a Mech Golem, discard->attach me to them. They attack an enemy within 2 spaces of them.\nWhen this character attacks, give them +4 W.",
+	"effText": "When you summon a Mech Golem, discard \u2192 attach me to them. They attack an enemy within 2 spaces of them.\nWhen this character attacks, give them +4 W.",
 	"effects": [
 		{
 			"blurb": "Landing Blast",

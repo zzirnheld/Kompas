@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Light Up",
-	"effText": "Hand me and deck->cast Light were I was.",
+	"effText": "Hand me and deck \u2192 cast Light were I was.",
 	"effects": [
 		{
 			"triggerData": {

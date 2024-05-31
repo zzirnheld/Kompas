@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Choo Choo Brain",
-	"effText": "Speedemon.\nWhen I move, hand->reshuffle a card. (Yes, you have to.) Give me +2 ESW. ",
+	"effText": "Speedemon.\nWhen I move, hand \u2192 reshuffle a card. (Yes, you have to.) Give me +2 ESW. ",
 	"effects": [
 		{
 			"triggerData": {

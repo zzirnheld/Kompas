@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Hungry Tide",
-	"effText": "You can hand->annihilate 2 Water spells to deck->hand an Aquatic character.\n<i>Vanishes after 2 turns.</i>",
+	"effText": "You can hand \u2192 annihilate 2 Water spells to deck \u2192 hand an Aquatic character.\n<i>Vanishes after 2 turns.</i>",
 	"effects": [
 		{
 			"blurb": "The Tide Hungers",

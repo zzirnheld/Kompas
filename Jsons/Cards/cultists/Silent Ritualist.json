@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Silent Ritualist",
-	"effText": "When turns start, tribute a character. Deck->cast a Silent spell where they were.",
+	"effText": "When turns start, tribute a character. Deck \u2192 cast a Silent spell where they were.",
 	"effects": [
 		{
 			"blurb": "Ritual",

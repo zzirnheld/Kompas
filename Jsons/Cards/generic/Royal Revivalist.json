@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Royal Revivalist",
-	"effText": "Attended 2.\nOnce each turn, you can pip revive a character.",
+	"effText": "Attended 2.\n[USES.0.Once] each turn, you can pip revive a character.",
 	"effects": [
 		{
 			"activationRestriction": {

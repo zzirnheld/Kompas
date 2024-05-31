@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Silentbellringer",
-	"effText": "When I'm summoned, deck->hand a Cultist.\nWhen friendly turns start, echo me.",
+	"effText": "When I'm summoned, deck \u2192 hand a Cultist.\nWhen friendly turns start, echo me.",
 	"effects": [
 		{
 			"blurb": "DOOM, sayeth the bell",

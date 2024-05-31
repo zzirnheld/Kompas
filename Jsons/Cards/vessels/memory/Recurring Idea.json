@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Recurring Idea",
-	"effText": "When I'm destroyed, gain 1 pip.\nWhen turns start, discard->attach me to a Vessel.",
+	"effText": "When I'm destroyed, gain 1 pip.\nWhen turns start, discard \u2192 attach me to a Vessel.",
 	"effects": [
 		{
 			"triggerData": {

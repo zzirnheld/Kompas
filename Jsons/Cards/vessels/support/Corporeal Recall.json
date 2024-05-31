@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Corporeal Recall",
-	"effText": "When turns start, hand-> or discard->reshuffle Memories with total A X. Deck->summon an S <= X Vessel. ",
+	"effText": "When turns start, hand \u2192  or discard \u2192 reshuffle Memories with total A X. Deck \u2192 summon an S <= X Vessel. ",
 	"effects": [
 		{
 			"blurb": "Recall Corporeal Form",

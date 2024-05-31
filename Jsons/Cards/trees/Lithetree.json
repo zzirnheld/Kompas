@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Lithetree",
-	"effText": "The first time each turn I gain X E, give me +X N.",
+	"effText": "The [USES.0.first] time each turn I gain X E, give me +X N.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType":65,
 	"cardName":"Buffer Shield",
-	"effText":"While equipped, give this character +3 E.\nWhen enemy turns start, discard->attach me to a Mech.",
+	"effText":"While equipped, give this character +3 E.\nWhen enemy turns start, discard \u2192 attach me to a Mech.",
 	"effects":[
 		{
 			"blurb":"Buffer",

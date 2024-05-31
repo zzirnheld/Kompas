@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Cloudshift",
-	"effText": "Annihilate an adjacent Weather. Deck->cast a distinct Weather Condition adjacent to me.",
+	"effText": "Annihilate an adjacent Weather. Deck \u2192 cast a distinct Weather Condition adjacent to me.",
 	"effects": [
 		{
 			"triggerData": {

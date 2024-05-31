@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Linq;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 
 namespace Kompas.Cards.Loading
 {
@@ -20,7 +23,8 @@ namespace Kompas.Cards.Loading
 		public DeckBuilderCard CreateDeckBuilderCard(SerializableCard serializableCard)
 		{
 			_ = serializableCard.cardName ?? throw new System.NullReferenceException($"{serializableCard} had no name");
-			return new(serializableCard, cardFileNames[serializableCard.cardName], AddKeywordHints(serializableCard.effText ?? string.Empty), this);
+			var (_, elseText) = Enhance(serializableCard.effText ?? string.Empty, System.Array.Empty<IEffect>());
+			return new(serializableCard, cardFileNames[serializableCard.cardName], elseText, this);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Big Brain Plays",
-	"effText": "Pip deck->cast a Team Play.",
+	"effText": "Pip deck \u2192 cast a Team Play.",
 	"effects": [
 		{
 			"triggerData": {

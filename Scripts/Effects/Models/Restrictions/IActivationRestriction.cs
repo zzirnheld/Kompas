@@ -4,6 +4,9 @@ namespace Kompas.Effects.Models.Restrictions
 {
 	public interface IActivationRestriction : IRestriction<IPlayer>, IAllOf<IPlayer>
 	{
+		public int? MaxUsesPerTurn { get; }
+		public int? MaxUsesPerRound { get; }
+		public int? MaxUsesPerStack { get; }
 	}
 
 	public static class IActivationRestrictionExtensions

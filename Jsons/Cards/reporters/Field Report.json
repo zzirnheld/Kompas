@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Field Report",
-	"effText": "A friendly adjacent S X Reporter asks an enemy to reveal a S <= X character. If they do, draw 1. If they don't, deck->hand S <= X Reporter.",
+	"effText": "A friendly adjacent S X Reporter asks an enemy to reveal a S <= X character. If they do, draw 1. If they don't, deck \u2192 hand S <= X Reporter.",
 	"effects": [
 		{
 			"triggerData": {

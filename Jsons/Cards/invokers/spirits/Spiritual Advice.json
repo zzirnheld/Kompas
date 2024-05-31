@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Spiritual Advice",
-	"effText": "Flashback.\nDiscard->topdeck X Spirits. Draw 3 * X cards.",
+	"effText": "Flashback.\nDiscard \u2192 topdeck X Spirits. Draw 3 * X cards.",
 	"effects": [
 		{
 			"triggerData": {

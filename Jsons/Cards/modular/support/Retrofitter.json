@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Retrofitter",
-	"effText": "When an adjacent Modular character attaches a Module to themselves, discard->attach a Module to them.",
+	"effText": "When an adjacent Modular character attaches a Module to themselves, discard \u2192 attach a Module to them.",
 	"effects": [
 		{
 			"blurb": "Retrofit Module",
@@ -82,5 +82,5 @@
 	"e": 5,
 	"s": 5,
 	"w": 3,
-	"subtypeText": "Craftsman"
+	"subtypeText": "Craftsperson"
 }

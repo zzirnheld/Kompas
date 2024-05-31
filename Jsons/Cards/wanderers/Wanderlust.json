@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Wanderlust",
-	"effText": "Choose a friendly summon. Any number of times: Reshuffle the last chosen character. Hand->summon one with up to 1 more S.",
+	"effText": "Choose a friendly summon. Any number of times: Reshuffle the last chosen character. Hand \u2192 summon one with up to 1 more S.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Seedling",
-	"effText": "2 turns after I'm summoned, tribute me and deck->summon a Tree where I was.",
+	"effText": "2 turns after I'm summoned, tribute me and deck \u2192 summon a Tree where I was.",
 	"effects": [
 		{
 			"triggerData": {

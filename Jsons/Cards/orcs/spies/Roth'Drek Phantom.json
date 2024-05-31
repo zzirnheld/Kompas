@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Roth'Drek Phantom",
-	"effText": "When I'm summoned, I Ambush.\nWhen I'm board-> or discard->handed, give me -2S.",
+	"effText": "When I'm summoned, I Ambush.\nWhen I'm board \u2192  or discard \u2192 handed, give me -2S.",
 	"effects": [
 		{
 			"triggerData": {

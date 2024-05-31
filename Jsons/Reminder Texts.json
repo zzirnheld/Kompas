@@ -23,12 +23,12 @@
 		{
 			"keywordRegex": "IFICATE",
 			"keyword": "Ificate",
-			"reminder": "When I'm hand->discarded, discard->cast a DIFFERENT Crazy Idea for 1 pip. This is purposefully obtuse."
+			"reminder": "When I'm hand \u2192 discarded, discard \u2192 cast a DIFFERENT Crazy Idea for 1 pip. This is purposefully obtuse."
 		},
 		{
 			"keywordRegex": "RECOVERABLE",
 			"keyword": "Recoverable",
-			"reminder": "When this character dies (while I'm equipped), discard->hand me."
+			"reminder": "When this character dies (while I'm equipped), discard \u2192 hand me."
 		},
 		{
 			"keywordRegex": "TERRITORIAL",
@@ -38,7 +38,7 @@
 		{
 			"keywordRegex": "COMEBACKPLAY",
 			"keyword": "Comeback Play",
-			"reminder": "When you start friendly turns controlling a Sportsball, discard->cast me."
+			"reminder": "When you start friendly turns controlling a Sportsball, discard \u2192 cast me."
 		},
 		{
 			"keywordRegex": "RUNIC",
@@ -57,7 +57,7 @@
 		{
 			"keywordRegex": "WTHRCOND",
 			"keyword": "Weather Condition",
-			"reminder": "When a non-Weather character arrives here, apply the listed effect.\nWhen turns start, deck->cast a Weather Condition adjacent to me, then annihilate me."
+			"reminder": "When a non-Weather character arrives here, apply the listed effect.\nWhen turns start, deck \u2192 cast a Weather Condition adjacent to me, then annihilate me."
 		},
 		{
 			"keywordRegex": "WTHREVNT",
@@ -67,7 +67,7 @@
 		{
 			"keywordRegex": "SPINASTORM",
 			"keyword": "Spin a Storm",
-			"reminder": "Hand->summon a Weather Event in that Weather Condition's overlap with other Weather."
+			"reminder": "Hand \u2192 summon a Weather Event in that Weather Condition's overlap with other Weather."
 		},
 		{
 			"keywordRegex": "MARTYR",
@@ -81,11 +81,11 @@
 		{
 			"keywordRegex": "INVOKE",
 			"keyword": "Invoke",
-			"reminder": "Topdeck->discard until you discard an appropriate card. Discard->play it."
+			"reminder": "Topdeck \u2192 discard until you discard an appropriate card. Discard \u2192 play it."
 		},
 		{
 			"keyword": "Flashback.",
-			"reminder": "You can pip discard->cast me, then immediately annihilate me."
+			"reminder": "You can pip discard \u2192 cast me, then immediately annihilate me."
 		},
 		{
 			"keyword": "Wanderer.",
@@ -121,7 +121,7 @@
 		},
 		{
 			"keyword": "Pilot a Mech",
-			"reminder": "Annihilate me. Hand->summon a Mech Golem where I was and activate it. When it dies, summon me where it was and negate me until the next turn starts."
+			"reminder": "Annihilate me. Hand \u2192 summon a Mech Golem where I was and activate it. When it dies, summon me where it was and negate me until the next turn starts."
 		},
 		{
 			"keyword": "Nimble",
@@ -137,7 +137,7 @@
 		},
 		{
 			"keyword": "Smite.",
-			"reminder": "When I attack, hand->discard X cards. Give me +2*X W until the battle ends."
+			"reminder": "When I attack, hand \u2192 discard X cards. Give me +2*X W until the battle ends."
 		},
 		{
 			"keyword": "Evasive",
@@ -149,15 +149,15 @@
 		},
 		{
 			"keyword": "Runecast",
-			"reminder": "Once each turn, you can pip hand->cast a Rune."
+			"reminder": "[USES.0.Once] each turn, you can pip hand \u2192 cast a Rune."
 		},
 		{
 			"keyword": "Rummage",
-			"reminder": "Hand->discard 1 card, then draw 1 card."
+			"reminder": "Hand \u2192 discard 1 card, then draw 1 card."
 		},
 		{
 			"keyword": "rummage",
-			"reminder": "Hand->discard 1 card, then draw 1 card."
+			"reminder": "Hand \u2192 discard 1 card, then draw 1 card."
 		},
 		{
 			"keyword": "Structure",
@@ -205,7 +205,7 @@
 		},
 		{
 			"keyword": "Restock",
-			"reminder": "When I die, discard->reshuffle me."
+			"reminder": "When I die, discard \u2192 reshuffle me."
 		},
 		{
 			"keyword": "hurt",
@@ -223,12 +223,12 @@
 		},
 		{
 			"keyword": "Modular",
-			"reminder": "When I'm summoned, hand->attach up to # Modules to me, then draw the same number of cards.",
-			"technicalReminder": "When I'm summoned, hand->attach [X <= #] Modules to me, then draw X cards."
+			"reminder": "When I'm summoned, hand \u2192 attach up to # Modules to me, then draw the same number of cards.",
+			"technicalReminder": "When I'm summoned, hand \u2192 attach [X <= #] Modules to me, then draw X cards."
 		},
 		{
 			"keyword": "Shadowy Figure",
-			"reminder": "When an enemy arrives here, I vanish.\nWhen I'm cast, show 2 Cryptids in your hand. Secretly choose one. When I vanish, hand->summon it where I was."
+			"reminder": "When an enemy arrives here, I vanish.\nWhen I'm cast, show 2 Cryptids in your hand. Secretly choose one. When I vanish, hand \u2192 summon it where I was."
 		},
 		{
 			"keyword": "Aggressive",

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Collaborative Mechanization",
-	"effText": "Hand->discard X Mech Pilots. Deck->hand X Mech Golems. Annihilate me. Gain X pips.",
+	"effText": "Hand \u2192 discard X Mech Pilots. Deck \u2192 hand X Mech Golems. Annihilate me. Gain X pips.",
 	"effects": [
 		{
 			"triggerData": {

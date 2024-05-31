@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Salvage Soul",
-	"effText": "Board->hand a friendly Revenant. Rummage, rummage, rummage.",
+	"effText": "Board \u2192 hand a friendly Revenant. Rummage, rummage, rummage.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Silent Altar",
-	"effText": "When a character here dies, give me +1 C.\nYou can tribute Altars with total C 13 to hand-> or deck->summon any character.",
+	"effText": "When a character here dies, give me +1 C.\nYou can tribute Altars with total C 13 to hand \u2192  or deck \u2192 summon any character.",
 	"effects": [
 		{
 			"triggerData": {

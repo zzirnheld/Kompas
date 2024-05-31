@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Weather Reporter",
-	"effText": "When an enemy card is revealed, pip hand->summon a character at half cost.",
+	"effText": "When an enemy card is revealed, pip hand \u2192 summon a character at half cost.",
 	"effects": [
 		{
 			"blurb": "Weather Report",

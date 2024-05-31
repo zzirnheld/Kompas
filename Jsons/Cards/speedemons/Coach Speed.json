@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Coach Speed",
-	"effText": "Speedemon.\nOnce each turn, you can move a card 1 space.",
+	"effText": "Speedemon.\n[USES.0.Once] each turn, you can move a card 1 space.",
 	"effects": [
 		{
 			"activationRestriction": {

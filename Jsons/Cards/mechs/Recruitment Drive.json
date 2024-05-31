@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Recruitment Drive",
-	"effText": "Hand->discard X Mech Golems. Deck->hand X Mech Pilots. Annihilate me. Gain X pips.",
+	"effText": "Hand \u2192 discard X Mech Golems. Deck \u2192 hand X Mech Pilots. Annihilate me. Gain X pips.",
 	"effects": [
 		{
 			"triggerData": {

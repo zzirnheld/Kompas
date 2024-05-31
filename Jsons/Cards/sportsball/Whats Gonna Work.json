@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Whats Gonna Work",
-	"effText": "Deck->cast \"Teamwork!\".",
+	"effText": "Deck \u2192 cast \"Teamwork!\".",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Guild Pagemaster",
-	"effText": "When you summon another Swordguild Warrior, deck->summon a Squire adjacent to them.",
+	"effText": "When you summon another Swordguild Warrior, deck \u2192 summon a Squire adjacent to them.",
 	"effects": [
 		{
 			"blurb": "Recruit",

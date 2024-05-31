@@ -6,6 +6,10 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 {
 	public abstract class TriggerRestrictionBase : RestrictionBase<IEventContext>, ITriggerRestriction
 	{
+		public virtual int? MaxUsesPerTurn => null;
+		public virtual int? MaxUsesPerRound => null;
+		public virtual int? MaxUsesPerStack => null;
+
 		public static readonly ITriggerRestriction[] DefaultFallOffRestrictions = {
 			new Gamestate.CardsMatch(){
 				card = new Identities.Cards.ThisCardNow(),

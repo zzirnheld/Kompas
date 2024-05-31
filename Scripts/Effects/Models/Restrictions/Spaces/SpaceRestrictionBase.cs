@@ -7,7 +7,11 @@ namespace Kompas.Effects.Models.Restrictions.Spaces
 {
 	public abstract class SpaceRestrictionBase : RestrictionBase<Space>, IRestriction<IGameCardInfo>, ITriggerRestriction, IRestriction<(Space? s, IPlayer? p)>
 	{
-		public bool IsValid(IGameCardInfo? item, IResolutionContext context) => IsValid(item?.Position, context);
+        public int? MaxUsesPerTurn => null;
+        public int? MaxUsesPerStack => null;
+        public int? MaxUsesPerRound => null;
+
+        public bool IsValid(IGameCardInfo? item, IResolutionContext context) => IsValid(item?.Position, context);
 		public bool IsValid(IEventContext? item, IResolutionContext context) => IsValid(item?.Space, context);
 		public bool IsValid((Space? s, IPlayer? p) item, IResolutionContext context) => IsValid(item.s, context);
 

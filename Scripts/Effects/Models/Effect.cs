@@ -13,6 +13,9 @@ namespace Kompas.Effects.Models
 {
 	public interface IEffect : IStackable
 	{
+		public ITriggerRestriction? TriggerRestriction { get; }
+		public IActivationRestriction? ActivationRestriction { get; }
+
 		public int TimesUsedThisTurn { get; }
 		public int TimesUsedThisRound { get; }
 		public int TimesUsedThisStack { get; set; }
@@ -28,6 +31,21 @@ namespace Kompas.Effects.Models
 
 		public void AddTarget(GameCard card);
 		public void RemoveTarget(GameCard card);
+	}
+
+	public static class EffectExtensions
+	{
+		public static int? MaxPerTurn(this IEffect effect)
+			=> effect.TriggerRestriction?.MaxUsesPerTurn
+			?? effect.ActivationRestriction?.MaxUsesPerTurn;
+
+		public static int? MaxPerRound(this IEffect effect)
+			=> effect.TriggerRestriction?.MaxUsesPerRound
+			?? effect.ActivationRestriction?.MaxUsesPerRound;
+
+		public static int? MaxPerStack(this IEffect effect)
+			=> effect.TriggerRestriction?.MaxUsesPerStack
+			?? effect.ActivationRestriction?.MaxUsesPerStack;
 	}
 
 	/// <summary>
@@ -83,8 +101,10 @@ namespace Kompas.Effects.Models
 
 		//Triggering and Activating
 		public abstract Trigger? Trigger { get; }
+		public ITriggerRestriction? TriggerRestriction => Trigger?.TriggerRestriction;
 		public TriggerData? triggerData;
 		public IActivationRestriction? activationRestriction;
+		public IActivationRestriction? ActivationRestriction => activationRestriction;
 
 		//Misc effect info
 		public string? blurb;

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Figurehead Queen",
-	"effText": "When you draw X cards, give me +X C.\n1 turn after I'm cast, deck->summon a Tarocco with S <= my C.",
+	"effText": "When you draw X cards, give me +X C.\n1 turn after I'm cast, deck \u2192 summon a Tarocco with S <= my C.",
 	"effects": [
 		{
 			"blurb": "+X C",

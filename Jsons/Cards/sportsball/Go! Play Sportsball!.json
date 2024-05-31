@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Go! Play Sportsball!",
-	"effText": "Deck->attach a Sportsball to your Avatar.",
+	"effText": "Deck \u2192 attach a Sportsball to your Avatar.",
 	"effects": [
 		{
 			"triggerData": {

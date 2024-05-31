@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Wily Dancer",
-	"effText": "Masquerade.\nWhen I'm summoned, discard->attach a Mask to me.",
+	"effText": "Masquerade.\nWhen I'm summoned, discard \u2192 attach a Mask to me.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Unfinding",
-	"effText": "Hand->discard an Ethereal. Draw 2 cards.",
+	"effText": "Hand \u2192 discard an Ethereal. Draw 2 cards.",
 	"effects": [
 		{
 			"triggerData": {

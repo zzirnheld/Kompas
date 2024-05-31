@@ -10,7 +10,11 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 {
 	public abstract class GamestateRestrictionBase : ContextInitializeableBase, IGamestateRestriction
 	{
-		public bool IsValid(int item, IResolutionContext context) => IsValid(context);
+		public virtual int? MaxUsesPerTurn => null;
+		public virtual int? MaxUsesPerRound => null;
+		public virtual int? MaxUsesPerStack => null;
+
+        public bool IsValid(int item, IResolutionContext context) => IsValid(context);
 		public bool IsValid(Space? item, IResolutionContext context) => IsValid(context);
 		public bool IsValid(IPlayer? item, IResolutionContext context) => IsValid(context);
 		public bool IsValid(IGameCardInfo? item, IResolutionContext context) => IsValid(context);

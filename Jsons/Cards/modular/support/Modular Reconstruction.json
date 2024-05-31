@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Modular Reconstruction",
-	"effText": "Discard->hand all Modules.\nWhen turns start, discard->hand me, then hand->discard a card.",
+	"effText": "Discard \u2192 hand all Modules.\nWhen turns start, discard \u2192 hand me, then hand \u2192 discard a card.",
 	"effects": [
 		{
 			"triggerData": {

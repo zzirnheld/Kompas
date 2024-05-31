@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Roth'Kil Shadow Acolyte",
-	"effText": "Once each turn, you can give me -1 E to draw a card.",
+	"effText": "[USES.0.Once] each turn, you can give me -1 E to draw a card.",
 	"effects":[
 		{
 			"blurb": "Seek in Shadow",

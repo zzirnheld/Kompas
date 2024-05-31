@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Angry Reporter",
-	"effText": "Once each turn, you can choose a friendly W X. An enemy can reveal a cost > X card. If they don't, the chosen character attacks.",
+	"effText": "[USES.0.Once] each turn, you can choose a friendly W X. An enemy can reveal a cost > X card. If they don't, the chosen character attacks.",
 	"effects": [
 		{
 			"activationRestriction": {

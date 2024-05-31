@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Leylasher",
-	"effText": "The first time each turn a character moves X, give them +X ESW.",
+	"effText": "The [USES.0.first] time each turn a character moves X, give them +X ESW.",
 	"effects": [
 		{
 			"triggerData": {

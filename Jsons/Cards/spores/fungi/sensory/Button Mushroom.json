@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Button Mushroom",
-	"effText": "Spores.\nThe first time each turn a Fungus defends, pulse me and that Fungus.",
+	"effText": "Spores.\nThe [USES.0.first] time each turn a Fungus defends, pulse me and that Fungus.",
 	"effects": [
 		{
 			"blurb": "Push the Button?",

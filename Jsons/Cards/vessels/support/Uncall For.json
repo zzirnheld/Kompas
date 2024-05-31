@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Uncall For",
-	"effText": "Tribute an adjacent character with X Memories. Deck->summon an S <= X Vessel, and discard->bestow the Memories unto them. Echo them X times.",
+	"effText": "Tribute an adjacent character with X Memories. Deck \u2192 summon an S <= X Vessel, and discard \u2192 bestow the Memories unto them. Echo them X times.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Spring Agaricus",
-	"effText": "Spores.\nThe first time each turn an enemy arrives adjacent to a Fungus, pulse me and that enemy.",
+	"effText": "Spores.\nThe [USES.0.first] time each turn an enemy arrives adjacent to a Fungus, pulse me and that enemy.",
 	"effects": [
 		{
 			"blurb": "Spring",
