@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Thunderous Echo",
-	"effText": "When you hand->summon a Weather Event, echo it.",
+	"effText": "When you hand \u2192 summon a Weather Event, echo it.",
 	"effects": [
 		{
 			"blurb": "Thunderous Echo",

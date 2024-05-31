@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Spiritual Medium",
-	"effText": "[USES.0.Once] each turn, you can show a Spirit. Deck->hand an Invocation, then topdeck the Spirit.",
+	"effText": "[USES.0.Once] each turn, you can show a Spirit. Deck \u2192 hand an Invocation, then topdeck the Spirit.",
 	"effects": [
 		{
 			"blurb": "I hear a Spirit!",

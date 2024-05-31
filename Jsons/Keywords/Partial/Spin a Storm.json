@@ -3,7 +3,7 @@
 		"$type": "Subeffect:CardTarget:",
 		"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 		"cardRestriction": {
-			"blurb": "Weather Event to hand->summon",
+			"blurb": "Weather Event to hand \u2192 summon",
 			"elements": [
 				{ "$type": "Restrict.Cards:Character:" },
 				{

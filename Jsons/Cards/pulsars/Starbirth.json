@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Starbirth",
-	"effText": "Hand->discard X Pulsars. Give your Avatar +X S. Draw X cards. Gain X pips. Annihilate me.",
+	"effText": "Hand \u2192 discard X Pulsars. Give your Avatar +X S. Draw X cards. Gain X pips. Annihilate me.",
 	"effects": [
 		{
 			"triggerData": {

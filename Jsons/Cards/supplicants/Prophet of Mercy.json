@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Prophet of Mercy",
-	"effText": "When I start turns adjacent to X Supplicants, deck->cast a C <= X Plea.",
+	"effText": "When I start turns adjacent to X Supplicants, deck \u2192 cast a C <= X Plea.",
 	"effects": [
 		{
 			"triggerData": {

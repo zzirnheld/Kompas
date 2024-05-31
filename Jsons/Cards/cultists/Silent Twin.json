@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Silent Twin",
-	"effText": "When you summon me, deck->summon a Cultist Mook, but kill them immediately.",
+	"effText": "When you summon me, deck \u2192 summon a Cultist Mook, but kill them immediately.",
 	"effects": [
 		{
 			"triggerData": {

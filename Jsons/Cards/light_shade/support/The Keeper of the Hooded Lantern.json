@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "The Keeper of the Hooded Lantern",
-	"effText": "When I arrive, reshuffle all Light and Shade I'm in. Deck->cast Light adjacent to me.",
+	"effText": "When I arrive, reshuffle all Light and Shade I'm in. Deck \u2192 cast Light adjacent to me.",
 	"effects": [
 		{
 			"blurb": "Who goes there?",

@@ -1,7 +1,7 @@
 {
 	"cardType":67,
 	"cardName":"Dragaboo",
-	"effText":"When a Dragon kills me, hand->discard an S X Dragon and gain X pips.",
+	"effText":"When a Dragon kills me, hand \u2192 discard an S X Dragon and gain X pips.",
 	"effects":[
 		{
 			"triggerData":

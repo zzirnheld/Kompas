@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "City Planner",
-	"effText": "When I start turns adjacent to X Structures, deck->hand X Structures.",
+	"effText": "When I start turns adjacent to X Structures, deck \u2192 hand X Structures.",
 	"effects": [
 		{
 			"blurb": "Plan new structures",

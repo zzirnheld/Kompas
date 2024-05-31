@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Death of a Soul",
-	"effText": "Discard->annihilate your Revenants with total S X. Annihilate an adjacent S <= X / 2 character.",
+	"effText": "Discard \u2192 annihilate your Revenants with total S X. Annihilate an adjacent S <= X / 2 character.",
 	"effects": [
 		{
 			"triggerData": {
@@ -19,7 +19,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "discard->annihilate revenant",
+					"blurb": "discard \u2192 annihilate revenant",
 					"toSearch": { "$type": "Identify.ManyCards:Discard:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Not:",

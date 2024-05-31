@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Well-Planned Defense",
-	"effText": "When turns start, hand->summon a Maya Structure to a space on the edge of the board, then draw 1 card.",
+	"effText": "When turns start, hand \u2192 summon a Maya Structure to a space on the edge of the board, then draw 1 card.",
 	"effects": [
 		{
 			"blurb": "Planned construction",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Whirlwind of Emotions",
-	"effText": "When I'm revived, reshuffle me, then hand-> or discard->summon 2 friendly Spirits.",
+	"effText": "When I'm revived, reshuffle me, then hand \u2192  or discard \u2192 summon 2 friendly Spirits.",
 	"effects": [
 		{
 			"blurb": "Whirlwind",

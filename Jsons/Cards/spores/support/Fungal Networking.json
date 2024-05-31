@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Fungal Networking",
-	"effText": "Deck->summon 2 Mycelia.",
+	"effText": "Deck \u2192 summon 2 Mycelia.",
 	"effects": [
 		{
 			"blurb": "Simple",

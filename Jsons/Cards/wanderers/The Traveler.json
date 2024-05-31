@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "The Traveler",
-	"effText": "[USES.0.Once] each turn, you can hand a friendly summon to hand->summon a distinct character with up to 1 more S.",
+	"effText": "[USES.0.Once] each turn, you can hand a friendly summon to hand \u2192 summon a distinct character with up to 1 more S.",
 	"effects": [
 		{
 			"activationRestriction": {

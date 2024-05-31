@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Kindly Old Doctor",
-	"effText": "When turns start, discard->hand a character.",
+	"effText": "When turns start, discard \u2192 hand a character.",
 	"effects": [
 		{
 			"triggerData": {

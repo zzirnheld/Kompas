@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Dr. Thierr Dumachmartres",
-	"effText": "When an enemy plays a card normally, hand->discard 1 card. 1 turn later, draw 1 card.",
+	"effText": "When an enemy plays a card normally, hand \u2192 discard 1 card. 1 turn later, draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Silent Devotion",
-	"effText": "When friendly turns start, deck->summon a Cultist Mook.",
+	"effText": "When friendly turns start, deck \u2192 summon a Cultist Mook.",
 	"effects": [
 		{
 			"triggerData": {

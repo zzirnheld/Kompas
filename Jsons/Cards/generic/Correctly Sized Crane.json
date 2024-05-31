@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Correctly Sized Crane",
-	"effText": "The [USES.0.first] time each turn you hand->discard, discard->hand any friendly card.",
+	"effText": "The [USES.0.first] time each turn you hand \u2192 discard, discard \u2192 hand any friendly card.",
 	"effects": [
 		{
 			"blurb": "Lemme grabbit",

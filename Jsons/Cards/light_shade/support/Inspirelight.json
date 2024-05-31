@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Inspirelight",
-	"effText": "Cast only in Light.\nDeck->hand a Brilliant Mage.",
+	"effText": "Cast only in Light.\nDeck \u2192 hand a Brilliant Mage.",
 	"effects": [
 		{
 			"blurb": "Simple",

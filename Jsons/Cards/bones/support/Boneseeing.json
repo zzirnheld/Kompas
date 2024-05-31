@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Boneseeing",
-	"effText": "When turns start, hand->summon a Bone and gain 1 pip.",
+	"effText": "When turns start, hand \u2192 summon a Bone and gain 1 pip.",
 	"effects": [
 		{
 			"blurb": "Bonecast",

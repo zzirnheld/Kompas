@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Recall",
-	"effText": "Any number of times, for distinct Memories and Vessels: Deck->summon a Vessel, discard->bestowing a Memory unto it.",
+	"effText": "Any number of times, for distinct Memories and Vessels: Deck \u2192 summon a Vessel, discard \u2192 bestowing a Memory unto it.",
 	"effects": [
 		{
 			"triggerData": {

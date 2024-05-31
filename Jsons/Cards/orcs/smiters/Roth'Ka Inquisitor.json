@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Roth'Ka Inquisitor",
-	"effText": "Smite.\nWhen you hand->discard an S 0 spell, cast it.",
+	"effText": "Smite.\nWhen you hand \u2192 discard an S 0 spell, cast it.",
 	"effects": [
 		{
 			"triggerData": {

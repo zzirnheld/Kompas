@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Stonesalvager",
-	"effText": "When I start turns adjacent to X Structures, discard->reshuffle up to X Structures. Gain 1 pip for each.",
+	"effText": "When I start turns adjacent to X Structures, discard \u2192 reshuffle up to X Structures. Gain 1 pip for each.",
 	"effects": [
 		{
 			"blurb": "Reconstruct",

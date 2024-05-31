@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Great Scott",
-	"effText": "When an enemy moves normally, hand->discard a card and move them 1 space. 1 turn later, draw 1 card.",
+	"effText": "When an enemy moves normally, hand \u2192 discard a card and move them 1 space. 1 turn later, draw 1 card.",
 	"effects": [
 		{
 			"blurb": "SCARTY, THE MAR!!",

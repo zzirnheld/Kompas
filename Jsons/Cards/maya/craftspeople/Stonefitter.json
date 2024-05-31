@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Stonefitter",
-	"effText": "When you summon a Structure normally, deck->summon a copy of it adjacent to me.",
+	"effText": "When you summon a Structure normally, deck \u2192 summon a copy of it adjacent to me.",
 	"effects": [
 		{
 			"blurb": "Build temple",
@@ -29,7 +29,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "copy of the Structure to deck->summon",
+					"blurb": "copy of the Structure to deck \u2192 summon",
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",

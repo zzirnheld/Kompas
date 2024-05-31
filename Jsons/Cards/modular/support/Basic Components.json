@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Basic Components",
-	"effText": "Deck->hand as many distinct Basic Modules as possible.",
+	"effText": "Deck \u2192 hand as many distinct Basic Modules as possible.",
 	"effects": [
 		{
 			"triggerData": {

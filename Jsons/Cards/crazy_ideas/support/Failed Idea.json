@@ -1,7 +1,7 @@
 {
 	"cardType":67,
 	"cardName":"Failed Idea",
-	"effText":"When you hand->discard an Ificator, deck->discard a Crazy Idea, then tribute me.",
+	"effText":"When you hand \u2192 discard an Ificator, deck \u2192 discard a Crazy Idea, then tribute me.",
 	"effects":[
 		{
 			"triggerData":

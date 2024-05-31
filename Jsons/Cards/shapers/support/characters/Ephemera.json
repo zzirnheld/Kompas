@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Ephemera",
-	"effText": "When I'm summoned, deck->summon a copy of me.\nWhen a Shaper Shapes through me, reshuffle me.",
+	"effText": "When I'm summoned, deck \u2192 summon a copy of me.\nWhen a Shaper Shapes through me, reshuffle me.",
 	"effects": [
 		{
 			"triggerData": {

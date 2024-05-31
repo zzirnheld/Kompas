@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Soulselfdestruct",
-	"effText": "Kill an adjacent friendly S X Ethereal. Deck->discard X Revenants.",
+	"effText": "Kill an adjacent friendly S X Ethereal. Deck \u2192 discard X Revenants.",
 	"effects": [
 		{
 			"triggerData": {

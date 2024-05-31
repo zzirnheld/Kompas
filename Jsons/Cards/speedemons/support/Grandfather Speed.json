@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Grandfather Speed",
-	"effText": "Geminii.\nWhen I'm summoned, deck->hand \"Ready!\"",
+	"effText": "Geminii.\nWhen I'm summoned, deck \u2192 hand \"Ready!\"",
 	"effects": [
 		{
 			"blurb": "Ready?",

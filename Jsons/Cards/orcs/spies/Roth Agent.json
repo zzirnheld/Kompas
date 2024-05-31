@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Roth Agent",
-	"effText": "When I'm summoned, I Ambush.\nWhen you board->hand me, draw 1 card.",
+	"effText": "When I'm summoned, I Ambush.\nWhen you board \u2192 hand me, draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

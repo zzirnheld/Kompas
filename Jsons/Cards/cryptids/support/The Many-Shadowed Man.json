@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "The Many-Shadowed Man",
-	"effText": "When turns start, deck->hand a Shadow.",
+	"effText": "When turns start, deck \u2192 hand a Shadow.",
 	"effects": [
 		{
 			"triggerData": {

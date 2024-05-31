@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Runecarver",
-	"effText": "[USES.0.Once] each turn, you can hand->, field->, or discard->reshuffle a Rune to draw 2 cards.",
+	"effText": "[USES.0.Once] each turn, you can hand \u2192 , field \u2192 , or discard \u2192 reshuffle a Rune to draw 2 cards.",
 	"effects": [
 		{
 			"activationRestriction": {

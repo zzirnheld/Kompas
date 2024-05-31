@@ -1,7 +1,7 @@
 {
 	"cardType":65,
 	"cardName": "Ancestral Spincloak",
-	"effText": "Give this character +5 NESW.\nWhen your Dancer dons a Mask, discard->attach me to them.",
+	"effText": "Give this character +5 NESW.\nWhen your Dancer dons a Mask, discard \u2192 attach me to them.",
 	"effects":[
 		{
 			"blurb": "Ancestors' power",

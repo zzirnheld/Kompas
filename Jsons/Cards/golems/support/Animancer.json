@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Animancer",
-	"effText": "You can hand->discard Golems with total cost X to deck->hand a cost < X Golem.",
+	"effText": "You can hand \u2192 discard Golems with total cost X to deck \u2192 hand a cost < X Golem.",
 	"effects": [
 		{
 			"blurb": "It's In Here Somewhere",
@@ -83,7 +83,7 @@
 	"w": 3,
 	"subtypes": [
 		"Mage",
-		"Craftsman"
+		"Craftsperson"
 	],
-	"subtypeText": "Mage Craftsman"
+	"subtypeText": "Mage Craftsperson"
 }

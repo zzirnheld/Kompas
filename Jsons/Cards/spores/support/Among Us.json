@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Among Us",
-	"effText": "Deck->summon a Fungus adjacent to X enemies (but still adjacent to a friendly). Pulse it X times. ",
+	"effText": "Deck \u2192 summon a Fungus adjacent to X enemies (but still adjacent to a friendly). Pulse it X times. ",
 	"effects": [
 		{
 			"blurb": "Simple",

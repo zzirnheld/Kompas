@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Dragonsinger",
-	"effText": "When turns start, hand->reshuffle X of your Dragons. Give me +X S and draw X cards.",
+	"effText": "When turns start, hand \u2192 reshuffle X of your Dragons. Give me +X S and draw X cards.",
 	"effects": [
 		{
 			"blurb": "Dragonsing",

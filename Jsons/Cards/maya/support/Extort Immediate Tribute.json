@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Extort Immediate Tribute",
-	"effText": "An enemy hand->annihilates a card. You can pip play it adjacent to 2 Structures. If you don't, they draw 1 card.",
+	"effText": "An enemy hand \u2192 annihilates a card. You can pip play it adjacent to 2 Structures. If you don't, they draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

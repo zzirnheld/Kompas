@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Mind of Flock Controlled Pigeons",
-	"effText": "When I deal damage, hand->discard a Crazy Idea and draw 1 card.",
+	"effText": "When I deal damage, hand \u2192 discard a Crazy Idea and draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

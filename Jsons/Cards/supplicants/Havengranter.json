@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Havengranter",
-	"effText": "When turns start, hand->summon an S 1 character adjacent to me.",
+	"effText": "When turns start, hand \u2192 summon an S 1 character adjacent to me.",
 	"effects": [
 		{
 			"triggerData": {

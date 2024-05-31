@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Resonator Resonator",
-	"effText": "When turns start, deck->hand \"Sonic Resonator\".",
+	"effText": "When turns start, deck \u2192 hand \"Sonic Resonator\".",
 	"effects": [
 		{
 			"blurb": "Resonate",

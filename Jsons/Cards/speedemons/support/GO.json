@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "GO",
-	"effText": "If you don't have a discarded \"Set\", deck->hand \"Ready\" and reshuffle me. If you do, move each Speedemon 1 space.",
+	"effText": "If you don't have a discarded \"Set\", deck \u2192 hand \"Ready\" and reshuffle me. If you do, move each Speedemon 1 space.",
 	"effects": [
 		{
 			"triggerData": {

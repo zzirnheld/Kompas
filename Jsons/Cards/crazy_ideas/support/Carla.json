@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Carla",
-	"effText": "[USES.0.Once] each turn, you can discard->hand a friendly Crazy card.",
+	"effText": "[USES.0.Once] each turn, you can discard \u2192 hand a friendly Crazy card.",
 	"effects": [
 		{
 			"blurb": "Intern Nonsense",

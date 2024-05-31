@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Begin the Masquerade",
-	"effText": "Reveal a Mask. Pip deck->summon a Dancer.",
+	"effText": "Reveal a Mask. Pip deck \u2192 summon a Dancer.",
 	"effects": [
 		{
 			"triggerData": {

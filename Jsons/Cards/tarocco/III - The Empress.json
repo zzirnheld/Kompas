@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "III - The Empress",
-	"effText": "When you draw X cards, you MUST hand->summon an S <= X character.",
+	"effText": "When you draw X cards, you MUST hand \u2192 summon an S <= X character.",
 	"effects": [
 		{
 			"triggerData": {

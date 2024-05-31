@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Cannot Be Created Nor Destroyed",
-	"effText": "When turns start, discard->reshuffle all X friendly Pulsars, give your Avatar +-X S, and draw 1 card.",
+	"effText": "When turns start, discard \u2192 reshuffle all X friendly Pulsars, give your Avatar +-X S, and draw 1 card.",
 	"effects": [
 		{
 			"triggerData": {

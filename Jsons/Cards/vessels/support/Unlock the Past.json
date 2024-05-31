@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Unlock the Past",
-	"effText": "Tribute an adjacent Vessel's Memory. Deck->bestow 2 distinct Memories unto that Vessel.",
+	"effText": "Tribute an adjacent Vessel's Memory. Deck \u2192 bestow 2 distinct Memories unto that Vessel.",
 	"effects": [
 		{
 			"triggerData": {

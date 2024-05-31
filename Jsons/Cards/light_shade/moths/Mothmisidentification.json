@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Mothmisidentification",
-	"effText": "Hand->reshuffle a Moth. Deck->hand a distinct Moth. Draw 1 card. Gain 1 pip.",
+	"effText": "Hand \u2192 reshuffle a Moth. Deck \u2192 hand a distinct Moth. Draw 1 card. Gain 1 pip.",
 	"effects": [
 		{
 			"triggerData": {

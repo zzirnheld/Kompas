@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "One Step Ahead",
-	"effText": "When I'm cast, deck->choose a Mech. At least 1 turn later, when a friendly Mech dies, deck->hand a copy of your choice, and repeat this process.",
+	"effText": "When I'm cast, deck \u2192 choose a Mech. At least 1 turn later, when a friendly Mech dies, deck \u2192 hand a copy of your choice, and repeat this process.",
 	"effects": [
 		{
 			"blurb": "Always thinking",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Pactbinder",
-	"effText": "When you summon a Skyknight normally, deck->hand Weather.\nWhen you cast Weather normally, deck->hand a Skyknight.",
+	"effText": "When you summon a Skyknight normally, deck \u2192 hand Weather.\nWhen you cast Weather normally, deck \u2192 hand a Skyknight.",
 	"effects": [
 		{
 			"blurb": "Bind weather",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Peruser of Ancient Texts",
-	"effText": "[USES.0.Once] each turn, you can hand->discard a card to deck->hand an Invocation.",
+	"effText": "[USES.0.Once] each turn, you can hand \u2192 discard a card to deck \u2192 hand an Invocation.",
 	"effects": [
 		{
 			"blurb": "What does this book say...",

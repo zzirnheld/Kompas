@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "The Woman of the Backwoods",
-	"effText": "When an enemy is summoned, deck->hand a Cryptid.",
+	"effText": "When an enemy is summoned, deck \u2192 hand a Cryptid.",
 	"effects": [
 		{
 			"triggerData": {

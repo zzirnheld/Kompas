@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Sacrifice to the Old Sea Gods",
-	"effText": "Hand->annihilate an Aquatic card, then me. Deck->cast Water where I was.",
+	"effText": "Hand \u2192 annihilate an Aquatic card, then me. Deck \u2192 cast Water where I was.",
 	"effects": [
 		{
 			"blurb": "Sea God Answers",

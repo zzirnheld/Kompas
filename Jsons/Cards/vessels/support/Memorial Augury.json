@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Memorial Augury",
-	"effText": "Tribute an adjacent S X Vessel. Deck->hand up to X distinct Memories.",
+	"effText": "Tribute an adjacent S X Vessel. Deck \u2192 hand up to X distinct Memories.",
 	"effects": [
 		{
 			"triggerData": {

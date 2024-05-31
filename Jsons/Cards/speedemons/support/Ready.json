@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Ready",
-	"effText": "Deck->hand \"Set\", then a Speedemon.",
+	"effText": "Deck \u2192 hand \"Set\", then a Speedemon.",
 	"effects": [
 		{
 			"triggerData": {
