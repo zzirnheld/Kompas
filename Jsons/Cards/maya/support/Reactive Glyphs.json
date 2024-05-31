@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Reactive Glyphs",
-	"effText": "The [USES0] time each turn a friendly Structure defends, give them +10 EW and attach me to them. (So if they die, so do I.)",
+	"effText": "The [USES.0.first] time each turn a friendly Structure defends, give them +10 EW and attach me to them. (So if they die, so do I.)",
 	"effects": [
 		{
 			"blurb":"Glyphs glow",

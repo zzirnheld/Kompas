@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Modular Experimenter",
-	"effText": "[USES0] each turn, you can swap a Module attached to a friendly character for 2 distinct Modules in your hand.",
+	"effText": "[USES.0.Once] each turn, you can swap a Module attached to a friendly character for 2 distinct Modules in your hand.",
 	"effects": [
 		{
 			"activationRestriction": {

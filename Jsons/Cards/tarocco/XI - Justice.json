@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "XI - Justice",
-	"effText": "[USES0] each turn, you can draw 1 card until you have as many in hand as your enemy.",
+	"effText": "[USES.0.Once] each turn, you can draw 1 card until you have as many in hand as your enemy.",
 	"effects": [
 		{
 			"activationRestriction": {

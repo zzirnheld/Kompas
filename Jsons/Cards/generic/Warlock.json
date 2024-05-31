@@ -1,7 +1,7 @@
 {
 	"cardType":67,
 	"cardName":"Warlock",
-	"effText":"The [USES0] time each turn you play another card that costs exactly 1, gain 1 pip.",
+	"effText":"The [USES.0.first] time each turn you play another card that costs exactly 1, gain 1 pip.",
 	"effects":[
 		{
 			"triggerData":

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Reconstructor",
-	"effText": "[USES0] each turn, you can pip revive a Structure to an adjacent space.",
+	"effText": "[USES.0.Once] each turn, you can pip revive a Structure to an adjacent space.",
 	"effects": [
 		{
 			"blurb": "Reconstruct",

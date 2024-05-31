@@ -135,8 +135,11 @@ namespace Kompas.Cards.Models
 		public int ControllingPlayerIndex => ControllingPlayer?.Index ?? 0;
 		public int OwnerIndex => OwningPlayer?.Index ?? -1;
 
-		private string _bbCodeEffText = string.Empty;
-		public override string BBCodeEffText => _bbCodeEffText;
+		private string fieldBBCodeEffText;
+		private string elseBBCodeEffText = string.Empty;
+		public override string BBCodeEffText => Location == Location.Board
+			? fieldBBCodeEffText
+			: elseBBCodeEffText;
 
 		//misc
 		private Location location;
@@ -217,7 +220,7 @@ namespace Kompas.Cards.Models
 
 		private void UpdateBBCodeEffectText(string effText)
 		{
-			_bbCodeEffText = OwningPlayer.Game.CardRepository.AddKeywordHints(effText);
+			(fieldBBCodeEffText, elseBBCodeEffText) = OwningPlayer.Game.CardRepository.Enhance(effText, Effects);
 		}
 
 		/// <summary>

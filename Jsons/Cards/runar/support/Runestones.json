@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Runestones",
-	"effText": "The [USES0] time each turn you cast a Rune, deck->hand a Rune.",
+	"effText": "The [USES.0.first] time each turn you cast a Rune, deck->hand a Rune.",
 	"effects": [
 		{
 			"triggerData": {

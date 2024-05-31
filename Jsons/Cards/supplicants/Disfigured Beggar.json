@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Disfigured Beggar",
-	"effText": "Supplicant: The [USES0] time each turn, move that character one space.",
+	"effText": "Supplicant: The [USES.0.first] time each turn, move that character one space.",
 	"effects": [
 		{
 			"triggerData": {

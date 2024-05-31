@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Al Angus Aston",
-	"effText": "[USES0] each turn, you can ask an enemy to reveal 2 cards. If they don't, give all friendly Reporters +1 NEWS and draw 1.",
+	"effText": "[USES.0.Once] each turn, you can ask an enemy to reveal 2 cards. If they don't, give all friendly Reporters +1 NEWS and draw 1.",
 	"effects": [
 		{
 			"blurb": "SHOW ME 2 CARDS",

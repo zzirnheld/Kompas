@@ -16,7 +16,7 @@ namespace Kompas.Cards.Loading
 		public string? FileNameFor(string? cardName);
 		public string? GetJsonFromName(string? cardName);
 
-		public string Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects);
+		public (string fieldText, string elseText) Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects);
 		public string AddKeywordHints(string effText);
 		public ReminderTextInfo LookupKeywordReminderText(string keyword);
 
@@ -59,7 +59,7 @@ namespace Kompas.Cards.Loading
 		private static readonly Regex numberSelectorRegex = new(@"Selectors.([^:]+):([^:]+):"); //NumberSelector:*:
 		private const string numberSelectorReplacement = @"Kompas.Effects.Models.Selectors.$1.$2, Kompas";
 
-		private static readonly Regex usesRegex = new(@"\[USES([^\]]+)]\]");
+		private static readonly Regex usesRegex = new(@"\[USES.([^\.]+).([^\]]+)\]");
 
 		protected static readonly JsonSerializerSettings CardLoadingSettings = new()
 		{
@@ -323,20 +323,23 @@ namespace Kompas.Cards.Loading
 			}
 		}
 
-		public string Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects)
+		public (string fieldText, string elseText) Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects)
 		{
 			string keywordsReplaced = AddKeywordHints(cardEffText);
-			var usagesReplaced = usesRegex.Replace(keywordsReplaced, match => UseToText(match, effects));
-			return usagesReplaced;
+			string replacedWithFallback = usesRegex.Replace(keywordsReplaced, match => UseToText(match, effects, true));
+			string replacedWithoutFallback = usesRegex.Replace(keywordsReplaced, match => UseToText(match, effects, false));
+			return (replacedWithoutFallback, replacedWithFallback);
 		}
 
-		private static string UseToText(Match match, IReadOnlyCollection<IEffect> effects)
+		private static string UseToText(Match match, IReadOnlyCollection<IEffect> effects, bool fallBack)
 		{
-			if (match.Groups.Count < 2)
+			if (match.Groups.Count < 3)
 			{
 				Logger.Warn("Somehow a use string only had 1 match group!");
 				return string.Empty;
 			}
+			if (fallBack) return match.Groups[2].Value;
+
 			if (!int.TryParse(match.Groups[1].Value, out int effIndex))
 			{
 				Logger.Err($"Uses argument {match.Groups[1].Value} was not an integer!");

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Yeet Modification",
-	"effText": "IFICATE.\n[USES0] each turn, you can yeet something 1 space.",
+	"effText": "IFICATE.\n[USES.0.Once] each turn, you can yeet something 1 space.",
 	"effects": [
 		{
 			"activationRestriction": {
