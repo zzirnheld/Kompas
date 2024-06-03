@@ -17,18 +17,13 @@ namespace Kompas.Client.Cards.Controllers
 	public partial class ClientCardController : Node3D, ICardController
 	{
 		[Export]
-		private Zoomable3DCardInfoDisplayer? _infoDisplayer;
-		private Zoomable3DCardInfoDisplayer InfoDisplayer => _infoDisplayer
-			?? throw new UnassignedReferenceException();
-
-		[Export]
-		private CardMouseController? _mouseController;
-		private CardMouseController MouseController => _mouseController
-			?? throw new UnassignedReferenceException();
+		private CardModelController? _cardModelController;
+		private CardModelController CardModelController => _cardModelController
+			?? throw new UnassignedReferenceException(nameof(_cardModelController));
 
 		[Export]
 		private AnimationPlayer? _animationPlayer;
-		private AnimationPlayer AnimationPlayer => _animationPlayer
+		public AnimationPlayer AnimationPlayer => _animationPlayer
 			?? throw new UnassignedReferenceException();
 
 		Node3D ICardController.Node => this;
@@ -75,7 +70,7 @@ namespace Kompas.Client.Cards.Controllers
 				if (_card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
 				_card = value
 					?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
-				CardView = new (InfoDisplayer, value);
+				CardView = new (CardModelController.InfoDisplayer, value);
 				AOEController = GameController.TargetingController.SpacesController.AddAOE();
 				//TODO: update AOE material accordingly, once that's something I have assigned
 				
@@ -91,10 +86,10 @@ namespace Kompas.Client.Cards.Controllers
 		public override void _Ready()
 		{
 			base._Ready();
-			MouseController.HoverBegin += (_, _) => Hover();
-			MouseController.HoverEnd += (_, _) => Unhover();
-			MouseController.LeftClick += (_, doubleClick) => Select(doubleClick);
-			MouseController.RightClick += (_, _) => ShowEffectDialog();
+			CardModelController.MouseController.HoverBegin += (_, _) => Hover();
+			CardModelController.MouseController.HoverEnd += (_, _) => Unhover();
+			CardModelController.MouseController.LeftClick += (_, doubleClick) => Select(doubleClick);
+			CardModelController.MouseController.RightClick += (_, _) => ShowEffectDialog();
 		}
 
 		public void Hover() => GameController.TargetingController.Highlight(Card);

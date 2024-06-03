@@ -1,5 +1,6 @@
-[gd_scene load_steps=142 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=143 format=3 uid="uid://dq50o17h7ceai"]
 
+[ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedIn3DCardInfoDisplayer.cs" id="2_0v3lq"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedOut3DCardInfoDisplayer.cs" id="2_cdddr"]
@@ -1350,8 +1351,11 @@ vertex_color_use_as_albedo = true
 material = SubResource("StandardMaterial3D_san0u")
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="Card Model Controller" type="Node3D"]
+[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_7rrlp")
+_infoDisplayer = NodePath("Actual Card Model")
+_mouseController = NodePath("Mouse Controller")
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("ZoomedOut", "ZoomedIn", "ValidTargetParticles", "CurrentTargetParticles")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
