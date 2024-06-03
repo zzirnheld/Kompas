@@ -7,7 +7,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 	public class AllOf : AllOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
 		//Again, don't love casting, but see ActivationRestriction
-        public int? MaxUsesPerTurn
+		public int? MaxUsesPerTurn
 		{
 			get
 			{
@@ -19,7 +19,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			}
 		}
 
-        public int? MaxUsesPerRound
+		public int? MaxUsesPerRound
 		{
 			get
 			{
@@ -31,7 +31,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			}
 		}
 
-        public int? MaxUsesPerStack
+		public int? MaxUsesPerStack
 		{
 			get
 			{
@@ -43,7 +43,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			}
 		}
 
-        protected override bool LogSoloElements => false;
+		protected override bool LogSoloElements => false;
 
 		/// <summary>
 		/// Reevaluates the trigger to check that any restrictions that could change between it being triggered
@@ -57,7 +57,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 
 	public class AnyOf : AnyOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
 	{
-        public int? MaxUsesPerTurn
+		public int? MaxUsesPerTurn
 		{
 			get
 			{
@@ -69,7 +69,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			}
 		}
 
-        public int? MaxUsesPerRound
+		public int? MaxUsesPerRound
 		{
 			get
 			{
@@ -81,7 +81,7 @@ namespace Kompas.Effects.Models.Restrictions.Triggering
 			}
 		}
 
-        public int? MaxUsesPerStack
+		public int? MaxUsesPerStack
 		{
 			get
 			{

@@ -71,11 +71,7 @@ namespace Kompas.Client.Gamestate
 
 		public bool CanDeclineFurtherTargets
 		{
-			set
-			{
-				if (CanDeclineFurtherTargetsButton == null) throw new System.NullReferenceException("Forgot to init");
-				CanDeclineFurtherTargetsButton.Visible = value;
-			}
+			set => CanDeclineFurtherTargetsButton.Visible = value;
 		}
 
 		public override void _Ready()

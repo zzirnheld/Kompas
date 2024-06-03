@@ -13,7 +13,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 		public string[] locations = { Location.Board.StringVersion() };
 
 		//I don't love doing casting, but it feels viscerally wrong to put a max per turn/round/stack as a property on IRestriction
-        public int? MaxUsesPerTurn
+		public int? MaxUsesPerTurn
 		{
 			get
 			{
@@ -25,7 +25,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 			}
 		}
 
-        public int? MaxUsesPerRound
+		public int? MaxUsesPerRound
 		{
 			get
 			{
@@ -37,7 +37,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 			}
 		}
 
-        public int? MaxUsesPerStack
+		public int? MaxUsesPerStack
 		{
 			get
 			{
@@ -49,7 +49,7 @@ namespace Kompas.Effects.Models.Restrictions.Players
 			}
 		}
 
-        protected override IEnumerable<IRestriction<IPlayer>> DefaultElements
+		protected override IEnumerable<IRestriction<IPlayer>> DefaultElements
 		{
 			get
 			{

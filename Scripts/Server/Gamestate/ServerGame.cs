@@ -251,37 +251,37 @@ namespace Kompas.Server.Gamestate
 
 		#region turn
 		public async Task StartTurn(bool notFirstTurn = true)
-        {
+		{
 			//trigger turn start effects
 			var contexts = IEventContext.Build(Trigger.TurnStart)
 				.ForPlayer(TurnPlayer)
 				.Capture(() => TurnStartOperations(notFirstTurn));
-            StackController.TriggerFor(contexts);
+			StackController.TriggerFor(contexts);
 
-            await StackController.CheckForResponse();
-        }
+			await StackController.CheckForResponse();
+		}
 
-        private void TurnStartOperations(bool notFirstTurn)
-        {
-            if (notFirstTurn)
-            {
-                if (TurnPlayer.Index == FirstTurnPlayer) RoundCount++;
-                TurnCount++;
-            }
+		private void TurnStartOperations(bool notFirstTurn)
+		{
+			if (notFirstTurn)
+			{
+				if (TurnPlayer.Index == FirstTurnPlayer) RoundCount++;
+				TurnCount++;
+			}
 
-            ServerNotifier.NotifyYourTurn(TurnPlayer);
-            ResetCardsForTurn();
+			ServerNotifier.NotifyYourTurn(TurnPlayer);
+			ResetCardsForTurn();
 
-            TurnPlayer.Pips += Leyload;
-            if (notFirstTurn) Draw(TurnPlayer);
+			TurnPlayer.Pips += Leyload;
+			if (notFirstTurn) Draw(TurnPlayer);
 
-            //do hand size
-            StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
+			//do hand size
+			StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
 
-            TurnChanged?.Invoke(this, TurnPlayer);
-        }
+			TurnChanged?.Invoke(this, TurnPlayer);
+		}
 
-        protected void ResetCardsForTurn()
+		protected void ResetCardsForTurn()
 		{
 			foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
 		}

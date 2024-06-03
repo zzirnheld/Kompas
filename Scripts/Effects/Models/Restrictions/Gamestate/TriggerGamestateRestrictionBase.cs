@@ -12,9 +12,9 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	/// </summary>
 	public abstract class TriggerGamestateRestrictionBase : ContextInitializeableBase, IGamestateRestriction, ITriggerRestriction
 	{
-        public int? MaxUsesPerTurn => null;
-        public int? MaxUsesPerStack => null;
-        public int? MaxUsesPerRound => null;
+		public int? MaxUsesPerTurn => null;
+		public int? MaxUsesPerStack => null;
+		public int? MaxUsesPerRound => null;
 		
 		public bool IsValid(int item, IResolutionContext context) => IsValid(context);
 		public bool IsValid(Space? item, IResolutionContext context) => IsValid(context);

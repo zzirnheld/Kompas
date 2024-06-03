@@ -5,7 +5,7 @@ using Kompas.Shared.Enumerable;
 
 namespace Kompas.Effects.Models.TriggeringEvent
 {
-    public class EventContext
+	public class EventContext
 		: IEventContext
 	{
 		public string TriggeringEvent { get; }

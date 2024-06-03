@@ -14,7 +14,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 		public virtual int? MaxUsesPerRound => null;
 		public virtual int? MaxUsesPerStack => null;
 
-        public bool IsValid(int item, IResolutionContext context) => IsValid(context);
+		public bool IsValid(int item, IResolutionContext context) => IsValid(context);
 		public bool IsValid(Space? item, IResolutionContext context) => IsValid(context);
 		public bool IsValid(IPlayer? item, IResolutionContext context) => IsValid(context);
 		public bool IsValid(IGameCardInfo? item, IResolutionContext context) => IsValid(context);

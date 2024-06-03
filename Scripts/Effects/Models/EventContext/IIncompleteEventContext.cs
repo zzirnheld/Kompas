@@ -4,7 +4,7 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models.TriggeringEvent
 {
-    public interface IIncompleteEventContext
+	public interface IIncompleteEventContext
 	{
 		public string TriggeringEvent { get; }
 
@@ -45,7 +45,7 @@ namespace Kompas.Effects.Models.TriggeringEvent
 		public Space? Space { get; }
 	}
 	
-    public static class IncompleteEventContextExtensions
+	public static class IncompleteEventContextExtensions
 	{
 		public static IEventContext CacheAfterEvent(this IIncompleteEventContext incomplete) => new EventContext(incomplete.TriggeringEvent)
 		{

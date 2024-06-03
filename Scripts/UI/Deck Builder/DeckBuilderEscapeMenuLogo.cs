@@ -57,21 +57,21 @@ namespace Kompas.UI.DeckBuilder
 		}
 
 		protected override void Progress(float x)
-        {
-            base.Progress(x);
-            ModulateVisibilty(x);
-        }
+		{
+			base.Progress(x);
+			ModulateVisibilty(x);
+		}
 
 		/// <summary>
 		/// Like all other xs in this code, 0.0 to 1.0 for 0 to 100%
 		/// </summary>
-        private void ModulateVisibilty(float x)
-        {
-            EscapeMenuHaze.Modulate = Visibility(x * x, initialHazeVisibility);
-            EscapeMenuButtons.Modulate = Visibility(ButtonTimeProportion(x), initialButtonVisibility);
-        }
+		private void ModulateVisibilty(float x)
+		{
+			EscapeMenuHaze.Modulate = Visibility(x * x, initialHazeVisibility);
+			EscapeMenuButtons.Modulate = Visibility(ButtonTimeProportion(x), initialButtonVisibility);
+		}
 
-        private Color Visibility(float x, float initialVisibility)
+		private Color Visibility(float x, float initialVisibility)
 			=> new(1f, 1f, 1f, initialVisibility + (x * (TargetVisibility - initialVisibility)));
 
 		private static float ButtonTimeProportion(float x) => (float)Math.Cbrt(x);

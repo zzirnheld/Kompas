@@ -171,9 +171,9 @@ namespace Kompas.UI.MainMenu
 			RotateTowards(RotationForVector(targetPosition));
 		}
 
-        public void RotateTowards(float angle) => RotateTowards(start => (_target ?? start).With(rotation: angle));
+		public void RotateTowards(float angle) => RotateTowards(start => (_target ?? start).With(rotation: angle));
 
-        public void RotateTowards(Positioning target) => RotateTowards(start => target);
+		public void RotateTowards(Positioning target) => RotateTowards(start => target);
 
 		public delegate Positioning From(Positioning start);
 

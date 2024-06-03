@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Kompas.Effects.Models.TriggeringEvent
 {
-    public class EventCapturer
+	public class EventCapturer
 	{
 		private readonly IReadOnlyCollection<IIncompleteEventContext> incompletes;
 

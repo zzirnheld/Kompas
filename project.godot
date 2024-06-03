@@ -31,6 +31,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="Kompas"
 
+[editor]
+
+script/templates_search_path="res://ScriptTemplates"
+
 [filesystem]
 
 import/fbx/enabled=false

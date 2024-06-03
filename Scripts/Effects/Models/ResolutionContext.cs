@@ -6,7 +6,7 @@ using Kompas.Gamestate;
 
 namespace Kompas.Effects.Models
 {
-    public class ResolutionContext : IResolutionContext
+	public class ResolutionContext : IResolutionContext
 	{
 		public IEventContext? TriggerContext { get; }
 

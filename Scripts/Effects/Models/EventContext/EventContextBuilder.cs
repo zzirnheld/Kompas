@@ -6,7 +6,7 @@ using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models.TriggeringEvent
 {
-    public class EventContextBuilder
+	public class EventContextBuilder
 		: IIncompleteEventContext
 	{
 		public string TriggeringEvent { get; }
@@ -27,10 +27,10 @@ namespace Kompas.Effects.Models.TriggeringEvent
 		public int? X { get; private set; }
 		public Space? Space { get; private set; }
 
-        private void DetermineCauseCard()
-        {
-            CauseCardBefore ??= GameCardInfo.CardInfoOf(StackableCause?.GetCause(MainCardBefore));
-        }
+		private void DetermineCauseCard()
+		{
+			CauseCardBefore ??= GameCardInfo.CardInfoOf(StackableCause?.GetCause(MainCardBefore));
+		}
 
 		public EventContextBuilder PrimarilyAffecting(IGameCardInfo card)
 		{
@@ -74,13 +74,13 @@ namespace Kompas.Effects.Models.TriggeringEvent
 		/// Prefer using CausedBy(GameCard) after, if you want to further override the cause with that function.
 		/// </summary>
 		public EventContextBuilder CausedBy(IStackable? stackableCause)
-        {
-            StackableCause = stackableCause;
-            DetermineCauseCard();
-            return this;
-        }
+		{
+			StackableCause = stackableCause;
+			DetermineCauseCard();
+			return this;
+		}
 
-        public EventContextBuilder During(IStackable? stackableEvent)
+		public EventContextBuilder During(IStackable? stackableEvent)
 		{
 			StackableEvent = stackableEvent;
 			return this;
@@ -111,7 +111,7 @@ namespace Kompas.Effects.Models.TriggeringEvent
 
 		public IEventContext CaptureNothing() => this.CacheAfterEvent();
 
-        public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent)
+		public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent)
 			=> EventCapturer.Capture(capturableEvent, this);
 
 		public delegate EventContextBuilder Cloner(EventContextBuilder toClone);
@@ -122,12 +122,12 @@ namespace Kompas.Effects.Models.TriggeringEvent
 		/// <summary>
 		/// Use CaptureAdditionalContexts if you want to include this builder as-is.
 		/// </summary>
-        public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, params Cloner[] cloneOperations)
+		public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, params Cloner[] cloneOperations)
 			=> EventCapturer.Capture(capturableEvent,
-                cloneOperations.Select(op => op(this)).ToArray());
+				cloneOperations.Select(op => op(this)).ToArray());
 
 		public IReadOnlyCollection<IEventContext> Capture(EventCapturer.CapturableEvent capturableEvent, IEnumerable<Cloner> cloneOperations)
 			=> EventCapturer.Capture(capturableEvent,
-                cloneOperations.Select(op => op(this)).ToArray());
-    }
+				cloneOperations.Select(op => op(this)).ToArray());
+	}
 }

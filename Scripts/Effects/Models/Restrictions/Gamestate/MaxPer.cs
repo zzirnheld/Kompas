@@ -30,7 +30,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate
 	{
 		public override int? MaxUsesPerTurn => max;
 
-        protected override int Uses => attacks
+		protected override int Uses => attacks
 			? InitializationContext.source?.AttacksThisTurn
 				?? throw new IllDefinedException()
 			: InitializationContext.effect?.TimesUsedThisTurn

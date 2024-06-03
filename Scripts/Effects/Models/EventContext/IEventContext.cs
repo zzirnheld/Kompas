@@ -2,12 +2,12 @@ using Kompas.Cards.Models;
 
 namespace Kompas.Effects.Models.TriggeringEvent
 {
-    /// <summary>
-    /// Describes an event that occurred.
-    /// Should be a superset of the information in IIncompleteEventContext,
-    /// but also including copies of anything that needs to be stashed after the event completes.
-    /// </summary>
-    public interface IEventContext
+	/// <summary>
+	/// Describes an event that occurred.
+	/// Should be a superset of the information in IIncompleteEventContext,
+	/// but also including copies of anything that needs to be stashed after the event completes.
+	/// </summary>
+	public interface IEventContext
 		: IIncompleteEventContext
 	{
 		/// <summary>
