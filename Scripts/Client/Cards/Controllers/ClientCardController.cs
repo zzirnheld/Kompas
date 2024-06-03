@@ -1,5 +1,6 @@
 
 using System;
+using System.Linq;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
@@ -31,6 +32,8 @@ namespace Kompas.Client.Cards.Controllers
 
 		private const string FocusedAnimationName = "Rotate";
 		private const string ResetAnimationName = "RESET";
+
+		private bool focused;
 
 		private ClientCardView? _cardView;
 		public ClientCardView CardView
@@ -70,10 +73,10 @@ namespace Kompas.Client.Cards.Controllers
 				if (_card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
 				_card = value
 					?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
-				CardView = new (CardModelController.InfoDisplayer, value);
+				CardView = new(CardModelController.InfoDisplayer, value);
 				AOEController = GameController.TargetingController.SpacesController.AddAOE();
 				//TODO: update AOE material accordingly, once that's something I have assigned
-				
+
 				Card.LocationChanged += (_, _) => RefreshAOE();
 				Card.AugmentsChanged += (_, _) => RefreshAugments();
 			}
@@ -131,17 +134,10 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void RefreshAugments()
 		{
-			foreach (var (index, card) in Card.Augments.Enumerate())
-			{
-				var node = card.CardController.Node
-					?? throw new System.NullReferenceException("ClientCardController must have non-null nodes!");
-				this.TransferChild(node);
-				node.Visible = true;
-				node.Scale = Vector3.One * 0.2f;
-				var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
-				node.Rotation = new Vector3(0, rotation, 0);
-				node.Position = (Vector3.Up * 0.05f) + (Vector3.Right * index * 0.05f); //TODO better spread
-			}
+			var cardControllers = Card.Augments.Select(c => c.CardController);
+			if (focused) CardModelController.AugmentsController.Spread(cardControllers);
+			else CardModelController.AugmentsController.Stack(cardControllers);
+
 			AnythingRefreshed?.Invoke(this, Card);
 			AugmentsRefreshed?.Invoke(this, Card);
 		}
@@ -155,8 +151,10 @@ namespace Kompas.Client.Cards.Controllers
 
 		public void ShowFocused(bool value)
 		{
+			focused = value;
 			if (value) AnimationPlayer.Play(FocusedAnimationName);
 			else AnimationPlayer.Play(ResetAnimationName);
+			RefreshAugments();
 		}
 
 		public void RefreshTargeting()

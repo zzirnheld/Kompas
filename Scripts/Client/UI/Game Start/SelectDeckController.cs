@@ -92,7 +92,7 @@ namespace Kompas.Client.UI.GameStart
 
 		private void ClearDeck()
 		{
-			DeckContainer.ClearChildren();
+			DeckContainer.RemoveAndQueueFreeChildren();
 		}
 
 		private SelectDeckCardController CreateCardController()

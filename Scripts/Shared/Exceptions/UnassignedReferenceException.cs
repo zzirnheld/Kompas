@@ -1,4 +1,5 @@
 using System;
+using Godot;
 
 namespace Kompas.Shared.Exceptions
 {
@@ -6,6 +7,7 @@ namespace Kompas.Shared.Exceptions
 		: Exception
 	{
 		private readonly string? fieldName;
+		private readonly string? nodeName;
 
 		public UnassignedReferenceException()
 		{
@@ -17,9 +19,19 @@ namespace Kompas.Shared.Exceptions
 			this.fieldName = fieldName;
 		}
 
+		public UnassignedReferenceException(string fieldName, string nodeName)
+			: this(fieldName)
+		{
+			this.nodeName = nodeName;
+		}
+
+		public UnassignedReferenceException(string fieldName, Node node)
+			: this(fieldName, node.Name)
+		{}
+
 		public override string ToString()
 		{
-			return $"{base.ToString()} {fieldName}";
+			return $"{base.ToString()} {fieldName} on {nodeName}";
 		}
 	}
 }

@@ -1,34 +1,68 @@
 using Godot;
 using Kompas.Godot;
 using Kompas.Shared.Enumerable;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Kompas.Cards.Controllers
 {
 	public partial class CardAugmentsController : Node
 	{
 		private const float VerticalStackIncrement = 0.05f;
+		private const float VerticalSpreadHeight = 0.25f;
+		
+		private const float HorizontalStackIncrement = 0.05f;
+		private const float HorizontalSpreadRadius = 1f;
 
+		private const float AugmentScaleInStack = 0.75f;
+		private const float AugmentScaleInSpread = AugmentScaleInStack;
+
+		private static readonly Vector3 Rotation = new(0, Mathf.Pi, 0);
+
+		/// <summary>
+		/// IMPL NOTE: Does not remove/free children.
+		/// Children should be transferred/freed by the Remove method and its consequences.
+		/// </summary>
 		public void Stack(IEnumerable<ICardController> cards)
 		{
 			foreach (var (index, card) in cards.Enumerate())
 			{
 				var node = card.Node
-					?? throw new System.NullReferenceException("ClientCardController must have non-null nodes!");
+					?? throw new System.NullReferenceException("To stack augments, card controllers must have non-null nodes!");
 				this.TransferChild(node);
+
 				node.Visible = true;
-				node.Scale = Vector3.One * 0.2f;
-				var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
-				node.Rotation = new Vector3(0, rotation, 0);
-				node.Position = (Vector3.Up * VerticalStackIncrement)
-							  + (Vector3.Right * index * 0.05f); //TODO better spread
+				node.Scale = Vector3.One * AugmentScaleInStack;
+
+				node.Rotation = card.Card.ControllingPlayer.Index * Rotation;
+
+				node.Position = (Vector3.Up * index * VerticalStackIncrement)
+							  + (Vector3.Right * index * HorizontalStackIncrement); //TODO better spread
 			}
 		}
 
 		public void Spread(IEnumerable<ICardController> cards)
 		{
+			var cardsArr = cards.ToArray();
+			int count = cardsArr.Length;
 
+			foreach (var (index, card) in cardsArr.Enumerate())
+			{
+				var node = card.Node
+					?? throw new System.NullReferenceException("To stack augments, card controllers must have non-null nodes!");
+				this.TransferChild(node);
+
+				node.Visible = true;
+				node.Scale = Vector3.One * AugmentScaleInSpread;
+
+				node.Rotation = card.Card.ControllingPlayer.Index * Rotation;
+
+				float proportion = (float)index / count;
+				var spreadAngle = 2 * Mathf.Pi * proportion;
+				node.Position = (Vector3.Up * VerticalSpreadHeight)
+							  + (Vector3.Right * HorizontalSpreadRadius * Mathf.Cos(spreadAngle))
+							  + (Vector3.Back * HorizontalSpreadRadius * Mathf.Sin(spreadAngle));
+			}
 		}
 	}
 }

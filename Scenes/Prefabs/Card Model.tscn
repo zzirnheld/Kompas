@@ -1352,11 +1352,12 @@ vertex_color_use_as_albedo = true
 material = SubResource("StandardMaterial3D_san0u")
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController")]
+[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_7rrlp")
 _infoDisplayer = NodePath("Actual Card Model")
 _mouseController = NodePath("Mouse Controller")
+_augmentsController = NodePath("Augments Controller")
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("ZoomedOut", "ZoomedIn", "ValidTargetParticles", "CurrentTargetParticles")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)

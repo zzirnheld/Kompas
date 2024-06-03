@@ -30,7 +30,7 @@ namespace Kompas.Godot
 		/// Removes each of the parent node's children from the children list, and queues them to be freed
 		/// </summary>
 		/// <param name="parent"></param>
-		public static void ClearChildren(this Node parent)
+		public static void RemoveAndQueueFreeChildren(this Node parent)
 		{
 			foreach (var child in parent.GetChildren().ToArray())
 			{

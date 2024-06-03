@@ -10,11 +10,16 @@ namespace Kompas.Cards.Controllers
 		[Export]
 		private Zoomable3DCardInfoDisplayer? _infoDisplayer;
 		public Zoomable3DCardInfoDisplayer InfoDisplayer => _infoDisplayer
-			?? throw new UnassignedReferenceException();
+			?? throw new UnassignedReferenceException(nameof(_infoDisplayer), this);
 
 		[Export]
 		private CardMouseController? _mouseController;
 		public CardMouseController MouseController => _mouseController
-			?? throw new UnassignedReferenceException();
+			?? throw new UnassignedReferenceException(nameof(_mouseController), this);
+
+		[Export]
+		private CardAugmentsController? _augmentsController;
+		public CardAugmentsController AugmentsController => _augmentsController
+			?? throw new UnassignedReferenceException(nameof(_augmentsController), this);
 	}
 }
