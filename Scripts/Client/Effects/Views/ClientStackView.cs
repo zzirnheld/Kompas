@@ -48,6 +48,11 @@ namespace Kompas.Client.Effects.Views
 		private PackedScene AttackStackableView => _attackStackableView
 			?? throw new UnassignedReferenceException(nameof(_attackStackableView));
 
+		[Export]
+		private PackedScene? _handSizeStackableView;
+		private PackedScene HandSizeStackableView => _handSizeStackableView
+			?? throw new UnassignedReferenceException(nameof(_handSizeStackableView), this);
+
 		private readonly Dictionary<IResolvingStackable, ClientStackableView> stackableToView = new(new ResolvingStackableEqualityComparer());
 
 		public void Activated(IResolvingStackable<ClientEffect> stackable)
@@ -65,8 +70,18 @@ namespace Kompas.Client.Effects.Views
 		{
 			this.Visible = true;
 
-			var view = EffectStackableView.Instantiate<ClientAttackStackableView>();
+			var view = AttackStackableView.Instantiate<ClientAttackStackableView>();
 			view.Initialize(stackable.Stackable);
+			stackableToView[stackable] = view;
+
+			StackElementsParent.AddChild(view);
+		}
+
+		public void HandSize(IResolvingStackable<ClientHandSizeStackable> stackable)
+		{
+			this.Visible = true;
+
+			var view = HandSizeStackableView.Instantiate<ClientHandSizeStackableView>();
 			stackableToView[stackable] = view;
 
 			StackElementsParent.AddChild(view);

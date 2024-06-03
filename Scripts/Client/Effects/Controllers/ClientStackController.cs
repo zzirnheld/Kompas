@@ -6,6 +6,7 @@ using Kompas.Client.Effects.Views;
 using Kompas.Effects;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Client.Effects.Controllers
 {
@@ -40,6 +41,13 @@ namespace Kompas.Client.Effects.Controllers
 			var stackable = IResolvingStackable.Resolving(attack, default(IResolutionContext));
 			stack.Push(stackable);
 			stackView.Attacked(stackable);
+		}
+
+		public void HandSize(ClientHandSizeStackable handSize)
+		{
+			var stackable = IResolvingStackable.Resolving(handSize, default(IResolutionContext));
+			stack.Push(stackable);
+			stackView.HandSize(stackable);
 		}
 
 		public void Remove(int index)

@@ -1,4 +1,5 @@
-﻿using Kompas.Client.Gamestate;
+﻿using Kompas.Client.Effects.Models;
+using Kompas.Client.Gamestate;
 using Kompas.Networking.Packets;
 
 namespace Kompas.Networking.Packets
@@ -26,11 +27,8 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			//throw new System.NotImplementedException();
-			/*
 			var controller = clientGame.Players[controllerIndex];
-			clientGame.clientEffectsCtrl.Add(new ClientHandSizeStackable(controller));
-			*/
+			clientGame.StackController.HandSize(new ClientHandSizeStackable(clientGame, controller));
 		}
 	}
 }

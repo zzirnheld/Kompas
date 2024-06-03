@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=100 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -44,6 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://7r43fmww4fd" path="res://Scenes/Prefabs/Client Game/Attack Stack Element.tscn" id="31_r2bet"]
 [ext_resource type="Script" path="res://Scripts/UI/ScrollToEndContainer.cs" id="31_vpmwg"]
 [ext_resource type="PackedScene" uid="uid://x48p3g7uw88g" path="res://Scenes/Prefabs/Client Game/Effect Stack Element.tscn" id="32_hlx7m"]
+[ext_resource type="PackedScene" uid="uid://02767gf5wxkh" path="res://Scenes/Prefabs/Client Game/Hand Size Stack Element.tscn" id="33_1440h"]
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="37_8517u"]
 [ext_resource type="PackedScene" uid="uid://cvqukbgnck5ro" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="47_h3vrx"]
@@ -1132,6 +1133,7 @@ _currentlyResolvingParent = NodePath("MarginContainer/All Stack Container/Curren
 _currentlyResolvingPanel = NodePath("MarginContainer/All Stack Container/Currently Resolving Margin")
 _effectStackableView = ExtResource("32_hlx7m")
 _attackStackableView = ExtResource("31_r2bet")
+_handSizeStackableView = ExtResource("33_1440h")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View"]
 layout_mode = 1
