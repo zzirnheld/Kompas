@@ -7,6 +7,7 @@ using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
@@ -56,7 +57,10 @@ namespace Kompas.Cards.Models
 			}
 		}
 
-		public override bool Summoned => CardType != 'C' || Location == Location.Board;
+		public override bool Summoned
+			=> CardType == 'C'
+			&& Location == Location.Board
+			&& !IsAvatar;
 		public virtual bool CanRemove => true;
 		public virtual int CombatDamage => W;
 		#endregion stats

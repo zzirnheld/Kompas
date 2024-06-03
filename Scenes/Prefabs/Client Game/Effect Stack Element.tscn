@@ -27,6 +27,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.9
 text = "Effect Label"
+autowrap_mode = 2
 
 [node name="Secondary Card" type="TextureRect" parent="."]
 visible = false
