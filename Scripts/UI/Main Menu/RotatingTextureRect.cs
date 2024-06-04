@@ -121,13 +121,13 @@ namespace Kompas.UI.MainMenu
 			float anchorX = ManipulateAnchorTimeProportion(x);
 			AnchorLeft 	 = start.LeftAnchor   + (Target.LeftAnchor   - start.LeftAnchor)   * anchorX;
 			AnchorRight  = start.RightAnchor  + (Target.RightAnchor  - start.RightAnchor)  * anchorX;
-			AnchorTop 	 = start.TopAnchor	  + (Target.TopAnchor 	 - start.TopAnchor)	* anchorX;
+			AnchorTop 	 = start.TopAnchor	  + (Target.TopAnchor 	 - start.TopAnchor)	   * anchorX;
 			AnchorBottom = start.BottomAnchor + (Target.BottomAnchor - start.BottomAnchor) * anchorX;
 
 			float offsetX = ManipulateOffsetTimeProportion(x);
 			OffsetLeft 	 = start.LeftOffset   + (Target.LeftOffset   - start.LeftOffset)   * offsetX;
 			OffsetRight  = start.RightOffset  + (Target.RightOffset  - start.RightOffset)  * offsetX;
-			OffsetTop 	 = start.TopOffset	  + (Target.TopOffset 	 - start.TopOffset)	* offsetX;
+			OffsetTop 	 = start.TopOffset	  + (Target.TopOffset 	 - start.TopOffset)	   * offsetX;
 			OffsetBottom = start.BottomOffset + (Target.BottomOffset - start.BottomOffset) * offsetX;
 		}
 
@@ -159,6 +159,7 @@ namespace Kompas.UI.MainMenu
 			while (Rotation < -Math.PI) Rotation += FullClockwiseRotation;
 		}
 
+		//Hook up to TextureRect Resize() function
 		public void Resize()
 		{
 			//Logger.Log($"Resizing. Size is {Size} and rotation is {Rotation}");
