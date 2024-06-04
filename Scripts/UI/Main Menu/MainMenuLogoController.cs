@@ -85,24 +85,17 @@ namespace Kompas.UI.MainMenu
 		private void IfThreadCompleteLoadMenu(ulong startMsec)
 		{
 			if (loadingThread == null) throw new NullReferenceException("Must define the thread before this point!");
-			//Logger.Warn($"Was the repo initialized? {MainMenuCardRepository.Initialized}");
 			if (!loadingThread.IsAlive)
 			{
 				var destinationRotation = DestinationRotationWhenFinishingLoading;
 				var pastMenu = Start.With(rotation: destinationRotation);
 				var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
-				//TODO make duration calculated by distance from here + distance needed to spin
 				LogoController.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, pastMenu)
 				{
 					RotationProportion = x => x,
 					AdditionalStep = _ => {
 						//TODO refactor somehow, possibly to make arguments include rotation?
 						if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
-					},
-					OnArrival = () =>
-					{
-						LogoController.NormalizeAngle();
-						TopLeft.Visible = false;
 					},
 				});
 
@@ -112,6 +105,8 @@ namespace Kompas.UI.MainMenu
 
 		public void LookTowards(Button button)
 		{
+			LogoController.NormalizeAngle();
+			TopLeft.Visible = false;
 			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);
 			var positioning = LogoController.Target.Positioning.With(rotation: targetRotation);
 			LogoController.LookTowards(new(ButtonChooseDuration, SpinningLogoStateMachine.Destination.Destination, positioning));
