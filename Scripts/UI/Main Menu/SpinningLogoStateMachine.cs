@@ -11,8 +11,7 @@ namespace Kompas.UI.MainMenu
 		public enum State { Stationary, FreeSpinning, Transitioning }
 		public enum Destination { Open, Closed, Destination, Spin }
 
-		private State state;
-		private Destination destination;
+		public State CurrState { get; private set; } = State.Stationary;
 		/// <summary>
 		/// Bound by 0-1
 		/// </summary>
@@ -121,17 +120,6 @@ namespace Kompas.UI.MainMenu
 
 			public System.Action OnArrival { get; init; } = () => { };
 
-			/// <summary>
-			/// You should normalize on departure if you want to do extra circles before arriving at your target.<br/>
-			/// <b>Ex</b>: your destination is closed/open.<br/>
-			/// You should ALSO normalize before departure if you were free spinning,
-			/// but maybe I should TODO handle that in the free spinning thing?
-			/// You should NOT normalize before departure if your desired end state is just to get there,
-			/// preserving whatever rotation we started from,<br/>
-			/// <b>Ex</b>: your destination is just a button or something (in case we were opening/closing)
-			/// </summary>
-			public bool NormalizeOnDeparture { get; init; } = false;
-
 			public TransitionTarget(float duration, Destination destination, Positioning positioning)
 			{
 				Duration = duration;
@@ -150,8 +138,6 @@ namespace Kompas.UI.MainMenu
 
 						AdditionalStep = AdditionalStep,
 						OnArrival = OnArrival,
-
-						NormalizeOnDeparture = NormalizeOnDeparture
 					};
 
 			public override string ToString() => $"Duration {Duration}, initial progress {InitialProgress} to Positioning {Positioning}";
@@ -166,7 +152,7 @@ namespace Kompas.UI.MainMenu
 
 		public override void _Process(double delta)
 		{
-			switch (state)
+			switch (CurrState)
 			{
 				case State.Stationary: break;
 				case State.FreeSpinning:
@@ -178,7 +164,7 @@ namespace Kompas.UI.MainMenu
 					else Arrive();
 					break;
 				default:
-					throw new System.InvalidOperationException($"Didn't account for  {state}");
+					throw new System.InvalidOperationException($"Didn't account for  {CurrState}");
 			}
 		}
 
@@ -213,7 +199,7 @@ namespace Kompas.UI.MainMenu
 
 			Start = Target.Positioning;
 			Progress = 1f;
-			state = State.Stationary;
+			CurrState = State.Stationary;
 		}
 
 		private void SetPosition(Positioning positioning)
@@ -261,9 +247,8 @@ namespace Kompas.UI.MainMenu
 		{
 			Target = target;
 			Progress = Target.InitialProgress;
-			state = State.Transitioning;
+			CurrState = State.Transitioning;
 
-			if (Target.NormalizeOnDeparture) NormalizeAngle();
 			Start = Positioning.Of(ToControl);
 
 			Logger.Log($"Looking from {Start}\ntowards {Target}");
@@ -271,9 +256,15 @@ namespace Kompas.UI.MainMenu
 
 		public void RenameCurrentState(Destination destination)
 		{
-			state = State.Stationary;
+			CurrState = State.Stationary;
 			Target = new(0f, destination, Positioning.Of(ToControl));
 			Progress = 1f;
+		}
+
+		public void SkipTo(TransitionTarget target)
+		{
+			LookTowards(target);
+			Arrive();
 		}
 	}
 }

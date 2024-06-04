@@ -10,6 +10,7 @@ namespace Kompas.Shared.Controllers
 	{
 		private const float FullClockwiseRotation = 2f * System.MathF.PI;
 		private const float OpenDuration = 1f;
+		private const float SwapDuration = 0.5f;
 
 		[Export]
 		private SpinningLogoStateMachine? _spinningLogo;
@@ -44,7 +45,7 @@ namespace Kompas.Shared.Controllers
 
 		private readonly SpinningLogoStateMachine.Positioning Opened = new()
 		{
-			Rotation = (float)(-(6f / 4f) * System.MathF.PI),
+			Rotation = (float)(1f / 2f * System.MathF.PI),
 
 			LeftAnchor = -2f,
 			RightAnchor = 0.8f,
@@ -68,13 +69,13 @@ namespace Kompas.Shared.Controllers
 		{
 			var startingState = SpinningLogoStateMachine.Positioning.Of(SpinningLogoImage);
 			Closed = startingState.With(rotation: startingState.Rotation + FullClockwiseRotation); //So that we always end up circling back around before going
-			SpinningLogo.RenameCurrentState(SpinningLogoStateMachine.Destination.Closed);
+			SpinningLogo.SkipTo(new(1f, SpinningLogoStateMachine.Destination.Closed, Closed));
 		}
 
 		public readonly struct ButtonData
 		{
 			public string Text { get; init; }
-			public Action OnClick { get; init; }
+			public System.Action OnClick { get; init; }
 		}
 
 		private bool initialized = false;
@@ -87,22 +88,29 @@ namespace Kompas.Shared.Controllers
 			foreach (var buttonData in buttonsData)
 			{
 				var button = MenuButton.Instantiate<Button>();
-				
+
 				button.Text = buttonData.Text;
 				button.Pressed += buttonData.OnClick;
-				button.MouseEntered += () =>
-				{
-					var targetRotation = SpinningLogo.RotationForVectorIfAt(button.GlobalCenter(), SpinningLogo.Target.Positioning);
-					var newTarget = SpinningLogo.Target.Copy(
-						newPositioning: SpinningLogo.Target.Positioning.With(
-							rotation: targetRotation
-						)
-					);
-					SpinningLogo.LookTowards(newTarget);
-				};
+				button.MouseEntered += () => LookTowards(button);
 
 				ButtonsParent.AddChild(button);
 			}
+		}
+
+		private void LookTowards(Button button)
+		{
+			var targetRotation = SpinningLogo.RotationForVectorIfAt(button.GlobalCenter(), SpinningLogo.Target.Positioning);
+			var positioning = SpinningLogo.Target.Positioning.With(rotation: targetRotation);
+
+			var duration = SpinningLogo.Target.Destination switch
+			{
+				SpinningLogoStateMachine.Destination.Open => SpinningLogo.CurrState == SpinningLogoStateMachine.State.Stationary
+					? SwapDuration
+					: OpenDuration * (1 - SpinningLogo.Progress),
+				SpinningLogoStateMachine.Destination.Closed => OpenDuration * SpinningLogo.Progress,
+				_ => SwapDuration,
+			};
+			SpinningLogo.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, positioning));
 		}
 
 		public override void _Input(InputEvent inputEvent)
@@ -122,29 +130,28 @@ namespace Kompas.Shared.Controllers
 		private void Open()
 		{
 			Logger.Log("Opening!");
+			UpdateHaze(1f);
 			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Open, Opened)
 			{
-				NormalizeOnDeparture = true,
 				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Closed
 					? 1 - SpinningLogo.Progress
-					: 0f,
-				AdditionalStep = progress => UpdateHaze(progress), 
+					: 0f
 			});
 		}
 
 		private void Close()
 		{
 			Logger.Log("Closing!");
+			UpdateHaze(0f);
 			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Closed, Closed)
 			{
-				NormalizeOnDeparture = true,
 				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Open
 					? 1 - SpinningLogo.Progress
 					: 0f,
-				AdditionalStep = progress => UpdateHaze(1 - progress),
 			});
 		}
 
+		//NOTE: making this match progress conflicts with smoothly moving between angles while opening.
 		private void UpdateHaze(float progress)
 		{
 			EscapeMenuButtons.Modulate = new(1f, 1f, 1f, progress);

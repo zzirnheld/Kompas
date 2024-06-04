@@ -46,7 +46,6 @@ grow_vertical = 2
 texture = ExtResource("1_4ba04")
 
 [node name="Escape Menu Buttons" type="Control" parent="Normally Hidden Escape Menu"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchor_left = 0.8
 anchor_right = 1.0
@@ -67,6 +66,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Escape Menu Buttons" type="VBoxContainer" parent="Normally Hidden Escape Menu/Escape Menu Buttons/Escape Menu Buttons Margin"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="Spinning Logo On Splash" type="TextureRect" parent="."]
@@ -94,6 +94,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Logo Button" type="Button" parent="Spinning Logo On Splash/Full Area of Logo"]
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -111,6 +112,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Logo Controller" type="Control" parent="." node_paths=PackedStringArray("_toControl", "_centerOfControlled")]
 anchors_preset = 0
