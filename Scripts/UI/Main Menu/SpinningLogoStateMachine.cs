@@ -124,6 +124,8 @@ namespace Kompas.UI.MainMenu
 			/// <summary>
 			/// You should normalize on departure if you want to do extra circles before arriving at your target.<br/>
 			/// <b>Ex</b>: your destination is closed/open.<br/>
+			/// You should ALSO normalize before departure if you were free spinning,
+			/// but maybe I should TODO handle that in the free spinning thing?
 			/// You should NOT normalize before departure if your desired end state is just to get there,
 			/// preserving whatever rotation we started from,<br/>
 			/// <b>Ex</b>: your destination is just a button or something (in case we were opening/closing)
