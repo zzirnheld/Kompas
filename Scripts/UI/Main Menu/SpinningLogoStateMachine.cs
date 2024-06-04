@@ -200,6 +200,8 @@ namespace Kompas.UI.MainMenu
 			Start = Target.Positioning;
 			Progress = 1f;
 			CurrState = State.Stationary;
+
+			Target.OnArrival();
 		}
 
 		private void SetPosition(Positioning positioning)

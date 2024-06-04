@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using Kompas.Godot;
 using Kompas.Shared.Exceptions;
@@ -91,6 +90,8 @@ namespace Kompas.Shared.Controllers
 
 				button.Text = buttonData.Text;
 				button.Pressed += buttonData.OnClick;
+				//Make button default to being ignored, so as to not redirect the menu until it's fully enabled
+				button.MouseFilter = Control.MouseFilterEnum.Ignore;
 				button.MouseEntered += () => LookTowards(button);
 
 				ButtonsParent.AddChild(button);
@@ -130,32 +131,54 @@ namespace Kompas.Shared.Controllers
 		private void Open()
 		{
 			Logger.Log("Opening!");
-			UpdateHaze(1f);
 			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Open, Opened)
 			{
 				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Closed
 					? 1 - SpinningLogo.Progress
-					: 0f
+					: 0f,
+				AdditionalStep = progress => ModulateShowables(progress),
+				OnArrival = () => SetButtonsInteractable(true),
 			});
 		}
 
 		private void Close()
 		{
 			Logger.Log("Closing!");
-			UpdateHaze(0f);
+			SetButtonsInteractable(false);
 			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Closed, Closed)
 			{
 				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Open
 					? 1 - SpinningLogo.Progress
 					: 0f,
+				AdditionalStep = progress => ModulateShowables(1 - progress)
 			});
 		}
 
-		//NOTE: making this match progress conflicts with smoothly moving between angles while opening.
-		private void UpdateHaze(float progress)
+		private void SetButtonsInteractable(bool interactable)
+		{
+			foreach (var button in ButtonsParent.GetChildren())
+			{
+				if (button is not Control control) continue;
+				control.MouseFilter = interactable
+					? Control.MouseFilterEnum.Stop
+					: Control.MouseFilterEnum.Ignore; 
+			}
+		}
+
+		private void ModulateShowables(float progress)
+		{
+			ModulateButtons(progress * progress * progress * progress * progress);
+			ModulateHaze(System.MathF.Cbrt(progress));
+		}
+
+		private void ModulateButtons(float progress)
 		{
 			EscapeMenuButtons.Modulate = new(1f, 1f, 1f, progress);
-			EscapeMenuHaze.Modulate = new(1f, 1f, 1f, progress);
+		}
+
+		private void ModulateHaze(float progress)
+		{
+			EscapeMenuHaze.Modulate = new(0f, 0f, 0f, progress);
 		}
 	}
 }
