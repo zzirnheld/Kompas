@@ -16,8 +16,7 @@ namespace Kompas.UI.MainMenu
 		/// <summary>
 		/// Bound by 0-1
 		/// </summary>
-		private float progress;
-		private float rotationDuration;
+		public float Progress { get; private set; }
 
 		[Export]
 		private Control? _toControl;
@@ -30,13 +29,18 @@ namespace Kompas.UI.MainMenu
 			?? throw new UnassignedReferenceException(nameof(_centerOfControlled), this);
 
 		private TransitionTarget? _target = null;
-		protected TransitionTarget Target
+		public TransitionTarget Target
 		{
 			get => _target ?? throw new NotReadyYetException();
-			set => _target = value;
+			private set => _target = value;
 		}
 
-		private Positioning start;
+		private Positioning? _start;
+		private Positioning Start
+		{
+			get => _start ?? throw new NotReadyYetException();
+			set => _start = value;
+		}
 
 		public readonly struct Positioning
 		{
@@ -106,12 +110,16 @@ namespace Kompas.UI.MainMenu
 			/// Input and output both bound [0, 1]
 			/// </summary>
 			public delegate float ProgressToProportion(float progress);
-
 			public static readonly ProgressToProportion Cubic = x => 6 * ((x * x / 2) - (x * x * x / 3));
 
 			public ProgressToProportion AnchorProportion { get; init; } = x => x;
 			public ProgressToProportion OffsetProportion { get; init; } = x => x;
 			public ProgressToProportion RotationProportion { get; init; } = Cubic;
+
+			public delegate void ProgressStep(float progress);
+			public ProgressStep AdditionalStep { get; init; } = _ => { };
+
+			public System.Action OnArrival { get; init; } = () => { };
 
 			public bool NormalizeAngleOnArrival { get; init; } = true;
 
@@ -121,10 +129,14 @@ namespace Kompas.UI.MainMenu
 				Destination = destination;
 				Positioning = positioning;
 			}
+
+			public override string ToString() => $"Duration {Duration}, initial progress {InitialProgress} to Positioning {Positioning}";
 		}
 
 		public override void _Ready()
 		{
+			Start = Positioning.Of(ToControl);
+			Target = new(0f, Destination.Destination, Positioning.Of(ToControl));
 			ToControl.Resized += () => ToControl.PivotOffset = ToControl.Size / 2;
 		}
 
@@ -137,8 +149,8 @@ namespace Kompas.UI.MainMenu
 					ToControl.Rotation += (float) (FreeSpinningRotationPerSecond * delta);
 					break;
 				case State.Transitioning:
-					progress += (float) (delta / rotationDuration);
-					if (progress < 1f) Progress();
+					Progress += (float) (delta / Target.Duration);
+					if (Progress < 1f) MakeProgress();
 					else Arrive();
 					break;
 				default:
@@ -150,25 +162,29 @@ namespace Kompas.UI.MainMenu
 		/// Progress the rotation towards its endpoint
 		/// </summary>
 		/// <param name="progress">[0, 1] progress along duration</param>
-		private void Progress()
+		private void MakeProgress()
 		{
-			ToControl.Rotation = start.Rotation + ((Target.Positioning.Rotation - start.Rotation) * Target.RotationProportion(progress));
+			//Logger.Log($"Progress {Progress}");
+			ToControl.Rotation = Start.Rotation + ((Target.Positioning.Rotation - Start.Rotation) * Target.RotationProportion(Progress));
 
-			float anchorProportion = Target.AnchorProportion(progress);
-			ToControl.AnchorLeft   = start.LeftAnchor   + (Target.Positioning.LeftAnchor   - start.LeftAnchor)   * anchorProportion;
-			ToControl.AnchorRight  = start.RightAnchor  + (Target.Positioning.RightAnchor  - start.RightAnchor)  * anchorProportion;
-			ToControl.AnchorTop    = start.TopAnchor    + (Target.Positioning.TopAnchor    - start.TopAnchor)    * anchorProportion;
-			ToControl.AnchorBottom = start.BottomAnchor + (Target.Positioning.BottomAnchor - start.BottomAnchor) * anchorProportion;
+			float anchorProportion = Target.AnchorProportion(Progress);
+			ToControl.AnchorLeft   = Start.LeftAnchor   + (Target.Positioning.LeftAnchor   - Start.LeftAnchor)   * anchorProportion;
+			ToControl.AnchorRight  = Start.RightAnchor  + (Target.Positioning.RightAnchor  - Start.RightAnchor)  * anchorProportion;
+			ToControl.AnchorTop    = Start.TopAnchor    + (Target.Positioning.TopAnchor    - Start.TopAnchor)    * anchorProportion;
+			ToControl.AnchorBottom = Start.BottomAnchor + (Target.Positioning.BottomAnchor - Start.BottomAnchor) * anchorProportion;
 
-			float offsetProportion = Target.OffsetProportion(progress);
-			ToControl.OffsetLeft   = start.LeftOffset   + (Target.Positioning.LeftOffset   - start.LeftOffset)   * offsetProportion;
-			ToControl.OffsetRight  = start.RightOffset  + (Target.Positioning.RightOffset  - start.RightOffset)  * offsetProportion;
-			ToControl.OffsetTop    = start.TopOffset    + (Target.Positioning.TopOffset    - start.TopOffset)    * offsetProportion;
-			ToControl.OffsetBottom = start.BottomOffset + (Target.Positioning.BottomOffset - start.BottomOffset) * offsetProportion;
+			float offsetProportion = Target.OffsetProportion(Progress);
+			ToControl.OffsetLeft   = Start.LeftOffset   + (Target.Positioning.LeftOffset   - Start.LeftOffset)   * offsetProportion;
+			ToControl.OffsetRight  = Start.RightOffset  + (Target.Positioning.RightOffset  - Start.RightOffset)  * offsetProportion;
+			ToControl.OffsetTop    = Start.TopOffset    + (Target.Positioning.TopOffset    - Start.TopOffset)    * offsetProportion;
+			ToControl.OffsetBottom = Start.BottomOffset + (Target.Positioning.BottomOffset - Start.BottomOffset) * offsetProportion;
+
+			Target.AdditionalStep(Progress);
 		}
 
 		private void Arrive()
 		{
+			Logger.Log($"Arrived at {Target.Positioning}");
 			ToControl.Rotation = Target.Positioning.Rotation;
 
 			ToControl.AnchorTop = Target.Positioning.TopAnchor;
@@ -183,7 +199,8 @@ namespace Kompas.UI.MainMenu
 
 			if (Target.NormalizeAngleOnArrival) NormalizeAngle();
 
-			start = Target.Positioning;
+			Start = Target.Positioning;
+			Progress = 1f;
 			state = State.Stationary;
 		}
 
@@ -196,6 +213,24 @@ namespace Kompas.UI.MainMenu
 		private float RotationForVector(Vector2 targetPosition)
 			=> Mathf.Atan2(targetPosition.X 					- CenterOfControlled.GlobalPosition.X,
 						   CenterOfControlled.GlobalPosition.Y 	- targetPosition.Y);
+
+		public void LookTowards(TransitionTarget target)
+		{
+			Target = target;
+			Progress = target.InitialProgress;
+			state = State.Transitioning;
+
+			Start = Positioning.Of(ToControl);
+
+			Logger.Log($"Looking from {Start} towards {target}");
+		}
+
+		public void RenameCurrentState(Destination destination)
+		{
+			state = State.Stationary;
+			Target = new(0f, destination, Positioning.Of(ToControl));
+			Progress = 1f;
+		}
 	}
 }
 

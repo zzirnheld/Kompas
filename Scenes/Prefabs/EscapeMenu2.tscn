@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctrmi7srh8d5d"]
+
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/EscapeMenuController2.cs" id="1_p84rb"]
+[ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="3_tf3nn"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/SpinningLogoStateMachine.cs" id="4_7suoi"]
+[ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="4_ig4hv"]
+
+[node name="Escape Menu" type="Control" node_paths=PackedStringArray("_spinningLogo", "_spinningLogoImage")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 2
+script = ExtResource("1_p84rb")
+_spinningLogo = NodePath("Logo Controller")
+_spinningLogoImage = NodePath("Spinning Logo On Splash")
+
+[node name="Normally Hidden Escape Menu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Background Haze" type="TextureRect" parent="Normally Hidden Escape Menu"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.611765)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tf3nn")
+
+[node name="Escape Menu Buttons" type="Control" parent="Normally Hidden Escape Menu"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Escape Menu Buttons Margin" type="MarginContainer" parent="Normally Hidden Escape Menu/Escape Menu Buttons"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Escape Menu Buttons" type="VBoxContainer" parent="Normally Hidden Escape Menu/Escape Menu Buttons/Escape Menu Buttons Margin"]
+layout_mode = 2
+
+[node name="Spinning Logo On Splash" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 50.0
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+mouse_filter = 2
+texture = ExtResource("4_ig4hv")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Full Area of Logo" type="Control" parent="Spinning Logo On Splash"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Logo Button" type="Button" parent="Spinning Logo On Splash/Full Area of Logo"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center of Spinning Logo" type="Control" parent="Spinning Logo On Splash"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo Controller" type="Control" parent="." node_paths=PackedStringArray("_toControl", "_centerOfControlled")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_7suoi")
+_toControl = NodePath("../Spinning Logo On Splash")
+_centerOfControlled = NodePath("../Spinning Logo On Splash/Center of Spinning Logo")
+
+[connection signal="pressed" from="Spinning Logo On Splash/Full Area of Logo/Logo Button" to="Spinning Logo On Splash" method="Toggle"]
