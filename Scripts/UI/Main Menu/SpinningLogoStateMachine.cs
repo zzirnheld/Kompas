@@ -209,21 +209,26 @@ namespace Kompas.UI.MainMenu
 		private void Arrive()
 		{
 			Logger.Log($"Arrived at {Target.Positioning}");
-			ToControl.Rotation = Target.Positioning.Rotation;
-
-			ToControl.AnchorTop = Target.Positioning.TopAnchor;
-			ToControl.AnchorBottom = Target.Positioning.BottomAnchor;
-			ToControl.AnchorLeft = Target.Positioning.LeftAnchor;
-			ToControl.AnchorRight = Target.Positioning.RightAnchor;
-
-			ToControl.OffsetTop = Target.Positioning.TopOffset;
-			ToControl.OffsetBottom = Target.Positioning.BottomOffset;
-			ToControl.OffsetLeft = Target.Positioning.LeftOffset;
-			ToControl.OffsetRight = Target.Positioning.RightOffset;
+			SetPosition(Target.Positioning);
 
 			Start = Target.Positioning;
 			Progress = 1f;
 			state = State.Stationary;
+		}
+
+		private void SetPosition(Positioning positioning)
+		{
+			ToControl.Rotation = positioning.Rotation;
+
+			ToControl.AnchorTop = positioning.TopAnchor;
+			ToControl.AnchorBottom = positioning.BottomAnchor;
+			ToControl.AnchorLeft = positioning.LeftAnchor;
+			ToControl.AnchorRight = positioning.RightAnchor;
+
+			ToControl.OffsetTop = positioning.TopOffset;
+			ToControl.OffsetBottom = positioning.BottomOffset;
+			ToControl.OffsetLeft = positioning.LeftOffset;
+			ToControl.OffsetRight = positioning.RightOffset;
 		}
 
 		private void NormalizeAngle()
@@ -238,9 +243,19 @@ namespace Kompas.UI.MainMenu
 			return angle;
 		}
 
-		private float RotationForVector(Vector2 targetPosition)
-			=> Mathf.Atan2(targetPosition.X 					- CenterOfControlled.GlobalPosition.X,
-						   CenterOfControlled.GlobalPosition.Y 	- targetPosition.Y);
+		//This only works to get you the rotation given the current center.
+		public float RotationForVector(Vector2 targetGlobalPosition)
+			=> Mathf.Atan2(targetGlobalPosition.X 				- CenterOfControlled.GlobalPosition.X,
+						   CenterOfControlled.GlobalPosition.Y 	- targetGlobalPosition.Y);
+
+		public float RotationForVectorIfAt(Vector2 targetGlobalPosition, Positioning destination)
+		{
+			var currentPos = Positioning.Of(ToControl);
+			SetPosition(destination);
+			var ret = RotationForVector(targetGlobalPosition);
+			SetPosition(currentPos);
+			return ret;
+		}
 
 		public void LookTowards(TransitionTarget target)
 		{

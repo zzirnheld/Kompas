@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/SaveAsController.cs" id="15_gjys2"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="17_wecxo"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="18_71cwr"]
-[ext_resource type="PackedScene" uid="uid://cvqukbgnck5ro" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="19_n56hw"]
+[ext_resource type="PackedScene" uid="uid://cvqukbgnck5ro" path="res://Scenes/Prefabs/OldEscapeMenu.tscn" id="19_n56hw"]
 
 [node name="Deck Builder Controller" type="Control" node_paths=PackedStringArray("_cardInfoDisplayer", "_deckController", "_reminderTextPopup", "_escapeMenu")]
 layout_mode = 3

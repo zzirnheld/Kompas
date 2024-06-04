@@ -47,7 +47,7 @@
 [ext_resource type="PackedScene" uid="uid://02767gf5wxkh" path="res://Scenes/Prefabs/Client Game/Hand Size Stack Element.tscn" id="33_1440h"]
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="37_8517u"]
-[ext_resource type="PackedScene" uid="uid://cvqukbgnck5ro" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="47_h3vrx"]
+[ext_resource type="PackedScene" uid="uid://ctrmi7srh8d5d" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="48_3yctp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ols17"]
 
@@ -1783,7 +1783,7 @@ alignment = 0
 visible = false
 layout_mode = 1
 
-[node name="Escape Menu" parent="UI" instance=ExtResource("47_h3vrx")]
+[node name="Escape Menu" parent="UI" instance=ExtResource("48_3yctp")]
 layout_mode = 1
 
 [connection signal="pressed" from="UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button" to="Game Controller/Targeting Controller" method="DeclineFurtherTargets"]
