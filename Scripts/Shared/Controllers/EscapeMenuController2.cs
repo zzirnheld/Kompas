@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.MainMenu;
@@ -6,6 +7,7 @@ namespace Kompas.Shared.Controllers
 {
 	public partial class EscapeMenuController2 : Node
 	{
+		private const float FullClockwiseRotation = 2f * System.MathF.PI;
 		private const float OpenDuration = 1f;
 
 		[Export]
@@ -42,7 +44,8 @@ namespace Kompas.Shared.Controllers
 
 		public override void _Ready()
 		{
-			Closed = SpinningLogoStateMachine.Positioning.Of(SpinningLogoImage);
+			var startingState = SpinningLogoStateMachine.Positioning.Of(SpinningLogoImage);
+			Closed = startingState.With(rotation: startingState.Rotation + FullClockwiseRotation); //So that we always end up circling back around before going
 			SpinningLogo.RenameCurrentState(SpinningLogoStateMachine.Destination.Closed);
 		}
 
@@ -65,6 +68,7 @@ namespace Kompas.Shared.Controllers
 			Logger.Log("Opening!");
 			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Open, Opened)
 			{
+				NormalizeOnDeparture = true,
 				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Closed
 					? 1 - SpinningLogo.Progress
 					: 0f,
@@ -76,6 +80,7 @@ namespace Kompas.Shared.Controllers
 			Logger.Log("Closing!");
 			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Closed, Closed)
 			{
+				NormalizeOnDeparture = true,
 				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Open
 					? 1 - SpinningLogo.Progress
 					: 0f,

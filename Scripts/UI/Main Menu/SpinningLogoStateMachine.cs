@@ -121,7 +121,14 @@ namespace Kompas.UI.MainMenu
 
 			public System.Action OnArrival { get; init; } = () => { };
 
-			public bool NormalizeAngleOnArrival { get; init; } = true;
+			/// <summary>
+			/// You should normalize on departure if you want to do extra circles before arriving at your target.<br/>
+			/// <b>Ex</b>: your destination is closed/open.<br/>
+			/// You should NOT normalize before departure if your desired end state is just to get there,
+			/// preserving whatever rotation we started from,<br/>
+			/// <b>Ex</b>: your destination is just a button or something (in case we were opening/closing)
+			/// </summary>
+			public bool NormalizeOnDeparture { get; init; } = false;
 
 			public TransitionTarget(float duration, Destination destination, Positioning positioning)
 			{
@@ -129,6 +136,21 @@ namespace Kompas.UI.MainMenu
 				Destination = destination;
 				Positioning = positioning;
 			}
+
+			public TransitionTarget Copy(Positioning? newPositioning = null)
+				=> new(Duration, Destination, newPositioning ?? Positioning)
+					{
+						InitialProgress = InitialProgress,
+
+						AnchorProportion = AnchorProportion,
+						OffsetProportion = OffsetProportion,
+						RotationProportion = RotationProportion,
+
+						AdditionalStep = AdditionalStep,
+						OnArrival = OnArrival,
+
+						NormalizeOnDeparture = NormalizeOnDeparture
+					};
 
 			public override string ToString() => $"Duration {Duration}, initial progress {InitialProgress} to Positioning {Positioning}";
 		}
@@ -197,8 +219,6 @@ namespace Kompas.UI.MainMenu
 			ToControl.OffsetLeft = Target.Positioning.LeftOffset;
 			ToControl.OffsetRight = Target.Positioning.RightOffset;
 
-			if (Target.NormalizeAngleOnArrival) NormalizeAngle();
-
 			Start = Target.Positioning;
 			Progress = 1f;
 			state = State.Stationary;
@@ -206,8 +226,14 @@ namespace Kompas.UI.MainMenu
 
 		private void NormalizeAngle()
 		{
-			while (ToControl.Rotation > System.MathF.PI) ToControl.Rotation -= FullClockwiseRotation;
-			while (ToControl.Rotation < -System.MathF.PI) ToControl.Rotation += FullClockwiseRotation;
+			ToControl.Rotation = NormalizeAngle(ToControl.Rotation);
+		}
+
+		private static float NormalizeAngle(float angle)
+		{
+			while (angle > System.MathF.PI) angle -= FullClockwiseRotation;
+			while (angle < -System.MathF.PI) angle += FullClockwiseRotation;
+			return angle;
 		}
 
 		private float RotationForVector(Vector2 targetPosition)
@@ -217,12 +243,13 @@ namespace Kompas.UI.MainMenu
 		public void LookTowards(TransitionTarget target)
 		{
 			Target = target;
-			Progress = target.InitialProgress;
+			Progress = Target.InitialProgress;
 			state = State.Transitioning;
 
+			if (Target.NormalizeOnDeparture) NormalizeAngle();
 			Start = Positioning.Of(ToControl);
 
-			Logger.Log($"Looking from {Start} towards {target}");
+			Logger.Log($"Looking from {Start}\ntowards {Target}");
 		}
 
 		public void RenameCurrentState(Destination destination)
