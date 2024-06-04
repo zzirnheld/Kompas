@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckcvtia7thxt"]
+[gd_scene load_steps=10 format=3 uid="uid://ckcvtia7thxt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenu.cs" id="1_jcu2n"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_pef7p"]
 [ext_resource type="Theme" uid="uid://c0p1gwi3hho7o" path="res://Themes/MainMenuButtonTheme.tres" id="3_ipls1"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuButton.cs" id="3_s7n5j"]
-[ext_resource type="Script" path="res://Scripts/UI/Main Menu/StartSpinningButton.cs" id="5_28mb5"]
-[ext_resource type="Script" path="res://Scripts/UI/Main Menu/SplashScreenRotatingLogo.cs" id="8_466x3"]
 [ext_resource type="Theme" uid="uid://crqxt4wilagxb" path="res://Themes/Title.tres" id="8_cqwiq"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="8_fityg"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/SpinningLogoStateMachine.cs" id="8_m7ra3"]
@@ -60,7 +58,7 @@ vs Player"
 icon_alignment = 2
 vertical_icon_alignment = 2
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
+_spinningLogo = NodePath("")
 
 [node name="Solo Mode" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
@@ -70,7 +68,7 @@ theme = ExtResource("3_ipls1")
 text = "Incarnate
 vs Artifice"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
+_spinningLogo = NodePath("")
 
 [node name="Build Deck" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
@@ -80,7 +78,7 @@ theme = ExtResource("3_ipls1")
 text = "Ponder
 Strategems"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
+_spinningLogo = NodePath("")
 
 [node name="Host Server" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
@@ -90,7 +88,7 @@ theme = ExtResource("3_ipls1")
 text = "Bind
 Others"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
+_spinningLogo = NodePath("")
 
 [node name="Quit" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
@@ -99,14 +97,14 @@ size_flags_vertical = 3
 theme = ExtResource("3_ipls1")
 text = "Escape"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("../../../Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash")
+_spinningLogo = NodePath("")
 
 [node name="Contain Spinning Logo" type="Control" parent="Horizontal Organizer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="Splash Screen Background" type="Control" parent="."]
+[node name="Splash Screen and Logo" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -115,7 +113,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Control2" type="Control" parent="Splash Screen Background"]
+[node name="Splash Screen Background" type="Control" parent="Splash Screen and Logo"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -123,7 +121,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background2" type="TextureRect" parent="Splash Screen Background/Control2"]
+[node name="Background2" type="TextureRect" parent="Splash Screen and Logo/Splash Screen Background"]
 modulate = Color(0.137255, 0.0980392, 0.254902, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -133,7 +131,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_pef7p")
 
-[node name="Button" type="Button" parent="Splash Screen Background/Control2"]
+[node name="Button" type="Button" parent="Splash Screen and Logo/Splash Screen Background"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -141,15 +139,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("5_28mb5")
 
-[node name="Control" type="Control" parent="Splash Screen Background/Control2"]
+[node name="Control" type="Control" parent="Splash Screen and Logo/Splash Screen Background"]
 layout_mode = 1
 anchor_right = 0.45
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Splash Screen Background/Control2/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Splash Screen and Logo/Splash Screen Background/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,12 +155,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="Splash Screen Background/Control2/Control/VBoxContainer"]
+[node name="Control" type="Control" parent="Splash Screen and Logo/Splash Screen Background/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Splash Screen and Logo/Splash Screen Background/Control/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -172,7 +169,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control/MarginContainer"]
+[node name="Label" type="Label" parent="Splash Screen and Logo/Splash Screen Background/Control/VBoxContainer/Control/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 theme = ExtResource("8_cqwiq")
@@ -181,12 +178,12 @@ text = "Kompas"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Control2" type="Control" parent="Splash Screen Background/Control2/Control/VBoxContainer"]
+[node name="Control2" type="Control" parent="Splash Screen and Logo/Splash Screen Background/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control2"]
+[node name="MarginContainer" type="MarginContainer" parent="Splash Screen and Logo/Splash Screen Background/Control/VBoxContainer/Control2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -195,7 +192,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Splash Screen Background/Control2/Control/VBoxContainer/Control2/MarginContainer"]
+[node name="Label" type="Label" parent="Splash Screen and Logo/Splash Screen Background/Control/VBoxContainer/Control2/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("9_q4plg")
@@ -204,7 +201,7 @@ text = "Click anywhere to begin"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Horizontal Organizer2" type="HBoxContainer" parent="Splash Screen Background"]
+[node name="Horizontal Organizer2" type="HBoxContainer" parent="Splash Screen and Logo"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -213,19 +210,21 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Left Spacer" type="Control" parent="Splash Screen Background/Horizontal Organizer2"]
+[node name="Left Spacer" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 mouse_filter = 2
 
-[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen Background/Horizontal Organizer2" node_paths=PackedStringArray("_logoController")]
+[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2" node_paths=PackedStringArray("_logoController", "_topLeft", "_topRight")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("9_r8gas")
 _logoController = NodePath("Logo State Machine")
+_topLeft = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Left")
+_topRight = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Right")
 
-[node name="Logo State Machine" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller" node_paths=PackedStringArray("_toControl", "_centerOfControlled")]
+[node name="Logo State Machine" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller" node_paths=PackedStringArray("_toControl", "_centerOfControlled")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -237,22 +236,90 @@ script = ExtResource("8_m7ra3")
 _toControl = NodePath("Spinning Logo On Splash")
 _centerOfControlled = NodePath("Spinning Logo On Splash/Center of Spinning Logo")
 
-[node name="Spinning Logo On Splash" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine"]
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine"]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
+anchor_left = -0.1
+anchor_right = 2.15
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.785398
-pivot_offset = Vector2(574, 574)
+pivot_offset = Vector2(1291, 1291)
 size_flags_horizontal = 3
 mouse_filter = 2
 texture = ExtResource("8_fityg")
 expand_mode = 5
 stretch_mode = 4
 
-[node name="Full Area of Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash"]
+[node name="Parent" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.99994
+offset_top = 2.07082
+offset_right = -5.0
+offset_bottom = 2.0708
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Top Left" type="TextureRect" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Parent"]
+visible = false
+self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.25
+anchor_top = -0.25
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 5.0
+offset_bottom = 5.0
+mouse_filter = 0
+texture = ExtResource("2_pef7p")
+
+[node name="Top Right" type="TextureRect" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Parent"]
+self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = -0.25
+anchor_right = 1.25
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_bottom = 5.0
+mouse_filter = 0
+texture = ExtResource("2_pef7p")
+
+[node name="Bottom Left" type="TextureRect" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Parent"]
+self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.25
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.25
+offset_top = -5.0
+offset_right = 5.0
+mouse_filter = 0
+texture = ExtResource("2_pef7p")
+
+[node name="Bottom Right" type="TextureRect" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Parent"]
+self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 1.25
+anchor_bottom = 1.25
+offset_left = -5.0
+offset_top = -5.0
+mouse_filter = 0
+texture = ExtResource("2_pef7p")
+
+[node name="Full Area of Logo" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -262,7 +329,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Logo Button" type="Button" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Full Area of Logo"]
+[node name="Logo Button" type="Button" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Full Area of Logo"]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -272,7 +339,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Center of Spinning Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash"]
+[node name="Center of Spinning Logo" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -282,114 +349,10 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="Contain Spinning Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.0
-mouse_filter = 2
-
-[node name="Spinning Logo On Splash" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo" node_paths=PackedStringArray("_leftSpacer", "_topLeft", "_topRight", "_bottomLeft", "_bottomRight", "_disappearDuringTransition", "_center")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.1
-anchor_right = 2.15
-anchor_bottom = 1.0
-grow_vertical = 2
-rotation = -0.785398
-pivot_offset = Vector2(1296, 1296)
-mouse_filter = 2
-texture = ExtResource("8_fityg")
-expand_mode = 5
-stretch_mode = 4
-script = ExtResource("8_466x3")
-_leftSpacer = NodePath("../../Left Spacer")
-_topLeft = NodePath("Parent/Top Left")
-_topRight = NodePath("Parent/Top Right")
-_bottomLeft = NodePath("Parent/Bottom Left")
-_bottomRight = NodePath("Parent/Bottom Right")
-_disappearDuringTransition = [NodePath("../../../Control2")]
-_center = NodePath("Center of Spinning Logo")
-
-[node name="Parent" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Top Left" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
-visible = false
-self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.25
-anchor_top = -0.25
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 5.0
-offset_bottom = 5.0
-mouse_filter = 0
-texture = ExtResource("2_pef7p")
-
-[node name="Top Right" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
-self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = -0.25
-anchor_right = 1.25
-anchor_bottom = 0.5
-offset_left = -5.0
-offset_bottom = 5.0
-mouse_filter = 0
-texture = ExtResource("2_pef7p")
-
-[node name="Bottom Left" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
-self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.25
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.25
-offset_top = -5.0
-offset_right = 5.0
-mouse_filter = 0
-texture = ExtResource("2_pef7p")
-
-[node name="Bottom Right" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash/Parent"]
-self_modulate = Color(0.137255, 0.0980392, 0.254902, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 1.25
-anchor_bottom = 1.25
-offset_left = -5.0
-offset_top = -5.0
-mouse_filter = 0
-texture = ExtResource("2_pef7p")
-
-[node name="Center of Spinning Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
 
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Connect to Server" to="." method="ConnectToServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Build Deck" to="." method="BuildDeck"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Host Server" to="." method="HostServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Quit" to="." method="Quit"]
-[connection signal="pressed" from="Splash Screen Background/Control2/Button" to="Splash Screen Background/Control2/Button" method="BecomeInvisible"]
-[connection signal="pressed" from="Splash Screen Background/Control2/Button" to="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]
-[connection signal="pressed" from="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Full Area of Logo/Logo Button" to="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash" method="Toggle"]
-[connection signal="resized" from="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" to="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]
+[connection signal="pressed" from="Splash Screen and Logo/Splash Screen Background/Button" to="Splash Screen and Logo/Splash Screen Background/Button" method="BecomeInvisible"]
+[connection signal="pressed" from="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Full Area of Logo/Logo Button" to="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash" method="Toggle"]

@@ -17,6 +17,16 @@ namespace Kompas.UI.MainMenu
 		private SpinningLogoStateMachine LogoController => _logoController
 			?? throw new UnassignedReferenceException(nameof(_logoController), this);
 
+		[Export]
+		private Control? _topLeft;
+		private Control TopLeft => _topLeft
+			?? throw new UnassignedReferenceException(nameof(_topLeft), this);
+
+		[Export]
+		private Control? _topRight;
+		private Control TopRight => _topRight
+			?? throw new UnassignedReferenceException(nameof(_topRight), this);
+
 
 		private SpinningLogoStateMachine.Positioning? _start;
 		private SpinningLogoStateMachine.Positioning Start
@@ -25,8 +35,12 @@ namespace Kompas.UI.MainMenu
 			set => _start = value;
 		}
 
+		private Thread? loadingThread;
+
 		public override void _Ready()
 		{
+			loadingThread = new(CardLoader.LoadCards);
+			loadingThread.Start();
 			Start = SpinningLogoStateMachine.Positioning.Of(LogoController.ToControl); //TODO factor this out to a .CurrentPositioning
 			FirstThing();
 		}
@@ -44,10 +58,10 @@ namespace Kompas.UI.MainMenu
 
 		private void SpinUntilLoad()
 		{
-			Thread thread = new(CardLoader.LoadCards);
-			thread.Start();
+			TopLeft.Visible = true;
+
 			var now = Time.GetTicksMsec();
-			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(thread, now));
+			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(now));
 		}
 
 		public class CardLoader
@@ -58,15 +72,29 @@ namespace Kompas.UI.MainMenu
 			}
 		}
 
-		private void IfThreadCompleteLoadMenu(Thread thread, ulong startMsec)
+		private const float DestinationRotationWhenFinishingLoading = -11f / 8f * FullClockwiseRotation;
+		private const float WhenMakeTopRightInvisible = DestinationRotationWhenFinishingLoading + (1f / 2f * FullClockwiseRotation);
+
+		private void IfThreadCompleteLoadMenu(ulong startMsec)
 		{
+			if (loadingThread == null) throw new NullReferenceException("Must define the thread before this point!");
 			//Logger.Warn($"Was the repo initialized? {MainMenuCardRepository.Initialized}");
-			if (!thread.IsAlive)
+			if (!loadingThread.IsAlive)
 			{
-				var pastMenu = Start.With(rotation: -3f / 8f * FullClockwiseRotation);
+				var destinationRotation = DestinationRotationWhenFinishingLoading;
+				var pastMenu = Start.With(rotation: destinationRotation);
+				var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
 				//TODO make duration calculated by distance from here + distance needed to spin
-				LogoController.LookTowards(new(FirstWipeDuration, SpinningLogoStateMachine.Destination.Destination, pastMenu));
-				Logger.Log($"Loading took {Time.GetTicksMsec() - startMsec} ms");
+				LogoController.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, pastMenu)
+				{
+					RotationProportion = x => x,
+					AdditionalStep = _ => {
+						//TODO refactor somehow, possibly to make arguments include rotation?
+						if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
+					}
+				});
+
+				Logger.Log($"Loading took {Time.GetTicksMsec() - startMsec} ms after reaching the point where we'd start spinning");
 			}
 		}
 	}
