@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckcvtia7thxt"]
+[gd_scene load_steps=12 format=3 uid="uid://ckcvtia7thxt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenu.cs" id="1_jcu2n"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="2_pef7p"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/SplashScreenRotatingLogo.cs" id="8_466x3"]
 [ext_resource type="Theme" uid="uid://crqxt4wilagxb" path="res://Themes/Title.tres" id="8_cqwiq"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="8_fityg"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/SpinningLogoStateMachine.cs" id="8_m7ra3"]
 [ext_resource type="Theme" uid="uid://c3rh5m2mgqkxm" path="res://Themes/Subtitle.tres" id="9_q4plg"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/MainMenuLogoController.cs" id="9_r8gas"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -217,7 +219,72 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 mouse_filter = 2
 
+[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen Background/Horizontal Organizer2" node_paths=PackedStringArray("_logoController")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("9_r8gas")
+_logoController = NodePath("Logo State Machine")
+
+[node name="Logo State Machine" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller" node_paths=PackedStringArray("_toControl", "_centerOfControlled")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("8_m7ra3")
+_toControl = NodePath("Spinning Logo On Splash")
+_centerOfControlled = NodePath("Spinning Logo On Splash/Center of Spinning Logo")
+
+[node name="Spinning Logo On Splash" type="TextureRect" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.785398
+pivot_offset = Vector2(574, 574)
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("8_fityg")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Full Area of Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Logo Button" type="Button" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Full Area of Logo"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center of Spinning Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="Contain Spinning Logo" type="Control" parent="Splash Screen Background/Horizontal Organizer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
@@ -324,4 +391,5 @@ grow_vertical = 2
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Quit" to="." method="Quit"]
 [connection signal="pressed" from="Splash Screen Background/Control2/Button" to="Splash Screen Background/Control2/Button" method="BecomeInvisible"]
 [connection signal="pressed" from="Splash Screen Background/Control2/Button" to="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="SpinOut"]
+[connection signal="pressed" from="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Full Area of Logo/Logo Button" to="Splash Screen Background/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash" method="Toggle"]
 [connection signal="resized" from="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" to="Splash Screen Background/Horizontal Organizer2/Contain Spinning Logo/Spinning Logo On Splash" method="Resize"]

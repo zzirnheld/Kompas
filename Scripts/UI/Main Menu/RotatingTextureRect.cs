@@ -137,7 +137,7 @@ namespace Kompas.UI.MainMenu
 
 		protected virtual void Arrive()
 		{
-			Logger.Log($"Arrived at {Target.Rotation}!");
+			//Logger.Log($"Arrived at {Target.Rotation}!");
 			Rotation = Target.Rotation;
 
 			AnchorTop = Target.TopAnchor;
@@ -182,13 +182,13 @@ namespace Kompas.UI.MainMenu
 		{
 			if (ArriveBeforeStartingNext)
 			{
-				Logger.Log($"Arriving at {Target} before starting next rotation");
+				//Logger.Log($"Arriving at {Target} before starting next rotation");
 				Arrive();
 			}
 
 			start = Positioning.Of(this);
 			Target = from(start);
-			Logger.Log($"Rotating from {start} to {Target}");
+			//Logger.Log($"Rotating from {start} to {Target}");
 			Time = 0f;
 		}
 

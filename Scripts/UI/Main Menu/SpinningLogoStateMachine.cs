@@ -9,7 +9,7 @@ namespace Kompas.UI.MainMenu
 		private const float FreeSpinningRotationPerSecond = 1f * FullClockwiseRotation;
 
 		public enum State { Stationary, FreeSpinning, Transitioning }
-		public enum Destination { Open, Closed, Destination, Spin }
+		public enum Destination { Open, Closed, Destination, SpinClockwise, SpinCounterclockwise }
 
 		public State CurrState { get; private set; } = State.Stationary;
 		/// <summary>
@@ -19,7 +19,7 @@ namespace Kompas.UI.MainMenu
 
 		[Export]
 		private Control? _toControl;
-		private Control ToControl => _toControl
+		public Control ToControl => _toControl
 			?? throw new UnassignedReferenceException(nameof(_toControl), this);
 
 		[Export]
@@ -100,6 +100,9 @@ namespace Kompas.UI.MainMenu
 		public class TransitionTarget
 		{
 			public Destination Destination { get; }
+			/// <summary>
+			/// In the case of a Spin, this is the duration of a full rotation
+			/// </summary>
 			public float Duration { get; }
 			public Positioning Positioning { get; }
 
@@ -156,7 +159,9 @@ namespace Kompas.UI.MainMenu
 			{
 				case State.Stationary: break;
 				case State.FreeSpinning:
-					ToControl.Rotation += (float) (FreeSpinningRotationPerSecond * delta);
+					ToControl.Rotation += ((Target.Destination == Destination.SpinClockwise) ? 1f : -1f)
+						* (float) (FullClockwiseRotation * delta / Target.Duration);
+					Target.AdditionalStep(0f);
 					break;
 				case State.Transitioning:
 					Progress += (float) (delta / Target.Duration);
@@ -254,6 +259,16 @@ namespace Kompas.UI.MainMenu
 			Start = Positioning.Of(ToControl);
 
 			Logger.Log($"Looking from {Start}\ntowards {Target}");
+		}
+
+		public void SpinCounterClockwise(float fullCircleDuration, TransitionTarget.ProgressStep? step = null)
+		{
+			Target = new(fullCircleDuration, Destination.SpinCounterclockwise, new())
+			{
+				//If none is provided, default to a no-op
+				AdditionalStep = step ?? (_ => { }),
+			};
+			CurrState = State.FreeSpinning;
 		}
 
 		public void RenameCurrentState(Destination destination)

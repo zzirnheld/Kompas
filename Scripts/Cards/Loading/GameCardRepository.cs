@@ -22,6 +22,7 @@ namespace Kompas.Cards.Loading
 			: base(fileLoader, throwExceptions)
 		{
 			CardPrefab = cardPrefab;
+			Initialize();
 		}
 
 		private static IList<TEffect> GetKeywordEffects(SerializableCard card)

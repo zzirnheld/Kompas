@@ -85,6 +85,7 @@ namespace Kompas.Cards.Loading
 			set => _reminders = value;
 		}
 		private static bool initalized = false;
+		public static bool Initialized => initalized;
 		private static readonly object initializationLock = new();
 
 		private static Texture2D? _charCardFrameTexture;
@@ -112,7 +113,6 @@ namespace Kompas.Cards.Loading
 		{
 			this.fileLoader = fileLoader;
 			this.throwExceptions = throwExceptions;
-			Initialize();
 		}
 
 		public interface IFileLoader
@@ -156,7 +156,9 @@ namespace Kompas.Cards.Loading
 
 		public Texture2D? LoadSprite(string cardFileName) => fileLoader.LoadSprite(cardFileName);
 
-		private void Initialize()
+		// Ideally, should be called as each card repository gets created.
+		// I don't think it's ok for this to be in the constructor.
+		protected void Initialize()
 		{
 			lock (initializationLock)
 			{

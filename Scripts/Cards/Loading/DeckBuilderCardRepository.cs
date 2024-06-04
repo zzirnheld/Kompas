@@ -9,7 +9,9 @@ namespace Kompas.Cards.Loading
 	{
 		public DeckBuilderCardRepository()
 			: base(IFileLoader.Godot, false)
-		{ }
+		{
+			Initialize();
+		}
 
 		public DeckBuilderCard CreateDeckBuilderCard(string cardName)
 		{
