@@ -27,6 +27,10 @@ namespace Kompas.UI.MainMenu
 		private Control TopRight => _topRight
 			?? throw new UnassignedReferenceException(nameof(_topRight), this);
 
+		[Export]
+		private Control? _clickToStart;
+		private Control ClickToStart => _clickToStart
+			?? throw new UnassignedReferenceException(nameof(_clickToStart), this);
 
 		private SpinningLogoStateMachine.Positioning? _start;
 		private SpinningLogoStateMachine.Positioning Start
@@ -59,6 +63,7 @@ namespace Kompas.UI.MainMenu
 		private void SpinUntilLoad()
 		{
 			TopLeft.Visible = true;
+			ClickToStart.Visible = false;
 
 			var now = Time.GetTicksMsec();
 			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(now));

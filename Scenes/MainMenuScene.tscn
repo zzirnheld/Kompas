@@ -216,13 +216,15 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 mouse_filter = 2
 
-[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2" node_paths=PackedStringArray("_logoController", "_topLeft", "_topRight")]
+[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2" node_paths=PackedStringArray("_logoController", "_topLeft", "_topRight", "_clickToStart")]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("9_r8gas")
 _logoController = NodePath("Logo State Machine")
 _topLeft = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Left")
 _topRight = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Right")
+_clickToStart = NodePath("../../Splash Screen Background")
 
 [node name="Logo State Machine" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller" node_paths=PackedStringArray("_toControl", "_centerOfControlled")]
 layout_mode = 1
@@ -232,6 +234,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("8_m7ra3")
 _toControl = NodePath("Spinning Logo On Splash")
 _centerOfControlled = NodePath("Spinning Logo On Splash/Center of Spinning Logo")
