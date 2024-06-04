@@ -68,7 +68,7 @@ theme = ExtResource("3_ipls1")
 text = "Incarnate
 vs Artifice"
 script = ExtResource("3_s7n5j")
-_spinningLogo = NodePath("")
+_spinningLogo = NodePath("../../../Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller")
 
 [node name="Build Deck" type="Button" parent="Horizontal Organizer/Menu Buttons" node_paths=PackedStringArray("_spinningLogo")]
 layout_mode = 2
@@ -216,12 +216,13 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 mouse_filter = 2
 
-[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2" node_paths=PackedStringArray("_logoController", "_topLeft", "_topRight", "_clickToStart")]
+[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2" node_paths=PackedStringArray("_logoController", "_leftBufferForNotCoveringUpButtons", "_topLeft", "_topRight", "_clickToStart")]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 script = ExtResource("9_r8gas")
 _logoController = NodePath("Logo State Machine")
+_leftBufferForNotCoveringUpButtons = NodePath("../Left Spacer")
 _topLeft = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Left")
 _topRight = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Right")
 _clickToStart = NodePath("../../Splash Screen Background")

@@ -20,6 +20,11 @@ namespace Kompas.UI.MainMenu
 			?? throw new UnassignedReferenceException(nameof(_logoController), this);
 
 		[Export]
+		private Control? _leftBufferForNotCoveringUpButtons;
+		private Control LeftBufferForNotCoveringUpButtons => _leftBufferForNotCoveringUpButtons
+			?? throw new UnassignedReferenceException(nameof(_leftBufferForNotCoveringUpButtons), this);
+
+		[Export]
 		private Control? _topLeft;
 		private Control TopLeft => _topLeft
 			?? throw new UnassignedReferenceException(nameof(_topLeft), this);
@@ -81,6 +86,9 @@ namespace Kompas.UI.MainMenu
 
 		private const float DestinationRotationWhenFinishingLoading = -11f / 8f * FullClockwiseRotation;
 		private const float WhenMakeTopRightInvisible = DestinationRotationWhenFinishingLoading + (1f / 2f * FullClockwiseRotation);
+		private const float EndSplashLeftAnchor = 0f;
+		private const float EndSplashRightAnchor = 2f;
+		private const float LeftBufferStretchSize = 0.2f;
 
 		private void IfThreadCompleteLoadMenu(ulong startMsec)
 		{
@@ -88,14 +96,15 @@ namespace Kompas.UI.MainMenu
 			if (!loadingThread.IsAlive)
 			{
 				var destinationRotation = DestinationRotationWhenFinishingLoading;
-				var pastMenu = Start.With(rotation: destinationRotation);
+				var pastMenu = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
 				var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
 				LogoController.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, pastMenu)
 				{
 					RotationProportion = x => x,
-					AdditionalStep = _ => {
+					AdditionalStep = progress => {
 						//TODO refactor somehow, possibly to make arguments include rotation?
 						if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
+						LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = SpinningLogoStateMachine.TransitionTarget.Cubic(progress) * LeftBufferStretchSize;
 					},
 				});
 
@@ -107,6 +116,7 @@ namespace Kompas.UI.MainMenu
 		{
 			LogoController.NormalizeAngle();
 			TopLeft.Visible = false;
+			LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LeftBufferStretchSize;
 			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);
 			var positioning = LogoController.Target.Positioning.With(rotation: targetRotation);
 			LogoController.LookTowards(new(ButtonChooseDuration, SpinningLogoStateMachine.Destination.Destination, positioning));
