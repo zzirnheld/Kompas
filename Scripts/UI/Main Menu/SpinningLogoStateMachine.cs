@@ -224,7 +224,7 @@ namespace Kompas.UI.MainMenu
 			ToControl.OffsetRight = positioning.RightOffset;
 		}
 
-		private void NormalizeAngle()
+		public void NormalizeAngle()
 		{
 			ToControl.Rotation = NormalizeAngle(ToControl.Rotation);
 		}

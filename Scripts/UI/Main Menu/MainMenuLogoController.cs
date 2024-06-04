@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Godot;
 using Kompas.Cards.Loading;
+using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.UI.MainMenu
@@ -11,6 +12,7 @@ namespace Kompas.UI.MainMenu
 		private const float FullClockwiseRotation = 2 * MathF.PI;
 		private const float FullCircleDuration = 2f;
 		private const float FirstWipeDuration = 1f / 4f * FullCircleDuration;
+		private const float ButtonChooseDuration = 0.5f;
 
 		[Export]
 		private SpinningLogoStateMachine? _logoController;
@@ -96,11 +98,23 @@ namespace Kompas.UI.MainMenu
 					AdditionalStep = _ => {
 						//TODO refactor somehow, possibly to make arguments include rotation?
 						if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
-					}
+					},
+					OnArrival = () =>
+					{
+						LogoController.NormalizeAngle();
+						TopLeft.Visible = false;
+					},
 				});
 
 				Logger.Log($"Loading took {Time.GetTicksMsec() - startMsec} ms after reaching the point where we'd start spinning");
 			}
+		}
+
+		public void LookTowards(Button button)
+		{
+			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);
+			var positioning = LogoController.Target.Positioning.With(rotation: targetRotation);
+			LogoController.LookTowards(new(ButtonChooseDuration, SpinningLogoStateMachine.Destination.Destination, positioning));
 		}
 	}
 }

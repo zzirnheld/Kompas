@@ -7,14 +7,14 @@ namespace Kompas.UI.MainMenu
 	public partial class MainMenuButton : Button
 	{
 		[Export]
-		private RotatingTextureRect? _spinningLogo;
-		public RotatingTextureRect SpinningLogo => _spinningLogo
+		private MainMenuLogoController? _spinningLogo;
+		public MainMenuLogoController SpinningLogo => _spinningLogo
 			?? throw new UnassignedReferenceException();
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
-			MouseEntered += () => SpinningLogo.LookTowards(this.GlobalCenter());
+			MouseEntered += () => SpinningLogo.LookTowards(this);
 		}
 	}
 }
