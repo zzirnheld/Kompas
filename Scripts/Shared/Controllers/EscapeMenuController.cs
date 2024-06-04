@@ -8,8 +8,8 @@ namespace Kompas.Shared.Controllers
 	public partial class EscapeMenuController : Node
 	{
 		private const float FullClockwiseRotation = 2f * System.MathF.PI;
-		private const float OpenDuration = 1f;
-		private const float SwapDuration = 0.5f;
+		private const float OpenDuration = 0.65f;
+		private const float SwapDuration = 0.3f;
 
 		[Export]
 		private SpinningLogoStateMachine? _spinningLogo;
@@ -111,7 +111,12 @@ namespace Kompas.Shared.Controllers
 				SpinningLogoStateMachine.Destination.Closed => OpenDuration * SpinningLogo.Progress,
 				_ => SwapDuration,
 			};
-			SpinningLogo.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, positioning));
+			SpinningLogo.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, positioning)
+			{
+				AnchorProportion = x => x * x,
+				OffsetProportion = x => x * x,
+				RotationProportion = x => x * x,
+			});
 		}
 
 		public override void _Input(InputEvent inputEvent)
