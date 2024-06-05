@@ -50,6 +50,10 @@ namespace Kompas.Godot
 		public delegate Result<T> EachFrame<T>(float delta);
 		public static Result<T> ResultOf<T>(T item) => Result<T>.Of(item);
 
+		/// <summary>
+		/// Asynchronously runs the given function each frame,
+		/// and returns once the given function returns something other than None.
+		/// </summary>
 		public static async Task<T> DoEachFrame<T>(this Node node, EachFrame<T> eachLoop)
 		{
 			ulong frameMsec = Time.GetTicksMsec();

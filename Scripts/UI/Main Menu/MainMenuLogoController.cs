@@ -21,6 +21,7 @@ namespace Kompas.UI.MainMenu
 		private const float EndSplashRightAnchor = 2f;
 		private const float LeftBufferStretchSize = 0.2f;
 		private const float PastClickHereToStartRotation = -3f / 8f * FullClockwiseRotation;
+		private const float DestinationRotationWhenSpinningPastMenuForNewScene = -1f / 2f * FullClockwiseRotation;
 
 		[Export]
 		private LogoSpinController? _logoController;
@@ -138,6 +139,29 @@ namespace Kompas.UI.MainMenu
 			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);
 			var positioning = LogoController.Target.Positioning.With(rotation: targetRotation);
 			await LogoController.LookTowards(new(ButtonChooseDuration, LogoSpinController.Destination.Destination, positioning));
+		}
+
+		public async Task SpinForSceneChange()
+		{
+			var destinationRotation = DestinationRotationWhenSpinningPastMenuForNewScene;
+
+			var positioning = Start.With(rotation: destinationRotation);
+			var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
+			await LogoController.LookTowards(new(duration, LogoSpinController.Destination.Destination, positioning)
+			{
+				RotationProportion = x => x,
+				AdditionalStep = progress => {
+					LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LogoSpinController.TransitionTarget.Cubic(1 - progress) * LeftBufferStretchSize;
+				},
+			});
+			TopLeft.Visible = true;
+			TopRight.Visible = true;
+			Logger.Log($"Spun to poitning down for scene change!");
+		}
+
+		public async Task ChangeScenesLoadingSpinning()
+		{
+			await LogoController.SpinCounterClockwise(FullCircleDuration);
 		}
 	}
 }
