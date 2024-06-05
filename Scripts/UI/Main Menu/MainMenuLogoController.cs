@@ -57,17 +57,18 @@ namespace Kompas.UI.MainMenu
 			set => _start = value;
 		}
 
+		private bool loaded = false;
+		private Button? lookAtNext;
+
 		public override void _Ready()
 		{
 			//Before anything else, start loading the cards
-			var loadingThread = new Thread(LoadCards);
+			var loadingThread = new Thread(MainMenuCardRepository.Load);
 			loadingThread.Start();
-			Start = LogoController.CurrentPositioning; //TODO factor this out to a .CurrentPositioning
+			Start = LogoController.CurrentPositioning;
 
 			ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
 		}
-
-		private static void LoadCards() => new MainMenuCardRepository().Initialize();
 
 		public void SplashScreenClicked(Thread loadingThread)
 		{
@@ -105,16 +106,26 @@ namespace Kompas.UI.MainMenu
 						if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
 						LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = SpinningLogoStateMachine.TransitionTarget.Cubic(progress) * LeftBufferStretchSize;
 					},
+					OnArrival = () => {
+						loaded = true;
+						LookTowards(lookAtNext);
+					},
 				});
 
 				Logger.Log($"Loading took {Time.GetTicksMsec() - startMsec} ms after reaching the point where we'd start spinning");
 			}
 		}
 
-		public void LookTowards(Button button)
+		public void LookTowards(Button? button)
 		{
-			//In case the logo didn't fully make it
-			//TODO - replace with queuing up?
+			if (!loaded)
+			{
+				lookAtNext = button;
+				return;
+			}
+
+			if (button == null) return;
+
 			LogoController.NormalizeAngle();
 			TopLeft.Visible = false;
 			LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LeftBufferStretchSize;

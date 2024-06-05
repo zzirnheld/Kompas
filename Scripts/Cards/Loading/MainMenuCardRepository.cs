@@ -8,6 +8,6 @@ namespace Kompas.Cards.Loading
 		{
 		}
 
-		public new void Initialize() => base.Initialize();
+		public static void Load() => new MainMenuCardRepository().Initialize();
 	}
 }
