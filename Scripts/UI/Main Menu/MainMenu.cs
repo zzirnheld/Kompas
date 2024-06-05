@@ -12,9 +12,9 @@ namespace Kompas.UI.MainMenu
 		private const string ClientScenePath = "res://Scenes/ClientScene.tscn";
 		private const string BuildDeckPath = "res://Scenes/BuildDeckScene.tscn";
 
-		private void HostServer() => GetTree().ChangeSceneToFile(ServerScenePath);
-		private void ConnectToServer() => LoadScene(ClientScenePath); //GetTree().ChangeSceneToFile(ClientScenePath);
-		private void BuildDeck() => GetTree().ChangeSceneToFile(BuildDeckPath);
+		private void HostServer() => LoadScene(ServerScenePath);
+		private void ConnectToServer() => LoadScene(ClientScenePath);
+		private void BuildDeck() => LoadScene(BuildDeckPath);
 		private void Quit() => GetTree().Quit();
 
 		[Export]
@@ -22,8 +22,14 @@ namespace Kompas.UI.MainMenu
 		private MainMenuLogoController MainMenuLogoController => _mainMenuLogoController
 			?? throw new UnassignedReferenceException(nameof(_mainMenuLogoController), this);
 
+		private bool loadingAnotherScene = false;
+
+		//Async void because called from main menu buttons' handlers
 		private async void LoadScene(string scenePath)
 		{
+			if (loadingAnotherScene) return;
+			loadingAnotherScene = true;
+
 			Task spinPastMenu = MainMenuLogoController.SpinForSceneChange();
 
 			ResourceLoader.LoadThreadedRequest(scenePath);
