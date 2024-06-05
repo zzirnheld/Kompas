@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
+using Kompas.Godot;
+using Kompas.Shared;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.UI.MainMenu
@@ -204,7 +206,7 @@ namespace Kompas.UI.MainMenu
 
 			Logger.Log($"Looking from {CurrState.Start}\ntowards {target}");
 
-			return await DoEachFrame(delta => ProgressLookTowards(target, delta, state));
+			return await this.DoEachFrame(delta => ProgressLookTowards(target, delta, state));
 		}
 
 		private Result<bool> ProgressLookTowards(TransitionTarget target, float delta, State state)
@@ -215,7 +217,7 @@ namespace Kompas.UI.MainMenu
 				if (CurrState != state)
 				{
 					Logger.Log($"States no longer matched, aborting looking towards {target}");
-					return ResultOf(false);
+					return Result<bool>.Of(false);
 				}
 
 				Progress += (float)(delta / Target.Duration);
@@ -224,52 +226,10 @@ namespace Kompas.UI.MainMenu
 				else
 				{
 					Arrive();
-					return ResultOf(true);
+					return Result<bool>.Of(true);
 				}
 			}
 			return Result<bool>.None;
-		}
-
-		private static Result<T> ResultOf<T>(T item) => Result<T>.Of(item);
-		private readonly struct Result<T>
-		{
-			public T Item { get; private init; }
-			public bool HasResult { get; private init; }
-
-			public static Result<T> Of(T item) => new()
-			{
-				Item = item,
-				HasResult = true
-			};
-
-			public static readonly Result<T> None = new() { HasResult = false };
-		}
-
-		private delegate Result<T> EachFrame<T>(float delta);
-
-		/// <summary>
-		/// An async take on process
-		/// </summary>
-		private async Task<T> DoEachFrame<T>(EachFrame<T> eachLoop)
-		{
-			ulong frameMsec = Time.GetTicksMsec();
-			while (true)
-			{
-				ulong nowMsec = Time.GetTicksMsec();
-				float delta = (nowMsec - frameMsec) / 1000f;
-				frameMsec = nowMsec;
-
-				var ret = eachLoop(delta);
-				if (ret.HasResult) return ret.Item;
-
-				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-			}
-		}
-
-		private delegate void EachFrame(float delta);
-		private async Task DoEachFrame(EachFrame eachLoop)
-		{
-			await DoEachFrame(delta => { eachLoop(delta); return Result<object>.None; });
 		}
 
 		/// <summary>
@@ -314,7 +274,7 @@ namespace Kompas.UI.MainMenu
 			};
 			CurrState = state;
 
-			await DoEachFrame(delta =>
+			await this.DoEachFrame(delta =>
 			{
 				lock (stateLock)
 				{

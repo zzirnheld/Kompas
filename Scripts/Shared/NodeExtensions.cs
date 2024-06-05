@@ -1,5 +1,7 @@
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
+using Kompas.Shared;
 
 namespace Kompas.Godot
 {
@@ -42,6 +44,37 @@ namespace Kompas.Godot
 		public static Vector2 GlobalCenter(this Control node)
 		{
 			return node.GlobalPosition + (node.Size / 2);
+		}
+
+		public delegate void EachFrame(float delta);
+		public delegate Result<T> EachFrame<T>(float delta);
+		public static Result<T> ResultOf<T>(T item) => Result<T>.Of(item);
+
+		public static async Task<T> DoEachFrame<T>(this Node node, EachFrame<T> eachLoop)
+		{
+			ulong frameMsec = Time.GetTicksMsec();
+			while (true)
+			{
+				ulong nowMsec = Time.GetTicksMsec();
+				float delta = (nowMsec - frameMsec) / 1000f;
+				frameMsec = nowMsec;
+
+				var ret = eachLoop(delta);
+				if (ret.HasResult) return ret.Item;
+
+				await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
+			}
+		}
+
+		/// <summary>
+		/// Asynchronously does the given function each frame,
+		/// and never returns.
+		/// The returned Task exists to keep a handle on any exceptions that might bubble up.
+		/// ...if I've understood this Task stuff correctly.
+		/// </summary>
+		public static async Task DoEachFrame(this Node node, EachFrame eachLoop)
+		{
+			await node.DoEachFrame(delta => { eachLoop(delta); return Result<object>.None; });
 		}
 	}
 }
