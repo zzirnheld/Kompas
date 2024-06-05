@@ -97,6 +97,8 @@ namespace Kompas.UI.MainMenu
 				+ $"{LeftAnchor}+{LeftOffset} / {RightAnchor}+{RightOffset} / {TopAnchor}+{TopOffset} / {BottomAnchor}+{BottomOffset}";
 		}
 
+		public Positioning CurrentPositioning => Positioning.Of(ToControl);
+
 		public class TransitionTarget
 		{
 			public Destination Destination { get; }

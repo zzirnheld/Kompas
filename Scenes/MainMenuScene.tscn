@@ -216,7 +216,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 mouse_filter = 2
 
-[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2" node_paths=PackedStringArray("_logoController", "_leftBufferForNotCoveringUpButtons", "_topLeft", "_topRight", "_clickToStart")]
+[node name="Main Menu Logo Controller" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2" node_paths=PackedStringArray("_logoController", "_leftBufferForNotCoveringUpButtons", "_topLeft", "_topRight", "_clickToStartParent", "_clickToStart")]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
@@ -225,7 +225,8 @@ _logoController = NodePath("Logo State Machine")
 _leftBufferForNotCoveringUpButtons = NodePath("../Left Spacer")
 _topLeft = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Left")
 _topRight = NodePath("Logo State Machine/Spinning Logo On Splash/Parent/Top Right")
-_clickToStart = NodePath("../../Splash Screen Background")
+_clickToStartParent = NodePath("../../Splash Screen Background")
+_clickToStart = NodePath("../../Splash Screen Background/Button")
 
 [node name="Logo State Machine" type="Control" parent="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller" node_paths=PackedStringArray("_toControl", "_centerOfControlled")]
 layout_mode = 1
@@ -358,5 +359,4 @@ mouse_filter = 2
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Build Deck" to="." method="BuildDeck"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Host Server" to="." method="HostServer"]
 [connection signal="pressed" from="Horizontal Organizer/Menu Buttons/Quit" to="." method="Quit"]
-[connection signal="pressed" from="Splash Screen and Logo/Splash Screen Background/Button" to="Splash Screen and Logo/Splash Screen Background/Button" method="BecomeInvisible"]
 [connection signal="pressed" from="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash/Full Area of Logo/Logo Button" to="Splash Screen and Logo/Horizontal Organizer2/Main Menu Logo Controller/Logo State Machine/Spinning Logo On Splash" method="Toggle"]

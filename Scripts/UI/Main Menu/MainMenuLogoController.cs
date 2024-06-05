@@ -14,6 +14,12 @@ namespace Kompas.UI.MainMenu
 		private const float FirstWipeDuration = 1f / 4f * FullCircleDuration;
 		private const float ButtonChooseDuration = 0.5f;
 
+		private const float DestinationRotationWhenFinishingLoading = -11f / 8f * FullClockwiseRotation;
+		private const float WhenMakeTopRightInvisible = DestinationRotationWhenFinishingLoading + (1f / 2f * FullClockwiseRotation);
+		private const float EndSplashLeftAnchor = 0f;
+		private const float EndSplashRightAnchor = 2f;
+		private const float LeftBufferStretchSize = 0.2f;
+
 		[Export]
 		private SpinningLogoStateMachine? _logoController;
 		private SpinningLogoStateMachine LogoController => _logoController
@@ -35,8 +41,13 @@ namespace Kompas.UI.MainMenu
 			?? throw new UnassignedReferenceException(nameof(_topRight), this);
 
 		[Export]
-		private Control? _clickToStart;
-		private Control ClickToStart => _clickToStart
+		private Control? _clickToStartParent;
+		private Control ClickToStartParent => _clickToStartParent
+			?? throw new UnassignedReferenceException(nameof(_clickToStartParent), this);
+
+		[Export]
+		private Button? _clickToStart;
+		private Button ClickToStart => _clickToStart
 			?? throw new UnassignedReferenceException(nameof(_clickToStart), this);
 
 		private SpinningLogoStateMachine.Positioning? _start;
@@ -46,51 +57,39 @@ namespace Kompas.UI.MainMenu
 			set => _start = value;
 		}
 
-		private Thread? loadingThread;
-
 		public override void _Ready()
 		{
-			loadingThread = new(CardLoader.LoadCards);
+			//Before anything else, start loading the cards
+			var loadingThread = new Thread(LoadCards);
 			loadingThread.Start();
-			Start = SpinningLogoStateMachine.Positioning.Of(LogoController.ToControl); //TODO factor this out to a .CurrentPositioning
-			FirstThing();
+			Start = LogoController.CurrentPositioning; //TODO factor this out to a .CurrentPositioning
+
+			ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
 		}
 
-		public void FirstThing()
+		private static void LoadCards() => new MainMenuCardRepository().Initialize();
+
+		public void SplashScreenClicked(Thread loadingThread)
 		{
 			//Wipe the splash screen off
 			var pastClickHereToStart = Start.With(rotation: -3f / 8f * FullClockwiseRotation);
 			LogoController.LookTowards(new(FirstWipeDuration, SpinningLogoStateMachine.Destination.Destination, pastClickHereToStart)
 			{
-				OnArrival = SpinUntilLoad,
 				RotationProportion = x => x,
+				OnArrival = () => SpinUntilLoad(loadingThread),
 			});
 		}
 
-		private void SpinUntilLoad()
+		private void SpinUntilLoad(Thread loadingThread)
 		{
 			TopLeft.Visible = true;
-			ClickToStart.Visible = false;
+			ClickToStartParent.Visible = false;
 
 			var now = Time.GetTicksMsec();
-			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(now));
+			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(loadingThread, now));
 		}
 
-		public class CardLoader
-		{
-			public static void LoadCards()
-			{
-				new MainMenuCardRepository().Initialize();
-			}
-		}
-
-		private const float DestinationRotationWhenFinishingLoading = -11f / 8f * FullClockwiseRotation;
-		private const float WhenMakeTopRightInvisible = DestinationRotationWhenFinishingLoading + (1f / 2f * FullClockwiseRotation);
-		private const float EndSplashLeftAnchor = 0f;
-		private const float EndSplashRightAnchor = 2f;
-		private const float LeftBufferStretchSize = 0.2f;
-
-		private void IfThreadCompleteLoadMenu(ulong startMsec)
+		private void IfThreadCompleteLoadMenu(Thread loadingThread, ulong startMsec)
 		{
 			if (loadingThread == null) throw new NullReferenceException("Must define the thread before this point!");
 			if (!loadingThread.IsAlive)
@@ -114,9 +113,12 @@ namespace Kompas.UI.MainMenu
 
 		public void LookTowards(Button button)
 		{
+			//In case the logo didn't fully make it
+			//TODO - replace with queuing up?
 			LogoController.NormalizeAngle();
 			TopLeft.Visible = false;
 			LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LeftBufferStretchSize;
+
 			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);
 			var positioning = LogoController.Target.Positioning.With(rotation: targetRotation);
 			LogoController.LookTowards(new(ButtonChooseDuration, SpinningLogoStateMachine.Destination.Destination, positioning));
