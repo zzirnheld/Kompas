@@ -3,10 +3,9 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.UI.MainMenu
 {
-	public partial class SpinningLogoStateMachine : Node
+	public partial class LogoSpinController : Node
 	{
 		private const float FullClockwiseRotation = 2f * System.MathF.PI;
-		private const float FreeSpinningRotationPerSecond = 1f * FullClockwiseRotation;
 
 		public enum State { Stationary, FreeSpinning, Transitioning }
 		public enum Destination { Open, Closed, Destination, SpinClockwise, SpinCounterclockwise }

@@ -19,10 +19,11 @@ namespace Kompas.UI.MainMenu
 		private const float EndSplashLeftAnchor = 0f;
 		private const float EndSplashRightAnchor = 2f;
 		private const float LeftBufferStretchSize = 0.2f;
+		private const float PastClickHereToStartRotation = -3f / 8f * FullClockwiseRotation;
 
 		[Export]
-		private SpinningLogoStateMachine? _logoController;
-		private SpinningLogoStateMachine LogoController => _logoController
+		private LogoSpinController? _logoController;
+		private LogoSpinController LogoController => _logoController
 			?? throw new UnassignedReferenceException(nameof(_logoController), this);
 
 		[Export]
@@ -50,8 +51,8 @@ namespace Kompas.UI.MainMenu
 		private Button ClickToStart => _clickToStart
 			?? throw new UnassignedReferenceException(nameof(_clickToStart), this);
 
-		private SpinningLogoStateMachine.Positioning? _start;
-		private SpinningLogoStateMachine.Positioning Start
+		private LogoSpinController.Positioning? _start;
+		private LogoSpinController.Positioning Start
 		{
 			get => _start ?? throw new NotReadyYetException();
 			set => _start = value;
@@ -73,8 +74,8 @@ namespace Kompas.UI.MainMenu
 		public void SplashScreenClicked(Thread loadingThread)
 		{
 			//Wipe the splash screen off
-			var pastClickHereToStart = Start.With(rotation: -3f / 8f * FullClockwiseRotation);
-			LogoController.LookTowards(new(FirstWipeDuration, SpinningLogoStateMachine.Destination.Destination, pastClickHereToStart)
+			var pastClickHereToStart = Start.With(rotation: PastClickHereToStartRotation);
+			LogoController.LookTowards(new(FirstWipeDuration, LogoSpinController.Destination.Destination, pastClickHereToStart)
 			{
 				RotationProportion = x => x,
 				OnArrival = () => SpinUntilLoad(loadingThread),
@@ -98,13 +99,13 @@ namespace Kompas.UI.MainMenu
 				var destinationRotation = DestinationRotationWhenFinishingLoading;
 				var pastMenu = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
 				var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
-				LogoController.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, pastMenu)
+				LogoController.LookTowards(new(duration, LogoSpinController.Destination.Destination, pastMenu)
 				{
 					RotationProportion = x => x,
 					AdditionalStep = progress => {
 						//TODO refactor somehow, possibly to make arguments include rotation?
 						if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
-						LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = SpinningLogoStateMachine.TransitionTarget.Cubic(progress) * LeftBufferStretchSize;
+						LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LogoSpinController.TransitionTarget.Cubic(progress) * LeftBufferStretchSize;
 					},
 					OnArrival = () => {
 						loaded = true;
@@ -132,7 +133,7 @@ namespace Kompas.UI.MainMenu
 
 			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);
 			var positioning = LogoController.Target.Positioning.With(rotation: targetRotation);
-			LogoController.LookTowards(new(ButtonChooseDuration, SpinningLogoStateMachine.Destination.Destination, positioning));
+			LogoController.LookTowards(new(ButtonChooseDuration, LogoSpinController.Destination.Destination, positioning));
 		}
 	}
 }

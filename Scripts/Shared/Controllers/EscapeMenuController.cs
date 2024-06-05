@@ -12,8 +12,8 @@ namespace Kompas.Shared.Controllers
 		private const float SwapDuration = 0.3f;
 
 		[Export]
-		private SpinningLogoStateMachine? _spinningLogo;
-		private SpinningLogoStateMachine SpinningLogo => _spinningLogo
+		private LogoSpinController? _spinningLogo;
+		private LogoSpinController SpinningLogo => _spinningLogo
 			?? throw new UnassignedReferenceException(nameof(_spinningLogo), this);
 
 		[Export]
@@ -42,7 +42,7 @@ namespace Kompas.Shared.Controllers
 		private Control EscapeMenuParentToSetVisibility => _escapeMenuParentToSetVisibility
 			?? throw new UnassignedReferenceException();
 
-		private readonly SpinningLogoStateMachine.Positioning Opened = new()
+		private readonly LogoSpinController.Positioning Opened = new()
 		{
 			Rotation = (float)(1f / 2f * System.MathF.PI),
 
@@ -57,8 +57,8 @@ namespace Kompas.Shared.Controllers
 			BottomOffset = 0f,
 		};
 
-		private SpinningLogoStateMachine.Positioning? _closed;
-		private SpinningLogoStateMachine.Positioning Closed
+		private LogoSpinController.Positioning? _closed;
+		private LogoSpinController.Positioning Closed
 		{
 			get => _closed ?? throw new NotReadyYetException();
 			set => _closed = value;
@@ -66,9 +66,9 @@ namespace Kompas.Shared.Controllers
 
 		public override void _Ready()
 		{
-			var startingState = SpinningLogoStateMachine.Positioning.Of(SpinningLogoImage);
+			var startingState = LogoSpinController.Positioning.Of(SpinningLogoImage);
 			Closed = startingState.With(rotation: startingState.Rotation + FullClockwiseRotation); //So that we always end up circling back around before going
-			SpinningLogo.SkipTo(new(1f, SpinningLogoStateMachine.Destination.Closed, Closed));
+			SpinningLogo.SkipTo(new(1f, LogoSpinController.Destination.Closed, Closed));
 		}
 
 		public readonly struct ButtonData
@@ -105,13 +105,13 @@ namespace Kompas.Shared.Controllers
 
 			var duration = SpinningLogo.Target.Destination switch
 			{
-				SpinningLogoStateMachine.Destination.Open => SpinningLogo.CurrState == SpinningLogoStateMachine.State.Stationary
+				LogoSpinController.Destination.Open => SpinningLogo.CurrState == LogoSpinController.State.Stationary
 					? SwapDuration
 					: OpenDuration * (1 - SpinningLogo.Progress),
-				SpinningLogoStateMachine.Destination.Closed => OpenDuration * SpinningLogo.Progress,
+				LogoSpinController.Destination.Closed => OpenDuration * SpinningLogo.Progress,
 				_ => SwapDuration,
 			};
-			SpinningLogo.LookTowards(new(duration, SpinningLogoStateMachine.Destination.Destination, positioning)
+			SpinningLogo.LookTowards(new(duration, LogoSpinController.Destination.Destination, positioning)
 			{
 				AnchorProportion = x => x * x,
 				OffsetProportion = x => x * x,
@@ -129,16 +129,16 @@ namespace Kompas.Shared.Controllers
 			Logger.Log("Toggling!");
 			//We want to open if we're closed, but otherwise toggling the menu closes it, no matter what state we're in.
 			//TODO here forbid closing if we're currently spinning out to leave the scene?
-			if (SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Closed) Open();
+			if (SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed) Open();
 			else Close();
 		}
 
 		private void Open()
 		{
 			Logger.Log("Opening!");
-			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Open, Opened)
+			SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Open, Opened)
 			{
-				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Closed
+				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed
 					? 1 - SpinningLogo.Progress
 					: 0f,
 				AdditionalStep = progress => ModulateShowables(progress),
@@ -150,9 +150,9 @@ namespace Kompas.Shared.Controllers
 		{
 			Logger.Log("Closing!");
 			SetButtonsInteractable(false);
-			SpinningLogo.LookTowards(new(OpenDuration, SpinningLogoStateMachine.Destination.Closed, Closed)
+			SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Closed, Closed)
 			{
-				InitialProgress = SpinningLogo.Target.Destination == SpinningLogoStateMachine.Destination.Open
+				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Open
 					? 1 - SpinningLogo.Progress
 					: 0f,
 				AdditionalStep = progress => ModulateShowables(1 - progress)

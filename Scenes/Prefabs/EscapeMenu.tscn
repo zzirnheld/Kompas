@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/EscapeMenuController.cs" id="1_y862k"]
 [ext_resource type="Texture2D" uid="uid://djxbirucr1csy" path="res://Icons/Main Menu/Kompas Highlight Player Turn 2 filled with color.png" id="3_gbxys"]
 [ext_resource type="PackedScene" uid="uid://ddndf2v4t02jx" path="res://Scenes/Prefabs/EscapeMenuButton.tscn" id="3_jwt2f"]
-[ext_resource type="Script" path="res://Scripts/UI/Main Menu/SpinningLogoStateMachine.cs" id="5_1f0in"]
+[ext_resource type="Script" path="res://Scripts/UI/Main Menu/LogoSpinController.cs" id="5_4ci3x"]
 
 [node name="Escape Menu" type="Control" node_paths=PackedStringArray("_spinningLogo", "_spinningLogoImage", "_buttonsParent", "_escapeMenuHaze", "_escapeMenuButtons", "_escapeMenuParentToSetVisibility")]
 layout_mode = 3
@@ -119,7 +119,7 @@ mouse_filter = 2
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("5_1f0in")
+script = ExtResource("5_4ci3x")
 _toControl = NodePath("../Spinning Logo On Splash")
 _centerOfControlled = NodePath("../Spinning Logo On Splash/Center of Spinning Logo")
 
