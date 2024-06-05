@@ -143,12 +143,12 @@ namespace Kompas.Shared.Controllers
 			Logger.Log("Opening!");
 			await SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Open, Opened)
 			{
-				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed
+				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed && SpinningLogo.Moving
 					? 1 - SpinningLogo.Progress
 					: 0f,
 				AdditionalStep = progress => ModulateShowables(progress),
-				OnArrival = () => SetButtonsInteractable(true),
 			});
+			SetButtonsInteractable(true);
 		}
 
 		private async Task Close()
@@ -157,7 +157,7 @@ namespace Kompas.Shared.Controllers
 			SetButtonsInteractable(false);
 			await SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Closed, Closed)
 			{
-				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Open
+				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Open && SpinningLogo.Moving
 					? 1 - SpinningLogo.Progress
 					: 0f,
 				AdditionalStep = progress => ModulateShowables(1 - progress)

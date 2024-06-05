@@ -204,34 +204,72 @@ namespace Kompas.UI.MainMenu
 
 			Logger.Log($"Looking from {CurrState.Start}\ntowards {target}");
 
+			return await DoEachFrame(delta => ProgressLookTowards(target, delta, state));
+		}
+
+		private Result<bool> ProgressLookTowards(TransitionTarget target, float delta, State state)
+		{
+			lock (stateLock)
+			{
+				//Do this inside the lock, but the lock must not include the await (compiler forbidden, would produce deadlocks)
+				if (CurrState != state)
+				{
+					Logger.Log($"States no longer matched, aborting looking towards {target}");
+					return ResultOf(false);
+				}
+
+				Progress += (float)(delta / Target.Duration);
+
+				if (Progress < 1f) MakeProgress();
+				else
+				{
+					Arrive();
+					return ResultOf(true);
+				}
+			}
+			return Result<bool>.None;
+		}
+
+		private static Result<T> ResultOf<T>(T item) => Result<T>.Of(item);
+		private readonly struct Result<T>
+		{
+			public T Item { get; private init; }
+			public bool HasResult { get; private init; }
+
+			public static Result<T> Of(T item) => new()
+			{
+				Item = item,
+				HasResult = true
+			};
+
+			public static readonly Result<T> None = new() { HasResult = false };
+		}
+
+		private delegate Result<T> EachFrame<T>(float delta);
+
+		/// <summary>
+		/// An async take on process
+		/// </summary>
+		private async Task<T> DoEachFrame<T>(EachFrame<T> eachLoop)
+		{
 			ulong frameMsec = Time.GetTicksMsec();
 			while (true)
 			{
-				lock (stateLock)
-				{
-					//Do this inside the lock, but the lock must not include the await (compiler forbidden, would produce deadlocks)
-					if (CurrState != state)
-					{
-						Logger.Log($"States no longer matched, aborting looking towards {target}");
-						return false;
-					}
+				ulong nowMsec = Time.GetTicksMsec();
+				float delta = (nowMsec - frameMsec) / 1000f;
+				frameMsec = nowMsec;
 
-					ulong nowMsec = Time.GetTicksMsec();
-					float delta = (nowMsec - frameMsec) / 1000f;
-					frameMsec = nowMsec;
-
-					Progress += (float)(delta / Target.Duration);
-
-					if (Progress < 1f) MakeProgress();
-					else
-					{
-						Arrive();
-						return true;
-					}
-				}
+				var ret = eachLoop(delta);
+				if (ret.HasResult) return ret.Item;
 
 				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			}
+		}
+
+		private delegate void EachFrame(float delta);
+		private async Task DoEachFrame(EachFrame eachLoop)
+		{
+			await DoEachFrame(delta => { eachLoop(delta); return Result<object>.None; });
 		}
 
 		/// <summary>
@@ -268,33 +306,25 @@ namespace Kompas.UI.MainMenu
 			Target.OnArrival();
 		}
 
-		public async Task SpinCounterClockwise(float fullCircleDuration, TransitionTarget.ProgressStep? step = null)
+		public async Task SpinCounterClockwise(float fullCircleDuration)
 		{
-			State state = new(CurrentPositioning, new(fullCircleDuration, Destination.SpinCounterclockwise, new())
-			{
-				//If none is provided, default to a no-op
-				AdditionalStep = step ?? (_ => { }),
-			})
+			State state = new(CurrentPositioning, new(fullCircleDuration, Destination.SpinCounterclockwise, new()))
 			{
 				Moving = true
 			};
 			CurrState = state;
 
-			ulong frameMsec = Time.GetTicksMsec();
-			while (true)
+			await DoEachFrame(delta =>
 			{
-				lock(stateLock)
+				lock (stateLock)
 				{
 					if (CurrState != state) return;
 
-					ulong delta = Time.GetTicksMsec() - frameMsec;
 					ToControl.Rotation += ((Target.Destination == Destination.SpinClockwise) ? 1f : -1f)
-						* (float) (FullClockwiseRotation * delta / Target.Duration);
+						* (float)(FullClockwiseRotation * delta / Target.Duration);
 					Target.AdditionalStep(0f);
 				}
-
-				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-			}
+			});
 		}
 
 		private void SetPosition(Positioning positioning)
