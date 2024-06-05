@@ -71,52 +71,52 @@ namespace Kompas.UI.MainMenu
 			ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
 		}
 
-		public void SplashScreenClicked(Task loadTask)
+		public async void SplashScreenClicked(Task loadTask)
 		{
 			//Wipe the splash screen off
 			var pastClickHereToStart = Start.With(rotation: PastClickHereToStartRotation);
-			LogoController.LookTowards(new(FirstWipeDuration, LogoSpinController.Destination.Destination, pastClickHereToStart)
+			await LogoController.LookTowards(new(FirstWipeDuration, LogoSpinController.Destination.Destination, pastClickHereToStart)
 			{
 				RotationProportion = x => x,
-				OnArrival = () => SpinUntilLoad(loadTask),
 			});
+			await SpinUntilLoad(loadTask);
 		}
 
-		private void SpinUntilLoad(Task loadTask)
+		private async Task SpinUntilLoad(Task loadTask)
 		{
 			TopLeft.Visible = true;
 			ClickToStartParent.Visible = false;
 
 			var now = Time.GetTicksMsec();
-			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(loadTask, now));
+			// Spin task never completes, but we want to await it to catch any errors.
+			await Task.WhenAny(loadTask, LogoController.SpinCounterClockwise(FullCircleDuration));
+			// Once we finish loading, we load the menu.
+			await LoadMenu(now);
 		}
 
-		private void IfThreadCompleteLoadMenu(Task loadTask, ulong startMsec)
+		private async Task LoadMenu(ulong startMsec)
 		{
-			if (loadTask.IsCompleted)
+			var destinationRotation = DestinationRotationWhenFinishingLoading;
+			var pastMenu = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
+			var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
+			await LogoController.LookTowards(new(duration, LogoSpinController.Destination.Destination, pastMenu)
 			{
-				var destinationRotation = DestinationRotationWhenFinishingLoading;
-				var pastMenu = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
-				var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
-				LogoController.LookTowards(new(duration, LogoSpinController.Destination.Destination, pastMenu)
-				{
-					RotationProportion = x => x,
-					AdditionalStep = progress => {
-						//TODO refactor somehow, possibly to make arguments include rotation?
-						if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
-						LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LogoSpinController.TransitionTarget.Cubic(progress) * LeftBufferStretchSize;
-					},
-					OnArrival = () => {
-						loaded = true;
-						LookTowards(lookAtNext);
-					},
-				});
+				RotationProportion = x => x,
+				AdditionalStep = progress => {
+					//TODO refactor somehow, possibly to make arguments include rotation?
+					if (LogoController.ToControl.Rotation < WhenMakeTopRightInvisible) TopRight.Visible = false;
+					LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LogoSpinController.TransitionTarget.Cubic(progress) * LeftBufferStretchSize;
+				},
+			});
 
-				Logger.Log($"Loading took {Time.GetTicksMsec() - startMsec} ms after reaching the point where we'd start spinning");
-			}
+			loaded = true;
+
+			LookTowards(lookAtNext);
+			Logger.Log($"Loading took {Time.GetTicksMsec() - startMsec} ms after reaching the point where we'd start spinning");
 		}
 
-		public void LookTowards(Button? button)
+		//Event handler for main menu buttons
+		public async void LookTowards(Button? button)
 		{
 			if (!loaded)
 			{
@@ -126,13 +126,18 @@ namespace Kompas.UI.MainMenu
 
 			if (button == null) return;
 
+			await LookAtButton(button);
+		}
+
+		private async Task LookAtButton(Button button)
+		{
 			LogoController.NormalizeAngle();
 			TopLeft.Visible = false;
 			LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LeftBufferStretchSize;
 
 			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);
 			var positioning = LogoController.Target.Positioning.With(rotation: targetRotation);
-			LogoController.LookTowards(new(ButtonChooseDuration, LogoSpinController.Destination.Destination, positioning));
+			await LogoController.LookTowards(new(ButtonChooseDuration, LogoSpinController.Destination.Destination, positioning));
 		}
 	}
 }

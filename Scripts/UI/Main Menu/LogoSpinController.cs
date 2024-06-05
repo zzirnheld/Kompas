@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 using Kompas.Shared.Exceptions;
 
@@ -7,14 +9,55 @@ namespace Kompas.UI.MainMenu
 	{
 		private const float FullClockwiseRotation = 2f * System.MathF.PI;
 
-		public enum State { Stationary, FreeSpinning, Transitioning }
 		public enum Destination { Open, Closed, Destination, SpinClockwise, SpinCounterclockwise }
 
-		public State CurrState { get; private set; } = State.Stationary;
+		private class State
+		{
+			public Positioning Start { get; init; }
+			public TransitionTarget Target { get; init; }
+
+			public bool Moving { get; set; } = false;
+			public float Progress { get; set; } = 0f;
+
+			public State(Positioning start, TransitionTarget target)
+			{
+				Start = start;
+				Target = target;
+			}
+		}
+
+		/// <summary>
+		/// Recall that lock() is reentrant, so at worst we should never have people colliding there.
+		/// Probably still wanna lock around the state lock for any processing you do assuming the current state.
+		/// <b>Man</b> it's been a while since I've properly worked around concurrency.
+		/// </summary>
+		private readonly object stateLock = new();
+		private State? _currState;
+		/// <summary>
+		/// Accesses _currState, locking with the reentrant stateLock()
+		/// </summary>
+		private State CurrState
+		{
+			get
+			{
+				lock (stateLock) { return _currState ?? throw new NotReadyYetException(); }
+			}
+			set
+			{
+				lock (stateLock) { _currState = value; }
+			}
+		}
+		public bool Moving => CurrState.Moving;
 		/// <summary>
 		/// Bound by 0-1
 		/// </summary>
-		public float Progress { get; private set; }
+		public float Progress
+		{
+			get => CurrState.Progress;
+			private set => CurrState.Progress = value;
+		}
+		public Positioning Start => CurrState.Start;
+		public TransitionTarget Target => CurrState.Target;
 
 		[Export]
 		private Control? _toControl;
@@ -25,20 +68,6 @@ namespace Kompas.UI.MainMenu
 		private Control? _centerOfControlled;
 		private Control CenterOfControlled => _centerOfControlled
 			?? throw new UnassignedReferenceException(nameof(_centerOfControlled), this);
-
-		private TransitionTarget? _target = null;
-		public TransitionTarget Target
-		{
-			get => _target ?? throw new NotReadyYetException();
-			private set => _target = value;
-		}
-
-		private Positioning? _start;
-		private Positioning Start
-		{
-			get => _start ?? throw new NotReadyYetException();
-			set => _start = value;
-		}
 
 		public readonly struct Positioning
 		{
@@ -149,28 +178,59 @@ namespace Kompas.UI.MainMenu
 
 		public override void _Ready()
 		{
-			Start = Positioning.Of(ToControl);
-			Target = new(0f, Destination.Destination, Positioning.Of(ToControl));
+			CurrState = new(CurrentPositioning, new(0f, Destination.Destination, CurrentPositioning));
+
 			ToControl.Resized += () => ToControl.PivotOffset = ToControl.Size / 2;
 		}
 
-		public override void _Process(double delta)
+		/// <summary>
+		/// Attempt to look towards a particular target.
+		/// </summary>
+		/// <returns>True if we successfully got there without changing targets, false otherwise</returns>
+		public async Task<bool> LookTowards(TransitionTarget target)
 		{
-			switch (CurrState)
+			State state = new(CurrentPositioning, target)
 			{
-				case State.Stationary: break;
-				case State.FreeSpinning:
-					ToControl.Rotation += ((Target.Destination == Destination.SpinClockwise) ? 1f : -1f)
-						* (float) (FullClockwiseRotation * delta / Target.Duration);
-					Target.AdditionalStep(0f);
-					break;
-				case State.Transitioning:
-					Progress += (float) (delta / Target.Duration);
+				Moving = true,
+				Progress = target.InitialProgress,
+			};
+			CurrState = state;
+
+			if (target.Duration == 0f)
+			{
+				Arrive();
+				return true;
+			}
+
+			Logger.Log($"Looking from {CurrState.Start}\ntowards {target}");
+
+			ulong frameMsec = Time.GetTicksMsec();
+			while (true)
+			{
+				lock (stateLock)
+				{
+					//Do this inside the lock, but the lock must not include the await (compiler forbidden, would produce deadlocks)
+					if (CurrState != state)
+					{
+						Logger.Log($"States no longer matched, aborting looking towards {target}");
+						return false;
+					}
+
+					ulong nowMsec = Time.GetTicksMsec();
+					float delta = (nowMsec - frameMsec) / 1000f;
+					frameMsec = nowMsec;
+
+					Progress += (float)(delta / Target.Duration);
+
 					if (Progress < 1f) MakeProgress();
-					else Arrive();
-					break;
-				default:
-					throw new System.InvalidOperationException($"Didn't account for  {CurrState}");
+					else
+					{
+						Arrive();
+						return true;
+					}
+				}
+
+				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			}
 		}
 
@@ -203,11 +263,38 @@ namespace Kompas.UI.MainMenu
 			Logger.Log($"Arrived at {Target.Positioning}");
 			SetPosition(Target.Positioning);
 
-			Start = Target.Positioning;
-			Progress = 1f;
-			CurrState = State.Stationary;
+			CurrState.Moving = false;
 
 			Target.OnArrival();
+		}
+
+		public async Task SpinCounterClockwise(float fullCircleDuration, TransitionTarget.ProgressStep? step = null)
+		{
+			State state = new(CurrentPositioning, new(fullCircleDuration, Destination.SpinCounterclockwise, new())
+			{
+				//If none is provided, default to a no-op
+				AdditionalStep = step ?? (_ => { }),
+			})
+			{
+				Moving = true
+			};
+			CurrState = state;
+
+			ulong frameMsec = Time.GetTicksMsec();
+			while (true)
+			{
+				lock(stateLock)
+				{
+					if (CurrState != state) return;
+
+					ulong delta = Time.GetTicksMsec() - frameMsec;
+					ToControl.Rotation += ((Target.Destination == Destination.SpinClockwise) ? 1f : -1f)
+						* (float) (FullClockwiseRotation * delta / Target.Duration);
+					Target.AdditionalStep(0f);
+				}
+
+				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			}
 		}
 
 		private void SetPosition(Positioning positioning)
@@ -249,40 +336,6 @@ namespace Kompas.UI.MainMenu
 			var ret = RotationForVector(targetGlobalPosition);
 			SetPosition(currentPos);
 			return ret;
-		}
-
-		public void LookTowards(TransitionTarget target)
-		{
-			Target = target;
-			Progress = Target.InitialProgress;
-			CurrState = State.Transitioning;
-
-			Start = Positioning.Of(ToControl);
-
-			Logger.Log($"Looking from {Start}\ntowards {Target}");
-		}
-
-		public void SpinCounterClockwise(float fullCircleDuration, TransitionTarget.ProgressStep? step = null)
-		{
-			Target = new(fullCircleDuration, Destination.SpinCounterclockwise, new())
-			{
-				//If none is provided, default to a no-op
-				AdditionalStep = step ?? (_ => { }),
-			};
-			CurrState = State.FreeSpinning;
-		}
-
-		public void RenameCurrentState(Destination destination)
-		{
-			CurrState = State.Stationary;
-			Target = new(0f, destination, Positioning.Of(ToControl));
-			Progress = 1f;
-		}
-
-		public void SkipTo(TransitionTarget target)
-		{
-			LookTowards(target);
-			Arrive();
 		}
 	}
 }

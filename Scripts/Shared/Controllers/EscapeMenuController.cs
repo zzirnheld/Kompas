@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Kompas.Godot;
 using Kompas.Shared.Exceptions;
@@ -68,7 +69,9 @@ namespace Kompas.Shared.Controllers
 		{
 			var startingState = LogoSpinController.Positioning.Of(SpinningLogoImage);
 			Closed = startingState.With(rotation: startingState.Rotation + FullClockwiseRotation); //So that we always end up circling back around before going
-			SpinningLogo.SkipTo(new(1f, LogoSpinController.Destination.Closed, Closed));
+			SpinningLogo.LookTowards(new(0f, LogoSpinController.Destination.Closed, Closed))
+				//This task should complete synchronously, because it has a duration of 0f.
+				.Wait();
 		}
 
 		public readonly struct ButtonData
@@ -98,20 +101,21 @@ namespace Kompas.Shared.Controllers
 			}
 		}
 
-		private void LookTowards(Button button)
+		// Async void because it's an event handler.
+		private async void LookTowards(Button button)
 		{
 			var targetRotation = SpinningLogo.RotationForVectorIfAt(button.GlobalCenter(), SpinningLogo.Target.Positioning);
 			var positioning = SpinningLogo.Target.Positioning.With(rotation: targetRotation);
 
 			var duration = SpinningLogo.Target.Destination switch
 			{
-				LogoSpinController.Destination.Open => SpinningLogo.CurrState == LogoSpinController.State.Stationary
-					? SwapDuration
-					: OpenDuration * (1 - SpinningLogo.Progress),
+				LogoSpinController.Destination.Open => SpinningLogo.Moving
+					? OpenDuration * (1 - SpinningLogo.Progress)
+					: SwapDuration,
 				LogoSpinController.Destination.Closed => OpenDuration * SpinningLogo.Progress,
 				_ => SwapDuration,
 			};
-			SpinningLogo.LookTowards(new(duration, LogoSpinController.Destination.Destination, positioning)
+			await SpinningLogo.LookTowards(new(duration, LogoSpinController.Destination.Destination, positioning)
 			{
 				AnchorProportion = x => x * x,
 				OffsetProportion = x => x * x,
@@ -124,19 +128,20 @@ namespace Kompas.Shared.Controllers
 			if (inputEvent is InputEventKey keyEvent && keyEvent.Keycode == Key.Escape && !keyEvent.Pressed) Toggle();
 		}
 
-		private void Toggle()
+		//Event handler for input event
+		private async void Toggle()
 		{
 			Logger.Log("Toggling!");
 			//We want to open if we're closed, but otherwise toggling the menu closes it, no matter what state we're in.
 			//TODO here forbid closing if we're currently spinning out to leave the scene?
-			if (SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed) Open();
-			else Close();
+			if (SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed) await Open();
+			else await Close();
 		}
 
-		private void Open()
+		private async Task Open()
 		{
 			Logger.Log("Opening!");
-			SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Open, Opened)
+			await SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Open, Opened)
 			{
 				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed
 					? 1 - SpinningLogo.Progress
@@ -146,11 +151,11 @@ namespace Kompas.Shared.Controllers
 			});
 		}
 
-		private void Close()
+		private async Task Close()
 		{
 			Logger.Log("Closing!");
 			SetButtonsInteractable(false);
-			SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Closed, Closed)
+			await SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Closed, Closed)
 			{
 				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Open
 					? 1 - SpinningLogo.Progress
