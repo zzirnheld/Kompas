@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Godot;
@@ -64,37 +65,35 @@ namespace Kompas.UI.MainMenu
 		public override void _Ready()
 		{
 			//Before anything else, start loading the cards
-			var loadingThread = new Thread(MainMenuCardRepository.Load);
-			loadingThread.Start();
+			var loadingThread = Task.Run(MainMenuCardRepository.Load);
 			Start = LogoController.CurrentPositioning;
 
 			ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
 		}
 
-		public void SplashScreenClicked(Thread loadingThread)
+		public void SplashScreenClicked(Task loadTask)
 		{
 			//Wipe the splash screen off
 			var pastClickHereToStart = Start.With(rotation: PastClickHereToStartRotation);
 			LogoController.LookTowards(new(FirstWipeDuration, LogoSpinController.Destination.Destination, pastClickHereToStart)
 			{
 				RotationProportion = x => x,
-				OnArrival = () => SpinUntilLoad(loadingThread),
+				OnArrival = () => SpinUntilLoad(loadTask),
 			});
 		}
 
-		private void SpinUntilLoad(Thread loadingThread)
+		private void SpinUntilLoad(Task loadTask)
 		{
 			TopLeft.Visible = true;
 			ClickToStartParent.Visible = false;
 
 			var now = Time.GetTicksMsec();
-			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(loadingThread, now));
+			LogoController.SpinCounterClockwise(FullCircleDuration, progress => IfThreadCompleteLoadMenu(loadTask, now));
 		}
 
-		private void IfThreadCompleteLoadMenu(Thread loadingThread, ulong startMsec)
+		private void IfThreadCompleteLoadMenu(Task loadTask, ulong startMsec)
 		{
-			if (loadingThread == null) throw new NullReferenceException("Must define the thread before this point!");
-			if (!loadingThread.IsAlive)
+			if (loadTask.IsCompleted)
 			{
 				var destinationRotation = DestinationRotationWhenFinishingLoading;
 				var pastMenu = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
