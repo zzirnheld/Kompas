@@ -55,6 +55,11 @@ namespace Kompas.Shared.Controllers
 		private Control VisibleUnlessFullyClosed => _visibleUnlessFullyClosed
 			?? throw new UnassignedReferenceException();
 
+		[Export]
+		private Button? _clickToOpenMenuButton;
+		private Button ClickToOpenMenuButton => _clickToOpenMenuButton
+			?? throw new UnassignedReferenceException(nameof(_clickToOpenMenuButton), this);
+
 		private readonly LogoSpinController.Positioning Opened = new()
 		{
 			Rotation = (float)(1f / 2f * System.MathF.PI),
@@ -140,7 +145,7 @@ namespace Kompas.Shared.Controllers
 
 			ToMainMenuHaze.Visible = true;
 			ModulateNormalHaze(1f);
-			ModulateButtons(0f);
+			ModulateButtons(0f, show: false);
 			ModulateMainMenuHaze(1f);
 			PartiallyOpen();
 
@@ -212,8 +217,6 @@ namespace Kompas.Shared.Controllers
 		private async void Toggle()
 		{
 			Logger.Log("Toggling!");
-			//We want to open if we're closed, but otherwise toggling the menu closes it, no matter what state we're in.
-			//TODO here forbid closing if we're currently spinning out to leave the scene?
 			switch (SpinningLogo.Target.Destination)
 			{
 				case LogoSpinController.Destination.Open:
@@ -223,7 +226,7 @@ namespace Kompas.Shared.Controllers
 				case LogoSpinController.Destination.Closed:
 					await Open();
 					break;
-				case LogoSpinController.Destination.Spin:
+				case LogoSpinController.Destination.Spin: //TODO add a better way of making sure we can't toggle while waiting for loading?
 					break;
 				default: throw new System.InvalidOperationException($"Invalid destination {SpinningLogo.Target.Destination}");
 			}
@@ -281,15 +284,21 @@ namespace Kompas.Shared.Controllers
 
 		private void ModulateNonMainMenuShowables(float progress, bool showButtons)
 		{
-			if (showButtons) ModulateButtons(progress * progress * progress * progress * progress);
-			else ModulateButtons(0f);
-
+			ModulateButtons(progress, show: showButtons);
 			ModulateNormalHaze(System.MathF.Cbrt(progress));
+
+			ClickToOpenMenuButton.AnchorLeft = 0f + (0.25f * progress);
+			ClickToOpenMenuButton.AnchorRight = 1f - (0.25f * progress);
+			ClickToOpenMenuButton.AnchorTop = 0f + (0.25f * progress);
+			ClickToOpenMenuButton.AnchorBottom = 1f - (0.25f * progress);
 		}
 
-		private void ModulateButtons(float progress)
+		private void ModulateButtons(float progress, bool show)
 		{
-			EscapeMenuButtons.Modulate = new(1f, 1f, 1f, progress);
+			float alpha = show
+				? progress * progress * progress * progress * progress
+				: 0f;
+			EscapeMenuButtons.Modulate = new(1f, 1f, 1f, alpha);
 		}
 
 		private void ModulateNormalHaze(float progress)
