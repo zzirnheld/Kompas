@@ -100,8 +100,8 @@ namespace Kompas.Shared.Controllers
 			//Initialize Closed in _Ready to ensure that closed is only init once node is fully ready
 			Closed = startingState.With(rotation: startingState.Rotation + FullClockwiseRotation); //So that we always end up circling back around before going
 
-			ModulateShowables(0f, showButtons: true);
-			VisibleUnlessFullyClosed.Visible = false;
+			ModulateNonMainMenuShowables(0f, showButtons: true);
+			FullyClosed();
 			SpinningLogo.LookTowards(new(0f, LogoSpinController.Destination.Closed, Closed))
 				//This task should complete synchronously, because it has a duration of 0f.
 				.Wait();
@@ -142,7 +142,7 @@ namespace Kompas.Shared.Controllers
 			ModulateNormalHaze(1f);
 			ModulateButtons(0f);
 			ModulateMainMenuHaze(1f);
-			VisibleUnlessFullyClosed.Visible = true;
+			PartiallyOpen();
 
 			await SpinningLogo.LookTowards(new(0f, LogoSpinController.Destination.Spin, SpinPositioning));
 			await SpinningLogo.Spin(fullCircleDuration: MainMenuLogoController.FullCircleDuration, spinDirection);
@@ -159,7 +159,7 @@ namespace Kompas.Shared.Controllers
 				AdditionalStep = progress =>
 				{
 					ModulateMainMenuHaze(progress);
-					VisibleUnlessFullyClosed.Visible = true;
+					PartiallyOpen();
 				},
 			});
 		}
@@ -170,14 +170,14 @@ namespace Kompas.Shared.Controllers
 			{
 				AdditionalStep = progress =>
 				{
-					ModulateShowables(1 - progress, showButtons: false);
+					ModulateNonMainMenuShowables(1 - progress, showButtons: false);
 					ModulateMainMenuHaze(1f - progress);
-					VisibleUnlessFullyClosed.Visible = true;
+					PartiallyOpen();
 				},
 
 				RotationProportion = x => x,
 			});
-			VisibleUnlessFullyClosed.Visible = false;
+			FullyClosed();
 			ToMainMenuHaze.Visible = false;
 		}
 
@@ -239,8 +239,8 @@ namespace Kompas.Shared.Controllers
 					: 0f,
 				AdditionalStep = progress =>
 				{
-					ModulateShowables(progress, showButtons: showButtons);
-					VisibleUnlessFullyClosed.Visible = true;
+					ModulateNonMainMenuShowables(progress, showButtons: showButtons);
+					PartiallyOpen();
 				},
 
 				RotationProportion = x => x,
@@ -259,13 +259,13 @@ namespace Kompas.Shared.Controllers
 					: 0f,
 				AdditionalStep = progress =>
 				{
-					ModulateShowables(1 - progress, showButtons: showButtons);
-					VisibleUnlessFullyClosed.Visible = true;
+					ModulateNonMainMenuShowables(1 - progress, showButtons: showButtons);
+					PartiallyOpen();
 				},
 
 				RotationProportion = x => x,
 			});
-			VisibleUnlessFullyClosed.Visible = false;
+			FullyClosed();
 		}
 
 		private void SetButtonsInteractable(bool interactable)
@@ -279,7 +279,7 @@ namespace Kompas.Shared.Controllers
 			}
 		}
 
-		private void ModulateShowables(float progress, bool showButtons)
+		private void ModulateNonMainMenuShowables(float progress, bool showButtons)
 		{
 			if (showButtons) ModulateButtons(progress * progress * progress * progress * progress);
 			else ModulateButtons(0f);
@@ -301,5 +301,8 @@ namespace Kompas.Shared.Controllers
 		{
 			ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, System.MathF.Cbrt(progress));
 		}
+
+		private void FullyClosed() => VisibleUnlessFullyClosed.Visible = false;
+		private void PartiallyOpen() => VisibleUnlessFullyClosed.Visible = true;
 	}
 }
