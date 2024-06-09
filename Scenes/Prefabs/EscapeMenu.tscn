@@ -97,7 +97,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Logo Button" type="Button" parent="Spinning Logo On Splash/Full Area of Logo"]
-visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -125,4 +124,4 @@ script = ExtResource("5_4ci3x")
 _toControl = NodePath("../Spinning Logo On Splash")
 _centerOfControlled = NodePath("../Spinning Logo On Splash/Center of Spinning Logo")
 
-[connection signal="pressed" from="Spinning Logo On Splash/Full Area of Logo/Logo Button" to="Spinning Logo On Splash" method="Toggle"]
+[connection signal="pressed" from="Spinning Logo On Splash/Full Area of Logo/Logo Button" to="." method="Toggle"]

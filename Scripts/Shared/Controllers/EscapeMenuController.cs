@@ -127,6 +127,8 @@ namespace Kompas.Shared.Controllers
 			}
 		}
 
+		//I *think* it's reasonable to have the escape menu logo be responsible for doing the spinning,
+		//specifically because it should be able to have the logo disappear into the corner after loading the scene
 		public async Task PrepareToSpin(float expansionDelay)
 		{
 			_ = Closed; //Confirm we have a non-null closed state computed at _Ready first

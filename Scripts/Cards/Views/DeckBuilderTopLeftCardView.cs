@@ -16,8 +16,6 @@ namespace Kompas.Cards.Views
 		{
 			Logger.Log("Creating dbtlcv");
 			CardRepository = cardRepository;
-
-			infoDisplayer.MouseEntered += () => Logger.Log("HEY! GUYS!");
 		}
 
 		public void Show(DeckBuilderCard? card) => base.Show(card);

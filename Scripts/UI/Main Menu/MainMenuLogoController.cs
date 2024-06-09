@@ -180,11 +180,15 @@ namespace Kompas.UI.MainMenu
 			{
 				RotationProportion = x => x,
 				AdditionalStep = progress => {
+					//TODO refactor somehow, possibly to make arguments include rotation?
+					if (LogoController.ToControl.Rotation > WhenMakeTopRightInvisible)
+					{
+						TopLeft.Visible = true;
+						TopRight.Visible = true;
+					};
 					LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LogoSpinController.TransitionTarget.Cubic(1 - progress) * LeftBufferStretchSize;
 				},
 			});
-			TopLeft.Visible = true;
-			TopRight.Visible = true;
 			Logger.Log($"Spun to poitning down for scene change!");
 		}
 
