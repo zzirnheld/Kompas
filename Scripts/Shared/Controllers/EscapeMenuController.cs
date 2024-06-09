@@ -63,12 +63,14 @@ namespace Kompas.Shared.Controllers
 			BottomOffset = 0f,
 		};
 
+		//Making this match the main menu
+		//TODO make it a constant that gets skipped to? makes it awkward to mess with in the inspector tho
 		private readonly LogoSpinController.Positioning SpinPositioning = new()
 		{
 			Rotation = (float)(1f / 2f * System.MathF.PI),
 
-			LeftAnchor = -1f,
-			RightAnchor = 1f,
+			LeftAnchor = -0.1f,
+			RightAnchor = 2.15f,
 			TopAnchor = 0f,
 			BottomAnchor = 1f,
 
