@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ddndf2v4t02jx" path="res://Scenes/Prefabs/EscapeMenuButton.tscn" id="3_jwt2f"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/LogoSpinController.cs" id="5_4ci3x"]
 
-[node name="Escape Menu" type="Control" node_paths=PackedStringArray("_spinningLogo", "_spinningLogoImage", "_buttonsParent", "_escapeMenuHaze", "_escapeMenuButtons", "_escapeMenuParentToSetVisibility", "_visibleUnlessFullyClosed")]
+[node name="Escape Menu" type="Control" node_paths=PackedStringArray("_spinningLogo", "_spinningLogoImage", "_buttonsParent", "_escapeMenuHaze", "_toMainMenuHaze", "_escapeMenuButtons", "_escapeMenuParentToSetVisibility", "_visibleUnlessFullyClosed")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,12 +22,12 @@ _spinningLogoImage = NodePath("Spinning Logo On Splash")
 _menuButton = ExtResource("3_jwt2f")
 _buttonsParent = NodePath("Normally Hidden Escape Menu/Escape Menu Buttons/Escape Menu Buttons Margin/Escape Menu Buttons")
 _escapeMenuHaze = NodePath("Normally Hidden Escape Menu/Background Haze")
+_toMainMenuHaze = NodePath("Normally Hidden Escape Menu/Main Menu Haze")
 _escapeMenuButtons = NodePath("Normally Hidden Escape Menu/Escape Menu Buttons/Escape Menu Buttons Margin/Escape Menu Buttons")
 _escapeMenuParentToSetVisibility = NodePath("Normally Hidden Escape Menu/Escape Menu Buttons")
 _visibleUnlessFullyClosed = NodePath("Normally Hidden Escape Menu")
 
 [node name="Normally Hidden Escape Menu" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,6 +39,17 @@ mouse_filter = 2
 [node name="Background Haze" type="TextureRect" parent="Normally Hidden Escape Menu"]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0.611765)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4ba04")
+
+[node name="Main Menu Haze" type="TextureRect" parent="Normally Hidden Escape Menu"]
+modulate = Color(0.137255, 0.0980392, 0.254902, 1)
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

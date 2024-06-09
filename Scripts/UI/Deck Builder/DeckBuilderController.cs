@@ -3,6 +3,8 @@ using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Views;
 using Kompas.Client.UI;
+using Kompas.Godot;
+using Kompas.Shared;
 using Kompas.Shared.Controllers;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
@@ -44,14 +46,39 @@ namespace Kompas.UI.DeckBuilder
 				new EscapeMenuController.ButtonData() { Text = "Back to\nMain Menu", OnClick = () => ToMainMenu() }
 			);
 
+			Task load = DeckController.Init();
+
 			await Task.WhenAny(
-				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise), //Instant, no delay
-				DeckController.Init()
+				EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.Clockwise), //Instant, no delay
+				load
 			);
 
-			await EscapeMenu.Close();
+			await EscapeMenu.CameFromMainMenuClose();
 		}
 
-		private void ToMainMenu() => GetTree().ChangeSceneToFile(MainMenuPath);
+		private async Task SwitchSceneTo(string scenePath)
+		{
+			ResourceLoader.LoadThreadedRequest(scenePath);
+			Task<bool> load = this.DoEachFrame(_ =>
+			{
+				var status = ResourceLoader.LoadThreadedGetStatus(scenePath);
+				if (status == ResourceLoader.ThreadLoadStatus.InProgress)
+					return Result<bool>.None;
+
+				return Result<bool>.Of(status == ResourceLoader.ThreadLoadStatus.Loaded);
+			});
+
+			await EscapeMenu.PrepareForGoingToMainMenu(0.5f);
+			await Task.WhenAny(load, EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.CounterClockwise));
+
+			if (load.IsCompleted && load.Result)
+			{
+				var res = ResourceLoader.LoadThreadedGet(scenePath);
+				if (res is not PackedScene scene) throw new System.InvalidOperationException("Resource was not a packed scene!");
+				GetTree().ChangeSceneToPacked(scene);
+			}
+		}
+
+		private async void ToMainMenu() => await SwitchSceneTo(MainMenuPath);
 	}
 }

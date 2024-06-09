@@ -12,18 +12,24 @@ namespace Kompas.UI.MainMenu
 	{
 		//Factor out into a shared logo spinning constants file? for consistency across different loading screens
 		public const float FullCircleDuration = 2f;
-
-		private const float FullClockwiseRotation = 2 * MathF.PI;
 		private const float FirstWipeDuration = 1f / 4f * FullCircleDuration;
 		private const float ButtonChooseDuration = 0.5f;
+		private const float NewSceneWipeDuration
+			= (DestinationRotationWhenSpinningPastMenuForNewScene - StartRotationWhenSpinningPastMenuForNewScene)
+			/ FullClockwiseRotation
+			* FullCircleDuration;
+
+		private const float FullClockwiseRotation = 2f * MathF.PI;
 
 		private const float DestinationRotationWhenFinishingLoading = -11f / 8f * FullClockwiseRotation;
 		private const float WhenMakeTopRightInvisible = DestinationRotationWhenFinishingLoading + (1f / 2f * FullClockwiseRotation);
+		private const float PastClickHereToStartRotation = -3f / 8f * FullClockwiseRotation;
+		private const float DestinationRotationWhenSpinningPastMenuForNewScene = -1f / 8f * FullClockwiseRotation;
+		private const float StartRotationWhenSpinningPastMenuForNewScene = -3f / 4f * FullClockwiseRotation;
+
 		private const float EndSplashLeftAnchor = 0f;
 		private const float EndSplashRightAnchor = 2f;
 		private const float LeftBufferStretchSize = 0.2f;
-		private const float PastClickHereToStartRotation = -3f / 8f * FullClockwiseRotation;
-		private const float DestinationRotationWhenSpinningPastMenuForNewScene = -1f / 2f * FullClockwiseRotation;
 
 		private static bool FirstLoad = true;
 
@@ -67,17 +73,19 @@ namespace Kompas.UI.MainMenu
 		private bool loaded = false;
 		private Button? lookAtNext;
 
-		public override void _Ready()
+		public override async void _Ready()
 		{
-			if (FirstLoad)
+			if (!FirstLoad)
 			{
-				//Before anything else, start loading the cards
-				var loadingThread = Task.Run(MainMenuCardRepository.Load);
-				Start = LogoController.CurrentPositioning;
-
-				ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
+				await SkipToLoadedMenu();
+				return;
 			}
-			else SkipToLoadedMenu();
+			
+			//Before anything else, start loading the cards
+			var loadingThread = Task.Run(MainMenuCardRepository.Load);
+			Start = LogoController.CurrentPositioning;
+
+			ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
 		}
 
 		public async void SplashScreenClicked(Task loadTask)
@@ -126,23 +134,27 @@ namespace Kompas.UI.MainMenu
 			FirstLoad = false;
 		}
 
-		private void SkipToLoadedMenu()
+		private async Task SkipToLoadedMenu()
 		{
 			Start = LogoController.CurrentPositioning;
 
-			var destinationRotation = DestinationRotationWhenFinishingLoading;
-			var pastMenu = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
+			var destinationRotation = StartRotationWhenSpinningPastMenuForNewScene;
+			var startSkip = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
 
 			//TODO add a method on LogoController that does looktowards.wait() to factor out this shared logic
-			LogoController.LookTowards(new(0f, LogoSpinController.Destination.Destination, pastMenu))
+			LogoController.LookTowards(new(0f, LogoSpinController.Destination.Destination, startSkip))
 				.Wait();
 
-			TopRight.Visible = false;
 			TopLeft.Visible = false;
 			ClickToStartParent.Visible = false;
 			LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LeftBufferStretchSize;
 
 			loaded = true;
+
+			TopRight.Visible = true;
+			await LogoController.LookTowards(new(NewSceneWipeDuration, LogoSpinController.Destination.Destination,
+				startSkip.With(rotation: DestinationRotationWhenSpinningPastMenuForNewScene)));
+			TopRight.Visible = false;
 		}
 
 		//Event handler for main menu buttons
@@ -163,6 +175,7 @@ namespace Kompas.UI.MainMenu
 		{
 			LogoController.NormalizeAngle();
 			TopLeft.Visible = false;
+			TopRight.Visible = false;
 			LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LeftBufferStretchSize;
 
 			var targetRotation = LogoController.RotationForVectorIfAt(button.GlobalCenter(), LogoController.Target.Positioning);

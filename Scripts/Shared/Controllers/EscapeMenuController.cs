@@ -35,6 +35,13 @@ namespace Kompas.Shared.Controllers
 		private Control EscapeMenuHaze => _escapeMenuHaze
 			?? throw new UnassignedReferenceException();
 		[Export]
+		private Control? _toMainMenuHaze;
+		/// <summary>
+		/// Should be visible iff we're going to/from the main menu
+		/// </summary>
+		private Control ToMainMenuHaze => _toMainMenuHaze
+			?? throw new UnassignedReferenceException(nameof(_toMainMenuHaze), this);
+		[Export]
 		private Control? _escapeMenuButtons;
 		private Control EscapeMenuButtons => _escapeMenuButtons
 			?? throw new UnassignedReferenceException();
@@ -127,22 +134,51 @@ namespace Kompas.Shared.Controllers
 			}
 		}
 
-		//I *think* it's reasonable to have the escape menu logo be responsible for doing the spinning,
-		//specifically because it should be able to have the logo disappear into the corner after loading the scene
-		public async Task PrepareToSpin(float expansionDelay)
+		public async Task SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection spinDirection)
 		{
 			_ = Closed; //Confirm we have a non-null closed state computed at _Ready first
 
-			ModulateHaze(1f);
+			ToMainMenuHaze.Visible = true;
+			ModulateNormalHaze(1f);
 			ModulateButtons(0f);
+			ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, 1f);
 			VisibleUnlessFullyClosed.Visible = true;
-			await SpinningLogo.LookTowards(new(expansionDelay, LogoSpinController.Destination.Spin, SpinPositioning));
+
+			await SpinningLogo.LookTowards(new(0f, LogoSpinController.Destination.Spin, SpinPositioning));
+			await SpinningLogo.Spin(fullCircleDuration: MainMenuLogoController.FullCircleDuration, spinDirection);
 		}
 
-		public async Task SpinBig(LogoSpinController.SpinDirection spinDirection)
+		public async Task PrepareForGoingToMainMenu(float expansionDelay)
 		{
-			await PrepareToSpin(0f);
-			await SpinningLogo.Spin(fullCircleDuration: MainMenuLogoController.FullCircleDuration, spinDirection);
+			_ = Closed; //Confirm we have a non-null closed state computed at _Ready first
+			ToMainMenuHaze.Visible = true;
+			ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, 0f);
+
+			await SpinningLogo.LookTowards(new(expansionDelay, LogoSpinController.Destination.Spin, SpinPositioning)
+			{
+				AdditionalStep = progress =>
+				{
+					ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, System.MathF.Cbrt(progress));
+					VisibleUnlessFullyClosed.Visible = true;
+				},
+			});
+		}
+
+		public async Task CameFromMainMenuClose()
+		{
+			await SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Closed, Closed)
+			{
+				AdditionalStep = progress =>
+				{
+					ModulateShowables(1 - progress, showButtons: false);
+					ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, System.MathF.Cbrt(1f - progress));
+					VisibleUnlessFullyClosed.Visible = true;
+				},
+
+				RotationProportion = x => x,
+			});
+			VisibleUnlessFullyClosed.Visible = false;
+			ToMainMenuHaze.Visible = false;
 		}
 
 		// Async void because it's an event handler.
@@ -248,7 +284,7 @@ namespace Kompas.Shared.Controllers
 			if (showButtons) ModulateButtons(progress * progress * progress * progress * progress);
 			else ModulateButtons(0f);
 
-			ModulateHaze(System.MathF.Cbrt(progress));
+			ModulateNormalHaze(System.MathF.Cbrt(progress));
 		}
 
 		private void ModulateButtons(float progress)
@@ -256,7 +292,7 @@ namespace Kompas.Shared.Controllers
 			EscapeMenuButtons.Modulate = new(1f, 1f, 1f, progress);
 		}
 
-		private void ModulateHaze(float progress)
+		private void ModulateNormalHaze(float progress)
 		{
 			EscapeMenuHaze.Modulate = new(0f, 0f, 0f, progress);
 		}

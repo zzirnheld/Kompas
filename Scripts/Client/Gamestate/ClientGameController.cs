@@ -89,11 +89,11 @@ namespace Kompas.Client.Gamestate
 			);
 
 			await Task.WhenAny(
-				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise), //Instant, no delay, because on startup
+				EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.Clockwise), //Instant, no delay, because on startup
 				GameStartController.SelectDeck.Init()
 			);
 
-			await EscapeMenu.Close();
+			await EscapeMenu.CameFromMainMenuClose();
 		}
 
 		private async void Rematch()
@@ -118,8 +118,8 @@ namespace Kompas.Client.Gamestate
 				return Result<bool>.Of(status == ResourceLoader.ThreadLoadStatus.Loaded);
 			});
 
-			await EscapeMenu.PrepareToSpin(0.5f);
-			await Task.WhenAny(load, EscapeMenu.SpinBig(LogoSpinController.SpinDirection.CounterClockwise));
+			await EscapeMenu.PrepareForGoingToMainMenu(0.5f);
+			await Task.WhenAny(load, EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.CounterClockwise));
 
 			if (load.IsCompleted && load.Result)
 			{
