@@ -141,7 +141,7 @@ namespace Kompas.Shared.Controllers
 			ToMainMenuHaze.Visible = true;
 			ModulateNormalHaze(1f);
 			ModulateButtons(0f);
-			ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, 1f);
+			ModulateMainMenuHaze(1f);
 			VisibleUnlessFullyClosed.Visible = true;
 
 			await SpinningLogo.LookTowards(new(0f, LogoSpinController.Destination.Spin, SpinPositioning));
@@ -152,13 +152,13 @@ namespace Kompas.Shared.Controllers
 		{
 			_ = Closed; //Confirm we have a non-null closed state computed at _Ready first
 			ToMainMenuHaze.Visible = true;
-			ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, 0f);
+			ModulateMainMenuHaze(0f);
 
 			await SpinningLogo.LookTowards(new(expansionDelay, LogoSpinController.Destination.Spin, SpinPositioning)
 			{
 				AdditionalStep = progress =>
 				{
-					ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, System.MathF.Cbrt(progress));
+					ModulateMainMenuHaze(progress);
 					VisibleUnlessFullyClosed.Visible = true;
 				},
 			});
@@ -171,7 +171,7 @@ namespace Kompas.Shared.Controllers
 				AdditionalStep = progress =>
 				{
 					ModulateShowables(1 - progress, showButtons: false);
-					ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, System.MathF.Cbrt(1f - progress));
+					ModulateMainMenuHaze(1f - progress);
 					VisibleUnlessFullyClosed.Visible = true;
 				},
 
@@ -295,6 +295,11 @@ namespace Kompas.Shared.Controllers
 		private void ModulateNormalHaze(float progress)
 		{
 			EscapeMenuHaze.Modulate = new(0f, 0f, 0f, progress);
+		}
+
+		private void ModulateMainMenuHaze(float progress)
+		{
+			ToMainMenuHaze.SelfModulate = new(1f, 1f, 1f, System.MathF.Cbrt(progress));
 		}
 	}
 }
