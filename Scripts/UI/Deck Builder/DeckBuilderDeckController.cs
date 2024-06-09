@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
@@ -53,19 +54,14 @@ namespace Kompas.UI.DeckBuilder
 
 		public DeckBuilderDeckCardController? Dragging { get; set; }
 
-		private DeckAccess? _deckLoader;
-		public DeckAccess DeckLoader
-		{
-			get => _deckLoader ?? throw new NotReadyYetException();
-			set => _deckLoader = value;
-		}
+		private DeckAccess? deckLoader;
 
 		private bool placeholdersWereActive;
 
-		public override void _Ready()
+		public async Task Init()
 		{
-			DeckLoader = DeckAccess.LoadEverything();
-			foreach (var deckName in DeckLoader.DeckNames) AddDeckName(deckName);
+			deckLoader = await Task.Run(() => DeckAccess.LoadEverything());
+			foreach (var deckName in deckLoader.DeckNames) AddDeckName(deckName);
 
 			AvatarController.Init(null, DeckBuilderController.CardView, this);
 			if (deckNames.Count == 0) ShowController(Tab.NewDeck);
@@ -120,12 +116,15 @@ namespace Kompas.UI.DeckBuilder
 		private void SaveDeck()
 		{
 			if (currentDeck == null) return;
-			DeckLoader.Save(currentDeck);
+			_ = deckLoader ?? throw new NotInitializedException();
+
+			deckLoader.Save(currentDeck);
 		}
 
 		public void DeleteSelectedDeck()
 		{
 			if (currentDeck == null) return;
+			_ = deckLoader ?? throw new NotInitializedException();
 
 			int indexToSelect;
 			if (currentDeck.deckName == null)
@@ -135,7 +134,7 @@ namespace Kompas.UI.DeckBuilder
 			}
 			else
 			{
-				DeckLoader.Delete(currentDeck);
+				deckLoader.Delete(currentDeck);
 				int deckIndex = deckNames.IndexOf(currentDeck.deckName);
 				DeckNameSelect.RemoveItem(deckIndex);
 				deckNames.RemoveAt(deckIndex);
@@ -156,8 +155,10 @@ namespace Kompas.UI.DeckBuilder
 
 		private void LoadDeck(string deckName)
 		{
+			_ = deckLoader ?? throw new NotInitializedException();
+
 			Logger.Log($"loading {deckName}");
-			var decklist = DeckLoader.Load(deckName);
+			var decklist = deckLoader.Load(deckName);
 			if (decklist == null)
 			{
 				Logger.Err($"Failed to load deck {deckName} in deck edit");

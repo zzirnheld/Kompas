@@ -54,7 +54,7 @@ namespace Kompas.Godot
 		/// Asynchronously runs the given function each frame,
 		/// and returns once the given function returns something other than None.
 		/// </summary>
-		public static async Task<T> DoEachFrame<T>(this Node node, EachFrame<T> eachLoop)
+		public static async Task<T?> DoEachFrame<T>(this Node node, EachFrame<T> eachLoop)
 		{
 			ulong frameMsec = Time.GetTicksMsec();
 			while (true)
@@ -66,7 +66,9 @@ namespace Kompas.Godot
 				var ret = eachLoop(delta);
 				if (ret.HasResult) return ret.Item;
 
-				await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
+				var tree = node.GetTree();
+				if (tree == null) return default;
+				await node.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
 			}
 		}
 

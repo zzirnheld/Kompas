@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Deck Builder/SaveAsController.cs" id="15_gjys2"]
 [ext_resource type="PackedScene" uid="uid://xe3swobex507" path="res://Scenes/Prefabs/Deck Builder/DeckBuildSearchCardPrefab.tscn" id="17_wecxo"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="18_71cwr"]
-[ext_resource type="PackedScene" uid="uid://cvqukbgnck5ro" path="res://Scenes/Prefabs/OldEscapeMenu.tscn" id="19_n56hw"]
+[ext_resource type="PackedScene" uid="uid://ctrmi7srh8d5d" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="19_rie8m"]
 
 [node name="Deck Builder Controller" type="Control" node_paths=PackedStringArray("_cardInfoDisplayer", "_deckController", "_reminderTextPopup", "_escapeMenu")]
 layout_mode = 3
@@ -544,7 +544,7 @@ theme_override_constants/margin_bottom = 10
 visible = false
 layout_mode = 1
 
-[node name="Escape Menu" parent="." instance=ExtResource("19_n56hw")]
+[node name="Escape Menu" parent="." instance=ExtResource("19_rie8m")]
 layout_mode = 1
 
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView/Button" to="HBoxContainer/VBoxContainer/HBoxContainer/Deck View/Deck Edit Buttons VBox/HBoxContainer/Avatar MarginContainer/AvatarView" method="ShowInTopLeft"]

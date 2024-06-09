@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Views;
@@ -5,6 +6,7 @@ using Kompas.Client.UI;
 using Kompas.Shared.Controllers;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
+using Kompas.UI.MainMenu;
 
 namespace Kompas.UI.DeckBuilder
 {
@@ -35,12 +37,19 @@ namespace Kompas.UI.DeckBuilder
 		private DeckBuilderTopLeftCardView? cardView;
 		public DeckBuilderTopLeftCardView CardView => cardView ??= new DeckBuilderTopLeftCardView(CardInfoDisplayer, ReminderTextPopup, CardRepository);
 
-		public override void _Ready()
+		public override async void _Ready()
 		{
 			CardView.Refresh();
 			EscapeMenu.Init(
 				new EscapeMenuController.ButtonData() { Text = "Back to\nMain Menu", OnClick = () => ToMainMenu() }
 			);
+
+			await Task.WhenAny(
+				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise),
+				DeckController.Init()
+			);
+
+			await EscapeMenu.Close();
 		}
 
 		private void ToMainMenu() => GetTree().ChangeSceneToFile(MainMenuPath);
