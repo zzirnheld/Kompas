@@ -172,20 +172,34 @@ namespace Kompas.Shared.Controllers
 			Logger.Log("Toggling!");
 			//We want to open if we're closed, but otherwise toggling the menu closes it, no matter what state we're in.
 			//TODO here forbid closing if we're currently spinning out to leave the scene?
-			if (SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed) await Open();
-			else await Close();
+			switch (SpinningLogo.Target.Destination)
+			{
+				case LogoSpinController.Destination.Open:
+				case LogoSpinController.Destination.Destination:
+					await Close();
+					break;
+				case LogoSpinController.Destination.Closed:
+					await Open();
+					break;
+				case LogoSpinController.Destination.Spin:
+					break;
+				default: throw new System.InvalidOperationException($"Invalid destination {SpinningLogo.Target.Destination}");
+			}
 		}
 
 		public async Task Open(bool showButtons = true)
 		{
-			VisibleUnlessFullyClosed.Visible = true;
 			Logger.Log("Opening!");
 			await SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Open, Opened)
 			{
 				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed && SpinningLogo.Moving
 					? 1 - SpinningLogo.Progress
 					: 0f,
-				AdditionalStep = progress => ModulateShowables(progress, showButtons: showButtons),
+				AdditionalStep = progress =>
+				{
+					ModulateShowables(progress, showButtons: showButtons);
+					VisibleUnlessFullyClosed.Visible = true;
+				},
 
 				RotationProportion = x => x,
 			});
