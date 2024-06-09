@@ -43,6 +43,11 @@ namespace Kompas.Shared.Controllers
 		private Control EscapeMenuParentToSetVisibility => _escapeMenuParentToSetVisibility
 			?? throw new UnassignedReferenceException();
 
+		[Export]
+		private Control? _visibleUnlessFullyClosed;
+		private Control VisibleUnlessFullyClosed => _visibleUnlessFullyClosed
+			?? throw new UnassignedReferenceException();
+
 		private readonly LogoSpinController.Positioning Opened = new()
 		{
 			Rotation = (float)(1f / 2f * System.MathF.PI),
@@ -140,6 +145,7 @@ namespace Kompas.Shared.Controllers
 
 		private async Task Open()
 		{
+			VisibleUnlessFullyClosed.Visible = true;
 			Logger.Log("Opening!");
 			await SpinningLogo.LookTowards(new(OpenDuration, LogoSpinController.Destination.Open, Opened)
 			{
@@ -162,6 +168,7 @@ namespace Kompas.Shared.Controllers
 					: 0f,
 				AdditionalStep = progress => ModulateShowables(1 - progress)
 			});
+			VisibleUnlessFullyClosed.Visible = false;
 		}
 
 		private void SetButtonsInteractable(bool interactable)

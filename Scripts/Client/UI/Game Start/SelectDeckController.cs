@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate;
@@ -41,10 +42,12 @@ namespace Kompas.Client.UI.GameStart
 			set => _deckLoader = value;
 		}
 
-		public override void _Ready()
+		//Event handler - when controller becomes ready.
+		public override async void _Ready()
 		{
+			//TODO: first start the spinny.
 			DeckSelect.Clear();
-			DeckLoader = DeckAccess.Create();
+			DeckLoader = await Task.Run(DeckAccess.Create);
 			foreach (var deckName in DeckLoader.DeckNames) AddDeckName(deckName);
 
 			//TODO handle having no decks and trying to enter client - error and boot back to main menu

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ddndf2v4t02jx" path="res://Scenes/Prefabs/EscapeMenuButton.tscn" id="3_jwt2f"]
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu/LogoSpinController.cs" id="5_4ci3x"]
 
-[node name="Escape Menu" type="Control" node_paths=PackedStringArray("_spinningLogo", "_spinningLogoImage", "_buttonsParent", "_escapeMenuHaze", "_escapeMenuButtons", "_escapeMenuParentToSetVisibility")]
+[node name="Escape Menu" type="Control" node_paths=PackedStringArray("_spinningLogo", "_spinningLogoImage", "_buttonsParent", "_escapeMenuHaze", "_escapeMenuButtons", "_escapeMenuParentToSetVisibility", "_visibleUnlessFullyClosed")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,8 +24,10 @@ _buttonsParent = NodePath("Normally Hidden Escape Menu/Escape Menu Buttons/Escap
 _escapeMenuHaze = NodePath("Normally Hidden Escape Menu/Background Haze")
 _escapeMenuButtons = NodePath("Normally Hidden Escape Menu/Escape Menu Buttons/Escape Menu Buttons Margin/Escape Menu Buttons")
 _escapeMenuParentToSetVisibility = NodePath("Normally Hidden Escape Menu/Escape Menu Buttons")
+_visibleUnlessFullyClosed = NodePath("Normally Hidden Escape Menu")
 
 [node name="Normally Hidden Escape Menu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
