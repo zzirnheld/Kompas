@@ -19,12 +19,15 @@ namespace Kompas.Shared
 			DeckNames = System.Array.Empty<string>();
 		}
 
-		public static DeckAccess Create()
+		public static DeckAccess LoadEverything()
 		{
-			return new DeckAccess()
+			var ret = new DeckAccess()
 			{
 				DeckNames = GetDeckNames(),
 			};
+			foreach (var deck in ret.DeckNames) ret.Load(deck);
+
+			return ret;
 		}
 
 		private static IReadOnlyCollection<string> GetDeckNames()

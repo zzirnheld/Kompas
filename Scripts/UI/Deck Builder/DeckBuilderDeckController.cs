@@ -64,7 +64,7 @@ namespace Kompas.UI.DeckBuilder
 
 		public override void _Ready()
 		{
-			DeckLoader = DeckAccess.Create();
+			DeckLoader = DeckAccess.LoadEverything();
 			foreach (var deckName in DeckLoader.DeckNames) AddDeckName(deckName);
 
 			AvatarController.Init(null, DeckBuilderController.CardView, this);

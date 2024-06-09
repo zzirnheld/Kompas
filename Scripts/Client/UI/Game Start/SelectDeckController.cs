@@ -46,8 +46,8 @@ namespace Kompas.Client.UI.GameStart
 
 		public async Task Init()
 		{
-			await Task.Delay(1000);
-			deckLoader = await Task.Run(DeckAccess.Create);
+			//await Task.Delay(1000);
+			deckLoader = await Task.Run(DeckAccess.LoadEverything);
 			foreach (var deckName in deckLoader.DeckNames) AddDeckName(deckName);
 
 			//TODO handle having no decks and trying to enter client - error and boot back to main menu
