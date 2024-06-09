@@ -26,6 +26,7 @@ namespace Kompas.UI.MainMenu
 		private const float PastClickHereToStartRotation = -3f / 8f * FullClockwiseRotation;
 		private const float DestinationRotationWhenSpinningPastMenuForNewScene = -1f / 8f * FullClockwiseRotation;
 		private const float StartRotationWhenSpinningPastMenuForNewScene = -3f / 4f * FullClockwiseRotation;
+		private const float PastMenuForLoadAnotherScene = -5f / 8f * FullClockwiseRotation;
 
 		private const float EndSplashLeftAnchor = 0f;
 		private const float EndSplashRightAnchor = 2f;
@@ -185,7 +186,7 @@ namespace Kompas.UI.MainMenu
 
 		public async Task SpinForSceneChange()
 		{
-			var destinationRotation = DestinationRotationWhenFinishingLoading;
+			var destinationRotation = PastMenuForLoadAnotherScene;
 
 			var positioning = Start.With(rotation: destinationRotation);
 			var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
