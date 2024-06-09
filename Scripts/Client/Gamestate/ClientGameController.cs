@@ -11,6 +11,7 @@ using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 using Kompas.Shared.Controllers;
 using Kompas.Shared.Exceptions;
+using Kompas.UI.MainMenu;
 
 namespace Kompas.Client.Gamestate
 {
@@ -70,7 +71,7 @@ namespace Kompas.Client.Gamestate
 		private ClientChoicesController? _choices;
 		public ClientChoicesController Choices => _choices ?? throw new NotReadyYetException();
 
-		public override void _Ready()
+		public override async void _Ready()
 		{
 			base._Ready();
 			game = ClientGame.Create(this);
@@ -84,6 +85,13 @@ namespace Kompas.Client.Gamestate
 				new EscapeMenuController.ButtonData() { Text = "Rematch", OnClick = Rematch },
 				new EscapeMenuController.ButtonData() { Text = "Main Menu", OnClick = ToMainMenu }
 			);
+
+			await Task.WhenAny(
+				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise),
+				GameStartController.SelectDeck.Init()
+			);
+
+			await EscapeMenu.Close();
 		}
 
 		private void Rematch()

@@ -63,6 +63,21 @@ namespace Kompas.Shared.Controllers
 			BottomOffset = 0f,
 		};
 
+		private readonly LogoSpinController.Positioning SpinPositioning = new()
+		{
+			Rotation = (float)(1f / 2f * System.MathF.PI),
+
+			LeftAnchor = -1f,
+			RightAnchor = 1f,
+			TopAnchor = 0f,
+			BottomAnchor = 1f,
+
+			LeftOffset = 0f,
+			RightOffset = 0f,
+			TopOffset = 0f,
+			BottomOffset = 0f,
+		};
+
 		private LogoSpinController.Positioning? _closed;
 		private LogoSpinController.Positioning Closed
 		{
@@ -73,7 +88,11 @@ namespace Kompas.Shared.Controllers
 		public override void _Ready()
 		{
 			var startingState = LogoSpinController.Positioning.Of(SpinningLogoImage);
+			//Initialize Closed in _Ready to ensure that closed is only init once node is fully ready
 			Closed = startingState.With(rotation: startingState.Rotation + FullClockwiseRotation); //So that we always end up circling back around before going
+
+			ModulateShowables(0f, showButtons: true);
+			VisibleUnlessFullyClosed.Visible = false;
 			SpinningLogo.LookTowards(new(0f, LogoSpinController.Destination.Closed, Closed))
 				//This task should complete synchronously, because it has a duration of 0f.
 				.Wait();
@@ -104,6 +123,18 @@ namespace Kompas.Shared.Controllers
 
 				ButtonsParent.AddChild(button);
 			}
+		}
+
+		public async Task SpinBig(LogoSpinController.SpinDirection spinDirection)
+		{
+			_ = Closed; //Confirm we have a non-null closed state computed at _Ready first
+
+			ModulateHaze(1f);
+			ModulateButtons(0f);
+			VisibleUnlessFullyClosed.Visible = true;
+			await SpinningLogo.LookTowards(new(0f, LogoSpinController.Destination.Spin, SpinPositioning));
+			
+			await SpinningLogo.Spin(fullCircleDuration: MainMenuLogoController.FullCircleDuration, spinDirection);
 		}
 
 		// Async void because it's an event handler.
@@ -143,7 +174,7 @@ namespace Kompas.Shared.Controllers
 			else await Close();
 		}
 
-		private async Task Open()
+		public async Task Open(bool showButtons = true)
 		{
 			VisibleUnlessFullyClosed.Visible = true;
 			Logger.Log("Opening!");
@@ -152,12 +183,14 @@ namespace Kompas.Shared.Controllers
 				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Closed && SpinningLogo.Moving
 					? 1 - SpinningLogo.Progress
 					: 0f,
-				AdditionalStep = progress => ModulateShowables(progress),
+				AdditionalStep = progress => ModulateShowables(progress, showButtons: showButtons),
+
+				RotationProportion = x => x,
 			});
 			SetButtonsInteractable(true);
 		}
 
-		private async Task Close()
+		public async Task Close(bool showButtons = true)
 		{
 			Logger.Log("Closing!");
 			SetButtonsInteractable(false);
@@ -166,7 +199,9 @@ namespace Kompas.Shared.Controllers
 				InitialProgress = SpinningLogo.Target.Destination == LogoSpinController.Destination.Open && SpinningLogo.Moving
 					? 1 - SpinningLogo.Progress
 					: 0f,
-				AdditionalStep = progress => ModulateShowables(1 - progress)
+				AdditionalStep = progress => ModulateShowables(1 - progress, showButtons: showButtons),
+
+				RotationProportion = x => x,
 			});
 			VisibleUnlessFullyClosed.Visible = false;
 		}
@@ -182,9 +217,11 @@ namespace Kompas.Shared.Controllers
 			}
 		}
 
-		private void ModulateShowables(float progress)
+		private void ModulateShowables(float progress, bool showButtons)
 		{
-			ModulateButtons(progress * progress * progress * progress * progress);
+			if (showButtons) ModulateButtons(progress * progress * progress * progress * progress);
+			else ModulateButtons(0f);
+
 			ModulateHaze(System.MathF.Cbrt(progress));
 		}
 

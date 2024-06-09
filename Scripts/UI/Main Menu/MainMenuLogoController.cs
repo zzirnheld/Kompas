@@ -10,8 +10,10 @@ namespace Kompas.UI.MainMenu
 {
 	public partial class MainMenuLogoController : Node
 	{
+		//Factor out into a shared logo spinning constants file? for consistency across different loading screens
+		public const float FullCircleDuration = 2f;
+
 		private const float FullClockwiseRotation = 2 * MathF.PI;
-		private const float FullCircleDuration = 2f;
 		private const float FirstWipeDuration = 1f / 4f * FullCircleDuration;
 		private const float ButtonChooseDuration = 0.5f;
 
@@ -90,7 +92,8 @@ namespace Kompas.UI.MainMenu
 
 			var now = Time.GetTicksMsec();
 			// Spin task never completes, but we want to await it to catch any errors.
-			await Task.WhenAny(loadTask, LogoController.SpinCounterClockwise(FullCircleDuration));
+			await Task.WhenAny(loadTask,
+				LogoController.Spin(FullCircleDuration, LogoSpinController.SpinDirection.Clockwise));
 			// Once we finish loading, we load the menu.
 			await LoadMenu(now);
 		}
@@ -161,7 +164,7 @@ namespace Kompas.UI.MainMenu
 
 		public async Task ChangeScenesLoadingSpinning()
 		{
-			await LogoController.SpinCounterClockwise(FullCircleDuration);
+			await LogoController.Spin(FullCircleDuration, LogoSpinController.SpinDirection.CounterClockwise);
 		}
 	}
 }

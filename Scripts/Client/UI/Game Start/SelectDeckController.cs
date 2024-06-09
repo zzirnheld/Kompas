@@ -35,20 +35,20 @@ namespace Kompas.Client.UI.GameStart
 
 		private readonly IList<string> deckNames = new List<string>();
 
-		private DeckAccess? _deckLoader;
-		public DeckAccess DeckLoader
-		{
-			get => _deckLoader ?? throw new NotReadyYetException();
-			set => _deckLoader = value;
-		}
+		private DeckAccess? deckLoader;
+		private Decklist? selectedDeck;
 
 		//Event handler - when controller becomes ready.
-		public override async void _Ready()
+		public override void _Ready()
 		{
-			//TODO: first start the spinny.
 			DeckSelect.Clear();
-			DeckLoader = await Task.Run(DeckAccess.Create);
-			foreach (var deckName in DeckLoader.DeckNames) AddDeckName(deckName);
+		}
+
+		public async Task Init()
+		{
+			await Task.Delay(1000);
+			deckLoader = await Task.Run(DeckAccess.Create);
+			foreach (var deckName in deckLoader.DeckNames) AddDeckName(deckName);
 
 			//TODO handle having no decks and trying to enter client - error and boot back to main menu
 
@@ -63,17 +63,21 @@ namespace Kompas.Client.UI.GameStart
 
 		private void Load(int index)
 		{
-			var decklist = DeckLoader.Load(deckNames[index]);
-			if (decklist == null)
+			_ = deckLoader ?? throw new NotInitializedException();
+
+			selectedDeck = deckLoader.Load(deckNames[index]);
+			if (selectedDeck == null)
 			{
 				Logger.Err($"No deck found for {deckNames[index]}");
 				return;
 			}
-			ShowDeck(decklist);
+			ShowDeck(selectedDeck);
 		}
 
 		private void ShowDeck(Decklist decklist)
 		{
+			_ = deckLoader ?? throw new NotInitializedException();
+
 			ClearDeck();
 			foreach (var cardName in decklist.deck)
 			{
@@ -115,13 +119,13 @@ namespace Kompas.Client.UI.GameStart
 
 		public void SelectDeck()
 		{
-			var decklist = DeckLoader.Load(deckNames[DeckSelect.Selected]);
-			if (decklist == null)
+			if (selectedDeck == null)
 			{
-				Logger.Err($"No deck found for {deckNames[DeckSelect.Selected]}");
+				Logger.Err($"No deck selected!");
 				return;
 			}
-			GameStartController.GameController.Notifier.RequestDecklistImport(decklist);
+
+			GameStartController.GameController.Notifier.RequestDecklistImport(selectedDeck);
 			GameStartController.DeckSubmitted();
 		}
 	}

@@ -11,7 +11,7 @@ namespace Kompas.UI.MainMenu
 	{
 		private const float FullClockwiseRotation = 2f * System.MathF.PI;
 
-		public enum Destination { Open, Closed, Destination, SpinClockwise, SpinCounterclockwise }
+		public enum Destination { Open, Closed, Destination, Spin }
 
 		private class State
 		{
@@ -266,9 +266,17 @@ namespace Kompas.UI.MainMenu
 			Target.OnArrival();
 		}
 
-		public async Task SpinCounterClockwise(float fullCircleDuration)
+		public enum SpinDirection { CounterClockwise, Clockwise }
+
+		public async Task Spin(float fullCircleDuration, SpinDirection direction)
 		{
-			State state = new(CurrentPositioning, new(fullCircleDuration, Destination.SpinCounterclockwise, new()))
+			float multiplier = direction switch
+			{
+				SpinDirection.CounterClockwise => -1f,
+				SpinDirection.Clockwise => 1f,
+				_ => throw new System.InvalidOperationException()
+			};
+			State state = new(CurrentPositioning, new(fullCircleDuration, Destination.Spin, new()))
 			{
 				Moving = true
 			};
@@ -279,8 +287,7 @@ namespace Kompas.UI.MainMenu
 				lock (stateLock)
 				{
 					if (CurrState != state) return;
-
-					ToControl.Rotation += ((Target.Destination == Destination.SpinClockwise) ? 1f : -1f)
+					ToControl.Rotation += multiplier
 						* (float)(FullClockwiseRotation * delta / Target.Duration);
 					Target.AdditionalStep(0f);
 				}

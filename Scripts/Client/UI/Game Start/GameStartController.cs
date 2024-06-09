@@ -28,7 +28,7 @@ namespace Kompas.Client.UI.GameStart
 
 		[Export]
 		private SelectDeckController? _selectDeck;
-		private SelectDeckController SelectDeck => _selectDeck ?? throw new UnassignedReferenceException();
+		public SelectDeckController SelectDeck => _selectDeck ?? throw new UnassignedReferenceException();
 
 		private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck, DeckAccepted }
 		private Dictionary<State, Control?> Tabs = new();
