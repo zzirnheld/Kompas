@@ -1,15 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using Godot;
 using Newtonsoft.Json;
 
 namespace Kompas.Shared
 {
-	public static class DeckAccess
+	public class DeckAccess
 	{
-		public const string DeckFolderPath = "user://Decks";
+		private const string DotJson = ".json";
+		private const string UserDataPrefix = "user://";
+		private const string DeckFolderPath = $"{UserDataPrefix}Decks";
 
-		public static IList<string> GetDeckNames()
+		public IReadOnlyCollection<string> DeckNames { get; init; }
+
+		private IDictionary<string, Decklist> Decklists { get; } = new Dictionary<string, Decklist>();
+
+		private DeckAccess()
+		{
+			DeckNames = System.Array.Empty<string>();
+		}
+
+		public static DeckAccess Create()
+		{
+			return new DeckAccess()
+			{
+				DeckNames = GetDeckNames(),
+			};
+		}
+
+		private static IReadOnlyCollection<string> GetDeckNames()
 		{
 			var deckNames = new List<string>();
 
@@ -17,62 +35,77 @@ namespace Kompas.Shared
 			using var folder = DirAccess.Open(DeckFolderPath);
 			foreach (string deckFileName in folder.GetFiles())
 			{
-				if (deckFileName[^5..] != ".json")
+				if (deckFileName[^DotJson.Length..] != DotJson)
 				{
-					Logger.Err($"{deckFileName} is not a deck, but it was in the deck folder...");
+					Logger.Err($"{deckFileName} is not a json, but it was in the deck folder...");
 					continue;
 				} 
-				string deckName = deckFileName[..^5];
+				string deckName = deckFileName[..^DotJson.Length];
 				deckNames.Add(deckName);
 			}
 
 			return deckNames;
 		}
 
-		public static void Save(Decklist decklist)
+		public void Save(Decklist decklist)
 		{
+			if (string.IsNullOrEmpty(decklist.deckName)) return;
+
 			EnsureDeckDirectory();
+
+			Decklists[decklist.deckName] = decklist;
 
 			using var deck = FileAccess.Open($"{DeckFolderPath}/{decklist.deckName}.json", FileAccess.ModeFlags.Write);
 			if (deck == null)
 			{
-				Logger.Log(FileAccess.GetOpenError());
+				Logger.Err(FileAccess.GetOpenError());
 				return;
 			}
 			string json = JsonConvert.SerializeObject(decklist);
 			deck.StoreString(json);
 		}
 
-		public static void Delete(Decklist decklist)
+		public void Delete(Decklist decklist)
 		{
+			if (string.IsNullOrEmpty(decklist.deckName)) return;
+
 			EnsureDeckDirectory();
+
+			Decklists.Remove(decklist.deckName);
 
 			using var deckFolder = DirAccess.Open(DeckFolderPath);
 			if (deckFolder == null)
 			{
-				Logger.Log(DirAccess.GetOpenError());
+				Logger.Err(DirAccess.GetOpenError());
 				return;
 			}
 
 			deckFolder.Remove($"{decklist.deckName}.json");
 		}
 
-		public static Decklist? Load(string deckName)
+		public Decklist? Load(string deckName)
 		{
+			if (string.IsNullOrEmpty(deckName)) return null;
+
+			if (Decklists.ContainsKey(deckName)) return Decklists[deckName];
+
 			var path = $"{DeckFolderPath}/{deckName}.json";
 			if (!FileAccess.FileExists(path)) return null;
 
 			using var deck = FileAccess.Open(path, FileAccess.ModeFlags.Read);
 			string json = deck.GetAsText();
 			Logger.Log($"Loading {json}");
-			return JsonConvert.DeserializeObject<Decklist>(json);
+
+			var ret = JsonConvert.DeserializeObject<Decklist>(json);
+			if (ret != null) Decklists[deckName] = ret;
+			return ret;
 		}
 
 		private static void EnsureDeckDirectory()
 		{
 			if (!DirAccess.DirExistsAbsolute(DeckFolderPath))
 			{
-				using var folder = DirAccess.Open("user://");
+				using var folder = DirAccess.Open(UserDataPrefix);
 				folder.MakeDir(DeckFolderPath);
 			}
 		}

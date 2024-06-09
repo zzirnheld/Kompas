@@ -34,10 +34,18 @@ namespace Kompas.Client.UI.GameStart
 
 		private readonly IList<string> deckNames = new List<string>();
 
+		private DeckAccess? _deckLoader;
+		public DeckAccess DeckLoader
+		{
+			get => _deckLoader ?? throw new NotReadyYetException();
+			set => _deckLoader = value;
+		}
+
 		public override void _Ready()
 		{
 			DeckSelect.Clear();
-			foreach (var deckName in DeckAccess.GetDeckNames()) AddDeckName(deckName);
+			DeckLoader = DeckAccess.Create();
+			foreach (var deckName in DeckLoader.DeckNames) AddDeckName(deckName);
 
 			//TODO handle having no decks and trying to enter client - error and boot back to main menu
 
@@ -52,7 +60,7 @@ namespace Kompas.Client.UI.GameStart
 
 		private void Load(int index)
 		{
-			var decklist = DeckAccess.Load(deckNames[index]);
+			var decklist = DeckLoader.Load(deckNames[index]);
 			if (decklist == null)
 			{
 				Logger.Err($"No deck found for {deckNames[index]}");
@@ -104,7 +112,7 @@ namespace Kompas.Client.UI.GameStart
 
 		public void SelectDeck()
 		{
-			var decklist = DeckAccess.Load(deckNames[DeckSelect.Selected]);
+			var decklist = DeckLoader.Load(deckNames[DeckSelect.Selected]);
 			if (decklist == null)
 			{
 				Logger.Err($"No deck found for {deckNames[DeckSelect.Selected]}");

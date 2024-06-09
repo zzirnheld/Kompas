@@ -53,12 +53,19 @@ namespace Kompas.UI.DeckBuilder
 
 		public DeckBuilderDeckCardController? Dragging { get; set; }
 
+		private DeckAccess? _deckLoader;
+		public DeckAccess DeckLoader
+		{
+			get => _deckLoader ?? throw new NotReadyYetException();
+			set => _deckLoader = value;
+		}
 
 		private bool placeholdersWereActive;
 
 		public override void _Ready()
 		{
-			foreach (var deckName in DeckAccess.GetDeckNames()) AddDeckName(deckName);
+			DeckLoader = DeckAccess.Create();
+			foreach (var deckName in DeckLoader.DeckNames) AddDeckName(deckName);
 
 			AvatarController.Init(null, DeckBuilderController.CardView, this);
 			if (deckNames.Count == 0) ShowController(Tab.NewDeck);
@@ -113,7 +120,7 @@ namespace Kompas.UI.DeckBuilder
 		private void SaveDeck()
 		{
 			if (currentDeck == null) return;
-			DeckAccess.Save(currentDeck);
+			DeckLoader.Save(currentDeck);
 		}
 
 		public void DeleteSelectedDeck()
@@ -128,7 +135,7 @@ namespace Kompas.UI.DeckBuilder
 			}
 			else
 			{
-				DeckAccess.Delete(currentDeck);
+				DeckLoader.Delete(currentDeck);
 				int deckIndex = deckNames.IndexOf(currentDeck.deckName);
 				DeckNameSelect.RemoveItem(deckIndex);
 				deckNames.RemoveAt(deckIndex);
@@ -150,7 +157,7 @@ namespace Kompas.UI.DeckBuilder
 		private void LoadDeck(string deckName)
 		{
 			Logger.Log($"loading {deckName}");
-			var decklist = DeckAccess.Load(deckName);
+			var decklist = DeckLoader.Load(deckName);
 			if (decklist == null)
 			{
 				Logger.Err($"Failed to load deck {deckName} in deck edit");
