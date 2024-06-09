@@ -25,6 +25,8 @@ namespace Kompas.UI.MainMenu
 		private const float PastClickHereToStartRotation = -3f / 8f * FullClockwiseRotation;
 		private const float DestinationRotationWhenSpinningPastMenuForNewScene = -1f / 2f * FullClockwiseRotation;
 
+		private static bool FirstLoad = true;
+
 		[Export]
 		private LogoSpinController? _logoController;
 		private LogoSpinController LogoController => _logoController
@@ -67,11 +69,15 @@ namespace Kompas.UI.MainMenu
 
 		public override void _Ready()
 		{
-			//Before anything else, start loading the cards
-			var loadingThread = Task.Run(MainMenuCardRepository.Load);
-			Start = LogoController.CurrentPositioning;
+			if (FirstLoad)
+			{
+				//Before anything else, start loading the cards
+				var loadingThread = Task.Run(MainMenuCardRepository.Load);
+				Start = LogoController.CurrentPositioning;
 
-			ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
+				ClickToStart.Pressed += () => SplashScreenClicked(loadingThread);
+			}
+			else SkipToLoadedMenu();
 		}
 
 		public async void SplashScreenClicked(Task loadTask)
@@ -117,6 +123,26 @@ namespace Kompas.UI.MainMenu
 
 			LookTowards(lookAtNext);
 			Logger.Log($"Loading took {Time.GetTicksMsec() - startMsec} ms after reaching the point where we'd start spinning");
+			FirstLoad = false;
+		}
+
+		private void SkipToLoadedMenu()
+		{
+			Start = LogoController.CurrentPositioning;
+
+			var destinationRotation = DestinationRotationWhenFinishingLoading;
+			var pastMenu = Start.With(rotation: destinationRotation, leftAnchor: EndSplashLeftAnchor, rightAnchor: EndSplashRightAnchor);
+
+			//TODO add a method on LogoController that does looktowards.wait() to factor out this shared logic
+			LogoController.LookTowards(new(0f, LogoSpinController.Destination.Destination, pastMenu))
+				.Wait();
+
+			TopRight.Visible = false;
+			TopLeft.Visible = false;
+			ClickToStartParent.Visible = false;
+			LeftBufferForNotCoveringUpButtons.SizeFlagsStretchRatio = LeftBufferStretchSize;
+
+			loaded = true;
 		}
 
 		//Event handler for main menu buttons
@@ -146,7 +172,7 @@ namespace Kompas.UI.MainMenu
 
 		public async Task SpinForSceneChange()
 		{
-			var destinationRotation = DestinationRotationWhenSpinningPastMenuForNewScene;
+			var destinationRotation = DestinationRotationWhenFinishingLoading;
 
 			var positioning = Start.With(rotation: destinationRotation);
 			var duration = MathF.Abs(FullCircleDuration * ((LogoController.ToControl.Rotation - destinationRotation) / FullClockwiseRotation));
