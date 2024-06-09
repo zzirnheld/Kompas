@@ -9,6 +9,8 @@ using Kompas.Client.UI;
 using Kompas.Client.UI.GameStart;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
+using Kompas.Godot;
+using Kompas.Shared;
 using Kompas.Shared.Controllers;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.MainMenu;
@@ -87,21 +89,44 @@ namespace Kompas.Client.Gamestate
 			);
 
 			await Task.WhenAny(
-				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise),
+				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise), //Instant, no delay, because on startup
 				GameStartController.SelectDeck.Init()
 			);
 
 			await EscapeMenu.Close();
 		}
 
-		private void Rematch()
+		private async void Rematch()
 		{
-			GetTree().ChangeSceneToFile(RematchPath);
+			await SwitchSceneTo(RematchPath);
 		}
 
-		private void ToMainMenu()
+		private async void ToMainMenu()
 		{
-			GetTree().ChangeSceneToFile(MainMenuPath);
+			await SwitchSceneTo(MainMenuPath);
+		}
+
+		private async Task SwitchSceneTo(string scenePath)
+		{
+			ResourceLoader.LoadThreadedRequest(scenePath);
+			Task<bool> load = this.DoEachFrame(_ =>
+			{
+				var status = ResourceLoader.LoadThreadedGetStatus(scenePath);
+				if (status == ResourceLoader.ThreadLoadStatus.InProgress)
+					return Result<bool>.None;
+
+				return Result<bool>.Of(status == ResourceLoader.ThreadLoadStatus.Loaded);
+			});
+
+			await EscapeMenu.PrepareToSpin(0.5f);
+			await Task.WhenAny(load, EscapeMenu.SpinBig(LogoSpinController.SpinDirection.CounterClockwise));
+
+			if (load.IsCompleted && load.Result)
+			{
+				var res = ResourceLoader.LoadThreadedGet(scenePath);
+				if (res is not PackedScene scene) throw new System.InvalidOperationException("Resource was not a packed scene!");
+				GetTree().ChangeSceneToPacked(scene);
+			}
 		}
 
 		public override void _Input(InputEvent inputEvent)

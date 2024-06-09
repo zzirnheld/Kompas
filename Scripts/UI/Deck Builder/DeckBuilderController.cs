@@ -45,7 +45,7 @@ namespace Kompas.UI.DeckBuilder
 			);
 
 			await Task.WhenAny(
-				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise),
+				EscapeMenu.SpinBig(LogoSpinController.SpinDirection.Clockwise), //Instant, no delay
 				DeckController.Init()
 			);
 
