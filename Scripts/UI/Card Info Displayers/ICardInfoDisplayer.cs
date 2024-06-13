@@ -30,5 +30,14 @@ namespace Kompas.UI.CardInfoDisplayers
 		/// Called only when the card's info changes, or is refreshed
 		/// </summary>
 		public void DisplayCardImage(CardBase card);
+
+		public void DisplayValidTarget(bool validTarget);
+
+		public void DisplayCurrentTarget(bool currentTarget);
+
+		/// <summary>
+		///
+		/// </summary>
+		public void DisplayEffectSource(bool effectSource);
 	}
 }

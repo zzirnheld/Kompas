@@ -30,6 +30,8 @@ namespace Kompas.Cards.Controllers
 		public void RefreshTargeting();
 		public event EventHandler<GameCard?>? TargetingRefreshed;
 
+		public void ShowEffectSource(bool current);
+
 		public void Delete();
 
 		public Node3D Node { get; }

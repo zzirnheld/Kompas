@@ -157,6 +157,8 @@ namespace Kompas.Client.Cards.Controllers
 			RefreshAugments();
 		}
 
+		public void ShowEffectSource(bool current) => CardView.InfoDisplayer.DisplayEffectSource(current);
+
 		public void RefreshTargeting()
 		{
 			CardView.Refresh();

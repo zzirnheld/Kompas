@@ -12,11 +12,11 @@ namespace Kompas.Effects.Models
 	{
 		public static readonly Color DefaultColor = new ("c300c3", 0.8f);
 
-		public HashSet<int> CardIDs { get; }
+		public ISet<int> CardIDs { get; }
 		public IEffect LinkingEffect { get; }
 		public Color LinkColor { get; }
 
-		public CardLink(HashSet<int> cardIDs, IEffect linkingEffect, Color linkColor)
+		public CardLink(ISet<int> cardIDs, IEffect linkingEffect, Color linkColor)
 		{
 			CardIDs = cardIDs;
 			LinkingEffect = linkingEffect;

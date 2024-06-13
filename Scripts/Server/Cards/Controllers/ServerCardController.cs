@@ -42,5 +42,7 @@ namespace Kompas.Server.Cards.Controllers
 			AnythingRefreshed?.Invoke(this, null);
 			TargetingRefreshed?.Invoke(this, null);
 		}
+
+		public void ShowEffectSource(bool current) { }
 	}
 }

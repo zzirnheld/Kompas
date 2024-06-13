@@ -44,12 +44,6 @@ namespace Kompas.Client.Cards.Loading
 
 			if (card == null) return card;
 
-			//TODO set materials - should happen elsewhere based on ClientSettings? or maybe as a callback after controller is instantiated
-			/*
-			card.ClientCardController.gameCardViewController.cardModelController.SetFrameMaterial(owner.Friendly ? friendlyCardMaterial : enemyCardMaterial);
-			card.ClientCardController.gameCardViewController.Refresh();
-			*/
-
 			//handle adding existing card links
 			foreach (var c in card.Game.Cards.ToArray())
 			{

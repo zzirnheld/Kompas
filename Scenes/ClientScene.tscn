@@ -1739,7 +1739,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_5db68")
 theme_override_font_sizes/font_size = 72
-text = "Starting"
+text = "Starting!"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -1758,8 +1758,7 @@ grow_vertical = 2
 theme = ExtResource("6_5db68")
 theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
 theme_override_font_sizes/font_size = 28
-text = "Loading your deck
-and the other player's..."
+text = "Loading decks..."
 horizontal_alignment = 2
 
 [node name="Control" type="Control" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game/HBoxContainer"]

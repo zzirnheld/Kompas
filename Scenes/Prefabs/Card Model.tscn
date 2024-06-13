@@ -1359,14 +1359,15 @@ _infoDisplayer = NodePath("Actual Card Model")
 _mouseController = NodePath("Mouse Controller")
 _augmentsController = NodePath("Augments Controller")
 
-[node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("ZoomedOut", "ZoomedIn", "ValidTargetParticles", "CurrentTargetParticles")]
+[node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("_zoomedOut", "_zoomedIn", "_validTargetParticles", "_currentTargetParticles", "_effectSourceParticles")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
 script = ExtResource("1_8duf6")
-ZoomedOut = NodePath("Zoomed Out")
-ZoomedIn = NodePath("Zoomed In No Text")
-CardImageMaterial = ExtResource("5_6tu2s")
-ValidTargetParticles = NodePath("../Particles/Valid Target Particles")
-CurrentTargetParticles = NodePath("../Particles/Current Target Particles")
+_zoomedOut = NodePath("Zoomed Out")
+_zoomedIn = NodePath("Zoomed In No Text")
+_cardImageMaterial = ExtResource("5_6tu2s")
+_validTargetParticles = NodePath("../Particles/Valid Target Particles")
+_currentTargetParticles = NodePath("../Particles/Current Target Particles")
+_effectSourceParticles = NodePath("../Particles/Effect Source Particles")
 
 [node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "FrameObjects", "CardImageObjects")]
 script = ExtResource("2_cdddr")
@@ -1736,6 +1737,13 @@ process_material = ExtResource("13_iacg7")
 draw_pass_1 = SubResource("QuadMesh_751mi")
 
 [node name="Current Target Particles" type="GPUParticles3D" parent="Particles"]
+emitting = false
+lifetime = 0.5
+local_coords = true
+process_material = ExtResource("14_stomg")
+draw_pass_1 = SubResource("BoxMesh_6y6j7")
+
+[node name="Effect Source Particles" type="GPUParticles3D" parent="Particles"]
 emitting = false
 lifetime = 0.5
 local_coords = true

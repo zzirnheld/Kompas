@@ -1,5 +1,6 @@
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Views
@@ -15,53 +16,55 @@ namespace Kompas.Cards.Views
 	public partial class Zoomable3DCardInfoDisplayer : Node3D, ICardInfoDisplayer
 	{
 		[Export]
-		private MeshCardInfoDisplayerBase? ZoomedOut { get; set; }
+		private MeshCardInfoDisplayerBase? _zoomedOut;
+		private MeshCardInfoDisplayerBase ZoomedOut => _zoomedOut
+			?? throw new UnassignedReferenceException(nameof(_zoomedOut), this);
 
 		[Export]
-		private MeshCardInfoDisplayerBase? ZoomedIn { get; set; }
+		private MeshCardInfoDisplayerBase? _zoomedIn;
+		private MeshCardInfoDisplayerBase ZoomedIn => _zoomedIn
+			?? throw new UnassignedReferenceException(nameof(_zoomedIn), this);
 
 		[Export]
-		private BaseMaterial3D? CardImageMaterial { get; set; }
+		private BaseMaterial3D? _cardImageMaterial;
+		private BaseMaterial3D CardImageMaterial => _cardImageMaterial
+			?? throw new UnassignedReferenceException(nameof(_cardImageMaterial), this);
 
 		[Export]
-		private GpuParticles3D? ValidTargetParticles { get; set; }
+		private GpuParticles3D? _validTargetParticles;
+		private GpuParticles3D ValidTargetParticles => _validTargetParticles
+			?? throw new UnassignedReferenceException(nameof(_validTargetParticles), this);
 		[Export]
-		private GpuParticles3D? CurrentTargetParticles { get; set; }
+		private GpuParticles3D? _currentTargetParticles;
+		private GpuParticles3D CurrentTargetParticles => _currentTargetParticles
+			?? throw new UnassignedReferenceException(nameof(_currentTargetParticles), this);
+		[Export]
+		private GpuParticles3D? _effectSourceParticles;
+		private GpuParticles3D EffectSourceParticles => _effectSourceParticles
+			?? throw new UnassignedReferenceException(nameof(_effectSourceParticles), this);
 
 		public bool ShowingInfo { set => Visible = value; }
 
 		public void DisplayCardImage(CardBase card)
 		{
-			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
-			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
-
 			ZoomedOut.DisplayCardImage(card);
 			ZoomedIn.DisplayCardImage(card);
 		}
 
 		public void DisplayCardNumericStats(CardBase card)
 		{
-			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
-			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
-
 			ZoomedOut.DisplayCardNumericStats(card);
 			ZoomedIn.DisplayCardNumericStats(card);
 		}
 
 		public void DisplayCardRulesText(CardBase card)
 		{
-			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
-			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
-
 			ZoomedOut.DisplayCardRulesText(card);
 			ZoomedIn.DisplayCardRulesText(card);
 		}
 
 		public void DisplayFrame(bool friendly)
 		{
-			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
-			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
-
 			ZoomedOut.DisplayFrame(friendly);
 			ZoomedIn.DisplayFrame(friendly);
 		}
@@ -69,25 +72,17 @@ namespace Kompas.Cards.Views
 		//FUTURE: replace with enum?
 		public void DisplayZoomed(bool zoomedIn)
 		{
-			_ = ZoomedOut ?? throw new System.NullReferenceException("Failed to init");
-			_ = ZoomedIn ?? throw new System.NullReferenceException("Failed to init");
-
 			ZoomedOut.ShowingInfo = !zoomedIn;
 			ZoomedIn.ShowingInfo = zoomedIn;
 		}
 
 		public void DisplayValidTarget(bool validTarget)
-		{
-			_ = ValidTargetParticles ?? throw new System.NullReferenceException("Failed to init");
-
-			ValidTargetParticles.Emitting = validTarget;
-		}
+			=> ValidTargetParticles.Emitting = validTarget;
 
 		public void DisplayCurrentTarget(bool currentTarget)
-		{
-			_ = CurrentTargetParticles ?? throw new System.NullReferenceException("Failed to init");
+			=> CurrentTargetParticles.Emitting = currentTarget;
 
-			CurrentTargetParticles.Emitting = currentTarget;
-		}
+		public void DisplayEffectSource(bool effectSource)
+			=> EffectSourceParticles.Emitting = effectSource;
 	}
 }
