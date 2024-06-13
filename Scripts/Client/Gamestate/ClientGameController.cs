@@ -88,24 +88,21 @@ namespace Kompas.Client.Gamestate
 				new EscapeMenuController.ButtonData() { Text = "Main Menu", OnClick = ToMainMenu }
 			);
 
+			//Spin to match that we came from the main menu,
+			//But really we're awaiting the initialization of the select deck view
 			await Task.WhenAny(
-				EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.Clockwise), //Instant, no delay, because on startup
+				EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.Clockwise),
 				GameStartController.SelectDeck.Init()
 			);
 
+			//Once select deck has been initialized, move to close the spinner
 			await EscapeMenu.CameFromMainMenuClose();
+
+			//TODO add event to game started that should close the load window
 		}
 
-		private async void Rematch()
-		{
-			await SwitchSceneTo(RematchPath);
-		}
-
-		private async void ToMainMenu()
-		{
-			await SwitchSceneTo(MainMenuPath);
-		}
-
+		private async void Rematch() => await SwitchSceneTo(RematchPath);
+		private async void ToMainMenu() => await SwitchSceneTo(MainMenuPath);
 		private async Task SwitchSceneTo(string scenePath)
 		{
 			ResourceLoader.LoadThreadedRequest(scenePath);
@@ -119,7 +116,9 @@ namespace Kompas.Client.Gamestate
 			});
 
 			await EscapeMenu.PrepareForGoingToMainMenu(0.5f);
-			await Task.WhenAny(load, EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.CounterClockwise));
+
+			Task loadingScreenOngoing = EscapeMenu.SpinForTransitionWithMainMenu(LogoSpinController.SpinDirection.CounterClockwise);
+			await Task.WhenAny(load, loadingScreenOngoing);
 
 			if (load.IsCompleted && load.Result)
 			{

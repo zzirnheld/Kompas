@@ -1274,7 +1274,7 @@ texture = ExtResource("20_whe2q")
 [node name="Enemy Username Label" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info/HBoxContainer/VBoxContainer" index="0"]
 text = "You"
 
-[node name="Game Start" type="Control" parent="Node/UI" node_paths=PackedStringArray("_gameController", "_connectToServer", "_waitingForServer", "_waitingForPlayer", "_selectDeck")]
+[node name="Game Start" type="Control" parent="Node/UI" node_paths=PackedStringArray("_gameController", "_connectToServer", "_waitingForServer", "_waitingForPlayer", "_selectDeck", "_deckAcceptedTab")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1288,6 +1288,7 @@ _connectToServer = NodePath("MarginContainer/Connection Tabs/Choose Host")
 _waitingForServer = NodePath("MarginContainer/Connection Tabs/Waiting on Server")
 _waitingForPlayer = NodePath("MarginContainer/Connection Tabs/Connected to Server")
 _selectDeck = NodePath("MarginContainer/Connection Tabs/Select Deck")
+_deckAcceptedTab = NodePath("MarginContainer/Connection Tabs/Starting Game")
 
 [node name="Connection Background" type="TextureRect" parent="Node/UI/Game Start"]
 self_modulate = Color(0.196078, 0.196078, 0.352941, 1)
@@ -1702,9 +1703,69 @@ size_flags_stretch_ratio = 0.5
 
 [node name="Starting Game" type="Control" parent="Node/UI/Game Start/MarginContainer/Connection Tabs"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_ruf62")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/separation = 5
+
+[node name="Title" type="Control" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.5
+
+[node name="Title Label" type="Label" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game/HBoxContainer/VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 72
+text = "Starting"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Control" type="Control" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.5
+
+[node name="Waiting for Connection" type="Label" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game/HBoxContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_5db68")
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+theme_override_font_sizes/font_size = 28
+text = "Loading your deck
+and the other player's..."
+horizontal_alignment = 2
+
+[node name="Control" type="Control" parent="Node/UI/Game Start/MarginContainer/Connection Tabs/Starting Game/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 
 [node name="Use Effect" type="Control" parent="Node/UI" node_paths=PackedStringArray("_camera", "_cardName", "_effectButtonsParent", "_cancelButton")]
 visible = false

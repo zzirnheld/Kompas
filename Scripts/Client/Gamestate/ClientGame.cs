@@ -1,17 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Client.Cards.Loading;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Effects.Controllers;
-using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate.Locations.Models;
 using Kompas.Client.Gamestate.Players;
-using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
@@ -57,12 +52,11 @@ namespace Kompas.Client.Gamestate
 		public Settings Settings { get; private set; } //TODO consider moving this to its own controller that Game references?
 		Settings IGame.Settings => Settings;
 
-		public bool canZoom = false;
-
 		//dirty card set
-		private readonly HashSet<GameCard> dirtyCardList = new();
+		private readonly ISet<GameCard> dirtyCardList = new HashSet<GameCard>();
 
-		public event EventHandler<IPlayer> TurnChanged;
+		public event System.EventHandler<IPlayer>? TurnChanged;
+		public event System.EventHandler? GameStarted;
 
 		private int leyload;
 		public int Leyload
@@ -93,15 +87,15 @@ namespace Kompas.Client.Gamestate
 		{
 			var ret = new ClientGame(gameController);
 
-			ret.ClientBoard = new ClientBoard(gameController.BoardController
-				?? throw new System.NullReferenceException("Failed to init"));
-
 			var playerControllers = gameController.PlayerControllers;
 			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, playerControllers[0], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
 			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, playerControllers[1], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
 
 			ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
 			ret.clientPlayers[1].Enemy = ret.clientPlayers[0];
+
+			ret.ClientBoard = new ClientBoard(gameController.BoardController
+				?? throw new System.NullReferenceException("Failed to init"));
 
 			return ret;
 		}
@@ -116,15 +110,6 @@ namespace Kompas.Client.Gamestate
 			//TODO display rematch/main menu options? disallow user from closing menu?
 		}
 
-		//TODO: this is not a MonoBehavior! wake up sheeple!
-		//move to GameController
-		/*
-		private void Awake()
-		{
-			uiController.clientUISettingsController.LoadSettings();
-			ApplySettings();
-		}*/
-
 		public void AddCard(ClientGameCard card)
 		{
 			if (card.ID == -1) return;
@@ -138,19 +123,9 @@ namespace Kompas.Client.Gamestate
 			cardsByID.Add(card.ID, card);
 		}
 
-		//TODO to gamecontroller
-		/*
-		public void MarkCardDirty(GameCard card) => dirtyCardList.Add(card);
-
-		public void PutCardsBack()
-		{
-			///foreach (var c in dirtyCardList) c.CardController?.PutBack();
-			dirtyCardList.Clear();
-		}*/
-
 		public void SetAvatar(int player, string json, int avatarID)
 		{
-			if (player >= 2) throw new ArgumentException("Can only handle 2-player games!", nameof(player));
+			if (player >= 2) throw new System.ArgumentException("Can only handle 2-player games!", nameof(player));
 
 			var owner = clientPlayers[player];
 			var avatar = ClientCardRepository?.InstantiateClientAvatar(json, owner, avatarID, this)
@@ -171,13 +146,11 @@ namespace Kompas.Client.Gamestate
 			card.CardController.Delete(); //TODO consider moving to GameController
 		}
 
-		//requesting
 		public void SetFirstTurnPlayer(int playerIndex)
 		{
 			FirstTurnPlayer = TurnPlayerIndex = playerIndex;
 			RoundCount = 1;
 			TurnCount = 1;
-			canZoom = true;
 		}
 
 		public void SetTurn(int index)

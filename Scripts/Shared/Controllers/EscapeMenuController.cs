@@ -213,6 +213,7 @@ namespace Kompas.Shared.Controllers
 			if (inputEvent is InputEventKey keyEvent && keyEvent.Keycode == Key.Escape && !keyEvent.Pressed) Toggle();
 		}
 
+		//TODO: figure out what allows the toggle to end up rotating it very smol by accident, and fix it
 		//Event handler for input event
 		private async void Toggle()
 		{

@@ -211,7 +211,7 @@ namespace Kompas.Server.Gamestate
 			{
 				if (Players.All(player => player.Avatar != null)) await StartGame();
 			}
-			catch (NotInitializedException) { }
+			catch (NotInitializedException e) { Logger.Err(e); }
 		}
 
 		public void AddCard(ServerGameCard card)
@@ -240,7 +240,7 @@ namespace Kompas.Server.Gamestate
 				p.Avatar.SetN(0, stackSrc: null);
 				p.Avatar.SetE(p.Avatar.E + AvatarEBonus, stackSrc: null);
 				p.Avatar.SetW(0, stackSrc: null);
-				DrawX(p, 5, stackSrc: null);
+				DrawX(p, 5, stackSrc: null); //FUTURE: specially animate the opening hand?
 			}
 
 			GameHasStarted = true;

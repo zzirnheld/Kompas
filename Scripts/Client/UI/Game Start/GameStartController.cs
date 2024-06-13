@@ -30,6 +30,12 @@ namespace Kompas.Client.UI.GameStart
 		private SelectDeckController? _selectDeck;
 		public SelectDeckController SelectDeck => _selectDeck ?? throw new UnassignedReferenceException();
 
+		[Export]
+		private Control? _deckAcceptedTab;
+		private Control DeckAcceptedTab => _deckAcceptedTab
+			?? throw new UnassignedReferenceException(nameof(_deckAcceptedTab), this);
+
+
 		private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck, DeckAccepted }
 		private Dictionary<State, Control?> Tabs = new();
 
@@ -43,7 +49,7 @@ namespace Kompas.Client.UI.GameStart
 			Tabs[State.WaitingForServer] = WaitingForServer;
 			Tabs[State.WaitingForPlayer] = WaitingForPlayer;
 			Tabs[State.SelectDeck] = SelectDeck;
-			Tabs[State.DeckAccepted] = null;
+			Tabs[State.DeckAccepted] = DeckAcceptedTab;
 
 			foreach (State s in Enum.GetValues(typeof(State)))
 			{
@@ -75,17 +81,7 @@ namespace Kompas.Client.UI.GameStart
 		private async Task Connect(string ip)
 		{
 			ChangeState(State.WaitingForServer);
-			TcpClient? tcpClient;
-			try
-			{
-				tcpClient = await ClientNetworker.Connect(ip);
-			}
-			catch (SocketException e)
-			{
-				Logger.Err($"Failed to connect to {ip}. Stack trace:\n{e.StackTrace}");
-				FailedToConnect();
-				return;
-			}
+			TcpClient? tcpClient = await ClientNetworker.Connect(ip);
 
 			if (tcpClient == null || !tcpClient.Connected) FailedToConnect();
 			else SuccessfullyConnected(tcpClient);
@@ -93,7 +89,7 @@ namespace Kompas.Client.UI.GameStart
 
 		private void FailedToConnect()
 		{
-			Logger.Log("Failed!");
+			Logger.Log("Failed to connect!");
 
 			ChangeState(State.ChooseHost);
 		}
@@ -108,7 +104,6 @@ namespace Kompas.Client.UI.GameStart
 
 		public void GetDeck() => ChangeState(State.SelectDeck);
 		public void DeckSubmitted() => ChangeState(State.WaitingForServer);
-
 		public void DeckAccepted() => ChangeState(State.DeckAccepted);
 
 		private void ChangeState(State state)

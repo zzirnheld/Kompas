@@ -23,10 +23,9 @@ namespace Kompas.Client.Networking
 			this.game = game;
 		}
 
-		//TODO workflow:
 		/*
 		* GameController calls connect.
-		* It catches the socket exception and re shows choose server if so
+		* This catches the socket exception and returns null if so
 		* Based on whether the tcpClient is non-null and connected, it shows waiting for player;
 		* else choose server again.
 		*/
@@ -40,10 +39,21 @@ namespace Kompas.Client.Networking
 			Logger.Log($"Try to connect to {ip}");
 			var address = IPAddress.Parse(ip);
 			TcpClient tcpClient = new();
-			await tcpClient.ConnectAsync(address, port);
-			Logger.Log($"Connect to {ip} succeeded or failed");
-			
-			connecting = false;
+
+			try { await tcpClient.ConnectAsync(address, port); }
+			catch (SocketException e)
+			{
+				Logger.Err($"Failed to connect to {ip}. Stack trace:\n{e.StackTrace}");
+				return null;
+			}
+			catch (Exception e)
+			{
+				Logger.Err($"Failed to connect to {ip} because {e}");
+				throw;
+			}
+			finally { connecting = false; }
+
+			Logger.Log($"Connect to {ip} succeeded!");
 			return tcpClient;
 		}
 
