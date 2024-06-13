@@ -37,11 +37,20 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private Material CanPlayMaterial => _canPlayMaterial ?? throw new UnassignedReferenceException();
 
 		[Export]
-		private LinkedSpacesController? _canTarget;
-		private LinkedSpacesController CanTarget => _canTarget ?? throw new UnassignedReferenceException();
+		private LinkedSpacesController? _recommend;
+		private LinkedSpacesController Recommend => _recommend ?? throw new UnassignedReferenceException();
 		[Export]
-		private Material? _canTargetMaterial;
-		private Material CanTargetMaterial => _canTargetMaterial ?? throw new UnassignedReferenceException();
+		private LinkedSpacesController? _unrecommend;
+		private LinkedSpacesController Unrecommend => _unrecommend
+			?? throw new UnassignedReferenceException(nameof(_unrecommend), this);
+		[Export]
+		private Material? _recommendMaterial;
+		private Material RecommendMaterial => _recommendMaterial
+			?? throw new UnassignedReferenceException(nameof(_recommendMaterial), this);
+		[Export]
+		private Material? _unrecommendMaterial;
+		private Material UnrecommendMaterial => _unrecommendMaterial
+			?? throw new UnassignedReferenceException(nameof(_unrecommendMaterial), this);
 
 		[Export]
 		private SpacesClickingController? _spacesClickingController;
@@ -65,7 +74,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 			CanMove.UpdateMaterial(CanMoveMaterial);
 			CanPlay.UpdateMaterial(CanPlayMaterial);
-			CanTarget.UpdateMaterial(CanTargetMaterial);
+			Recommend.UpdateMaterial(RecommendMaterial);
+			Unrecommend.UpdateMaterial(UnrecommendMaterial);
 
 			DisplayNone();
 
@@ -80,28 +90,32 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			CanMove.Display(_ => false, false);
 			CanPlay.Display(_ => false, false);
-			CanTarget.Display(_ => false, false);
+			Recommend.Display(_ => false, false);
+			Unrecommend.Display(_ => false, false);
 		}
 
 		public void DisplayCanMove(LinkedSpacesController.ShouldShowSpace predicate)
 		{
 			CanMove.Display(predicate, false);
 			CanPlay.Display(_ => false, false);
-			CanTarget.Display(_ => false, false);
+			Recommend.Display(_ => false, false);
+			Unrecommend.Display(_ => false, false);
 		}
 
 		public void DisplayCanPlay(LinkedSpacesController.ShouldShowSpace predicate)
 		{
 			CanMove.Display(_ => false, false);
 			CanPlay.Display(predicate, false);
-			CanTarget.Display(_ => false, false);
+			Recommend.Display(_ => false, false);
+			Unrecommend.Display(_ => false, false);
 		}
 
-		public void DisplayCanTarget(LinkedSpacesController.ShouldShowSpace predicate)
+		public void DisplayCanTarget(LinkedSpacesController.ShouldShowSpace recommend, LinkedSpacesController.ShouldShowSpace unrecommend)
 		{
 			CanMove.Display(_ => false, false);
 			CanPlay.Display(_ => false, false);
-			CanTarget.Display(predicate, false);
+			Recommend.Display(recommend, false);
+			Unrecommend.Display(unrecommend, false);
 		}
 
 		//TODO: this will make the other controller responsible for updating Display on LinkedSpaceController,

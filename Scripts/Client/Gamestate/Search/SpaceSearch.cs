@@ -45,7 +45,8 @@ namespace Kompas.Client.Gamestate.Search
 			SearchFinished?.Invoke(this, EventArgs.Empty);
 		}
 
-		public bool IsValidTarget(Space space) => validSpaces.Contains(space);
+		public bool IsRecommendedTarget(Space space) => recommendedSpaces.Contains(space);
+		public bool IsUnrecommendedTarget(Space space) => validSpaces.Contains(space) && !recommendedSpaces.Contains(space);
 
 		public bool IsCurrentTarget(Space space) => false;
 	}

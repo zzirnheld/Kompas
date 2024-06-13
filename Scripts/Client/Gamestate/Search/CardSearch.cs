@@ -167,7 +167,8 @@ namespace Kompas.Client.Gamestate.Search
 		public bool IsValidTarget(GameCard card) => toSearch.Contains(card);
 		public bool IsCurrentTarget(GameCard card) => searched.Contains(card);
 
-		public bool IsValidTarget(Space space) => false;
+		public bool IsRecommendedTarget(Space space) => false;
+		public bool IsUnrecommendedTarget(Space space) => false;
 		public bool IsCurrentTarget(Space space) => false;
 	}
 }

@@ -220,7 +220,7 @@ namespace Kompas.Client.Gamestate
 		{
 			if (CurrentSearch != null)
 			{
-				SpacesController.DisplayCanTarget(CurrentSearch.IsValidTarget);
+				SpacesController.DisplayCanTarget(CurrentSearch.IsRecommendedTarget, CurrentSearch.IsUnrecommendedTarget);
 				return;
 			}
 
