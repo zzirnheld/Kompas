@@ -99,6 +99,7 @@ namespace Kompas.Client.Gamestate
 			await EscapeMenu.CameFromMainMenuClose();
 
 			//TODO add event to game started that should close the load window
+			game.GameStarted += (_, _) => GameStartController.Hide();
 		}
 
 		private async void Rematch() => await SwitchSceneTo(RematchPath);

@@ -114,9 +114,7 @@ namespace Kompas.Client.UI.GameStart
 			{
 				var tab = Tabs[s];
 				if (tab != null) tab.Visible = s == state;
-			}	
-
-			if (state == State.DeckAccepted) Visible = false;
+			}
 		}
 	}
 }

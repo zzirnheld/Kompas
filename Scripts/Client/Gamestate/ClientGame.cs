@@ -151,6 +151,7 @@ namespace Kompas.Client.Gamestate
 			FirstTurnPlayer = TurnPlayerIndex = playerIndex;
 			RoundCount = 1;
 			TurnCount = 1;
+			GameStarted?.Invoke(this, System.EventArgs.Empty);
 		}
 
 		public void SetTurn(int index)
