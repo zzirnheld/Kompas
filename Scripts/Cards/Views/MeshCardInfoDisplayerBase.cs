@@ -63,5 +63,8 @@ namespace Kompas.Cards.Views
 
 		public abstract void DisplayCardNumericStats(CardBase card);
 		public abstract void DisplayCardRulesText(CardBase card);
+		public void DisplayValidTarget(bool validTarget) { }
+		public void DisplayCurrentTarget(bool currentTarget) { }
+		public void DisplayEffectSource(bool effectSource) { }
 	}
 }

@@ -1177,20 +1177,22 @@ theme_override_constants/margin_bottom = 0
 [node name="Currently Resolving non-Background" type="HBoxContainer" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin"]
+[node name="Must be behind parent to size with above" type="MarginContainer" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin"]
 show_behind_parent = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = -10
 theme_override_constants/margin_top = -10
 theme_override_constants/margin_right = -10
 theme_override_constants/margin_bottom = -10
 
-[node name="Background Outline" type="TextureRect" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin/MarginContainer"]
+[node name="Background Outline" type="TextureRect" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin/Must be behind parent to size with above"]
 self_modulate = Color(0.737255, 0.737255, 0.737255, 1)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("5_i20x8")
 
-[node name="Background Image" type="TextureRect" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin/MarginContainer/Background Outline"]
+[node name="Background Image" type="TextureRect" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View/MarginContainer/All Stack Container/Currently Resolving Margin/Must be behind parent to size with above/Background Outline"]
 self_modulate = Color(0.196078, 0.156863, 0.352941, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -1202,6 +1204,7 @@ offset_right = -5.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_i20x8")
 
 [node name="Choice View" type="Control" parent="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("_label", "_choicesParent")]

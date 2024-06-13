@@ -35,5 +35,8 @@ namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
 
 		public virtual void DisplayCardNumericStats(CardBase card) { }
 		public virtual void DisplayCardRulesText(CardBase card) { }
+		public void DisplayValidTarget(bool validTarget) { }
+		public void DisplayCurrentTarget(bool currentTarget) { }
+		public void DisplayEffectSource(bool effectSource) { }
 	}
 }
