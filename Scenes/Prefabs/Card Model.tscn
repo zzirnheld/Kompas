@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=145 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -16,6 +16,7 @@
 [ext_resource type="Material" uid="uid://calq4naeva2a3" path="res://Materials/Card/Valid Target Particle Material.tres" id="13_iacg7"]
 [ext_resource type="Material" uid="uid://cc1en2llxpysy" path="res://Materials/Card/Current Target Particle Material.tres" id="14_stomg"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
+[ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1350,7 +1351,7 @@ vertex_color_use_as_albedo = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_6y6j7"]
 material = SubResource("StandardMaterial3D_san0u")
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -1747,7 +1748,7 @@ draw_pass_1 = SubResource("BoxMesh_6y6j7")
 emitting = false
 lifetime = 0.5
 local_coords = true
-process_material = ExtResource("14_stomg")
+process_material = ExtResource("16_m765c")
 draw_pass_1 = SubResource("BoxMesh_6y6j7")
 
 [node name="Augments Controller" type="Node3D" parent="."]

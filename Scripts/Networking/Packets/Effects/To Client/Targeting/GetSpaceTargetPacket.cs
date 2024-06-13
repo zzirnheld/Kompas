@@ -15,7 +15,7 @@ namespace Kompas.Networking.Packets
 
 		public GetSpaceTargetPacket() : base(GetSpaceTarget) { }
 
-		public GetSpaceTargetPacket(string cardName, string targetBlurb, (int x, int y)[] possibleSpaces, (int x, int y)[] recommendedSpaces) : this()
+		public GetSpaceTargetPacket(string cardName, string targetBlurb, Space[] possibleSpaces, Space[] recommendedSpaces) : this()
 		{
 			this.cardName = cardName;
 			this.targetBlurb = targetBlurb;
@@ -36,8 +36,10 @@ namespace Kompas.Client.Networking
 				Logger.Warn("Missing something in get space target packet");
 				return;
 			}
+
+			static Space ToSpace(int s) => new(s / 7, s % 7);
 			clientGame.ClientGameController.TargetingController
-				.StartSpaceSearch(recommendedSpaces.Select(s => new Space(s / 7, s % 7)), targetBlurb);
+				.StartSpaceSearch(possibleSpaces.Select(ToSpace), recommendedSpaces.Select(ToSpace), targetBlurb);
 		}
 	}
 }

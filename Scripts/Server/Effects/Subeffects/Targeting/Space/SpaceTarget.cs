@@ -60,13 +60,18 @@ namespace Kompas.Server.Effects.Models.Subeffects
 
 		public override async Task<ResolutionInfo> Resolve()
 		{
-			var spaces = ValidSpaces.Select(s => (s.x, s.y)).ToArray();
-			var recommendedSpaces
-				= ForPlay
-				? spaces.Where(s => CardTarget?.PlayRestriction.IsRecommendedPlay((s, PlayerTarget), ResolutionContext) ?? false)
+			var spaces = ValidSpaces.ToArray();
+			var recommendedSpaces = ForPlay
+				? spaces
+					.Where(s => CardTarget?.PlayRestriction.IsRecommendedPlay((s, PlayerTarget), ResolutionContext)
+						?? false)
 					.ToArray()
 				: spaces;
-				_ = PlayerTarget ?? throw new System.InvalidOperationException("Deleted a player target!?");
+			if (recommendedSpaces.Length == 0 && spaces.Length != 0)
+			{
+				Logger.Err($"Recommending 0 spaces! What? The spaces we were gonna allow were {spaces} while {ResolutionContext}");
+			}
+			_ = PlayerTarget ?? throw new System.InvalidOperationException("Deleted a player target!?");
 			if (spaces.Length > 0)
 			{
 				var space = Space.Invalid;

@@ -190,10 +190,10 @@ namespace Kompas.Client.Gamestate
 			CurrentSearch.SearchFinished += (_, _) => FinishSearch();
 		}
 
-		public void StartSpaceSearch(IEnumerable<Space> spaces, string blurb)
+		public void StartSpaceSearch(IEnumerable<Space> spaces, IEnumerable<Space> recommendedSpaces, string blurb)
 		{
 			_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
-			CurrentSearch = new SpaceSearch(spaces, GameController.Notifier);
+			CurrentSearch = new SpaceSearch(spaces, recommendedSpaces, GameController.Notifier);
 			GameController.CurrentStateController.ShowCurrentStateInfo(blurb);
 			CurrentSearch.SearchFinished += (_, _) => FinishSearch();
 		}

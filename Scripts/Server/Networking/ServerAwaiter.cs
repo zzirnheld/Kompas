@@ -169,7 +169,7 @@ namespace Kompas.Server.Networking
 		/// <returns>The space and false if the player chose a space<br></br>
 		/// default and true if the player declined to choose a space</returns>
 		public async Task<Space> GetSpaceTarget
-			(IPlayer toAsk, string cardName, string blurb, (int, int)[] spaces, (int, int)[] recommendedSpaces)
+			(IPlayer toAsk, string cardName, string blurb, Space[] spaces, Space[] recommendedSpaces)
 		{
 			ServerNotifier.GetSpaceTarget(toAsk, cardName, blurb, spaces, recommendedSpaces);
 			while (true)
