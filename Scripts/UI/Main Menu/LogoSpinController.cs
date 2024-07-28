@@ -276,17 +276,17 @@ namespace Kompas.UI.MainMenu
 				SpinDirection.Clockwise => 1f,
 				_ => throw new System.InvalidOperationException()
 			};
-			State state = new(CurrentPositioning, new(fullCircleDuration, Destination.Spin, new()))
+			State targetState = new(CurrentPositioning, new(fullCircleDuration, Destination.Spin, new()))
 			{
 				Moving = true
 			};
-			CurrState = state;
+			CurrState = targetState;
 
 			await this.DoEachFrame(delta =>
 			{
 				lock (stateLock)
 				{
-					if (CurrState != state) return;
+					if (CurrState != targetState) return;
 					ToControl.Rotation += multiplier
 						* (float)(FullClockwiseRotation * delta / Target.Duration);
 					Target.AdditionalStep(0f);
