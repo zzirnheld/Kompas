@@ -46,7 +46,9 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 		var targetingController = shownCard.ClientGame.ClientGameController.TargetingController;
 
 		//Logger.Log($"{shownCard.CardName} is {(targetingController.IsValidTarget(shownCard) ? "" : "NOT ")}a valid target!");
-		InfoDisplayer.DisplayGreyedOut(targetingController.Searching && !targetingController.IsValidTarget(shownCard));
+		bool greyout = targetingController.Searching(shownCard.Location, shownCard.ControllingPlayerIndex == 0) //TODO again, a better def for friendly
+			&& !targetingController.IsValidTarget(shownCard);
+		InfoDisplayer.DisplayGreyedOut(greyout);
 
 		InfoDisplayer.DisplayUnselectedValidTarget(targetingController.IsUnselectedValidTarget(shownCard));
 		InfoDisplayer.DisplayCurrentTarget(targetingController.IsSelectedTarget(shownCard));
