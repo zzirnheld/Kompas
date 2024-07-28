@@ -1,5 +1,3 @@
-using System;
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
 
@@ -29,7 +27,7 @@ namespace Kompas.Cards.Views
 		/// <summary>
 		/// When a card is shown, whether that's because we changed what we're showing, or because we refreshed.
 		/// </summary>
-		public event EventHandler<CardChange>? CardShown;
+		public event System.EventHandler<CardChange>? CardShown;
 
 		protected CardViewBase(DisplayerType infoDisplayer)
 		{
@@ -78,7 +76,13 @@ namespace Kompas.Cards.Views
 			//and display any relevant information for the card
 			InfoDisplayer.DisplayCardRulesText(shownCard);
 			InfoDisplayer.DisplayCardNumericStats(shownCard);
-			InfoDisplayer.DisplayCardImage(shownCard);
+			DisplayImage();
+		}
+
+		protected virtual void DisplayImage()
+		{
+			_ = ShownCard ?? throw new System.InvalidOperationException("Can't display image while not showing a card!");
+			InfoDisplayer.DisplayCardImage(ShownCard);
 		}
 	}
 }

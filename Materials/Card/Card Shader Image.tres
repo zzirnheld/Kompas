@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ctkqdex6bk22i"]
+
+[ext_resource type="Shader" path="res://Shaders/CardImageShader.gdshader" id="1_ubrkx"]
+[ext_resource type="Texture2D" uid="uid://ctlgq3gf0rbta" path="res://Sprites/tarocco/I - The Magician 1.png" id="2_p1tha"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ubrkx")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/Texture = ExtResource("2_p1tha")

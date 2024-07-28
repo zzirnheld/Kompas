@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=149 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -10,6 +10,8 @@
 [ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card/Card Image Material.tres" id="5_6tu2s"]
 [ext_resource type="Material" uid="uid://dkd0qgkeen7w0" path="res://Materials/Card/Stat Backgrounds/E Background.tres" id="6_xuxe3"]
 [ext_resource type="Material" uid="uid://b02ylrhas2aul" path="res://Materials/Card/Stat Backgrounds/W Background.tres" id="7_1bm8q"]
+[ext_resource type="Material" uid="uid://ctkqdex6bk22i" path="res://Materials/Card/Card Shader Image.tres" id="7_2eyee"]
+[ext_resource type="Material" uid="uid://b1ttcvvxdsiah" path="res://Materials/Card/Card Shader Frame.tres" id="7_hpixu"]
 [ext_resource type="Material" uid="uid://cowloouoef00i" path="res://Materials/Card/Stat Backgrounds/N Background.tres" id="8_o3qnh"]
 [ext_resource type="Material" uid="uid://bjf0vhv75bu0g" path="res://Materials/Card/Stat Backgrounds/S Background.tres" id="9_f6kxx"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardMouseController.cs" id="12_fpypf"]
@@ -275,6 +277,62 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_d0fqn")
+
+[sub_resource type="Shader" id="Shader_ut4uj"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.stable.mono's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	//UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+
+
+void fragment() {
+	//vec2 base_uv = UV;
+	//vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb;// * albedo_tex.rgb;
+	//float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic;//metallic_tex * metallic;
+	//vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	//float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness;//roughness_tex * roughness;
+	//SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m51og"]
+render_priority = 0
+shader = SubResource("Shader_ut4uj")
+shader_parameter/albedo = Color(0.882353, 0.588235, 0.196078, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bep8r"]
 
@@ -1376,7 +1434,7 @@ N = NodePath("Char/ZO N Label")
 E = NodePath("Char/ZO E Label")
 Cost = NodePath("All/ZO Cost Label")
 W = NodePath("Char/ZO W Label")
-FriendlyCardFrameMaterial = ExtResource("3_rhqch")
+FriendlyCardFrameMaterial = ExtResource("7_hpixu")
 EnemyCardFrameMaterial = ExtResource("4_knvjy")
 FrameObjects = [NodePath("Char/ZO Char Frame Stats"), NodePath("NonChar/ZO NonChar Frame Stats"), NodePath("All/ZO All Frame Cost"), NodePath("All/ZO All Frame Corners"), NodePath("All/ZO All Baseplate")]
 CardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar/ZO NonChar Baseplate Image")]
@@ -1385,12 +1443,15 @@ CardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar/
 
 [node name="ZO Char Frame Stats" type="MeshInstance3D" parent="Actual Card Model/Zoomed Out/Char"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+material_override = ExtResource("7_hpixu")
+instance_shader_parameters/Albedo = Color(1, 0.588235, 0.196078, 1)
 mesh = SubResource("ArrayMesh_2vcfb")
 skeleton = NodePath("")
 
 [node name="ZO Char Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed Out/Char"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35494e-06, 0.025, 0)
-material_override = ExtResource("5_6tu2s")
+material_override = ExtResource("7_2eyee")
+instance_shader_parameters/Greyscale = false
 mesh = SubResource("ArrayMesh_pjruw")
 skeleton = NodePath("")
 
@@ -1460,6 +1521,7 @@ skeleton = NodePath("")
 
 [node name="ZO All Frame Corners" type="MeshInstance3D" parent="Actual Card Model/Zoomed Out/All"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+material_override = SubResource("ShaderMaterial_m51og")
 mesh = SubResource("ArrayMesh_lbq8h")
 skeleton = NodePath("")
 

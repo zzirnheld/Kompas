@@ -1,5 +1,6 @@
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Views
@@ -7,27 +8,24 @@ namespace Kompas.Cards.Views
 	public abstract partial class MeshCardInfoDisplayerBase : Node3D, ICardInfoDisplayer
 	{
 		/// <summary>
-		/// Friendly card frame material.
-		/// Defaults to shiny gold.
+		/// Card frame material.
 		/// Should be modified by Settings in whatever Settings controller,
 		/// since that should then affect all instances of the material (since the per-scene box isn't checked)
 		/// </summary>
 		[Export]
-		private BaseMaterial3D? FriendlyCardFrameMaterial { get; set; }
-		/// <summary>
-		/// Enemy card frame material.
-		/// Defaults to shiny grey.
-		/// Should be modified by Settings in whatever Settings controller,
-		/// since that should then affect all instances of the material (since the per-scene box isn't checked)
-		/// </summary>
-		[Export]
-		private BaseMaterial3D? EnemyCardFrameMaterial { get; set; }
+		private ShaderMaterial? _cardFrameMaterial;
+		private ShaderMaterial CardFrameMaterial => _cardFrameMaterial
+			?? throw new UnassignedReferenceException(nameof(_cardFrameMaterial));
 
 		[Export]
-		private MeshInstance3D[]? FrameObjects { get; set; }
+		private MeshInstance3D[]? _frameObjects;
+		private MeshInstance3D[] FrameObjects => _frameObjects
+			?? throw new UnassignedReferenceException(nameof(_frameObjects));
 
 		[Export]
-		private MeshInstance3D[]? CardImageObjects { get; set; }
+		private MeshInstance3D[]? _cardImageObjects;
+		private MeshInstance3D[] CardImageObjects => _cardImageObjects
+			?? throw new UnassignedReferenceException(nameof(_cardImageObjects));
 
 		public bool ShowingInfo { set => Visible = value; }
 
@@ -44,21 +42,22 @@ namespace Kompas.Cards.Views
 			}
 		}
 
-		/* Testing */
+		/* Testing - add * / here to use to test color.
 		public override void _Ready()
 		{
 			base._Ready();
 			DisplayFrame(true);
 		} //*/
 
-		public void DisplayFrame(bool friendly)
+		public void DisplayFrame(bool friendly, Vector4 color)
 		{
 			_ = FrameObjects ?? throw new System.NullReferenceException("Failed to init");
 
-			var material = friendly
-				? FriendlyCardFrameMaterial
-				: EnemyCardFrameMaterial;
-			foreach (var obj in FrameObjects) obj.MaterialOverride = material;
+			foreach (var obj in FrameObjects)
+			{
+				obj.MaterialOverride = CardFrameMaterial;
+				obj.SetInstanceShaderParameter("Albedo", color);
+			}
 		}
 
 		public abstract void DisplayCardNumericStats(CardBase card);
