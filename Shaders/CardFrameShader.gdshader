@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 
-instance uniform vec3 Albedo : source_color;
+instance uniform vec4 Albedo : source_color;
 instance uniform bool Greyscale;
 uniform float MetallicShine = 0.5;
 uniform float Roughness = 0.1;

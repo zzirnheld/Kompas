@@ -8,8 +8,8 @@ namespace Kompas.Client.Cards.Views;
 public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCardInfoDisplayer>
 {
 	//TODO get from settings instead, but since we're using properties I can just redirect the properties.
-	private Color FriendlyColor => new(255, 150, 50);
-	private Color EnemyColor => new(188, 188, 188);
+	private Color FriendlyColor => new(225f / 255f, 150f / 255f, 50f / 255f);
+	private Color EnemyColor => new(188f / 255f, 188f / 255f, 188f / 255f);
 
 	public ClientCardView(Zoomable3DCardInfoDisplayer infoDisplayer, ClientGameCard card)
 		: base(infoDisplayer)

@@ -1442,7 +1442,7 @@ _cardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 material_override = ExtResource("7_hpixu")
 instance_shader_parameters/Albedo = Color(1, 0.588235, 0.196078, 1)
-instance_shader_parameters/Greyscale = true
+instance_shader_parameters/Greyscale = false
 mesh = SubResource("ArrayMesh_2vcfb")
 skeleton = NodePath("")
 
