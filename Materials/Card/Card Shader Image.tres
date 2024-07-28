@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ctlgq3gf0rbta" path="res://Sprites/tarocco/I - The Magician 1.png" id="2_p1tha"]
 
 [resource]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_ubrkx")
 shader_parameter/albedo = Color(1, 1, 1, 1)

@@ -1,12 +1,10 @@
-[gd_scene load_steps=149 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=147 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedIn3DCardInfoDisplayer.cs" id="2_0v3lq"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/ZoomedOut3DCardInfoDisplayer.cs" id="2_cdddr"]
 [ext_resource type="FontFile" uid="uid://dq8qgur736smt" path="res://Fonts/Poly-Regular.otf" id="3_hjjow"]
-[ext_resource type="Material" uid="uid://r1a713u8xli" path="res://Materials/Card/Friendly Card Frame Material.tres" id="3_rhqch"]
-[ext_resource type="Material" uid="uid://dhedqe6keah3g" path="res://Materials/Card/Enemy Card Frame Material.tres" id="4_knvjy"]
 [ext_resource type="Material" uid="uid://d3kjjd5rgobsj" path="res://Materials/Card/Card Image Material.tres" id="5_6tu2s"]
 [ext_resource type="Material" uid="uid://dkd0qgkeen7w0" path="res://Materials/Card/Stat Backgrounds/E Background.tres" id="6_xuxe3"]
 [ext_resource type="Material" uid="uid://b02ylrhas2aul" path="res://Materials/Card/Stat Backgrounds/W Background.tres" id="7_1bm8q"]
@@ -1428,16 +1426,15 @@ _validTargetParticles = NodePath("../Particles/Valid Target Particles")
 _currentTargetParticles = NodePath("../Particles/Current Target Particles")
 _effectSourceParticles = NodePath("../Particles/Effect Source Particles")
 
-[node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "FrameObjects", "CardImageObjects")]
+[node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "_frameObjects", "_cardImageObjects")]
 script = ExtResource("2_cdddr")
 N = NodePath("Char/ZO N Label")
 E = NodePath("Char/ZO E Label")
 Cost = NodePath("All/ZO Cost Label")
 W = NodePath("Char/ZO W Label")
-FriendlyCardFrameMaterial = ExtResource("7_hpixu")
-EnemyCardFrameMaterial = ExtResource("4_knvjy")
-FrameObjects = [NodePath("Char/ZO Char Frame Stats"), NodePath("NonChar/ZO NonChar Frame Stats"), NodePath("All/ZO All Frame Cost"), NodePath("All/ZO All Frame Corners"), NodePath("All/ZO All Baseplate")]
-CardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar/ZO NonChar Baseplate Image")]
+_cardFrameMaterial = ExtResource("7_hpixu")
+_frameObjects = [NodePath("Char/ZO Char Frame Stats"), NodePath("NonChar/ZO NonChar Frame Stats"), NodePath("All/ZO All Frame Cost"), NodePath("All/ZO All Frame Corners"), NodePath("All/ZO All Baseplate")]
+_cardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar/ZO NonChar Baseplate Image")]
 
 [node name="Char" type="Node3D" parent="Actual Card Model/Zoomed Out"]
 
@@ -1445,11 +1442,12 @@ CardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar/
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 material_override = ExtResource("7_hpixu")
 instance_shader_parameters/Albedo = Color(1, 0.588235, 0.196078, 1)
+instance_shader_parameters/Greyscale = true
 mesh = SubResource("ArrayMesh_2vcfb")
 skeleton = NodePath("")
 
 [node name="ZO Char Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed Out/Char"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35494e-06, 0.025, 0)
+transform = Transform3D(0.999995, -0.000613507, 0.00318347, 0.000614033, 1, -0.000165187, -0.00318337, 0.000167132, 0.999995, -2.35494e-06, 0.025, 0)
 material_override = ExtResource("7_2eyee")
 instance_shader_parameters/Greyscale = false
 mesh = SubResource("ArrayMesh_pjruw")
@@ -1508,7 +1506,7 @@ skeleton = NodePath("")
 
 [node name="ZO NonChar Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed Out/NonChar"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2.35494e-06, 0.025, 0)
-material_override = ExtResource("5_6tu2s")
+material_override = ExtResource("7_2eyee")
 mesh = SubResource("ArrayMesh_ad83p")
 skeleton = NodePath("")
 
@@ -1624,7 +1622,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -0.213323)
 mesh = SubResource("ArrayMesh_78r2k")
 skeleton = NodePath("")
 
-[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "FrameObjects", "CardImageObjects")]
+[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_frameObjects", "_cardImageObjects")]
 visible = false
 script = ExtResource("2_0v3lq")
 N = NodePath("Char/N Label")
@@ -1633,10 +1631,8 @@ Cost = NodePath("All/S Label")
 W = NodePath("Char/W Label")
 CardName = NodePath("All/Name Label")
 Subtypes = NodePath("All/Subtypes Label")
-FriendlyCardFrameMaterial = ExtResource("3_rhqch")
-EnemyCardFrameMaterial = ExtResource("4_knvjy")
-FrameObjects = [NodePath("All/Frame Objects/ZI NT All Frame Cost"), NodePath("All/Frame Objects/ZI NT All Baseplate"), NodePath("All/Frame Objects/ZI NT All Frame Bottom Half "), NodePath("All/Frame Objects/ZI NT All Frame Top Half"), NodePath("Char/Frame Objects/ZI NT Char E"), NodePath("Char/Frame Objects/ZI NT Char N"), NodePath("Char/Frame Objects/ZI NT Char W"), NodePath("NonChar/ZI NT NonChar Frame Stat Caps")]
-CardImageObjects = [NodePath("All/ZI NT All Baseplate Image")]
+_frameObjects = []
+_cardImageObjects = []
 
 [node name="All" type="Node3D" parent="Actual Card Model/Zoomed In No Text"]
 

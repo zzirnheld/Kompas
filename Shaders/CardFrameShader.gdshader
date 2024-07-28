@@ -2,6 +2,7 @@ shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 
 instance uniform vec3 Albedo : source_color;
+instance uniform bool Greyscale;
 uniform float MetallicShine = 0.5;
 uniform float Roughness = 0.1;
 
@@ -10,7 +11,7 @@ void vertex() {
 }
 
 void fragment() {
-	ALBEDO = Albedo.rgb;
+	ALBEDO = Greyscale ? vec3((Albedo.r + Albedo.g + Albedo.b) / 3.0) : Albedo.rgb;
 	METALLIC = MetallicShine;
 	ROUGHNESS = Roughness;
 }

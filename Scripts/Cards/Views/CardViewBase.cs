@@ -76,13 +76,7 @@ namespace Kompas.Cards.Views
 			//and display any relevant information for the card
 			InfoDisplayer.DisplayCardRulesText(shownCard);
 			InfoDisplayer.DisplayCardNumericStats(shownCard);
-			DisplayImage();
-		}
-
-		protected virtual void DisplayImage()
-		{
-			_ = ShownCard ?? throw new System.InvalidOperationException("Can't display image while not showing a card!");
-			InfoDisplayer.DisplayCardImage(ShownCard);
+			InfoDisplayer.DisplayCardImage(shownCard);
 		}
 	}
 }

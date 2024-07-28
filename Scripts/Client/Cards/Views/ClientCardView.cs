@@ -1,13 +1,15 @@
 using Godot;
 using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Cards.Views;
 
 public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCardInfoDisplayer>
 {
-	private bool greyedOut;
-	private Vector4 frameColor;
+	//TODO get from settings instead, but since we're using properties I can just redirect the properties.
+	private Color FriendlyColor => new(255, 150, 50);
+	private Color EnemyColor => new(188, 188, 188);
 
 	public ClientCardView(Zoomable3DCardInfoDisplayer infoDisplayer, ClientGameCard card)
 		: base(infoDisplayer)
@@ -20,32 +22,22 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 		base.Display(shownCard);
 
 		InfoDisplayer.DisplayZoomed(zoomedIn: false); //For now, assume never zoomed in.
+		DisplayFrame();
 
 		DisplayTargeting(shownCard);
 	}
 
 	public void SetGreyedOut(bool greyedOut)
 	{
-		this.greyedOut = greyedOut;
-		DisplayFrame();
-	}
-
-	public void SetBaseFrameColor(Vector4 frameColor)
-	{
-		this.frameColor = frameColor;
-		DisplayFrame();
+		InfoDisplayer.DisplayGreyedOut(greyedOut);
 	}
 
 	private void DisplayFrame()
 	{
-		InfoDisplayer.DisplayFrame(ShownCard?.OwningPlayer.Friendly ?? false, frameColor);
-	}
-
-	protected override void DisplayImage()
-	{
-		_ = ShownCard ?? throw new System.InvalidOperationException("Can't display image while not showing a card!");
-		
-		InfoDisplayer.DisplayCardImage(ShownCard);
+		var color = ShownCard?.OwningPlayer.Friendly ?? false
+			? FriendlyColor
+			: EnemyColor;
+		InfoDisplayer.DisplayFrame(color);
 	}
 
 	private void DisplayTargeting(ClientGameCard shownCard)

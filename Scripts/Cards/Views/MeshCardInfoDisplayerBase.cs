@@ -8,6 +8,17 @@ namespace Kompas.Cards.Views
 	public abstract partial class MeshCardInfoDisplayerBase : Node3D, ICardInfoDisplayer
 	{
 		/// <summary>
+		/// Name in the frame shader of the "albedo" variable,
+		/// because Godot requires that you set these things by strings.
+		/// Like an animal.
+		///</summary>
+		private const string ShaderAlbedoUniformName = "Albedo";
+
+		private const string ShaderGreyscaleUniformName = "Greyscale";
+
+		private const string ShaderTextureUniformName = "Texture";
+
+		/// <summary>
 		/// Card frame material.
 		/// Should be modified by Settings in whatever Settings controller,
 		/// since that should then affect all instances of the material (since the per-scene box isn't checked)
@@ -32,13 +43,14 @@ namespace Kompas.Cards.Views
 		public virtual void DisplayCardImage(CardBase card)
 		{
 			_ = CardImageObjects ?? throw new System.NullReferenceException("Failed to init");
+			_ = card.CardFaceImage ?? throw new System.NullReferenceException("Null card image! You haven't figured out yet what to do about that!");
 
 			foreach (var obj in CardImageObjects)
 			{
-				if (obj.MaterialOverride is not BaseMaterial3D mat)
-					throw new System.InvalidOperationException($"{obj}'s material is not a BaseMaterial3D, can't set its albedo texture");
+				if (obj.MaterialOverride is not ShaderMaterial mat)
+					throw new System.InvalidOperationException($"{obj}'s material is not a ShaderMaterial, can't set its albedo texture");
 
-				mat.AlbedoTexture = card.CardFaceImage;
+				mat.SetShaderParameter(ShaderTextureUniformName, card.CardFaceImage);
 			}
 		}
 
@@ -49,14 +61,22 @@ namespace Kompas.Cards.Views
 			DisplayFrame(true);
 		} //*/
 
-		public void DisplayFrame(bool friendly, Vector4 color)
+		public void DisplayFrame(Color color)
 		{
 			_ = FrameObjects ?? throw new System.NullReferenceException("Failed to init");
 
 			foreach (var obj in FrameObjects)
 			{
 				obj.MaterialOverride = CardFrameMaterial;
-				obj.SetInstanceShaderParameter("Albedo", color);
+				obj.SetInstanceShaderParameter(ShaderAlbedoUniformName, color);
+			}
+		}
+
+		public void DisplayGreyedOut(bool greyedOut)
+		{
+			foreach (var obj in FrameObjects)
+			{
+				obj.SetInstanceShaderParameter(ShaderAlbedoUniformName, greyedOut);
 			}
 		}
 

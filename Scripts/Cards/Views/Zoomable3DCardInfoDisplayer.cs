@@ -63,10 +63,16 @@ namespace Kompas.Cards.Views
 			ZoomedIn.DisplayCardRulesText(card);
 		}
 
-		public void DisplayFrame(bool friendly, Vector4 albedo)
+		public void DisplayFrame(Color albedo)
 		{
-			ZoomedOut.DisplayFrame(friendly, albedo);
-			ZoomedIn.DisplayFrame(friendly, albedo);
+			ZoomedOut.DisplayFrame(albedo);
+			ZoomedIn.DisplayFrame(albedo);
+		}
+
+		public void DisplayGreyedOut(bool greyedOut)
+		{
+			ZoomedOut.DisplayGreyedOut(greyedOut);
+			ZoomedIn.DisplayGreyedOut(greyedOut);	
 		}
 
 		//FUTURE: replace with enum?
