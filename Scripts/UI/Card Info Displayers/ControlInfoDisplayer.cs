@@ -91,7 +91,7 @@ namespace Kompas.UI.CardInfoDisplayers
 			Subtypes.ShrinkableText = card.SubtypeText;
 			EffText.SetShrinkableText(card.EffText, card.BBCodeEffText);
 		}
-		public void DisplayValidTarget(bool validTarget) { }
+		public void DisplayUnselectedValidTarget(bool validTarget) { }
 		public void DisplayCurrentTarget(bool currentTarget) { }
 		public void DisplayEffectSource(bool effectSource) { }
 	}

@@ -31,7 +31,7 @@ namespace Kompas.UI.CardInfoDisplayers
 		/// </summary>
 		public void DisplayCardImage(CardBase card);
 
-		public void DisplayValidTarget(bool validTarget);
+		public void DisplayUnselectedValidTarget(bool validTarget);
 
 		public void DisplayCurrentTarget(bool currentTarget);
 

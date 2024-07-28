@@ -71,11 +71,7 @@ namespace Kompas.Client.Gamestate.Search
 			SearchedLocations = toSearch.Select(c => (c.Location, c.ControllingPlayer.Friendly)).Distinct().ToArray();
 		}
 
-		/*
-		public SearchUIController clientSearchUICtrl;
-		public ConfirmTargetsUIController confirmTargetsCtrl; */
-
-		public static CardSearch? StartSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+		public static CardSearch? Create(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
 			IGame game, ClientTargetingController targetingController, ClientNotifier notifier)
 		{
 			//if the list is empty, don't search

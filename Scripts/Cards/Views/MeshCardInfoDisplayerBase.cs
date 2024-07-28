@@ -76,13 +76,17 @@ namespace Kompas.Cards.Views
 		{
 			foreach (var obj in FrameObjects)
 			{
-				obj.SetInstanceShaderParameter(ShaderAlbedoUniformName, greyedOut);
+				obj.SetInstanceShaderParameter(ShaderGreyscaleUniformName, greyedOut);
+			}
+			foreach (var obj in CardImageObjects)
+			{
+				obj.SetInstanceShaderParameter(ShaderGreyscaleUniformName, greyedOut);
 			}
 		}
 
 		public abstract void DisplayCardNumericStats(CardBase card);
 		public abstract void DisplayCardRulesText(CardBase card);
-		public void DisplayValidTarget(bool validTarget) { }
+		public void DisplayUnselectedValidTarget(bool validTarget) { }
 		public void DisplayCurrentTarget(bool currentTarget) { }
 		public void DisplayEffectSource(bool effectSource) { }
 	}

@@ -83,6 +83,9 @@ namespace Kompas.Cards.Views
 		}
 
 		public void DisplayValidTarget(bool validTarget)
+			=> DisplayGreyedOut(!validTarget);
+
+		public void DisplayUnselectedValidTarget(bool validTarget)
 			=> ValidTargetParticles.Emitting = validTarget;
 
 		public void DisplayCurrentTarget(bool currentTarget)

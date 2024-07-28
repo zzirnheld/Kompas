@@ -22,7 +22,7 @@ namespace Kompas.Client.UI.GameStart
 		public void DisplayCardNumericStats(CardBase card) { }
 
 		public void DisplayCardRulesText(CardBase card) { }
-		public void DisplayValidTarget(bool validTarget) { }
+		public void DisplayUnselectedValidTarget(bool validTarget) { }
 		public void DisplayCurrentTarget(bool currentTarget) { }
 		public void DisplayEffectSource(bool effectSource) { }
 	}
