@@ -217,6 +217,7 @@ public partial class ClientTargetingController : Node
 		GameController.Notifier.DeclineAnotherTarget();
 	}
 
+	public bool Searching => currentSearch != null;
 	public bool IsValidTarget(GameCard card) => currentSearch?.IsValidTarget(card) ?? false;
 	public bool IsSelectedTarget(GameCard card) => currentSearch?.IsCurrentTarget(card) ?? false;
 	public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);

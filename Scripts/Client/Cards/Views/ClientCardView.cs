@@ -45,8 +45,9 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 	{
 		var targetingController = shownCard.ClientGame.ClientGameController.TargetingController;
 
-		Logger.Log($"{shownCard.CardName} is {(targetingController.IsValidTarget(shownCard) ? "" : "NOT ")}a valid target!");
-		InfoDisplayer.DisplayValidTarget(targetingController.IsValidTarget(shownCard));
+		//Logger.Log($"{shownCard.CardName} is {(targetingController.IsValidTarget(shownCard) ? "" : "NOT ")}a valid target!");
+		InfoDisplayer.DisplayGreyedOut(targetingController.Searching && !targetingController.IsValidTarget(shownCard));
+
 		InfoDisplayer.DisplayUnselectedValidTarget(targetingController.IsUnselectedValidTarget(shownCard));
 		InfoDisplayer.DisplayCurrentTarget(targetingController.IsSelectedTarget(shownCard));
 	}

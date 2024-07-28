@@ -43,7 +43,11 @@ namespace Kompas.Cards.Views
 		public virtual void DisplayCardImage(CardBase card)
 		{
 			_ = CardImageObjects ?? throw new System.NullReferenceException("Failed to init");
-			_ = card.CardFaceImage ?? throw new System.NullReferenceException("Null card image! You haven't figured out yet what to do about that!");
+			if (card.CardFaceImage == null)
+			{
+				Logger.Err($"Null card image for {card.CardName}! You haven't figured out yet what to do about that!");
+				return;
+			}
 
 			foreach (var obj in CardImageObjects)
 			{

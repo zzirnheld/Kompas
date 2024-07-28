@@ -82,9 +82,6 @@ namespace Kompas.Cards.Views
 			ZoomedIn.ShowingInfo = zoomedIn;
 		}
 
-		public void DisplayValidTarget(bool validTarget)
-			=> DisplayGreyedOut(!validTarget);
-
 		public void DisplayUnselectedValidTarget(bool validTarget)
 			=> ValidTargetParticles.Emitting = validTarget;
 
