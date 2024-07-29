@@ -6,6 +6,5 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_mtl4u")
-shader_parameter/Albedo = Color(0.882353, 0.588235, 0.196078, 1)
 shader_parameter/MetallicShine = 0.75
 shader_parameter/Roughness = 0.2

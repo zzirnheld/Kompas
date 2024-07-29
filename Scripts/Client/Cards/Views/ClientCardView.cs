@@ -46,7 +46,9 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 		var targetingController = shownCard.ClientGame.ClientGameController.TargetingController;
 
 		//Logger.Log($"{shownCard.CardName} is {(targetingController.IsValidTarget(shownCard) ? "" : "NOT ")}a valid target!");
-		bool greyout = targetingController.Searching(shownCard.Location, shownCard.ControllingPlayerIndex == 0) //TODO again, a better def for friendly
+		//Can replace the below with Searching(shownCard.Location, shownCard.ControllingPlayerIndex == 0)
+		//in order to only grey out things in the same area (potentially a setting?), but if you do, //TODO again, a better def for friendly
+		bool greyout = targetingController.Searching()
 			&& !targetingController.IsValidTarget(shownCard);
 		InfoDisplayer.DisplayGreyedOut(greyout);
 
