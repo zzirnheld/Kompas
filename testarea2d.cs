@@ -21,7 +21,14 @@ namespace Kompas
 			this.viewport.HandleInputLocally = true;
 
 			GD.Print($"{Name} is gonna push input event {@event} from {new System.Exception().StackTrace}");
-			this.viewport.PushInput(@event.Duplicate() as InputEvent);
+
+			if (@event is not InputEventMouse iem) return;
+			var pos = iem.Position - this.Position + (this.viewport.Size / 2);
+			var pass = @event.Duplicate() as InputEventMouse;
+			pass.Position = pos;
+			GD.Print($"For that event, {GetViewport().GetMousePosition()} vs {viewport.GetMousePosition()} vs {this.viewport.GetMousePosition()} vs {pos}");
+
+			this.viewport.PushInput(pass);
 
 			this.viewport.HandleInputLocally = false;
 		}

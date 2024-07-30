@@ -55,7 +55,6 @@ public partial class test3 : Area3D
 		destPos.X *= nestedPort.Size.X;
 		destPos.Y *= nestedPort.Size.Y;
 
-		GD.Print($"{Name}: {mie.Position}");
 		//GD.Print(@event);
 		var dupe = mie.Duplicate();
 		if (dupe is not InputEventMouse pass)
@@ -65,7 +64,7 @@ public partial class test3 : Area3D
 		}
 
 		pass.Position = destPos;
-		GD.Print($"Passing {pass.Position}");
+		GD.Print($"{eventPos} -> {pos} -> {destPos} -> {pass.Position}");
 
 		nestedPort.PushInput(pass, true);
 	}
