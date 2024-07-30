@@ -29,6 +29,26 @@ viewport_path = NodePath("SubViewport")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.761651, 0.647987, 0, -0.647987, 0.761651, 0, 2.7323, 3.41428)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(81.6198, -2.52552e-06, -57.7772, -57.7772, -3.56772e-06, -81.6198, 0, 100, -4.37114e-06, 0, 0, -5.91878)
+mesh = SubResource("PlaneMesh_0snhw")
+skeleton = NodePath("../Area3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_b6lw5")
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("mesh", "nestedPort")]
+transform = Transform3D(0.816198, 0.577772, 0, -0.577772, 0.816198, 0, 0, 0, 1, 0, 0, -5.67066)
+script = ExtResource("2_u1lr4")
+mesh = NodePath("MeshInstance3D")
+nestedPort = NodePath("../SubViewport2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("QuadMesh_22cgq")
+skeleton = NodePath("../../SubViewport/Camera3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_6cfhj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_bwpcs")
+
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 handle_input_locally = false
@@ -39,26 +59,6 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(0.816198, 0.577772, 0, -0.577772, 0.816198, 0, 0, 0, 1, 0, 0, -2.91878)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport"]
-transform = Transform3D(81.6198, -2.52552e-06, -57.7772, -57.7772, -3.56772e-06, -81.6198, 0, 100, -4.37114e-06, 0, 0, -5.91878)
-mesh = SubResource("PlaneMesh_0snhw")
-skeleton = NodePath("../Area3D")
-surface_material_override/0 = SubResource("StandardMaterial3D_b6lw5")
-
-[node name="Area3D" type="Area3D" parent="SubViewport" node_paths=PackedStringArray("mesh", "nestedPort")]
-transform = Transform3D(0.816198, 0.577772, 0, -0.577772, 0.816198, 0, 0, 0, 1, 0, 0, -5.67066)
-script = ExtResource("2_u1lr4")
-mesh = NodePath("MeshInstance3D")
-nestedPort = NodePath("../../SubViewport2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Area3D"]
-mesh = SubResource("QuadMesh_22cgq")
-skeleton = NodePath("../../Camera3D")
-surface_material_override/0 = SubResource("StandardMaterial3D_6cfhj")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Area3D"]
-shape = SubResource("BoxShape3D_bwpcs")
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("viewport")]
 position = Vector2(356, 356)
@@ -71,5 +71,5 @@ shape = SubResource("RectangleShape2D_ml0tf")
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
 texture = SubResource("ViewportTexture_r111m")
 
-[connection signal="input_event" from="SubViewport/Area3D" to="SubViewport/Area3D" method="iiiiinput"]
-[connection signal="mouse_entered" from="SubViewport/Area3D" to="SubViewport/Area3D" method="hello"]
+[connection signal="input_event" from="Area3D" to="Area3D" method="iiiiinput"]
+[connection signal="mouse_entered" from="Area3D" to="Area3D" method="hello"]

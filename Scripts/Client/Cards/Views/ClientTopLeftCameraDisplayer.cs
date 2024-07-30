@@ -9,6 +9,7 @@ namespace Kompas.Client.Cards.Views;
 /// <summary>
 /// Should be on the node3d that has the camera assigned to the viewport.
 /// TODO: explain that this class exists as it does to preserve the focus logic already implemented in FocusableCardViewBase, along with the relevant events.
+/// alternately if it becomes necessary to point a camera at a dummy card not actually on the board, we'll cross that bridge.
 ///</summary>
 public partial class ClientTopLeftCameraDisplayer : Node, ICardInfoDisplayer
 {
