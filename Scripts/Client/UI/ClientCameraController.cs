@@ -159,6 +159,7 @@ public partial class ClientCameraController : Node3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		//Check if we collide with an area around a viewport quad, which we would then need to forward the call to.
 		base._PhysicsProcess(delta);
 		var spaceState = GetWorld3D().DirectSpaceState;
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=159 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=162 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -21,6 +21,8 @@
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
 [ext_resource type="Script" path="res://test4.cs" id="18_2cn8u"]
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="20_ptlga"]
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="21_4pvxp"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkOnOverrun.cs" id="22_mk8mh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1204,6 +1206,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xqcof")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnwcy"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brs2r"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_nvv1y"]
@@ -1235,6 +1240,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nvv1y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_allg3"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shouf"]
 resource_local_to_scene = true
@@ -1438,8 +1446,6 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 2048.0
 content_margin_bottom = 1000.0
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sekns"]
 
 [node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -1665,9 +1671,9 @@ N = NodePath("Char/N Label")
 E = NodePath("Char/E Label")
 Cost = NodePath("All/S Label")
 W = NodePath("Char/W Label")
-CardName = NodePath("All/Name Label")
-Subtypes = NodePath("All/Subtypes Label")
-_effText = NodePath("../../Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer/RichTextLabel")
+CardName = NodePath("../../Effect Text SubViewport/Node2D/Panel/Name Backing/Name Label")
+Subtypes = NodePath("../../Effect Text SubViewport/Node2D/Panel/Subtypes Backing/Subtypes Label")
+_effText = NodePath("../../Effect Text SubViewport/Node2D/Panel/Eff Text Backing/Effect RichTextLabel")
 _cardFrameMaterial = ExtResource("7_hpixu")
 _frameObjects = [NodePath("All/Frame Objects/ZI NT All Frame Cost"), NodePath("All/Frame Objects/ZI NT All Baseplate"), NodePath("All/Frame Objects/ZI NT All Frame Bottom Half "), NodePath("All/Frame Objects/ZI NT All Frame Top Half"), NodePath("Char/Frame Objects/ZI NT Char E"), NodePath("Char/Frame Objects/ZI NT Char N"), NodePath("Char/Frame Objects/ZI NT Char W"), NodePath("NonChar/ZI NT NonChar Frame Stat Caps")]
 _cardImageObjects = [NodePath("All/ZI NT All Baseplate Image")]
@@ -1720,11 +1726,13 @@ skeleton = NodePath("")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_phyg0")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_hnwcy")
 
 [node name="ZI NT All Baseplate Name" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_hq28y")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_allg3")
 
 [node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1.01, 0, 1.76594e-07, 0, 1.01, 0, -1.76594e-07, 0, 1.01, -2.53526e-08, 0, -0.177072)
@@ -1738,14 +1746,13 @@ mesh = SubResource("PlaneMesh_lk7jc")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_d2ere")
 
-[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport", "_cardMouseController", "camera")]
+[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport", "_cardMouseController")]
 transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0.075, 0.205)
 input_ray_pickable = false
 script = ExtResource("13_pifky")
 _quadMesh = NodePath("Baseplate Text")
 _subViewport = NodePath("../../../../../Effect Text SubViewport")
 _cardMouseController = NodePath("../../../../../Mouse Controller")
-camera = NodePath("../../../../../Camera3D")
 
 [node name="Baseplate Text" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" node_paths=PackedStringArray("_subViewport")]
 mesh = SubResource("QuadMesh_08rqw")
@@ -1759,6 +1766,7 @@ shape = SubResource("BoxShape3D_gekpj")
 
 [node name="Name Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.582)
+visible = false
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "Some the Guy"
@@ -1769,6 +1777,7 @@ width = 300.0
 
 [node name="Subtypes Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.615)
+visible = false
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "Veritable Dude Mage Tbh"
@@ -1890,33 +1899,62 @@ offset_right = 512.0
 offset_bottom = 512.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fdxmo")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Effect Text SubViewport/Node2D/Panel"]
+[node name="Name Backing" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.02
+anchor_right = 0.928
+anchor_bottom = 0.15
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Name Label" type="Label" parent="Effect Text SubViewport/Node2D/Panel/Name Backing"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 4.0
+theme = ExtResource("21_4pvxp")
+theme_override_font_sizes/font_size = 48
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("22_mk8mh")
+StartingFontSize = 48
 
-[node name="Left Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.05
+[node name="Eff Text Backing" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.25
+anchor_right = 0.925
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 13.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Top Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+[node name="Effect RichTextLabel" type="RichTextLabel" parent="Effect Text SubViewport/Node2D/Panel/Eff Text Backing"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.42
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+theme = ExtResource("21_4pvxp")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]"
@@ -1924,27 +1962,35 @@ fit_content = true
 script = ExtResource("20_ptlga")
 StartingFontSize = 40
 
-[node name="TextureRect" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer/RichTextLabel"]
-visible = false
+[node name="Subtypes Backing" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel"]
 show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.875
+anchor_right = 0.925
+anchor_bottom = 0.96
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Subtypes Label" type="Label" parent="Effect Text SubViewport/Node2D/Panel/Subtypes Backing"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("PlaceholderTexture2D_sekns")
-
-[node name="Bottom Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.45
-
-[node name="Right Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.05
+size_flags_vertical = 6
+size_flags_stretch_ratio = 3.0
+theme = ExtResource("21_4pvxp")
+theme_override_font_sizes/font_size = 24
+text = "Verifiable Dude and Mage"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("22_mk8mh")
+StartingFontSize = 24
 
 [node name="Camera2D" type="Camera2D" parent="Effect Text SubViewport"]
 offset = Vector2(256, 256)
@@ -1954,5 +2000,3 @@ transform = Transform3D(2, 0, 0, 0, -0.0918767, 1.99789, 0, -1.99789, -0.0918767
 visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
-
-[connection signal="mouse_entered" from="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" to="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" method="hello"]

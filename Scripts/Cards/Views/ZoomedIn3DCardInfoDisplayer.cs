@@ -18,9 +18,9 @@ namespace Kompas.Cards.Views
 		private Label3D? W { get; set; }
 
 		[Export]
-		private Label3D? CardName { get; set; }
+		private ShrinkOnOverrun? CardName { get; set; }
 		[Export]
-		private Label3D? Subtypes { get; set; }
+		private ShrinkOnOverrun? Subtypes { get; set; }
 		[Export]
 		private ShrinkRichTextOnOverrun? _effText;
 		private ShrinkRichTextOnOverrun EffText => _effText
@@ -44,9 +44,9 @@ namespace Kompas.Cards.Views
 			_ = CardName ?? throw new System.NullReferenceException("Failed to init");
 			_ = Subtypes ?? throw new System.NullReferenceException("Failed to init");
 
-			CardName.Text = card.CardName;
-			Subtypes.Text = card.SubtypeText;
-			EffText.Text = card.BBCodeEffText;
+			CardName.ShrinkableText = card.CardName;
+			Subtypes.ShrinkableText = card.SubtypeText;
+			EffText.SetShrinkableText(card.BBCodeEffText);
 		}
 	}
 }

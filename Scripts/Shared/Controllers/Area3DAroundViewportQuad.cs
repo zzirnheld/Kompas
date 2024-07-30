@@ -39,9 +39,9 @@ public partial class Area3DAroundViewportQuad : Area3D
 		?? throw new UnassignedReferenceException(nameof(_cardMouseController), this);
 
 	[Export]
-	private Camera3D camera;
-
-	public void hello() => GD.Print("hello");
+	private CollisionShape3D? _collisionShape;
+	private CollisionShape3D CollisionShape => _collisionShape
+		?? throw new UnassignedReferenceException();
 
 	public override void _Ready()
 	{
