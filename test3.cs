@@ -9,36 +9,22 @@ public partial class test3 : Area3D
 	[Export]
 	public SubViewport nestedPort;
 
+	public void hello() => GD.Print("hello");
 
 	public override void _Ready()
 	{
 		base._Ready();
-		var material = new StandardMaterial3D();
-		material.AlbedoTexture = nestedPort.GetTexture();
-		mesh.SetSurfaceOverrideMaterial(0, material);
-
-		//this.InputEvent += iiiiinput;
-	}
-
-	public void hello() => GD.Print("hello");
-
-	public override void _Input(InputEvent @event)
-	{
-		base._Input(@event);
-		GD.Print($"3input event on {Name}: {@event}");
-		if (@event is not InputEventMouse mie) return;
-
-		GD.Print($"3input: {Name}: {mie.Position}");
+		this.InputEvent += iiiiinput;
 	}
 
 	public void iiiiinput(Node camera, InputEvent @event, Vector3 eventPos, Vector3 normal, long shapeIdx)
 	{
-		GD.Print(@event.GetType());
+		//GD.Print(@event.GetType());
 		if (@event is not InputEventMouse mie) return;
 		GD.Print($"3{Name}: {mie.Position}");
 
 		var quadMeshSize = (mesh.Mesh as PlaneMesh).Size;
-		GD.Print($"3mesh size {quadMeshSize}");
+		//GD.Print($"3mesh size {quadMeshSize}");
 
 		var pos = GlobalTransform.AffineInverse() * eventPos;
 

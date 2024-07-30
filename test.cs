@@ -16,12 +16,12 @@ public partial class test : RichTextLabel
 	{
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		base._Input(@event);
-		GD.Print($"1input event on {Name}: {@event}");
-		if (@event is not InputEventMouse mie) return;
+	// public override void _Input(InputEvent @event)
+	// {
+	// 	base._Input(@event);
+	// 	GD.Print($"1input event on {Name}: {@event}");
+	// 	if (@event is not InputEventMouse mie) return;
 
-		GD.Print($"1{Name}: {mie.Position}");
-	}
+	// 	GD.Print($"1{Name}: {mie.Position}");
+	// }
 }

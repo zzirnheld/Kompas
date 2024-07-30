@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=159 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -13,12 +13,14 @@
 [ext_resource type="Material" uid="uid://cowloouoef00i" path="res://Materials/Card/Stat Backgrounds/N Background.tres" id="8_o3qnh"]
 [ext_resource type="Material" uid="uid://bjf0vhv75bu0g" path="res://Materials/Card/Stat Backgrounds/S Background.tres" id="9_f6kxx"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardMouseController.cs" id="12_fpypf"]
+[ext_resource type="Script" path="res://test3.cs" id="13_3jmbc"]
+[ext_resource type="Script" path="res://Scripts/Shared/LinkMeshToViewportTexture.cs" id="13_fh5oi"]
 [ext_resource type="Material" uid="uid://calq4naeva2a3" path="res://Materials/Card/Valid Target Particle Material.tres" id="13_iacg7"]
 [ext_resource type="Material" uid="uid://cc1en2llxpysy" path="res://Materials/Card/Current Target Particle Material.tres" id="14_stomg"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
 [ext_resource type="Script" path="res://test4.cs" id="18_2cn8u"]
-[ext_resource type="PackedScene" uid="uid://bp0c0acqu8pn" path="res://TextTest.tscn" id="19_3or4a"]
+[ext_resource type="Script" path="res://test.cs" id="19_equwt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1234,12 +1236,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nvv1y")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_n1e6o"]
-viewport_path = NodePath("Effect Text SubViewport")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shouf"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_n1e6o")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2sd3m"]
 _surfaces = [{
@@ -1270,6 +1268,25 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2sd3m")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lk7jc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2ere"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.686275)
+
+[sub_resource type="QuadMesh" id="QuadMesh_08rqw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3nuwa"]
+viewport_path = NodePath("Effect Text SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6csyp"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_3nuwa")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gekpj"]
+size = Vector3(1, 1, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4adt"]
 
@@ -1415,6 +1432,14 @@ vertex_color_use_as_albedo = true
 [sub_resource type="BoxMesh" id="BoxMesh_6y6j7"]
 material = SubResource("StandardMaterial3D_san0u")
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fdxmo"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 2048.0
+content_margin_bottom = 1000.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sekns"]
 
 [node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -1700,8 +1725,31 @@ skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1.01, 0, 1.76594e-07, 0, 1.01, 0, -1.76594e-07, 0, 1.01, -2.53526e-08, 0, -0.177072)
+material_override = ExtResource("7_2eyee")
 mesh = SubResource("ArrayMesh_5ubt0")
 skeleton = NodePath("")
+
+[node name="Baseplate Image Haze" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image"]
+transform = Transform3D(0.71, 0, -8.32265e-08, 0, 1, 0, 1.2414e-07, 0, 0.476, -1.10725e-08, 0.0293627, 0.238327)
+mesh = SubResource("PlaneMesh_lk7jc")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_d2ere")
+
+[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("mesh", "nestedPort")]
+transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, -3.59117e-08, 0.03, 0.205391)
+script = ExtResource("13_3jmbc")
+mesh = NodePath("Baseplate Text")
+nestedPort = NodePath("../../../../../Effect Text SubViewport")
+
+[node name="Baseplate Text" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" node_paths=PackedStringArray("_subViewport")]
+mesh = SubResource("QuadMesh_08rqw")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_6csyp")
+script = ExtResource("13_fh5oi")
+_subViewport = NodePath("../../../../../../Effect Text SubViewport")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D"]
+shape = SubResource("BoxShape3D_gekpj")
 
 [node name="Name Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.582)
@@ -1823,14 +1871,77 @@ draw_pass_1 = SubResource("BoxMesh_6y6j7")
 script = ExtResource("16_jvvs6")
 
 [node name="Effect Text SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
 canvas_item_default_texture_repeat = 1
 render_target_update_mode = 4
 script = ExtResource("18_2cn8u")
 
-[node name="Node2D" parent="Effect Text SubViewport" instance=ExtResource("19_3or4a")]
+[node name="Node2D" type="Node2D" parent="Effect Text SubViewport"]
+
+[node name="Panel" type="Panel" parent="Effect Text SubViewport/Node2D"]
+offset_right = 512.0
+offset_bottom = 512.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fdxmo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Effect Text SubViewport/Node2D/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Top Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.42
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]"
+fit_content = true
+script = ExtResource("19_equwt")
+
+[node name="TextureRect" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer/RichTextLabel"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_sekns")
+
+[node name="Bottom Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.45
+
+[node name="Right Margin" type="Control" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
 
 [node name="Camera2D" type="Camera2D" parent="Effect Text SubViewport"]
 offset = Vector2(256, 256)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, -0.0918767, 1.99789, 0, -1.99789, -0.0918767, 0, 1.71898, 0)
+
+[connection signal="mouse_entered" from="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" to="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" method="hello"]
