@@ -50,7 +50,7 @@ public partial class Area3DAroundViewportQuad : Area3D
 
 	public void HandleRayToHere(Vector3 eventPos)
 	{
-		//GD.Print($"3{Name}: {mie.Position}");
+		GD.Print($"3{Name}: {eventPos}");
 
 		if (QuadMesh.Mesh is not PlaneMesh planeMesh) throw new System.InvalidOperationException("MUST be a plane mesh");
 

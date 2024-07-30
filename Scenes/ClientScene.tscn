@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=107 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -40,6 +40,8 @@
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientStackView.cs" id="22_80qh3"]
 [ext_resource type="Script" path="res://Scripts/Client/Cards/Views/ClientTopLeftCameraDisplayer.cs" id="27_0k46m"]
+[ext_resource type="Script" path="res://testarea2d.cs" id="28_v8t5v"]
+[ext_resource type="Script" path="res://Scenes/ForwardingTextureRect.cs" id="29_apfhk"]
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientChoicesView.cs" id="30_7wvtq"]
 [ext_resource type="PackedScene" uid="uid://cikgbik27781" path="res://Scenes/Prefabs/Client Game/Choice Button.tscn" id="30_n6ewi"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/UseEffectDialog.cs" id="30_w3lfl"]
@@ -202,6 +204,12 @@ points = PackedVector3Array(-0.0864772, 0.495928, 0.588566, -0.0102261, 0.495928
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7idqb"]
 points = PackedVector3Array(0.00356197, 0.495928, 0.910199, 0.0820751, 0.495928, 0.601411, -0.00450215, 0.495928, 0.899148, -0.00347813, 0.495879, 0.910157, 0.00356197, -0.00407219, 0.910199, 0.078283, 0.495928, 0.59396, 0.0820751, -0.00407219, 0.601411, -0.0813832, 0.495928, 0.603401, -0.00347813, -0.00407219, 0.910157, 0.073851, 0.495928, 0.586381, 0.078283, -0.00407219, 0.59396, -0.0793992, 0.495928, 0.595865, -0.0813832, -0.00407219, 0.603401, 0.073851, -0.00407219, 0.586381, 0.0645708, 0.495879, 0.571604, 0.0552747, 0.495928, 0.55687, -0.0749031, 0.495928, 0.588328, -0.0793992, -0.00407219, 0.595865, 0.0645708, -0.00407219, 0.571604, 0.0552747, -0.00407219, 0.55687, 0.0459306, 0.495928, 0.542177, -0.0611589, 0.495928, 0.566015, -0.0749031, -0.00407219, 0.588328, 0.0459306, -0.00407219, 0.542177, 0.0363624, 0.495928, 0.527697, -0.0470947, 0.495928, 0.543998, -0.0611589, -0.00407219, 0.566015, 0.0363624, -0.00407219, 0.527697, 0.0267463, 0.495928, 0.513259, -0.0375746, 0.495928, 0.529518, -0.0470947, -0.00407219, 0.543998, 0.0267463, -0.00407219, 0.513259, 0.0170342, 0.495928, 0.498948, -0.0327585, 0.495928, 0.522278, -0.0375746, -0.00407219, 0.529518, 0.0170342, -0.00407219, 0.498948, 0.0121381, 0.495928, 0.491835, -0.0182463, 0.495928, 0.500726, -0.0279585, 0.495879, 0.51508, -0.0327585, -0.00407219, 0.522278, 0.0121381, -0.00407219, 0.491835, 0.00719402, 0.495928, 0.484722, -0.0133663, 0.495928, 0.493571, -0.0182463, -0.00407219, 0.500726, -0.0279585, -0.00407219, 0.51508, 0.00719402, -0.00407219, 0.484722, 0.00224995, 0.495928, 0.477693, -0.00354213, 0.495928, 0.479387, -0.0133663, -0.00407219, 0.493571, 0.00224995, -0.00407219, 0.477693, -0.00354213, -0.00407219, 0.479387)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75mxh"]
+size = Vector2(512, 512)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_73hpu"]
+viewport_path = NodePath("Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_d63ti"]
 viewport_path = NodePath("Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
 
@@ -270,6 +278,12 @@ light_energy = 1.5
 [node name="Top Left Camera" type="Node3D" parent="Node/3D/Engine Stuff"]
 
 [node name="Top Left SubViewport" type="SubViewport" parent="Node/3D/Engine Stuff/Top Left Camera"]
+transparent_bg = true
+handle_input_locally = false
+physics_object_picking = true
+physics_object_picking_sort = true
+gui_snap_controls_to_pixels = false
+render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
@@ -1088,10 +1102,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control/VBoxContainer"]
+[node name="Area2D" type="Area2D" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control/VBoxContainer" node_paths=PackedStringArray("viewport")]
+visible = false
+position = Vector2(356, 356)
+script = ExtResource("28_v8t5v")
+viewport = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control/VBoxContainer/Area2D"]
+shape = SubResource("RectangleShape2D_75mxh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control/VBoxContainer/Area2D"]
+texture = SubResource("ViewportTexture_73hpu")
+
+[node name="TextureRect" type="TextureRect" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control/VBoxContainer" node_paths=PackedStringArray("_subViewport", "_viewportCamera")]
 layout_mode = 2
 texture = SubResource("ViewportTexture_d63ti")
 expand_mode = 5
+script = ExtResource("29_apfhk")
+_subViewport = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+_viewportCamera = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Camera3D")
 
 [node name="Main Window Placeholder" type="Control" parent="Node/UI/Main Game UI/HBoxContainer"]
 layout_mode = 2

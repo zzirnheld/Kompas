@@ -161,10 +161,17 @@ public partial class ClientCameraController : Node3D
 	{
 		//Check if we collide with an area around a viewport quad, which we would then need to forward the call to.
 		base._PhysicsProcess(delta);
+		DoRaycast(Camera, GetViewport().GetMousePosition());
+
+		//Fundamentally, I just need to do the same thing from the viewport camera being used for, like, the top left thign!
+	}
+
+	private void DoRaycast(Camera3D cameraParam, Vector2 positionInViewport)
+	{
 		var spaceState = GetWorld3D().DirectSpaceState;
 
-		var from = Camera.ProjectRayOrigin(GetViewport().GetMousePosition());
-		var to = from + Camera.ProjectRayNormal(GetViewport().GetMousePosition()) * 1000.0f;
+		var from = cameraParam.ProjectRayOrigin(positionInViewport);
+		var to = from + cameraParam.ProjectRayNormal(positionInViewport) * 1000.0f;
 
 		var query = PhysicsRayQueryParameters3D.Create(from, to);
 		query.CollideWithAreas = true;
