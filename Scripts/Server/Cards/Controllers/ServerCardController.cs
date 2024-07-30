@@ -4,6 +4,7 @@ using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
 using Kompas.Server.Cards.Models;
+using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Server.Cards.Controllers
 {
@@ -21,6 +22,11 @@ namespace Kompas.Server.Cards.Controllers
 		public event EventHandler<GameCard?>? TargetingRefreshed;
 
 		public void Delete() { }
+
+		public ControlInfoDisplayer PlaceCameraAboveCard(Node cameraNode)
+		{
+			throw new NotImplementedException();
+		}
 
 		public void RefreshAugments()
 		{

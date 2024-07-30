@@ -1427,6 +1427,7 @@ _currentTargetParticles = NodePath("../Particles/Current Target Particles")
 _effectSourceParticles = NodePath("../Particles/Effect Source Particles")
 
 [node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "_frameObjects", "_cardImageObjects")]
+visible = false
 script = ExtResource("2_cdddr")
 N = NodePath("Char/ZO N Label")
 E = NodePath("Char/ZO E Label")
@@ -1542,7 +1543,6 @@ mesh = SubResource("ArrayMesh_eddle")
 skeleton = NodePath("")
 
 [node name="Zoomed In With Text" type="Node3D" parent="Actual Card Model"]
-visible = false
 
 [node name="Node3D" type="Node3D" parent="Actual Card Model/Zoomed In With Text"]
 
@@ -1621,6 +1621,8 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -0.213323)
 mesh = SubResource("ArrayMesh_78r2k")
 skeleton = NodePath("")
+
+[node name="Label3D" type="Label3D" parent="Actual Card Model/Zoomed In With Text/Node3D3"]
 
 [node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_frameObjects", "_cardImageObjects")]
 visible = false
