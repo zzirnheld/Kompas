@@ -21,5 +21,10 @@ namespace Kompas.Cards.Controllers
 		private CardAugmentsController? _augmentsController;
 		public CardAugmentsController AugmentsController => _augmentsController
 			?? throw new UnassignedReferenceException(nameof(_augmentsController), this);
+
+		[Export]
+		private Node3D? _cameraPosition;
+		public Node3D CameraPosition => _cameraPosition
+			?? throw new UnassignedReferenceException(nameof(_cameraPosition), this);
 	}
 }

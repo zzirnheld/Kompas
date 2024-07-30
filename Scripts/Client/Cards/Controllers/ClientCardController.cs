@@ -9,6 +9,7 @@ using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Locations.Controllers;
+using Kompas.Client.UI;
 using Kompas.Godot;
 using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
@@ -165,11 +166,11 @@ public partial class ClientCardController : Node3D, ICardController
 		CardView.Refresh();
 	}
 
-	public IHoverableCardInfoDisplayer PlaceCameraAboveCard(Node3D cameraNode)
+	public IHoverableCardInfoDisplayer PlaceCameraAboveCard(CameraFollowObject camera)
 	{
 		//NOTE: this will not correctly account for clicking on a card, until I create the duplicate board and have it appear there, or figure out some other workaround
 		//TODO: try having a script on the camera that has a Node3D it constantly sets its own position w/r/t every physics update?
-		cameraNode.GlobalPosition = CardModelController.GlobalPosition + (0.1f * Vector3.Up);
+		camera.Follow(CardModelController.CameraPosition);
 		return CardModelController.InfoDisplayer;
 	}
 }

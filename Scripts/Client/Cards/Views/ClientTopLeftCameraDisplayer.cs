@@ -19,9 +19,9 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 		?? throw new UnassignedReferenceException();
 
 	[Export]
-	private Node3D? _cameraPositionNode;
-	private Node3D CameraPositionNode => _cameraPositionNode
-		?? throw new UnassignedReferenceException(nameof(_cameraPositionNode), this);
+	private CameraFollowObject? _camera;
+	private CameraFollowObject Camera => _camera
+		?? throw new UnassignedReferenceException(nameof(_camera), this);
 
 	public bool ShowingInfo { set { } } // => TextureRect.Visible = value; }
 
@@ -40,7 +40,7 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 		}
 
 		if (card is not GameCard gameCard) throw new System.InvalidOperationException("Can only handle a game card!");
-		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(CameraPositionNode);
+		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(Camera);
 		//TODO: make sure we hook up the keywords correctly for mouse hover
 		lastDisplayed.BeginHoverKeyword += HoverKeyword;
 		lastDisplayed.EndHoverKeyword += StopHoverKeyword;

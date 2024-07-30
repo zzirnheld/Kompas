@@ -1447,12 +1447,21 @@ content_margin_top = 10.0
 content_margin_right = 2048.0
 content_margin_bottom = 1000.0
 
-[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController")]
+[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController", "_cameraPosition")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_7rrlp")
 _infoDisplayer = NodePath("Actual Card Model")
 _mouseController = NodePath("Mouse Controller")
 _augmentsController = NodePath("Augments Controller")
+_cameraPosition = NodePath("Camera Spot")
+
+[node name="Camera Spot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.48, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Camera Spot"]
+visible = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera Spot/Camera3D"]
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("_zoomedOut", "_zoomedIn", "_validTargetParticles", "_currentTargetParticles", "_effectSourceParticles")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
@@ -1994,9 +2003,3 @@ StartingFontSize = 24
 
 [node name="Camera2D" type="Camera2D" parent="Effect Text SubViewport"]
 offset = Vector2(256, 256)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, -0.0918767, 1.99789, 0, -1.99789, -0.0918767, 0, 1.71898, 0)
-visible = false
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
