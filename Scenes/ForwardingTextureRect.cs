@@ -44,17 +44,17 @@ public partial class ForwardingTextureRect : TextureRect
 
 	public override void _GuiInput(InputEvent @event)
 	{
-		GD.Print($"{Name} is gonna push input event {@event} from {new System.Exception().StackTrace}");
+		//GD.Print($"{Name} is gonna push input event {@event} from {new System.Exception().StackTrace}");
 
 		if (@event is not InputEventMouse iem) return;
 		var posMyCoords = (iem.Position - this.Position);
 		var posTheirCoords = new Vector2(posMyCoords.X * (SubViewport.Size.X / Size.X), posMyCoords.Y * (SubViewport.Size.Y / Size.Y));
-		GD.Print($"For that event, {GetViewport().GetMousePosition()} vs {SubViewport.GetMousePosition()} vs {posTheirCoords}");
+		//GD.Print($"For that event, {GetViewport().GetMousePosition()} vs {SubViewport.GetMousePosition()} vs {posTheirCoords}");
 
 		DoRaycast(ViewportCamera, posTheirCoords);
 	}
 
-	private void DoRaycast(Camera3D cameraParam, Vector2 positionInViewport)
+	private static void DoRaycast(Camera3D cameraParam, Vector2 positionInViewport)
 	{
 		var spaceState = cameraParam.GetWorld3D().DirectSpaceState;
 
@@ -64,7 +64,7 @@ public partial class ForwardingTextureRect : TextureRect
 		var query = PhysicsRayQueryParameters3D.Create(from, to);
 		query.CollideWithAreas = true;
 		var intersections = spaceState.IntersectRay(query);
-		GD.Print($"Forwarding Casting from {from} to {to}, intersections? {intersections.Count}");
+		//GD.Print($"Forwarding Casting from {from} to {to}, intersections? {intersections.Count}");
 
 		if (intersections.Count < 1) return;
 

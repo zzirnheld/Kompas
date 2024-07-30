@@ -38,19 +38,9 @@ public partial class Area3DAroundViewportQuad : Area3D
 	private CardMouseController CardMouseController => _cardMouseController
 		?? throw new UnassignedReferenceException(nameof(_cardMouseController), this);
 
-	[Export]
-	private CollisionShape3D? _collisionShape;
-	private CollisionShape3D CollisionShape => _collisionShape
-		?? throw new UnassignedReferenceException();
-
-	public override void _Ready()
-	{
-		base._Ready();
-	}
-
 	public void HandleRayToHere(Vector3 eventPos)
 	{
-		GD.Print($"3{Name}: {eventPos}");
+		//GD.Print($"3{Name}: {eventPos}");
 
 		if (QuadMesh.Mesh is not PlaneMesh planeMesh) throw new System.InvalidOperationException("MUST be a plane mesh");
 
