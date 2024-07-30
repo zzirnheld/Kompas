@@ -27,6 +27,8 @@ namespace Kompas.UI.TextBehavior
 		{
 			VisibilityChanged += ReshowText;
 			Resized += ReshowText;
+
+			MetaHoverStarted += (str) => GD.Print($"Hovered over {str}");
 		}
 
 		public void ReshowText()
@@ -50,7 +52,7 @@ namespace Kompas.UI.TextBehavior
 			if (!(IsVisibleInTree() || resizeAnyway)
 				|| Size.Y == 0)
 			{
-				Logger.Log($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
+				//Logger.Log($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
 				Text = text;
 				return;
 			}

@@ -157,6 +157,32 @@ namespace Kompas.Client.UI
 			else if (Input.IsActionJustReleased(CameraUpActionName)) 	GoToCameraPosition(CurrentPosition.Up);
 		}
 
+
+
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+		var spaceState = GetWorld3D().DirectSpaceState;
+
+		var from = Camera.ProjectRayOrigin(GetViewport().GetMousePosition());
+		var to = from + Camera.ProjectRayNormal(GetViewport().GetMousePosition()) * 1000.0f;
+
+		var query = PhysicsRayQueryParameters3D.Create(from, to);
+		query.CollideWithAreas = true;
+		var intersections = spaceState.IntersectRay(query);
+		//GD.Print($"Casting from {from} to {to}, intersections? {intersections.Count}");
+
+		if (intersections.Count < 1) return;
+
+		//GD.Print($"{intersections["collider"]} is a {intersections["collider"].GetType()}");
+		var collided = intersections["collider"].As<Node>();
+		if (collided is not Area3DAroundViewportQuad area) return;
+
+		var position = intersections["position"].AsVector3();
+		//GD.Print($"Intersected {collided} from {this} at {position}");
+		area.HandleRayToHere(position);
+	}
+
 		public void GoTo(LookingAt lookingAt)
 		{
 			GoToCameraPosition(lookingAtToNode[lookingAt]);
