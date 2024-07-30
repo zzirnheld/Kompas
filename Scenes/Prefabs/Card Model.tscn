@@ -1453,15 +1453,7 @@ script = ExtResource("1_7rrlp")
 _infoDisplayer = NodePath("Actual Card Model")
 _mouseController = NodePath("Mouse Controller")
 _augmentsController = NodePath("Augments Controller")
-_cameraPosition = NodePath("Camera Spot")
-
-[node name="Camera Spot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.48, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Camera Spot"]
-visible = false
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera Spot/Camera3D"]
+_cameraPosition = NodePath("Actual Card Model/Camera Spot")
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("_zoomedOut", "_zoomedIn", "_validTargetParticles", "_currentTargetParticles", "_effectSourceParticles")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
@@ -1862,6 +1854,14 @@ visible = false
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_31y6g")
 skeleton = NodePath("")
+
+[node name="Camera Spot" type="Node3D" parent="Actual Card Model"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Actual Card Model/Camera Spot"]
+visible = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Actual Card Model/Camera Spot/Camera3D"]
 
 [node name="Mouse Controller" type="Area3D" parent="."]
 script = ExtResource("12_fpypf")

@@ -12,7 +12,7 @@ public partial class CameraFollowObject : Camera3D
 		if (follow == null) return;
 
 		GlobalPosition = follow.GlobalPosition;
-		//GlobalBasis = follow.GlobalBasis;
+		GlobalBasis = follow.GlobalBasis;
 
 		//GD.Print($"Matching {follow.GlobalPosition}, {follow.GlobalRotation}");
 	}
