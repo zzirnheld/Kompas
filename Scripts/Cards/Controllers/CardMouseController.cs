@@ -21,17 +21,17 @@ namespace Kompas.Cards.Controllers
 		{
 			MouseEntered += () => HoverBegin?.Invoke(this, EventArgs.Empty);
 			MouseExited += () => HoverEnd?.Invoke(this, EventArgs.Empty);
-			InputEvent += HandleInputEvent;
+			InputEvent += (_, inputEvent, _, _, _) => HandleInputEvent(inputEvent);
 		}
 
 		/// <summary>
 		/// Needed as a workaround for multiple Area3Ds to both be able to capture the input.
 		/// (Needed? well, I can't find another way, and my current priority is to just get the reminder-text-through-top-left-camera working)
 		///</summary>
-		public void HandleInputEventFromAnotherArea3D(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, long shapeIdx)
-			=> HandleInputEvent(camera, inputEvent, position, normal, shapeIdx);
+		public void HandleInputEventFromAnotherArea3D(InputEvent inputEvent)
+			=> HandleInputEvent(inputEvent);
 
-		private void HandleInputEvent(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, long shapeIdx)
+		private void HandleInputEvent(InputEvent inputEvent)
 		{
 			GD.Print($"Mouse controller received input event {inputEvent}");
 			if (inputEvent is not InputEventMouseButton mouseEvent) return;
