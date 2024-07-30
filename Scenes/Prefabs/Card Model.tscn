@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=150 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -17,6 +17,8 @@
 [ext_resource type="Material" uid="uid://cc1en2llxpysy" path="res://Materials/Card/Current Target Particle Material.tres" id="14_stomg"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
+[ext_resource type="Script" path="res://test4.cs" id="18_2cn8u"]
+[ext_resource type="PackedScene" uid="uid://bp0c0acqu8pn" path="res://TextTest.tscn" id="19_3or4a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1232,7 +1234,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nvv1y")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_n1e6o"]
+viewport_path = NodePath("Effect Text SubViewport")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shouf"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_n1e6o")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2sd3m"]
 _surfaces = [{
@@ -1543,6 +1550,7 @@ mesh = SubResource("ArrayMesh_eddle")
 skeleton = NodePath("")
 
 [node name="Zoomed In With Text" type="Node3D" parent="Actual Card Model"]
+visible = false
 
 [node name="Node3D" type="Node3D" parent="Actual Card Model/Zoomed In With Text"]
 
@@ -1565,11 +1573,13 @@ skeleton = NodePath("")
 
 [node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Actual Card Model/Zoomed In With Text/Node3D2"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+visible = false
 mesh = SubResource("ArrayMesh_117l4")
 skeleton = NodePath("")
 
 [node name="ZI WT NonChar Frame Stat Caps_001" type="MeshInstance3D" parent="Actual Card Model/Zoomed In With Text/Node3D2"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+visible = false
 mesh = SubResource("ArrayMesh_drlhj")
 skeleton = NodePath("")
 
@@ -1625,7 +1635,6 @@ skeleton = NodePath("")
 [node name="Label3D" type="Label3D" parent="Actual Card Model/Zoomed In With Text/Node3D3"]
 
 [node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_frameObjects", "_cardImageObjects")]
-visible = false
 script = ExtResource("2_0v3lq")
 N = NodePath("Char/N Label")
 E = NodePath("Char/E Label")
@@ -1691,7 +1700,6 @@ skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1.01, 0, 1.76594e-07, 0, 1.01, 0, -1.76594e-07, 0, 1.01, -2.53526e-08, 0, -0.177072)
-material_override = ExtResource("5_6tu2s")
 mesh = SubResource("ArrayMesh_5ubt0")
 skeleton = NodePath("")
 
@@ -1813,3 +1821,16 @@ draw_pass_1 = SubResource("BoxMesh_6y6j7")
 
 [node name="Augments Controller" type="Node3D" parent="."]
 script = ExtResource("16_jvvs6")
+
+[node name="Effect Text SubViewport" type="SubViewport" parent="."]
+canvas_item_default_texture_repeat = 1
+render_target_update_mode = 4
+script = ExtResource("18_2cn8u")
+
+[node name="Node2D" parent="Effect Text SubViewport" instance=ExtResource("19_3or4a")]
+
+[node name="Camera2D" type="Camera2D" parent="Effect Text SubViewport"]
+offset = Vector2(256, 256)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, -0.0918767, 1.99789, 0, -1.99789, -0.0918767, 0, 1.71898, 0)
