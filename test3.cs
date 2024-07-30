@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Cards.Controllers;
 
 namespace Kompas;
 
@@ -8,6 +9,8 @@ public partial class test3 : Area3D
 	public MeshInstance3D mesh;
 	[Export]
 	public SubViewport nestedPort;
+	[Export]
+	public CardMouseController cardMouseController;
 
 	public void hello() => GD.Print("hello");
 
@@ -53,6 +56,8 @@ public partial class test3 : Area3D
 		GD.Print($"{eventPos} -> {pos} -> {destPos} -> {pass.Position}");
 
 		nestedPort.PushInput(pass, true);
+
+		cardMouseController?.HandleInputEventFromAnotherArea3D(camera, @event, eventPos, normal, shapeIdx);
 	}
 	
 }
