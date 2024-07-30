@@ -38,14 +38,15 @@ public partial class Area3DAroundViewportQuad : Area3D
 	private CardMouseController CardMouseController => _cardMouseController
 		?? throw new UnassignedReferenceException(nameof(_cardMouseController), this);
 
-	public void HandleRayToHere(Vector3 eventPos)
+	/// <summary>
+	/// A raycast from some camera (this class doesn't care which) found this area.
+	/// When that happens, we propagate that as a mouse motion event into the given viewport.
+	///</summary>
+	public void HandleCameraRayToHere(Vector3 eventPos)
 	{
-		//GD.Print($"3{Name}: {eventPos}");
-
 		if (QuadMesh.Mesh is not PlaneMesh planeMesh) throw new System.InvalidOperationException("MUST be a plane mesh");
 
 		var quadMeshSize = planeMesh.Size;
-		//GD.Print($"3mesh size {quadMeshSize}");
 
 		//Start with the event's position, transformed by the global affine inverse.
 		//I don't remember enough linear algebra to remember what this does, so ask Jerry later
@@ -71,7 +72,6 @@ public partial class Area3DAroundViewportQuad : Area3D
 		var duplicate = new InputEventMouseMotion();
 		//Set the new event position only on the duplicate
 		duplicate.Position = destPos;
-		//GD.Print($"{eventPos} -> {pos} -> {destPos} -> {duplicate.Position}");
 
 		//Finally, we can push the duplicate event with the adjusted coords in the viewport's space!
 		SubViewport.PushInput(duplicate, true);

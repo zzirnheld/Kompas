@@ -157,39 +157,6 @@ public partial class ClientCameraController : Node3D
 		else if (Input.IsActionJustReleased(CameraUpActionName)) 	GoToCameraPosition(CurrentPosition.Up);
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-		//Check if we collide with an area around a viewport quad, which we would then need to forward the call to.
-		base._PhysicsProcess(delta);
-		//DOn't need to do this from normal camera, only from viewport camera while actually hovering over top left
-		//DoRaycast(Camera, GetViewport().GetMousePosition());
-
-		//Fundamentally, I just need to do the same thing from the viewport camera being used for, like, the top left thign!
-	}
-
-	private void DoRaycast(Camera3D cameraParam, Vector2 positionInViewport)
-	{
-		var spaceState = GetWorld3D().DirectSpaceState;
-
-		var from = cameraParam.ProjectRayOrigin(positionInViewport);
-		var to = from + cameraParam.ProjectRayNormal(positionInViewport) * 1000.0f;
-
-		var query = PhysicsRayQueryParameters3D.Create(from, to);
-		query.CollideWithAreas = true;
-		var intersections = spaceState.IntersectRay(query);
-		//GD.Print($"Casting from {from} to {to}, intersections? {intersections.Count}");
-
-		if (intersections.Count < 1) return;
-
-		//GD.Print($"{intersections["collider"]} is a {intersections["collider"].GetType()}");
-		var collided = intersections["collider"].As<Node>();
-		if (collided is not Area3DAroundViewportQuad area) return;
-
-		var position = intersections["position"].AsVector3();
-		//GD.Print($"Intersected {collided} from {this} at {position}");
-		area.HandleRayToHere(position);
-	}
-
 	public void GoTo(LookingAt lookingAt)
 	{
 		GoToCameraPosition(lookingAtToNode[lookingAt]);
