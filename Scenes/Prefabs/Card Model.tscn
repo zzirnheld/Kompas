@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
 [ext_resource type="Script" path="res://test4.cs" id="18_2cn8u"]
-[ext_resource type="Script" path="res://test.cs" id="19_equwt"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="20_ptlga"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1273,7 +1273,7 @@ shadow_mesh = SubResource("ArrayMesh_2sd3m")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2ere"]
 transparency = 1
-albedo_color = Color(0, 0, 0, 0.686275)
+albedo_color = Color(0, 0, 0, 0.941176)
 
 [sub_resource type="QuadMesh" id="QuadMesh_08rqw"]
 
@@ -1915,7 +1915,8 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]"
 fit_content = true
-script = ExtResource("19_equwt")
+script = ExtResource("20_ptlga")
+StartingFontSize = 40
 
 [node name="TextureRect" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer/RichTextLabel"]
 visible = false
@@ -1944,5 +1945,7 @@ offset = Vector2(256, 256)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, -0.0918767, 1.99789, 0, -1.99789, -0.0918767, 0, 1.71898, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
 
 [connection signal="mouse_entered" from="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" to="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" method="hello"]

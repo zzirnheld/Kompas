@@ -33,7 +33,7 @@ namespace Kompas.Cards.Controllers
 
 		private void HandleInputEvent(InputEvent inputEvent)
 		{
-			GD.Print($"Mouse controller received input event {inputEvent}");
+			//GD.Print($"Mouse controller received input event {inputEvent}");
 			if (inputEvent is not InputEventMouseButton mouseEvent) return;
 
 			//Event where now the mouseEvent is Pressed means it's when the mouse goes down

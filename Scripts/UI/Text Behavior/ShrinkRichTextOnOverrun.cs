@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Godot;
 
 namespace Kompas.UI.TextBehavior
@@ -7,6 +8,8 @@ namespace Kompas.UI.TextBehavior
 		private const int MinFontSize = 8;
 
 		private const string FontSizeName = "normal_font_size";
+		
+		private static readonly Regex bbCodeRegex = new(@"\[[^\]]+\]"); //TODO shrink all regexes with attribute
 
 		[Export]
 		private bool UseThemeDefaultFontSize { get; set; } = false;
@@ -15,7 +18,6 @@ namespace Kompas.UI.TextBehavior
 		private int StartingFontSize { get; set; } = 19;
 
 		private bool currentlyResizingText = false;
-		private string rawText = string.Empty;
 
 
 		public override void _Ready()
@@ -29,7 +31,7 @@ namespace Kompas.UI.TextBehavior
 			//Guard against infinite recursion
 			if (currentlyResizingText) return;
 			currentlyResizingText = true;
-			SetShrinkableText(rawText, Text);
+			SetShrinkableText(Text);
 			currentlyResizingText = false;
 		}
 
@@ -38,14 +40,14 @@ namespace Kompas.UI.TextBehavior
 		/// </summary>
 		/// <param name="text">The text that we should size based off of</param>
 		/// <param name="bbCodeText">The BBCode text that we should actually display (but includes tags we should ignore)</param>
-		public void SetShrinkableText(string text, string bbCodeText)
+		public void SetShrinkableText(string text)
 		{
-			//Logger.Log($"Shrinkable rich text set to {Text}");
+			string stripped = bbCodeRegex.Replace(text, "");
+			Logger.Log($"Shrinkable rich text set to {Text} (stripped {stripped})");
 			if (!IsVisibleInTree() || Size.Y == 0)
 			{
 				Logger.Log($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
-				Text = bbCodeText;
-				rawText = text;
+				Text = text;
 				return;
 			}
 
@@ -57,15 +59,14 @@ namespace Kompas.UI.TextBehavior
 
 			while (height > targetHeight && nextFontSizeToTry > MinFontSize)
 			{
-				height = font.GetMultilineStringSize(text, width: Size.X, fontSize: nextFontSizeToTry).Y;
+				height = font.GetMultilineStringSize(stripped, width: Size.X, fontSize: nextFontSizeToTry).Y;
 				AddThemeFontSizeOverride(FontSizeName, nextFontSizeToTry);
 				nextFontSizeToTry--;
 			}
 
 			if (nextFontSizeToTry <= MinFontSize) Logger.Err($"{text} is too long, boiiii");
 
-			Text = bbCodeText;
-			rawText = text;
+			Text = text;
 		}
 	}
 }

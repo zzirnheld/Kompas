@@ -64,8 +64,8 @@ public partial class Area3DAroundViewportQuad : Area3D
 		var destPos = new Vector2(pos.X, -pos.Y);
 
 		//Divide by the size of the mesh, to get a (-0.5, 0.5) number of where we are w/r/t the center of the mesh
-		destPos.X = destPos.X / quadMeshSize.X;
-		destPos.Y = destPos.Y / quadMeshSize.Y;
+		destPos.X /= quadMeshSize.X;
+		destPos.Y /= quadMeshSize.Y;
 
 		//Add 0.5 to offset to a (0, 1) range value
 		destPos.X += 0.5f;
