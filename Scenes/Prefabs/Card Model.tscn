@@ -1738,12 +1738,14 @@ mesh = SubResource("PlaneMesh_lk7jc")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_d2ere")
 
-[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport", "_cardMouseController")]
+[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport", "_cardMouseController", "camera")]
 transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0.075, 0.205)
+input_ray_pickable = false
 script = ExtResource("13_pifky")
 _quadMesh = NodePath("Baseplate Text")
 _subViewport = NodePath("../../../../../Effect Text SubViewport")
 _cardMouseController = NodePath("../../../../../Mouse Controller")
+camera = NodePath("../../../../../Camera3D")
 
 [node name="Baseplate Text" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" node_paths=PackedStringArray("_subViewport")]
 mesh = SubResource("QuadMesh_08rqw")
@@ -1952,6 +1954,5 @@ transform = Transform3D(2, 0, 0, 0, -0.0918767, 1.99789, 0, -1.99789, -0.0918767
 visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
-visible = false
 
 [connection signal="mouse_entered" from="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" to="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" method="hello"]

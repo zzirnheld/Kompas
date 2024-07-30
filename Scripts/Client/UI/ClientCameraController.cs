@@ -16,6 +16,8 @@ namespace Kompas.Client.UI
 		private static readonly Vector3 FriendlyHandRotation = (float)(-0.05 * Mathf.Pi) * Vector3.Right;
 		private static readonly Vector3 DefaultCameraParentRotation = new (Mathf.Pi / 2f, 0f, 0f);
 
+		public static ClientCameraController? Current { get; private set; }
+
 		[Export]
 		private Camera3D? _camera;
 		public Camera3D Camera => _camera
@@ -134,6 +136,8 @@ namespace Kompas.Client.UI
 			friendlyHandPosition.Right = friendlyDeckPosition;
 
 			_currentPosition = boardPosition;
+
+			Current = this;
 		}
 
 		private CameraGraphNode RegisterCamera(CameraPosition position, Node3D cameraNode, LookingAt lookingAt, Vector3? cameraRotation = null)

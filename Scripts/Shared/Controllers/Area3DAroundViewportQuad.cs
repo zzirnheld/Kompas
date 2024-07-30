@@ -1,5 +1,7 @@
+using System.Linq;
 using Godot;
 using Kompas.Cards.Controllers;
+using Kompas.Client.UI;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas;
@@ -36,18 +38,44 @@ public partial class Area3DAroundViewportQuad : Area3D
 	private CardMouseController CardMouseController => _cardMouseController
 		?? throw new UnassignedReferenceException(nameof(_cardMouseController), this);
 
+	[Export]
+	private Camera3D camera;
+
 	public void hello() => GD.Print("hello");
 
 	public override void _Ready()
 	{
 		base._Ready();
-		InputEvent += HandleInputEvent;
 	}
 
-	public void HandleInputEvent(Node camera, InputEvent inputEvent, Vector3 eventPos, Vector3 normal, long shapeIdx)
+	public override void _PhysicsProcess(double delta)
 	{
-		//GD.Print(@event.GetType());
-		if (inputEvent is not InputEventMouse mie) return;
+		base._PhysicsProcess(delta);
+		var spaceState = GetWorld3D().DirectSpaceState;
+
+		var camera = this.camera ?? ClientCameraController.Current?.Camera;
+		if (camera == null) return;
+		var from = camera.ProjectRayOrigin(GetViewport().GetMousePosition());
+		var to = from + camera.ProjectRayNormal(GetViewport().GetMousePosition()) * 1000.0f;
+
+		var query = PhysicsRayQueryParameters3D.Create(from, to);
+		query.CollideWithAreas = true;
+		var intersections = spaceState.IntersectRay(query);
+		//GD.Print($"Casting from {from} to {to}, intersections? {intersections.Count}");
+
+		if (intersections.Count < 1) return;
+
+		//GD.Print($"{intersections["collider"]} is a {intersections["collider"].GetType()}");
+		var collided = intersections["collider"].As<Node>();
+		if (collided is not Area3D area) return;
+
+		var position = intersections["position"].AsVector3();
+		//GD.Print($"Intersected at {position}");
+		if (area == this) HandleRayToHere(position);
+	}
+
+	private void HandleRayToHere(Vector3 eventPos)
+	{
 		//GD.Print($"3{Name}: {mie.Position}");
 
 		if (QuadMesh.Mesh is not PlaneMesh planeMesh) throw new System.InvalidOperationException("MUST be a plane mesh");
@@ -76,22 +104,13 @@ public partial class Area3DAroundViewportQuad : Area3D
 		destPos.Y *= SubViewport.Size.Y;
 
 		//Duplicate the event, to ensure we don't corrupt any info on the event previously.
-		var untypedDuplicate = mie.Duplicate();
-		if (untypedDuplicate is not InputEventMouse duplicate)
-		{
-			GD.Print($"Instead of being {mie.GetType()}, was {untypedDuplicate.GetType()}");
-			return;
-		}
+		var duplicate = new InputEventMouseMotion();
 		//Set the new event position only on the duplicate
 		duplicate.Position = destPos;
 		//GD.Print($"{eventPos} -> {pos} -> {destPos} -> {pass.Position}");
 
 		//Finally, we can push the duplicate event with the adjusted coords in the viewport's space!
 		SubViewport.PushInput(duplicate, true);
-
-		//This last line is more of a bandaid.
-		//I want to make sure that I still handle any clicks that need to make it to the mouse controller
-		CardMouseController.HandleInputEventFromAnotherArea3D(inputEvent);
 	}
 	
 }
