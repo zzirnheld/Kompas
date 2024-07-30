@@ -4,7 +4,7 @@ using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Views
 {
-	public partial class ZoomedOut3DCardInfoDisplayer : MeshCardInfoDisplayerBase, ICardInfoDisplayer
+	public partial class ZoomedOut3DCardInfoDisplayer : MeshCardInfoDisplayerBase
 	{
 		[Export]
 		private Label3D? N { get; set; }

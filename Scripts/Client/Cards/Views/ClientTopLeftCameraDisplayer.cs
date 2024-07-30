@@ -11,33 +11,42 @@ namespace Kompas.Client.Cards.Views;
 /// TODO: explain that this class exists as it does to preserve the focus logic already implemented in FocusableCardViewBase, along with the relevant events.
 /// alternately if it becomes necessary to point a camera at a dummy card not actually on the board, we'll cross that bridge.
 ///</summary>
-public partial class ClientTopLeftCameraDisplayer : Node, ICardInfoDisplayer
+public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 {
 	[Export]
-	private TextureRect? _viewportTextureRect;
-	private TextureRect ViewportTextureRect => _viewportTextureRect
-		?? throw new UnassignedReferenceException(nameof(_viewportTextureRect), this);
+	private TextureRect? _textureRect;
+	private TextureRect TextureRect => _textureRect
+		?? throw new UnassignedReferenceException();
 
-	public bool ShowingInfo { set => ViewportTextureRect.Visible = value; }
+	[Export]
+	private Node3D? _cameraPositionNode;
+	private Node3D CameraPositionNode => _cameraPositionNode
+		?? throw new UnassignedReferenceException(nameof(_cameraPositionNode), this);
+
+	public bool ShowingInfo { set { } } // => TextureRect.Visible = value; }
 
 	public event System.EventHandler<string>? HoverKeyword;
 	public event System.EventHandler<string>? StopHoverKeyword;
 
-	private ControlInfoDisplayer? lastDisplayed;
+	private IHoverableCardInfoDisplayer? lastDisplayed;
 
 	public void Display(CardBase card)
 	{
+		Logger.Log($"Top left camera Displaying {card}");
 		if (lastDisplayed != null)
 		{
-			lastDisplayed.HoverKeyword -= HoverKeyword;
-			lastDisplayed.StopHoverKeyword -= StopHoverKeyword;
+			lastDisplayed.BeginHoverKeyword -= HoverKeyword;
+			lastDisplayed.EndHoverKeyword -= StopHoverKeyword;
 		}
 
 		if (card is not GameCard gameCard) throw new System.InvalidOperationException("Can only handle a game card!");
-		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(this);
+		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(CameraPositionNode);
 		//TODO: make sure we hook up the keywords correctly for mouse hover
-		lastDisplayed.HoverKeyword += HoverKeyword;
-		lastDisplayed.StopHoverKeyword += StopHoverKeyword;
+		lastDisplayed.BeginHoverKeyword += HoverKeyword;
+		lastDisplayed.EndHoverKeyword += StopHoverKeyword;
+
+		HoverKeyword += (_, str) => GD.Print($"Begin {str}");
+		StopHoverKeyword += (_, str) => GD.Print($"End {str}");
 	}
 
 	//Need this to fit the interface to preserve using the original focus code, but it shouldn't ever call these.

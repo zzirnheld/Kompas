@@ -26,6 +26,22 @@ namespace Kompas.Cards.Views
 		private ShrinkRichTextOnOverrun EffText => _effText
 			?? throw new UnassignedReferenceException(nameof(_effText), this);
 
+		public override void _Ready()
+		{
+			base._Ready();
+
+			EffText.MetaHoverStarted += keyword =>
+			{
+				if (keyword.VariantType != Variant.Type.String) throw new System.InvalidOperationException("Can't have a non-string keyword!");
+				BeginHover((string)keyword);
+			};
+			EffText.MetaHoverEnded += keyword =>
+			{
+				if (keyword.VariantType != Variant.Type.String) throw new System.InvalidOperationException("Can't have a non-string keyword!");
+				EndHover((string)keyword);
+			};
+		}
+
 		public override void DisplayCardNumericStats(CardBase card)
 		{
 			_ = N ?? throw new System.NullReferenceException("Failed to init");

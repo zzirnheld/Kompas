@@ -165,9 +165,11 @@ public partial class ClientCardController : Node3D, ICardController
 		CardView.Refresh();
 	}
 
-	public ControlInfoDisplayer PlaceCameraAboveCard(Node cameraNode)
+	public IHoverableCardInfoDisplayer PlaceCameraAboveCard(Node3D cameraNode)
 	{
-		CardModelController.TransferChild(cameraNode);
-		return null; //CardModelController.InfoDisplayer;
+		//NOTE: this will not correctly account for clicking on a card, until I create the duplicate board and have it appear there, or figure out some other workaround
+		//TODO: try having a script on the camera that has a Node3D it constantly sets its own position w/r/t every physics update?
+		cameraNode.GlobalPosition = CardModelController.GlobalPosition + (0.1f * Vector3.Up);
+		return CardModelController.InfoDisplayer;
 	}
 }

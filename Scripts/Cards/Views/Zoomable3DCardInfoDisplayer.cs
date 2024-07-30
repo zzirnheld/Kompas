@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.Shared.Exceptions;
@@ -13,7 +14,7 @@ namespace Kompas.Cards.Views
 	/// TODO also the in/out 3d info displayers maybe should inherit from a shared class that handles card frames
 	/// (that way each zoom level handles its own frame objects' material setting based on player owner)
 	/// </summary>
-	public partial class Zoomable3DCardInfoDisplayer : Node3D, ICardInfoDisplayer
+	public partial class Zoomable3DCardInfoDisplayer : Node3D, IHoverableCardInfoDisplayer
 	{
 		[Export]
 		private MeshCardInfoDisplayerBase? _zoomedOut;
@@ -40,8 +41,22 @@ namespace Kompas.Cards.Views
 			?? throw new UnassignedReferenceException(nameof(_currentTargetParticles), this);
 		[Export]
 		private GpuParticles3D? _effectSourceParticles;
+
+		public event EventHandler<string>? BeginHoverKeyword;
+		public event EventHandler<string>? EndHoverKeyword;
+
 		private GpuParticles3D EffectSourceParticles => _effectSourceParticles
 			?? throw new UnassignedReferenceException(nameof(_effectSourceParticles), this);
+
+		public override void _Ready()
+		{
+			base._Ready();
+			ZoomedIn.BeginHoverKeyword += this.BeginHoverKeyword;
+			ZoomedOut.BeginHoverKeyword += this.BeginHoverKeyword;
+
+			ZoomedIn.EndHoverKeyword += this.EndHoverKeyword;
+			ZoomedOut.EndHoverKeyword += this.EndHoverKeyword;
+		}
 
 		public bool ShowingInfo { set => Visible = value; }
 

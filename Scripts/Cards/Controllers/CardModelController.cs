@@ -5,7 +5,7 @@ using System;
 
 namespace Kompas.Cards.Controllers
 {
-	public partial class CardModelController : Node
+	public partial class CardModelController : Node3D
 	{
 		[Export]
 		private Zoomable3DCardInfoDisplayer? _infoDisplayer;

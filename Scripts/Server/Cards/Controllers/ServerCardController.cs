@@ -23,11 +23,6 @@ namespace Kompas.Server.Cards.Controllers
 
 		public void Delete() { }
 
-		public ControlInfoDisplayer PlaceCameraAboveCard(Node cameraNode)
-		{
-			throw new NotImplementedException();
-		}
-
 		public void RefreshAugments()
 		{
 			AnythingRefreshed?.Invoke(this, null);
@@ -50,5 +45,10 @@ namespace Kompas.Server.Cards.Controllers
 		}
 
 		public void ShowEffectSource(bool current) { }
+
+		IHoverableCardInfoDisplayer ICardController.PlaceCameraAboveCard(Node3D cameraNode)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
