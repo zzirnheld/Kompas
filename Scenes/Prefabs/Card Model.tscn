@@ -13,9 +13,9 @@
 [ext_resource type="Material" uid="uid://cowloouoef00i" path="res://Materials/Card/Stat Backgrounds/N Background.tres" id="8_o3qnh"]
 [ext_resource type="Material" uid="uid://bjf0vhv75bu0g" path="res://Materials/Card/Stat Backgrounds/S Background.tres" id="9_f6kxx"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardMouseController.cs" id="12_fpypf"]
-[ext_resource type="Script" path="res://test3.cs" id="13_3jmbc"]
 [ext_resource type="Script" path="res://Scripts/Shared/LinkMeshToViewportTexture.cs" id="13_fh5oi"]
 [ext_resource type="Material" uid="uid://calq4naeva2a3" path="res://Materials/Card/Valid Target Particle Material.tres" id="13_iacg7"]
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/Area3DAroundViewportQuad.cs" id="13_pifky"]
 [ext_resource type="Material" uid="uid://cc1en2llxpysy" path="res://Materials/Card/Current Target Particle Material.tres" id="14_stomg"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
@@ -1735,12 +1735,9 @@ mesh = SubResource("PlaneMesh_lk7jc")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_d2ere")
 
-[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("mesh", "nestedPort", "cardMouseController")]
+[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image"]
 transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, -3.59117e-08, 0.03, 0.205391)
-script = ExtResource("13_3jmbc")
-mesh = NodePath("Baseplate Text")
-nestedPort = NodePath("../../../../../Effect Text SubViewport")
-cardMouseController = NodePath("../../../../../Mouse Controller")
+script = ExtResource("13_pifky")
 
 [node name="Baseplate Text" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" node_paths=PackedStringArray("_subViewport")]
 mesh = SubResource("QuadMesh_08rqw")
