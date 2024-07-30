@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=102 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://Scripts/Client/UI/ClientCameraController.cs" id="4_w3f76"]
 [ext_resource type="Texture2D" uid="uid://i0e76ecxkkc7" path="res://Icons/White pixel.png" id="5_i20x8"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/SpacesController.cs" id="5_kcvca"]
-[ext_resource type="Script" path="res://Scripts/Client/UI/TopLeftCameraController.cs" id="5_rfyky"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="6_5db68"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/GameStartController.cs" id="6_qshp1"]
 [ext_resource type="Theme" uid="uid://dvc6btd0pcm5f" path="res://Themes/Deck Select HBox.tres" id="6_ruf62"]
@@ -268,7 +267,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 
 light_energy = 1.5
 
 [node name="Top Left Camera" type="Node3D" parent="Node/3D/Engine Stuff"]
-script = ExtResource("5_rfyky")
 
 [node name="Top Left SubViewport" type="SubViewport" parent="Node/3D/Engine Stuff/Top Left Camera"]
 
@@ -1303,7 +1301,6 @@ texture = ExtResource("20_whe2q")
 text = "You"
 
 [node name="Game Start" type="Control" parent="Node/UI" node_paths=PackedStringArray("_gameController", "_connectToServer", "_waitingForServer", "_waitingForPlayer", "_selectDeck", "_deckAcceptedTab")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -22,7 +22,7 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 	{
 		base.Display(shownCard);
 
-		InfoDisplayer.DisplayZoomed(zoomedIn: false); //For now, assume never zoomed in.
+		InfoDisplayer.DisplayZoomed(zoomedIn: true); //For now, assume never zoomed in.
 		DisplayFrame();
 
 		DisplayTargeting(shownCard);

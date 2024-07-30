@@ -19,6 +19,9 @@ namespace Kompas.UI.TextBehavior
 
 		private bool currentlyResizingText = false;
 
+		[Export]
+		private bool resizeAnyway;
+
 
 		public override void _Ready()
 		{
@@ -43,8 +46,9 @@ namespace Kompas.UI.TextBehavior
 		public void SetShrinkableText(string text)
 		{
 			string stripped = bbCodeRegex.Replace(text, "");
-			Logger.Log($"Shrinkable rich text set to {Text} (stripped {stripped})");
-			if (!IsVisibleInTree() || Size.Y == 0)
+			//Logger.Log($"Shrinkable rich text set to {Text} (stripped {stripped})");
+			if (!(IsVisibleInTree() || resizeAnyway)
+				|| Size.Y == 0)
 			{
 				Logger.Log($"Not properly visible yet, not resizing rich text {Name} for overrun. Visible in tree? {IsVisibleInTree()} Y? {Size.Y}");
 				Text = text;

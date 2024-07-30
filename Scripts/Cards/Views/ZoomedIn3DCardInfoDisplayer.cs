@@ -1,6 +1,8 @@
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
+using Kompas.UI.TextBehavior;
 
 namespace Kompas.Cards.Views
 {
@@ -19,6 +21,10 @@ namespace Kompas.Cards.Views
 		private Label3D? CardName { get; set; }
 		[Export]
 		private Label3D? Subtypes { get; set; }
+		[Export]
+		private ShrinkRichTextOnOverrun? _effText;
+		private ShrinkRichTextOnOverrun EffText => _effText
+			?? throw new UnassignedReferenceException(nameof(_effText), this);
 
 		public override void DisplayCardNumericStats(CardBase card)
 		{
@@ -40,6 +46,7 @@ namespace Kompas.Cards.Views
 
 			CardName.Text = card.CardName;
 			Subtypes.Text = card.SubtypeText;
+			EffText.Text = card.BBCodeEffText;
 		}
 	}
 }

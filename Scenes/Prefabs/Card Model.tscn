@@ -1286,7 +1286,7 @@ transparency = 1
 albedo_texture = SubResource("ViewportTexture_3nuwa")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gekpj"]
-size = Vector3(1, 1, 0.2)
+size = Vector3(1, 1, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4adt"]
 
@@ -1659,7 +1659,7 @@ skeleton = NodePath("")
 
 [node name="Label3D" type="Label3D" parent="Actual Card Model/Zoomed In With Text/Node3D3"]
 
-[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_frameObjects", "_cardImageObjects")]
+[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_effText", "_frameObjects", "_cardImageObjects")]
 script = ExtResource("2_0v3lq")
 N = NodePath("Char/N Label")
 E = NodePath("Char/E Label")
@@ -1667,8 +1667,10 @@ Cost = NodePath("All/S Label")
 W = NodePath("Char/W Label")
 CardName = NodePath("All/Name Label")
 Subtypes = NodePath("All/Subtypes Label")
-_frameObjects = []
-_cardImageObjects = []
+_effText = NodePath("../../Effect Text SubViewport/Node2D/Panel/HBoxContainer/VBoxContainer/RichTextLabel")
+_cardFrameMaterial = ExtResource("7_hpixu")
+_frameObjects = [NodePath("All/Frame Objects/ZI NT All Frame Cost"), NodePath("All/Frame Objects/ZI NT All Baseplate"), NodePath("All/Frame Objects/ZI NT All Frame Bottom Half "), NodePath("All/Frame Objects/ZI NT All Frame Top Half"), NodePath("Char/Frame Objects/ZI NT Char E"), NodePath("Char/Frame Objects/ZI NT Char N"), NodePath("Char/Frame Objects/ZI NT Char W"), NodePath("NonChar/ZI NT NonChar Frame Stat Caps")]
+_cardImageObjects = [NodePath("All/ZI NT All Baseplate Image")]
 
 [node name="All" type="Node3D" parent="Actual Card Model/Zoomed In No Text"]
 
@@ -1697,6 +1699,7 @@ skeleton = NodePath("")
 material_override = ExtResource("7_1bm8q")
 mesh = SubResource("ArrayMesh_wmouu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_hpixu")
 
 [node name="ZI NT All Baseplate N" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 material_override = ExtResource("8_o3qnh")
@@ -1730,13 +1733,13 @@ mesh = SubResource("ArrayMesh_5ubt0")
 skeleton = NodePath("")
 
 [node name="Baseplate Image Haze" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image"]
-transform = Transform3D(0.71, 0, -8.32265e-08, 0, 1, 0, 1.2414e-07, 0, 0.476, -1.10725e-08, 0.0293627, 0.238327)
+transform = Transform3D(0.71, 0, -8.32265e-08, 0, 1, 0, 1.2414e-07, 0, 0.476, 0, 0.03, 0.238)
 mesh = SubResource("PlaneMesh_lk7jc")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_d2ere")
 
 [node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport", "_cardMouseController")]
-transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, -3.59117e-08, 0.03, 0.205391)
+transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0.075, 0.205)
 script = ExtResource("13_pifky")
 _quadMesh = NodePath("Baseplate Text")
 _subViewport = NodePath("../../../../../Effect Text SubViewport")
@@ -1790,6 +1793,7 @@ width = 300.0
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
 mesh = SubResource("ArrayMesh_lis0v")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_hpixu")
 
 [node name="ZI NT Char N" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/Char/Frame Objects"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, 0, 0.055, -0.84575)
@@ -1945,7 +1949,9 @@ offset = Vector2(256, 256)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, -0.0918767, 1.99789, 0, -1.99789, -0.0918767, 0, 1.71898, 0)
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+visible = false
 
 [connection signal="mouse_entered" from="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" to="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" method="hello"]
