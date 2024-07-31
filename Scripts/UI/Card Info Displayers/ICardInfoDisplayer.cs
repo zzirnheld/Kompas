@@ -45,5 +45,8 @@ namespace Kompas.UI.CardInfoDisplayers
 	{
 		public event System.EventHandler<string>? BeginHoverKeyword;
 		public event System.EventHandler<string>? EndHoverKeyword;
+
+
+		public void UpdateZoomedInLayerMask(uint layerMask);
 	}
 }

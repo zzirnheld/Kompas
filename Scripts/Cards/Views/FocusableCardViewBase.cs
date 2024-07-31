@@ -1,4 +1,5 @@
 using System;
+using Godot;
 using Kompas.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
 
@@ -32,6 +33,7 @@ namespace Kompas.Cards.Views
 		/// <param name="card"></param>
 		protected virtual void Focus(CardType? card)
 		{
+			Logger.Log($"{GetType()} focusing on {card}");
 			var oldFocus = FocusedCard;
 			FocusedCard = card;
 			FocusChange?.Invoke(this, new CardChange() { Old = oldFocus, New = card });

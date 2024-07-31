@@ -97,6 +97,16 @@ namespace Kompas.Cards.Views
 			// ZoomedIn.ShowingInfo = zoomedIn;
 		}
 
+		public void UpdateZoomedInLayerMask(uint layerMask)
+		{
+			//GD.Print($"Setting zoomed in descendants to {layerMask}");
+			foreach (var obj in ZoomedIn.AllVisibleObjects)
+			{
+				//GD.Print($"setting {obj} to {layerMask}");
+				obj.Layers = layerMask;
+			}
+		}
+
 		public void DisplayUnselectedValidTarget(bool validTarget)
 			=> ValidTargetParticles.Emitting = validTarget;
 

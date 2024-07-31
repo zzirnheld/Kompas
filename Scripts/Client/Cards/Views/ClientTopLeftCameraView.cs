@@ -45,9 +45,13 @@ public partial class ClientTopLeftCameraView : FocusableCardViewBase<ClientGameC
 	protected override void Display(ClientGameCard shownCard)
 	{
 		TopLeftCamera.ShowingInfo = true;
-		TopLeftCamera.Display(shownCard);	
+		TopLeftCamera.Display(shownCard, shownCard == FocusedCard);	
 	}
 
-	public new void Focus(ClientGameCard? card) => base.Focus(card);
+	public new void Focus(ClientGameCard? card)
+	{
+		base.Focus(card);
+		Refresh(); //To force updating layers?
+	} 
 	public void Hover(ClientGameCard? card, bool refresh = false) => base.Show(card, refresh);
 }

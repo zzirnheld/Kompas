@@ -43,6 +43,6 @@ public interface ICardController
 	/// Place the given camera above the card, and return the control info displayer with events we can hook up.
 	/// Potential refactor: make the return type have an interface with just the events.
 	///</summary>
-	public IHoverableCardInfoDisplayer PlaceCameraAboveCard(CameraFollowObject cameraNode);
+	public IHoverableCardInfoDisplayer PlaceCameraAboveCard(CameraFollowObject cameraNode, uint cameraMask);
 
 }

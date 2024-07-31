@@ -257,7 +257,7 @@ _enemyDeckPosition = NodePath("../../../Enemy Player/Enemy Deck/Enemy Deck Camer
 _enemyDiscardPosition = NodePath("../../../Enemy Player/Enemy Discard/Enemy Discard Camera Position")
 
 [node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
-cull_mask = 1048573
+cull_mask = 1048569
 current = true
 
 [node name="Friendly Hand Parent Object" type="Node3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]

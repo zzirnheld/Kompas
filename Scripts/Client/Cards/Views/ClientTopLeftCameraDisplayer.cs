@@ -29,8 +29,13 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 	public event System.EventHandler<string>? StopHoverKeyword;
 
 	private IHoverableCardInfoDisplayer? lastDisplayed;
+	private const uint FocusedCullMask = 1 << (3 - 1);
+	private const uint UnfocusedCullMask = 1 << (2 - 1);
 
-	public void Display(CardBase card)
+	private const uint FocusedLayerMask = FocusedCullMask | UnfocusedCullMask;
+	private const uint UnfocusedLayerMask = UnfocusedCullMask;
+
+	public void Display(CardBase card, bool focus)
 	{
 		//Logger.Log($"At {System.DateTime.Now.Millisecond} Top left camera Displaying {card}");
 		if (lastDisplayed != null)
@@ -40,7 +45,11 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 		}
 
 		if (card is not GameCard gameCard) throw new System.InvalidOperationException("Can only handle a game card!");
-		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(Camera);
+
+		lastDisplayed?.UpdateZoomedInLayerMask(UnfocusedLayerMask);
+		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(Camera, focus ? FocusedCullMask : UnfocusedCullMask);
+		lastDisplayed.UpdateZoomedInLayerMask(focus ? FocusedLayerMask : UnfocusedLayerMask);
+
 		//TODO: make sure we hook up the keywords correctly for mouse hover
 		lastDisplayed.BeginHoverKeyword += HoverKeyword;
 		lastDisplayed.EndHoverKeyword += StopHoverKeyword;

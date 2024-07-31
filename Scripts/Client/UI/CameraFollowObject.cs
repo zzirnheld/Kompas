@@ -26,10 +26,12 @@ public partial class CameraFollowObject : Camera3D
 		//GD.Print($"Matching {follow.GlobalPosition}, {follow.GlobalRotation}");
 	}
 
-	public void Follow(Node3D node)
+	public void Follow(Node3D node, uint layerMask)
 	{
-		lerp = 0f;
+		GD.Print($"Following {follow} with mask {layerMask}");
+		if (node != follow) lerp = 0;
 		follow = node;
+		CullMask = layerMask;
 		originPosition = GlobalPosition;
 		originRotation = GlobalBasis.GetRotationQuaternion();
 	}

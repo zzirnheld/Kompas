@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
@@ -36,6 +39,9 @@ namespace Kompas.Cards.Views
 
 		[Export]
 		private MeshInstance3D[]? _cardImageObjects;
+
+		public IEnumerable<VisualInstance3D> AllVisibleObjects => this.GetDescendants()
+			.OfType<VisualInstance3D>();
 
 		public event EventHandler<string>? BeginHoverKeyword;
 		public event EventHandler<string>? EndHoverKeyword;
@@ -101,5 +107,7 @@ namespace Kompas.Cards.Views
 		public void DisplayUnselectedValidTarget(bool validTarget) { }
 		public void DisplayCurrentTarget(bool currentTarget) { }
 		public void DisplayEffectSource(bool effectSource) { }
+
+		public void UpdateZoomedInLayerMask(uint layerMask) { }
 	}
 }
