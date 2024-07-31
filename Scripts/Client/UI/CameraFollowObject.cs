@@ -6,7 +6,7 @@ public partial class CameraFollowObject : Camera3D
 {
 	private Node3D? follow;
 
-	private const float LerpTime = 1f;
+	private const float LerpTime = 0.5f;
 
 	private Vector3 originPosition;
 	private Quaternion originRotation;
@@ -17,7 +17,7 @@ public partial class CameraFollowObject : Camera3D
 		base._Process(delta);
 		if (follow == null) return;
 
-		lerp += delta;
+		lerp += delta / LerpTime;
 		lerp = Mathf.Clamp(lerp, 0f, 1f);
 		GlobalPosition = originPosition.Lerp(follow.GlobalPosition, (float)lerp);
 		GlobalBasis = new Basis(originRotation.Slerp(follow.GlobalBasis.GetRotationQuaternion(), (float) lerp));
