@@ -93,8 +93,8 @@ namespace Kompas.Cards.Views
 		//FUTURE: replace with enum?
 		public void DisplayZoomed(bool zoomedIn)
 		{
-			ZoomedOut.ShowingInfo = !zoomedIn;
-			ZoomedIn.ShowingInfo = zoomedIn;
+			// ZoomedOut.ShowingInfo = !zoomedIn;
+			// ZoomedIn.ShowingInfo = zoomedIn;
 		}
 
 		public void DisplayUnselectedValidTarget(bool validTarget)

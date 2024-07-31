@@ -1466,7 +1466,6 @@ _currentTargetParticles = NodePath("../Particles/Current Target Particles")
 _effectSourceParticles = NodePath("../Particles/Effect Source Particles")
 
 [node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "_frameObjects", "_cardImageObjects")]
-visible = false
 script = ExtResource("2_cdddr")
 N = NodePath("Char/ZO N Label")
 E = NodePath("Char/ZO E Label")
@@ -1685,77 +1684,89 @@ _cardImageObjects = [NodePath("All/ZI NT All Baseplate Image")]
 
 [node name="ZI NT All Frame Cost" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
 transform = Transform3D(0.205212, 0, -0.563816, 0, 1, 0, 0.563816, 0, 0.205212, 0, 0.055, 0.84575)
+layers = 2
 mesh = SubResource("ArrayMesh_d3pdc")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
+layers = 2
 mesh = SubResource("ArrayMesh_dvjk5")
 skeleton = NodePath("")
 
 [node name="ZI NT All Frame Bottom Half " type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, -7.39378e-08, 0.055, -0.84575)
+layers = 2
 mesh = SubResource("ArrayMesh_sq14u")
 skeleton = NodePath("")
 
 [node name="ZI NT All Frame Top Half" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
 transform = Transform3D(0.205212, 0, -0.563816, 0, 1, 0, 0.563816, 0, 0.205212, -3.5984e-06, 0.0503252, -0.42347)
+layers = 2
 mesh = SubResource("ArrayMesh_xhxrs")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate W" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("7_1bm8q")
 mesh = SubResource("ArrayMesh_wmouu")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("7_hpixu")
 
 [node name="ZI NT All Baseplate N" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("8_o3qnh")
 mesh = SubResource("ArrayMesh_uomet")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate E" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("6_xuxe3")
 mesh = SubResource("ArrayMesh_bvhvj")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Cost" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("9_f6kxx")
 mesh = SubResource("ArrayMesh_hog5p")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Subtypes" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_phyg0")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_hnwcy")
 
 [node name="ZI NT All Baseplate Name" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_hq28y")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_allg3")
 
 [node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1.01, 0, 1.76594e-07, 0, 1.01, 0, -1.76594e-07, 0, 1.01, -2.53526e-08, 0, -0.177072)
+layers = 2
 material_override = ExtResource("7_2eyee")
 mesh = SubResource("ArrayMesh_5ubt0")
 skeleton = NodePath("")
 
 [node name="Baseplate Image Haze" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image"]
 transform = Transform3D(0.71, 0, -8.32265e-08, 0, 1, 0, 1.2414e-07, 0, 0.476, 0, 0.03, 0.238)
+layers = 2
 mesh = SubResource("PlaneMesh_lk7jc")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_d2ere")
 
-[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport", "_cardMouseController")]
+[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport")]
 transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0.075, 0.205)
 input_ray_pickable = false
 script = ExtResource("13_pifky")
 _quadMesh = NodePath("Baseplate Text")
 _subViewport = NodePath("../../../../../Effect Text SubViewport")
-_cardMouseController = NodePath("../../../../../Mouse Controller")
 
 [node name="Baseplate Text" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" node_paths=PackedStringArray("_subViewport")]
+layers = 2
 mesh = SubResource("QuadMesh_08rqw")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_6csyp")
@@ -1768,6 +1779,7 @@ shape = SubResource("BoxShape3D_gekpj")
 [node name="Name Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.582)
 visible = false
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "Some the Guy"
@@ -1779,6 +1791,7 @@ width = 300.0
 [node name="Subtypes Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.615)
 visible = false
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "Veritable Dude Mage Tbh"
@@ -1789,6 +1802,7 @@ width = 300.0
 
 [node name="S Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.85)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1803,22 +1817,26 @@ width = 300.0
 
 [node name="ZI NT Char E" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/Char/Frame Objects"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_lis0v")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("7_hpixu")
 
 [node name="ZI NT Char N" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/Char/Frame Objects"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, 0, 0.055, -0.84575)
+layers = 2
 mesh = SubResource("ArrayMesh_kusej")
 skeleton = NodePath("")
 
 [node name="ZI NT Char W" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/Char/Frame Objects"]
 transform = Transform3D(-0.563816, 0, -0.205212, 0, 1, 0, 0.205212, 0, -0.563816, -0.84575, 0.055, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_n4u3k")
 skeleton = NodePath("")
 
 [node name="N Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/Char"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.86)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1829,6 +1847,7 @@ width = 300.0
 
 [node name="E Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/Char"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.845, 0.03, -0.02)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1839,6 +1858,7 @@ width = 300.0
 
 [node name="W Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/Char"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.85, 0.03, -0.02)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1852,6 +1872,7 @@ visible = false
 
 [node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/NonChar"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_31y6g")
 skeleton = NodePath("")
 
@@ -1860,8 +1881,10 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5
 
 [node name="Camera3D" type="Camera3D" parent="Actual Card Model/Camera Spot"]
 visible = false
+cull_mask = 1048574
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Actual Card Model/Camera Spot/Camera3D"]
+layers = 3
 
 [node name="Mouse Controller" type="Area3D" parent="."]
 script = ExtResource("12_fpypf")

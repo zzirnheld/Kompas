@@ -257,6 +257,7 @@ _enemyDeckPosition = NodePath("../../../Enemy Player/Enemy Deck/Enemy Deck Camer
 _enemyDiscardPosition = NodePath("../../../Enemy Player/Enemy Discard/Enemy Discard Camera Position")
 
 [node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
+cull_mask = 1048573
 current = true
 
 [node name="Friendly Hand Parent Object" type="Node3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
@@ -288,8 +289,8 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
-cull_mask = 1047616
-far = 0.5
+cull_mask = 1047554
+near = 0.01
 script = ExtResource("5_om7ty")
 
 [node name="Board" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_spacesController")]
