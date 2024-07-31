@@ -169,7 +169,7 @@ namespace Kompas.Gamestate.Locations.Models
 			if (toRemove.Position == null)
 				throw new InvalidSpaceException(toRemove.Position, "Can't remove a card from a null space");
 
-			boardController.Remove(toRemove.CardController);
+			boardController.Remove(toRemove.NormalCardController);
 			
 			var (x, y) = toRemove.Position;
 			if (board[x, y] == toRemove)
@@ -220,7 +220,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 				toPlay.ControllingPlayer = player;
 
-				boardController.Place(toPlay.CardController);
+				boardController.Place(toPlay.NormalCardController);
 			}
 		}
 
@@ -252,8 +252,8 @@ namespace Kompas.Gamestate.Locations.Models
 			if (!ValidSpellSpaceFor(temp, from)) throw new InvalidSpaceException(from, $"{swapDesc}, but the start is an invalid spell space");
 
 
-			boardController.Remove(card.CardController);
-			if (temp != null) boardController.Remove(temp.CardController);
+			boardController.Remove(card.NormalCardController);
+			if (temp != null) boardController.Remove(temp.NormalCardController);
 
 			//then let the cards know they've been moved, but before moving them, so you can count properly
 			if (normal)
@@ -268,8 +268,8 @@ namespace Kompas.Gamestate.Locations.Models
 			card.Position = to;
 			if (temp != null) temp.Position = from;
 
-			boardController.Place(card.CardController);
-			if (temp != null) boardController.Place(temp.CardController);
+			boardController.Place(card.NormalCardController);
+			if (temp != null) boardController.Place(temp.NormalCardController);
 		}
 
 		public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)

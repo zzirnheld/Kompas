@@ -8,7 +8,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			foreach (var card in AnnihilationModel.Cards)
 			{
-				card.CardController.Node.Visible = false; //TODO spread them out somewhere
+				card.NormalCardController.Node.Visible = false; //TODO spread them out somewhere
 			}
 		}
 

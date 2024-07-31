@@ -34,7 +34,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		protected override void SpreadOut()
 		{
-			CardArranger.Arrange(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
+			CardArranger.Arrange(DeckModel.Cards.Select(c => c.NormalCardController.Node).ToArray());
 		}
 	}
 }

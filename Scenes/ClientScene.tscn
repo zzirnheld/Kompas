@@ -209,10 +209,10 @@ points = PackedVector3Array(0.00356197, 0.495928, 0.910199, 0.0820751, 0.495928,
 size = Vector2(512, 512)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_73hpu"]
-viewport_path = NodePath("Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+viewport_path = NodePath("Node/Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_d63ti"]
-viewport_path = NodePath("Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+viewport_path = NodePath("Node/Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
 
 [node name="Game Controller" type="Node" node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_choicesView", "_escapeMenu", "_playerControllers", "_boardController")]
 script = ExtResource("1_6rnfv")
@@ -221,12 +221,12 @@ _targetingController = NodePath("Targeting Controller")
 _currentStateController = NodePath("Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)")
 _useEffectDialog = NodePath("Node/UI/Use Effect")
 _stackView = NodePath("Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Stack View")
-_camera = NodePath("Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+_camera = NodePath("Node/Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
 _choicesView = NodePath("Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/Choice View")
 _escapeMenu = NodePath("Node/UI/Escape Menu")
 _cardPrefab = ExtResource("2_q0mge")
-_playerControllers = [NodePath("Node/3D/Friendly Player"), NodePath("Node/3D/Enemy Player")]
-_boardController = NodePath("Node/3D/Board")
+_playerControllers = [NodePath("Node/Main 3D/Friendly Player"), NodePath("Node/Main 3D/Enemy Player")]
+_boardController = NodePath("Node/Main 3D/Board")
 
 [node name="Targeting Controller" type="Node" parent="." node_paths=PackedStringArray("_topLeftInfoDisplayer", "_reminderTextPopup", "_gameController", "_canDeclineFurtherTargetsButton", "_spacesController")]
 script = ExtResource("2_cdbal")
@@ -234,18 +234,18 @@ _topLeftInfoDisplayer = NodePath("../Node/UI/Main Game UI/HBoxContainer/Left Pan
 _reminderTextPopup = NodePath("../Node/UI/Reminder Text")
 _gameController = NodePath("..")
 _canDeclineFurtherTargetsButton = NodePath("../Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button")
-_spacesController = NodePath("../Node/3D/Board/Spaces")
+_spacesController = NodePath("../Node/Main 3D/Board/Spaces")
 
 [node name="Node" type="Node" parent="."]
 
-[node name="3D" type="Node3D" parent="Node"]
+[node name="Main 3D" type="Node3D" parent="Node"]
 
-[node name="Engine Stuff" type="Node3D" parent="Node/3D"]
+[node name="Engine Stuff" type="Node3D" parent="Node/Main 3D"]
 
-[node name="Camera Over Board" type="Node3D" parent="Node/3D/Engine Stuff"]
+[node name="Camera Over Board" type="Node3D" parent="Node/Main 3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.55, 0)
 
-[node name="Main Camera Controller" type="Node3D" parent="Node/3D/Engine Stuff/Camera Over Board" node_paths=PackedStringArray("_camera", "_handObject", "_boardCameraPosition", "_friendlyDeckPosition", "_friendlyDiscardPosition", "_enemyHandPosition", "_enemyDeckPosition", "_enemyDiscardPosition")]
+[node name="Main Camera Controller" type="Node3D" parent="Node/Main 3D/Engine Stuff/Camera Over Board" node_paths=PackedStringArray("_camera", "_handObject", "_boardCameraPosition", "_friendlyDeckPosition", "_friendlyDiscardPosition", "_enemyHandPosition", "_enemyDeckPosition", "_enemyDiscardPosition")]
 script = ExtResource("4_w3f76")
 _camera = NodePath("Camera3D")
 _handObject = NodePath("Friendly Hand Parent Object")
@@ -256,29 +256,29 @@ _enemyHandPosition = NodePath("../../../Enemy Player/Enemy Hand/Enemy Hand Camer
 _enemyDeckPosition = NodePath("../../../Enemy Player/Enemy Deck/Enemy Deck Camera Position")
 _enemyDiscardPosition = NodePath("../../../Enemy Player/Enemy Discard/Enemy Discard Camera Position")
 
-[node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
+[node name="Camera3D" type="Camera3D" parent="Node/Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
 current = true
 
-[node name="Friendly Hand Parent Object" type="Node3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
+[node name="Friendly Hand Parent Object" type="Node3D" parent="Node/Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
 
-[node name="Debug positioning cube" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller/Friendly Hand Parent Object"]
+[node name="Debug positioning cube" type="MeshInstance3D" parent="Node/Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Friendly Hand Parent Object"]
 visible = false
 mesh = SubResource("BoxMesh_ols17")
 
-[node name="Left Bound" type="Node3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
+[node name="Left Bound" type="Node3D" parent="Node/Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
 
-[node name="Right Bound" type="Node3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
+[node name="Right Bound" type="Node3D" parent="Node/Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node/3D/Engine Stuff"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node/Main 3D/Engine Stuff"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)
 light_energy = 1.5
 
-[node name="Top Left Camera" type="Node3D" parent="Node/3D/Engine Stuff"]
+[node name="Top Left Camera" type="Node3D" parent="Node/Main 3D/Engine Stuff"]
 
-[node name="Top Left SubViewport" type="SubViewport" parent="Node/3D/Engine Stuff/Top Left Camera"]
+[node name="Top Left SubViewport" type="SubViewport" parent="Node/Main 3D/Engine Stuff/Top Left Camera"]
 transparent_bg = true
 handle_input_locally = false
 physics_object_picking = true
@@ -286,27 +286,27 @@ physics_object_picking_sort = true
 gui_snap_controls_to_pixels = false
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="Node/Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
 cull_mask = 1047616
 far = 0.5
 script = ExtResource("5_om7ty")
 
-[node name="Board" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_spacesController")]
+[node name="Board" type="Node3D" parent="Node/Main 3D" node_paths=PackedStringArray("_spacesController")]
 script = ExtResource("1_l7n64")
 _spacesController = NodePath("Spaces")
 
-[node name="Kompas Board Beeg (Low Quality)" type="CSGMesh3D" parent="Node/3D/Board"]
+[node name="Kompas Board Beeg (Low Quality)" type="CSGMesh3D" parent="Node/Main 3D/Board"]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("1_k7cme")
 
-[node name="Kompas Board Smol (High Quality)" type="CSGMesh3D" parent="Node/3D/Board"]
+[node name="Kompas Board Smol (High Quality)" type="CSGMesh3D" parent="Node/Main 3D/Board"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("2_wywm4")
 
-[node name="Spaces" type="Node3D" parent="Node/3D/Board" node_paths=PackedStringArray("_gameController", "_canMove", "_canPlay", "_recommend", "_unrecommend", "_spacesClickingController", "_placeInSpaceController")]
+[node name="Spaces" type="Node3D" parent="Node/Main 3D/Board" node_paths=PackedStringArray("_gameController", "_canMove", "_canPlay", "_recommend", "_unrecommend", "_spacesClickingController", "_placeInSpaceController")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.002, 0)
 script = ExtResource("5_kcvca")
 _linkedSpaces = ExtResource("9_06muj")
@@ -323,602 +323,602 @@ _unrecommendMaterial = ExtResource("14_nddoh")
 _spacesClickingController = NodePath("Clickables in Order")
 _placeInSpaceController = NodePath("Place In Spaces")
 
-[node name="Clickables in Order" type="Node3D" parent="Node/3D/Board/Spaces"]
+[node name="Clickables in Order" type="Node3D" parent="Node/Main 3D/Board/Spaces"]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("9_0nh6x")
 
-[node name="Area3D 0 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 0 0" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 0 0"]
 shape = SubResource("ConvexPolygonShape3D_jatgb")
 
-[node name="Area3D 0 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 0 1" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 0 1"]
 shape = SubResource("ConvexPolygonShape3D_qi4se")
 
-[node name="Area3D 0 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 0 2" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 0 2"]
 shape = SubResource("ConvexPolygonShape3D_kidb6")
 
-[node name="Area3D 0 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 0 3" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 0 3"]
 shape = SubResource("ConvexPolygonShape3D_vd02t")
 
-[node name="Area3D 0 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 0 4" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 0 4"]
 shape = SubResource("ConvexPolygonShape3D_os2lf")
 
-[node name="Area3D 0 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 0 5" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 0 5"]
 shape = SubResource("ConvexPolygonShape3D_v76p1")
 
-[node name="Area3D 0 6" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 0 6" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 0 6"]
 shape = SubResource("ConvexPolygonShape3D_janqo")
 
-[node name="Area3D 1 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 1 0" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 1 0"]
 shape = SubResource("ConvexPolygonShape3D_g4oy0")
 
-[node name="Area3D 1 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 1 1" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 1 1"]
 shape = SubResource("ConvexPolygonShape3D_7sepf")
 
-[node name="Area3D 1 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 1 2" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 1 2"]
 shape = SubResource("ConvexPolygonShape3D_1ha6c")
 
-[node name="Area3D 1 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 1 3" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 1 3"]
 shape = SubResource("ConvexPolygonShape3D_ujam6")
 
-[node name="Area3D 1 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 1 4" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 1 4"]
 shape = SubResource("ConvexPolygonShape3D_wbqoo")
 
-[node name="Area3D 1 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 1 5" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 1 5"]
 shape = SubResource("ConvexPolygonShape3D_iy2ui")
 
-[node name="Area3D 1 6" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 1 6" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 1 6"]
 shape = SubResource("ConvexPolygonShape3D_1gf68")
 
-[node name="Area3D 2 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 2 0" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 2 0"]
 shape = SubResource("ConvexPolygonShape3D_tfl67")
 
-[node name="Area3D 2 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 2 1" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 2 1"]
 shape = SubResource("ConvexPolygonShape3D_0bstj")
 
-[node name="Area3D 2 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 2 2" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 2 2"]
 shape = SubResource("ConvexPolygonShape3D_ywilm")
 
-[node name="Area3D 2 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 2 3" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 2 3"]
 shape = SubResource("ConvexPolygonShape3D_ryndq")
 
-[node name="Area3D 2 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 2 4" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 2 4"]
 shape = SubResource("ConvexPolygonShape3D_1q1ql")
 
-[node name="Area3D 2 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 2 5" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 2 5"]
 shape = SubResource("ConvexPolygonShape3D_0jcw3")
 
-[node name="Area3D 2 6" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 2 6" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 2 6"]
 shape = SubResource("ConvexPolygonShape3D_rorxu")
 
-[node name="Area3D 3 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 3 0" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 3 0"]
 shape = SubResource("ConvexPolygonShape3D_b27i5")
 
-[node name="Area3D 3 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 3 1" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 3 1"]
 shape = SubResource("ConvexPolygonShape3D_cayym")
 
-[node name="Area3D 3 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 3 2" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 3 2"]
 shape = SubResource("ConvexPolygonShape3D_ir5is")
 
-[node name="Area3D 3 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 3 3" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 3 3"]
 shape = SubResource("ConvexPolygonShape3D_eu2fb")
 
-[node name="Area3D 3 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 3 4" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 3 4"]
 shape = SubResource("ConvexPolygonShape3D_24vy8")
 
-[node name="Area3D 3 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 3 5" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 3 5"]
 shape = SubResource("ConvexPolygonShape3D_f8w3c")
 
-[node name="Area3D 3 6" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 3 6" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 3 6"]
 shape = SubResource("ConvexPolygonShape3D_ge1uh")
 
-[node name="Area3D 4 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 4 0" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 4 0"]
 shape = SubResource("ConvexPolygonShape3D_88ph4")
 
-[node name="Area3D 4 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 4 1" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 4 1"]
 shape = SubResource("ConvexPolygonShape3D_3p222")
 
-[node name="Area3D 4 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 4 2" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 4 2"]
 shape = SubResource("ConvexPolygonShape3D_2rs5m")
 
-[node name="Area3D 4 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 4 3" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 4 3"]
 shape = SubResource("ConvexPolygonShape3D_yrvmv")
 
-[node name="Area3D 4 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 4 4" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 4 4"]
 shape = SubResource("ConvexPolygonShape3D_rfo8e")
 
-[node name="Area3D 4 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 4 5" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 4 5"]
 shape = SubResource("ConvexPolygonShape3D_6vgd5")
 
-[node name="Area3D 4 6" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 4 6" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 4 6"]
 shape = SubResource("ConvexPolygonShape3D_5cnee")
 
-[node name="Area3D 5 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 5 0" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 5 0"]
 shape = SubResource("ConvexPolygonShape3D_tsf1c")
 
-[node name="Area3D 5 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 5 1" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 5 1"]
 shape = SubResource("ConvexPolygonShape3D_dnhaj")
 
-[node name="Area3D 5 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 5 2" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 5 2"]
 shape = SubResource("ConvexPolygonShape3D_1d8qk")
 
-[node name="Area3D 5 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 5 3" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 5 3"]
 shape = SubResource("ConvexPolygonShape3D_dnpoi")
 
-[node name="Area3D 5 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 5 4" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 5 4"]
 shape = SubResource("ConvexPolygonShape3D_ksee6")
 
-[node name="Area3D 5 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 5 5" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 5 5"]
 shape = SubResource("ConvexPolygonShape3D_d7hne")
 
-[node name="Area3D 5 6" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 5 6" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 5 6"]
 shape = SubResource("ConvexPolygonShape3D_7gf4e")
 
-[node name="Area3D 6 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 6 0" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 6 0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 6 0"]
 shape = SubResource("ConvexPolygonShape3D_0oe7f")
 
-[node name="Area3D 6 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 6 1" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 6 1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 6 1"]
 shape = SubResource("ConvexPolygonShape3D_sg7o3")
 
-[node name="Area3D 6 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 6 2" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 6 2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 6 2"]
 shape = SubResource("ConvexPolygonShape3D_226a7")
 
-[node name="Area3D 6 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 6 3" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 6 3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 6 3"]
 shape = SubResource("ConvexPolygonShape3D_4ifri")
 
-[node name="Area3D 6 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 6 4" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 6 4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 6 4"]
 shape = SubResource("ConvexPolygonShape3D_lftok")
 
-[node name="Area3D 6 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 6 5" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 6 5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 6 5"]
 shape = SubResource("ConvexPolygonShape3D_uf0rr")
 
-[node name="Area3D 6 6" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
+[node name="Area3D 6 6" type="Area3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 6 6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Main 3D/Board/Spaces/Clickables in Order/Area3D 6 6"]
 shape = SubResource("ConvexPolygonShape3D_7idqb")
 
-[node name="Can Move Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
+[node name="Can Move Spaces" parent="Node/Main 3D/Board/Spaces" instance=ExtResource("9_06muj")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Can Play Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
+[node name="Can Play Spaces" parent="Node/Main 3D/Board/Spaces" instance=ExtResource("9_06muj")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Should Target Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
+[node name="Should Target Spaces" parent="Node/Main 3D/Board/Spaces" instance=ExtResource("9_06muj")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Should Not Target Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
+[node name="Should Not Target Spaces" parent="Node/Main 3D/Board/Spaces" instance=ExtResource("9_06muj")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Place In Spaces" type="Node3D" parent="Node/3D/Board/Spaces" node_paths=PackedStringArray("_positionsParent")]
+[node name="Place In Spaces" type="Node3D" parent="Node/Main 3D/Board/Spaces" node_paths=PackedStringArray("_positionsParent")]
 transform = Transform3D(-0.05, 4.37114e-09, 0, -4.37114e-09, -0.05, 0, 0, 0, 0.05, 0, -0.005, 0)
 script = ExtResource("14_k7smq")
 _positionsParent = NodePath(".")
 
-[node name="0 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="0 0" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.37428e-14, 0, -6.01369)
 script = ExtResource("15_tornx")
 
-[node name="0 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="0 1" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.826277, 0, -4.66196)
 script = ExtResource("15_tornx")
 y = 1
 
-[node name="0 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="0 2" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.68623, 0, -3.59708)
 script = ExtResource("15_tornx")
 y = 2
 
-[node name="0 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="0 3" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.68149e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.66018, -1.67638e-07, -2.61392)
 script = ExtResource("15_tornx")
 y = 3
 
-[node name="0 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="0 4" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.64827, -1.75089e-07, -1.67635)
 script = ExtResource("15_tornx")
 y = 4
 
-[node name="0 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="0 5" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 4.64224, -1.56462e-07, -0.840337)
 script = ExtResource("15_tornx")
 y = 5
 
-[node name="0 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="0 6" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 5.9272, -1.67638e-07, 0.0515695)
 script = ExtResource("15_tornx")
 y = 6
 
-[node name="1 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="1 0" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.843417, 0, -4.58955)
 script = ExtResource("15_tornx")
 x = 1
 
-[node name="1 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="1 1" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.5091e-14, 0, -3.58794)
 script = ExtResource("15_tornx")
 x = 1
 y = 1
 
-[node name="1 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="1 2" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.762724, 0, -2.59942)
 script = ExtResource("15_tornx")
 x = 1
 y = 2
 
-[node name="1 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="1 3" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.73243, 0, -1.71549)
 script = ExtResource("15_tornx")
 x = 1
 y = 3
 
-[node name="1 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="1 4" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.6448, 0, -0.804712)
 script = ExtResource("15_tornx")
 x = 1
 y = 4
 
-[node name="1 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="1 5" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.6396, 0, 0.0524449)
 script = ExtResource("15_tornx")
 x = 1
 y = 5
 
-[node name="1 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="1 6" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 4.75935, 0, 0.895215)
 script = ExtResource("15_tornx")
 x = 1
 y = 6
 
-[node name="2 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="2 0" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.72204, 0, -3.51824)
 script = ExtResource("15_tornx")
 x = 2
 
-[node name="2 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="2 1" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.843417, 0, -2.62745)
 script = ExtResource("15_tornx")
 x = 2
 y = 1
 
-[node name="2 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="2 2" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.00205219, 0, -1.77245)
 script = ExtResource("15_tornx")
 x = 2
 y = 2
 
-[node name="2 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="2 3" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.89835, 0, -0.857209)
 script = ExtResource("15_tornx")
 x = 2
 y = 3
 
-[node name="2 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="2 4" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.76466, 0, 0.079433)
 script = ExtResource("15_tornx")
 x = 2
 y = 4
 
-[node name="2 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="2 5" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.60848, 0, 0.847543)
 script = ExtResource("15_tornx")
 x = 2
 y = 5
 
-[node name="2 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="2 6" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.64283, 0, 1.74073)
 script = ExtResource("15_tornx")
 x = 2
 y = 6
 
-[node name="3 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="3 0" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.60158, 0, -2.60416)
 script = ExtResource("15_tornx")
 x = 3
 
-[node name="3 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="3 1" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.74771, 0, -1.69398)
 script = ExtResource("15_tornx")
 x = 3
 y = 1
 
-[node name="3 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="3 2" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.891311, 0, -0.824659)
 script = ExtResource("15_tornx")
 x = 3
 y = 2
 
-[node name="3 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="3 3" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.0010661, 0, -0.0185174)
 script = ExtResource("15_tornx")
 x = 3
 y = 3
 
-[node name="3 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="3 4" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.877744, 0, 0.820788)
 script = ExtResource("15_tornx")
 x = 3
 y = 4
 
-[node name="3 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="3 5" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.73997, 0, 1.80506)
 script = ExtResource("15_tornx")
 x = 3
 y = 5
 
-[node name="3 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="3 6" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.64144, 0, 2.65966)
 script = ExtResource("15_tornx")
 x = 3
 y = 6
 
-[node name="4 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="4 0" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.54693, 0, -1.68905)
 script = ExtResource("15_tornx")
 x = 4
 
-[node name="4 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="4 1" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.64908, 0, -0.842801)
 script = ExtResource("15_tornx")
 x = 4
 y = 1
 
-[node name="4 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="4 2" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.72857, 0, 0.0338094)
 script = ExtResource("15_tornx")
 x = 4
 y = 2
 
-[node name="4 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="4 3" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.833411, 0, 0.831207)
 script = ExtResource("15_tornx")
 x = 4
 y = 3
 
-[node name="4 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="4 4" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.00663064, 0, 1.75571)
 script = ExtResource("15_tornx")
 x = 4
 y = 4
 
-[node name="4 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="4 5" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.860496, 0, 2.67713)
 script = ExtResource("15_tornx")
 x = 4
 y = 5
 
-[node name="4 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="4 6" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.72901, 0, 3.61207)
 script = ExtResource("15_tornx")
 x = 4
 y = 6
 
-[node name="5 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="5 0" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -4.68384, 0, -0.87947)
 script = ExtResource("15_tornx")
 x = 5
 
-[node name="5 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="5 1" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.56456, 0, 0.0221689)
 script = ExtResource("15_tornx")
 x = 5
 y = 1
 
-[node name="5 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="5 2" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.67538, 0, 0.867522)
 script = ExtResource("15_tornx")
 x = 5
 y = 2
 
-[node name="5 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="5 3" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.74696, 0, 1.67876)
 script = ExtResource("15_tornx")
 x = 5
 y = 3
 
-[node name="5 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="5 4" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.772876, 0, 2.65349)
 script = ExtResource("15_tornx")
 x = 5
 y = 4
 
-[node name="5 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="5 5" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.022989, 0, 3.63723)
 script = ExtResource("15_tornx")
 x = 5
 y = 5
 
-[node name="5 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="5 6" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.887098, 0, 4.70474)
 script = ExtResource("15_tornx")
 x = 5
 y = 6
 
-[node name="6 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="6 0" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -5.84666, 0, -0.0197563)
 script = ExtResource("15_tornx")
 x = 6
 
-[node name="6 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="6 1" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -4.70606, 0, 0.856466)
 script = ExtResource("15_tornx")
 x = 6
 y = 1
 
-[node name="6 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="6 2" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.56321, 0, 1.70747)
 script = ExtResource("15_tornx")
 x = 6
 y = 2
 
-[node name="6 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="6 3" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.63613, 0, 2.61922)
 script = ExtResource("15_tornx")
 x = 6
 y = 3
 
-[node name="6 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="6 4" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.68543, 0, 3.52282)
 script = ExtResource("15_tornx")
 x = 6
 y = 4
 
-[node name="6 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="6 5" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.83675, 0, 4.60707)
 script = ExtResource("15_tornx")
 x = 6
 y = 5
 
-[node name="6 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
+[node name="6 6" type="Node3D" parent="Node/Main 3D/Board/Spaces/Place In Spaces"]
 transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0, 0, 5.835)
 script = ExtResource("15_tornx")
 x = 6
 y = 6
 
-[node name="Friendly Player" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
+[node name="Friendly Player" type="Node3D" parent="Node/Main 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
 _playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info")
 _handController = NodePath("Friendly Hand")
@@ -926,7 +926,7 @@ _discardController = NodePath("Friendly Discard")
 _deckController = NodePath("Friendly Deck")
 _annihilationController = NodePath("Friendly Annihilation")
 
-[node name="Friendly Hand" type="Node3D" parent="Node/3D/Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
+[node name="Friendly Hand" type="Node3D" parent="Node/Main 3D/Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.05, 0.495)
 script = ExtResource("7_hs3e0")
 _camera = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
@@ -934,54 +934,54 @@ _nodeParent = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Control
 _leftBound = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller/Left Bound")
 _rightBound = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller/Right Bound")
 
-[node name="Friendly Annihilation" type="Node3D" parent="Node/3D/Friendly Player"]
+[node name="Friendly Annihilation" type="Node3D" parent="Node/Main 3D/Friendly Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Friendly Deck" type="Node3D" parent="Node/3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Friendly Deck" type="Node3D" parent="Node/Main 3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
 _cardArranger = NodePath("Spiral Parent/F Deck Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
 
-[node name="Spiral Parent" type="Node3D" parent="Node/3D/Friendly Player/Friendly Deck"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Main 3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.001, 0.31)
 
-[node name="F Deck Spiral Card Area" parent="Node/3D/Friendly Player/Friendly Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
+[node name="F Deck Spiral Card Area" parent="Node/Main 3D/Friendly Player/Friendly Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
-[node name="Spread Out Deck" type="Node3D" parent="Node/3D/Friendly Player/Friendly Deck"]
+[node name="Spread Out Deck" type="Node3D" parent="Node/Main 3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(0.0732, 0, 0, 0, 0.0732, 0, 0, 0, 0.0732, 0.31, 0.0344, 0.315)
 script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
 
-[node name="Friendly Deck Camera Position" type="Node3D" parent="Node/3D/Friendly Player/Friendly Deck"]
+[node name="Friendly Deck Camera Position" type="Node3D" parent="Node/Main 3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0.1, 0.7, 0.25)
 
-[node name="Friendly Discard" type="Node3D" parent="Node/3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Friendly Discard" type="Node3D" parent="Node/Main 3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
 script = ExtResource("10_pkr2w")
 _cardArranger = NodePath("Spiral Parent/F Discard Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
 
-[node name="Spread Out Discard" type="Node3D" parent="Node/3D/Friendly Player/Friendly Discard"]
+[node name="Spread Out Discard" type="Node3D" parent="Node/Main 3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(0.0732, 0, 2.22045e-16, 0, 0.0732, 0, -2.22045e-16, 0, 0.0732, -0.31, 0.0344, 0.31)
 script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
 
-[node name="Friendly Discard Camera Position" type="Node3D" parent="Node/3D/Friendly Player/Friendly Discard"]
+[node name="Friendly Discard Camera Position" type="Node3D" parent="Node/Main 3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(0.996195, 0.0871557, 0, 0.00456138, -0.0521368, 0.99863, 0.0870363, -0.994829, -0.052336, 0, 0.7, 0.25)
 
-[node name="Spiral Parent" type="Node3D" parent="Node/3D/Friendly Player/Friendly Discard"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Main 3D/Friendly Player/Friendly Discard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.001, 0.31)
 
-[node name="F Discard Spiral Card Area" parent="Node/3D/Friendly Player/Friendly Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
+[node name="F Discard Spiral Card Area" parent="Node/Main 3D/Friendly Player/Friendly Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.001, 0)
 
-[node name="Enemy Player" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
+[node name="Enemy Player" type="Node3D" parent="Node/Main 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
 _playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info")
 _handController = NodePath("Enemy Hand")
@@ -989,54 +989,851 @@ _discardController = NodePath("Enemy Discard")
 _deckController = NodePath("Enemy Deck")
 _annihilationController = NodePath("Enemy Annihilation")
 
-[node name="Enemy Hand" type="Node3D" parent="Node/3D/Enemy Player" node_paths=PackedStringArray("_nodeParent")]
+[node name="Enemy Hand" type="Node3D" parent="Node/Main 3D/Enemy Player" node_paths=PackedStringArray("_nodeParent")]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
 script = ExtResource("7_hs3e0")
 _nodeParent = NodePath("Enemy Hand Card Parent")
 
-[node name="Enemy Hand Camera Position" type="Node3D" parent="Node/3D/Enemy Player/Enemy Hand"]
+[node name="Enemy Hand Camera Position" type="Node3D" parent="Node/Main 3D/Enemy Player/Enemy Hand"]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 5, 0)
 
-[node name="Enemy Hand Card Parent" type="Node3D" parent="Node/3D/Enemy Player/Enemy Hand"]
+[node name="Enemy Hand Card Parent" type="Node3D" parent="Node/Main 3D/Enemy Player/Enemy Hand"]
 
-[node name="Enemy Annihilation" type="Node3D" parent="Node/3D/Enemy Player"]
+[node name="Enemy Annihilation" type="Node3D" parent="Node/Main 3D/Enemy Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Enemy Deck" type="Node3D" parent="Node/3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Enemy Deck" type="Node3D" parent="Node/Main 3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
 _cardArranger = NodePath("Spiral Parent/E Deck Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
 
-[node name="Enemy Deck Camera Position" type="Node3D" parent="Node/3D/Enemy Player/Enemy Deck"]
+[node name="Enemy Deck Camera Position" type="Node3D" parent="Node/Main 3D/Enemy Player/Enemy Deck"]
 transform = Transform3D(0.996195, 0.0871557, 0, -0.00456138, 0.0521368, 0.99863, 0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
 
-[node name="Spiral Parent" type="Node3D" parent="Node/3D/Enemy Player/Enemy Deck"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Main 3D/Enemy Player/Enemy Deck"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.31, 0.001, -0.31)
 
-[node name="E Deck Spiral Card Area" parent="Node/3D/Enemy Player/Enemy Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
+[node name="E Deck Spiral Card Area" parent="Node/Main 3D/Enemy Player/Enemy Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
-[node name="Enemy Discard" type="Node3D" parent="Node/3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Enemy Discard" type="Node3D" parent="Node/Main 3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, -0.185)
 script = ExtResource("10_pkr2w")
 _cardArranger = NodePath("Spiral Parent/E Discard Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
 
-[node name="Spread Out Discard" type="Node3D" parent="Node/3D/Enemy Player/Enemy Discard"]
+[node name="Spread Out Discard" type="Node3D" parent="Node/Main 3D/Enemy Player/Enemy Discard"]
 transform = Transform3D(-3.19967e-09, 0, 0.0732, 0, 0.0732, 0, -0.0732, 0, -3.19967e-09, 0.31, 0.0344, -0.31)
 script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
 
-[node name="Enemy Discard Camera Position" type="Node3D" parent="Node/3D/Enemy Player/Enemy Discard"]
+[node name="Enemy Discard Camera Position" type="Node3D" parent="Node/Main 3D/Enemy Player/Enemy Discard"]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
 
-[node name="Spiral Parent" type="Node3D" parent="Node/3D/Enemy Player/Enemy Discard"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Main 3D/Enemy Player/Enemy Discard"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.31, 0.001, -0.31)
 
-[node name="E Discard Spiral Card Area" parent="Node/3D/Enemy Player/Enemy Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
+[node name="E Discard Spiral Card Area" parent="Node/Main 3D/Enemy Player/Enemy Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
+
+[node name="Copy 3D" type="Node3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+
+[node name="Engine Stuff" type="Node3D" parent="Node/Copy 3D"]
+
+[node name="Camera Over Board" type="Node3D" parent="Node/Copy 3D/Engine Stuff"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.55, 0)
+
+[node name="Simulated Camera Location" type="Node3D" parent="Node/Copy 3D/Engine Stuff/Camera Over Board"]
+
+[node name="Friendly Hand Parent Object" type="Node3D" parent="Node/Copy 3D/Engine Stuff/Camera Over Board/Simulated Camera Location"]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
+
+[node name="Debug positioning cube" type="MeshInstance3D" parent="Node/Copy 3D/Engine Stuff/Camera Over Board/Simulated Camera Location/Friendly Hand Parent Object"]
+visible = false
+mesh = SubResource("BoxMesh_ols17")
+
+[node name="Left Bound" type="Node3D" parent="Node/Copy 3D/Engine Stuff/Camera Over Board/Simulated Camera Location"]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
+
+[node name="Right Bound" type="Node3D" parent="Node/Copy 3D/Engine Stuff/Camera Over Board/Simulated Camera Location"]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0.196979, -0.2, -0.25)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node/Copy 3D/Engine Stuff"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)
+light_energy = 1.5
+
+[node name="Board" type="Node3D" parent="Node/Copy 3D" node_paths=PackedStringArray("_spacesController")]
+script = ExtResource("1_l7n64")
+_spacesController = NodePath("../../Main 3D/Board/Spaces")
+
+[node name="Kompas Board Beeg (Low Quality)" type="CSGMesh3D" parent="Node/Copy 3D/Board"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4jiy5")
+material = ExtResource("1_k7cme")
+
+[node name="Kompas Board Smol (High Quality)" type="CSGMesh3D" parent="Node/Copy 3D/Board"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+mesh = SubResource("PlaneMesh_4jiy5")
+material = ExtResource("2_wywm4")
+
+[node name="Spaces" type="Node3D" parent="Node/Copy 3D/Board" node_paths=PackedStringArray("_gameController", "_canMove", "_canPlay", "_recommend", "_unrecommend", "_spacesClickingController", "_placeInSpaceController")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.002, 0)
+script = ExtResource("5_kcvca")
+_linkedSpaces = ExtResource("9_06muj")
+_defaultAOEMaterial = ExtResource("10_64mcu")
+_gameController = NodePath("../../../..")
+_canMove = NodePath("../../../Main 3D/Board/Spaces/Can Move Spaces")
+_canMoveMaterial = ExtResource("11_3gybj")
+_canPlay = NodePath("../../../Main 3D/Board/Spaces/Can Play Spaces")
+_canPlayMaterial = ExtResource("10_eomph")
+_recommend = NodePath("../../../Main 3D/Board/Spaces/Should Target Spaces")
+_unrecommend = NodePath("../../../Main 3D/Board/Spaces/Should Not Target Spaces")
+_recommendMaterial = ExtResource("12_becll")
+_unrecommendMaterial = ExtResource("14_nddoh")
+_spacesClickingController = NodePath("../../../Main 3D/Board/Spaces/Clickables in Order")
+_placeInSpaceController = NodePath("../../../Main 3D/Board/Spaces/Place In Spaces")
+
+[node name="Clickables in Order" type="Node3D" parent="Node/Copy 3D/Board/Spaces"]
+transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("9_0nh6x")
+
+[node name="Area3D 0 0" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 0 0"]
+shape = SubResource("ConvexPolygonShape3D_jatgb")
+
+[node name="Area3D 0 1" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 0 1"]
+shape = SubResource("ConvexPolygonShape3D_qi4se")
+
+[node name="Area3D 0 2" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 0 2"]
+shape = SubResource("ConvexPolygonShape3D_kidb6")
+
+[node name="Area3D 0 3" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 0 3"]
+shape = SubResource("ConvexPolygonShape3D_vd02t")
+
+[node name="Area3D 0 4" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 0 4"]
+shape = SubResource("ConvexPolygonShape3D_os2lf")
+
+[node name="Area3D 0 5" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 0 5"]
+shape = SubResource("ConvexPolygonShape3D_v76p1")
+
+[node name="Area3D 0 6" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 0 6"]
+shape = SubResource("ConvexPolygonShape3D_janqo")
+
+[node name="Area3D 1 0" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 1 0"]
+shape = SubResource("ConvexPolygonShape3D_g4oy0")
+
+[node name="Area3D 1 1" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 1 1"]
+shape = SubResource("ConvexPolygonShape3D_7sepf")
+
+[node name="Area3D 1 2" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 1 2"]
+shape = SubResource("ConvexPolygonShape3D_1ha6c")
+
+[node name="Area3D 1 3" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 1 3"]
+shape = SubResource("ConvexPolygonShape3D_ujam6")
+
+[node name="Area3D 1 4" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 1 4"]
+shape = SubResource("ConvexPolygonShape3D_wbqoo")
+
+[node name="Area3D 1 5" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 1 5"]
+shape = SubResource("ConvexPolygonShape3D_iy2ui")
+
+[node name="Area3D 1 6" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 1 6"]
+shape = SubResource("ConvexPolygonShape3D_1gf68")
+
+[node name="Area3D 2 0" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 2 0"]
+shape = SubResource("ConvexPolygonShape3D_tfl67")
+
+[node name="Area3D 2 1" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 2 1"]
+shape = SubResource("ConvexPolygonShape3D_0bstj")
+
+[node name="Area3D 2 2" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 2 2"]
+shape = SubResource("ConvexPolygonShape3D_ywilm")
+
+[node name="Area3D 2 3" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 2 3"]
+shape = SubResource("ConvexPolygonShape3D_ryndq")
+
+[node name="Area3D 2 4" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 2 4"]
+shape = SubResource("ConvexPolygonShape3D_1q1ql")
+
+[node name="Area3D 2 5" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 2 5"]
+shape = SubResource("ConvexPolygonShape3D_0jcw3")
+
+[node name="Area3D 2 6" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 2 6"]
+shape = SubResource("ConvexPolygonShape3D_rorxu")
+
+[node name="Area3D 3 0" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 3 0"]
+shape = SubResource("ConvexPolygonShape3D_b27i5")
+
+[node name="Area3D 3 1" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 3 1"]
+shape = SubResource("ConvexPolygonShape3D_cayym")
+
+[node name="Area3D 3 2" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 3 2"]
+shape = SubResource("ConvexPolygonShape3D_ir5is")
+
+[node name="Area3D 3 3" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 3 3"]
+shape = SubResource("ConvexPolygonShape3D_eu2fb")
+
+[node name="Area3D 3 4" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 3 4"]
+shape = SubResource("ConvexPolygonShape3D_24vy8")
+
+[node name="Area3D 3 5" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 3 5"]
+shape = SubResource("ConvexPolygonShape3D_f8w3c")
+
+[node name="Area3D 3 6" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 3 6"]
+shape = SubResource("ConvexPolygonShape3D_ge1uh")
+
+[node name="Area3D 4 0" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 4 0"]
+shape = SubResource("ConvexPolygonShape3D_88ph4")
+
+[node name="Area3D 4 1" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 4 1"]
+shape = SubResource("ConvexPolygonShape3D_3p222")
+
+[node name="Area3D 4 2" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 4 2"]
+shape = SubResource("ConvexPolygonShape3D_2rs5m")
+
+[node name="Area3D 4 3" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 4 3"]
+shape = SubResource("ConvexPolygonShape3D_yrvmv")
+
+[node name="Area3D 4 4" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 4 4"]
+shape = SubResource("ConvexPolygonShape3D_rfo8e")
+
+[node name="Area3D 4 5" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 4 5"]
+shape = SubResource("ConvexPolygonShape3D_6vgd5")
+
+[node name="Area3D 4 6" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 4 6"]
+shape = SubResource("ConvexPolygonShape3D_5cnee")
+
+[node name="Area3D 5 0" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 5 0"]
+shape = SubResource("ConvexPolygonShape3D_tsf1c")
+
+[node name="Area3D 5 1" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 5 1"]
+shape = SubResource("ConvexPolygonShape3D_dnhaj")
+
+[node name="Area3D 5 2" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 5 2"]
+shape = SubResource("ConvexPolygonShape3D_1d8qk")
+
+[node name="Area3D 5 3" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 5 3"]
+shape = SubResource("ConvexPolygonShape3D_dnpoi")
+
+[node name="Area3D 5 4" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 5 4"]
+shape = SubResource("ConvexPolygonShape3D_ksee6")
+
+[node name="Area3D 5 5" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 5 5"]
+shape = SubResource("ConvexPolygonShape3D_d7hne")
+
+[node name="Area3D 5 6" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 5 6"]
+shape = SubResource("ConvexPolygonShape3D_7gf4e")
+
+[node name="Area3D 6 0" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 6 0"]
+shape = SubResource("ConvexPolygonShape3D_0oe7f")
+
+[node name="Area3D 6 1" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 6 1"]
+shape = SubResource("ConvexPolygonShape3D_sg7o3")
+
+[node name="Area3D 6 2" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 6 2"]
+shape = SubResource("ConvexPolygonShape3D_226a7")
+
+[node name="Area3D 6 3" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 6 3"]
+shape = SubResource("ConvexPolygonShape3D_4ifri")
+
+[node name="Area3D 6 4" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 6 4"]
+shape = SubResource("ConvexPolygonShape3D_lftok")
+
+[node name="Area3D 6 5" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 6 5"]
+shape = SubResource("ConvexPolygonShape3D_uf0rr")
+
+[node name="Area3D 6 6" type="Area3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Copy 3D/Board/Spaces/Clickables in Order/Area3D 6 6"]
+shape = SubResource("ConvexPolygonShape3D_7idqb")
+
+[node name="Can Move Spaces" parent="Node/Copy 3D/Board/Spaces" node_paths=PackedStringArray("_linkedSpacesParent") instance=ExtResource("9_06muj")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+_linkedSpacesParent = NodePath("../../../../Main 3D/Board/Spaces/Can Move Spaces/Kompas Board Solidified")
+
+[node name="Can Play Spaces" parent="Node/Copy 3D/Board/Spaces" node_paths=PackedStringArray("_linkedSpacesParent") instance=ExtResource("9_06muj")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+_linkedSpacesParent = NodePath("../../../../Main 3D/Board/Spaces/Can Play Spaces/Kompas Board Solidified")
+
+[node name="Should Target Spaces" parent="Node/Copy 3D/Board/Spaces" node_paths=PackedStringArray("_linkedSpacesParent") instance=ExtResource("9_06muj")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+_linkedSpacesParent = NodePath("../../../../Main 3D/Board/Spaces/Should Target Spaces/Kompas Board Solidified")
+
+[node name="Should Not Target Spaces" parent="Node/Copy 3D/Board/Spaces" node_paths=PackedStringArray("_linkedSpacesParent") instance=ExtResource("9_06muj")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+_linkedSpacesParent = NodePath("../../../../Main 3D/Board/Spaces/Should Not Target Spaces/Kompas Board Solidified")
+
+[node name="Place In Spaces" type="Node3D" parent="Node/Copy 3D/Board/Spaces" node_paths=PackedStringArray("_positionsParent")]
+transform = Transform3D(-0.05, 4.37114e-09, 0, -4.37114e-09, -0.05, 0, 0, 0, 0.05, 0, -0.005, 0)
+script = ExtResource("14_k7smq")
+_positionsParent = NodePath("../../../../Main 3D/Board/Spaces/Place In Spaces")
+
+[node name="0 0" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.37428e-14, 0, -6.01369)
+script = ExtResource("15_tornx")
+
+[node name="0 1" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.826277, 0, -4.66196)
+script = ExtResource("15_tornx")
+y = 1
+
+[node name="0 2" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.68623, 0, -3.59708)
+script = ExtResource("15_tornx")
+y = 2
+
+[node name="0 3" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.68149e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.66018, -1.67638e-07, -2.61392)
+script = ExtResource("15_tornx")
+y = 3
+
+[node name="0 4" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.64827, -1.75089e-07, -1.67635)
+script = ExtResource("15_tornx")
+y = 4
+
+[node name="0 5" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 4.64224, -1.56462e-07, -0.840337)
+script = ExtResource("15_tornx")
+y = 5
+
+[node name="0 6" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 5.9272, -1.67638e-07, 0.0515695)
+script = ExtResource("15_tornx")
+y = 6
+
+[node name="1 0" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.843417, 0, -4.58955)
+script = ExtResource("15_tornx")
+x = 1
+
+[node name="1 1" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.5091e-14, 0, -3.58794)
+script = ExtResource("15_tornx")
+x = 1
+y = 1
+
+[node name="1 2" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.762724, 0, -2.59942)
+script = ExtResource("15_tornx")
+x = 1
+y = 2
+
+[node name="1 3" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.73243, 0, -1.71549)
+script = ExtResource("15_tornx")
+x = 1
+y = 3
+
+[node name="1 4" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.6448, 0, -0.804712)
+script = ExtResource("15_tornx")
+x = 1
+y = 4
+
+[node name="1 5" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.6396, 0, 0.0524449)
+script = ExtResource("15_tornx")
+x = 1
+y = 5
+
+[node name="1 6" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 4.75935, 0, 0.895215)
+script = ExtResource("15_tornx")
+x = 1
+y = 6
+
+[node name="2 0" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.72204, 0, -3.51824)
+script = ExtResource("15_tornx")
+x = 2
+
+[node name="2 1" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.843417, 0, -2.62745)
+script = ExtResource("15_tornx")
+x = 2
+y = 1
+
+[node name="2 2" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.00205219, 0, -1.77245)
+script = ExtResource("15_tornx")
+x = 2
+y = 2
+
+[node name="2 3" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.89835, 0, -0.857209)
+script = ExtResource("15_tornx")
+x = 2
+y = 3
+
+[node name="2 4" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.76466, 0, 0.079433)
+script = ExtResource("15_tornx")
+x = 2
+y = 4
+
+[node name="2 5" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.60848, 0, 0.847543)
+script = ExtResource("15_tornx")
+x = 2
+y = 5
+
+[node name="2 6" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.64283, 0, 1.74073)
+script = ExtResource("15_tornx")
+x = 2
+y = 6
+
+[node name="3 0" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.60158, 0, -2.60416)
+script = ExtResource("15_tornx")
+x = 3
+
+[node name="3 1" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.74771, 0, -1.69398)
+script = ExtResource("15_tornx")
+x = 3
+y = 1
+
+[node name="3 2" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.891311, 0, -0.824659)
+script = ExtResource("15_tornx")
+x = 3
+y = 2
+
+[node name="3 3" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.0010661, 0, -0.0185174)
+script = ExtResource("15_tornx")
+x = 3
+y = 3
+
+[node name="3 4" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.877744, 0, 0.820788)
+script = ExtResource("15_tornx")
+x = 3
+y = 4
+
+[node name="3 5" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.73997, 0, 1.80506)
+script = ExtResource("15_tornx")
+x = 3
+y = 5
+
+[node name="3 6" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.64144, 0, 2.65966)
+script = ExtResource("15_tornx")
+x = 3
+y = 6
+
+[node name="4 0" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.54693, 0, -1.68905)
+script = ExtResource("15_tornx")
+x = 4
+
+[node name="4 1" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.64908, 0, -0.842801)
+script = ExtResource("15_tornx")
+x = 4
+y = 1
+
+[node name="4 2" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.72857, 0, 0.0338094)
+script = ExtResource("15_tornx")
+x = 4
+y = 2
+
+[node name="4 3" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.833411, 0, 0.831207)
+script = ExtResource("15_tornx")
+x = 4
+y = 3
+
+[node name="4 4" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.00663064, 0, 1.75571)
+script = ExtResource("15_tornx")
+x = 4
+y = 4
+
+[node name="4 5" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.860496, 0, 2.67713)
+script = ExtResource("15_tornx")
+x = 4
+y = 5
+
+[node name="4 6" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.72901, 0, 3.61207)
+script = ExtResource("15_tornx")
+x = 4
+y = 6
+
+[node name="5 0" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -4.68384, 0, -0.87947)
+script = ExtResource("15_tornx")
+x = 5
+
+[node name="5 1" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.56456, 0, 0.0221689)
+script = ExtResource("15_tornx")
+x = 5
+y = 1
+
+[node name="5 2" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.67538, 0, 0.867522)
+script = ExtResource("15_tornx")
+x = 5
+y = 2
+
+[node name="5 3" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.74696, 0, 1.67876)
+script = ExtResource("15_tornx")
+x = 5
+y = 3
+
+[node name="5 4" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.772876, 0, 2.65349)
+script = ExtResource("15_tornx")
+x = 5
+y = 4
+
+[node name="5 5" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.022989, 0, 3.63723)
+script = ExtResource("15_tornx")
+x = 5
+y = 5
+
+[node name="5 6" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.887098, 0, 4.70474)
+script = ExtResource("15_tornx")
+x = 5
+y = 6
+
+[node name="6 0" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -5.84666, 0, -0.0197563)
+script = ExtResource("15_tornx")
+x = 6
+
+[node name="6 1" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -4.70606, 0, 0.856466)
+script = ExtResource("15_tornx")
+x = 6
+y = 1
+
+[node name="6 2" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.56321, 0, 1.70747)
+script = ExtResource("15_tornx")
+x = 6
+y = 2
+
+[node name="6 3" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.63613, 0, 2.61922)
+script = ExtResource("15_tornx")
+x = 6
+y = 3
+
+[node name="6 4" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.68543, 0, 3.52282)
+script = ExtResource("15_tornx")
+x = 6
+y = 4
+
+[node name="6 5" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.83675, 0, 4.60707)
+script = ExtResource("15_tornx")
+x = 6
+y = 5
+
+[node name="6 6" type="Node3D" parent="Node/Copy 3D/Board/Spaces/Place In Spaces"]
+transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0, 0, 5.835)
+script = ExtResource("15_tornx")
+x = 6
+y = 6
+
+[node name="Simulated Friendly Player" type="Node3D" parent="Node/Copy 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
+script = ExtResource("7_ju5wt")
+_playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info")
+_handController = NodePath("../../Main 3D/Friendly Player/Friendly Hand")
+_discardController = NodePath("../../Main 3D/Friendly Player/Friendly Discard")
+_deckController = NodePath("../../Main 3D/Friendly Player/Friendly Deck")
+_annihilationController = NodePath("../../Main 3D/Friendly Player/Friendly Annihilation")
+
+[node name="Simulated Friendly Hand" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.05, 0.495)
+script = ExtResource("7_hs3e0")
+_camera = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+_nodeParent = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Friendly Hand Parent Object")
+_leftBound = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Left Bound")
+_rightBound = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Right Bound")
+
+[node name="Simulated Friendly Annihilation" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
+script = ExtResource("8_4q2k2")
+
+[node name="Friendly Deck" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
+script = ExtResource("9_u740w")
+_cardArranger = NodePath("../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area")
+_cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.001, 0.31)
+
+[node name="F Deck Spiral Card Area" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+_nodeParent = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards")
+_topLeftCorner = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards/Card Placeholder Top Left")
+_rightBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards/Card Placeholder Top Right")
+_bottomBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards/Card Placeholder Bottom Left")
+_animationPlayer = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Spiral Big/AnimationPlayer")
+
+[node name="Spread Out Deck" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck"]
+transform = Transform3D(0.0732, 0, 0, 0, 0.0732, 0, 0, 0, 0.0732, 0.31, 0.0344, 0.315)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+
+[node name="Friendly Deck Camera Position" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck"]
+transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0.1, 0.7, 0.25)
+
+[node name="Friendly Discard" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
+script = ExtResource("10_pkr2w")
+_cardArranger = NodePath("../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area")
+_cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+
+[node name="Spread Out Discard" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard"]
+transform = Transform3D(0.0732, 0, 2.22045e-16, 0, 0.0732, 0, -2.22045e-16, 0, 0.0732, -0.31, 0.0344, 0.31)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+
+[node name="Friendly Discard Camera Position" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard"]
+transform = Transform3D(0.996195, 0.0871557, 0, 0.00456138, -0.0521368, 0.99863, 0.0870363, -0.994829, -0.052336, 0, 0.7, 0.25)
+
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.001, 0.31)
+
+[node name="F Discard Spiral Card Area" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.001, 0)
+_nodeParent = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Cards")
+_topLeftCorner = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Cards/Card Placeholder Top Left")
+_rightBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Cards/Card Placeholder Top Right")
+_bottomBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Cards/Card Placeholder Bottom Left")
+_animationPlayer = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Spiral Big/AnimationPlayer")
+
+[node name="Enemy Player" type="Node3D" parent="Node/Copy 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
+script = ExtResource("7_ju5wt")
+_playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info")
+_handController = NodePath("../../Main 3D/Enemy Player/Enemy Hand")
+_discardController = NodePath("../../Main 3D/Enemy Player/Enemy Discard")
+_deckController = NodePath("../../Main 3D/Enemy Player/Enemy Deck")
+_annihilationController = NodePath("../../Main 3D/Enemy Player/Enemy Annihilation")
+
+[node name="Enemy Hand" type="Node3D" parent="Node/Copy 3D/Enemy Player" node_paths=PackedStringArray("_nodeParent")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
+script = ExtResource("7_hs3e0")
+_nodeParent = NodePath("../../../Main 3D/Enemy Player/Enemy Hand/Enemy Hand Card Parent")
+
+[node name="Enemy Hand Camera Position" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Hand"]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 5, 0)
+
+[node name="Enemy Hand Card Parent" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Hand"]
+
+[node name="Enemy Annihilation" type="Node3D" parent="Node/Copy 3D/Enemy Player"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
+script = ExtResource("8_4q2k2")
+
+[node name="Enemy Deck" type="Node3D" parent="Node/Copy 3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
+script = ExtResource("9_u740w")
+_cardArranger = NodePath("../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area")
+_cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+
+[node name="Enemy Deck Camera Position" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Deck"]
+transform = Transform3D(0.996195, 0.0871557, 0, -0.00456138, 0.0521368, 0.99863, 0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
+
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Deck"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.31, 0.001, -0.31)
+
+[node name="E Deck Spiral Card Area" parent="Node/Copy 3D/Enemy Player/Enemy Deck/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+_nodeParent = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards")
+_topLeftCorner = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards/Card Placeholder Top Left")
+_rightBound = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards/Card Placeholder Top Right")
+_bottomBound = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards/Card Placeholder Bottom Left")
+_animationPlayer = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Spiral Big/AnimationPlayer")
+
+[node name="Enemy Discard" type="Node3D" parent="Node/Copy 3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, -0.185)
+script = ExtResource("10_pkr2w")
+_cardArranger = NodePath("../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area")
+_cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+
+[node name="Spread Out Discard" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Discard"]
+transform = Transform3D(-3.19967e-09, 0, 0.0732, 0, 0.0732, 0, -0.0732, 0, -3.19967e-09, 0.31, 0.0344, -0.31)
+script = ExtResource("16_plm70")
+ObjectHeight = 0.05
+ObjectDiameter = 1.0
+SpiralTighten = 0.25
+
+[node name="Enemy Discard Camera Position" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Discard"]
+transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
+
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Discard"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.31, 0.001, -0.31)
+
+[node name="E Discard Spiral Card Area" parent="Node/Copy 3D/Enemy Player/Enemy Discard/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+_nodeParent = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Cards")
+_topLeftCorner = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Cards/Card Placeholder Top Left")
+_rightBound = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Cards/Card Placeholder Top Right")
+_bottomBound = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Cards/Card Placeholder Bottom Left")
+_animationPlayer = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Spiral Big/AnimationPlayer")
 
 [node name="UI" type="Control" parent="Node"]
 layout_mode = 3
@@ -1096,7 +1893,7 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("27_0k46m")
 _textureRect = NodePath("VBoxContainer/TextureRect")
-_camera = NodePath("../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Camera3D")
+_camera = NodePath("../../../../../../../Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Camera3D")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control"]
 layout_mode = 1
@@ -1110,7 +1907,7 @@ grow_vertical = 2
 visible = false
 position = Vector2(356, 356)
 script = ExtResource("28_v8t5v")
-viewport = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+viewport = NodePath("../../../../../../../../../Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control/VBoxContainer/Area2D"]
 shape = SubResource("RectangleShape2D_75mxh")
@@ -1123,8 +1920,8 @@ layout_mode = 2
 texture = SubResource("ViewportTexture_d63ti")
 expand_mode = 5
 script = ExtResource("29_apfhk")
-_subViewport = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
-_viewportCamera = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Camera3D")
+_subViewport = NodePath("../../../../../../../../../Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+_viewportCamera = NodePath("../../../../../../../../../Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Camera3D")
 
 [node name="Main Window Placeholder" type="Control" parent="Node/UI/Main Game UI/HBoxContainer"]
 layout_mode = 2
@@ -1848,7 +2645,7 @@ offset_right = 200.0
 offset_bottom = 300.0
 mouse_filter = 1
 script = ExtResource("30_w3lfl")
-_camera = NodePath("../../3D/Engine Stuff/Camera Over Board/Main Camera Controller/Camera3D")
+_camera = NodePath("../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Camera3D")
 _cardName = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/MarginContainer/Card Name Label")
 _effectButtonPrefab = ExtResource("33_xkpbn")
 _effectButtonsParent = NodePath("MarginContainer/MarginContainer/Effect Parent VBox")

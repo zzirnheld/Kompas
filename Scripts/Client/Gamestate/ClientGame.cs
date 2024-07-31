@@ -143,7 +143,7 @@ namespace Kompas.Client.Gamestate
 		{
 			card.Remove();
 			cardsByID.Remove(card.ID);
-			card.CardController.Delete(); //TODO consider moving to GameController
+			card.NormalCardController.Delete(); //TODO consider moving to GameController
 		}
 
 		public void SetFirstTurnPlayer(int playerIndex)

@@ -31,7 +31,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private static void ScaleAdjacentCards(ICardController cardController)
 		{
 			foreach (var adjacentCard in cardController.Card.Game.Board.CardsAdjacentTo(cardController.Card.Position))
-				ScaleCard(adjacentCard.CardController);
+				ScaleCard(adjacentCard.NormalCardController);
 		}
 
 		private static void ScaleCard(ICardController cardController)

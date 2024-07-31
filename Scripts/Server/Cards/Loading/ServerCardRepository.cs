@@ -51,8 +51,8 @@ namespace Kompas.Server.Cards.Loading
 		{
 			string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
 
-			ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
-				=> ServerGameCard.Create(cardInfo, id, owner, game, ctrl, effects, isAvatar);
+			ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl, ServerCardController illusoryCtrl)
+				=> ServerGameCard.Create(cardInfo, id, owner, game, ctrl, illusoryCtrl, effects, isAvatar);
 			var ret = InstantiateGameCard(json, ConstructCard)
 				?? throw new InvalidOperationException($"Failed to instantiate {json}");
 			game.AddCard(ret);

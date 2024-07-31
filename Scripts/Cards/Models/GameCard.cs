@@ -18,7 +18,14 @@ namespace Kompas.Cards.Models
 {
 	public abstract class GameCard : GameCardBase, IGameCardInfo
 	{
-		public abstract ICardController CardController { get; }
+		/// <summary>
+		/// The card controller used for the section of the game that the normal camera is pointed at.
+		///</summary>
+		public abstract ICardController NormalCardController { get; }
+		/// <summary>
+		/// The card controller used for the illusion of revealing the text of the card when you hover over it with the "magnifying glass"
+		///</summary>
+		public abstract ICardController IllusoryCardController { get; }
 		public abstract IGame Game { get; }
 
 		public int ID { get; private set; }
@@ -289,37 +296,37 @@ namespace Kompas.Cards.Models
 		{
 			base.SetN(n, stackSrc, onlyStatBeingSet);
 			//TODO leverage onlyStatBeingSet to only call refresh when necessary. (Will require bookkeeping)
-			CardController.RefreshStats();
+			NormalCardController.RefreshStats();
 		}
 
 		public override void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetE(e, stackSrc, onlyStatBeingSet);
-			CardController.RefreshStats();
+			NormalCardController.RefreshStats();
 		}
 
 		public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetS(s, stackSrc, onlyStatBeingSet);
-			CardController.RefreshStats();
+			NormalCardController.RefreshStats();
 		}
 
 		public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetW(w, stackSrc, onlyStatBeingSet);
-			CardController.RefreshStats();
+			NormalCardController.RefreshStats();
 		}
 
 		public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetC(c, stackSrc, onlyStatBeingSet);
-			CardController.RefreshStats();
+			NormalCardController.RefreshStats();
 		}
 
 		public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetA(a, stackSrc, onlyStatBeingSet);
-			CardController.RefreshStats();
+			NormalCardController.RefreshStats();
 		}
 
 		/// <summary>

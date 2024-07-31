@@ -26,7 +26,7 @@ namespace Kompas.Client.Cards.Models
 				base.Location = value;
 				//TODO see if this ends up still being necessary
 				//ClientGame.clientUIController.Leyload = Game.Leyload;
-				if (CardController != null)
+				if (NormalCardController != null)
 				{
 					//CardController.gameCardViewController.Refresh();
 					UpdateRevealed();
@@ -39,8 +39,10 @@ namespace Kompas.Client.Cards.Models
 
 		public ClientEffect[] ClientEffects { get; }
 		public override IReadOnlyCollection<Effect> Effects => ClientEffects;
-		public ClientCardController ClientCardController { get; }
-		public override ICardController CardController => ClientCardController;
+		public ClientCardController NormalClientCardController { get; }
+		public override ICardController NormalCardController => NormalClientCardController;
+		public ClientCardController IllusoryClientCardController { get; }
+		public override ICardController IllusoryCardController => IllusoryClientCardController;
 
 		private bool knownToEnemy = false;
 		public override bool KnownToEnemy
@@ -59,18 +61,20 @@ namespace Kompas.Client.Cards.Models
 			set
 			{
 				base.SpacesMoved = value;
-				ClientCardController.RefreshStats();
+				NormalClientCardController.RefreshStats();
+				IllusoryClientCardController.RefreshStats();
 			}
 		}
 
 		private ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
-			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar)
+			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController normalCardController, ClientCardController illusoryCardController, bool isAvatar)
 			: base (serializedCard, id, owningPlayer, game.CardRepository)
 		{
 			//TODO: game should add card after creating it
 			//owner.Game.AddCard(this);
 
-			ClientCardController = cardController;
+			NormalClientCardController = normalCardController;
+			IllusoryClientCardController = illusoryCardController;
 			ClientGame = game;
 			ClientEffects = effects;
 
@@ -83,11 +87,11 @@ namespace Kompas.Client.Cards.Models
 		/// Factory method to create card and initialize the relevant things with a non-leaked this instance
 		/// </summary>
 		public static ClientGameCard Create(SerializableCard serializedCard, int id, ClientGame game,
-			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar = false)
+			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController normalCardController, ClientCardController illusoryCardController, bool isAvatar = false)
 		{
-			ClientGameCard ret = new(serializedCard, id, game, owningPlayer, effects, cardController, isAvatar);
+			ClientGameCard ret = new(serializedCard, id, game, owningPlayer, effects, normalCardController, illusoryCardController, isAvatar);
 
-			cardController.Card = ret;
+			normalCardController.Card = ret;
 			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index, owningPlayer);
 			game.AddCard(ret);
 
@@ -110,6 +114,10 @@ namespace Kompas.Client.Cards.Models
 			//ClientGame?.clientUIController.CardViewController.Refresh();
 		}
 
-		private void UpdateRevealed() => ClientCardController.RefreshRevealed();
+		private void UpdateRevealed()
+		{
+			NormalClientCardController.RefreshRevealed();
+			IllusoryClientCardController.RefreshRevealed();
+		}
 	}
 }

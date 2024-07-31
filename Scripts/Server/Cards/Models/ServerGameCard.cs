@@ -30,7 +30,8 @@ namespace Kompas.Server.Cards.Models
 
 		public override bool IsAvatar { get; }
 
-		public override ICardController CardController { get; }
+		public override ICardController NormalCardController { get; }
+		public override ICardController IllusoryCardController { get; }
 
 		private bool knownToEnemy = false;
 		public override bool KnownToEnemy
@@ -92,20 +93,21 @@ namespace Kompas.Server.Cards.Models
 		}
 
 		private ServerGameCard(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
-			IServerGame game, ICardController cardController, IServerEffect[] effects, bool isAvatar)
+			IServerGame game, ICardController cardController, ICardController illusoryCtrl, IServerEffect[] effects, bool isAvatar)
 			: base(serializeableCard, id, owningPlayer, game.CardRepository)
 		{
 			ServerGame = game;
 			ServerEffects = effects;
-			CardController = cardController;
+			NormalCardController = cardController;
+			IllusoryCardController = illusoryCtrl;
 			IsAvatar = isAvatar;
 		}
 
 		public static ServerGameCard Create(SerializableCard serializeableCard, int id, IPlayer owningPlayer,
-			IServerGame game, ICardController cardController, IServerEffect[] effects, bool isAvatar)
+			IServerGame game, ICardController cardController, ICardController illusoryCtrl, IServerEffect[] effects, bool isAvatar)
 		{
 			var ret = new ServerGameCard(serializeableCard, id, owningPlayer,
-				game, cardController, effects, isAvatar);
+				game, cardController, illusoryCtrl, effects, isAvatar);
 
 			foreach (var (index, eff) in effects.Enumerate())
 				eff.SetInfo(ret, game, index);

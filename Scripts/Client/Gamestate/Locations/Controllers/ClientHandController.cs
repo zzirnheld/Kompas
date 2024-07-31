@@ -68,7 +68,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			Logger.Log($"Spreading {HandModel.HandSize} = {HandModel.Cards.Count()} cards: {string.Join(", ", HandModel.Cards.Select(c => c.CardName))}");
 			for (int i = 0; i < HandModel.HandSize; i++)
 			{
-				var node = HandModel[i].CardController.Node;
+				var node = HandModel[i].NormalCardController.Node;
 				node.GetParent()?.RemoveChild(node);
 				NodeParent.AddChild(node);
 
