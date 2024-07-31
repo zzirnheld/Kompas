@@ -35,6 +35,8 @@ public partial class ClientCardController : Node3D, ICardController
 	private const string FocusedAnimationName = "Rotate";
 	private const string ResetAnimationName = "RESET";
 
+	private bool illusory;
+
 	private bool focused;
 
 	private ClientCardView? _cardView;
@@ -70,18 +72,23 @@ public partial class ClientCardController : Node3D, ICardController
 	public ClientGameCard Card
 	{
 		get => _card ?? throw new System.NullReferenceException("Tried to get card of CardController when it was null");
-		set
+		private set
 		{
 			if (_card != null) throw new System.InvalidOperationException("Already initialized ClientCardController's card");
 			_card = value
 				?? throw new System.ArgumentNullException(nameof(value), "Card can't be null!");
-			CardView = new(CardModelController.InfoDisplayer, value);
-			AOEController = GameController.TargetingController.SpacesController.AddAOE();
-			//TODO: update AOE material accordingly, once that's something I have assigned
-
-			Card.LocationChanged += (_, _) => RefreshAOE();
-			Card.AugmentsChanged += (_, _) => RefreshAugments();
 		}
+	}
+
+	public void SetCard(ClientGameCard card, bool illusory)
+	{
+		Card = card;
+		CardView = new(CardModelController.InfoDisplayer, card, illusory);
+		AOEController = GameController.TargetingController.SpacesController.AddAOE();
+		//TODO: update AOE material accordingly, once that's something I have assigned
+
+		Card.LocationChanged += (_, _) => RefreshAOE();
+		Card.AugmentsChanged += (_, _) => RefreshAugments();
 	}
 
 	private ClientGameController GameController => Card.ClientGame.ClientGameController;
@@ -139,7 +146,7 @@ public partial class ClientCardController : Node3D, ICardController
 		var cardControllers = this == Card.NormalCardController
 			? Card.Augments.Select(c => c.NormalCardController)
 			: Card.Augments.Select(c => c.IllusoryCardController);
-			
+
 		if (focused) CardModelController.AugmentsController.Spread(cardControllers);
 		else CardModelController.AugmentsController.Stack(cardControllers);
 

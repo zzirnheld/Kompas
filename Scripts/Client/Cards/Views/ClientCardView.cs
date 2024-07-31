@@ -12,9 +12,12 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 	private Color FriendlyColor => new(225f / 255f, 150f / 255f, 50f / 255f);
 	private Color EnemyColor => new(188f / 255f, 188f / 255f, 188f / 255f);
 
-	public ClientCardView(Zoomable3DCardInfoDisplayer infoDisplayer, ClientGameCard card)
+	private readonly bool illusory;
+
+	public ClientCardView(Zoomable3DCardInfoDisplayer infoDisplayer, ClientGameCard card, bool illusory)
 		: base(infoDisplayer)
 	{
+		this.illusory = illusory;
 		Focus(card);
 	}
 
@@ -22,7 +25,7 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 	{
 		base.Display(shownCard);
 
-		InfoDisplayer.DisplayZoomed(zoomedIn: true); //For now, assume never zoomed in.
+		InfoDisplayer.DisplayZoomed(zoomedIn: illusory);
 		DisplayFrame();
 
 		DisplayTargeting(shownCard);

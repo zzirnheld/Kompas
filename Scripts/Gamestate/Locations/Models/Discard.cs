@@ -23,6 +23,7 @@ namespace Kompas.Gamestate.Locations.Models
 			this.illusoryController = illusoryController;
 
 			discardController.DiscardModel = this;
+			illusoryController.DiscardModel = this;
 		}
 
 		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)

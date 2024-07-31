@@ -1704,13 +1704,12 @@ y = 6
 
 [node name="Illusory Friendly Player" type="Node3D" parent="Node/Copy 3D"]
 
-[node name="Illusory Friendly Hand" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
+[node name="Illusory Friendly Hand" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player" node_paths=PackedStringArray("_nodeParent", "_leftBound", "_rightBound")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.05, 0.495)
 script = ExtResource("7_hs3e0")
-_camera = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
-_nodeParent = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Friendly Hand Parent Object")
-_leftBound = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Left Bound")
-_rightBound = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Right Bound")
+_nodeParent = NodePath("../../Engine Stuff/Camera Over Board/Simulated Camera Location/Friendly Hand Parent Object")
+_leftBound = NodePath("../../Engine Stuff/Camera Over Board/Simulated Camera Location/Left Bound")
+_rightBound = NodePath("../../Engine Stuff/Camera Over Board/Simulated Camera Location/Right Bound")
 Illusory = true
 
 [node name="Illusory Friendly Annihilation" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player"]

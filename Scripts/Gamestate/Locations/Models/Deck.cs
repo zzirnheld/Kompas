@@ -26,6 +26,7 @@ namespace Kompas.Gamestate.Locations.Models
 			this.illusoryController = illusoryController;
 
 			deckController.DeckModel = this;
+			illusoryController.DeckModel = this;
 		}
 
 		public override int IndexOf(GameCard card) => deck.IndexOf(card);

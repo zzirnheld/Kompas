@@ -25,7 +25,9 @@ namespace Kompas.Gamestate.Locations.Models
 		{
 			this.handController = handController;
 			this.illusoryController = illusoryController;
+
 			handController.HandModel = this; //TODO: is there another, better way to initialize HandModel? without leaking this
+			illusoryController.HandModel = this;
 		}
 
 		public GameCard this[int index] => hand[index];

@@ -70,17 +70,12 @@ namespace Kompas.Client.Cards.Models
 			IPlayer owningPlayer, ClientEffect[] effects, ClientCardController normalCardController, ClientCardController illusoryCardController, bool isAvatar)
 			: base (serializedCard, id, owningPlayer, game.CardRepository)
 		{
-			//TODO: game should add card after creating it
-			//owner.Game.AddCard(this);
-
 			NormalClientCardController = normalCardController;
 			IllusoryClientCardController = illusoryCardController;
 			ClientGame = game;
 			ClientEffects = effects;
 
 			this.isAvatar = isAvatar;
-
-			//cardController.gameCardViewController.Focus(this);
 		}
 
 		/// <summary>
@@ -91,7 +86,9 @@ namespace Kompas.Client.Cards.Models
 		{
 			ClientGameCard ret = new(serializedCard, id, game, owningPlayer, effects, normalCardController, illusoryCardController, isAvatar);
 
-			normalCardController.Card = ret;
+			normalCardController.SetCard(ret, false);
+			illusoryCardController.SetCard(ret, true);
+
 			foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index, owningPlayer);
 			game.AddCard(ret);
 

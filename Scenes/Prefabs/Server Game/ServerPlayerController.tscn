@@ -6,11 +6,14 @@
 [ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerDeckController.cs" id="4_nlgx2"]
 [ext_resource type="Script" path="res://Scripts/Server/Gamestate/Locations/Controllers/ServerDiscardController.cs" id="5_3thf0"]
 
-[node name="ServerPlayerController" type="Node" node_paths=PackedStringArray("_handController", "_discardController", "_deckController", "_annihilationController")]
+[node name="ServerPlayerController" type="Node" node_paths=PackedStringArray("_handController", "_illusoryHandController", "_discardController", "_illusoryDiscardController", "_deckController", "_illusoryDeckController", "_annihilationController")]
 script = ExtResource("1_4vh3p")
 _handController = NodePath("Hand")
+_illusoryHandController = NodePath("Illusory Hand")
 _discardController = NodePath("Discard")
+_illusoryDiscardController = NodePath("Illusory Discard")
 _deckController = NodePath("Deck")
+_illusoryDeckController = NodePath("Illusory Deck")
 _annihilationController = NodePath("Annihilation")
 
 [node name="Hand" type="Node" parent="."]
@@ -23,4 +26,16 @@ script = ExtResource("3_4i5xf")
 script = ExtResource("4_nlgx2")
 
 [node name="Discard" type="Node" parent="."]
+script = ExtResource("5_3thf0")
+
+[node name="Illusory Hand" type="Node" parent="."]
+script = ExtResource("2_0eg1b")
+
+[node name="Illusory Annihilation" type="Node" parent="."]
+script = ExtResource("3_4i5xf")
+
+[node name="Illusory Deck" type="Node" parent="."]
+script = ExtResource("4_nlgx2")
+
+[node name="Illusory Discard" type="Node" parent="."]
 script = ExtResource("5_3thf0")

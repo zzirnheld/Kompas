@@ -29,15 +29,6 @@ public partial class Area3DAroundViewportQuad : Area3D
 	public SubViewport SubViewport => _subViewport
 		?? throw new UnassignedReferenceException(nameof(_subViewport), this);
 
-	//TODO move this to an inheritor
-	[Export]
-	private CardMouseController? _cardMouseController;
-	/// <summary>
-	/// Because this object needs to have an Area3D, but we might also want to click the overall object, this is to toss that input over.
-	///</summary>
-	private CardMouseController CardMouseController => _cardMouseController
-		?? throw new UnassignedReferenceException(nameof(_cardMouseController), this);
-
 	/// <summary>
 	/// A raycast from some camera (this class doesn't care which) found this area.
 	/// When that happens, we propagate that as a mouse motion event into the given viewport.

@@ -40,7 +40,7 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 		}
 
 		if (card is not GameCard gameCard) throw new System.InvalidOperationException("Can only handle a game card!");
-		lastDisplayed = gameCard.NormalCardController.PlaceCameraAboveCard(Camera);
+		lastDisplayed = gameCard.IllusoryCardController.PlaceCameraAboveCard(Camera);
 		//TODO: make sure we hook up the keywords correctly for mouse hover
 		lastDisplayed.BeginHoverKeyword += HoverKeyword;
 		lastDisplayed.EndHoverKeyword += StopHoverKeyword;
