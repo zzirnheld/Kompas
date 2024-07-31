@@ -46,6 +46,8 @@ public partial class Area3DAroundViewportQuad : Area3D
 	{
 		if (QuadMesh.Mesh is not PlaneMesh planeMesh) throw new System.InvalidOperationException("MUST be a plane mesh");
 
+		//Logger.Log($"Got hit with {eventPos}");
+
 		var quadMeshSize = planeMesh.Size;
 
 		//Start with the event's position, transformed by the global affine inverse.

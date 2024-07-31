@@ -282,7 +282,6 @@ light_energy = 1.5
 [node name="Top Left SubViewport" type="SubViewport" parent="Node/3D/Engine Stuff/Top Left Camera"]
 transparent_bg = true
 handle_input_locally = false
-physics_object_picking = true
 physics_object_picking_sort = true
 gui_snap_controls_to_pixels = false
 render_target_update_mode = 4

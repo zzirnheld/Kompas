@@ -32,7 +32,7 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 
 	public void Display(CardBase card)
 	{
-		Logger.Log($"Top left camera Displaying {card}");
+		//Logger.Log($"At {System.DateTime.Now.Millisecond} Top left camera Displaying {card}");
 		if (lastDisplayed != null)
 		{
 			lastDisplayed.BeginHoverKeyword -= HoverKeyword;
