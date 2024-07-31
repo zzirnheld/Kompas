@@ -74,9 +74,9 @@ namespace Kompas.Client.Gamestate.Players
 		{
 			var ret = new ClientPlayer(game, index, playerController, getNetworker);
 
-			ret.Deck = new ClientDeck(ret, playerController.DeckController);
-			ret.Hand = new ClientHand(ret, playerController.HandController);
-			ret.Discard = new ClientDiscard(ret, playerController.DiscardController);
+			ret.Deck = new ClientDeck(ret, playerController.DeckController, playerController.IllusoryDeckController);
+			ret.Hand = new ClientHand(ret, playerController.HandController, playerController.IllusoryHandController);
+			ret.Discard = new ClientDiscard(ret, playerController.DiscardController, playerController.IllusoryDiscardController);
 			ret.Annihilation = new ClientAnnihilation(ret, playerController.AnnihilationController);
 
 			return ret;

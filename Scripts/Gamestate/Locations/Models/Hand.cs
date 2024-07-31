@@ -17,12 +17,14 @@ namespace Kompas.Gamestate.Locations.Models
 		public override Location Location => Location.Hand;
 
 		private readonly HandController handController;
+		private readonly HandController illusoryController;
 
 		public int HandSize => hand.Count;
 
-		protected Hand(IPlayer owner, HandController handController) : base(owner)
+		protected Hand(IPlayer owner, HandController handController, HandController illusoryController) : base(owner)
 		{
 			this.handController = handController;
+			this.illusoryController = illusoryController;
 			handController.HandModel = this; //TODO: is there another, better way to initialize HandModel? without leaking this
 		}
 
@@ -34,6 +36,7 @@ namespace Kompas.Gamestate.Locations.Models
 		{
 			base.PerformAdd(card, index, stackableCause);
 			handController.Refresh();
+			illusoryController.Refresh();
 		}
 
 		protected override void AddToCollection(GameCard card, int? index)
@@ -49,6 +52,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 			hand.Remove(card);
 			handController.Refresh();
+			illusoryController.Refresh();
 		}
 	}
 }

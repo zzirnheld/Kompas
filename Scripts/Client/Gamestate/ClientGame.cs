@@ -94,7 +94,7 @@ namespace Kompas.Client.Gamestate
 			ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
 			ret.clientPlayers[1].Enemy = ret.clientPlayers[0];
 
-			ret.ClientBoard = new ClientBoard(gameController.BoardController
+			ret.ClientBoard = new ClientBoard(gameController.BoardController, gameController.IllusoryBoardController
 				?? throw new System.NullReferenceException("Failed to init"));
 
 			return ret;
@@ -143,7 +143,7 @@ namespace Kompas.Client.Gamestate
 		{
 			card.Remove();
 			cardsByID.Remove(card.ID);
-			card.NormalCardController.Delete(); //TODO consider moving to GameController
+			card.AllCardControllers.Delete(); //TODO consider moving to GameController
 		}
 
 		public void SetFirstTurnPlayer(int playerIndex)

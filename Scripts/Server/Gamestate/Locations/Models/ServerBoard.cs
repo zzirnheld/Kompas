@@ -19,7 +19,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 
 		private IServerStackController EffectsController => serverGame.StackController;
 
-		public ServerBoard(BoardController boardController, ServerGame serverGame) : base(boardController)
+		public ServerBoard(BoardController boardController, BoardController illusoryController, ServerGame serverGame)
+			: base(boardController, illusoryController)
 		{
 			this.serverGame = serverGame;
 		}

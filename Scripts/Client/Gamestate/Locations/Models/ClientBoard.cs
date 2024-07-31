@@ -8,7 +8,7 @@ namespace Kompas.Client.Gamestate.Locations.Models
 {
 	public class ClientBoard : Board
 	{
-		public ClientBoard(BoardController boardController) : base(boardController) { }
+		public ClientBoard(BoardController boardController, BoardController illusoryController) : base(boardController, illusoryController) { }
 
 		public void Play(ClientGameCard card, Space to, IPlayer controller) => base.Play(card, to, controller);
 	}

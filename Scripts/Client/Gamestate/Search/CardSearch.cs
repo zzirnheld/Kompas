@@ -126,14 +126,14 @@ namespace Kompas.Client.Gamestate.Search
 			//if we were given a maximum number to be searched, and hit that number, no reason to keep asking
 			else if (searched.Count == listRestriction.GetStashedMaximum()) SendTargets();
 
-			nextTarget.NormalCardController.RefreshTargeting();
+			nextTarget.AllCardControllers.RefreshTargeting();
 		}
 
 		public void RemoveTarget(GameCard target)
 		{
 			Logger.Log($"Tried to remove {target} as next target");
 			searched.Remove(target);
-			target.NormalCardController.RefreshTargeting();
+			target.AllCardControllers.RefreshTargeting();
 		}
 
 		public void SendTargets(bool confirmed = false)
@@ -153,7 +153,7 @@ namespace Kompas.Client.Gamestate.Search
 			Logger.Log($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} ");
 
 			SendChoices(choices);
-			foreach (var card in game.Cards) card.NormalCardController.RefreshTargeting();
+			foreach (var card in game.Cards) card.AllCardControllers.RefreshTargeting();
 			SearchFinished?.Invoke(this, EventArgs.Empty);
 		}
 

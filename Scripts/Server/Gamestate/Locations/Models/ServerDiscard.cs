@@ -12,8 +12,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 	{
 		private readonly ServerGame game;
 
-		public ServerDiscard(IPlayer owner, DiscardController discardController, ServerGame game)
-			: base(owner, discardController)
+		public ServerDiscard(IPlayer owner, DiscardController discardController, DiscardController illusoryController, ServerGame game)
+			: base(owner, discardController, illusoryController)
 		{
 			this.game = game;
 		}

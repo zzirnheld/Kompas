@@ -89,9 +89,9 @@ namespace Kompas.Server.Gamestate.Players
 		{
 			ServerPlayer ret = new(game, index, controller);
 
-			ret._deck = new ServerDeck(ret, controller.DeckController, game);
-			ret._discard = new ServerDiscard(ret, controller.DiscardController, game);
-			ret._hand = new ServerHand(ret, controller.HandController, game);
+			ret._deck = new ServerDeck(ret, controller.DeckController, controller.IllusoryDeckController, game);
+			ret._discard = new ServerDiscard(ret, controller.DiscardController, controller.IllusoryDiscardController, game);
+			ret._hand = new ServerHand(ret, controller.HandController, controller.IllusoryHandController, game);
 			ret._annihilation = new ServerAnnihilation(ret, controller.AnnihilationController, game);
 			ret._networker = getNetworker(ret, index);
 

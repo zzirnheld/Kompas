@@ -5,6 +5,7 @@ using System.Text;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Loading;
+using Kompas.Client.UI;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Gamestate;
@@ -13,11 +14,83 @@ using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Models
 {
 	public abstract class GameCard : GameCardBase, IGameCardInfo
 	{
+		private class DelegatingCardController : ICardController
+		{
+			private readonly ICardController Normal;
+			private readonly ICardController Illusory;
+
+			public DelegatingCardController(ICardController normal, ICardController illusory)
+			{
+				Normal = normal;
+				Illusory = illusory;
+
+				Normal.AnythingRefreshed += AnythingRefreshed;
+				Normal.StatsRefreshed += StatsRefreshed;
+				Normal.LinksRefreshed += LinksRefreshed;
+				Normal.AugmentsRefreshed += AugmentsRefreshed;
+				Normal.TargetingRefreshed += TargetingRefreshed;
+
+				Illusory.AnythingRefreshed += AnythingRefreshed;
+				Illusory.StatsRefreshed += StatsRefreshed;
+				Illusory.LinksRefreshed += LinksRefreshed;
+				Illusory.AugmentsRefreshed += AugmentsRefreshed;
+				Illusory.TargetingRefreshed += TargetingRefreshed;
+			}
+
+			public Node3D Node => throw new NotImplementedException();
+			public IGameCardInfo Card => Normal.Card;
+
+			public event EventHandler<GameCard?>? AnythingRefreshed;
+			public event EventHandler<GameCard?>? StatsRefreshed;
+			public event EventHandler<GameCard?>? LinksRefreshed;
+			public event EventHandler<GameCard?>? AugmentsRefreshed;
+			public event EventHandler<GameCard?>? TargetingRefreshed;
+
+			public void Delete()
+			{
+				Normal.Delete();
+				Illusory.Delete();
+			}
+
+			public IHoverableCardInfoDisplayer PlaceCameraAboveCard(CameraFollowObject cameraNode) => throw new NotImplementedException();
+
+			public void RefreshAugments()
+			{
+				Normal.RefreshAugments();
+				Illusory.RefreshAugments();
+			}
+
+			public void RefreshLinks()
+			{
+				Normal.RefreshLinks();
+				Illusory.RefreshLinks();
+			}
+
+			public void RefreshStats()
+			{
+				Normal.RefreshStats();
+				Illusory.RefreshStats();
+			}
+
+			public void RefreshTargeting()
+			{
+				Normal.RefreshTargeting();
+				Illusory.RefreshTargeting();
+			}
+
+			public void ShowEffectSource(bool current)
+			{
+				Normal.ShowEffectSource(current);
+				Illusory.ShowEffectSource(current);
+			}
+		}
+
 		/// <summary>
 		/// The card controller used for the section of the game that the normal camera is pointed at.
 		///</summary>
@@ -26,6 +99,10 @@ namespace Kompas.Cards.Models
 		/// The card controller used for the illusion of revealing the text of the card when you hover over it with the "magnifying glass"
 		///</summary>
 		public abstract ICardController IllusoryCardController { get; }
+
+		private ICardController? _allControllers;
+		public ICardController AllCardControllers => _allControllers ??= new DelegatingCardController(NormalCardController, IllusoryCardController);
+
 		public abstract IGame Game { get; }
 
 		public int ID { get; private set; }
@@ -296,37 +373,37 @@ namespace Kompas.Cards.Models
 		{
 			base.SetN(n, stackSrc, onlyStatBeingSet);
 			//TODO leverage onlyStatBeingSet to only call refresh when necessary. (Will require bookkeeping)
-			NormalCardController.RefreshStats();
+			AllCardControllers.RefreshStats();
 		}
 
 		public override void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetE(e, stackSrc, onlyStatBeingSet);
-			NormalCardController.RefreshStats();
+			AllCardControllers.RefreshStats();
 		}
 
 		public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetS(s, stackSrc, onlyStatBeingSet);
-			NormalCardController.RefreshStats();
+			AllCardControllers.RefreshStats();
 		}
 
 		public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetW(w, stackSrc, onlyStatBeingSet);
-			NormalCardController.RefreshStats();
+			AllCardControllers.RefreshStats();
 		}
 
 		public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetC(c, stackSrc, onlyStatBeingSet);
-			NormalCardController.RefreshStats();
+			AllCardControllers.RefreshStats();
 		}
 
 		public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
 		{
 			base.SetA(a, stackSrc, onlyStatBeingSet);
-			NormalCardController.RefreshStats();
+			AllCardControllers.RefreshStats();
 		}
 
 		/// <summary>

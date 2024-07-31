@@ -18,10 +18,13 @@ namespace Kompas.Gamestate.Locations.Models
 		public override Location Location => Location.Deck;
 
 		private readonly DeckController deckController;
+		private readonly DeckController illusoryController;
 
-		protected Deck(IPlayer owner, DeckController deckController) : base(owner)
+		protected Deck(IPlayer owner, DeckController deckController, DeckController illusoryController) : base(owner)
 		{
 			this.deckController = deckController;
+			this.illusoryController = illusoryController;
+
 			deckController.DeckModel = this;
 		}
 
@@ -36,6 +39,7 @@ namespace Kompas.Gamestate.Locations.Models
 		{
 			base.PerformAdd(card, index, stackableCause);
 			deckController.Refresh();
+			illusoryController.Refresh();
 		}
 
 		protected override void AddToCollection(GameCard card, int? index)
@@ -67,6 +71,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 			deck.Remove(card);
 			deckController.Refresh();
+			illusoryController.Refresh();
 		}
 
 		//misc

@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using Godot;
+using Kompas.Cards.Models;
 using Kompas.Client.UI;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
@@ -20,6 +22,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private ClientCameraController CameraController => _cameraController
 			?? throw new UnassignedReferenceException();
 
+		[Export]
+		private bool Illusory { get; set; }
+
 		public override void _Ready()
 		{
 			base._Ready();
@@ -34,7 +39,10 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		protected override void SpreadOut()
 		{
-			CardArranger.Arrange(DeckModel.Cards.Select(c => c.NormalCardController.Node).ToArray());
+			Func<GameCard, Node3D> selector = Illusory
+				? c => c.IllusoryCardController.Node
+				: c => c.NormalCardController.Node;
+			CardArranger.Arrange(DeckModel.Cards.Select(selector).ToArray());
 		}
 	}
 }

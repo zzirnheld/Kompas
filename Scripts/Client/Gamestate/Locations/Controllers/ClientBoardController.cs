@@ -30,8 +30,12 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		private static void ScaleAdjacentCards(ICardController cardController)
 		{
+			bool normal = cardController == cardController.Card.Card.NormalCardController;
 			foreach (var adjacentCard in cardController.Card.Game.Board.CardsAdjacentTo(cardController.Card.Position))
-				ScaleCard(adjacentCard.NormalCardController);
+			{
+				if (normal) ScaleCard(adjacentCard.NormalCardController);
+				else ScaleCard(adjacentCard.IllusoryCardController);
+			}
 		}
 
 		private static void ScaleCard(ICardController cardController)

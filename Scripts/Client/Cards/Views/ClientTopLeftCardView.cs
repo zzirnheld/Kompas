@@ -23,12 +23,12 @@ namespace Kompas.Client.Cards.Views
 		protected override void Show(ClientGameCard? card, bool refresh = false)
 		{
 			//unsubscribe before resubscribing, because otherwise refresh subscribes, and this explodes. hard.
-			if (ShownCard != null) ShownCard.NormalCardController.AnythingRefreshed -= Refresh;
+			if (ShownCard != null) ShownCard.AllCardControllers.AnythingRefreshed -= Refresh;
 
 			base.Show(card, refresh);
 
 			if (card == null) return;
-			card.NormalCardController.AnythingRefreshed += Refresh;
+			card.AllCardControllers.AnythingRefreshed += Refresh;
 		}
 
 		//This is its own function, not a lambda, so it can unsubscribe.

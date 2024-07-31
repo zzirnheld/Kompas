@@ -18,6 +18,11 @@ namespace Kompas.Gamestate
 		public BoardController BoardController => _boardController
 			?? throw new UnassignedReferenceException();
 
+		[Export]
+		private BoardController? _illusoryBoardController;
+		public BoardController IllusoryBoardController => _illusoryBoardController
+			?? throw new UnassignedReferenceException();
+
 		public abstract IGame Game { get; }
 	}
 }

@@ -136,7 +136,10 @@ public partial class ClientCardController : Node3D, ICardController
 
 	public void RefreshAugments()
 	{
-		var cardControllers = Card.Augments.Select(c => c.NormalCardController);
+		var cardControllers = this == Card.NormalCardController
+			? Card.Augments.Select(c => c.NormalCardController)
+			: Card.Augments.Select(c => c.IllusoryCardController);
+			
 		if (focused) CardModelController.AugmentsController.Spread(cardControllers);
 		else CardModelController.AugmentsController.Stack(cardControllers);
 

@@ -214,7 +214,7 @@ viewport_path = NodePath("Node/Main 3D/Engine Stuff/Top Left Camera/Top Left Sub
 [sub_resource type="ViewportTexture" id="ViewportTexture_d63ti"]
 viewport_path = NodePath("Node/Main 3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
 
-[node name="Game Controller" type="Node" node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_choicesView", "_escapeMenu", "_playerControllers", "_boardController")]
+[node name="Game Controller" type="Node" node_paths=PackedStringArray("_gameStartController", "_targetingController", "_currentStateController", "_useEffectDialog", "_stackView", "_camera", "_choicesView", "_escapeMenu", "_playerControllers", "_boardController", "_illusoryBoardController")]
 script = ExtResource("1_6rnfv")
 _gameStartController = NodePath("Node/UI/Game Start")
 _targetingController = NodePath("Targeting Controller")
@@ -227,6 +227,7 @@ _escapeMenu = NodePath("Node/UI/Escape Menu")
 _cardPrefab = ExtResource("2_q0mge")
 _playerControllers = [NodePath("Node/Main 3D/Friendly Player"), NodePath("Node/Main 3D/Enemy Player")]
 _boardController = NodePath("Node/Main 3D/Board")
+_illusoryBoardController = NodePath("Node/Copy 3D/Board")
 
 [node name="Targeting Controller" type="Node" parent="." node_paths=PackedStringArray("_topLeftInfoDisplayer", "_reminderTextPopup", "_gameController", "_canDeclineFurtherTargetsButton", "_spacesController")]
 script = ExtResource("2_cdbal")
@@ -918,12 +919,15 @@ script = ExtResource("15_tornx")
 x = 6
 y = 6
 
-[node name="Friendly Player" type="Node3D" parent="Node/Main 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
+[node name="Friendly Player" type="Node3D" parent="Node/Main 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_illusoryHandController", "_discardController", "_illusoryDiscardController", "_deckController", "_illusoryDeckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
 _playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info")
 _handController = NodePath("Friendly Hand")
+_illusoryHandController = NodePath("../../Copy 3D/Illusory Friendly Player/Illusory Friendly Hand")
 _discardController = NodePath("Friendly Discard")
+_illusoryDiscardController = NodePath("../../Copy 3D/Illusory Friendly Player/Illusory Friendly Discard")
 _deckController = NodePath("Friendly Deck")
+_illusoryDeckController = NodePath("../../Copy 3D/Illusory Friendly Player/Illusory Friendly Deck")
 _annihilationController = NodePath("Friendly Annihilation")
 
 [node name="Friendly Hand" type="Node3D" parent="Node/Main 3D/Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
@@ -981,12 +985,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.001, 0.31)
 [node name="F Discard Spiral Card Area" parent="Node/Main 3D/Friendly Player/Friendly Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.001, 0)
 
-[node name="Enemy Player" type="Node3D" parent="Node/Main 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
+[node name="Enemy Player" type="Node3D" parent="Node/Main 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_illusoryHandController", "_discardController", "_illusoryDiscardController", "_deckController", "_illusoryDeckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
 _playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info")
 _handController = NodePath("Enemy Hand")
+_illusoryHandController = NodePath("../../Copy 3D/Illusory Enemy Player/Illusory Enemy Hand")
 _discardController = NodePath("Enemy Discard")
+_illusoryDiscardController = NodePath("../../Copy 3D/Illusory Enemy Player/Illusory Enemy Discard")
 _deckController = NodePath("Enemy Deck")
+_illusoryDeckController = NodePath("../../Copy 3D/Illusory Enemy Player/Illusory Enemy Deck")
 _annihilationController = NodePath("Enemy Annihilation")
 
 [node name="Enemy Hand" type="Node3D" parent="Node/Main 3D/Enemy Player" node_paths=PackedStringArray("_nodeParent")]
@@ -1695,72 +1702,69 @@ script = ExtResource("15_tornx")
 x = 6
 y = 6
 
-[node name="Simulated Friendly Player" type="Node3D" parent="Node/Copy 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
-script = ExtResource("7_ju5wt")
-_playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Friendly Player Info")
-_handController = NodePath("../../Main 3D/Friendly Player/Friendly Hand")
-_discardController = NodePath("../../Main 3D/Friendly Player/Friendly Discard")
-_deckController = NodePath("../../Main 3D/Friendly Player/Friendly Deck")
-_annihilationController = NodePath("../../Main 3D/Friendly Player/Friendly Annihilation")
+[node name="Illusory Friendly Player" type="Node3D" parent="Node/Copy 3D"]
 
-[node name="Simulated Friendly Hand" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
+[node name="Illusory Friendly Hand" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player" node_paths=PackedStringArray("_camera", "_nodeParent", "_leftBound", "_rightBound")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.05, 0.495)
 script = ExtResource("7_hs3e0")
 _camera = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
 _nodeParent = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Friendly Hand Parent Object")
 _leftBound = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Left Bound")
 _rightBound = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller/Right Bound")
+Illusory = true
 
-[node name="Simulated Friendly Annihilation" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player"]
+[node name="Illusory Friendly Annihilation" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Friendly Deck" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Illusory Friendly Deck" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
 _cardArranger = NodePath("../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area")
 _cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+Illusory = true
 
-[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Deck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.001, 0.31)
 
-[node name="F Deck Spiral Card Area" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+[node name="F Deck Spiral Card Area" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Deck/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
 _nodeParent = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards")
 _topLeftCorner = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards/Card Placeholder Top Left")
 _rightBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards/Card Placeholder Top Right")
 _bottomBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Cards/Card Placeholder Bottom Left")
 _animationPlayer = NodePath("../../../../../Main 3D/Friendly Player/Friendly Deck/Spiral Parent/F Deck Spiral Card Area/Spiral Big/AnimationPlayer")
 
-[node name="Spread Out Deck" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck"]
+[node name="Spread Out Deck" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Deck"]
 transform = Transform3D(0.0732, 0, 0, 0, 0.0732, 0, 0, 0, 0.0732, 0.31, 0.0344, 0.315)
 script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
 
-[node name="Friendly Deck Camera Position" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Deck"]
+[node name="Friendly Deck Camera Position" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Deck"]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0.1, 0.7, 0.25)
 
-[node name="Friendly Discard" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Illusory Friendly Discard" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.185)
 script = ExtResource("10_pkr2w")
 _cardArranger = NodePath("../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area")
 _cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+Illusory = true
 
-[node name="Spread Out Discard" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard"]
+[node name="Spread Out Discard" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Discard"]
 transform = Transform3D(0.0732, 0, 2.22045e-16, 0, 0.0732, 0, -2.22045e-16, 0, 0.0732, -0.31, 0.0344, 0.31)
 script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
 
-[node name="Friendly Discard Camera Position" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard"]
+[node name="Friendly Discard Camera Position" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Discard"]
 transform = Transform3D(0.996195, 0.0871557, 0, 0.00456138, -0.0521368, 0.99863, 0.0870363, -0.994829, -0.052336, 0, 0.7, 0.25)
 
-[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Discard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.001, 0.31)
 
-[node name="F Discard Spiral Card Area" parent="Node/Copy 3D/Simulated Friendly Player/Friendly Discard/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+[node name="F Discard Spiral Card Area" parent="Node/Copy 3D/Illusory Friendly Player/Illusory Friendly Discard/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.001, 0)
 _nodeParent = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Cards")
 _topLeftCorner = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Cards/Card Placeholder Top Left")
@@ -1768,67 +1772,64 @@ _rightBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/
 _bottomBound = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Cards/Card Placeholder Bottom Left")
 _animationPlayer = NodePath("../../../../../Main 3D/Friendly Player/Friendly Discard/Spiral Parent/F Discard Spiral Card Area/Spiral Big/AnimationPlayer")
 
-[node name="Enemy Player" type="Node3D" parent="Node/Copy 3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
-script = ExtResource("7_ju5wt")
-_playerInfo = NodePath("../../UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Enemy Player Info")
-_handController = NodePath("../../Main 3D/Enemy Player/Enemy Hand")
-_discardController = NodePath("../../Main 3D/Enemy Player/Enemy Discard")
-_deckController = NodePath("../../Main 3D/Enemy Player/Enemy Deck")
-_annihilationController = NodePath("../../Main 3D/Enemy Player/Enemy Annihilation")
+[node name="Illusory Enemy Player" type="Node3D" parent="Node/Copy 3D"]
 
-[node name="Enemy Hand" type="Node3D" parent="Node/Copy 3D/Enemy Player" node_paths=PackedStringArray("_nodeParent")]
+[node name="Illusory Enemy Hand" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player" node_paths=PackedStringArray("_nodeParent")]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, -0.508328)
 script = ExtResource("7_hs3e0")
 _nodeParent = NodePath("../../../Main 3D/Enemy Player/Enemy Hand/Enemy Hand Card Parent")
+Illusory = true
 
-[node name="Enemy Hand Camera Position" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Hand"]
+[node name="Enemy Hand Camera Position" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Hand"]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 5, 0)
 
-[node name="Enemy Hand Card Parent" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Hand"]
+[node name="Enemy Hand Card Parent" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Hand"]
 
-[node name="Enemy Annihilation" type="Node3D" parent="Node/Copy 3D/Enemy Player"]
+[node name="Illusory Enemy Annihilation" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Enemy Deck" type="Node3D" parent="Node/Copy 3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Illusory Enemy Deck" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
 _cardArranger = NodePath("../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area")
 _cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+Illusory = true
 
-[node name="Enemy Deck Camera Position" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Deck"]
+[node name="Enemy Deck Camera Position" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Deck"]
 transform = Transform3D(0.996195, 0.0871557, 0, -0.00456138, 0.0521368, 0.99863, 0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
 
-[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Deck"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Deck"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.31, 0.001, -0.31)
 
-[node name="E Deck Spiral Card Area" parent="Node/Copy 3D/Enemy Player/Enemy Deck/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+[node name="E Deck Spiral Card Area" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Deck/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
 _nodeParent = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards")
 _topLeftCorner = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards/Card Placeholder Top Left")
 _rightBound = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards/Card Placeholder Top Right")
 _bottomBound = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Cards/Card Placeholder Bottom Left")
 _animationPlayer = NodePath("../../../../../Main 3D/Enemy Player/Enemy Deck/Spiral Parent/E Deck Spiral Card Area/Spiral Big/AnimationPlayer")
 
-[node name="Enemy Discard" type="Node3D" parent="Node/Copy 3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Illusory Enemy Discard" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, -0.185)
 script = ExtResource("10_pkr2w")
 _cardArranger = NodePath("../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area")
 _cameraController = NodePath("../../../Main 3D/Engine Stuff/Camera Over Board/Main Camera Controller")
+Illusory = true
 
-[node name="Spread Out Discard" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Discard"]
+[node name="Spread Out Discard" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Discard"]
 transform = Transform3D(-3.19967e-09, 0, 0.0732, 0, 0.0732, 0, -0.0732, 0, -3.19967e-09, 0.31, 0.0344, -0.31)
 script = ExtResource("16_plm70")
 ObjectHeight = 0.05
 ObjectDiameter = 1.0
 SpiralTighten = 0.25
 
-[node name="Enemy Discard Camera Position" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Discard"]
+[node name="Enemy Discard Camera Position" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Discard"]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
 
-[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Enemy Player/Enemy Discard"]
+[node name="Spiral Parent" type="Node3D" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Discard"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.31, 0.001, -0.31)
 
-[node name="E Discard Spiral Card Area" parent="Node/Copy 3D/Enemy Player/Enemy Discard/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
+[node name="E Discard Spiral Card Area" parent="Node/Copy 3D/Illusory Enemy Player/Illusory Enemy Discard/Spiral Parent" node_paths=PackedStringArray("_nodeParent", "_topLeftCorner", "_rightBound", "_bottomBound", "_animationPlayer") instance=ExtResource("14_i4ntf")]
 _nodeParent = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Cards")
 _topLeftCorner = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Cards/Card Placeholder Top Left")
 _rightBound = NodePath("../../../../../Main 3D/Enemy Player/Enemy Discard/Spiral Parent/E Discard Spiral Card Area/Cards/Card Placeholder Top Right")

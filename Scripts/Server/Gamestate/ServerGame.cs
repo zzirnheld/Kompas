@@ -131,7 +131,7 @@ namespace Kompas.Server.Gamestate
 			ServerGame ret = new(gameController, cardRepo, debugMode);
 
 			ret._stackController = new ServerStackController(ret);
-			ret._board = new ServerBoard(gameController.BoardController, ret);
+			ret._board = new ServerBoard(gameController.BoardController, gameController.IllusoryBoardController, ret);
 			ret._awaiter = new ServerAwaiter(ret);
 
 			return ret;

@@ -6,7 +6,8 @@ namespace Kompas.Client.Gamestate.Locations.Models
 {
 	public class ClientDiscard : Discard
 	{
-		public ClientDiscard(IPlayer owner, DiscardController discardController) : base(owner, discardController)
+		public ClientDiscard(IPlayer owner, DiscardController discardController, DiscardController illusoryController)
+			: base(owner, discardController, illusoryController)
 		{
 		}
 	}

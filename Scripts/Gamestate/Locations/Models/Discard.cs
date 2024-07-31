@@ -10,15 +10,18 @@ namespace Kompas.Gamestate.Locations.Models
 	public abstract class Discard : OwnedLocationModel
 	{
 		private readonly DiscardController discardController;
+		private readonly DiscardController illusoryController;
 
 		protected readonly List<GameCard> discard = new();
 
 		public override Location Location => Location.Discard;
 		public override IEnumerable<GameCard> Cards => discard;
 
-		protected Discard(IPlayer owner, DiscardController discardController) : base(owner)
+		protected Discard(IPlayer owner, DiscardController discardController, DiscardController illusoryController) : base(owner)
 		{
 			this.discardController = discardController;
+			this.illusoryController = illusoryController;
+
 			discardController.DiscardModel = this;
 		}
 
@@ -26,6 +29,7 @@ namespace Kompas.Gamestate.Locations.Models
 		{
 			base.PerformAdd(card, index, stackableCause);
 			discardController.Refresh();
+			illusoryController.Refresh();
 		}
 
 		protected override void AddToCollection(GameCard card, int? index)
@@ -40,6 +44,7 @@ namespace Kompas.Gamestate.Locations.Models
 
 			discard.Remove(card);
 			discardController.Refresh();
+			illusoryController.Refresh();
 		}
 
 		public override int IndexOf(GameCard card) => discard.IndexOf(card);

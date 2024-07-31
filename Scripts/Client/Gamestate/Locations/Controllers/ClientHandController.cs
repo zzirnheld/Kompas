@@ -36,6 +36,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private Node3D RightBound => _rightBound ?? throw new UnassignedReferenceException();
 		public override void _Ready() => Recenter();
 
+		[Export]
+		private bool Illusory { get; set; }
+
 		private float handWidth;
 
 		/// <summary>
@@ -68,7 +71,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 			Logger.Log($"Spreading {HandModel.HandSize} = {HandModel.Cards.Count()} cards: {string.Join(", ", HandModel.Cards.Select(c => c.CardName))}");
 			for (int i = 0; i < HandModel.HandSize; i++)
 			{
-				var node = HandModel[i].NormalCardController.Node;
+				var node = Illusory
+					? HandModel[i].IllusoryCardController.Node
+					: HandModel[i].NormalCardController.Node;
 				node.GetParent()?.RemoveChild(node);
 				NodeParent.AddChild(node);
 

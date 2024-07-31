@@ -10,14 +10,23 @@ namespace Kompas.Gamestate.Players
 		[Export]
 		private HandController? _handController;
 		public HandController HandController => _handController ?? throw new UnassignedReferenceException();
+		[Export]
+		private HandController? _illusoryHandController;
+		public HandController IllusoryHandController => _illusoryHandController ?? throw new UnassignedReferenceException();
 
 		[Export]
 		private DiscardController? _discardController;
 		public DiscardController DiscardController => _discardController ?? throw new UnassignedReferenceException();
+		[Export]
+		private DiscardController? _illusoryDiscardController;
+		public DiscardController IllusoryDiscardController => _illusoryDiscardController ?? throw new UnassignedReferenceException();
 
 		[Export]
 		private DeckController? _deckController;
 		public DeckController DeckController => _deckController ?? throw new UnassignedReferenceException();
+		[Export]
+		private DeckController? _illusoryDeckController;
+		public DeckController IllusoryDeckController => _illusoryDeckController ?? throw new UnassignedReferenceException();
 
 		[Export]
 		private AnnihilationController? _annihilationController;

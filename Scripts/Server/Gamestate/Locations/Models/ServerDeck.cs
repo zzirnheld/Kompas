@@ -14,8 +14,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 	{
 		private readonly ServerGame game;
 
-		public ServerDeck(IPlayer owner, DeckController deckController, ServerGame game)
-			: base(owner, deckController)
+		public ServerDeck(IPlayer owner, DeckController deckController, DeckController illusoryController, ServerGame game)
+			: base(owner, deckController, illusoryController)
 		{
 			this.game = game;
 		}

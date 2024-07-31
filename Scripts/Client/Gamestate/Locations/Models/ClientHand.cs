@@ -7,7 +7,8 @@ namespace Kompas.Client.Gamestate.Locations.Models
 {
 	public class ClientHand : Hand
 	{
-		public ClientHand(IPlayer owner, HandController handController) : base(owner, handController) { }
+		public ClientHand(IPlayer owner, HandController handController, HandController illusoryController)
+			: base(owner, handController, illusoryController) { }
 
 		public void IncrementHand()
 		{

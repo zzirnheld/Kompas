@@ -51,7 +51,7 @@ public partial class ClientTargetingController : Node
 
 	private void RefreshCardsForSearchChange()
 	{
-		foreach (var card in GameController.Game.Cards) card.NormalCardController.RefreshTargeting();
+		foreach (var card in GameController.Game.Cards) card.AllCardControllers.RefreshTargeting();
 		TopLeftCardView.Refresh();
 	}
 
@@ -92,7 +92,7 @@ public partial class ClientTargetingController : Node
 			//or maybe animate the currently hovered card slightly, like popping it up, but leave the selection as it is
 			change.Old?.NormalClientCardController.ShowFocused(false);
 			change.Old?.IllusoryClientCardController.ShowFocused(false);
-			
+
 			change.New?.NormalClientCardController.ShowFocused(true);
 			change.New?.IllusoryClientCardController.ShowFocused(true);
 		};

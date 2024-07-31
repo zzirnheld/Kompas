@@ -12,8 +12,8 @@ namespace Kompas.Server.Gamestate.Locations.Models
 	{
 		private readonly ServerGame game;
 
-		public ServerHand(IPlayer owner, HandController handController, ServerGame game)
-			: base(owner, handController)
+		public ServerHand(IPlayer owner, HandController handController, HandController illusoryController, ServerGame game)
+			: base(owner, handController, illusoryController)
 		{
 			this.game = game;
 		}

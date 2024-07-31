@@ -41,11 +41,13 @@ namespace Kompas.Gamestate.Locations.Models
 		protected readonly GameCard?[,] board = new GameCard[Space.BoardLen, Space.BoardLen];
 		public IEnumerable<GameCard> Cards { get { foreach (var card in board) if (card != null) yield return card; } }
 
-		private readonly BoardController boardController;
+		private readonly BoardController normalBoardController;
+		private readonly BoardController illusoryBoardController;
 
-		protected Board(BoardController boardController)
+		protected Board(BoardController boardController, BoardController illusoryBoardController)
 		{
-			this.boardController = boardController;
+			this.normalBoardController = boardController;
+			this.illusoryBoardController = illusoryBoardController;
 		}
 
 		//helper methods
@@ -169,7 +171,8 @@ namespace Kompas.Gamestate.Locations.Models
 			if (toRemove.Position == null)
 				throw new InvalidSpaceException(toRemove.Position, "Can't remove a card from a null space");
 
-			boardController.Remove(toRemove.NormalCardController);
+			normalBoardController.Remove(toRemove.NormalCardController);
+			illusoryBoardController.Remove(toRemove.IllusoryCardController);
 			
 			var (x, y) = toRemove.Position;
 			if (board[x, y] == toRemove)
@@ -220,7 +223,8 @@ namespace Kompas.Gamestate.Locations.Models
 
 				toPlay.ControllingPlayer = player;
 
-				boardController.Place(toPlay.NormalCardController);
+				normalBoardController.Place(toPlay.NormalCardController);
+				illusoryBoardController.Place(toPlay.IllusoryCardController);
 			}
 		}
 
@@ -251,9 +255,13 @@ namespace Kompas.Gamestate.Locations.Models
 			if (!ValidSpellSpaceFor(card, to)) throw new InvalidSpaceException(to, $"{swapDesc}, but the destination is an invalid spell space");
 			if (!ValidSpellSpaceFor(temp, from)) throw new InvalidSpaceException(from, $"{swapDesc}, but the start is an invalid spell space");
 
-
-			boardController.Remove(card.NormalCardController);
-			if (temp != null) boardController.Remove(temp.NormalCardController);
+			normalBoardController.Remove(card.NormalCardController);
+			illusoryBoardController.Remove(card.IllusoryCardController);
+			if (temp != null)
+			{
+				normalBoardController.Remove(temp.NormalCardController);
+				illusoryBoardController.Remove(temp.IllusoryCardController);
+			}
 
 			//then let the cards know they've been moved, but before moving them, so you can count properly
 			if (normal)
@@ -268,8 +276,13 @@ namespace Kompas.Gamestate.Locations.Models
 			card.Position = to;
 			if (temp != null) temp.Position = from;
 
-			boardController.Place(card.NormalCardController);
-			if (temp != null) boardController.Place(temp.NormalCardController);
+			normalBoardController.Place(card.NormalCardController);
+			illusoryBoardController.Place(card.IllusoryCardController);
+			if (temp != null)
+			{
+				normalBoardController.Place(temp.NormalCardController);
+				illusoryBoardController.Place(temp.IllusoryCardController);
+			}
 		}
 
 		public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)

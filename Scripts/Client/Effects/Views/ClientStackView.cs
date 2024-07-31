@@ -61,8 +61,8 @@ namespace Kompas.Client.Effects.Views
 
 			var view = EffectStackableView.Instantiate<ClientEffectStackableView>();
 			view.Initialize(stackable.Stackable);
-			view.MouseEntered += () => stackable.Stackable.Card.NormalCardController.ShowEffectSource(true);
-			view.MouseExited += () => stackable.Stackable.Card.NormalCardController.ShowEffectSource(false);
+			view.MouseEntered += () => stackable.Stackable.Card.AllCardControllers.ShowEffectSource(true);
+			view.MouseExited += () => stackable.Stackable.Card.AllCardControllers.ShowEffectSource(false);
 
 			stackableToView[stackable] = view;
 

@@ -1,5 +1,6 @@
 using System.Linq;
 using Godot;
+using Kompas.Cards.Models;
 using Kompas.Client.UI;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Shared.Controllers;
@@ -19,6 +20,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private ClientCameraController CameraController => _cameraController
 			?? throw new UnassignedReferenceException();
 
+		[Export]
+		private bool Illusory { get; set; }
+
 		public override void _Ready()
 		{
 			base._Ready();
@@ -31,7 +35,12 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		private void Departed() => CardArranger.Close();
 
 		protected override void SpreadOut()
-			=> CardArranger.Arrange(DiscardModel.Cards.Select(c => c.NormalCardController.Node).ToArray());
+		{
+			System.Func<GameCard, Node3D> selector = Illusory
+				? c => c.IllusoryCardController.Node
+				: c => c.NormalCardController.Node;
+			CardArranger.Arrange(DiscardModel.Cards.Select(selector).ToArray());
+		}
 
 	}
 }

@@ -47,7 +47,7 @@ namespace Kompas.Cards.Controllers
 				card?.CardLinkHandler.RemoveLink(equivLink);
 			}
 
-			Card.NormalCardController.RefreshLinks(); //TODO should the links have their own card controller? that this Model is aware of
+			Card.AllCardControllers.RefreshLinks(); //TODO should the links have their own card controller? that this Model is aware of
 		}
 	}
 }
