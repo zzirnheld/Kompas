@@ -29,11 +29,11 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 	public event System.EventHandler<string>? StopHoverKeyword;
 
 	private IHoverableCardInfoDisplayer? lastDisplayed;
-	private const uint FocusedCullMask = 1 << (3 - 1);
-	private const uint UnfocusedCullMask = 1 << (2 - 1);
+	private const uint FocusedCullMask = 1 << (3 - 1) | 1 << (5 - 1);
+	private const uint UnfocusedCullMask = 1 << (2 - 1) | 1 << (5 - 1);
 
-	private const uint FocusedLayerMask = FocusedCullMask | UnfocusedCullMask;
-	private const uint UnfocusedLayerMask = UnfocusedCullMask;
+	private const uint FocusedLayerMask = 1 << (3 - 1) | 1 << (2 - 1);
+	private const uint UnfocusedLayerMask = 1 << (2 - 1);
 
 	public void Display(CardBase card, bool focus)
 	{

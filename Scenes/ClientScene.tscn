@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=113 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -100,8 +100,12 @@ viewport_path = NodePath("Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewp
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmwyy"]
 resource_local_to_scene = true
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = SubResource("ViewportTexture_y4wym")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdpst"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -331,7 +335,7 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera" node_paths=PackedStringArray("_ring")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
-cull_mask = 1047554
+cull_mask = 1047570
 near = 0.035
 script = ExtResource("5_om7ty")
 _ring = NodePath("Contain Solid Ring")
@@ -342,7 +346,8 @@ _ring = NodePath("Contain Solid Ring")
 transform = Transform3D(1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1.1, -4.80825e-08, 0, 0, -1.4)
 
 [node name="Cylinder" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
-layers = 7
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.075, 0)
+layers = 16
 mesh = SubResource("ArrayMesh_sj04j")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
@@ -351,6 +356,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.05, 0)
 mesh = SubResource("PlaneMesh_hg5y7")
 surface_material_override/0 = SubResource("StandardMaterial3D_gmwyy")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.04, 0.75)
+visible = false
+mesh = SubResource("PlaneMesh_hg5y7")
+surface_material_override/0 = SubResource("StandardMaterial3D_kdpst")
 
 [node name="Board" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_spacesController")]
 script = ExtResource("1_l7n64")
