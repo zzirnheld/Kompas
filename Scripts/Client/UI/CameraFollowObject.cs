@@ -1,16 +1,28 @@
 using Godot;
+using Kompas.Godot;
+using Kompas.Shared.Exceptions;
+using Kompas.UI.MainMenu;
 
 namespace Kompas.Client.UI;
 
 public partial class CameraFollowObject : Camera3D
 {
+	[Export]
+	private Node3D? _ring;
+	private Node3D Ring => _ring
+		?? throw new UnassignedReferenceException(nameof(_ring), this);
+
 	private Node3D? follow;
 
 	private const float LerpTime = 0.5f;
 
-	private Vector3 originPosition;
-	private Quaternion originRotation;
+	// private Vector3 originPosition;
+	// private Quaternion originRotation;
 	private double lerp = 0f;
+
+	private Transform3D cameraOriginGlobalTransform;
+	private Transform3D ringOriginLocalTransform;
+	private static readonly Transform3D ringDestLocalTransform = new(new Basis(Quaternion.Identity), Vector3.Zero);
 
 	public override void _Process(double delta)
 	{
@@ -19,16 +31,20 @@ public partial class CameraFollowObject : Camera3D
 
 		lerp += delta / LerpTime;
 		lerp = Mathf.Clamp(lerp, 0f, 1f);
-		GlobalPosition = originPosition.Lerp(follow.GlobalPosition, (float)lerp);
-		GlobalBasis = new Basis(originRotation.Slerp(follow.GlobalBasis.GetRotationQuaternion(), (float) lerp));
+		//lerp = Shared.Math.CubicProgress((float)lerp);
+		// GlobalPosition = originPosition.Lerp(follow.GlobalPosition, (float)lerp);
+		// GlobalBasis = new Basis(originRotation.Slerp(follow.GlobalBasis.GetRotationQuaternion(), (float) lerp));
 
+		GlobalTransform = cameraOriginGlobalTransform.InterpolateWith(follow.GlobalTransform, (float) lerp);
+
+		Ring.Transform = ringOriginLocalTransform.InterpolateWith(ringDestLocalTransform, (float)lerp);
 
 		//GD.Print($"Matching {follow.GlobalPosition}, {follow.GlobalRotation}");
 	}
 
 	public void Follow(Node3D node, uint layerMask)
 	{
-		GD.Print($"Following {follow} with mask {layerMask}");
+		//GD.Print($"Following {follow} with mask {layerMask}");
 		if (node != follow) lerp = 0;
 		else lerp = 1f;
 
@@ -41,8 +57,14 @@ public partial class CameraFollowObject : Camera3D
 
 		follow = node;
 		CullMask = layerMask;
-		originPosition = GlobalPosition;
-		originRotation = GlobalBasis.GetRotationQuaternion();
+		// originPosition = GlobalPosition;
+		// originRotation = GlobalBasis.GetRotationQuaternion();
+		cameraOriginGlobalTransform = GlobalTransform;
+
+		var ringGlobal = Ring.GlobalTransform;
+		node.TransferChild(Ring);
+		Ring.GlobalTransform = ringGlobal;
+		ringOriginLocalTransform = Ring.Transform;
 	}
 }
 
