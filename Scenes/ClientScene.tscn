@@ -347,13 +347,12 @@ _ring = NodePath("Contain Solid Ring")
 transform = Transform3D(1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1.1, -4.80825e-08, 0, 0, -1.4)
 
 [node name="Cylinder" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.075, 0)
+transform = Transform3D(1.025, 0, 0, 0, 1.025, 0, 0, 0, 1.025, 0, 0.075, 0)
 mesh = SubResource("ArrayMesh_sj04j")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 mesh = SubResource("PlaneMesh_hg5y7")
 surface_material_override/0 = SubResource("StandardMaterial3D_gmwyy")
 
