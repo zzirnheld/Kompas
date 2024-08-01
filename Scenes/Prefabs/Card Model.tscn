@@ -1,4 +1,4 @@
-[gd_scene load_steps=162 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=163 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -1447,6 +1447,8 @@ content_margin_top = 10.0
 content_margin_right = 2048.0
 content_margin_bottom = 1000.0
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_vb4nl"]
+
 [node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController", "_cameraPosition")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_7rrlp")
@@ -1508,7 +1510,7 @@ mesh = SubResource("ArrayMesh_hlwaj")
 skeleton = NodePath("")
 
 [node name="ZO N Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.809801)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.81)
 modulate = Color(0, 0, 0, 1)
 text = "8"
 font = ExtResource("3_hjjow")
@@ -1880,8 +1882,8 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Actual Card Model/Camera Spot"]
+transform = Transform3D(1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0, -0.19, -1.025)
 visible = false
-cull_mask = 1048574
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Actual Card Model/Camera Spot/Camera3D"]
 layers = 3
@@ -2026,3 +2028,8 @@ StartingFontSize = 24
 
 [node name="Camera2D" type="Camera2D" parent="Effect Text SubViewport"]
 offset = Vector2(256, 256)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+visible = false
+mesh = SubResource("PlaneMesh_vb4nl")
