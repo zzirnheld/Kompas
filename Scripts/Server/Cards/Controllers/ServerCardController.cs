@@ -47,7 +47,7 @@ namespace Kompas.Server.Cards.Controllers
 
 		public void ShowEffectSource(bool current) { }
 
-		IHoverableCardInfoDisplayer ICardController.PlaceCameraAboveCard(CameraFollowObject cameraNode, uint cameraMask)
+		IHoverableCardInfoDisplayer ICardController.PlaceCameraAboveCard(CameraFollowObject cameraNode, uint cameraMask, uint arrivedCameraMask, Action<IHoverableCardInfoDisplayer> action)
 		{
 			throw new NotImplementedException();
 		}

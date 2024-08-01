@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Kompas.Godot;
 using Kompas.Shared.Exceptions;
@@ -24,6 +25,9 @@ public partial class CameraFollowObject : Camera3D
 	private Transform3D ringOriginLocalTransform;
 	private static readonly Transform3D ringDestLocalTransform = new(new Basis(Quaternion.Identity), Vector3.Zero);
 
+	private Action? whenArrive;
+	private uint arrivalLayerMask;
+
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
@@ -32,6 +36,15 @@ public partial class CameraFollowObject : Camera3D
 		lerp += delta / LerpTime;
 		//GD.Print($"{lerp} -> {Shared.Math.Cubic((float)lerp)}");
 		var progress = Shared.Math.Cubic((float) Mathf.Clamp(lerp, 0f, 1f));
+
+		if (lerp >= 1f && whenArrive != null)
+		{
+			GD.Print("arrived!");
+			CullMask = arrivalLayerMask;
+			whenArrive();
+			whenArrive = null;
+		}
+
 		//lerp = Shared.Math.CubicProgress((float)lerp);
 		// GlobalPosition = originPosition.Lerp(follow.GlobalPosition, (float)lerp);
 		// GlobalBasis = new Basis(originRotation.Slerp(follow.GlobalBasis.GetRotationQuaternion(), (float) lerp));
@@ -43,7 +56,7 @@ public partial class CameraFollowObject : Camera3D
 		//GD.Print($"Matching {follow.GlobalPosition}, {follow.GlobalRotation}");
 	}
 
-	public void Follow(Node3D node, uint layerMask)
+	public void Follow(Node3D node, uint layerMask, uint arrivalLayerMask, Action whenArrive)
 	{
 		//GD.Print($"Following {follow} with mask {layerMask}");
 		if (node != follow) lerp = 0;
@@ -66,6 +79,9 @@ public partial class CameraFollowObject : Camera3D
 		node.TransferChild(Ring);
 		Ring.GlobalTransform = ringGlobal;
 		ringOriginLocalTransform = Ring.Transform;
+
+		this.whenArrive = whenArrive;
+		this.arrivalLayerMask = arrivalLayerMask;
 	}
 }
 

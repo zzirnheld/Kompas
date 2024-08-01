@@ -47,8 +47,8 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 		if (card is not GameCard gameCard) throw new System.InvalidOperationException("Can only handle a game card!");
 
 		lastDisplayed?.UpdateZoomedInLayerMask(UnfocusedLayerMask);
-		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(Camera, focus ? FocusedCullMask : UnfocusedCullMask);
-		lastDisplayed.UpdateZoomedInLayerMask(focus ? FocusedLayerMask : UnfocusedLayerMask);
+		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(Camera, UnfocusedCullMask, FocusedCullMask,
+			(infoDisplayer) => infoDisplayer.UpdateZoomedInLayerMask(FocusedLayerMask));
 
 		//TODO: make sure we hook up the keywords correctly for mouse hover
 		lastDisplayed.BeginHoverKeyword += HoverKeyword;
