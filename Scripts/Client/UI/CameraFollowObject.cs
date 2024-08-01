@@ -14,7 +14,7 @@ public partial class CameraFollowObject : Camera3D
 
 	private Node3D? follow;
 
-	private const float LerpTime = 0.5f;
+	private const float LerpTime = 0.25f;
 
 	// private Vector3 originPosition;
 	// private Quaternion originRotation;
@@ -30,14 +30,15 @@ public partial class CameraFollowObject : Camera3D
 		if (follow == null) return;
 
 		lerp += delta / LerpTime;
-		lerp = Mathf.Clamp(lerp, 0f, 1f);
+		//GD.Print($"{lerp} -> {Shared.Math.Cubic((float)lerp)}");
+		var progress = Shared.Math.Cubic((float) Mathf.Clamp(lerp, 0f, 1f));
 		//lerp = Shared.Math.CubicProgress((float)lerp);
 		// GlobalPosition = originPosition.Lerp(follow.GlobalPosition, (float)lerp);
 		// GlobalBasis = new Basis(originRotation.Slerp(follow.GlobalBasis.GetRotationQuaternion(), (float) lerp));
 
-		GlobalTransform = cameraOriginGlobalTransform.InterpolateWith(follow.GlobalTransform, (float) lerp);
+		GlobalTransform = cameraOriginGlobalTransform.InterpolateWith(follow.GlobalTransform, progress);
 
-		Ring.Transform = ringOriginLocalTransform.InterpolateWith(ringDestLocalTransform, (float)lerp);
+		Ring.Transform = ringOriginLocalTransform.InterpolateWith(ringDestLocalTransform, progress);
 
 		//GD.Print($"Matching {follow.GlobalPosition}, {follow.GlobalRotation}");
 	}

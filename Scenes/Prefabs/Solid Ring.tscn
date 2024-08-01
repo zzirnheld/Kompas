@@ -9,4 +9,5 @@ metallic = 0.75
 [node name="Solid Ring" instance=ExtResource("1_l3gd3")]
 
 [node name="Cylinder" parent="." index="0"]
+layers = 7
 surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
