@@ -45,7 +45,7 @@ public partial class ClientTopLeftCameraView : FocusableCardViewBase<ClientGameC
 	protected override void Display(ClientGameCard shownCard)
 	{
 		TopLeftCamera.ShowingInfo = true;
-		TopLeftCamera.Display(shownCard, shownCard == FocusedCard);	
+		TopLeftCamera.Display(shownCard);	
 	}
 
 	public new void Focus(ClientGameCard? card)

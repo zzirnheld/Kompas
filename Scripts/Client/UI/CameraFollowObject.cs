@@ -13,6 +13,14 @@ public partial class CameraFollowObject : Camera3D
 	private Node3D Ring => _ring
 		?? throw new UnassignedReferenceException(nameof(_ring), this);
 
+	[Export]
+	private CameraFollowObject? _anotherCamera;
+	private CameraFollowObject? AnotherCamera => _anotherCamera;
+
+	[Export]
+	private int _extraLayer;
+	private uint ExtraLayerMask => (uint)(1 << (_extraLayer - 1));
+
 	private Node3D? follow;
 
 	private const float LerpTime = 0.25f;
@@ -40,7 +48,7 @@ public partial class CameraFollowObject : Camera3D
 		if (lerp >= 1f && whenArrive != null)
 		{
 			GD.Print("arrived!");
-			CullMask = arrivalLayerMask;
+			CullMask = arrivalLayerMask | ExtraLayerMask;
 			whenArrive();
 			whenArrive = null;
 		}
@@ -70,7 +78,7 @@ public partial class CameraFollowObject : Camera3D
 		//still, really good spot for now.
 
 		follow = node;
-		CullMask = layerMask;
+		CullMask = layerMask | ExtraLayerMask;
 		// originPosition = GlobalPosition;
 		// originRotation = GlobalBasis.GetRotationQuaternion();
 		cameraOriginGlobalTransform = GlobalTransform;
@@ -82,6 +90,8 @@ public partial class CameraFollowObject : Camera3D
 
 		this.whenArrive = whenArrive;
 		this.arrivalLayerMask = arrivalLayerMask;
+
+		AnotherCamera?.Follow(node, layerMask, arrivalLayerMask, () => { });
 	}
 }
 

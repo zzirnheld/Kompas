@@ -144,7 +144,7 @@ void fragment() {
 "
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_y4wym"]
-viewport_path = NodePath("Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
+viewport_path = NodePath("Node/3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bd140"]
 resource_local_to_scene = true
@@ -359,7 +359,7 @@ _enemyDeckPosition = NodePath("../../../Enemy Player/Enemy Deck/Enemy Deck Camer
 _enemyDiscardPosition = NodePath("../../../Enemy Player/Enemy Discard/Enemy Discard Camera Position")
 
 [node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
-cull_mask = 1048569
+cull_mask = 1048561
 current = true
 
 [node name="Friendly Hand Parent Object" type="Node3D" parent="Node/3D/Engine Stuff/Camera Over Board/Main Camera Controller"]
@@ -379,6 +379,42 @@ transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -1)
 light_energy = 1.5
 
+[node name="Inside Ring Camera" type="Node3D" parent="Node/3D/Engine Stuff"]
+
+[node name="Inside Ring SubViewport" type="SubViewport" parent="Node/3D/Engine Stuff/Inside Ring Camera"]
+transparent_bg = true
+handle_input_locally = false
+physics_object_picking_sort = true
+gui_snap_controls_to_pixels = false
+render_target_update_mode = 4
+
+[node name="Contain Camera" type="Node3D" parent="Node/3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport/Contain Camera" node_paths=PackedStringArray("_ring", "_anotherCamera")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
+cull_mask = 1047570
+near = 0.035
+far = 0.2
+script = ExtResource("5_om7ty")
+_ring = NodePath("Contain Solid Ring")
+_anotherCamera = NodePath("../../../../Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D")
+_extraLayer = 6
+
+[node name="Contain Solid Ring" type="Node3D" parent="Node/3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport/Contain Camera/Camera3D"]
+
+[node name="Solid Ring" type="Node3D" parent="Node/3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport/Contain Camera/Camera3D/Contain Solid Ring"]
+transform = Transform3D(1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1.1, -4.80825e-08, 0, 0, -1.4)
+
+[node name="Cylinder" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
+transform = Transform3D(1.025, 0, 0, 0, 1.025, 0, 0, 0, 1.025, 0, 0.075, 0)
+mesh = SubResource("ArrayMesh_sj04j")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
+mesh = SubResource("PlaneMesh_hg5y7")
+surface_material_override/0 = SubResource("ShaderMaterial_bd140")
+
 [node name="Top Left Camera" type="Node3D" parent="Node/3D/Engine Stuff"]
 
 [node name="Top Left SubViewport" type="SubViewport" parent="Node/3D/Engine Stuff/Top Left Camera"]
@@ -392,26 +428,24 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera" node_paths=PackedStringArray("_ring")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
-cull_mask = 1047570
+cull_mask = 1047560
 near = 0.035
 far = 0.2
 script = ExtResource("5_om7ty")
 _ring = NodePath("Contain Solid Ring")
+_extraLayer = 4
 
 [node name="Contain Solid Ring" type="Node3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D"]
 
 [node name="Solid Ring" type="Node3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring"]
-transform = Transform3D(1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1.1, -4.80825e-08, 0, 0, -1.4)
+transform = Transform3D(1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1.1, -4.80825e-08, 0, 0, -1.575)
 
 [node name="Cylinder" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
 transform = Transform3D(1.025, 0, 0, 0, 1.025, 0, 0, 0, 1.025, 0, 0.075, 0)
+layers = 8
 mesh = SubResource("ArrayMesh_sj04j")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
-mesh = SubResource("PlaneMesh_hg5y7")
-surface_material_override/0 = SubResource("ShaderMaterial_bd140")
 
 [node name="Board" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_spacesController")]
 script = ExtResource("1_l7n64")
@@ -1217,7 +1251,7 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("27_0k46m")
 _textureRect = NodePath("VBoxContainer/TextureRect")
-_camera = NodePath("../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D")
+_camera = NodePath("../../../../../../../3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport/Contain Camera/Camera3D")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control"]
 layout_mode = 1
@@ -1232,8 +1266,8 @@ layout_mode = 2
 texture = SubResource("ViewportTexture_d63ti")
 expand_mode = 5
 script = ExtResource("29_apfhk")
-_subViewport = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport")
-_viewportCamera = NodePath("../../../../../../../../../3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D")
+_subViewport = NodePath("../../../../../../../../../3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport")
+_viewportCamera = NodePath("../../../../../../../../../3D/Engine Stuff/Inside Ring Camera/Inside Ring SubViewport/Contain Camera/Camera3D")
 
 [node name="Main Window Placeholder" type="Control" parent="Node/UI/Main Game UI/HBoxContainer"]
 layout_mode = 2

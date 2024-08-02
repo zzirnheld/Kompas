@@ -20,7 +20,7 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 
 	[Export]
 	private CameraFollowObject? _camera;
-	private CameraFollowObject Camera => _camera
+	private CameraFollowObject RingCamera => _camera
 		?? throw new UnassignedReferenceException(nameof(_camera), this);
 
 	public bool ShowingInfo { set { } } // => TextureRect.Visible = value; }
@@ -35,7 +35,7 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 	private const uint FocusedLayerMask = 1 << (3 - 1) | 1 << (2 - 1);
 	private const uint UnfocusedLayerMask = 1 << (2 - 1);
 
-	public void Display(CardBase card, bool focus)
+	public void Display(CardBase card)
 	{
 		//Logger.Log($"At {System.DateTime.Now.Millisecond} Top left camera Displaying {card}");
 		if (lastDisplayed != null)
@@ -47,7 +47,7 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 		if (card is not GameCard gameCard) throw new System.InvalidOperationException("Can only handle a game card!");
 
 		lastDisplayed?.UpdateZoomedInLayerMask(UnfocusedLayerMask);
-		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(Camera, UnfocusedCullMask, FocusedCullMask,
+		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(RingCamera, UnfocusedCullMask, FocusedCullMask,
 			(infoDisplayer) => infoDisplayer.UpdateZoomedInLayerMask(FocusedLayerMask));
 
 		//TODO: make sure we hook up the keywords correctly for mouse hover
