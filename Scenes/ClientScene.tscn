@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=114 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -163,49 +163,6 @@ shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/texture_albedo = SubResource("ViewportTexture_y4wym")
 shader_parameter/texture_mask = ExtResource("6_amk2a")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdpst"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ijmuh"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_tpl8j"]
-_surfaces = [{
-"aabb": AABB(-1, 0.025, -1, 2, 1.00005e-05, 2),
-"format": 34896613377,
-"index_count": 42,
-"index_data": PackedByteArray(0, 0, 3, 0, 2, 0, 3, 0, 5, 0, 4, 0, 5, 0, 7, 0, 6, 0, 7, 0, 9, 0, 8, 0, 9, 0, 11, 0, 10, 0, 11, 0, 13, 0, 12, 0, 13, 0, 15, 0, 14, 0, 15, 0, 0, 0, 1, 0, 0, 0, 5, 0, 3, 0, 5, 0, 9, 0, 7, 0, 9, 0, 13, 0, 11, 0, 13, 0, 0, 0, 15, 0, 0, 0, 9, 0, 5, 0, 9, 0, 0, 0, 13, 0),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 16,
-"vertex_data": PackedByteArray(255, 127, 0, 0, 0, 0, 0, 0, 251, 176, 0, 0, 190, 9, 0, 0, 3, 79, 0, 0, 190, 9, 0, 0, 125, 37, 0, 0, 125, 37, 0, 0, 190, 9, 0, 0, 3, 79, 0, 0, 0, 0, 0, 0, 255, 127, 0, 0, 190, 9, 0, 0, 251, 176, 0, 0, 125, 37, 0, 0, 129, 218, 0, 0, 3, 79, 0, 0, 64, 246, 0, 0, 255, 127, 0, 0, 255, 255, 0, 0, 251, 176, 0, 0, 64, 246, 0, 0, 129, 218, 0, 0, 129, 218, 0, 0, 64, 246, 0, 0, 251, 176, 0, 0, 255, 255, 0, 0, 255, 127, 0, 0, 64, 246, 0, 0, 3, 79, 0, 0, 129, 218, 0, 0, 125, 37, 0, 0)
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_ub767"]
-resource_name = "16 sided polygon_Cylinder_001"
-_surfaces = [{
-"aabb": AABB(-1, 0.025, -1, 2, 1.00005e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255),
-"format": 34896613399,
-"index_count": 42,
-"index_data": PackedByteArray(0, 0, 3, 0, 2, 0, 3, 0, 5, 0, 4, 0, 5, 0, 7, 0, 6, 0, 7, 0, 9, 0, 8, 0, 9, 0, 11, 0, 10, 0, 11, 0, 13, 0, 12, 0, 13, 0, 15, 0, 14, 0, 15, 0, 0, 0, 1, 0, 0, 0, 5, 0, 3, 0, 5, 0, 9, 0, 7, 0, 9, 0, 13, 0, 11, 0, 13, 0, 0, 0, 15, 0, 0, 0, 9, 0, 5, 0, 9, 0, 0, 0, 13, 0),
-"material": SubResource("StandardMaterial3D_ijmuh"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 16,
-"vertex_data": PackedByteArray(255, 127, 0, 0, 0, 0, 255, 191, 251, 176, 0, 0, 190, 9, 255, 191, 3, 79, 0, 0, 190, 9, 255, 191, 125, 37, 0, 0, 125, 37, 255, 191, 190, 9, 0, 0, 3, 79, 255, 191, 0, 0, 0, 0, 255, 127, 255, 191, 190, 9, 0, 0, 251, 176, 255, 191, 125, 37, 0, 0, 129, 218, 255, 191, 3, 79, 0, 0, 64, 246, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 251, 176, 0, 0, 64, 246, 255, 191, 129, 218, 0, 0, 129, 218, 255, 191, 64, 246, 0, 0, 251, 176, 255, 191, 255, 255, 0, 0, 255, 127, 255, 191, 64, 246, 0, 0, 3, 79, 255, 191, 129, 218, 0, 0, 125, 37, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_tpl8j")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yxnqo"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tqi2v"]
-resource_local_to_scene = true
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_texture = SubResource("PlaceholderTexture2D_yxnqo")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
 
@@ -455,22 +412,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
 mesh = SubResource("PlaneMesh_hg5y7")
 surface_material_override/0 = SubResource("ShaderMaterial_bd140")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/Solid Ring"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.04, 0.75)
-visible = false
-mesh = SubResource("PlaneMesh_hg5y7")
-surface_material_override/0 = SubResource("StandardMaterial3D_kdpst")
-
-[node name="16 sided polygon" type="Node3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring"]
-transform = Transform3D(1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1.1, -4.80825e-08, 0, 1.77636e-15, -1.4)
-visible = false
-
-[node name="Cylinder_001" type="MeshInstance3D" parent="Node/3D/Engine Stuff/Top Left Camera/Top Left SubViewport/Contain Camera/Camera3D/Contain Solid Ring/16 sided polygon"]
-visible = false
-mesh = SubResource("ArrayMesh_ub767")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_tqi2v")
 
 [node name="Board" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_spacesController")]
 script = ExtResource("1_l7n64")
