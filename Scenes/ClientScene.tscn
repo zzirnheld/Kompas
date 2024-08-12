@@ -102,6 +102,8 @@ code = "// NOTE: Shader automatically converted from Godot Engine 4.2.stable.mon
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 uniform vec4 albedo : source_color;
+uniform vec4 tintAlbedo : source_color;
+uniform float tintIntensity : hint_range(0,1);
 uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
 uniform sampler2D texture_mask : source_color,filter_linear_mipmap,repeat_enable;
 uniform float alpha_scissor_threshold;
@@ -131,14 +133,18 @@ void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	vec4 albedo_mask = texture(texture_mask,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb * albedo_mask.rgb;
+	float tint_remainder = 1.0 - tintIntensity;
+	ALBEDO = ((albedo.rgb * albedo_tex.rgb * albedo_mask.rgb) * vec3(tint_remainder,tint_remainder,tint_remainder)) + (vec3(tintIntensity,tintIntensity,tintIntensity) * tintAlbedo.rgb);
 	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
 	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
 	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
 	ROUGHNESS = roughness_tex * roughness;
 	SPECULAR = specular;
-	ALPHA *= albedo.a * albedo_tex.a * albedo_mask.a;
+	float a = albedo.a * albedo_tex.a;
+	if (a < 0.1) a = 0.1;
+	a *= albedo_mask.a;
+	ALPHA *= a;
 	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
 }
 "
@@ -151,7 +157,9 @@ resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("Shader_214ed")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/tintAlbedo = Color(0.760784, 0.25098, 1, 1)
+shader_parameter/tintIntensity = 0.05
+shader_parameter/alpha_scissor_threshold = 0.05
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/metallic_texture_channel = null
