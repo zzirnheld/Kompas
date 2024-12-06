@@ -20,8 +20,8 @@ namespace Kompas.Client.Gamestate;
 public partial class ClientTargetingController : Node
 {
 	[Export]
-	private ControlInfoDisplayer? _topLeftInfoDisplayer;
-	private ControlInfoDisplayer TopLeftInfoDisplayer => _topLeftInfoDisplayer ?? throw new UnassignedReferenceException();
+	private ClientTopLeftCameraDisplayer? _topLeftInfoDisplayer;
+	private ClientTopLeftCameraDisplayer TopLeftInfoDisplayer => _topLeftInfoDisplayer ?? throw new UnassignedReferenceException();
 	[Export]
 	private ReminderTextPopup? _reminderTextPopup;
 	private ReminderTextPopup ReminderTextPopup => _reminderTextPopup ?? throw new UnassignedReferenceException();
@@ -35,8 +35,8 @@ public partial class ClientTargetingController : Node
 	private SpacesController? _spacesController;
 	public SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
 
-	private ClientTopLeftCardView? _topLeftCardView;
-	public ClientTopLeftCardView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();
+	private ClientTopLeftCameraView? _topLeftCardView;
+	public ClientTopLeftCameraView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();
 
 	/// <summary>
 	/// The view already contains the logic for focusing on a given card, for entirely historical reasons.
@@ -85,7 +85,7 @@ public partial class ClientTargetingController : Node
 	{
 		base._Ready();
 		if (TopLeftInfoDisplayer == null) throw new System.NullReferenceException("Forgot to init");
-		_topLeftCardView = new(TopLeftInfoDisplayer, ReminderTextPopup);
+		_topLeftCardView = new(ReminderTextPopup, TopLeftInfoDisplayer);
 		TopLeftCardView.FocusChange += (_, change) =>
 		{
 			//TODO: maybe animate the currently shown card? that's probably more helpful? think about it

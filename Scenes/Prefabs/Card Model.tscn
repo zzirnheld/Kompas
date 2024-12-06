@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=163 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -13,10 +13,16 @@
 [ext_resource type="Material" uid="uid://cowloouoef00i" path="res://Materials/Card/Stat Backgrounds/N Background.tres" id="8_o3qnh"]
 [ext_resource type="Material" uid="uid://bjf0vhv75bu0g" path="res://Materials/Card/Stat Backgrounds/S Background.tres" id="9_f6kxx"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardMouseController.cs" id="12_fpypf"]
+[ext_resource type="Script" path="res://Scripts/Shared/LinkMeshToViewportTexture.cs" id="13_fh5oi"]
 [ext_resource type="Material" uid="uid://calq4naeva2a3" path="res://Materials/Card/Valid Target Particle Material.tres" id="13_iacg7"]
+[ext_resource type="Script" path="res://Scripts/Shared/Controllers/Area3DAroundViewportQuad.cs" id="13_pifky"]
 [ext_resource type="Material" uid="uid://cc1en2llxpysy" path="res://Materials/Card/Current Target Particle Material.tres" id="14_stomg"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
+[ext_resource type="Script" path="res://test4.cs" id="18_2cn8u"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="20_ptlga"]
+[ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="21_4pvxp"]
+[ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkOnOverrun.cs" id="22_mk8mh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpu57"]
 
@@ -1200,6 +1206,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xqcof")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnwcy"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brs2r"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_nvv1y"]
@@ -1232,7 +1241,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nvv1y")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_allg3"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shouf"]
+resource_local_to_scene = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2sd3m"]
 _surfaces = [{
@@ -1263,6 +1276,25 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2sd3m")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lk7jc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2ere"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.941176)
+
+[sub_resource type="QuadMesh" id="QuadMesh_08rqw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3nuwa"]
+viewport_path = NodePath("Effect Text SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6csyp"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_3nuwa")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gekpj"]
+size = Vector3(1, 1, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4adt"]
 
@@ -1409,12 +1441,21 @@ vertex_color_use_as_albedo = true
 material = SubResource("StandardMaterial3D_san0u")
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fdxmo"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 2048.0
+content_margin_bottom = 1000.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vb4nl"]
+
+[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController", "_cameraPosition")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_7rrlp")
 _infoDisplayer = NodePath("Actual Card Model")
 _mouseController = NodePath("Mouse Controller")
 _augmentsController = NodePath("Augments Controller")
+_cameraPosition = NodePath("Actual Card Model/Camera Spot")
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("_zoomedOut", "_zoomedIn", "_validTargetParticles", "_currentTargetParticles", "_effectSourceParticles")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
@@ -1469,7 +1510,7 @@ mesh = SubResource("ArrayMesh_hlwaj")
 skeleton = NodePath("")
 
 [node name="ZO N Label" type="Label3D" parent="Actual Card Model/Zoomed Out/Char"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.809801)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.81)
 modulate = Color(0, 0, 0, 1)
 text = "8"
 font = ExtResource("3_hjjow")
@@ -1565,11 +1606,13 @@ skeleton = NodePath("")
 
 [node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Actual Card Model/Zoomed In With Text/Node3D2"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+visible = false
 mesh = SubResource("ArrayMesh_117l4")
 skeleton = NodePath("")
 
 [node name="ZI WT NonChar Frame Stat Caps_001" type="MeshInstance3D" parent="Actual Card Model/Zoomed In With Text/Node3D2"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+visible = false
 mesh = SubResource("ArrayMesh_drlhj")
 skeleton = NodePath("")
 
@@ -1622,17 +1665,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -0.213323)
 mesh = SubResource("ArrayMesh_78r2k")
 skeleton = NodePath("")
 
-[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_frameObjects", "_cardImageObjects")]
-visible = false
+[node name="Label3D" type="Label3D" parent="Actual Card Model/Zoomed In With Text/Node3D3"]
+
+[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_effText", "_frameObjects", "_cardImageObjects")]
 script = ExtResource("2_0v3lq")
 N = NodePath("Char/N Label")
 E = NodePath("Char/E Label")
 Cost = NodePath("All/S Label")
 W = NodePath("Char/W Label")
-CardName = NodePath("All/Name Label")
-Subtypes = NodePath("All/Subtypes Label")
-_frameObjects = []
-_cardImageObjects = []
+CardName = NodePath("../../Effect Text SubViewport/Node2D/Panel/Name Backing/Name Label")
+Subtypes = NodePath("../../Effect Text SubViewport/Node2D/Panel/Subtypes Backing/Subtypes Label")
+_effText = NodePath("../../Effect Text SubViewport/Node2D/Panel/Eff Text Backing/Effect RichTextLabel")
+_cardFrameMaterial = ExtResource("7_hpixu")
+_frameObjects = [NodePath("All/Frame Objects/ZI NT All Frame Cost"), NodePath("All/Frame Objects/ZI NT All Baseplate"), NodePath("All/Frame Objects/ZI NT All Frame Bottom Half "), NodePath("All/Frame Objects/ZI NT All Frame Top Half"), NodePath("Char/Frame Objects/ZI NT Char E"), NodePath("Char/Frame Objects/ZI NT Char N"), NodePath("Char/Frame Objects/ZI NT Char W"), NodePath("NonChar/ZI NT NonChar Frame Stat Caps")]
+_cardImageObjects = [NodePath("All/ZI NT All Baseplate Image")]
 
 [node name="All" type="Node3D" parent="Actual Card Model/Zoomed In No Text"]
 
@@ -1640,61 +1686,102 @@ _cardImageObjects = []
 
 [node name="ZI NT All Frame Cost" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
 transform = Transform3D(0.205212, 0, -0.563816, 0, 1, 0, 0.563816, 0, 0.205212, 0, 0.055, 0.84575)
+layers = 2
 mesh = SubResource("ArrayMesh_d3pdc")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
+layers = 2
 mesh = SubResource("ArrayMesh_dvjk5")
 skeleton = NodePath("")
 
 [node name="ZI NT All Frame Bottom Half " type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, -7.39378e-08, 0.055, -0.84575)
+layers = 2
 mesh = SubResource("ArrayMesh_sq14u")
 skeleton = NodePath("")
 
 [node name="ZI NT All Frame Top Half" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/Frame Objects"]
 transform = Transform3D(0.205212, 0, -0.563816, 0, 1, 0, 0.563816, 0, 0.205212, -3.5984e-06, 0.0503252, -0.42347)
+layers = 2
 mesh = SubResource("ArrayMesh_xhxrs")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate W" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("7_1bm8q")
 mesh = SubResource("ArrayMesh_wmouu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_hpixu")
 
 [node name="ZI NT All Baseplate N" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("8_o3qnh")
 mesh = SubResource("ArrayMesh_uomet")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate E" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("6_xuxe3")
 mesh = SubResource("ArrayMesh_bvhvj")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Cost" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
+layers = 2
 material_override = ExtResource("9_f6kxx")
 mesh = SubResource("ArrayMesh_hog5p")
 skeleton = NodePath("")
 
 [node name="ZI NT All Baseplate Subtypes" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_phyg0")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_hnwcy")
 
 [node name="ZI NT All Baseplate Name" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_hq28y")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_allg3")
 
 [node name="ZI NT All Baseplate Image" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1.01, 0, 1.76594e-07, 0, 1.01, 0, -1.76594e-07, 0, 1.01, -2.53526e-08, 0, -0.177072)
-material_override = ExtResource("5_6tu2s")
+layers = 2
+material_override = ExtResource("7_2eyee")
 mesh = SubResource("ArrayMesh_5ubt0")
 skeleton = NodePath("")
 
+[node name="Baseplate Image Haze" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image"]
+transform = Transform3D(0.71, 0, -8.32265e-08, 0, 1, 0, 1.2414e-07, 0, 0.476, 0, 0.03, 0.238)
+layers = 2
+mesh = SubResource("PlaneMesh_lk7jc")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_d2ere")
+
+[node name="Area3D" type="Area3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image" node_paths=PackedStringArray("_quadMesh", "_subViewport")]
+transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0.075, 0.205)
+input_ray_pickable = false
+script = ExtResource("13_pifky")
+_quadMesh = NodePath("Baseplate Text")
+_subViewport = NodePath("../../../../../Effect Text SubViewport")
+
+[node name="Baseplate Text" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D" node_paths=PackedStringArray("_subViewport")]
+layers = 2
+mesh = SubResource("QuadMesh_08rqw")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_6csyp")
+script = ExtResource("13_fh5oi")
+_subViewport = NodePath("../../../../../../Effect Text SubViewport")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actual Card Model/Zoomed In No Text/All/ZI NT All Baseplate Image/Area3D"]
+shape = SubResource("BoxShape3D_gekpj")
+
 [node name="Name Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.582)
+visible = false
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "Some the Guy"
@@ -1705,6 +1792,8 @@ width = 300.0
 
 [node name="Subtypes Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.615)
+visible = false
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "Veritable Dude Mage Tbh"
@@ -1715,6 +1804,7 @@ width = 300.0
 
 [node name="S Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/All"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, 0.85)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1729,21 +1819,26 @@ width = 300.0
 
 [node name="ZI NT Char E" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/Char/Frame Objects"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_lis0v")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_hpixu")
 
 [node name="ZI NT Char N" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/Char/Frame Objects"]
 transform = Transform3D(-0.205212, 0, 0.563816, 0, 1, 0, -0.563816, 0, -0.205212, 0, 0.055, -0.84575)
+layers = 2
 mesh = SubResource("ArrayMesh_kusej")
 skeleton = NodePath("")
 
 [node name="ZI NT Char W" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/Char/Frame Objects"]
 transform = Transform3D(-0.563816, 0, -0.205212, 0, 1, 0, 0.205212, 0, -0.563816, -0.84575, 0.055, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_n4u3k")
 skeleton = NodePath("")
 
 [node name="N Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/Char"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.03, -0.86)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1754,6 +1849,7 @@ width = 300.0
 
 [node name="E Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/Char"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.845, 0.03, -0.02)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1764,6 +1860,7 @@ width = 300.0
 
 [node name="W Label" type="Label3D" parent="Actual Card Model/Zoomed In No Text/Char"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.85, 0.03, -0.02)
+layers = 2
 pixel_size = 0.0025
 modulate = Color(0, 0, 0, 1)
 text = "69"
@@ -1777,8 +1874,19 @@ visible = false
 
 [node name="ZI NT NonChar Frame Stat Caps" type="MeshInstance3D" parent="Actual Card Model/Zoomed In No Text/NonChar"]
 transform = Transform3D(0.563816, 0, 0.205212, 0, 1, 0, -0.205212, 0, 0.563816, 0.84575, 0.055, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_31y6g")
 skeleton = NodePath("")
+
+[node name="Camera Spot" type="Node3D" parent="Actual Card Model"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Actual Card Model/Camera Spot"]
+transform = Transform3D(1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0, -0.19, -1.025)
+visible = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Actual Card Model/Camera Spot/Camera3D"]
+layers = 3
 
 [node name="Mouse Controller" type="Area3D" parent="."]
 script = ExtResource("12_fpypf")
@@ -1811,3 +1919,117 @@ draw_pass_1 = SubResource("BoxMesh_6y6j7")
 
 [node name="Augments Controller" type="Node3D" parent="."]
 script = ExtResource("16_jvvs6")
+
+[node name="Effect Text SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+canvas_item_default_texture_repeat = 1
+render_target_update_mode = 4
+script = ExtResource("18_2cn8u")
+
+[node name="Node2D" type="Node2D" parent="Effect Text SubViewport"]
+
+[node name="Panel" type="Panel" parent="Effect Text SubViewport/Node2D"]
+offset_right = 512.0
+offset_bottom = 512.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fdxmo")
+
+[node name="Name Backing" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.02
+anchor_right = 0.928
+anchor_bottom = 0.15
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Name Label" type="Label" parent="Effect Text SubViewport/Node2D/Panel/Name Backing"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 4.0
+theme = ExtResource("21_4pvxp")
+theme_override_font_sizes/font_size = 48
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("22_mk8mh")
+StartingFontSize = 48
+
+[node name="Eff Text Backing" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.25
+anchor_right = 0.925
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 13.0
+
+[node name="Effect RichTextLabel" type="RichTextLabel" parent="Effect Text SubViewport/Node2D/Panel/Eff Text Backing"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+theme = ExtResource("21_4pvxp")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]"
+fit_content = true
+script = ExtResource("20_ptlga")
+StartingFontSize = 40
+
+[node name="Subtypes Backing" type="TextureRect" parent="Effect Text SubViewport/Node2D/Panel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.875
+anchor_right = 0.925
+anchor_bottom = 0.96
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Subtypes Label" type="Label" parent="Effect Text SubViewport/Node2D/Panel/Subtypes Backing"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 3.0
+theme = ExtResource("21_4pvxp")
+theme_override_font_sizes/font_size = 24
+text = "Verifiable Dude and Mage"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("22_mk8mh")
+StartingFontSize = 24
+
+[node name="Camera2D" type="Camera2D" parent="Effect Text SubViewport"]
+offset = Vector2(256, 256)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+visible = false
+mesh = SubResource("PlaneMesh_vb4nl")

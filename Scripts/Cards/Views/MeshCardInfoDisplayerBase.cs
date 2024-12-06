@@ -1,11 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Views
 {
-	public abstract partial class MeshCardInfoDisplayerBase : Node3D, ICardInfoDisplayer
+	public abstract partial class MeshCardInfoDisplayerBase : Node3D, IHoverableCardInfoDisplayer
 	{
 		/// <summary>
 		/// Name in the frame shader of the "albedo" variable,
@@ -35,6 +39,16 @@ namespace Kompas.Cards.Views
 
 		[Export]
 		private MeshInstance3D[]? _cardImageObjects;
+
+		public IEnumerable<VisualInstance3D> AllVisibleObjects => this.GetDescendants()
+			.OfType<VisualInstance3D>();
+
+		public event EventHandler<string>? BeginHoverKeyword;
+		public event EventHandler<string>? EndHoverKeyword;
+
+		protected void BeginHover(string keyword) => BeginHoverKeyword?.Invoke(this, keyword);
+		protected void EndHover(string keyword) => EndHoverKeyword?.Invoke(this, keyword);
+
 		private MeshInstance3D[] CardImageObjects => _cardImageObjects
 			?? throw new UnassignedReferenceException(nameof(_cardImageObjects));
 
@@ -93,5 +107,7 @@ namespace Kompas.Cards.Views
 		public void DisplayUnselectedValidTarget(bool validTarget) { }
 		public void DisplayCurrentTarget(bool currentTarget) { }
 		public void DisplayEffectSource(bool effectSource) { }
+
+		public void UpdateZoomedInLayerMask(uint layerMask) { }
 	}
 }

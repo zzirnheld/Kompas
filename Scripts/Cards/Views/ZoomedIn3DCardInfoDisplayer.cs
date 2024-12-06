@@ -1,6 +1,8 @@
 using Godot;
 using Kompas.Cards.Models;
+using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
+using Kompas.UI.TextBehavior;
 
 namespace Kompas.Cards.Views
 {
@@ -16,9 +18,29 @@ namespace Kompas.Cards.Views
 		private Label3D? W { get; set; }
 
 		[Export]
-		private Label3D? CardName { get; set; }
+		private ShrinkOnOverrun? CardName { get; set; }
 		[Export]
-		private Label3D? Subtypes { get; set; }
+		private ShrinkOnOverrun? Subtypes { get; set; }
+		[Export]
+		private ShrinkRichTextOnOverrun? _effText;
+		private ShrinkRichTextOnOverrun EffText => _effText
+			?? throw new UnassignedReferenceException(nameof(_effText), this);
+
+		public override void _Ready()
+		{
+			base._Ready();
+
+			EffText.MetaHoverStarted += keyword =>
+			{
+				if (keyword.VariantType != Variant.Type.String) throw new System.InvalidOperationException("Can't have a non-string keyword!");
+				BeginHover((string)keyword);
+			};
+			EffText.MetaHoverEnded += keyword =>
+			{
+				if (keyword.VariantType != Variant.Type.String) throw new System.InvalidOperationException("Can't have a non-string keyword!");
+				EndHover((string)keyword);
+			};
+		}
 
 		public override void DisplayCardNumericStats(CardBase card)
 		{
@@ -38,8 +60,9 @@ namespace Kompas.Cards.Views
 			_ = CardName ?? throw new System.NullReferenceException("Failed to init");
 			_ = Subtypes ?? throw new System.NullReferenceException("Failed to init");
 
-			CardName.Text = card.CardName;
-			Subtypes.Text = card.SubtypeText;
+			CardName.ShrinkableText = card.CardName;
+			Subtypes.ShrinkableText = card.SubtypeText;
+			EffText.SetShrinkableText(card.BBCodeEffText);
 		}
 	}
 }

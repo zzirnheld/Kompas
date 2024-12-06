@@ -40,4 +40,13 @@ namespace Kompas.UI.CardInfoDisplayers
 		/// </summary>
 		public void DisplayEffectSource(bool effectSource);
 	}
+
+	public interface IHoverableCardInfoDisplayer : ICardInfoDisplayer
+	{
+		public event System.EventHandler<string>? BeginHoverKeyword;
+		public event System.EventHandler<string>? EndHoverKeyword;
+
+
+		public void UpdateZoomedInLayerMask(uint layerMask);
+	}
 }

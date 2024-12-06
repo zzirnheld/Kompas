@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceppdfjoidu43"]
+
+[ext_resource type="Script" path="res://test4.cs" id="1_hk6tt"]
+[ext_resource type="Script" path="res://test.cs" id="2_lumer"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fdxmo"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 2048.0
+content_margin_bottom = 1000.0
+
+[node name="SubViewport2" type="SubViewport"]
+render_target_update_mode = 4
+script = ExtResource("1_hk6tt")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-256, -256)
+
+[node name="Panel" type="Panel" parent="Node2D"]
+offset_right = 512.0
+offset_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fdxmo")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node2D/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 3562.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]"
+fit_content = true
+script = ExtResource("2_lumer")
+
+[node name="Camera2D" type="Camera2D" parent="."]

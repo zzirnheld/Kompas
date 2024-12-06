@@ -140,15 +140,9 @@ namespace Kompas.UI.MainMenu
 
 			public float InitialProgress { get; init; } = 0f;
 
-			/// <summary>
-			/// Input and output both bound [0, 1]
-			/// </summary>
-			public delegate float ProgressToProportion(float progress);
-			public static readonly ProgressToProportion Cubic = x => 6 * ((x * x / 2) - (x * x * x / 3));
-
-			public ProgressToProportion AnchorProportion { get; init; } = x => x;
-			public ProgressToProportion OffsetProportion { get; init; } = x => x;
-			public ProgressToProportion RotationProportion { get; init; } = Cubic;
+			public Shared.Math.ProgressToProportion AnchorProportion { get; init; } = x => x;
+			public Shared.Math.ProgressToProportion OffsetProportion { get; init; } = x => x;
+			public Shared.Math.ProgressToProportion RotationProportion { get; init; } = Shared.Math.CubicProgress;
 
 			public delegate void ProgressStep(float progress);
 			public ProgressStep AdditionalStep { get; init; } = _ => { };

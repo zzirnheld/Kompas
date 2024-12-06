@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Shared;
+using Kompas.Shared.Enumerable;
 
 namespace Kompas.Godot
 {
@@ -81,6 +83,12 @@ namespace Kompas.Godot
 		public static async Task DoEachFrame(this Node node, EachFrame eachLoop)
 		{
 			await node.DoEachFrame(delta => { eachLoop(delta); return Result<object>.None; });
+		}
+
+		public static IEnumerable<Node> GetDescendants(this Node node)
+		{
+			return node.GetChildren()
+				.SelectMany(child => child.GetDescendants().Prepend(child));
 		}
 	}
 }

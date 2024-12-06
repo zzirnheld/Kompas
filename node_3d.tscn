@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbgvrwhg5n8rd"]
+
+[ext_resource type="Script" path="res://testarea2d.cs" id="1_f285s"]
+[ext_resource type="Script" path="res://test3.cs" id="2_mhaoy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aunq3"]
+size = Vector2(512, 512)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xlvbg"]
+viewport_path = NodePath("Area2D/Sprite2D/SubViewport")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ybag1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dd4wj"]
+albedo_color = Color(0.894118, 0.894118, 0.894118, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_cn8mv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i564x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4eca0"]
+size = Vector3(1, 1, 0.1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.761651, 0.647987, 0, -0.647987, 0.761651, 0, 2.7323, 3.41428)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(356, 356)
+script = ExtResource("1_f285s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_aunq3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = SubResource("ViewportTexture_xlvbg")
+
+[node name="SubViewport" type="SubViewport" parent="Area2D/Sprite2D"]
+transparent_bg = true
+handle_input_locally = false
+physics_object_picking = true
+physics_object_picking_sort = true
+gui_snap_controls_to_pixels = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Area2D/Sprite2D/SubViewport"]
+transform = Transform3D(0.816198, 0.577772, 0, -0.577772, 0.816198, 0, 0, 0, 1, 0, 0, -2.91878)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area2D/Sprite2D/SubViewport"]
+transform = Transform3D(81.6198, -2.52552e-06, -57.7772, -57.7772, -3.56772e-06, -81.6198, 0, 100, -4.37114e-06, 0, 0, -5.91878)
+mesh = SubResource("PlaneMesh_ybag1")
+skeleton = NodePath("../Area3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_dd4wj")
+
+[node name="Area3D" type="Area3D" parent="Area2D/Sprite2D/SubViewport"]
+transform = Transform3D(0.816198, 0.577772, 0, -0.577772, 0.816198, 0, 0, 0, 1, 0, 0, -5.67066)
+script = ExtResource("2_mhaoy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area2D/Sprite2D/SubViewport/Area3D"]
+mesh = SubResource("QuadMesh_cn8mv")
+skeleton = NodePath("../../Camera3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_i564x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area2D/Sprite2D/SubViewport/Area3D"]
+shape = SubResource("BoxShape3D_4eca0")
+
+[connection signal="input_event" from="Area2D/Sprite2D/SubViewport/Area3D" to="Area2D/Sprite2D/SubViewport/Area3D" method="iiiiinput"]
+[connection signal="mouse_entered" from="Area2D/Sprite2D/SubViewport/Area3D" to="Area2D/Sprite2D/SubViewport/Area3D" method="hello"]
