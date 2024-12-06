@@ -19,8 +19,8 @@ namespace Kompas.Networking.Packets
 		{
 			this.cardName = cardName;
 			this.targetBlurb = targetBlurb;
-			this.possibleSpaces = possibleSpaces.Select(s => s.x * 7 + s.y).ToArray();
-			this.recommendedSpaces = recommendedSpaces.Select(s => s.x * 7 + s.y).ToArray();
+			this.possibleSpaces = possibleSpaces.Select(s => s.x * Space.BoardLen + s.y).ToArray();
+			this.recommendedSpaces = recommendedSpaces.Select(s => s.x * Space.BoardLen + s.y).ToArray();
 		}
 	}
 }
@@ -37,7 +37,7 @@ namespace Kompas.Client.Networking
 				return;
 			}
 
-			static Space ToSpace(int s) => new(s / 7, s % 7);
+			static Space ToSpace(int s) => new(s / Space.BoardLen, s % Space.BoardLen);
 			clientGame.ClientGameController.TargetingController
 				.StartSpaceSearch(possibleSpaces.Select(ToSpace), recommendedSpaces.Select(ToSpace), targetBlurb);
 		}

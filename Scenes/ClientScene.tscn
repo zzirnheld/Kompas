@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=116 format=3 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://Scripts/Client/UI/Game Start/ConnectToServerController.cs" id="7_w446t"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientAnnihilationController.cs" id="8_4q2k2"]
 [ext_resource type="Script" path="res://Scripts/UI/SquareGridContainer.cs" id="8_50pmk"]
+[ext_resource type="PackedScene" uid="uid://bk05g2b6mi5yu" path="res://Models/Circles Board 6 fused.glb" id="8_brtm1"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/SpacesClickingController.cs" id="9_0nh6x"]
 [ext_resource type="PackedScene" uid="uid://cpyf6wpld1p25" path="res://Scenes/Prefabs/Spaces.tscn" id="9_06muj"]
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/Locations/Controllers/ClientDeckController.cs" id="9_u740w"]
@@ -173,6 +174,9 @@ shader_parameter/texture_albedo = SubResource("ViewportTexture_y4wym")
 shader_parameter/texture_mask = ExtResource("6_amk2a")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4jiy5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xkdg"]
+albedo_color = Color(0.0745098, 0.0784314, 0.203922, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jatgb"]
 points = PackedVector3Array(0.00288866, 0.495928, -0.477356, 0.0127548, 0.495928, -0.491559, -0.00289327, 0.495928, -0.477356, 0.00288866, -0.00407219, -0.477356, 0.0224927, 0.495928, -0.505849, 0.0127548, -0.00407219, -0.491559, -0.0127594, 0.495928, -0.491559, -0.00289327, -0.00407219, -0.477356, 0.0321506, 0.495928, -0.520225, 0.0224927, -0.00407219, -0.505849, -0.0224974, 0.495928, -0.505849, -0.0127594, -0.00407219, -0.491559, 0.0465334, 0.495928, -0.54192, 0.0321506, -0.00407219, -0.520225, -0.0321552, 0.495928, -0.520225, -0.0273503, 0.495879, -0.513037, -0.0224974, -0.00407219, -0.505849, 0.0558389, 0.495928, -0.556643, 0.0465334, -0.00407219, -0.54192, -0.046538, 0.495928, -0.54192, -0.0321552, -0.00407219, -0.520225, -0.0273503, -0.00407219, -0.513037, 0.0651284, 0.495928, -0.571409, 0.0558389, -0.00407219, -0.556643, -0.0558435, 0.495928, -0.556643, -0.046538, -0.00407219, -0.54192, 0.0743379, 0.495928, -0.586219, 0.0651284, -0.00407219, -0.571409, -0.0697297, 0.495928, -0.578814, -0.065133, 0.495879, -0.571409, -0.0558435, -0.00407219, -0.556643, 0.0788545, 0.495928, -0.593754, 0.0743379, -0.00407219, -0.586219, -0.0743425, 0.495928, -0.586219, -0.065133, -0.00407219, -0.571409, 0.0818015, 0.495928, -0.601245, 0.0788545, -0.00407219, -0.593754, 0.0818175, -0.00407219, -0.601245, -0.0788591, 0.495928, -0.593754, -0.0743425, -0.00407219, -0.586219, 0.00223199, 0.495928, -0.919737, 0.00223199, -0.00407219, -0.919737, -0.0818061, 0.495928, -0.601245, -0.0788591, -0.00407219, -0.593754, -0.00231668, 0.495928, -0.918352, -0.00231668, -0.00407219, -0.918352, -0.0818061, -0.00407219, -0.601245)
@@ -459,18 +463,29 @@ surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
 script = ExtResource("1_l7n64")
 _spacesController = NodePath("Spaces")
 
+[node name="Kompas Board Background" type="CSGMesh3D" parent="Node/3D/Board"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4jiy5")
+material = SubResource("StandardMaterial3D_3xkdg")
+
+[node name="Circles Board 6 fused" parent="Node/3D/Board/Kompas Board Background" instance=ExtResource("8_brtm1")]
+transform = Transform3D(0.071, 0, 0, 0, 0.035, 0, 0, 0, 0.071, 0, 0, 0)
+
 [node name="Kompas Board Beeg (Low Quality)" type="CSGMesh3D" parent="Node/3D/Board"]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+visible = false
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("1_k7cme")
 
 [node name="Kompas Board Smol (High Quality)" type="CSGMesh3D" parent="Node/3D/Board"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+visible = false
 mesh = SubResource("PlaneMesh_4jiy5")
 material = ExtResource("2_wywm4")
 
 [node name="Spaces" type="Node3D" parent="Node/3D/Board" node_paths=PackedStringArray("_gameController", "_canMove", "_canPlay", "_recommend", "_unrecommend", "_spacesClickingController", "_placeInSpaceController")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.002, 0)
+visible = false
 script = ExtResource("5_kcvca")
 _linkedSpaces = ExtResource("9_06muj")
 _defaultAOEMaterial = ExtResource("10_64mcu")
@@ -1108,7 +1123,7 @@ _cardArranger = NodePath("Spiral Parent/F Deck Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
 
 [node name="Spiral Parent" type="Node3D" parent="Node/3D/Friendly Player/Friendly Deck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.001, 0.31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.02, 0.31)
 
 [node name="F Deck Spiral Card Area" parent="Node/3D/Friendly Player/Friendly Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
@@ -1139,7 +1154,7 @@ SpiralTighten = 0.25
 transform = Transform3D(0.996195, 0.0871557, 0, 0.00456138, -0.0521368, 0.99863, 0.0870363, -0.994829, -0.052336, 0, 0.7, 0.25)
 
 [node name="Spiral Parent" type="Node3D" parent="Node/3D/Friendly Player/Friendly Discard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.001, 0.31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.02, 0.31)
 
 [node name="F Discard Spiral Card Area" parent="Node/3D/Friendly Player/Friendly Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.001, 0)
@@ -1176,7 +1191,7 @@ _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera C
 transform = Transform3D(0.996195, 0.0871557, 0, -0.00456138, 0.0521368, 0.99863, 0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
 
 [node name="Spiral Parent" type="Node3D" parent="Node/3D/Enemy Player/Enemy Deck"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.31, 0.001, -0.31)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.31, 0.02, -0.31)
 
 [node name="E Deck Spiral Card Area" parent="Node/3D/Enemy Player/Enemy Deck/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
@@ -1197,11 +1212,12 @@ SpiralTighten = 0.25
 transform = Transform3D(0.996195, -0.0871557, 0, 0.00456138, 0.0521368, 0.99863, -0.0870363, -0.994829, 0.052336, 0, 0.7, -0.25)
 
 [node name="Spiral Parent" type="Node3D" parent="Node/3D/Enemy Player/Enemy Discard"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.31, 0.001, -0.31)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.31, 0.02, -0.31)
 
 [node name="E Discard Spiral Card Area" parent="Node/3D/Enemy Player/Enemy Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
 [node name="UI" type="Control" parent="Node"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

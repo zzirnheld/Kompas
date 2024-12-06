@@ -8,7 +8,7 @@ namespace Kompas.Gamestate
 	//FUTURE: Possible optimization: make this a struct, and all the current instances nullable.
 	public class Space
 	{
-		public const int BoardLen = 7;
+		public const int BoardLen = 6;
 		public const int NoPathExists = int.MaxValue;
 		public const int MaxIndex = BoardLen - 1;
 		public static readonly Space Invalid = (-69, -420);
@@ -81,8 +81,8 @@ namespace Kompas.Gamestate
 			if (start == destination) return 0;
 			if (start == null || destination == null) return NoPathExists;
 
-			int[,] dist = new int[7, 7];
-			bool[,] seen = new bool[7, 7];
+			int[,] dist = new int[BoardLen, BoardLen];
+			bool[,] seen = new bool[BoardLen, BoardLen];
 
 			var queue = new Queue<Space>();
 

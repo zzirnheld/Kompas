@@ -64,6 +64,7 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(0.816198, 0.577772, 0, -0.577772, 0.816198, 0, 0, 0, 1, 0, 0, -2.91878)
+current = true
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("viewport")]
 position = Vector2(356, 356)
