@@ -1,5 +1,4 @@
-﻿using Kompas.Effects.Models;
-using Kompas.Effects.Models.Identities.Cards;
+﻿using Kompas.Effects.Models.Identities.Cards;
 using Kompas.Effects.Models.Identities.Numbers;
 
 namespace Kompas.Server.Effects.Models.Subeffects

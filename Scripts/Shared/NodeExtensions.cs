@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Shared;
-using Kompas.Shared.Enumerable;
 
 namespace Kompas.Godot
 {

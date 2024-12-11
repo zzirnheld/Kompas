@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using Godot;
 using Kompas.Client.UI;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Shared.Exceptions;
 

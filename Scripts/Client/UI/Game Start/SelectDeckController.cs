@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Controllers;
-using Kompas.Client.Gamestate;
 using Kompas.Godot;
 using Kompas.Shared;
 using Kompas.Shared.Exceptions;

@@ -1,4 +1,3 @@
-using System;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;

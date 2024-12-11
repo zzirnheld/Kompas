@@ -1,4 +1,3 @@
-using Godot;
 using Kompas.Gamestate;
 using Kompas.Server.Cards.Loading;
 using Kompas.Server.Gamestate.Players;

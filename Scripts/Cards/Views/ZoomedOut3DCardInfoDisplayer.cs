@@ -1,6 +1,5 @@
 using Godot;
 using Kompas.Cards.Models;
-using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Views
 {

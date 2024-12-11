@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using Godot;
-using Godot.NativeInterop;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Effects.Views;
 using Kompas.Effects;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Players;
 
 namespace Kompas.Client.Effects.Controllers
 {

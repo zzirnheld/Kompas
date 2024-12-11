@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using Kompas.Effects.Models.Restrictions.Cards;
 using Kompas.Gamestate;
 using Kompas.Shared.Exceptions;
-using static Kompas.Client.Gamestate.Controllers.ISpaceTargetingController;
 
 namespace Kompas.Client.Gamestate.Controllers
 {

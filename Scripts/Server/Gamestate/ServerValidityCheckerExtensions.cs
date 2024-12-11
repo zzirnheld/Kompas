@@ -1,4 +1,3 @@
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;

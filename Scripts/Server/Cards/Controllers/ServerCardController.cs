@@ -3,8 +3,6 @@ using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
 using Kompas.Client.UI;
-using Kompas.Gamestate.Locations;
-using Kompas.Server.Cards.Models;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Server.Cards.Controllers

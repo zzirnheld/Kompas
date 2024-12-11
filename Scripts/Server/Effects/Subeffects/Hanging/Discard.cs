@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Kompas.Effects.Models;
-using Kompas.Server.Gamestate;
-using Kompas.Effects.Models.Restrictions;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Effects.Models.TriggeringEvent;

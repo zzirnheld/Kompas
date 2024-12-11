@@ -1,6 +1,5 @@
 using Godot;
 using Kompas.Cards.Controllers;
-using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations.Controllers;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers

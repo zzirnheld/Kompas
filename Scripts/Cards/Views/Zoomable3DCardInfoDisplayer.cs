@@ -90,13 +90,6 @@ namespace Kompas.Cards.Views
 			ZoomedIn.DisplayGreyedOut(greyedOut);	
 		}
 
-		//FUTURE: replace with enum?
-		public void DisplayZoomed(bool zoomedIn)
-		{
-			// ZoomedOut.ShowingInfo = !zoomedIn;
-			// ZoomedIn.ShowingInfo = zoomedIn;
-		}
-
 		public void UpdateZoomedInLayerMask(uint layerMask)
 		{
 			//GD.Print($"Setting zoomed in descendants to {layerMask}");

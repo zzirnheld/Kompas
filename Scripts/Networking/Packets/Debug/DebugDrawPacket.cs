@@ -1,5 +1,4 @@
-﻿using Godot;
-using Kompas.Networking.Packets;
+﻿using Kompas.Networking.Packets;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;

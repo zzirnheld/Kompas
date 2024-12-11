@@ -1,10 +1,7 @@
-using Godot;
-using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Server.Gamestate;
-using Kompas.Server.Gamestate.Players;
 using Kompas.Shared.Exceptions;
 using System.Threading.Tasks;
 

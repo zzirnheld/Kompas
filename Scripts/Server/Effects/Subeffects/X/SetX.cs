@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Godot;
 using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects

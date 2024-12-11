@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.Client.Networking;
 using Kompas.Gamestate;

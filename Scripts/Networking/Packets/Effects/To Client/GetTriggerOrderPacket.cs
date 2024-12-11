@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Players;
 using Kompas.Effects.Models;
 using Kompas.Networking.Packets;
 using Kompas.Shared.Enumerable;

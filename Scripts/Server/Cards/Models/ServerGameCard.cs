@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
@@ -11,7 +10,6 @@ using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
-using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;

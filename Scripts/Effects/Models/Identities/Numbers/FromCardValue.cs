@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;

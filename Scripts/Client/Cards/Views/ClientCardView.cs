@@ -1,8 +1,6 @@
-using System;
 using Godot;
 using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
-using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Cards.Views;
 
@@ -21,8 +19,7 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 	protected override void Display(ClientGameCard shownCard)
 	{
 		base.Display(shownCard);
-
-		InfoDisplayer.DisplayZoomed(zoomedIn: true); //For now, assume never zoomed in.
+		
 		DisplayFrame();
 
 		DisplayTargeting(shownCard);

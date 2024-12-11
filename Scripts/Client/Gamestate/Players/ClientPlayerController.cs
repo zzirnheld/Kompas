@@ -1,7 +1,6 @@
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.Client.UI;
-using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
 using Kompas.Shared.Exceptions;
 

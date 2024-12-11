@@ -3,7 +3,6 @@ using System;
 using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Gamestate;
-using Kompas.Client.Gamestate.Players;
 using Kompas.Effects.Models;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;

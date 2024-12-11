@@ -5,7 +5,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kompas.Server.Gamestate.Players;
-using Godot;
 using Kompas.Shared.Enumerable;
 
 namespace Kompas.Networking.Packets

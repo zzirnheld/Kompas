@@ -1,7 +1,6 @@
 using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
-using Kompas.Shared.Enumerable;
 
 namespace Kompas.Effects.Models.TriggeringEvent
 {

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate.Exceptions;

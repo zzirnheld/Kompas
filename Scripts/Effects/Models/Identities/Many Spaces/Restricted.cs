@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Effects.Models.Identities.ManySpaces

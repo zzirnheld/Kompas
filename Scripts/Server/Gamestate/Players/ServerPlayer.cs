@@ -1,6 +1,4 @@
-using System;
 using System.Threading.Tasks;
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
 using Kompas.Gamestate;

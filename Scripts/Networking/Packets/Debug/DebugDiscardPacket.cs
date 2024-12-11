@@ -1,9 +1,7 @@
-﻿using Godot;
-using Kompas.Cards.Movement;
+﻿using Kompas.Cards.Movement;
 using Kompas.Networking.Packets;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
-using Kompas.Server.Networking;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets

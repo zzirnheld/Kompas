@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using Godot;
 using Kompas.Client.Gamestate;
 using Kompas.Networking;
 using Newtonsoft.Json;

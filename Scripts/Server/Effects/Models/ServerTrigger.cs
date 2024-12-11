@@ -5,7 +5,6 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Players;
-using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Effects.Models
 {

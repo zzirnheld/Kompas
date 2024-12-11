@@ -1,7 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Godot;
-using Kompas.Cards.Loading;
 using Kompas.Server.Cards.Loading;
 using Newtonsoft.Json;
 

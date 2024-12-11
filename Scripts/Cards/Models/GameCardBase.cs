@@ -7,7 +7,6 @@ using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations;
-using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Cards.Models

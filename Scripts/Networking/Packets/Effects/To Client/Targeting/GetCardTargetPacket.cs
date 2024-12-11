@@ -1,9 +1,7 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
-using Newtonsoft.Json;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models;
-using Godot;
 
 namespace Kompas.Networking.Packets
 {

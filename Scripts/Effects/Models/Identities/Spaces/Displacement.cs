@@ -1,6 +1,5 @@
 using System;
 using Kompas.Cards.Models;
-using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 

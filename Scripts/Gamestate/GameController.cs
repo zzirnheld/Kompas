@@ -2,7 +2,6 @@ using Godot;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
 using Kompas.Shared.Exceptions;
-using Kompas.UI;
 
 namespace Kompas.Gamestate
 {

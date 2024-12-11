@@ -1,6 +1,5 @@
 using Kompas.Cards.Models;
 using Kompas.Client.Gamestate.Locations.Models;
-using Kompas.Client.Networking;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;

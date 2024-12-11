@@ -4,14 +4,11 @@ using System.Linq;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Cards.Models;
-using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Cards.Views;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Locations.Controllers;
 using Kompas.Client.UI;
-using Kompas.Godot;
-using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 

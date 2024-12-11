@@ -1,6 +1,5 @@
 using Godot;
 using Kompas.Shared.Controllers;
-using System;
 using System.Linq;
 
 public partial class TestSpiral : Node3D

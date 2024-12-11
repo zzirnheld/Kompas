@@ -1,7 +1,5 @@
-using System.Linq;
 using Godot;
 using Kompas.Cards.Controllers;
-using Kompas.Client.UI;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas;

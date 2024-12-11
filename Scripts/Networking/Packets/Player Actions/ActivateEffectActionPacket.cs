@@ -1,9 +1,7 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Server.Cards.Models;
-using Kompas.Server.Effects;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kompas.Networking.Packets

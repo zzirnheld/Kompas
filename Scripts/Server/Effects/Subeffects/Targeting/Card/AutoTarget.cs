@@ -4,7 +4,6 @@ using Kompas.Effects.Models.Identities.ManyCards;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Identities.Numbers;

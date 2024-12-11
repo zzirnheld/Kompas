@@ -1,4 +1,3 @@
-using Godot;
 using Kompas.Effects.Models;
 
 namespace Kompas.Client.Effects.Models

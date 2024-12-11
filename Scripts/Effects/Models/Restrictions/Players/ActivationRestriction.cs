@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;

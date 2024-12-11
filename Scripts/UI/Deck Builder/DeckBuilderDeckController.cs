@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Kompas.Cards.Controllers;
-using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Shared;
 using Kompas.Shared.Exceptions;
-using Newtonsoft.Json;
 
 namespace Kompas.UI.DeckBuilder
 {

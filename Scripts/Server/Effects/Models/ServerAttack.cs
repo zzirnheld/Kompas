@@ -2,8 +2,6 @@ using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
-using Kompas.Gamestate;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Controllers;

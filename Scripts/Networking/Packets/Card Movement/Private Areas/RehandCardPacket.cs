@@ -1,7 +1,6 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using Kompas.Cards.Movement;
-using Godot;
 
 namespace Kompas.Networking.Packets
 {

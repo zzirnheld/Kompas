@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions;
 

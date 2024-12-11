@@ -1,4 +1,3 @@
-using Godot;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;

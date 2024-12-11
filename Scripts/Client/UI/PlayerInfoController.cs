@@ -1,6 +1,5 @@
 using Godot;
 using Kompas.Shared.Exceptions;
-using System;
 
 namespace Kompas.Client.UI
 {

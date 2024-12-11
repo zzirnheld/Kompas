@@ -1,6 +1,5 @@
 ﻿using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
-using Godot;
 using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects

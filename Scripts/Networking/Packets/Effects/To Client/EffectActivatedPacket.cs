@@ -1,7 +1,6 @@
 ﻿using Kompas.Networking.Packets;
 using Kompas.Client.Gamestate;
 using System.Linq;
-using Godot;
 using Kompas.Client.Effects.Models;
 
 namespace Kompas.Networking.Packets

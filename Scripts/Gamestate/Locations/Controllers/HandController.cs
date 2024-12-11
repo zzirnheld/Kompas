@@ -1,5 +1,4 @@
 using Godot;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Shared.Exceptions;
 

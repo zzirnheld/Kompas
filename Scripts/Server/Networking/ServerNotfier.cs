@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Godot;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
@@ -9,8 +8,6 @@ using Kompas.Gamestate.Players;
 using Kompas.Networking;
 using Kompas.Networking.Packets;
 using Kompas.Server.Effects.Models;
-using Kompas.Server.Gamestate.Players;
-using Kompas.Shared.Enumerable;
 
 namespace Kompas.Server.Networking
 {

@@ -1,4 +1,3 @@
-using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
 using Kompas.Client.UI;

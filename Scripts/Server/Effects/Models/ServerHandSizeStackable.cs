@@ -7,7 +7,6 @@ using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Players;
-using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Networking;
 using Kompas.Shared.Enumerable;

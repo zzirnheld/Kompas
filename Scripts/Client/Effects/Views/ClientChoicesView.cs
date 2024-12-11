@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Kompas.Client.Effects.Controllers;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Effects.Views;

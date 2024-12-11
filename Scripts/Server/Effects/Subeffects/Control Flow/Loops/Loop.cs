@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Godot;
 using Kompas.Gamestate.Exceptions;
-using Kompas.Server.Effects.Models;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models.Subeffects

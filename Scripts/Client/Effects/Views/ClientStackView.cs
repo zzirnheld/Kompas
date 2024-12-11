@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Godot;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.UI;

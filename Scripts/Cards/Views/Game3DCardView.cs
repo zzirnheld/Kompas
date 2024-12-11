@@ -1,7 +1,4 @@
-using Godot;
 using Kompas.Cards.Models;
-using Kompas.UI.CardInfoDisplayers;
-using System;
 
 namespace Kompas.Cards.Views
 {

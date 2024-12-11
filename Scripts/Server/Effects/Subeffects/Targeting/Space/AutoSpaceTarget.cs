@@ -1,7 +1,6 @@
 using Kompas.Effects.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using Godot;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Newtonsoft.Json;

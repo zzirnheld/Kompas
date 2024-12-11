@@ -1,5 +1,4 @@
 using System;
-using Godot;
 using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Effects.Models.Restrictions

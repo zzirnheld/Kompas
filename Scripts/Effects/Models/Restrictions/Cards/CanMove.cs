@@ -1,7 +1,6 @@
 using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
-using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Server.Effects.Models.Subeffects;
 using Newtonsoft.Json;

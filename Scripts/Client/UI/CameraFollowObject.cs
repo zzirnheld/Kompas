@@ -2,7 +2,6 @@ using System;
 using Godot;
 using Kompas.Godot;
 using Kompas.Shared.Exceptions;
-using Kompas.UI.MainMenu;
 
 namespace Kompas.Client.UI;
 

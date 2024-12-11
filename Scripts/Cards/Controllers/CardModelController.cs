@@ -1,7 +1,6 @@
 using Godot;
 using Kompas.Cards.Views;
 using Kompas.Shared.Exceptions;
-using System;
 
 namespace Kompas.Cards.Controllers
 {

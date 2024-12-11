@@ -1,19 +1,12 @@
-using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Views;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.UI;
-using Kompas.Shared.Exceptions;
-using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Cards.Views;
 
 public partial class ClientTopLeftCameraView : FocusableCardViewBase<ClientGameCard, ClientTopLeftCameraDisplayer>
-
 {
-	//TODO: when card becomes selected, move camera to see it (should move with card so it's not circling while the card is oscillating)
-	//TODO, when no card selected, hide texture
-
 	private ReminderTextPopup ReminderTextPopup { get; }
 	private ClientTopLeftCameraDisplayer TopLeftCamera { get; }
 
@@ -51,7 +44,7 @@ public partial class ClientTopLeftCameraView : FocusableCardViewBase<ClientGameC
 	public new void Focus(ClientGameCard? card)
 	{
 		base.Focus(card);
-		Refresh(); //To force updating layers?
+		Refresh(); //To force updating layers
 	} 
 	public void Hover(ClientGameCard? card, bool refresh = false) => base.Show(card, refresh);
 }

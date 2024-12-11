@@ -2,7 +2,6 @@
 using Kompas.Client.Gamestate;
 using System.Linq;
 using Kompas.Gamestate;
-using Godot;
 
 namespace Kompas.Networking.Packets
 {

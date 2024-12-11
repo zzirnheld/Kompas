@@ -1,10 +1,6 @@
-
-using Godot;
-using Kompas.Client.Gamestate.Players;
 using Kompas.Effects.Models;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
 namespace Kompas.Client.Effects.Models

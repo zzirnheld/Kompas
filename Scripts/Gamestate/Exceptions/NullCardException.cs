@@ -1,5 +1,3 @@
-using System;
-
 namespace Kompas.Gamestate.Exceptions
 {
 	public class NullCardException : KompasException

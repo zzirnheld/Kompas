@@ -13,7 +13,6 @@ using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
-using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Client.Gamestate;
 

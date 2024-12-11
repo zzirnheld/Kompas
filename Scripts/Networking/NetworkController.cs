@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Godot;
 using Newtonsoft.Json;
 
 namespace Kompas.Networking

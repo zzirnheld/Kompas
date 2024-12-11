@@ -1,6 +1,5 @@
 ﻿using Kompas.Effects.Models;
 using System.Collections.Generic;
-using Godot;
 using Kompas.Server.Gamestate.Players;
 using System;
 using Kompas.Gamestate.Exceptions;

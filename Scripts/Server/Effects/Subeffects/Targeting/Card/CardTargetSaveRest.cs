@@ -1,5 +1,4 @@
 ﻿using Kompas.Cards.Models;
-using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;

@@ -1,5 +1,4 @@
 using Kompas.Cards.Models;
-using Kompas.Effects.Subeffects;
 using Kompas.Server.Effects.Models.Subeffects;
 using Newtonsoft.Json;
 

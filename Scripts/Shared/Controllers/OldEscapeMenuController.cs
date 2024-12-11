@@ -3,7 +3,6 @@ using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.DeckBuilder;
 using System;
-using System.Collections.Generic;
 
 namespace Kompas.Shared.Controllers
 {

@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Kompas.Effects.Models;
-using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Effects.Models
 {

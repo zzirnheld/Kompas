@@ -1,4 +1,3 @@
-using System.Collections;
 using Godot;
 
 namespace Kompas.Cards.Controllers

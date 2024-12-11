@@ -1,4 +1,3 @@
-using Godot;
 using Kompas.Cards.Models;
 
 namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
