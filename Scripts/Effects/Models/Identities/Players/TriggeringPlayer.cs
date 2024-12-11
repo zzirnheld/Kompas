@@ -1,11 +1,10 @@
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Effects.Models.Identities.Players
+namespace Kompas.Effects.Models.Identities.Players;
+
+public class TriggeringPlayer : TriggerContextualLeafIdentityBase<IPlayer>
 {
-	public class TriggeringPlayer : TriggerContextualLeafIdentityBase<IPlayer>
-	{
-		protected override IPlayer? AbstractItemFrom(IEventContext contextToConsider)
-			=> contextToConsider.Player;
-	}
+	protected override IPlayer? AbstractItemFrom(IEventContext contextToConsider)
+		=> contextToConsider.Player;
 }

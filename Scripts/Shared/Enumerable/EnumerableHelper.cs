@@ -1,74 +1,73 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Kompas.Shared.Enumerable
+namespace Kompas.Shared.Enumerable;
+
+public static class EnumerableHelper
 {
-	public static class EnumerableHelper
+	public static IEnumerable<T> Yield<T>(this T item)
 	{
-		public static IEnumerable<T> Yield<T>(this T item)
-		{
-			yield return item;
-		}
-		
-		public static IEnumerable<(int index, T value)> Enumerate<T>(this IEnumerable<T> coll)
-				=> coll.Select((i, val) => (val, i));
-
-		public static IEnumerable<T> Safe<T>(this IEnumerable<T> source)
-		{
-			if (source == null) yield break;
-
-			foreach (var item in source) yield return item;
-		}
-
-		public static IEnumerable<R> CastOrReject<T, R>(this IEnumerable<T> source) 
-			where R : T
-		{
-			foreach (var elem in source) {
-				if (elem is R r) yield return r;
-			}
-		}
-
-		public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T elem)
-			=> source.Concat(new[] { elem });
-
-		public static IList<T> AddRangeWithCast<T, U>(this IList<T> list, IEnumerable<U> enumerable)
-			where T : U //This doesn't validate that the cast *will* be possible, but at least enforces that it's valid one way
-		{
-			foreach(var obj in enumerable)
-			{
-				if (obj is T t) list.Add(t);
-				else throw new System.ArgumentException($"Mismatch between type of object {obj?.GetType()} and type parameter for adding range {typeof(T)}");
-			}
-			return list;
-		}
-
-
-		/// <summary>
-		/// ElementAt, but allows negative indices to index from the end
-		/// </summary>
-		public static T? ElementAtWrapped<T>(this IEnumerable<T> source, int index)
-			=> source.ElementAtOrDefault(TrueIndex(source.Count(), index));
-
-		public static int TrueIndex(int len, int index) => index < 0 ? index + len : index;
-
-		/// <summary>
-		/// For use with SelectMany to flatten in a null-safe way
-		/// </summary>
-		public static IEnumerable<T> YieldNonNull<T>(T? item)
-		{
-			if (item != null) yield return item;
-		}
-
-		public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
-			where T : class
-		{
-			foreach (var t in source) if (t != null) yield return t;
-		}
-
-		public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
-			=> source.Concat(item.Yield());
-
-		public static IEnumerable<T> Concat<T>(this T source, IEnumerable<T> other)
-			=> source.Yield().Concat(other);
+		yield return item;
 	}
+	
+	public static IEnumerable<(int index, T value)> Enumerate<T>(this IEnumerable<T> coll)
+			=> coll.Select((i, val) => (val, i));
+
+	public static IEnumerable<T> Safe<T>(this IEnumerable<T> source)
+	{
+		if (source == null) yield break;
+
+		foreach (var item in source) yield return item;
+	}
+
+	public static IEnumerable<R> CastOrReject<T, R>(this IEnumerable<T> source) 
+		where R : T
+	{
+		foreach (var elem in source) {
+			if (elem is R r) yield return r;
+		}
+	}
+
+	public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T elem)
+		=> source.Concat(new[] { elem });
+
+	public static IList<T> AddRangeWithCast<T, U>(this IList<T> list, IEnumerable<U> enumerable)
+		where T : U //This doesn't validate that the cast *will* be possible, but at least enforces that it's valid one way
+	{
+		foreach(var obj in enumerable)
+		{
+			if (obj is T t) list.Add(t);
+			else throw new System.ArgumentException($"Mismatch between type of object {obj?.GetType()} and type parameter for adding range {typeof(T)}");
+		}
+		return list;
+	}
+
+
+	/// <summary>
+	/// ElementAt, but allows negative indices to index from the end
+	/// </summary>
+	public static T? ElementAtWrapped<T>(this IEnumerable<T> source, int index)
+		=> source.ElementAtOrDefault(TrueIndex(source.Count(), index));
+
+	public static int TrueIndex(int len, int index) => index < 0 ? index + len : index;
+
+	/// <summary>
+	/// For use with SelectMany to flatten in a null-safe way
+	/// </summary>
+	public static IEnumerable<T> YieldNonNull<T>(T? item)
+	{
+		if (item != null) yield return item;
+	}
+
+	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
+		where T : class
+	{
+		foreach (var t in source) if (t != null) yield return t;
+	}
+
+	public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
+		=> source.Concat(item.Yield());
+
+	public static IEnumerable<T> Concat<T>(this T source, IEnumerable<T> other)
+		=> source.Yield().Concat(other);
 }

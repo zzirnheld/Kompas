@@ -3,32 +3,31 @@ using Kompas.Cards.Models;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Players
+namespace Kompas.Effects.Models.Identities.Players;
+
+public class ControllerOf : ContextualParentIdentityBase<IPlayer>
 {
-	public class ControllerOf : ContextualParentIdentityBase<IPlayer>
+	#nullable disable
+	[JsonProperty]
+	public IIdentity<IGameCardInfo> card;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty]
-		public IIdentity<IGameCardInfo> card;
-		#nullable restore
+		base.Initialize(initializationContext);
+		card?.Initialize(initializationContext);
 
-		public override void Initialize(InitializationContext initializationContext)
+		if (AllNull(card)) throw new System.ArgumentException($"Must provide something to check controller of");
+	}
+
+	protected override IPlayer AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		if (this.card != null)
 		{
-			base.Initialize(initializationContext);
-			card?.Initialize(initializationContext);
-
-			if (AllNull(card)) throw new System.ArgumentException($"Must provide something to check controller of");
+			var card = this.card.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			return card.ControllingPlayer;
 		}
-
-		protected override IPlayer AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			if (this.card != null)
-			{
-				var card = this.card.From(context, secondaryContext)
-					?? throw new InvalidOperationException();
-				return card.ControllingPlayer;
-			}
-			throw new System.ArgumentException("huh?");
-		}
+		throw new System.ArgumentException("huh?");
 	}
 }

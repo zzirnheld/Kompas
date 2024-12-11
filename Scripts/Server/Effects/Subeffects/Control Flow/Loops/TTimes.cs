@@ -1,23 +1,22 @@
-﻿namespace Kompas.Server.Effects.Models.Subeffects
+﻿namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class TTimesSubeffect : Loop
 {
-	public class TTimesSubeffect : Loop
+	public int T;
+	private int count = 0;
+
+	protected override void OnLoopExit()
 	{
-		public int T;
-		private int count = 0;
+		base.OnLoopExit();
+		count = 0;
+	}
 
-		protected override void OnLoopExit()
+	protected override bool ShouldContinueLoop
+	{
+		get
 		{
-			base.OnLoopExit();
-			count = 0;
-		}
-
-		protected override bool ShouldContinueLoop
-		{
-			get
-			{
-				count++;
-				return count < T;
-			}
+			count++;
+			return count < T;
 		}
 	}
 }

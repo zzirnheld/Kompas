@@ -1,34 +1,33 @@
 using Godot;
 using Kompas.Shared.Exceptions;
 
-namespace Kompas.UI.DeckBuilder
+namespace Kompas.UI.DeckBuilder;
+
+public partial class SaveAsController : Control
 {
-	public partial class SaveAsController : Control
+	[Export]
+	private DeckBuilderDeckController? _deckBuilderDeckController;
+	private DeckBuilderDeckController DeckBuilderDeckController => _deckBuilderDeckController
+		?? throw new UnassignedReferenceException();
+
+	[Export]
+	private LineEdit? _deckNameEdit;
+	private LineEdit DeckNameEdit => _deckNameEdit
+		?? throw new UnassignedReferenceException();
+
+	public void Enable()
 	{
-		[Export]
-		private DeckBuilderDeckController? _deckBuilderDeckController;
-		private DeckBuilderDeckController DeckBuilderDeckController => _deckBuilderDeckController
-			?? throw new UnassignedReferenceException();
+		DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.SaveAs);
+	}
 
-		[Export]
-		private LineEdit? _deckNameEdit;
-		private LineEdit DeckNameEdit => _deckNameEdit
-			?? throw new UnassignedReferenceException();
+	public void Confirm()
+	{
+		DeckBuilderDeckController.SaveAs(DeckNameEdit.Text);
+		DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
+	}
 
-		public void Enable()
-		{
-			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.SaveAs);
-		}
-
-		public void Confirm()
-		{
-			DeckBuilderDeckController.SaveAs(DeckNameEdit.Text);
-			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
-		}
-
-		public void Cancel()
-		{
-			DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
-		}
+	public void Cancel()
+	{
+		DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
 	}
 }

@@ -1,32 +1,31 @@
 using Godot;
 using Kompas.Cards.Models;
 
-namespace Kompas.Cards.Views
+namespace Kompas.Cards.Views;
+
+public partial class ZoomedOut3DCardInfoDisplayer : MeshCardInfoDisplayerBase
 {
-	public partial class ZoomedOut3DCardInfoDisplayer : MeshCardInfoDisplayerBase
+	[Export]
+	private Label3D? N { get; set; }
+	[Export]
+	private Label3D? E { get; set; }
+	[Export]
+	private Label3D? Cost { get; set; }
+	[Export]
+	private Label3D? W { get; set; }
+
+	//Text is a noop
+	public override void DisplayCardNumericStats(CardBase card)
 	{
-		[Export]
-		private Label3D? N { get; set; }
-		[Export]
-		private Label3D? E { get; set; }
-		[Export]
-		private Label3D? Cost { get; set; }
-		[Export]
-		private Label3D? W { get; set; }
+		_ = N ?? throw new System.NullReferenceException("Failed to init");
+		_ = E ?? throw new System.NullReferenceException("Failed to init");
+		_ = Cost ?? throw new System.NullReferenceException("Failed to init");
+		_ = W ?? throw new System.NullReferenceException("Failed to init");
 
-		//Text is a noop
-		public override void DisplayCardNumericStats(CardBase card)
-		{
-			_ = N ?? throw new System.NullReferenceException("Failed to init");
-			_ = E ?? throw new System.NullReferenceException("Failed to init");
-			_ = Cost ?? throw new System.NullReferenceException("Failed to init");
-			_ = W ?? throw new System.NullReferenceException("Failed to init");
-
-			N.Text = $"{card.N}";
-			E.Text = $"{card.E}";
-			Cost.Text = $"{card.Cost}";
-			W.Text = $"{card.W}";
-		}
-		public override void DisplayCardRulesText(CardBase card) { }
+		N.Text = $"{card.N}";
+		E.Text = $"{card.E}";
+		Cost.Text = $"{card.Cost}";
+		W.Text = $"{card.W}";
 	}
+	public override void DisplayCardRulesText(CardBase card) { }
 }

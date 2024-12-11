@@ -12,227 +12,226 @@ using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
 
-namespace Kompas.Client.Gamestate
+namespace Kompas.Client.Gamestate;
+
+public class ClientGame : IGame
 {
-	public class ClientGame : IGame
+	public bool Debug => false;
+	public bool VerboseDebugLogging => false;
+
+	//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
+	public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
+	public ICardRepository CardRepository => ClientCardRepository;
+
+	public ClientBoard ClientBoard { get; private set; }
+	public IBoard Board => ClientBoard;
+
+	public ClientStackController StackController { get; }
+	IStackController IGame.StackController => StackController;
+
+	public ClientChoicesController ChoicesController { get; }
+
+	private readonly ClientPlayer[] clientPlayers = new ClientPlayer[2];
+	public IPlayer[] Players => clientPlayers;
+	public ClientPlayer FriendlyPlayer => clientPlayers[0];
+
+	public ClientGameController ClientGameController { get; private set; }
+	public GameController GameController => ClientGameController;
+
+	private readonly Dictionary<int, ClientGameCard> cardsByID = new();
+	public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
+
+	public bool GameOver { get; private set; }
+	public int TurnPlayerIndex { get; set; }
+	public IPlayer TurnPlayer => Players[TurnPlayerIndex];
+	public int FirstTurnPlayer { get; set; } //TODO
+	public int RoundCount { get; set; } = 1;
+	public int TurnCount { get; set; } = 1;
+
+	//public ClientSettings ClientSettings => uiController.clientUISettingsController.ClientSettings;
+	public Settings Settings { get; private set; } //TODO consider moving this to its own controller that Game references?
+	Settings IGame.Settings => Settings;
+
+	//dirty card set
+	private readonly ISet<GameCard> dirtyCardList = new HashSet<GameCard>();
+
+	public event System.EventHandler<IPlayer>? TurnChanged;
+	public event System.EventHandler? GameStarted;
+
+	private int leyload;
+	public int Leyload
 	{
-		public bool Debug => false;
-		public bool VerboseDebugLogging => false;
-
-		//TODO consider making a GameCardRepository non-generic base class that we can call stuff on when instantiating cards? 
-		public ClientCardRepository ClientCardRepository => ClientGameController.CardRepository;
-		public ICardRepository CardRepository => ClientCardRepository;
-
-		public ClientBoard ClientBoard { get; private set; }
-		public IBoard Board => ClientBoard;
-
-		public ClientStackController StackController { get; }
-		IStackController IGame.StackController => StackController;
-
-		public ClientChoicesController ChoicesController { get; }
-
-		private readonly ClientPlayer[] clientPlayers = new ClientPlayer[2];
-		public IPlayer[] Players => clientPlayers;
-		public ClientPlayer FriendlyPlayer => clientPlayers[0];
-
-		public ClientGameController ClientGameController { get; private set; }
-		public GameController GameController => ClientGameController;
-
-		private readonly Dictionary<int, ClientGameCard> cardsByID = new();
-		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
-
-		public bool GameOver { get; private set; }
-		public int TurnPlayerIndex { get; set; }
-		public IPlayer TurnPlayer => Players[TurnPlayerIndex];
-		public int FirstTurnPlayer { get; set; } //TODO
-		public int RoundCount { get; set; } = 1;
-		public int TurnCount { get; set; } = 1;
-
-		//public ClientSettings ClientSettings => uiController.clientUISettingsController.ClientSettings;
-		public Settings Settings { get; private set; } //TODO consider moving this to its own controller that Game references?
-		Settings IGame.Settings => Settings;
-
-		//dirty card set
-		private readonly ISet<GameCard> dirtyCardList = new HashSet<GameCard>();
-
-		public event System.EventHandler<IPlayer>? TurnChanged;
-		public event System.EventHandler? GameStarted;
-
-		private int leyload;
-		public int Leyload
+		get => leyload;
+		set
 		{
-			get => leyload;
-			set
-			{
-				leyload = value;
-				//TODO refresh leyload shown + "next turn pips" shown
-				//uiController.Leyload = Leyload;
-				//Refresh next turn pips shown.
-				//foreach (var player in Players) player.Pips = player.Pips;
-			}
+			leyload = value;
+			//TODO refresh leyload shown + "next turn pips" shown
+			//uiController.Leyload = Leyload;
+			//Refresh next turn pips shown.
+			//foreach (var player in Players) player.Pips = player.Pips;
 		}
-
-		#nullable disable
-		private ClientGame(ClientGameController gameController)
-		{
-			ClientGameController = gameController;
-
-			clientPlayers = new ClientPlayer[2];
-
-			StackController = new(gameController.StackView);
-		}
-		#nullable restore
-
-		public static ClientGame Create(ClientGameController gameController)
-		{
-			var ret = new ClientGame(gameController);
-
-			var playerControllers = gameController.PlayerControllers;
-			ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, playerControllers[0], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
-			ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, playerControllers[1], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
-
-			ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
-			ret.clientPlayers[1].Enemy = ret.clientPlayers[0];
-
-			ret.ClientBoard = new ClientBoard(gameController.BoardController
-				?? throw new System.NullReferenceException("Failed to init"));
-
-			return ret;
-		}
-
-		public void GameEnded(bool victory)
-		{
-			if (GameOver) return;
-
-			GameOver = true;
-			//uiController.escapeMenuUIController.Enable();
-			//TODO display you win/lose
-			//TODO display rematch/main menu options? disallow user from closing menu?
-		}
-
-		public void AddCard(ClientGameCard card)
-		{
-			if (card.ID == -1) return;
-
-			if (cardsByID.ContainsKey(card.ID))
-			{
-				//Note: It's currently sending two packets for the other person's avatar!?
-				Logger.Err($"Tried to add {card} #{card.ID} but the lookup already had {cardsByID[card.ID]} there!");
-			}
-
-			cardsByID.Add(card.ID, card);
-		}
-
-		public void SetAvatar(int player, string json, int avatarID)
-		{
-			if (player >= 2) throw new System.ArgumentException("Can only handle 2-player games!", nameof(player));
-
-			var owner = clientPlayers[player];
-			var avatar = ClientCardRepository?.InstantiateClientAvatar(json, owner, avatarID, this)
-				?? throw new System.NullReferenceException("Failed to init");
-			avatar.KnownToEnemy = true;
-			owner.Avatar = avatar;
-			Space to = player == 0 ? Space.NearCorner : Space.FarCorner;
-			avatar.Play(to, owner);
-
-			//TODO move to game controller - after avatar is set, show avatar in deck select screen
-			//if (player == 1) uiController.connectionUIController.deckAcceptedUIController.ShowEnemyAvatar(avatar.FileName);
-		}
-
-		public void Delete(GameCard card)
-		{
-			card.Remove();
-			cardsByID.Remove(card.ID);
-			card.CardController.Delete(); //TODO consider moving to GameController
-		}
-
-		public void SetFirstTurnPlayer(int playerIndex)
-		{
-			FirstTurnPlayer = TurnPlayerIndex = playerIndex;
-			RoundCount = 1;
-			TurnCount = 1;
-			GameStarted?.Invoke(this, System.EventArgs.Empty);
-		}
-
-		public void SetTurn(int index)
-		{
-			TurnPlayerIndex = index;
-			foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
-			if (TurnPlayerIndex == FirstTurnPlayer) RoundCount++;
-			TurnCount++;
-
-			TurnPlayer.PipsNextTurn = Leyload + 2;
-			TurnPlayer.Enemy.PipsNextTurn = Leyload + 1;
-			TurnChanged?.Invoke(this, TurnPlayer);
-		}
-
-		public GameCard? LookupCardByID(int id)
-		{
-			if (cardsByID.TryGetValue(id, out var ret)) return ret;
-			return null;
-		}
-
-		public void StackEmptied()
-		{
-			//TODO move to GameController:
-			//uiController.TargetMode = TargetMode.Free;
-			//uiController.SetCurrState("Nothing Happening");
-			foreach (var c in Cards) c.ResetForStack();
-			//ShowNoTargets();
-
-			StackController.StackEmptied();
-		}
-
-		//TODO move to GameController:
-		/*
-		public void ApplySettings()
-		{
-			ClientCameraController.ZoomThreshold = ClientSettings.zoomThreshold;
-			uiController.ApplySettings(ClientSettings);
-			foreach (var card in Cards) card.CardController.gameCardViewController.Refresh();
-		}
-
-		#region targeting
-		/// <summary>
-		/// Sets up the client for the player to select targets
-		/// </summary>
-		public void SetPotentialTargets(int[] ids, IListRestriction listRestriction)
-		{
-			CurrentPotentialTargets = ids?.Select(i => LookupCardByID(i)).Where(c => c != null).ToArray();
-			searchCtrl.StartSearch(CurrentPotentialTargets, listRestriction);
-		}
-
-		public void ClearPotentialTargets()
-		{
-			CurrentPotentialTargets = null;
-			searchCtrl.ResetSearch();
-		}
-
-		/// <summary>
-		/// Makes each card no longer show any highlight about its status as a target
-		/// </summary>
-		public void ShowNoTargets()
-		{
-			foreach (var card in Cards) card.CardController.gameCardViewController.Refresh();
-		}
-
-		/// <summary>
-		/// Show valid target highlight for current potential targets
-		/// </summary>
-		public void ShowValidCardTargets()
-		{
-			if (CurrentPotentialTargets != null)
-			{
-				foreach (var card in CurrentPotentialTargets) card.CardController.gameCardViewController.Refresh();
-			}
-			else ShowNoTargets();
-		}
-
-		public override bool IsCurrentTarget(GameCard card) => searchCtrl.IsCurrentlyTargeted(card);
-		public override bool IsValidTarget(GameCard card) => searchCtrl.IsValidTarget(card);
-
-		public override CardBase FocusedCard => uiController.cardInfoViewUIController.FocusedCard;
-		#endregion targeting
-		*/
 	}
+
+	#nullable disable
+	private ClientGame(ClientGameController gameController)
+	{
+		ClientGameController = gameController;
+
+		clientPlayers = new ClientPlayer[2];
+
+		StackController = new(gameController.StackView);
+	}
+	#nullable restore
+
+	public static ClientGame Create(ClientGameController gameController)
+	{
+		var ret = new ClientGame(gameController);
+
+		var playerControllers = gameController.PlayerControllers;
+		ret.clientPlayers[0] = ClientPlayer.Create(ret, 0, playerControllers[0], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
+		ret.clientPlayers[1] = ClientPlayer.Create(ret, 1, playerControllers[1], () => gameController.Networker ?? throw new System.NullReferenceException("Failed to init"));
+
+		ret.clientPlayers[0].Enemy = ret.clientPlayers[1];
+		ret.clientPlayers[1].Enemy = ret.clientPlayers[0];
+
+		ret.ClientBoard = new ClientBoard(gameController.BoardController
+			?? throw new System.NullReferenceException("Failed to init"));
+
+		return ret;
+	}
+
+	public void GameEnded(bool victory)
+	{
+		if (GameOver) return;
+
+		GameOver = true;
+		//uiController.escapeMenuUIController.Enable();
+		//TODO display you win/lose
+		//TODO display rematch/main menu options? disallow user from closing menu?
+	}
+
+	public void AddCard(ClientGameCard card)
+	{
+		if (card.ID == -1) return;
+
+		if (cardsByID.ContainsKey(card.ID))
+		{
+			//Note: It's currently sending two packets for the other person's avatar!?
+			Logger.Err($"Tried to add {card} #{card.ID} but the lookup already had {cardsByID[card.ID]} there!");
+		}
+
+		cardsByID.Add(card.ID, card);
+	}
+
+	public void SetAvatar(int player, string json, int avatarID)
+	{
+		if (player >= 2) throw new System.ArgumentException("Can only handle 2-player games!", nameof(player));
+
+		var owner = clientPlayers[player];
+		var avatar = ClientCardRepository?.InstantiateClientAvatar(json, owner, avatarID, this)
+			?? throw new System.NullReferenceException("Failed to init");
+		avatar.KnownToEnemy = true;
+		owner.Avatar = avatar;
+		Space to = player == 0 ? Space.NearCorner : Space.FarCorner;
+		avatar.Play(to, owner);
+
+		//TODO move to game controller - after avatar is set, show avatar in deck select screen
+		//if (player == 1) uiController.connectionUIController.deckAcceptedUIController.ShowEnemyAvatar(avatar.FileName);
+	}
+
+	public void Delete(GameCard card)
+	{
+		card.Remove();
+		cardsByID.Remove(card.ID);
+		card.CardController.Delete(); //TODO consider moving to GameController
+	}
+
+	public void SetFirstTurnPlayer(int playerIndex)
+	{
+		FirstTurnPlayer = TurnPlayerIndex = playerIndex;
+		RoundCount = 1;
+		TurnCount = 1;
+		GameStarted?.Invoke(this, System.EventArgs.Empty);
+	}
+
+	public void SetTurn(int index)
+	{
+		TurnPlayerIndex = index;
+		foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
+		if (TurnPlayerIndex == FirstTurnPlayer) RoundCount++;
+		TurnCount++;
+
+		TurnPlayer.PipsNextTurn = Leyload + 2;
+		TurnPlayer.Enemy.PipsNextTurn = Leyload + 1;
+		TurnChanged?.Invoke(this, TurnPlayer);
+	}
+
+	public GameCard? LookupCardByID(int id)
+	{
+		if (cardsByID.TryGetValue(id, out var ret)) return ret;
+		return null;
+	}
+
+	public void StackEmptied()
+	{
+		//TODO move to GameController:
+		//uiController.TargetMode = TargetMode.Free;
+		//uiController.SetCurrState("Nothing Happening");
+		foreach (var c in Cards) c.ResetForStack();
+		//ShowNoTargets();
+
+		StackController.StackEmptied();
+	}
+
+	//TODO move to GameController:
+	/*
+	public void ApplySettings()
+	{
+		ClientCameraController.ZoomThreshold = ClientSettings.zoomThreshold;
+		uiController.ApplySettings(ClientSettings);
+		foreach (var card in Cards) card.CardController.gameCardViewController.Refresh();
+	}
+
+	#region targeting
+	/// <summary>
+	/// Sets up the client for the player to select targets
+	/// </summary>
+	public void SetPotentialTargets(int[] ids, IListRestriction listRestriction)
+	{
+		CurrentPotentialTargets = ids?.Select(i => LookupCardByID(i)).Where(c => c != null).ToArray();
+		searchCtrl.StartSearch(CurrentPotentialTargets, listRestriction);
+	}
+
+	public void ClearPotentialTargets()
+	{
+		CurrentPotentialTargets = null;
+		searchCtrl.ResetSearch();
+	}
+
+	/// <summary>
+	/// Makes each card no longer show any highlight about its status as a target
+	/// </summary>
+	public void ShowNoTargets()
+	{
+		foreach (var card in Cards) card.CardController.gameCardViewController.Refresh();
+	}
+
+	/// <summary>
+	/// Show valid target highlight for current potential targets
+	/// </summary>
+	public void ShowValidCardTargets()
+	{
+		if (CurrentPotentialTargets != null)
+		{
+			foreach (var card in CurrentPotentialTargets) card.CardController.gameCardViewController.Refresh();
+		}
+		else ShowNoTargets();
+	}
+
+	public override bool IsCurrentTarget(GameCard card) => searchCtrl.IsCurrentlyTargeted(card);
+	public override bool IsValidTarget(GameCard card) => searchCtrl.IsValidTarget(card);
+
+	public override CardBase FocusedCard => uiController.cardInfoViewUIController.FocusedCard;
+	#endregion targeting
+	*/
 }

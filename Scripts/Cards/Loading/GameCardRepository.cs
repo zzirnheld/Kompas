@@ -9,111 +9,110 @@ using Kompas.Shared;
 using Kompas.Shared.Enumerable;
 using Newtonsoft.Json;
 
-namespace Kompas.Cards.Loading
+namespace Kompas.Cards.Loading;
+
+public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCardController> : CardRepository
+	where TSerializableCard : SerializableGameCard
+	where TEffect : Effect
+	where TCardController : class, ICardController
 {
-	public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCardController> : CardRepository
-		where TSerializableCard : SerializableGameCard
-		where TEffect : Effect
-		where TCardController : class, ICardController
+	private PackedScene? CardPrefab { get; }
+
+	protected GameCardRepository(IFileLoader fileLoader, bool throwExceptions, PackedScene? cardPrefab)
+		: base(fileLoader, throwExceptions)
 	{
-		private PackedScene? CardPrefab { get; }
+		CardPrefab = cardPrefab;
+		Initialize();
+	}
 
-		protected GameCardRepository(IFileLoader fileLoader, bool throwExceptions, PackedScene? cardPrefab)
-			: base(fileLoader, throwExceptions)
+	private static IList<TEffect> GetKeywordEffects(SerializableCard card)
+	{
+		var effects = new List<TEffect>();
+		foreach (var (index, keyword) in card.keywords.Enumerate())
 		{
-			CardPrefab = cardPrefab;
-			Initialize();
-		}
-
-		private static IList<TEffect> GetKeywordEffects(SerializableCard card)
-		{
-			var effects = new List<TEffect>();
-			foreach (var (index, keyword) in card.keywords.Enumerate())
-			{
-				if (!keywordJsons.ContainsKey(keyword))
-					Logger.Err($"Failed to add {keyword} length {keyword.Length} to {card.cardName}"
-					+ $"Not present in {string.Join(", ", keywordJsons.Keys)}");
-				var keywordJson = keywordJsons[keyword];
-				TEffect? eff;
-				try
-				{
-					eff = JsonConvert.DeserializeObject<TEffect>(keywordJson, CardLoadingSettings);
-				}
-				catch (JsonReaderException jrEx)
-				{
-					Logger.Err($"Failed to load {card} because {jrEx}");
-					throw;
-				}
-				if (eff == null)
-				{
-					Logger.Err($"Failed to load {keywordJson}");
-					continue;
-				}
-				eff.arg = card.keywordArgs.Length > index ? card.keywordArgs[index] : 0;
-				effects.Add(eff);
-			}
-			return effects;
-		}
-
-		protected delegate TGameCard ConstructCard<TGameCard>(TSerializableCard cardInfo, TEffect[] effects, TCardController ctrl);
-		protected delegate void Validate(SerializableCard card);
-
-		public static string JsonPrettify(string json)
-		{
-			using var stringReader = new StringReader(json);
-			using var stringWriter = new StringWriter();
-			var jsonReader = new JsonTextReader(stringReader);
-			var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
-			jsonWriter.WriteToken(jsonReader);
-			return stringWriter.ToString();
-		}
-
-		protected TGameCard? InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, Validate? validation = null)
-			where TGameCard : GameCard
-		{
-			Logger.Log($"Loading {JsonPrettify(json)}");
-			TSerializableCard? cardInfo;
-			var effects = new List<TEffect>();
-
+			if (!keywordJsons.ContainsKey(keyword))
+				Logger.Err($"Failed to add {keyword} length {keyword.Length} to {card.cardName}"
+				+ $"Not present in {string.Join(", ", keywordJsons.Keys)}");
+			var keywordJson = keywordJsons[keyword];
+			TEffect? eff;
 			try
 			{
-				cardInfo = JsonConvert.DeserializeObject<TSerializableCard>(json, CardLoadingSettings);
-				if (cardInfo == null)
-				{
-					Logger.Err($"Failed to load {json}");
-					return default;
-				}
-				validation?.Invoke(cardInfo);
-
-				effects.AddRangeWithCast(cardInfo.Effects ?? Enumerable.Empty<TEffect>());
-				effects.AddRange(GetKeywordEffects(cardInfo));
+				eff = JsonConvert.DeserializeObject<TEffect>(keywordJson, CardLoadingSettings);
 			}
-			catch (System.ArgumentException argEx)
+			catch (JsonReaderException jrEx)
 			{
-				//Catch JSON parse error
-				Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
-				if (throwExceptions) throw;
-				else return default;
+				Logger.Err($"Failed to load {card} because {jrEx}");
+				throw;
 			}
-			catch (JsonSerializationException serEx)
+			if (eff == null)
 			{
-				//Catch JSON parse error
-				Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
-				if (throwExceptions) throw new System.InvalidOperationException($"Failed to load {json}", serEx);
-				else return default;
+				Logger.Err($"Failed to load {keywordJson}");
+				continue;
 			}
-
-			var ctrl = GetCardController();
-			var card = cardConstructor(cardInfo, effects.ToArray(), ctrl);
-			return card;
+			eff.arg = card.keywordArgs.Length > index ? card.keywordArgs[index] : 0;
+			effects.Add(eff);
 		}
+		return effects;
+	}
 
-		protected virtual TCardController GetCardController()
+	protected delegate TGameCard ConstructCard<TGameCard>(TSerializableCard cardInfo, TEffect[] effects, TCardController ctrl);
+	protected delegate void Validate(SerializableCard card);
+
+	public static string JsonPrettify(string json)
+	{
+		using var stringReader = new StringReader(json);
+		using var stringWriter = new StringWriter();
+		var jsonReader = new JsonTextReader(stringReader);
+		var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
+		jsonWriter.WriteToken(jsonReader);
+		return stringWriter.ToString();
+	}
+
+	protected TGameCard? InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, Validate? validation = null)
+		where TGameCard : GameCard
+	{
+		Logger.Log($"Loading {JsonPrettify(json)}");
+		TSerializableCard? cardInfo;
+		var effects = new List<TEffect>();
+
+		try
 		{
-			if (CardPrefab?.Instantiate() is not TCardController ctrl)
-				throw new System.ArgumentNullException(nameof(CardControllerController), "Was not the right type");
+			cardInfo = JsonConvert.DeserializeObject<TSerializableCard>(json, CardLoadingSettings);
+			if (cardInfo == null)
+			{
+				Logger.Err($"Failed to load {json}");
+				return default;
+			}
+			validation?.Invoke(cardInfo);
 
-			return ctrl;
+			effects.AddRangeWithCast(cardInfo.Effects ?? Enumerable.Empty<TEffect>());
+			effects.AddRange(GetKeywordEffects(cardInfo));
 		}
+		catch (System.ArgumentException argEx)
+		{
+			//Catch JSON parse error
+			Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, argument exception with message {argEx.Message}, stacktrace {argEx.StackTrace}");
+			if (throwExceptions) throw;
+			else return default;
+		}
+		catch (JsonSerializationException serEx)
+		{
+			//Catch JSON parse error
+			Logger.Err($"Failed to load {JsonHelper.PrettifyJson(json)}, serialization exception with message {serEx.Message}, stacktrace {serEx.StackTrace}");
+			if (throwExceptions) throw new System.InvalidOperationException($"Failed to load {json}", serEx);
+			else return default;
+		}
+
+		var ctrl = GetCardController();
+		var card = cardConstructor(cardInfo, effects.ToArray(), ctrl);
+		return card;
+	}
+
+	protected virtual TCardController GetCardController()
+	{
+		if (CardPrefab?.Instantiate() is not TCardController ctrl)
+			throw new System.ArgumentNullException(nameof(CardControllerController), "Was not the right type");
+
+		return ctrl;
 	}
 }

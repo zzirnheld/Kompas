@@ -5,24 +5,23 @@ using Kompas.Gamestate.Locations;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Effects.Models.TriggeringEvent;
 
-namespace Kompas.Server.Effects.Models.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class Discard : ChangeGameLocation
 {
-	public class Discard : ChangeGameLocation
-	{
-		protected override Location Destination => Location.Discard;
+	protected override Location Destination => Location.Discard;
 
-		protected override void ChangeLocation(GameCard card) => card.Discard(Effect);
-	}
+	protected override void ChangeLocation(GameCard card) => card.Discard(Effect);
+}
 
-	public class Vanish : Discard
+public class Vanish : Discard
+{
+	protected override void ChangeLocation(GameCard card)
 	{
-		protected override void ChangeLocation(GameCard card)
-		{
-			var contexts = IEventContext.Build(Trigger.Vanish)
-				.PrimarilyAffecting(card)
-				.CausedBy(Effect)
-				.Capture(() => base.ChangeLocation(card));
-			ServerEffect.EffectsController.TriggerFor(contexts);
-		}
+		var contexts = IEventContext.Build(Trigger.Vanish)
+			.PrimarilyAffecting(card)
+			.CausedBy(Effect)
+			.Capture(() => base.ChangeLocation(card));
+		ServerEffect.EffectsController.TriggerFor(contexts);
 	}
 }

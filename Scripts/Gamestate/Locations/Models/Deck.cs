@@ -8,86 +8,85 @@ using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Players;
 using Kompas.Shared;
 
-namespace Kompas.Gamestate.Locations.Models
+namespace Kompas.Gamestate.Locations.Models;
+
+public abstract class Deck : OwnedLocationModel
 {
-	public abstract class Deck : OwnedLocationModel
+	private readonly List<GameCard> deck = new();
+	public override IEnumerable<GameCard> Cards => deck;
+
+	public override Location Location => Location.Deck;
+
+	private readonly DeckController deckController;
+
+	protected Deck(IPlayer owner, DeckController deckController) : base(owner)
 	{
-		private readonly List<GameCard> deck = new();
-		public override IEnumerable<GameCard> Cards => deck;
+		this.deckController = deckController;
+		deckController.DeckModel = this;
+	}
 
-		public override Location Location => Location.Deck;
+	public override int IndexOf(GameCard card) => deck.IndexOf(card);
+	public int DeckSize => deck.Count;
+	public GameCard? Topdeck => deck.FirstOrDefault();
+	public GameCard? Bottomdeck => deck.LastOrDefault();
 
-		private readonly DeckController deckController;
+	protected override bool AllowAlreadyHereWhenAdd => true;
 
-		protected Deck(IPlayer owner, DeckController deckController) : base(owner)
+	protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
+	{
+		base.PerformAdd(card, index, stackableCause);
+		deckController.Refresh();
+	}
+
+	protected override void AddToCollection(GameCard card, int? index)
+	{
+		if (index.HasValue) deck.Insert(index.Value, card);
+		else deck.Add(card);
+	}
+
+	//adding and removing cards
+	public virtual void PushTopdeck(GameCard card, IStackable? stackSrc = null)
+		=> Add(card, index: 0, stackableCause: stackSrc);
+
+	public virtual void PushBottomdeck(GameCard card, IStackable? stackSrc = null)
+		=> Add(card, stackableCause: stackSrc);
+
+	public virtual void ShuffleIn(GameCard card, IStackable? stackSrc = null)
+	{
+		Add(card, stackableCause: stackSrc);
+		Shuffle();
+	}
+
+	/// <summary>
+	/// Random access remove from deck
+	/// </summary>
+	public override void Remove(GameCard card)
+	{
+		if (!deck.Contains(card))
+			throw new CardNotHereException(Location, card, $"Couldn't remove {card.CardName} from deck, it wasn't in deck!");
+
+		deck.Remove(card);
+		deckController.Refresh();
+	}
+
+	//misc
+
+	public void Shuffle() => CollectionsHelper.ShuffleInPlace(deck);
+
+	public void BottomdeckMany(IEnumerable<GameCard> cards, IStackable? stackSrc = null)
+	{
+		var toShuffleInOrder = CollectionsHelper.Shuffle(cards.ToList());
+		foreach (var card in toShuffleInOrder) PushBottomdeck(card, stackSrc);
+	}
+
+	public List<GameCard> CardsThatFitRestriction(IRestriction<IGameCardInfo> cardRestriction, ResolutionContext context)
+	{
+		List<GameCard> cards = new List<GameCard>();
+		foreach (GameCard c in deck)
 		{
-			this.deckController = deckController;
-			deckController.DeckModel = this;
+			if (c != null && cardRestriction.IsValid(c, context))
+				cards.Add(c);
 		}
-
-		public override int IndexOf(GameCard card) => deck.IndexOf(card);
-		public int DeckSize => deck.Count;
-		public GameCard? Topdeck => deck.FirstOrDefault();
-		public GameCard? Bottomdeck => deck.LastOrDefault();
-
-		protected override bool AllowAlreadyHereWhenAdd => true;
-
-		protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
-		{
-			base.PerformAdd(card, index, stackableCause);
-			deckController.Refresh();
-		}
-
-		protected override void AddToCollection(GameCard card, int? index)
-		{
-			if (index.HasValue) deck.Insert(index.Value, card);
-			else deck.Add(card);
-		}
-
-		//adding and removing cards
-		public virtual void PushTopdeck(GameCard card, IStackable? stackSrc = null)
-			=> Add(card, index: 0, stackableCause: stackSrc);
-
-		public virtual void PushBottomdeck(GameCard card, IStackable? stackSrc = null)
-			=> Add(card, stackableCause: stackSrc);
-
-		public virtual void ShuffleIn(GameCard card, IStackable? stackSrc = null)
-		{
-			Add(card, stackableCause: stackSrc);
-			Shuffle();
-		}
-
-		/// <summary>
-		/// Random access remove from deck
-		/// </summary>
-		public override void Remove(GameCard card)
-		{
-			if (!deck.Contains(card))
-				throw new CardNotHereException(Location, card, $"Couldn't remove {card.CardName} from deck, it wasn't in deck!");
-
-			deck.Remove(card);
-			deckController.Refresh();
-		}
-
-		//misc
-
-		public void Shuffle() => CollectionsHelper.ShuffleInPlace(deck);
-
-		public void BottomdeckMany(IEnumerable<GameCard> cards, IStackable? stackSrc = null)
-		{
-			var toShuffleInOrder = CollectionsHelper.Shuffle(cards.ToList());
-			foreach (var card in toShuffleInOrder) PushBottomdeck(card, stackSrc);
-		}
-
-		public List<GameCard> CardsThatFitRestriction(IRestriction<IGameCardInfo> cardRestriction, ResolutionContext context)
-		{
-			List<GameCard> cards = new List<GameCard>();
-			foreach (GameCard c in deck)
-			{
-				if (c != null && cardRestriction.IsValid(c, context))
-					cards.Add(c);
-			}
-			return cards;
-		}
+		return cards;
 	}
 }

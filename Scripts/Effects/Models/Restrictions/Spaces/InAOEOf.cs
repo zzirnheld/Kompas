@@ -6,84 +6,83 @@ using Kompas.Cards.Models;
 using Kompas.Gamestate;
 using System;
 
-namespace Kompas.Effects.Models.Restrictions.Spaces
+namespace Kompas.Effects.Models.Restrictions.Spaces;
+
+public class InAOEOf : SpaceRestrictionBase
 {
-	public class InAOEOf : SpaceRestrictionBase
+	#nullable disable
+	[JsonProperty]
+	public IIdentity<IGameCardInfo> card;
+	[JsonProperty]
+	public IRestriction<IGameCardInfo> cardRestriction; //Used to restrict anyOf. If non-null, but anyOf is null, will make anyOf default to All()
+	[JsonProperty]
+	public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
+	[JsonProperty]
+	public IIdentity<IReadOnlyCollection<IGameCardInfo>> allOf;
+
+	[JsonProperty]
+	public IIdentity<int> minAnyOfCount = Identities.Numbers.Constant.One;
+
+	[JsonProperty]
+	public IIdentity<Space> alsoInAOE;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty]
-		public IIdentity<IGameCardInfo> card;
-		[JsonProperty]
-		public IRestriction<IGameCardInfo> cardRestriction; //Used to restrict anyOf. If non-null, but anyOf is null, will make anyOf default to All()
-		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
-		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCardInfo>> allOf;
+		if (cardRestriction != null && anyOf == null) anyOf = new Identities.ManyCards.All();
 
-		[JsonProperty]
-		public IIdentity<int> minAnyOfCount = Identities.Numbers.Constant.One;
+		base.Initialize(initializationContext);
+		card?.Initialize(initializationContext);
+		cardRestriction?.Initialize(initializationContext);
+		anyOf?.Initialize(initializationContext);
+		allOf?.Initialize(initializationContext);
 
-		[JsonProperty]
-		public IIdentity<Space> alsoInAOE;
-		#nullable restore
+		if (AllNull(card, cardRestriction, anyOf, allOf))
+			throw new System.ArgumentNullException(nameof(card), $"Provided no card/s to be in AOE of for {initializationContext.source?.CardName}");
 
-		public override void Initialize(InitializationContext initializationContext)
+		minAnyOfCount.Initialize(initializationContext);
+
+		alsoInAOE?.Initialize(initializationContext);
+	}
+
+	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
+	{
+		base.AdjustSubeffectIndices(increment, startingAtIndex);
+		cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
+	}
+
+	protected override bool IsValidLogic(Space? space, IResolutionContext context)
+	{
+		if (space == null) return false;
+		var alsoInAOE = this.alsoInAOE?.From(context);
+		bool IsValidAOE(IGameCardInfo? card)
 		{
-			if (cardRestriction != null && anyOf == null) anyOf = new Identities.ManyCards.All();
-
-			base.Initialize(initializationContext);
-			card?.Initialize(initializationContext);
-			cardRestriction?.Initialize(initializationContext);
-			anyOf?.Initialize(initializationContext);
-			allOf?.Initialize(initializationContext);
-
-			if (AllNull(card, cardRestriction, anyOf, allOf))
-				throw new System.ArgumentNullException(nameof(card), $"Provided no card/s to be in AOE of for {initializationContext.source?.CardName}");
-
-			minAnyOfCount.Initialize(initializationContext);
-
-			alsoInAOE?.Initialize(initializationContext);
+			return card != null
+				&& card.SpaceInAOE(space)
+				&& (alsoInAOE == null || card.SpaceInAOE(alsoInAOE));
 		}
+		if (card != null && !ValidateCard(IsValidAOE, context)) return false;
+		if (anyOf != null && !ValidateAnyOf(IsValidAOE, context)) return false;
+		if (allOf != null && !ValidateAllOf(IsValidAOE, context)) return false;
+		return true;
+	}
 
-		public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
-		{
-			base.AdjustSubeffectIndices(increment, startingAtIndex);
-			cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
-		}
+	private bool ValidateCard(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
+		=> isValidCard(card.From(context));
 
-		protected override bool IsValidLogic(Space? space, IResolutionContext context)
-		{
-			if (space == null) return false;
-			var alsoInAOE = this.alsoInAOE?.From(context);
-			bool IsValidAOE(IGameCardInfo? card)
-			{
-				return card != null
-					&& card.SpaceInAOE(space)
-					&& (alsoInAOE == null || card.SpaceInAOE(alsoInAOE));
-			}
-			if (card != null && !ValidateCard(IsValidAOE, context)) return false;
-			if (anyOf != null && !ValidateAnyOf(IsValidAOE, context)) return false;
-			if (allOf != null && !ValidateAllOf(IsValidAOE, context)) return false;
-			return true;
-		}
+	private bool ValidateAnyOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context) 
+	{
+		IEnumerable<IGameCardInfo>? cards = anyOf.From(context);
+		if (cards == null) return false;
+		if (cardRestriction != null) cards = cards.Where(c => cardRestriction.IsValid(c, context));
 
-		private bool ValidateCard(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
-			=> isValidCard(card.From(context));
+		return minAnyOfCount.From(context) <= cards.Count(c => isValidCard(c));
+	}
 
-		private bool ValidateAnyOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context) 
-		{
-			IEnumerable<IGameCardInfo>? cards = anyOf.From(context);
-			if (cards == null) return false;
-			if (cardRestriction != null) cards = cards.Where(c => cardRestriction.IsValid(c, context));
-
-			return minAnyOfCount.From(context) <= cards.Count(c => isValidCard(c));
-		}
-
-		private bool ValidateAllOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
-		{
-			var cards = allOf.From(context);
-			if (cards == null) return false;
-			return cards.All(isValidCard);
-		}
+	private bool ValidateAllOf(Func<IGameCardInfo?, bool> isValidCard, IResolutionContext context)
+	{
+		var cards = allOf.From(context);
+		if (cards == null) return false;
+		return cards.All(isValidCard);
 	}
 }

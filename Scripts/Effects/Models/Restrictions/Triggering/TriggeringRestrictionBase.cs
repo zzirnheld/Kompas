@@ -2,47 +2,46 @@ using System;
 using System.Collections.Generic;
 using Kompas.Effects.Models.TriggeringEvent;
 
-namespace Kompas.Effects.Models.Restrictions.Triggering
+namespace Kompas.Effects.Models.Restrictions.Triggering;
+
+public abstract class TriggerRestrictionBase : RestrictionBase<IEventContext>, ITriggerRestriction
 {
-	public abstract class TriggerRestrictionBase : RestrictionBase<IEventContext>, ITriggerRestriction
+	public virtual int? MaxUsesPerTurn => null;
+	public virtual int? MaxUsesPerRound => null;
+	public virtual int? MaxUsesPerStack => null;
+
+	public static readonly ITriggerRestriction[] DefaultFallOffRestrictions = {
+		new Gamestate.CardsMatch(){
+			card = new Identities.Cards.ThisCardNow(),
+			other = new Identities.Cards.CardBefore()
+		},
+		new Gamestate.ThisCardInPlay() };
+
+	public static readonly ISet<Type> ReevalationRestrictions = new HashSet<Type>(new Type[] {
+		typeof(Gamestate.MaxPerTurn),
+		typeof(Gamestate.MaxPerRound),
+		typeof(Gamestate.MaxPerStack)
+	});
+
+	public static ITriggerRestriction AllOf(IList<ITriggerRestriction> elements)
+		//Compiler needed the help to know that an ITriggerRestriction is an IRestriction<IEventContext>
+		=> new AllOf() { elements = elements };
+
+	protected override sealed bool IsValidLogic(IEventContext? item, IResolutionContext context)
 	{
-		public virtual int? MaxUsesPerTurn => null;
-		public virtual int? MaxUsesPerRound => null;
-		public virtual int? MaxUsesPerStack => null;
-
-		public static readonly ITriggerRestriction[] DefaultFallOffRestrictions = {
-			new Gamestate.CardsMatch(){
-				card = new Identities.Cards.ThisCardNow(),
-				other = new Identities.Cards.CardBefore()
-			},
-			new Gamestate.ThisCardInPlay() };
-
-		public static readonly ISet<Type> ReevalationRestrictions = new HashSet<Type>(new Type[] {
-			typeof(Gamestate.MaxPerTurn),
-			typeof(Gamestate.MaxPerRound),
-			typeof(Gamestate.MaxPerStack)
-		});
-
-		public static ITriggerRestriction AllOf(IList<ITriggerRestriction> elements)
-			//Compiler needed the help to know that an ITriggerRestriction is an IRestriction<IEventContext>
-			=> new AllOf() { elements = elements };
-
-		protected override sealed bool IsValidLogic(IEventContext? item, IResolutionContext context)
-		{
-	   		var NullTriggeringContext = "Triggering event context was null? If you see this, consider if it's allowable";
-			_ = item ?? throw new System.ArgumentNullException(NullTriggeringContext);
-			return IsValidContext(item, context);
-		}
-		
-		protected abstract bool IsValidContext(IEventContext item, IResolutionContext context);
-
-		/// <summary>
-		/// If IsValidContext initially evaluated to true, is this restriction still valid after other triggers have made it onto the stack?
-		/// <br/>
-		/// IMPL Notes:<br/>
-		/// Return true if the state won't change based JUST on items going onto the stack.
-		/// Evaluate the restriction again if items going onto the stack could affect whether this is valid.
-		/// </summary>
-		public abstract bool IsStillValidTriggeringContext(IEventContext context);
+   		var NullTriggeringContext = "Triggering event context was null? If you see this, consider if it's allowable";
+		_ = item ?? throw new System.ArgumentNullException(NullTriggeringContext);
+		return IsValidContext(item, context);
 	}
+	
+	protected abstract bool IsValidContext(IEventContext item, IResolutionContext context);
+
+	/// <summary>
+	/// If IsValidContext initially evaluated to true, is this restriction still valid after other triggers have made it onto the stack?
+	/// <br/>
+	/// IMPL Notes:<br/>
+	/// Return true if the state won't change based JUST on items going onto the stack.
+	/// Evaluate the restriction again if items going onto the stack could affect whether this is valid.
+	/// </summary>
+	public abstract bool IsStillValidTriggeringContext(IEventContext context);
 }

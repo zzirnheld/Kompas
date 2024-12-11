@@ -1,17 +1,16 @@
 using Godot;
 
-namespace Kompas.UI
+namespace Kompas.UI;
+
+public partial class ScrollToEndContainer : ScrollContainer
 {
-	public partial class ScrollToEndContainer : ScrollContainer
+	public override void _Ready()
 	{
-		public override void _Ready()
+		base._Ready();
+		var scrollBar = GetVScrollBar();
+		scrollBar.Changed += () =>
 		{
-			base._Ready();
-			var scrollBar = GetVScrollBar();
-			scrollBar.Changed += () =>
-			{
-				if (scrollBar.MaxValue != scrollBar.Value) scrollBar.Value = scrollBar.MaxValue;
-			};
-		}
+			if (scrollBar.MaxValue != scrollBar.Value) scrollBar.Value = scrollBar.MaxValue;
+		};
 	}
 }

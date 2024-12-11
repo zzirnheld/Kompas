@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Models.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class AddRestSubeffect : CardTarget
 {
-	public class AddRestSubeffect : CardTarget
+	public override Task<ResolutionInfo> Resolve()
 	{
-		public override Task<ResolutionInfo> Resolve()
-		{
-			Effect.rest.AddRange(DeterminePossibleTargets());
-			return Task.FromResult(ResolutionInfo.Next);
-		}
+		Effect.rest.AddRange(DeterminePossibleTargets());
+		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

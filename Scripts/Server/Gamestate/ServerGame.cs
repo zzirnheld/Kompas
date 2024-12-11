@@ -20,352 +20,351 @@ using Kompas.Server.Networking;
 using Kompas.Shared;
 using Kompas.Shared.Exceptions;
 
-namespace Kompas.Server.Gamestate
+namespace Kompas.Server.Gamestate;
+
+public interface IServerGame : IGame
 {
-	public interface IServerGame : IGame
+	public bool DebugMode { get; }
+
+	public ServerAwaiter Awaiter { get; }
+
+	public new IServerStackController StackController { get; }
+
+	public ServerPlayer ServerControllerOf(GameCard card);
+
+	public Task SwitchTurn();
+
+	public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null);
+	public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false);
+
+	public void AddCard(ServerGameCard card);
+}
+
+public class ServerGame : IServerGame
+{
+	public const int MinDeckSize = 49;
+	public const int AvatarEBonus = 15;
+
+	public bool Debug => DebugMode;
+	public bool VerboseDebugLogging => DebugMode; //TODO its own checkbox
+
+	private readonly ServerCardRepository serverCardRepository;
+	public ICardRepository CardRepository => serverCardRepository;
+	private IServerStackController? _stackController;
+	public IServerStackController StackController => _stackController
+		?? throw new UseFactoryException();
+	IStackController IGame.StackController => StackController;
+
+	private Board? _board;
+	public IBoard Board => _board
+		?? throw new UseFactoryException();
+	private ServerAwaiter? _awaiter;
+	public ServerAwaiter Awaiter => _awaiter
+		?? throw new UseFactoryException();
+
+	private readonly Func<bool> _debugMode;
+	public bool DebugMode => _debugMode();
+
+
+	//Dictionary of cards, and the forwardings to make that convenient
+	private readonly Dictionary<int, ServerGameCard> cardsByID = new();
+	public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
+
+	//Players
+	private ServerPlayer[]? _serverPlayers;
+	private ServerPlayer[] ServerPlayers => _serverPlayers
+		?? throw new NotInitializedException();
+	public IPlayer[] Players => ServerPlayers;
+
+	private IPlayer? _turnPlayer;
+	public IPlayer TurnPlayer => _turnPlayer
+		?? throw new NotInitializedException();
+	private int cardCount = 0;
+
+	public bool GameHasStarted { get; private set; } = false;
+
+	public IPlayer? Winner { get; private set; }
+
+	private int _turnCount;
+	public int TurnCount
 	{
-		public bool DebugMode { get; }
-
-		public ServerAwaiter Awaiter { get; }
-
-		public new IServerStackController StackController { get; }
-
-		public ServerPlayer ServerControllerOf(GameCard card);
-
-		public Task SwitchTurn();
-
-		public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null);
-		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false);
-
-		public void AddCard(ServerGameCard card);
+		get => _turnCount;
+		protected set
+		{
+			Leyload += value - TurnCount;
+			_turnCount = value;
+		}
 	}
 
-	public class ServerGame : IServerGame
+	private int _leyload;
+	public int Leyload
 	{
-		public const int MinDeckSize = 49;
-		public const int AvatarEBonus = 15;
-
-		public bool Debug => DebugMode;
-		public bool VerboseDebugLogging => DebugMode; //TODO its own checkbox
-
-		private readonly ServerCardRepository serverCardRepository;
-		public ICardRepository CardRepository => serverCardRepository;
-		private IServerStackController? _stackController;
-		public IServerStackController StackController => _stackController
-			?? throw new UseFactoryException();
-		IStackController IGame.StackController => StackController;
-
-		private Board? _board;
-		public IBoard Board => _board
-			?? throw new UseFactoryException();
-		private ServerAwaiter? _awaiter;
-		public ServerAwaiter Awaiter => _awaiter
-			?? throw new UseFactoryException();
-
-		private readonly Func<bool> _debugMode;
-		public bool DebugMode => _debugMode();
-
-
-		//Dictionary of cards, and the forwardings to make that convenient
-		private readonly Dictionary<int, ServerGameCard> cardsByID = new();
-		public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
-
-		//Players
-		private ServerPlayer[]? _serverPlayers;
-		private ServerPlayer[] ServerPlayers => _serverPlayers
-			?? throw new NotInitializedException();
-		public IPlayer[] Players => ServerPlayers;
-
-		private IPlayer? _turnPlayer;
-		public IPlayer TurnPlayer => _turnPlayer
-			?? throw new NotInitializedException();
-		private int cardCount = 0;
-
-		public bool GameHasStarted { get; private set; } = false;
-
-		public IPlayer? Winner { get; private set; }
-
-		private int _turnCount;
-		public int TurnCount
+		get => _leyload;
+		set
 		{
-			get => _turnCount;
-			protected set
-			{
-				Leyload += value - TurnCount;
-				_turnCount = value;
-			}
+			_leyload = value;
+			ServerNotifier.NotifyLeyload(Leyload, Players);
 		}
+	}
 
-		private int _leyload;
-		public int Leyload
+	private ServerGameController ServerGameController { get; init; }
+	public GameController GameController => ServerGameController;
+
+	public Settings Settings => throw new System.NotImplementedException();
+
+	public int FirstTurnPlayer { get; private set; }
+	public int RoundCount { get; private set; }
+
+
+	public event EventHandler<IPlayer>? TurnChanged;
+
+	private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
+	{
+		ServerGameController = gameController;
+		serverCardRepository = cardRepo;
+		_debugMode = debugMode;
+	}
+
+	public static ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
+	{
+		ServerGame ret = new(gameController, cardRepo, debugMode);
+
+		ret._stackController = new ServerStackController(ret);
+		ret._board = new ServerBoard(gameController.BoardController, ret);
+		ret._awaiter = new ServerAwaiter(ret);
+
+		return ret;
+	}
+
+	public void SetPlayers(ServerPlayer[] players)
+	{
+		if (players.Length != 2) throw new System.ArgumentException("Games support only exactly 2 players!", nameof(players));
+
+		_serverPlayers = players;
+		foreach (ServerPlayer p in ServerPlayers) GetDeckFrom(p);
+
+	}
+
+	#region players and game starting
+	private void GetDeckFrom(ServerPlayer player) => ServerNotifier.GetDecklist(player);
+
+	//TODO for future logic like limited cards, etc.
+	private bool ValidDeck(Decklist deck)
+	{
+		//first name should be that of the Avatar
+		if (!ServerCardRepository.CardNameIsCharacter(deck.avatarName))
 		{
-			get => _leyload;
-			set
-			{
-				_leyload = value;
-				ServerNotifier.NotifyLeyload(Leyload, Players);
-			}
+			Logger.Err($"{deck.avatarName} isn't a character, so it can't be the Avatar");
+			return false;
 		}
-
-		private ServerGameController ServerGameController { get; init; }
-		public GameController GameController => ServerGameController;
-
-		public Settings Settings => throw new System.NotImplementedException();
-
-		public int FirstTurnPlayer { get; private set; }
-		public int RoundCount { get; private set; }
-
-
-		public event EventHandler<IPlayer>? TurnChanged;
-
-		private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
+		if (DebugMode)
 		{
-			ServerGameController = gameController;
-			serverCardRepository = cardRepo;
-			_debugMode = debugMode;
-		}
-
-		public static ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
-		{
-			ServerGame ret = new(gameController, cardRepo, debugMode);
-
-			ret._stackController = new ServerStackController(ret);
-			ret._board = new ServerBoard(gameController.BoardController, ret);
-			ret._awaiter = new ServerAwaiter(ret);
-
-			return ret;
-		}
-
-		public void SetPlayers(ServerPlayer[] players)
-		{
-			if (players.Length != 2) throw new System.ArgumentException("Games support only exactly 2 players!", nameof(players));
-
-			_serverPlayers = players;
-			foreach (ServerPlayer p in ServerPlayers) GetDeckFrom(p);
-
-		}
-
-		#region players and game starting
-		private void GetDeckFrom(ServerPlayer player) => ServerNotifier.GetDecklist(player);
-
-		//TODO for future logic like limited cards, etc.
-		private bool ValidDeck(Decklist deck)
-		{
-			//first name should be that of the Avatar
-			if (!ServerCardRepository.CardNameIsCharacter(deck.avatarName))
-			{
-				Logger.Err($"{deck.avatarName} isn't a character, so it can't be the Avatar");
-				return false;
-			}
-			if (DebugMode)
-			{
-				Logger.Warn("Debug mode enabled, always accepting a decklist");
-				return true;
-			}
-			if (deck.deck.Count < MinDeckSize)
-			{
-				Logger.Err($"Deck {deck} too small");
-				return false;
-			}
-
+			Logger.Warn("Debug mode enabled, always accepting a decklist");
 			return true;
 		}
-
-		public async Task SetDeck(ServerPlayer player, Decklist decklist)
+		if (deck.deck.Count < MinDeckSize)
 		{
-			//TODO sanitize
-
-			if (ValidDeck(decklist)) ServerNotifier.DeckAccepted(player);
-			else
-			{
-				GetDeckFrom(player);
-				return;
-			}
-
-			ServerGameCard avatar;
-			var avatarName = decklist.avatarName ?? throw new NullReferenceException();
-			//otherwise, set the avatar and rest of the deck
-			avatar = serverCardRepository.InstantiateServerCard(avatarName, this, player, cardCount++, isAvatar: true) ??
-				throw new System.ArgumentException($"Failed to load avatar for card {decklist.avatarName}");
-			string avatarJson = CardRepository.GetJsonFromName(avatarName) ?? throw new NullReferenceException();
-			ServerNotifier.SetFriendlyAvatar(player, avatarJson, avatar.ID);
-			cardsByID[avatar.ID] = avatar;
-
-			foreach (string name in decklist.deck)
-			{
-				ServerGameCard card;
-				card = serverCardRepository.InstantiateServerCard(name, this, player, cardCount);
-				if (card == null) continue;
-				cardCount++;
-				Logger.Log($"Adding new card {card.CardName} with id {card.ID}");
-				player.Deck.ShuffleIn(card);
-				ServerNotifier.NotifyCreateCard(player, card, wasKnown: false);
-			}
-
-			player.Avatar = avatar;
-			avatar.Play(player.AvatarCorner, player, new GameStartStackable());
-			ServerNotifier.DeckAccepted(player);
-
-			try
-			{
-				if (Players.All(player => player.Avatar != null)) await StartGame();
-			}
-			catch (NotInitializedException e) { Logger.Err(e); }
+			Logger.Err($"Deck {deck} too small");
+			return false;
 		}
 
-		public void AddCard(ServerGameCard card)
-		{
-			if (cardsByID.ContainsKey(card.ID))
-				throw new System.InvalidOperationException($"Can't add card {card} #{card.ID} to the lookup because that's already {cardsByID[card.ID]}!");
+		return true;
+	}
 
-			cardsByID[card.ID] = card;
+	public async Task SetDeck(ServerPlayer player, Decklist decklist)
+	{
+		//TODO sanitize
+
+		if (ValidDeck(decklist)) ServerNotifier.DeckAccepted(player);
+		else
+		{
+			GetDeckFrom(player);
+			return;
 		}
 
-		public async Task StartGame()
+		ServerGameCard avatar;
+		var avatarName = decklist.avatarName ?? throw new NullReferenceException();
+		//otherwise, set the avatar and rest of the deck
+		avatar = serverCardRepository.InstantiateServerCard(avatarName, this, player, cardCount++, isAvatar: true) ??
+			throw new System.ArgumentException($"Failed to load avatar for card {decklist.avatarName}");
+		string avatarJson = CardRepository.GetJsonFromName(avatarName) ?? throw new NullReferenceException();
+		ServerNotifier.SetFriendlyAvatar(player, avatarJson, avatar.ID);
+		cardsByID[avatar.ID] = avatar;
+
+		foreach (string name in decklist.deck)
 		{
-			//set initial pips to 0
-			Logger.Log($"Starting game. IPlayer 0 avatar is null? {Players[0].Avatar == null}. IPlayer 1 is null? {Players[1].Avatar == null}.");
-			Players[0].Pips = 0;
-			Players[1].Pips = 0;
-			Leyload = 1;
-
-			//determine who goes first and tell the players
-			FirstTurnPlayer = new System.Random().NextDouble() > 0.5f ? 0 : 1;
-			_turnPlayer = Players[FirstTurnPlayer];
-			ServerNotifier.SetFirstTurnPlayer(TurnPlayer);
-
-			foreach (var p in Players)
-			{
-				p.Avatar.SetN(0, stackSrc: null);
-				p.Avatar.SetE(p.Avatar.E + AvatarEBonus, stackSrc: null);
-				p.Avatar.SetW(0, stackSrc: null);
-				DrawX(p, 5, stackSrc: null); //FUTURE: specially animate the opening hand?
-			}
-
-			GameHasStarted = true;
-
-			await StartTurn(notFirstTurn: false);
-		}
-		#endregion
-
-		#region turn
-		public async Task StartTurn(bool notFirstTurn = true)
-		{
-			//trigger turn start effects
-			var contexts = IEventContext.Build(Trigger.TurnStart)
-				.ForPlayer(TurnPlayer)
-				.Capture(() => TurnStartOperations(notFirstTurn));
-			StackController.TriggerFor(contexts);
-
-			await StackController.CheckForResponse();
+			ServerGameCard card;
+			card = serverCardRepository.InstantiateServerCard(name, this, player, cardCount);
+			if (card == null) continue;
+			cardCount++;
+			Logger.Log($"Adding new card {card.CardName} with id {card.ID}");
+			player.Deck.ShuffleIn(card);
+			ServerNotifier.NotifyCreateCard(player, card, wasKnown: false);
 		}
 
-		private void TurnStartOperations(bool notFirstTurn)
+		player.Avatar = avatar;
+		avatar.Play(player.AvatarCorner, player, new GameStartStackable());
+		ServerNotifier.DeckAccepted(player);
+
+		try
 		{
-			if (notFirstTurn)
-			{
-				if (TurnPlayer.Index == FirstTurnPlayer) RoundCount++;
-				TurnCount++;
-			}
+			if (Players.All(player => player.Avatar != null)) await StartGame();
+		}
+		catch (NotInitializedException e) { Logger.Err(e); }
+	}
 
-			ServerNotifier.NotifyYourTurn(TurnPlayer);
-			ResetCardsForTurn();
+	public void AddCard(ServerGameCard card)
+	{
+		if (cardsByID.ContainsKey(card.ID))
+			throw new System.InvalidOperationException($"Can't add card {card} #{card.ID} to the lookup because that's already {cardsByID[card.ID]}!");
 
-			TurnPlayer.Pips += Leyload;
-			if (notFirstTurn) Draw(TurnPlayer);
+		cardsByID[card.ID] = card;
+	}
 
-			//do hand size
-			StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
+	public async Task StartGame()
+	{
+		//set initial pips to 0
+		Logger.Log($"Starting game. IPlayer 0 avatar is null? {Players[0].Avatar == null}. IPlayer 1 is null? {Players[1].Avatar == null}.");
+		Players[0].Pips = 0;
+		Players[1].Pips = 0;
+		Leyload = 1;
 
-			TurnChanged?.Invoke(this, TurnPlayer);
+		//determine who goes first and tell the players
+		FirstTurnPlayer = new System.Random().NextDouble() > 0.5f ? 0 : 1;
+		_turnPlayer = Players[FirstTurnPlayer];
+		ServerNotifier.SetFirstTurnPlayer(TurnPlayer);
+
+		foreach (var p in Players)
+		{
+			p.Avatar.SetN(0, stackSrc: null);
+			p.Avatar.SetE(p.Avatar.E + AvatarEBonus, stackSrc: null);
+			p.Avatar.SetW(0, stackSrc: null);
+			DrawX(p, 5, stackSrc: null); //FUTURE: specially animate the opening hand?
 		}
 
-		protected void ResetCardsForTurn()
+		GameHasStarted = true;
+
+		await StartTurn(notFirstTurn: false);
+	}
+	#endregion
+
+	#region turn
+	public async Task StartTurn(bool notFirstTurn = true)
+	{
+		//trigger turn start effects
+		var contexts = IEventContext.Build(Trigger.TurnStart)
+			.ForPlayer(TurnPlayer)
+			.Capture(() => TurnStartOperations(notFirstTurn));
+		StackController.TriggerFor(contexts);
+
+		await StackController.CheckForResponse();
+	}
+
+	private void TurnStartOperations(bool notFirstTurn)
+	{
+		if (notFirstTurn)
 		{
-			foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
+			if (TurnPlayer.Index == FirstTurnPlayer) RoundCount++;
+			TurnCount++;
 		}
 
+		ServerNotifier.NotifyYourTurn(TurnPlayer);
+		ResetCardsForTurn();
 
-		public async Task SwitchTurn()
+		TurnPlayer.Pips += Leyload;
+		if (notFirstTurn) Draw(TurnPlayer);
+
+		//do hand size
+		StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
+
+		TurnChanged?.Invoke(this, TurnPlayer);
+	}
+
+	protected void ResetCardsForTurn()
+	{
+		foreach (var c in Cards) c.ResetForTurn(TurnPlayer);
+	}
+
+
+	public async Task SwitchTurn()
+	{
+		_turnPlayer = TurnPlayer.Enemy;
+		Logger.Log($"Turn swapping to the turn of index {TurnPlayer.Index}");
+
+		await StartTurn();
+	}
+	#endregion turn
+
+	public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null)
+	{
+		var cardsDrawn = new List<GameCard>();
+		for (int i = 0; i < x; i++)
 		{
-			_turnPlayer = TurnPlayer.Enemy;
-			Logger.Log($"Turn swapping to the turn of index {TurnPlayer.Index}");
+			var toDraw = controller.Deck.Topdeck;
+			if (toDraw == null) break;
 
-			await StartTurn();
-		}
-		#endregion turn
-
-		public List<GameCard> DrawX(IPlayer controller, int x, IStackable? stackSrc = null)
-		{
-			var cardsDrawn = new List<GameCard>();
-			for (int i = 0; i < x; i++)
-			{
-				var toDraw = controller.Deck.Topdeck;
-				if (toDraw == null) break;
-
-				var eachDrawContext = IEventContext.Build(Trigger.EachDraw)
-					.PrimarilyAffecting(toDraw)
-					.CausedBy(stackSrc)
-					.ForPlayer(controller)
-					.Capture(() => toDraw.Hand(controller, stackSrc));
-				StackController.TriggerFor(eachDrawContext);
-
-				cardsDrawn.Add(toDraw);
-			}
-
-			//FUTURE: consider having IEventContext have a flexible Cards field, that can be added to and stashed pre-draw for each card being drawn,
-			//then when you CacheAfterEvent it finalizes them all.
-			//Probably means we can't use the IEventContext builder all in one go but that's... probably an acceptable loss?
-			var drawXContext = IEventContext.Build(Trigger.DrawX)
+			var eachDrawContext = IEventContext.Build(Trigger.EachDraw)
+				.PrimarilyAffecting(toDraw)
 				.CausedBy(stackSrc)
 				.ForPlayer(controller)
-				.WithX(cardsDrawn.Count)
-				.CacheAfterEvent();
-			StackController.TriggerFor(drawXContext);
+				.Capture(() => toDraw.Hand(controller, stackSrc));
+			StackController.TriggerFor(eachDrawContext);
 
-			return cardsDrawn;
-		}
-		public GameCard? Draw(IPlayer player, IStackable? stackSrc = null)
-			=> DrawX(player, 1, stackSrc).FirstOrDefault();
-
-		/// <param name="manual">Whether a player instigated the attack without an effect.</param>
-		/// <returns>The Attack object created by starting this attack</returns>
-		public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false)
-		{
-			Logger.Log($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
-			//push the attack to the stack, then check if any player wants to respond before resolving it
-			var attack = new ServerAttack(this, instigator, attacker, defender);
-			var context = IEventContext.Build()
-				.CausedBy(stackSrc)
-				.During(attack)
-				.ForPlayer(instigator)
-				.CaptureNothing();
-			StackController.PushToStack(attack, instigator, context);
-			//check for triggers related to the attack (if this were in the constructor, the triggers would go on the stack under the attack
-			attack.Declare(stackSrc);
-			if (manual) attacker.AttacksThisTurn++;
-			return attack;
+			cardsDrawn.Add(toDraw);
 		}
 
-		public GameCard? LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
+		//FUTURE: consider having IEventContext have a flexible Cards field, that can be added to and stashed pre-draw for each card being drawn,
+		//then when you CacheAfterEvent it finalizes them all.
+		//Probably means we can't use the IEventContext builder all in one go but that's... probably an acceptable loss?
+		var drawXContext = IEventContext.Build(Trigger.DrawX)
+			.CausedBy(stackSrc)
+			.ForPlayer(controller)
+			.WithX(cardsDrawn.Count)
+			.CacheAfterEvent();
+		StackController.TriggerFor(drawXContext);
 
-		public ServerPlayer ServerControllerOf(GameCard card) => ServerPlayers[card.ControllingPlayerIndex];
+		return cardsDrawn;
+	}
+	public GameCard? Draw(IPlayer player, IStackable? stackSrc = null)
+		=> DrawX(player, 1, stackSrc).FirstOrDefault();
 
-		public void DumpGameInfo()
-		{
-			Logger.Log("BEGIN GAME INFO DUMP");
-			Logger.Log("Cards:");
-			foreach (var c in Cards) Logger.Log(c.ToString());
+	/// <param name="manual">Whether a player instigated the attack without an effect.</param>
+	/// <returns>The Attack object created by starting this attack</returns>
+	public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false)
+	{
+		Logger.Log($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
+		//push the attack to the stack, then check if any player wants to respond before resolving it
+		var attack = new ServerAttack(this, instigator, attacker, defender);
+		var context = IEventContext.Build()
+			.CausedBy(stackSrc)
+			.During(attack)
+			.ForPlayer(instigator)
+			.CaptureNothing();
+		StackController.PushToStack(attack, instigator, context);
+		//check for triggers related to the attack (if this were in the constructor, the triggers would go on the stack under the attack
+		attack.Declare(stackSrc);
+		if (manual) attacker.AttacksThisTurn++;
+		return attack;
+	}
 
-			Logger.Log($"Cards on board:\n{Board}");
+	public GameCard? LookupCardByID(int id) => cardsByID.ContainsKey(id) ? cardsByID[id] : null;
 
-			Logger.Log(StackController.ToString());
-		}
+	public ServerPlayer ServerControllerOf(GameCard card) => ServerPlayers[card.ControllingPlayerIndex];
 
-		public void Lose(ServerPlayer player)
-		{
-			Winner = player.Enemy;
-			ServerNotifier.NotifyWin(player);
-		}
+	public void DumpGameInfo()
+	{
+		Logger.Log("BEGIN GAME INFO DUMP");
+		Logger.Log("Cards:");
+		foreach (var c in Cards) Logger.Log(c.ToString());
+
+		Logger.Log($"Cards on board:\n{Board}");
+
+		Logger.Log(StackController.ToString());
+	}
+
+	public void Lose(ServerPlayer player)
+	{
+		Winner = player.Enemy;
+		ServerNotifier.NotifyWin(player);
 	}
 }

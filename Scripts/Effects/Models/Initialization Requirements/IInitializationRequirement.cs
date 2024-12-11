@@ -1,7 +1,6 @@
-namespace Kompas.Effects.Models.InitializationRequirements
+namespace Kompas.Effects.Models.InitializationRequirements;
+
+public interface IInitializationRequirement
 {
-	public interface IInitializationRequirement
-	{
-		public bool Validate(InitializationContext initializationContext);
-	}
+	public bool Validate(InitializationContext initializationContext);
 }

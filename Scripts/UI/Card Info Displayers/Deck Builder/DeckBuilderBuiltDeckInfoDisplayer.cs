@@ -1,6 +1,5 @@
-namespace Kompas.UI.CardInfoDisplayers.DeckBuilder
+namespace Kompas.UI.CardInfoDisplayers.DeckBuilder;
+
+public partial class DeckBuilderBuiltDeckInfoDisplayer : DeckBuilderInfoDisplayer
 {
-	public partial class DeckBuilderBuiltDeckInfoDisplayer : DeckBuilderInfoDisplayer
-	{
-	}
 }

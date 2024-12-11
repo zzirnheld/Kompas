@@ -1,13 +1,12 @@
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Effects.Models
-{
-	public interface IStackable
-	{
-		GameCard? Card { get; }
-		IPlayer? ControllingPlayer { get; }
+namespace Kompas.Effects.Models;
 
-		GameCard? GetCause (IGameCardInfo? withRespectTo);
-	}
+public interface IStackable
+{
+	GameCard? Card { get; }
+	IPlayer? ControllingPlayer { get; }
+
+	GameCard? GetCause (IGameCardInfo? withRespectTo);
 }

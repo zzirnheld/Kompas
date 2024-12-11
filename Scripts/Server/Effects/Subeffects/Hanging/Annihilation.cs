@@ -4,38 +4,37 @@ using Kompas.Cards.Movement;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
 
-namespace Kompas.Server.Effects.Models.Subeffects.Hanging
+namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
+
+public class Annihilation : HangingEffectSubeffect
 {
-	public class Annihilation : HangingEffectSubeffect
+	protected override IEnumerable<HangingEffect> CreateHangingEffects()
 	{
-		protected override IEnumerable<HangingEffect> CreateHangingEffects()
+		var eff = new AnnihilationEffect(end: End, fallOff: FallOff,
+			sourceEff: ServerEffect, resolutionContext: ResolutionContext,
+			target: CardTarget);
+		return new List<HangingEffect>() { eff };
+	}
+
+	/// <summary>
+	/// Does nothing when created. When resolves, annihilates its target
+	/// </summary>
+	private class AnnihilationEffect : HangingEffect
+	{
+		private readonly GameCard target;
+
+		public AnnihilationEffect(EndCondition end, EndCondition fallOff,
+			ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target)
+			: base(end, fallOff, sourceEff, resolutionContext, removeIfEnd: true)
 		{
-			var eff = new AnnihilationEffect(end: End, fallOff: FallOff,
-				sourceEff: ServerEffect, resolutionContext: ResolutionContext,
-				target: CardTarget);
-			return new List<HangingEffect>() { eff };
+			this.target = target;
 		}
 
-		/// <summary>
-		/// Does nothing when created. When resolves, annihilates its target
-		/// </summary>
-		private class AnnihilationEffect : HangingEffect
+		protected override void ResolveLogic(IEventContext context) => target.Annihilate(Effect);
+
+		public override string ToString()
 		{
-			private readonly GameCard target;
-
-			public AnnihilationEffect(EndCondition end, EndCondition fallOff,
-				ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target)
-				: base(end, fallOff, sourceEff, resolutionContext, removeIfEnd: true)
-			{
-				this.target = target;
-			}
-
-			protected override void ResolveLogic(IEventContext context) => target.Annihilate(Effect);
-
-			public override string ToString()
-			{
-				return $"{base.ToString()} affecting {target}";
-			}
+			return $"{base.ToString()} affecting {target}";
 		}
 	}
 }

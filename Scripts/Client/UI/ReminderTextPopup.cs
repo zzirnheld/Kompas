@@ -2,33 +2,32 @@ using Godot;
 using Kompas.Cards.Loading;
 using Kompas.Shared.Exceptions;
 
-namespace Kompas.Client.UI
+namespace Kompas.Client.UI;
+
+public partial class ReminderTextPopup : Control
 {
-	public partial class ReminderTextPopup : Control
+	[Export]
+	private Label? _keyword;
+	private Label Keyword => _keyword
+		?? throw new UnassignedReferenceException();
+
+	[Export]
+	private Label? _reminderText;
+	private Label ReminderText => _reminderText
+		?? throw new UnassignedReferenceException();
+
+	public void Display(ReminderTextInfo reminderTextInfo)
 	{
-		[Export]
-		private Label? _keyword;
-		private Label Keyword => _keyword
-			?? throw new UnassignedReferenceException();
+		Keyword.Text = reminderTextInfo.Keyword;
+		ReminderText.Text = reminderTextInfo.Reminder;
+		var mousePos = GetViewport().GetMousePosition();
+		OffsetLeft = OffsetRight = mousePos.X;
+		OffsetTop = OffsetBottom = mousePos.Y;
+		Visible = true;
+	}
 
-		[Export]
-		private Label? _reminderText;
-		private Label ReminderText => _reminderText
-			?? throw new UnassignedReferenceException();
-
-		public void Display(ReminderTextInfo reminderTextInfo)
-		{
-			Keyword.Text = reminderTextInfo.Keyword;
-			ReminderText.Text = reminderTextInfo.Reminder;
-			var mousePos = GetViewport().GetMousePosition();
-			OffsetLeft = OffsetRight = mousePos.X;
-			OffsetTop = OffsetBottom = mousePos.Y;
-			Visible = true;
-		}
-
-		public void StopDisplaying()
-		{
-			Visible = false;
-		}
+	public void StopDisplaying()
+	{
+		Visible = false;
 	}
 }

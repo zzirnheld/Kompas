@@ -3,37 +3,36 @@ using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 
-namespace Kompas.Client.Effects.Models
+namespace Kompas.Client.Effects.Models;
+
+public class DummySubeffect : Subeffect
 {
-	public class DummySubeffect : Subeffect
+	protected override Effect? _Effect => ClientEffect;
+	protected override IGame? _Game => ClientEffect?.Game;
+
+	public ClientEffect? ClientEffect { get; private set; }
+
+	public static DummySubeffect? FromJson(string json, ClientEffect parent, int subeffIndex)
 	{
-		protected override Effect? _Effect => ClientEffect;
-		protected override IGame? _Game => ClientEffect?.Game;
+		var subeff = JsonConvert.DeserializeObject<Subeffect>(json);
 
-		public ClientEffect? ClientEffect { get; private set; }
+		Logger.Log($"Creating subeffect from json {json}");
+		DummySubeffect toReturn;
 
-		public static DummySubeffect? FromJson(string json, ClientEffect parent, int subeffIndex)
+		toReturn = new DummySubeffect();
+
+		if (toReturn != null)
 		{
-			var subeff = JsonConvert.DeserializeObject<Subeffect>(json);
-
-			Logger.Log($"Creating subeffect from json {json}");
-			DummySubeffect toReturn;
-
-			toReturn = new DummySubeffect();
-
-			if (toReturn != null)
-			{
-				Logger.Log($"Finishing setup for new effect of type {subeff?.GetType()}");
-				toReturn.Initialize(parent, subeffIndex);
-			}
-
-			return toReturn;
+			Logger.Log($"Finishing setup for new effect of type {subeff?.GetType()}");
+			toReturn.Initialize(parent, subeffIndex);
 		}
 
-		public virtual void Initialize(ClientEffect eff, int subeffIndex)
-		{
-			this.ClientEffect = eff;
-			this.SubeffIndex = subeffIndex;
-		}
+		return toReturn;
+	}
+
+	public virtual void Initialize(ClientEffect eff, int subeffIndex)
+	{
+		this.ClientEffect = eff;
+		this.SubeffIndex = subeffIndex;
 	}
 }

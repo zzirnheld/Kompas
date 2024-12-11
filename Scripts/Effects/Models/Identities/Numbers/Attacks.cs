@@ -1,17 +1,16 @@
 using Kompas.Gamestate.Exceptions;
 
-namespace Kompas.Effects.Models.Identities.Numbers
+namespace Kompas.Effects.Models.Identities.Numbers;
+
+public class AttacksThisTurn : ContextlessLeafIdentityBase<int>
 {
-	public class AttacksThisTurn : ContextlessLeafIdentityBase<int>
+	protected override int AbstractItem
 	{
-		protected override int AbstractItem
+		get
 		{
-			get
-			{
-				var card = InitializationContext.source
-					?? throw new IllDefinedException();
-				return card.AttacksThisTurn;
-			}
+			var card = InitializationContext.source
+				?? throw new IllDefinedException();
+			return card.AttacksThisTurn;
 		}
 	}
 }

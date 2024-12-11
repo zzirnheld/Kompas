@@ -3,19 +3,18 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Server.Effects.Models
+namespace Kompas.Server.Effects.Models;
+
+public class GameStartStackable : IStackable, IServerStackable
 {
-	public class GameStartStackable : IStackable, IServerStackable
+	public GameCard? Card => null;
+
+	public IPlayer? ControllingPlayer => null;
+
+	public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
+
+	public Task StartResolution(IServerResolutionContext context)
 	{
-		public GameCard? Card => null;
-
-		public IPlayer? ControllingPlayer => null;
-
-		public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
-
-		public Task StartResolution(IServerResolutionContext context)
-		{
-			throw new System.NotImplementedException();
-		}
+		throw new System.NotImplementedException();
 	}
 }

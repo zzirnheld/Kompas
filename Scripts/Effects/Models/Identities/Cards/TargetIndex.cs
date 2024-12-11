@@ -1,26 +1,25 @@
 using Kompas.Cards.Models;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Cards
+namespace Kompas.Effects.Models.Identities.Cards;
+
+public class TargetIndex : EffectContextualCardIdentityBase
 {
-	public class TargetIndex : EffectContextualCardIdentityBase
+	[JsonProperty]
+	public int index = -1;
+
+	protected override IGameCardInfo? AbstractItemFrom(IResolutionContext contextToConsider)
 	{
-		[JsonProperty]
-		public int index = -1;
+		return InitializationContext.effect?.identityOverrides.TargetCardOverride
+			?? EffectHelper.GetItem(contextToConsider.CardTargets, index);
+	} 
+}
 
-		protected override IGameCardInfo? AbstractItemFrom(IResolutionContext contextToConsider)
-		{
-			return InitializationContext.effect?.identityOverrides.TargetCardOverride
-				?? EffectHelper.GetItem(contextToConsider.CardTargets, index);
-		} 
-	}
+public class TargetCardInfoIndex : EffectContextualCardIdentityBase
+{
+	[JsonProperty]
+	public int index = -1;
 
-	public class TargetCardInfoIndex : EffectContextualCardIdentityBase
-	{
-		[JsonProperty]
-		public int index = -1;
-
-		protected override IGameCardInfo? AbstractItemFrom(IResolutionContext contextToConsider)
-			=> EffectHelper.GetItem(contextToConsider.CardInfoTargets, index);
-	}
+	protected override IGameCardInfo? AbstractItemFrom(IResolutionContext contextToConsider)
+		=> EffectHelper.GetItem(contextToConsider.CardInfoTargets, index);
 }

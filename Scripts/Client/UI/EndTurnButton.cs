@@ -2,24 +2,23 @@ using Godot;
 using Kompas.Client.Gamestate;
 using Kompas.Shared.Exceptions;
 
-namespace Kompas.Client.UI
+namespace Kompas.Client.UI;
+
+public partial class EndTurnButton : Button
 {
-	public partial class EndTurnButton : Button
+	[Export]
+	private ClientGameController? _gameController;
+	private ClientGameController GameController => _gameController
+		?? throw new UnassignedReferenceException();
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
 	{
-		[Export]
-		private ClientGameController? _gameController;
-		private ClientGameController GameController => _gameController
-			?? throw new UnassignedReferenceException();
+		Pressed += EndTurn;
+	}
 
-		// Called when the node enters the scene tree for the first time.
-		public override void _Ready()
-		{
-			Pressed += EndTurn;
-		}
-
-		private void EndTurn()
-		{
-			GameController.Notifier.RequestEndTurn();
-		}
+	private void EndTurn()
+	{
+		GameController.Notifier.RequestEndTurn();
 	}
 }

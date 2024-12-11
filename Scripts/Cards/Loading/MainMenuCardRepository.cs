@@ -1,13 +1,12 @@
 
-namespace Kompas.Cards.Loading
-{
-	public class MainMenuCardRepository : CardRepository
-	{
-		public MainMenuCardRepository()
-			: base(IFileLoader.Godot, true)
-		{
-		}
+namespace Kompas.Cards.Loading;
 
-		public static void Load() => new MainMenuCardRepository().Initialize();
+public class MainMenuCardRepository : CardRepository
+{
+	public MainMenuCardRepository()
+		: base(IFileLoader.Godot, true)
+	{
 	}
+
+	public static void Load() => new MainMenuCardRepository().Initialize();
 }

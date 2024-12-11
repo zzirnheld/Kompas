@@ -2,35 +2,34 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public abstract class Turn : GamestateRestrictionBase
 {
-	public abstract class Turn : GamestateRestrictionBase
+	//If end up needing a version that can leverage trigger restriction elements, will need to split this back out to trigger/gamestate versions
+	protected abstract IIdentity<IPlayer> TurnPlayer { get; }
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		//If end up needing a version that can leverage trigger restriction elements, will need to split this back out to trigger/gamestate versions
-		protected abstract IIdentity<IPlayer> TurnPlayer { get; }
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			TurnPlayer.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IResolutionContext context)
-			=> InitializationContext.game.TurnPlayer == TurnPlayer.From(context);
-
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> true;
+		base.Initialize(initializationContext);
+		TurnPlayer.Initialize(initializationContext);
 	}
 
-	public class FriendlyTurn : Turn
-	{
-		private readonly IIdentity<IPlayer> turnPlayer = new Identities.Players.FriendlyPlayer();
-		protected override IIdentity<IPlayer> TurnPlayer => turnPlayer;
-	}
+	protected override bool IsValidLogic(IResolutionContext context)
+		=> InitializationContext.game.TurnPlayer == TurnPlayer.From(context);
 
-	public class EnemyTurn : Turn
-	{
-		private readonly IIdentity<IPlayer> turnPlayer = new Identities.Players.EnemyPlayer();
-		protected override IIdentity<IPlayer> TurnPlayer => turnPlayer;
-	}
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> true;
+}
+
+public class FriendlyTurn : Turn
+{
+	private readonly IIdentity<IPlayer> turnPlayer = new Identities.Players.FriendlyPlayer();
+	protected override IIdentity<IPlayer> TurnPlayer => turnPlayer;
+}
+
+public class EnemyTurn : Turn
+{
+	private readonly IIdentity<IPlayer> turnPlayer = new Identities.Players.EnemyPlayer();
+	protected override IIdentity<IPlayer> TurnPlayer => turnPlayer;
 }

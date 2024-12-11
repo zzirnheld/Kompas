@@ -1,9 +1,8 @@
-namespace Kompas.Gamestate.Exceptions
+namespace Kompas.Gamestate.Exceptions;
+
+public class NullCardException : KompasException
 {
-	public class NullCardException : KompasException
-	{
-		public NullCardException(string debugMessage, string message = "")
-			: base(debugMessage, message)
-		{ }
-	}
+	public NullCardException(string debugMessage, string message = "")
+		: base(debugMessage, message)
+	{ }
 }

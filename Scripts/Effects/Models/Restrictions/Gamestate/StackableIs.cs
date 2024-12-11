@@ -2,40 +2,39 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public abstract class StackableIs : TriggerGamestateRestrictionBase
 {
-	public abstract class StackableIs : TriggerGamestateRestrictionBase
+	[JsonProperty]
+	public IIdentity<IStackable> stackable = new Identities.Stackables.StackableCause();
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		[JsonProperty]
-		public IIdentity<IStackable> stackable = new Identities.Stackables.StackableCause();
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			stackable.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
-			=> Predicate(stackable.From(context, secondaryContext));
-
-		protected abstract bool Predicate(IStackable? stackable);
-
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> true;
+		base.Initialize(initializationContext);
+		stackable.Initialize(initializationContext);
 	}
 
-	public class IsAttack : StackableIs
-	{
-		protected override bool Predicate(IStackable? stackable) => stackable is Attack;
-	}
+	protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+		=> Predicate(stackable.From(context, secondaryContext));
 
-	public class IsEffect : StackableIs
-	{
-		protected override bool Predicate(IStackable? stackable) => stackable is Effect;
-	}
+	protected abstract bool Predicate(IStackable? stackable);
 
-	public class Normally : StackableIs
-	{
-		protected override bool Predicate(IStackable? stackable) => stackable == null;
-	}
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> true;
+}
+
+public class IsAttack : StackableIs
+{
+	protected override bool Predicate(IStackable? stackable) => stackable is Attack;
+}
+
+public class IsEffect : StackableIs
+{
+	protected override bool Predicate(IStackable? stackable) => stackable is Effect;
+}
+
+public class Normally : StackableIs
+{
+	protected override bool Predicate(IStackable? stackable) => stackable == null;
 }

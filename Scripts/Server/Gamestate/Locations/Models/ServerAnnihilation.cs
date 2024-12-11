@@ -7,30 +7,29 @@ using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Controllers;
 using Kompas.Server.Networking;
 
-namespace Kompas.Server.Gamestate.Locations.Models
+namespace Kompas.Server.Gamestate.Locations.Models;
+
+public class ServerAnnihilation : Annihilation
 {
-	public class ServerAnnihilation : Annihilation
+	private readonly ServerGame game;
+
+	public ServerAnnihilation(IPlayer owner, AnnihilationController annihilationController, ServerGame game)
+		: base(owner, annihilationController)
 	{
-		private readonly ServerGame game;
+		this.game = game;
+	}
 
-		public ServerAnnihilation(IPlayer owner, AnnihilationController annihilationController, ServerGame game)
-			: base(owner, annihilationController)
-		{
-			this.game = game;
-		}
+	protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
+	{
+		bool wasKnown = card.KnownToEnemy;
+		
+		var contexts = IEventContext.Build(Trigger.Annhilate)
+			.PrimarilyAffecting(card)
+			.CausedBy(stackSrc)
+			.ForPlayer(Owner)
+			.Capture(() => base.PerformAdd(card, index, stackSrc));
+		game.StackController.TriggerFor(contexts);
 
-		protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
-		{
-			bool wasKnown = card.KnownToEnemy;
-			
-			var contexts = IEventContext.Build(Trigger.Annhilate)
-				.PrimarilyAffecting(card)
-				.CausedBy(stackSrc)
-				.ForPlayer(Owner)
-				.Capture(() => base.PerformAdd(card, index, stackSrc));
-			game.StackController.TriggerFor(contexts);
-
-			ServerNotifier.NotifyAnnhilate(Owner, card, wasKnown);
-		}
+		ServerNotifier.NotifyAnnhilate(Owner, card, wasKnown);
 	}
 }

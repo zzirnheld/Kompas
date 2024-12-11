@@ -1,9 +1,8 @@
-namespace Kompas.Client.Effects.Views
+namespace Kompas.Client.Effects.Views;
+
+public partial class ClientHandSizeStackableView
+	: ClientStackableView
 {
-	public partial class ClientHandSizeStackableView
-		: ClientStackableView
-	{
-		
-	}
+	
 }
 

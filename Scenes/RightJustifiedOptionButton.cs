@@ -1,12 +1,11 @@
 using Godot;
 
-namespace Kompas.UI
+namespace Kompas.UI;
+
+public partial class RightJustifiedOptionButton : OptionButton
 {
-	public partial class RightJustifiedOptionButton : OptionButton
+	public override void _Ready()
 	{
-		public override void _Ready()
-		{
-			Alignment = HorizontalAlignment.Right;
-		}
+		Alignment = HorizontalAlignment.Right;
 	}
 }

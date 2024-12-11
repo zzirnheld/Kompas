@@ -1,7 +1,6 @@
-namespace Kompas.Effects.Models.Relationships
+namespace Kompas.Effects.Models.Relationships;
+
+public interface INumberRelationship
 {
-	public interface INumberRelationship
-	{
-		public bool Compare(int a, int b);
-	}
+	public bool Compare(int a, int b);
 }

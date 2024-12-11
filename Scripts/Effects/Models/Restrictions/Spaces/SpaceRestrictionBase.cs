@@ -3,18 +3,17 @@ using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Effects.Models.Restrictions.Spaces
+namespace Kompas.Effects.Models.Restrictions.Spaces;
+
+public abstract class SpaceRestrictionBase : RestrictionBase<Space>, IRestriction<IGameCardInfo>, ITriggerRestriction, IRestriction<(Space? s, IPlayer? p)>
 {
-	public abstract class SpaceRestrictionBase : RestrictionBase<Space>, IRestriction<IGameCardInfo>, ITriggerRestriction, IRestriction<(Space? s, IPlayer? p)>
-	{
-		public int? MaxUsesPerTurn => null;
-		public int? MaxUsesPerStack => null;
-		public int? MaxUsesPerRound => null;
+	public int? MaxUsesPerTurn => null;
+	public int? MaxUsesPerStack => null;
+	public int? MaxUsesPerRound => null;
 
-		public bool IsValid(IGameCardInfo? item, IResolutionContext context) => IsValid(item?.Position, context);
-		public bool IsValid(IEventContext? item, IResolutionContext context) => IsValid(item?.Space, context);
-		public bool IsValid((Space? s, IPlayer? p) item, IResolutionContext context) => IsValid(item.s, context);
+	public bool IsValid(IGameCardInfo? item, IResolutionContext context) => IsValid(item?.Position, context);
+	public bool IsValid(IEventContext? item, IResolutionContext context) => IsValid(item?.Space, context);
+	public bool IsValid((Space? s, IPlayer? p) item, IResolutionContext context) => IsValid(item.s, context);
 
-		public bool IsStillValidTriggeringContext(IEventContext context) => true;
-	}
+	public bool IsStillValidTriggeringContext(IEventContext context) => true;
 }

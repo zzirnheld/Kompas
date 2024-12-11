@@ -1,15 +1,14 @@
 using System;
 
-namespace Kompas.Gamestate.Exceptions
-{
-	public class KompasException : Exception
-	{
-		public string message;
+namespace Kompas.Gamestate.Exceptions;
 
-		public KompasException(string? debugMessage, string? message)
-			: base(debugMessage)
-		{
-			this.message = message ?? string.Empty;
-		}
+public class KompasException : Exception
+{
+	public string message;
+
+	public KompasException(string? debugMessage, string? message)
+		: base(debugMessage)
+	{
+		this.message = message ?? string.Empty;
 	}
 }

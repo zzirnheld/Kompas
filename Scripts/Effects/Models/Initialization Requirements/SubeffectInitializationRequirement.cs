@@ -1,12 +1,11 @@
-namespace Kompas.Effects.Models.InitializationRequirements
-{
-	public class SubeffectInitializationRequirement : IInitializationRequirement
-	{
-		public bool Validate(InitializationContext initializationContext)
-		{
-			if (initializationContext.subeffect == null) throw new System.ArgumentNullException($"{GetType()} must be initialized by/with a Subeffect");
+namespace Kompas.Effects.Models.InitializationRequirements;
 
-			return true;
-		}
+public class SubeffectInitializationRequirement : IInitializationRequirement
+{
+	public bool Validate(InitializationContext initializationContext)
+	{
+		if (initializationContext.subeffect == null) throw new System.ArgumentNullException($"{GetType()} must be initialized by/with a Subeffect");
+
+		return true;
 	}
 }

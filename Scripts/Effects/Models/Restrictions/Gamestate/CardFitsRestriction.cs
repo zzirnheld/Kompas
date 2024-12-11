@@ -6,57 +6,56 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public class CardFitsRestriction : TriggerGamestateRestrictionBase
 {
-	public class CardFitsRestriction : TriggerGamestateRestrictionBase
+	#nullable disable
+	[JsonProperty]
+	public IIdentity<IGameCardInfo> card;
+	[JsonProperty]
+	public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
+	
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<IGameCardInfo> cardRestriction;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty]
-		public IIdentity<IGameCardInfo> card;
-		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCardInfo>> anyOf;
-		
-		[JsonProperty(Required = Required.Always)]
-		public IRestriction<IGameCardInfo> cardRestriction;
-		#nullable restore
+		base.Initialize(initializationContext);
+		card?.Initialize(initializationContext);
+		anyOf?.Initialize(initializationContext);
+		cardRestriction.Initialize(initializationContext);
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			card?.Initialize(initializationContext);
-			anyOf?.Initialize(initializationContext);
-			cardRestriction.Initialize(initializationContext);
-
-			if (AllNull(card, anyOf)) throw new System.ArgumentException($"No card to check against restriction in {initializationContext.effect}");
-		}
-
-		public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
-		{
-			base.AdjustSubeffectIndices(increment, startingAtIndex);
-			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
-		}
-
-		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			bool IsValidCard(IGameCardInfo? c) => cardRestriction.IsValid(c, context);
-
-			if (card != null && !IsValidCard(card.From(context, secondaryContext))) return false;
-			if (anyOf != null)
-			{
-				var cards = anyOf.From(context, secondaryContext)
-					?? throw new InvalidOperationException();
-				if (!cards.Any(IsValidCard)) return false;
-			} 
-
-			return true;
-		}
-
-		public override string ToString()
-		{
-			return $"{card} or {anyOf} must be {cardRestriction}";
-		}
-
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> true;
+		if (AllNull(card, anyOf)) throw new System.ArgumentException($"No card to check against restriction in {initializationContext.effect}");
 	}
+
+	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
+	{
+		base.AdjustSubeffectIndices(increment, startingAtIndex);
+		cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
+	}
+
+	protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		bool IsValidCard(IGameCardInfo? c) => cardRestriction.IsValid(c, context);
+
+		if (card != null && !IsValidCard(card.From(context, secondaryContext))) return false;
+		if (anyOf != null)
+		{
+			var cards = anyOf.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			if (!cards.Any(IsValidCard)) return false;
+		} 
+
+		return true;
+	}
+
+	public override string ToString()
+	{
+		return $"{card} or {anyOf} must be {cardRestriction}";
+	}
+
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> true;
 }

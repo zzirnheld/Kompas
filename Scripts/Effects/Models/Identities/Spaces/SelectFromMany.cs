@@ -3,28 +3,27 @@ using Kompas.Effects.Models.Selectors;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Spaces
+namespace Kompas.Effects.Models.Identities.Spaces;
+
+public class SelectFromMany : ContextualParentIdentityBase<Space>
 {
-	public class SelectFromMany : ContextualParentIdentityBase<Space>
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<IReadOnlyCollection<Space>> spaces;
+	[JsonProperty(Required = Required.Always)]
+	public ISelector<Space> selector;// = new RandomSelector<Space>();
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IReadOnlyCollection<Space>> spaces;
-		[JsonProperty(Required = Required.Always)]
-		public ISelector<Space> selector;// = new RandomSelector<Space>();
-		#nullable restore
+		base.Initialize(initializationContext);
+		spaces.Initialize(initializationContext);
+	}
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			spaces.Initialize(initializationContext);
-		}
-
-		protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			var spaces = this.spaces.From(context, secondaryContext)
-				?? throw new System.InvalidOperationException();
-			return selector.Select(spaces);
-		}
+	protected override Space? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		var spaces = this.spaces.From(context, secondaryContext)
+			?? throw new System.InvalidOperationException();
+		return selector.Select(spaces);
 	}
 }

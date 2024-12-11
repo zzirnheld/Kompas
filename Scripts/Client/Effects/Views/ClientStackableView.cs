@@ -1,9 +1,8 @@
 using Godot;
 
-namespace Kompas.Client.Effects.Views
+namespace Kompas.Client.Effects.Views;
+
+public abstract partial class ClientStackableView : HBoxContainer
 {
-	public abstract partial class ClientStackableView : HBoxContainer
-	{
-		
-	}
+	
 }

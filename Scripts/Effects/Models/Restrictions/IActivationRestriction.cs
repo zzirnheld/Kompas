@@ -1,18 +1,17 @@
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Effects.Models.Restrictions
-{
-	public interface IActivationRestriction : IRestriction<IPlayer>, IAllOf<IPlayer>
-	{
-		public int? MaxUsesPerTurn { get; }
-		public int? MaxUsesPerRound { get; }
-		public int? MaxUsesPerStack { get; }
-	}
+namespace Kompas.Effects.Models.Restrictions;
 
-	public static class IActivationRestrictionExtensions
-	{
-		public static bool IsPotentiallyValidActivation(this IActivationRestriction restriction, IPlayer activator)
-			=> restriction.IsValidIgnoring(activator, IResolutionContext.PlayerAction(activator),
-				restriction => restriction is not Gamestate.NothingHappening);
-	}
+public interface IActivationRestriction : IRestriction<IPlayer>, IAllOf<IPlayer>
+{
+	public int? MaxUsesPerTurn { get; }
+	public int? MaxUsesPerRound { get; }
+	public int? MaxUsesPerStack { get; }
+}
+
+public static class IActivationRestrictionExtensions
+{
+	public static bool IsPotentiallyValidActivation(this IActivationRestriction restriction, IPlayer activator)
+		=> restriction.IsValidIgnoring(activator, IResolutionContext.PlayerAction(activator),
+			restriction => restriction is not Gamestate.NothingHappening);
 }

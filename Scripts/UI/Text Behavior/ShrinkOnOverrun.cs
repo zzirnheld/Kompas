@@ -1,54 +1,53 @@
 using Godot;
 
-namespace Kompas.UI.TextBehavior
+namespace Kompas.UI.TextBehavior;
+
+public partial class ShrinkOnOverrun : Label
 {
-	public partial class ShrinkOnOverrun : Label
+	private const string FontSizeName = "font_size";
+
+	[Export]
+	private bool UseThemeDefaultFontSize { get; set; } = false;
+
+	[Export]
+	private int StartingFontSize { get; set; } = 20;
+
+	private bool currentlyResizingText = false;
+
+	public override void _Ready()
 	{
-		private const string FontSizeName = "font_size";
+		VisibilityChanged += ReshowText;
+		Resized += ReshowText;
+	}
 
-		[Export]
-		private bool UseThemeDefaultFontSize { get; set; } = false;
+	public void ReshowText()
+	{
+		//Guard against infinite recursion
+		if (currentlyResizingText) return;
+		currentlyResizingText = true;
+		ShrinkableText = Text;
+		currentlyResizingText = false;
+	}
 
-		[Export]
-		private int StartingFontSize { get; set; } = 20;
-
-		private bool currentlyResizingText = false;
-
-		public override void _Ready()
+	public string ShrinkableText
+	{
+		set
 		{
-			VisibilityChanged += ReshowText;
-			Resized += ReshowText;
-		}
-
-		public void ReshowText()
-		{
-			//Guard against infinite recursion
-			if (currentlyResizingText) return;
-			currentlyResizingText = true;
-			ShrinkableText = Text;
-			currentlyResizingText = false;
-		}
-
-		public string ShrinkableText
-		{
-			set
+			if (!IsVisibleInTree() || Size.Y == 0 || Size.X == 0)
 			{
-				if (!IsVisibleInTree() || Size.Y == 0 || Size.X == 0)
-				{
-					Logger.Log($"Not properly visible yet, not resizing text {Name} for overrun");
-					Text = value;
-					return;
-				}
-
-				RemoveThemeFontSizeOverride(FontSizeName);
-
-				Font font = GetThemeDefaultFont();
-				int fontSize = UseThemeDefaultFontSize ? GetThemeDefaultFontSize() : StartingFontSize;
-				while (font.GetStringSize(value, fontSize: fontSize).X > Size.X) fontSize--;
-
-				AddThemeFontSizeOverride(FontSizeName, fontSize);
+				Logger.Log($"Not properly visible yet, not resizing text {Name} for overrun");
 				Text = value;
+				return;
 			}
+
+			RemoveThemeFontSizeOverride(FontSizeName);
+
+			Font font = GetThemeDefaultFont();
+			int fontSize = UseThemeDefaultFontSize ? GetThemeDefaultFontSize() : StartingFontSize;
+			while (font.GetStringSize(value, fontSize: fontSize).X > Size.X) fontSize--;
+
+			AddThemeFontSizeOverride(FontSizeName, fontSize);
+			Text = value;
 		}
 	}
 }

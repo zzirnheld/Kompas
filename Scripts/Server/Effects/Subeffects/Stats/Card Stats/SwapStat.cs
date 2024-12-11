@@ -5,43 +5,42 @@ using Kompas.Gamestate.Locations;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Models.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class SwapStat : ServerSubeffect
 {
-	public class SwapStat : ServerSubeffect
+	#nullable disable
+	[JsonProperty (Required = Required.Always)]
+	public CardValue firstTargetStat;
+	[JsonProperty (Required = Required.Always)]
+	public CardValue secondTargetStat;
+	#nullable restore
+	public int secondTargetIndex = -2;
+
+	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
-		#nullable disable
-		[JsonProperty (Required = Required.Always)]
-		public CardValue firstTargetStat;
-		[JsonProperty (Required = Required.Always)]
-		public CardValue secondTargetStat;
-		#nullable restore
-		public int secondTargetIndex = -2;
+		base.Initialize(eff, subeffIndex);
+		firstTargetStat.Initialize(DefaultInitializationContext);
+		secondTargetStat.Initialize(DefaultInitializationContext);
+	}
 
-		public override void Initialize(ServerEffect eff, int subeffIndex)
-		{
-			base.Initialize(eff, subeffIndex);
-			firstTargetStat.Initialize(DefaultInitializationContext);
-			secondTargetStat.Initialize(DefaultInitializationContext);
-		}
+	public override Task<ResolutionInfo> Resolve()
+	{
+		var secondTarget = Effect.GetTarget(secondTargetIndex);
+		if (CardTarget == null)
+			throw new NullCardException(TargetWasNull);
+		else if (forbidNotBoard && CardTarget.Location != Location.Board)
+			throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
 
-		public override Task<ResolutionInfo> Resolve()
-		{
-			var secondTarget = Effect.GetTarget(secondTargetIndex);
-			if (CardTarget == null)
-				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != Location.Board)
-				throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
+		if (secondTarget == null)
+			throw new NullCardException(TargetWasNull);
+		else if (forbidNotBoard && CardTarget.Location != Location.Board)
+			throw new InvalidLocationException(secondTarget.Location, secondTarget, ChangedStatsOfCardOffBoard);
 
-			if (secondTarget == null)
-				throw new NullCardException(TargetWasNull);
-			else if (forbidNotBoard && CardTarget.Location != Location.Board)
-				throw new InvalidLocationException(secondTarget.Location, secondTarget, ChangedStatsOfCardOffBoard);
-
-			var firstStat = firstTargetStat.GetValueOf(CardTarget);
-			var secondStat = secondTargetStat.GetValueOf(secondTarget);
-			firstTargetStat.SetValueOf(CardTarget, secondStat, Effect);
-			secondTargetStat.SetValueOf(secondTarget, firstStat, Effect);
-			return Task.FromResult(ResolutionInfo.Next);
-		}
+		var firstStat = firstTargetStat.GetValueOf(CardTarget);
+		var secondStat = secondTargetStat.GetValueOf(secondTarget);
+		firstTargetStat.SetValueOf(CardTarget, secondStat, Effect);
+		secondTargetStat.SetValueOf(secondTarget, firstStat, Effect);
+		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

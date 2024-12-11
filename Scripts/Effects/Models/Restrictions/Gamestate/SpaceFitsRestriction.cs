@@ -6,51 +6,50 @@ using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public class SpacesFitRestriction : TriggerGamestateRestrictionBase
 {
-	public class SpacesFitRestriction : TriggerGamestateRestrictionBase
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<Space> spaceRestriction;
+	#nullable restore
+	[JsonProperty]
+	public IIdentity<IReadOnlyCollection<Space>> spaces = new Identities.ManySpaces.All();
+
+	[JsonProperty]
+	public bool any = false;
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IRestriction<Space> spaceRestriction;
-		#nullable restore
-		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<Space>> spaces = new Identities.ManySpaces.All();
-
-		[JsonProperty]
-		public bool any = false;
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			spaces.Initialize(initializationContext);
-			spaceRestriction.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			var spacesItem = spaces.From(context, secondaryContext)
-				?? throw new InvalidOperationException();
-			return any
-				? spacesItem.Any(s => spaceRestriction.IsValid(s, context))
-				: spacesItem.All(s => spaceRestriction.IsValid(s, context));
-		}
-
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> true;
+		base.Initialize(initializationContext);
+		spaces.Initialize(initializationContext);
+		spaceRestriction.Initialize(initializationContext);
 	}
 
-	public class SpaceFitsRestriction : SpacesFitRestriction
+	protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Space> space;
-		#nullable restore
+		var spacesItem = spaces.From(context, secondaryContext)
+			?? throw new InvalidOperationException();
+		return any
+			? spacesItem.Any(s => spaceRestriction.IsValid(s, context))
+			: spacesItem.All(s => spaceRestriction.IsValid(s, context));
+	}
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			spaces = new Identities.ManySpaces.Multiple() { spaces = new[] { space } };
-			base.Initialize(initializationContext);
-		}
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> true;
+}
+
+public class SpaceFitsRestriction : SpacesFitRestriction
+{
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<Space> space;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
+	{
+		spaces = new Identities.ManySpaces.Multiple() { spaces = new[] { space } };
+		base.Initialize(initializationContext);
 	}
 }

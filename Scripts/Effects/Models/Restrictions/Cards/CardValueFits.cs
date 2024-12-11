@@ -2,31 +2,30 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities.Numbers;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Cards
+namespace Kompas.Effects.Models.Restrictions.Cards;
+
+public class CardValueFits : CardRestrictionBase
 {
-	public class CardValueFits : CardRestrictionBase
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public CardValue cardValue;
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<int> numberRestriction;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public CardValue cardValue;
-		[JsonProperty(Required = Required.Always)]
-		public IRestriction<int> numberRestriction;
-		#nullable restore
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			cardValue.Initialize(initializationContext);
-			numberRestriction.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
-			=> item != null && numberRestriction.IsValid(cardValue.GetValueOf(item), context);
+		base.Initialize(initializationContext);
+		cardValue.Initialize(initializationContext);
+		numberRestriction.Initialize(initializationContext);
 	}
 
-	public class Hurt : CardRestrictionBase
-	{
-		protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
-			=> item != null && item.Hurt;
-	}
+	protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
+		=> item != null && numberRestriction.IsValid(cardValue.GetValueOf(item), context);
+}
+
+public class Hurt : CardRestrictionBase
+{
+	protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
+		=> item != null && item.Hurt;
 }

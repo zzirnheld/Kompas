@@ -3,27 +3,26 @@ using Kompas.Cards.Models;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Cards
+namespace Kompas.Effects.Models.Identities.Cards;
+
+
+public class Avatar : ContextualParentIdentityBase<IGameCardInfo>
 {
+	#nullable disable
+	[JsonProperty (Required = Required.Always)]
+	public IIdentity<IPlayer> player;
+	#nullable restore
 
-	public class Avatar : ContextualParentIdentityBase<IGameCardInfo>
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty (Required = Required.Always)]
-		public IIdentity<IPlayer> player;
-		#nullable restore
+		base.Initialize(initializationContext);
+		player.Initialize(initializationContext);
+	}
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			player.Initialize(initializationContext);
-		}
-
-		protected override IGameCardInfo? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			var card = player.From(context, secondaryContext)
-				?? throw new InvalidOperationException();
-			return card.Avatar;
-		}
+	protected override IGameCardInfo? AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		var card = player.From(context, secondaryContext)
+			?? throw new InvalidOperationException();
+		return card.Avatar;
 	}
 }

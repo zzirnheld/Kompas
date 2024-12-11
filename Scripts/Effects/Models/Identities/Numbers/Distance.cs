@@ -3,42 +3,41 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Numbers
+namespace Kompas.Effects.Models.Identities.Numbers;
+
+public class Distance : ContextualParentIdentityBase<int>
 {
-	public class Distance : ContextualParentIdentityBase<int>
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<Space> firstSpace;
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<Space> secondSpace;
+
+	[JsonProperty]
+	public IRestriction<Space> throughRestriction;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Space> firstSpace;
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<Space> secondSpace;
+		base.Initialize(initializationContext);
+		firstSpace.Initialize(initializationContext);
+		secondSpace.Initialize(initializationContext);
 
-		[JsonProperty]
-		public IRestriction<Space> throughRestriction;
-		#nullable restore
+		throughRestriction?.Initialize(initializationContext);
+	}
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			firstSpace.Initialize(initializationContext);
-			secondSpace.Initialize(initializationContext);
+	protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		Space first = firstSpace.From(context, secondaryContext) ?? throw new InvalidOperationException();
+		Space second = secondSpace.From(context, secondaryContext) ?? throw new InvalidOperationException();
 
-			throughRestriction?.Initialize(initializationContext);
-		}
+		if (first == null || second == null) return -1;
 
-		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			Space first = firstSpace.From(context, secondaryContext) ?? throw new InvalidOperationException();
-			Space second = secondSpace.From(context, secondaryContext) ?? throw new InvalidOperationException();
+		if (throughRestriction == null) return first.DistanceTo(second);
 
-			if (first == null || second == null) return -1;
-
-			if (throughRestriction == null) return first.DistanceTo(second);
-
-			var contextToConsider = ContextToConsider(context, secondaryContext)
-				?? throw new InvalidOperationException();
-			bool through(Space s) => throughRestriction.IsValid(s, contextToConsider);
-			return Space.DistanceBetween(first, second, through);
-		}
+		var contextToConsider = ContextToConsider(context, secondaryContext)
+			?? throw new InvalidOperationException();
+		bool through(Space s) => throughRestriction.IsValid(s, contextToConsider);
+		return Space.DistanceBetween(first, second, through);
 	}
 }

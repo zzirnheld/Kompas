@@ -2,19 +2,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Cards.Models;
 
-namespace Kompas.Gamestate.Locations.Models
+namespace Kompas.Gamestate.Locations.Models;
+
+public sealed class Nowhere : ILocationModel
 {
-	public sealed class Nowhere : ILocationModel
-	{
-		private static readonly Nowhere _singleton = new Nowhere();
-		public static Nowhere Instance => _singleton;
+	private static readonly Nowhere _singleton = new Nowhere();
+	public static Nowhere Instance => _singleton;
 
-		public Location Location => Location.Nowhere;
+	public Location Location => Location.Nowhere;
 
-		public IEnumerable<GameCard> Cards => Enumerable.Empty<GameCard>();
+	public IEnumerable<GameCard> Cards => Enumerable.Empty<GameCard>();
 
-		public int IndexOf(GameCard card) => -1;
+	public int IndexOf(GameCard card) => -1;
 
-		public void Remove(GameCard card) { }
-	}
+	public void Remove(GameCard card) { }
 }

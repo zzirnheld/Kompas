@@ -3,28 +3,27 @@ using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public class PlayersMatch : TriggerGamestateRestrictionBase
 {
-	public class PlayersMatch : TriggerGamestateRestrictionBase
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<IPlayer> firstPlayer;
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<IPlayer> secondPlayer;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IPlayer> firstPlayer;
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IPlayer> secondPlayer;
-		#nullable restore
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			firstPlayer.Initialize(initializationContext);
-			secondPlayer.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
-			=> firstPlayer.From(context, secondaryContext) == secondPlayer.From(context, secondaryContext);
-
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> true;
+		base.Initialize(initializationContext);
+		firstPlayer.Initialize(initializationContext);
+		secondPlayer.Initialize(initializationContext);
 	}
+
+	protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+		=> firstPlayer.From(context, secondaryContext) == secondPlayer.From(context, secondaryContext);
+
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> true;
 }

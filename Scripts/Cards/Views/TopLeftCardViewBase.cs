@@ -3,33 +3,32 @@ using Kompas.Cards.Models;
 using Kompas.Client.UI;
 using Kompas.UI.CardInfoDisplayers;
 
-namespace Kompas.Cards.Views
+namespace Kompas.Cards.Views;
+
+public abstract class TopLeftCardViewBase<CardType> : FocusableCardViewBase<CardType, ControlInfoDisplayer>
+	where CardType : CardBase
 {
-	public abstract class TopLeftCardViewBase<CardType> : FocusableCardViewBase<CardType, ControlInfoDisplayer>
-		where CardType : CardBase
+	private ReminderTextPopup ReminderTextPopup { get; }
+	
+	protected abstract ICardRepository CardRepository { get; }
+
+	protected TopLeftCardViewBase(ControlInfoDisplayer infoDisplayer, ReminderTextPopup reminderTextPopup)
+		: base(infoDisplayer)
 	{
-		private ReminderTextPopup ReminderTextPopup { get; }
-		
-		protected abstract ICardRepository CardRepository { get; }
+		ReminderTextPopup = reminderTextPopup;
+		infoDisplayer.HoverKeyword += (_, keyword) => HoverReminderText(keyword);
+		infoDisplayer.StopHoverKeyword += (_, keyword) => ReminderTextPopup.StopDisplaying();
+	}
 
-		protected TopLeftCardViewBase(ControlInfoDisplayer infoDisplayer, ReminderTextPopup reminderTextPopup)
-			: base(infoDisplayer)
+	private void HoverReminderText(string keyword)
+	{
+		if (ShownCard == null)
 		{
-			ReminderTextPopup = reminderTextPopup;
-			infoDisplayer.HoverKeyword += (_, keyword) => HoverReminderText(keyword);
-			infoDisplayer.StopHoverKeyword += (_, keyword) => ReminderTextPopup.StopDisplaying();
+			Logger.Warn($"Somehow hovered over keyword {keyword} while shown card was null... ignoring.");
+			return;
 		}
 
-		private void HoverReminderText(string keyword)
-		{
-			if (ShownCard == null)
-			{
-				Logger.Warn($"Somehow hovered over keyword {keyword} while shown card was null... ignoring.");
-				return;
-			}
-
-			var reminderText = CardRepository.LookupKeywordReminderText(keyword);
-			ReminderTextPopup.Display(reminderText);
-		}
+		var reminderText = CardRepository.LookupKeywordReminderText(keyword);
+		ReminderTextPopup.Display(reminderText);
 	}
 }

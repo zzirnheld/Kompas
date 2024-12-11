@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Kompas.Gamestate;
 
-namespace Kompas.Effects.Models.Identities.ManySpaces
+namespace Kompas.Effects.Models.Identities.ManySpaces;
+
+public class All : ContextlessLeafIdentityBase<IReadOnlyCollection<Space>>
 {
-	public class All : ContextlessLeafIdentityBase<IReadOnlyCollection<Space>>
-	{
-		protected override IReadOnlyCollection<Space> AbstractItem => Space.Spaces.ToList();
-	}
+	protected override IReadOnlyCollection<Space> AbstractItem => Space.Spaces.ToList();
 }

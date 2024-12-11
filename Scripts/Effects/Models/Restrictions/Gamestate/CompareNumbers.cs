@@ -3,35 +3,34 @@ using Kompas.Effects.Models.Relationships;
 using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public class CompareNumbers : TriggerGamestateRestrictionBase
 {
-	public class CompareNumbers : TriggerGamestateRestrictionBase
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<int> firstNumber;
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<int> secondNumber;
+	[JsonProperty(Required = Required.Always)]
+	public INumberRelationship comparison;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<int> firstNumber;
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<int> secondNumber;
-		[JsonProperty(Required = Required.Always)]
-		public INumberRelationship comparison;
-		#nullable restore
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			firstNumber.Initialize(initializationContext);
-			secondNumber.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			int first = firstNumber.From(context, secondaryContext);
-			int second = secondNumber.From(context, secondaryContext);
-			return comparison.Compare(first, second);
-		}
-
-		//Because of the existence of EffectUses, this must reevaluate
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> IsValid(IResolutionContext.NotResolving(context));
+		base.Initialize(initializationContext);
+		firstNumber.Initialize(initializationContext);
+		secondNumber.Initialize(initializationContext);
 	}
+
+	protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		int first = firstNumber.From(context, secondaryContext);
+		int second = secondNumber.From(context, secondaryContext);
+		return comparison.Compare(first, second);
+	}
+
+	//Because of the existence of EffectUses, this must reevaluate
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> IsValid(IResolutionContext.NotResolving(context));
 }

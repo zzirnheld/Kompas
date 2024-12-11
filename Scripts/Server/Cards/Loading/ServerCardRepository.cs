@@ -8,54 +8,53 @@ using Kompas.Server.Effects.Models;
 using Kompas.Server.Gamestate;
 using Newtonsoft.Json;
 
-namespace Kompas.Server.Cards.Loading
+namespace Kompas.Server.Cards.Loading;
+
+public class ServerCardRepository : GameCardRepository<ServerSerializableCard, ServerEffect, ServerCardController>
 {
-	public class ServerCardRepository : GameCardRepository<ServerSerializableCard, ServerEffect, ServerCardController>
+	public ServerCardRepository()
+		: this(IFileLoader.Godot, false)
+	{ }
+
+	public ServerCardRepository(IFileLoader fileLoader, bool throwExceptions)
+		: base(fileLoader, throwExceptions, null)
+	{ }
+
+	public static bool CardNameIsCharacter(string? name)
 	{
-		public ServerCardRepository()
-			: this(IFileLoader.Godot, false)
-		{ }
+		if (null == name) return false;
+		if (!CardExists(name)) return false;
 
-		public ServerCardRepository(IFileLoader fileLoader, bool throwExceptions)
-			: base(fileLoader, throwExceptions, null)
-		{ }
+		var card = JsonConvert.DeserializeObject<SerializableCard>(cardJsons[name],
+				new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+		return card?.cardType == 'C';
+	}
 
-		public static bool CardNameIsCharacter(string? name)
+	public static ServerSubeffect[]? InstantiateServerPartialKeyword(string keyword)
+	{
+		if (!partialKeywordJsons.ContainsKey(keyword))
 		{
-			if (null == name) return false;
-			if (!CardExists(name)) return false;
-
-			var card = JsonConvert.DeserializeObject<SerializableCard>(cardJsons[name],
-					new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-			return card?.cardType == 'C';
+			Logger.Err($"No partial keyword json found for {keyword}");
+			return System.Array.Empty<ServerSubeffect>();
 		}
 
-		public static ServerSubeffect[]? InstantiateServerPartialKeyword(string keyword)
-		{
-			if (!partialKeywordJsons.ContainsKey(keyword))
-			{
-				Logger.Err($"No partial keyword json found for {keyword}");
-				return System.Array.Empty<ServerSubeffect>();
-			}
+		return JsonConvert.DeserializeObject<ServerSubeffect[]>(partialKeywordJsons[keyword], CardLoadingSettings);
+	}
 
-			return JsonConvert.DeserializeObject<ServerSubeffect[]>(partialKeywordJsons[keyword], CardLoadingSettings);
-		}
+	protected override ServerCardController GetCardController()
+	{
+		return new ServerCardController();
+	}
 
-		protected override ServerCardController GetCardController()
-		{
-			return new ServerCardController();
-		}
+	public ServerGameCard InstantiateServerCard(string name, IServerGame game, IPlayer owner, int id, bool isAvatar = false)
+	{
+		string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
 
-		public ServerGameCard InstantiateServerCard(string name, IServerGame game, IPlayer owner, int id, bool isAvatar = false)
-		{
-			string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
-
-			ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
-				=> ServerGameCard.Create(cardInfo, id, owner, game, ctrl, effects, isAvatar);
-			var ret = InstantiateGameCard(json, ConstructCard)
-				?? throw new InvalidOperationException($"Failed to instantiate {json}");
-			game.AddCard(ret);
-			return ret;
-		}
+		ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
+			=> ServerGameCard.Create(cardInfo, id, owner, game, ctrl, effects, isAvatar);
+		var ret = InstantiateGameCard(json, ConstructCard)
+			?? throw new InvalidOperationException($"Failed to instantiate {json}");
+		game.AddCard(ret);
+		return ret;
 	}
 }

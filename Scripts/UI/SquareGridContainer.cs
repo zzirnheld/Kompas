@@ -1,79 +1,78 @@
 using Godot;
 
-namespace Kompas.UI
+namespace Kompas.UI;
+
+//IMPL NOTE: I can't override the AddChild methods 1) because they take in nodes, not controls and 2) because they're not virtual
+public partial class SquareGridContainer : Container
 {
-	//IMPL NOTE: I can't override the AddChild methods 1) because they take in nodes, not controls and 2) because they're not virtual
-	public partial class SquareGridContainer : Container
+	private const int PositionalLayoutMode = 0;
+
+	[Export]
+	private int ColumnCount { get; set; } = 8;
+
+	[Export]
+	private float Padding { get; set; } = 5f;
+
+	public override void _Ready()
 	{
-		private const int PositionalLayoutMode = 0;
+		base._Ready();
+		Resized += Resize;
+	}
 
-		[Export]
-		private int ColumnCount { get; set; } = 8;
+	public void AddChild(Control child)
+	{
+		base.AddChild(child);
+		ResizeChild(child);
+		ScaleCustomMinimumSize();
+	}
 
-		[Export]
-		private float Padding { get; set; } = 5f;
+	public void MoveChild(Control childNode, int toIndex)
+	{
+		base.MoveChild(childNode, toIndex);
+		Resize();
+	}
 
-		public override void _Ready()
+	public void RemoveChild(Control child)
+	{
+		base.RemoveChild(child);
+		Resize();
+	}
+
+	private void Resize()
+	{
+		foreach (var child in GetChildren())
 		{
-			base._Ready();
-			Resized += Resize;
+			if (child is Control ctrl) ResizeChild(ctrl);
 		}
+		ScaleCustomMinimumSize();
+	}
 
-		public void AddChild(Control child)
-		{
-			base.AddChild(child);
-			ResizeChild(child);
-			ScaleCustomMinimumSize();
-		}
+	private bool scalingCustomMin = false;
+	private void ScaleCustomMinimumSize()
+	{
+		if (scalingCustomMin) return;
+		scalingCustomMin = true;
+		//FUTURE: test edge cases with non-exact multiples
+		var y = (Size.X / ColumnCount) * (Mathf.Ceil((GetChildCount() - 1) / ColumnCount) + 1);
+		CustomMinimumSize = new(Size.X, y);
+		Logger.Log($"Custom minimum size from {Size} to {CustomMinimumSize}");
+		scalingCustomMin = false;
+	}
 
-		public void MoveChild(Control childNode, int toIndex)
-		{
-			base.MoveChild(childNode, toIndex);
-			Resize();
-		}
+	private void ResizeChild(Control child)
+	{
+		child.LayoutMode = PositionalLayoutMode;
+		//When determining offset, we add padding to the size to account for the padding we're adding after the last element
+		float offset = (Size.X + Padding) / ColumnCount;
+		float tileSize = offset - Padding;
+		child.Size = new Vector2(tileSize, tileSize);
 
-		public void RemoveChild(Control child)
-		{
-			base.RemoveChild(child);
-			Resize();
-		}
+		float column = child.GetIndex() % ColumnCount;
+		float row = child.GetIndex() / ColumnCount;
+		child.Position = new(offset * column, offset * row); //todo padding?
 
-		private void Resize()
-		{
-			foreach (var child in GetChildren())
-			{
-				if (child is Control ctrl) ResizeChild(ctrl);
-			}
-			ScaleCustomMinimumSize();
-		}
+		child.Visible = true;
 
-		private bool scalingCustomMin = false;
-		private void ScaleCustomMinimumSize()
-		{
-			if (scalingCustomMin) return;
-			scalingCustomMin = true;
-			//FUTURE: test edge cases with non-exact multiples
-			var y = (Size.X / ColumnCount) * (Mathf.Ceil((GetChildCount() - 1) / ColumnCount) + 1);
-			CustomMinimumSize = new(Size.X, y);
-			Logger.Log($"Custom minimum size from {Size} to {CustomMinimumSize}");
-			scalingCustomMin = false;
-		}
-
-		private void ResizeChild(Control child)
-		{
-			child.LayoutMode = PositionalLayoutMode;
-			//When determining offset, we add padding to the size to account for the padding we're adding after the last element
-			float offset = (Size.X + Padding) / ColumnCount;
-			float tileSize = offset - Padding;
-			child.Size = new Vector2(tileSize, tileSize);
-
-			float column = child.GetIndex() % ColumnCount;
-			float row = child.GetIndex() / ColumnCount;
-			child.Position = new(offset * column, offset * row); //todo padding?
-
-			child.Visible = true;
-
-			Logger.Log($"Sclaing {child} to {child.Size} at {child.Position}");
-		}
+		Logger.Log($"Sclaing {child} to {child.Size} at {child.Position}");
 	}
 }

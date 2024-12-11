@@ -1,48 +1,47 @@
 using Godot;
 using System;
 
-namespace Kompas.Gamestate.Locations.Controllers
+namespace Kompas.Gamestate.Locations.Controllers;
+
+/// <summary>
+/// This node should ONLY have children that are the Area3Ds for the spaces and they should be in order
+/// </summary>
+public partial class SpacesClickingController : Node
 {
 	/// <summary>
-	/// This node should ONLY have children that are the Area3Ds for the spaces and they should be in order
+	/// Space that was clicked + whether it was a double click
 	/// </summary>
-	public partial class SpacesClickingController : Node
+	public event EventHandler<(Space space, bool doubleClick)>? LeftClick;
+
+	public override void _Ready()
 	{
-		/// <summary>
-		/// Space that was clicked + whether it was a double click
-		/// </summary>
-		public event EventHandler<(Space space, bool doubleClick)>? LeftClick;
-
-		public override void _Ready()
+		int x = 0, y = 0;
+		foreach (var child in GetChildren())
 		{
-			int x = 0, y = 0;
-			foreach (var child in GetChildren())
-			{
-				if (child is not Area3D area) continue;
+			if (child is not Area3D area) continue;
 
-				area.InputEvent += CreateInputEventHandler((x, y));
-				Logger.Log($"{area.Name} at {x},{y}");
-				y++;
-				if (y == Space.BoardLen)
-				{
-					y = 0;
-					x++;
-				}
+			area.InputEvent += CreateInputEventHandler((x, y));
+			Logger.Log($"{area.Name} at {x},{y}");
+			y++;
+			if (y == Space.BoardLen)
+			{
+				y = 0;
+				x++;
 			}
-
-			LeftClick += (_, space) => Logger.Log($"Clicked {space}");
 		}
 
-		private CollisionObject3D.InputEventEventHandler CreateInputEventHandler(Space space)
+		LeftClick += (_, space) => Logger.Log($"Clicked {space}");
+	}
+
+	private CollisionObject3D.InputEventEventHandler CreateInputEventHandler(Space space)
+	{
+		return (Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, long shapeIdx) =>
 		{
-			return (Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, long shapeIdx) =>
-			{
-				if (inputEvent is not InputEventMouseButton mouseEvent) return;
+			if (inputEvent is not InputEventMouseButton mouseEvent) return;
 
-				//Event where now the mouseEvent is Pressed means it's when the mouse goes down
-				if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
-					LeftClick?.Invoke(this, (space, mouseEvent.DoubleClick));
-			};
-		}
+			//Event where now the mouseEvent is Pressed means it's when the mouse goes down
+			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+				LeftClick?.Invoke(this, (space, mouseEvent.DoubleClick));
+		};
 	}
 }

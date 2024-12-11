@@ -1,10 +1,9 @@
 using Kompas.Gamestate.Exceptions;
 
-namespace Kompas.Effects.Models.Identities.Stackables
+namespace Kompas.Effects.Models.Identities.Stackables;
+
+public class ThisEffect : ContextlessLeafIdentityBase<IStackable>
 {
-	public class ThisEffect : ContextlessLeafIdentityBase<IStackable>
-	{
-		protected override IStackable AbstractItem => InitializationContext.effect
-			?? throw new IllDefinedException();
-	}
+	protected override IStackable AbstractItem => InitializationContext.effect
+		?? throw new IllDefinedException();
 }

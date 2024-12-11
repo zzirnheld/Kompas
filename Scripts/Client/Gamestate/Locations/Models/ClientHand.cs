@@ -2,20 +2,19 @@ using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
 
-namespace Kompas.Client.Gamestate.Locations.Models
+namespace Kompas.Client.Gamestate.Locations.Models;
+
+public class ClientHand : Hand
 {
-	public class ClientHand : Hand
+	public ClientHand(IPlayer owner, HandController handController) : base(owner, handController) { }
+
+	public void IncrementHand()
 	{
-		public ClientHand(IPlayer owner, HandController handController) : base(owner, handController) { }
+		//throw new System.NotImplementedException();
+	}
 
-		public void IncrementHand()
-		{
-			//throw new System.NotImplementedException();
-		}
-
-		public void DecrementHand()
-		{
-			//throw new System.NotImplementedException();
-		}
+	public void DecrementHand()
+	{
+		//throw new System.NotImplementedException();
 	}
 }

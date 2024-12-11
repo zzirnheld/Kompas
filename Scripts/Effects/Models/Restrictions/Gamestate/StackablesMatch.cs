@@ -2,28 +2,27 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public class StackablesMatch : TriggerGamestateRestrictionBase
 {
-	public class StackablesMatch : TriggerGamestateRestrictionBase
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<IStackable> firstStackable;
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<IStackable> secondStackable;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IStackable> firstStackable;
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<IStackable> secondStackable;
-		#nullable restore
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			firstStackable.Initialize(initializationContext);
-			secondStackable.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
-			=> firstStackable.From(context, secondaryContext) == secondStackable.From(context, secondaryContext);
-
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> true;
+		base.Initialize(initializationContext);
+		firstStackable.Initialize(initializationContext);
+		secondStackable.Initialize(initializationContext);
 	}
+
+	protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+		=> firstStackable.From(context, secondaryContext) == secondStackable.From(context, secondaryContext);
+
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> true;
 }

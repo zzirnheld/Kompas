@@ -3,50 +3,49 @@ using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Cards
+namespace Kompas.Effects.Models.Restrictions.Cards;
+
+/// <summary>
+/// A specialized AllOf containing the default elements, plus 
+/// </summary>
+public class AttackingDefender : AllOf, IAttackingDefender
 {
-	/// <summary>
-	/// A specialized AllOf containing the default elements, plus 
-	/// </summary>
-	public class AttackingDefender : AllOf, IAttackingDefender
+	[JsonProperty]
+	public int maxPerTurn = 1;
+	[JsonProperty]
+	public bool waiveAdjacencyRequirement = false;
+
+	protected override IEnumerable<IRestriction<IGameCardInfo>> DefaultElements
 	{
-		[JsonProperty]
-		public int maxPerTurn = 1;
-		[JsonProperty]
-		public bool waiveAdjacencyRequirement = false;
-
-		protected override IEnumerable<IRestriction<IGameCardInfo>> DefaultElements
+		get
 		{
-			get
+			yield return new Gamestate.CardFitsRestriction()
 			{
-				yield return new Gamestate.CardFitsRestriction()
+				card = new Identities.Cards.ThisCardNow(),
+				cardRestriction = new AllOf()
 				{
-					card = new Identities.Cards.ThisCardNow(),
-					cardRestriction = new AllOf()
+					elements = new IRestriction<IGameCardInfo>[]
 					{
-						elements = new IRestriction<IGameCardInfo>[]
-						{
-							new Friendly(),
-							new Character(),
-							new AtLocation(Location.Board)
-						}
+						new Friendly(),
+						new Character(),
+						new AtLocation(Location.Board)
 					}
-				};
-
-				yield return new Character();
-				yield return new Enemy();
-
-				if (!waiveAdjacencyRequirement)
-				{
-					yield return new Spaces.AdjacentTo()
-					{
-						card = new Identities.Cards.ThisCardNow()
-					};
 				}
+			};
 
-				yield return new Gamestate.MaxPerTurn() { max = maxPerTurn, attacks = true };
-				yield return new Gamestate.NothingHappening();
+			yield return new Character();
+			yield return new Enemy();
+
+			if (!waiveAdjacencyRequirement)
+			{
+				yield return new Spaces.AdjacentTo()
+				{
+					card = new Identities.Cards.ThisCardNow()
+				};
 			}
+
+			yield return new Gamestate.MaxPerTurn() { max = maxPerTurn, attacks = true };
+			yield return new Gamestate.NothingHappening();
 		}
 	}
 }

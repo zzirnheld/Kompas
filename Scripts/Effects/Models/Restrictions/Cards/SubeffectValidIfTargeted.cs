@@ -10,37 +10,36 @@ using Newtonsoft.Json;
 //That could create some crustiness if I ever for some reason want to check a CardRestriction client side that includes this,
 //but considering it should only ever be part of a subeffect, that shouldn't happen.
 //worth considering, tho
-namespace Kompas.Effects.Models.Restrictions.Cards
+namespace Kompas.Effects.Models.Restrictions.Cards;
+
+public class SubeffectValidIfTargeted : CardRestrictionBase
 {
-	public class SubeffectValidIfTargeted : CardRestrictionBase
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public int[] subeffectIndices;
+	#nullable restore
+
+	protected override IEnumerable<IInitializationRequirement> InitializationRequirements
+		{ get { yield return new SubeffectInitializationRequirement(); } }
+
+	private bool ValidateAllSubeffectsPossible()
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public int[] subeffectIndices;
-		#nullable restore
+		if (InitializationContext.effect is not ServerEffect serverEffect)
+			throw new System.InvalidOperationException("Cannot check validity of a server-reliant restriction client-side!");
 
-		protected override IEnumerable<IInitializationRequirement> InitializationRequirements
-			{ get { yield return new SubeffectInitializationRequirement(); } }
+		return subeffectIndices.Select(i => serverEffect.subeffects[i])
+			.All(subeff => !subeff.IsImpossible());
+	}
 
-		private bool ValidateAllSubeffectsPossible()
-		{
-			if (InitializationContext.effect is not ServerEffect serverEffect)
-				throw new System.InvalidOperationException("Cannot check validity of a server-reliant restriction client-side!");
+	protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+	{
+		var effect = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
+		return InitializationContext.effect.TestWithCardTarget(card as GameCard, ValidateAllSubeffectsPossible);
+	}	
 
-			return subeffectIndices.Select(i => serverEffect.subeffects[i])
-				.All(subeff => !subeff.IsImpossible());
-		}
-
-		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-		{
-			var effect = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
-			return InitializationContext.effect.TestWithCardTarget(card as GameCard, ValidateAllSubeffectsPossible);
-		}	
-
-		public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
-		{
-			base.AdjustSubeffectIndices(increment, startingAtIndex);
-			AdjustSubeffectIndices(subeffectIndices, increment, startingAtIndex);
-		}
+	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
+	{
+		base.AdjustSubeffectIndices(increment, startingAtIndex);
+		AdjustSubeffectIndices(subeffectIndices, increment, startingAtIndex);
 	}
 }

@@ -2,30 +2,29 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Gamestate
+namespace Kompas.Effects.Models.Restrictions.Gamestate;
+
+public class NumberFitsRestriction : TriggerGamestateRestrictionBase
 {
-	public class NumberFitsRestriction : TriggerGamestateRestrictionBase
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IIdentity<int> number;
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<int> restriction;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IIdentity<int> number;
-		[JsonProperty(Required = Required.Always)]
-		public IRestriction<int> restriction;
-		#nullable restore
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			number.Initialize(initializationContext);
-			restriction.Initialize(initializationContext);
-		}
-
-
-		protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
-			=> restriction.IsValid(number.From(context, secondaryContext), context);
-
-		//number could be EffectUses
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> IsValid(IResolutionContext.NotResolving(context));
+		base.Initialize(initializationContext);
+		number.Initialize(initializationContext);
+		restriction.Initialize(initializationContext);
 	}
+
+
+	protected override bool IsValidLogic(IResolutionContext context, IResolutionContext secondaryContext)
+		=> restriction.IsValid(number.From(context, secondaryContext), context);
+
+	//number could be EffectUses
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> IsValid(IResolutionContext.NotResolving(context));
 }

@@ -5,34 +5,33 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Numbers
+namespace Kompas.Effects.Models.Identities.Numbers;
+
+public class CountCards : ContextualParentIdentityBase<int>
 {
-	public class CountCards : ContextualParentIdentityBase<int>
+	[JsonProperty]
+	public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
+
+	[JsonProperty]
+	public IRestriction<IGameCardInfo> cardRestriction = new Restrictions.Gamestate.AlwaysValid();
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards = new ManyCards.All();
+		base.Initialize(initializationContext);
+		cards.Initialize(initializationContext);
+		cardRestriction.Initialize(initializationContext);
+	}
 
-		[JsonProperty]
-		public IRestriction<IGameCardInfo> cardRestriction = new Restrictions.Gamestate.AlwaysValid();
+	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
+	{
+		base.AdjustSubeffectIndices(increment, startingAtIndex);
+		cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
+	}
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			cards.Initialize(initializationContext);
-			cardRestriction.Initialize(initializationContext);
-		}
-
-		public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
-		{
-			base.AdjustSubeffectIndices(increment, startingAtIndex);
-			cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
-		}
-
-		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			var cards = this.cards.From(context, secondaryContext)
-				?? throw new InvalidOperationException();
-			return cards.Count(c => cardRestriction.IsValid(c, ContextToConsider(context, secondaryContext)));
-		}
+	protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		var cards = this.cards.From(context, secondaryContext)
+			?? throw new InvalidOperationException();
+		return cards.Count(c => cardRestriction.IsValid(c, ContextToConsider(context, secondaryContext)));
 	}
 }

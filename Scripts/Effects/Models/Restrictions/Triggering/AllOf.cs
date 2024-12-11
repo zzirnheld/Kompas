@@ -2,120 +2,119 @@ using System.Linq;
 using Kompas.Effects.Models.TriggeringEvent;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Triggering
+namespace Kompas.Effects.Models.Restrictions.Triggering;
+
+public class AllOf : AllOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
 {
-	public class AllOf : AllOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
+	//Again, don't love casting, but see ActivationRestriction
+	public int? MaxUsesPerTurn
 	{
-		//Again, don't love casting, but see ActivationRestriction
-		public int? MaxUsesPerTurn
+		get
 		{
-			get
+			foreach (var elem in elements)
 			{
-				foreach (var elem in elements)
-				{
-					if (elem is Gamestate.MaxPerTurn max) return max.max;
-				}
-				return null;
+				if (elem is Gamestate.MaxPerTurn max) return max.max;
 			}
+			return null;
 		}
-
-		public int? MaxUsesPerRound
-		{
-			get
-			{
-				foreach (var elem in elements)
-				{
-					if (elem is Gamestate.MaxPerRound max) return max.max;
-				}
-				return null;
-			}
-		}
-
-		public int? MaxUsesPerStack
-		{
-			get
-			{
-				foreach (var elem in elements)
-				{
-					if (elem is Gamestate.MaxPerStack max) return max.max;
-				}
-				return null;
-			}
-		}
-
-		protected override bool LogSoloElements => false;
-
-		/// <summary>
-		/// Reevaluates the trigger to check that any restrictions that could change between it being triggered
-		/// and it being ordered on the stack, are still true.
-		/// (Not relevant to delayed things, since those expire after a given number of uses (if at all), so yeah
-		/// </summary>
-		/// <returns></returns>
-		public bool IsStillValidTriggeringContext(IEventContext context)
-			=> elements.All(elem => elem.IsStillValidTriggeringContext(context));
 	}
 
-	public class AnyOf : AnyOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
+	public int? MaxUsesPerRound
 	{
-		public int? MaxUsesPerTurn
+		get
 		{
-			get
+			foreach (var elem in elements)
 			{
-				foreach (var elem in elements)
-				{
-					if (elem is Gamestate.MaxPerTurn max) return max.max;
-				}
-				return null;
+				if (elem is Gamestate.MaxPerRound max) return max.max;
 			}
+			return null;
 		}
-
-		public int? MaxUsesPerRound
-		{
-			get
-			{
-				foreach (var elem in elements)
-				{
-					if (elem is Gamestate.MaxPerRound max) return max.max;
-				}
-				return null;
-			}
-		}
-
-		public int? MaxUsesPerStack
-		{
-			get
-			{
-				foreach (var elem in elements)
-				{
-					if (elem is Gamestate.MaxPerStack max) return max.max;
-				}
-				return null;
-			}
-		}
-		
-		public bool IsStillValidTriggeringContext(IEventContext context)
-			=> elements.Any(elem => elem.IsStillValidTriggeringContext(context));
 	}
 
-	public class Not : TriggerRestrictionBase
+	public int? MaxUsesPerStack
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public ITriggerRestriction inverted;
-		#nullable restore
-
-		public override void Initialize(InitializationContext initializationContext)
+		get
 		{
-			base.Initialize(initializationContext);
-			inverted.Initialize(initializationContext);
+			foreach (var elem in elements)
+			{
+				if (elem is Gamestate.MaxPerStack max) return max.max;
+			}
+			return null;
 		}
-
-		//NOTE: We can't just use IsStillValidTriggeringContext because that function assumes that the restriction previously evaluated to TRUE,
-		//and the whole point of Not is that we already know that inverted evaluated to false
-		public override bool IsStillValidTriggeringContext(IEventContext context)
-			=> IsValid(context, IResolutionContext.NotResolving(context));
-
-		protected override bool IsValidContext(IEventContext context, IResolutionContext secondaryContext)
-			=> !inverted.IsValid(context, secondaryContext);
 	}
+
+	protected override bool LogSoloElements => false;
+
+	/// <summary>
+	/// Reevaluates the trigger to check that any restrictions that could change between it being triggered
+	/// and it being ordered on the stack, are still true.
+	/// (Not relevant to delayed things, since those expire after a given number of uses (if at all), so yeah
+	/// </summary>
+	/// <returns></returns>
+	public bool IsStillValidTriggeringContext(IEventContext context)
+		=> elements.All(elem => elem.IsStillValidTriggeringContext(context));
+}
+
+public class AnyOf : AnyOfBase<IEventContext, ITriggerRestriction>, ITriggerRestriction
+{
+	public int? MaxUsesPerTurn
+	{
+		get
+		{
+			foreach (var elem in elements)
+			{
+				if (elem is Gamestate.MaxPerTurn max) return max.max;
+			}
+			return null;
+		}
+	}
+
+	public int? MaxUsesPerRound
+	{
+		get
+		{
+			foreach (var elem in elements)
+			{
+				if (elem is Gamestate.MaxPerRound max) return max.max;
+			}
+			return null;
+		}
+	}
+
+	public int? MaxUsesPerStack
+	{
+		get
+		{
+			foreach (var elem in elements)
+			{
+				if (elem is Gamestate.MaxPerStack max) return max.max;
+			}
+			return null;
+		}
+	}
+	
+	public bool IsStillValidTriggeringContext(IEventContext context)
+		=> elements.Any(elem => elem.IsStillValidTriggeringContext(context));
+}
+
+public class Not : TriggerRestrictionBase
+{
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public ITriggerRestriction inverted;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
+	{
+		base.Initialize(initializationContext);
+		inverted.Initialize(initializationContext);
+	}
+
+	//NOTE: We can't just use IsStillValidTriggeringContext because that function assumes that the restriction previously evaluated to TRUE,
+	//and the whole point of Not is that we already know that inverted evaluated to false
+	public override bool IsStillValidTriggeringContext(IEventContext context)
+		=> IsValid(context, IResolutionContext.NotResolving(context));
+
+	protected override bool IsValidContext(IEventContext context, IResolutionContext secondaryContext)
+		=> !inverted.IsValid(context, secondaryContext);
 }

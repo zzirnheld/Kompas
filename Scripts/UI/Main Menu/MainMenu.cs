@@ -4,59 +4,58 @@ using Kompas.Shared;
 using Kompas.Shared.Exceptions;
 using System.Threading.Tasks;
 
-namespace Kompas.UI.MainMenu
+namespace Kompas.UI.MainMenu;
+
+public partial class MainMenu : Control
 {
-	public partial class MainMenu : Control
+	private const string ServerScenePath = "res://Scenes/ServerScene.tscn";
+	private const string ClientScenePath = "res://Scenes/ClientScene.tscn";
+	private const string BuildDeckPath = "res://Scenes/BuildDeckScene.tscn";
+
+	private void HostServer() => LoadScene(ServerScenePath);
+	private void ConnectToServer() => LoadScene(ClientScenePath);
+	private void BuildDeck() => LoadScene(BuildDeckPath);
+	private void Quit() => GetTree().Quit();
+
+	[Export]
+	private MainMenuLogoController? _mainMenuLogoController;
+	private MainMenuLogoController MainMenuLogoController => _mainMenuLogoController
+		?? throw new UnassignedReferenceException(nameof(_mainMenuLogoController), this);
+
+	private bool loadingAnotherScene = false;
+
+	//Async void because called from main menu buttons' handlers
+	private async void LoadScene(string scenePath)
 	{
-		private const string ServerScenePath = "res://Scenes/ServerScene.tscn";
-		private const string ClientScenePath = "res://Scenes/ClientScene.tscn";
-		private const string BuildDeckPath = "res://Scenes/BuildDeckScene.tscn";
+		if (loadingAnotherScene) return;
+		loadingAnotherScene = true;
 
-		private void HostServer() => LoadScene(ServerScenePath);
-		private void ConnectToServer() => LoadScene(ClientScenePath);
-		private void BuildDeck() => LoadScene(BuildDeckPath);
-		private void Quit() => GetTree().Quit();
+		Task spinPastMenu = MainMenuLogoController.SpinForSceneChange();
 
-		[Export]
-		private MainMenuLogoController? _mainMenuLogoController;
-		private MainMenuLogoController MainMenuLogoController => _mainMenuLogoController
-			?? throw new UnassignedReferenceException(nameof(_mainMenuLogoController), this);
-
-		private bool loadingAnotherScene = false;
-
-		//Async void because called from main menu buttons' handlers
-		private async void LoadScene(string scenePath)
+		ResourceLoader.LoadThreadedRequest(scenePath);
+		Task<bool> load = this.DoEachFrame(_ =>
 		{
-			if (loadingAnotherScene) return;
-			loadingAnotherScene = true;
+			var status = ResourceLoader.LoadThreadedGetStatus(scenePath);
+			if (status == ResourceLoader.ThreadLoadStatus.InProgress)
+				return Result<bool>.None;
 
-			Task spinPastMenu = MainMenuLogoController.SpinForSceneChange();
+			return Result<bool>.Of(status == ResourceLoader.ThreadLoadStatus.Loaded);
+		});
 
-			ResourceLoader.LoadThreadedRequest(scenePath);
-			Task<bool> load = this.DoEachFrame(_ =>
-			{
-				var status = ResourceLoader.LoadThreadedGetStatus(scenePath);
-				if (status == ResourceLoader.ThreadLoadStatus.InProgress)
-					return Result<bool>.None;
+		await spinPastMenu;
+		await Task.WhenAny(load, MainMenuLogoController.ChangeScenesLoadingSpinning());
 
-				return Result<bool>.Of(status == ResourceLoader.ThreadLoadStatus.Loaded);
-			});
-
-			await spinPastMenu;
-			await Task.WhenAny(load, MainMenuLogoController.ChangeScenesLoadingSpinning());
-
-			if (load.IsCompleted && load.Result)
-			{
-				var res = ResourceLoader.LoadThreadedGet(scenePath);
-				if (res is not PackedScene scene) throw new System.InvalidOperationException("Resource was not a packed scene!");
-				GetTree().ChangeSceneToPacked(scene);
-			}
-		}
-
-		public override void _Ready()
+		if (load.IsCompleted && load.Result)
 		{
-			base._Ready();
-			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
+			var res = ResourceLoader.LoadThreadedGet(scenePath);
+			if (res is not PackedScene scene) throw new System.InvalidOperationException("Resource was not a packed scene!");
+			GetTree().ChangeSceneToPacked(scene);
 		}
+	}
+
+	public override void _Ready()
+	{
+		base._Ready();
+		DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
 	}
 }

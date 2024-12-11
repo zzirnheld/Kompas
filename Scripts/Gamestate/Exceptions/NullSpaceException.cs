@@ -1,9 +1,8 @@
-namespace Kompas.Gamestate.Exceptions
+namespace Kompas.Gamestate.Exceptions;
+
+public class NullSpaceException : KompasException
 {
-	public class NullSpaceException : KompasException
-	{
-		public NullSpaceException(string debugMessage, string message = "")
-			: base(debugMessage, message)
-		{ }
-	}
+	public NullSpaceException(string debugMessage, string message = "")
+		: base(debugMessage, message)
+	{ }
 }

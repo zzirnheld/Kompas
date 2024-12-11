@@ -3,43 +3,42 @@ using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Models.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class PlayerChooseX : ServerSubeffect
 {
-	public class PlayerChooseX : ServerSubeffect
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<int> XRest;
+	#nullable restore
+
+	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IRestriction<int> XRest;
-		#nullable restore
+		base.Initialize(eff, subeffIndex);
+		XRest.Initialize(DefaultInitializationContext);
+	}
 
-		public override void Initialize(ServerEffect eff, int subeffIndex)
+	private async Task<int> AskForX() => await ServerGame.Awaiter.GetPlayerXValue(PlayerTarget
+		?? throw new InvalidOperationException("Did you delete a player?"));
+
+	public override async Task<ResolutionInfo> Resolve()
+	{
+		bool xLegal = false;
+		while (!xLegal)
 		{
-			base.Initialize(eff, subeffIndex);
-			XRest.Initialize(DefaultInitializationContext);
+			int x = await AskForX();
+			xLegal = SetXIfLegal(x);
 		}
+		return ResolutionInfo.Next;
+	}
 
-		private async Task<int> AskForX() => await ServerGame.Awaiter.GetPlayerXValue(PlayerTarget
-			?? throw new InvalidOperationException("Did you delete a player?"));
-
-		public override async Task<ResolutionInfo> Resolve()
+	public bool SetXIfLegal(int x)
+	{
+		if (XRest.IsValid(x, ResolutionContext))
 		{
-			bool xLegal = false;
-			while (!xLegal)
-			{
-				int x = await AskForX();
-				xLegal = SetXIfLegal(x);
-			}
-			return ResolutionInfo.Next;
+			ServerEffect.X = x;
+			return true;
 		}
-
-		public bool SetXIfLegal(int x)
-		{
-			if (XRest.IsValid(x, ResolutionContext))
-			{
-				ServerEffect.X = x;
-				return true;
-			}
-			return false;
-		}
+		return false;
 	}
 }

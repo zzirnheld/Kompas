@@ -1,52 +1,51 @@
 using Kompas.Cards.Models;
 
-namespace Kompas.UI.CardInfoDisplayers
+namespace Kompas.UI.CardInfoDisplayers;
+
+/// <summary>
+/// Defines how information is actually displayed on a card.
+/// </summary>
+public interface ICardInfoDisplayer
 {
 	/// <summary>
-	/// Defines how information is actually displayed on a card.
+	/// Shows or hides the card information.
+	/// Can override for special behavior, but the default is to just enable/disable the GameObject
 	/// </summary>
-	public interface ICardInfoDisplayer
-	{
-		/// <summary>
-		/// Shows or hides the card information.
-		/// Can override for special behavior, but the default is to just enable/disable the GameObject
-		/// </summary>
-		public bool ShowingInfo { set; }
+	public bool ShowingInfo { set; }
 
-		/// <summary>
-		/// Display the ShownCard's rules text, like its name, type line, and effect text.
-		/// Called only when the card's info changes, or is refreshed
-		/// </summary>
-		public void DisplayCardRulesText(CardBase card);
+	/// <summary>
+	/// Display the ShownCard's rules text, like its name, type line, and effect text.
+	/// Called only when the card's info changes, or is refreshed
+	/// </summary>
+	public void DisplayCardRulesText(CardBase card);
 
-		/// <summary>
-		/// Display the ShownCard's stats
-		/// Called only when the card's info changes, or is refreshed
-		/// </summary>
-		public void DisplayCardNumericStats(CardBase card);
+	/// <summary>
+	/// Display the ShownCard's stats
+	/// Called only when the card's info changes, or is refreshed
+	/// </summary>
+	public void DisplayCardNumericStats(CardBase card);
 
-		/// <summary>
-		/// Display the ShownCard's image, as appropriate
-		/// Called only when the card's info changes, or is refreshed
-		/// </summary>
-		public void DisplayCardImage(CardBase card);
+	/// <summary>
+	/// Display the ShownCard's image, as appropriate
+	/// Called only when the card's info changes, or is refreshed
+	/// </summary>
+	public void DisplayCardImage(CardBase card);
 
-		public void DisplayUnselectedValidTarget(bool validTarget);
+	public void DisplayUnselectedValidTarget(bool validTarget);
 
-		public void DisplayCurrentTarget(bool currentTarget);
+	public void DisplayCurrentTarget(bool currentTarget);
 
-		/// <summary>
-		///
-		/// </summary>
-		public void DisplayEffectSource(bool effectSource);
-	}
+	/// <summary>
+	///
+	/// </summary>
+	public void DisplayEffectSource(bool effectSource);
+}
 
-	public interface IHoverableCardInfoDisplayer : ICardInfoDisplayer
-	{
-		public event System.EventHandler<string>? BeginHoverKeyword;
-		public event System.EventHandler<string>? EndHoverKeyword;
+public interface IHoverableCardInfoDisplayer : ICardInfoDisplayer
+{
+	public event System.EventHandler<string>? BeginHoverKeyword;
+	public event System.EventHandler<string>? EndHoverKeyword;
 
 
-		public void UpdateZoomedInLayerMask(uint layerMask);
-	}
+	public void UpdateZoomedInLayerMask(uint layerMask);
 }

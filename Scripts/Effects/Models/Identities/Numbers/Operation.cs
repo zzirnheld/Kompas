@@ -2,42 +2,41 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Numbers
+namespace Kompas.Effects.Models.Identities.Numbers;
+
+public class Operation : ContextualParentIdentityBase<int>
 {
-	public class Operation : ContextualParentIdentityBase<int>
+	#nullable disable
+	[JsonProperty]
+	public IIdentity<int>[] numbers;
+	[JsonProperty]
+	public IIdentity<IReadOnlyCollection<int>> manyNumbers;
+	[JsonProperty(Required = Required.Always)]
+	public INumberOperation operation;
+	#nullable restore
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty]
-		public IIdentity<int>[] numbers;
-		[JsonProperty]
-		public IIdentity<IReadOnlyCollection<int>> manyNumbers;
-		[JsonProperty(Required = Required.Always)]
-		public INumberOperation operation;
-		#nullable restore
+		base.Initialize(initializationContext);
 
-		public override void Initialize(InitializationContext initializationContext)
+		if (AllNull(numbers, manyNumbers)) throw new System.ArgumentException($"Must provide something to perform an operation on");
+
+		manyNumbers?.Initialize(initializationContext);
+		if (numbers != null) foreach(var identity in numbers) identity.Initialize(initializationContext);
+	}
+
+	protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
+	{
+		var numberValues = new List<int>();
+
+		if (numbers != null) foreach (var number in numbers) numberValues.Add(number.From(context, secondaryContext));
+		if (manyNumbers != null)
 		{
-			base.Initialize(initializationContext);
-
-			if (AllNull(numbers, manyNumbers)) throw new System.ArgumentException($"Must provide something to perform an operation on");
-
-			manyNumbers?.Initialize(initializationContext);
-			if (numbers != null) foreach(var identity in numbers) identity.Initialize(initializationContext);
+			var manyNumbers = this.manyNumbers.From(context, secondaryContext)
+				?? throw new InvalidOperationException();
+			foreach (int number in manyNumbers) numberValues.Add(number);
 		}
 
-		protected override int AbstractItemFrom(IResolutionContext context, IResolutionContext secondaryContext)
-		{
-			var numberValues = new List<int>();
-
-			if (numbers != null) foreach (var number in numbers) numberValues.Add(number.From(context, secondaryContext));
-			if (manyNumbers != null)
-			{
-				var manyNumbers = this.manyNumbers.From(context, secondaryContext)
-					?? throw new InvalidOperationException();
-				foreach (int number in manyNumbers) numberValues.Add(number);
-			}
-
-			return operation.Perform(numberValues.ToArray());
-		}
+		return operation.Perform(numberValues.ToArray());
 	}
 }

@@ -1,24 +1,23 @@
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Players
+namespace Kompas.Effects.Models.Restrictions.Players;
+
+public class AllOf : AllOfBase<IPlayer> { }
+
+public class Not : PlayerRestrictionBase
 {
-	public class AllOf : AllOfBase<IPlayer> { }
+	#nullable disable
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<IPlayer> negated;
+	#nullable restore
 
-	public class Not : PlayerRestrictionBase
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		#nullable disable
-		[JsonProperty(Required = Required.Always)]
-		public IRestriction<IPlayer> negated;
-		#nullable restore
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			negated.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IPlayer? item, IResolutionContext context)
-			=> !negated.IsValid(item, context);
+		base.Initialize(initializationContext);
+		negated.Initialize(initializationContext);
 	}
+
+	protected override bool IsValidLogic(IPlayer? item, IResolutionContext context)
+		=> !negated.IsValid(item, context);
 }

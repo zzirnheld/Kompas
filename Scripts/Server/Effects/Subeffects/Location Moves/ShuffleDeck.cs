@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kompas.Server.Effects.Models.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class ShuffleDeck : ServerSubeffect
 {
-	public class ShuffleDeck : ServerSubeffect
+	public override Task<ResolutionInfo> Resolve()
 	{
-		public override Task<ResolutionInfo> Resolve()
-		{
-			PlayerTarget.Deck.Shuffle();
-			return Task.FromResult(ResolutionInfo.Next);
-		}
+		PlayerTarget.Deck.Shuffle();
+		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

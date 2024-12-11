@@ -2,19 +2,18 @@ using Godot;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Shared.Exceptions;
 
-namespace Kompas.Gamestate.Locations.Controllers
+namespace Kompas.Gamestate.Locations.Controllers;
+
+public abstract partial class HandController : Node
 {
-	public abstract partial class HandController : Node
+	private Hand? _handModel;
+	public Hand HandModel
 	{
-		private Hand? _handModel;
-		public Hand HandModel
-		{
-			get => _handModel ?? throw new UnassignedReferenceException();
-			set => _handModel = value;
-		}
-
-		public void Refresh() => SpreadAllCards();
-
-		protected abstract void SpreadAllCards();
+		get => _handModel ?? throw new UnassignedReferenceException();
+		set => _handModel = value;
 	}
+
+	public void Refresh() => SpreadAllCards();
+
+	protected abstract void SpreadAllCards();
 }

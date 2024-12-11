@@ -5,64 +5,63 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Cards
+namespace Kompas.Effects.Models.Restrictions.Cards;
+
+public class Name : CardRestrictionBase
 {
-	public class Name : CardRestrictionBase
+	[JsonProperty]
+	public string? nameIs;
+	[JsonProperty]
+	public string? nameIncludes;
+
+	[JsonProperty]
+	public IIdentity<IGameCardInfo>? sameAs;
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		[JsonProperty]
-		public string? nameIs;
-		[JsonProperty]
-		public string? nameIncludes;
-
-		[JsonProperty]
-		public IIdentity<IGameCardInfo>? sameAs;
-
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			sameAs?.Initialize(initializationContext);
-		}
-
-		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-		{
-			if (card == null) return false;
-
-			if (nameIs != null && card.CardName != nameIs) return false;
-			if (nameIncludes != null && !card.CardName.Contains(nameIncludes)) return false;
-			if (sameAs != null && card.CardName != sameAs.From(context)?.CardName) return false;
-
-			return true;
-		}
+		base.Initialize(initializationContext);
+		sameAs?.Initialize(initializationContext);
 	}
 
-	public class DistinctName : CardRestrictionBase
+	protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 	{
-		public IIdentity<IGameCardInfo> from = new Identities.Cards.ThisCardNow();
-		public IIdentity<IReadOnlyCollection<IGameCardInfo>>? cards;
+		if (card == null) return false;
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			from.Initialize(initializationContext);
-			cards?.Initialize(initializationContext);
-		}
+		if (nameIs != null && card.CardName != nameIs) return false;
+		if (nameIncludes != null && !card.CardName.Contains(nameIncludes)) return false;
+		if (sameAs != null && card.CardName != sameAs.From(context)?.CardName) return false;
 
-		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-		{
-			if (card == null) return false;
-			if (cards == null) return from.From(context)?.CardName != card.CardName;
+		return true;
+	}
+}
 
-			var allDistinct = cards.From(context)
-				?? throw new InvalidOperationException();
-			return allDistinct
-				.Select(c => c.CardName)
-				.All(name => name != card.CardName);
-		}
+public class DistinctName : CardRestrictionBase
+{
+	public IIdentity<IGameCardInfo> from = new Identities.Cards.ThisCardNow();
+	public IIdentity<IReadOnlyCollection<IGameCardInfo>>? cards;
+
+	public override void Initialize(InitializationContext initializationContext)
+	{
+		base.Initialize(initializationContext);
+		from.Initialize(initializationContext);
+		cards?.Initialize(initializationContext);
 	}
 
-	public class Unique : CardRestrictionBase
+	protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 	{
-		protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
-			=> item != null && item.Unique;
+		if (card == null) return false;
+		if (cards == null) return from.From(context)?.CardName != card.CardName;
+
+		var allDistinct = cards.From(context)
+			?? throw new InvalidOperationException();
+		return allDistinct
+			.Select(c => c.CardName)
+			.All(name => name != card.CardName);
 	}
+}
+
+public class Unique : CardRestrictionBase
+{
+	protected override bool IsValidLogic (IGameCardInfo? item, IResolutionContext context)
+		=> item != null && item.Unique;
 }

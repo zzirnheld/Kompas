@@ -7,114 +7,113 @@ using Kompas.Client.Gamestate;
 using Kompas.Client.Networking;
 using Kompas.Shared.Exceptions;
 
-namespace Kompas.Client.UI.GameStart
+namespace Kompas.Client.UI.GameStart;
+
+public partial class GameStartController : Control
 {
-	public partial class GameStartController : Control
+	[Export]
+	private ClientGameController? _gameController;
+	public ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
+
+	[Export]
+	private ConnectToServerController? _connectToServer;
+	private ConnectToServerController ConnectToServer => _connectToServer ?? throw new UnassignedReferenceException();
+
+	[Export]
+	private Control? _waitingForServer;
+	private Control WaitingForServer => _waitingForServer ?? throw new UnassignedReferenceException();
+	[Export]
+	private Control? _waitingForPlayer;
+	private Control WaitingForPlayer => _waitingForPlayer ?? throw new UnassignedReferenceException();
+
+	[Export]
+	private SelectDeckController? _selectDeck;
+	public SelectDeckController SelectDeck => _selectDeck ?? throw new UnassignedReferenceException();
+
+	[Export]
+	private Control? _deckAcceptedTab;
+	private Control DeckAcceptedTab => _deckAcceptedTab
+		?? throw new UnassignedReferenceException(nameof(_deckAcceptedTab), this);
+
+
+	private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck, DeckAccepted }
+	private Dictionary<State, Control?> Tabs = new();
+
+	private Task? connectionTask; //Awaited in TryConnect. not sure if this or a boolean is the better anti-reentrant mechanism
+
+	public override void _Ready()
 	{
-		[Export]
-		private ClientGameController? _gameController;
-		public ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
+		base._Ready();
 
-		[Export]
-		private ConnectToServerController? _connectToServer;
-		private ConnectToServerController ConnectToServer => _connectToServer ?? throw new UnassignedReferenceException();
+		Tabs[State.ChooseHost] = ConnectToServer;
+		Tabs[State.WaitingForServer] = WaitingForServer;
+		Tabs[State.WaitingForPlayer] = WaitingForPlayer;
+		Tabs[State.SelectDeck] = SelectDeck;
+		Tabs[State.DeckAccepted] = DeckAcceptedTab;
 
-		[Export]
-		private Control? _waitingForServer;
-		private Control WaitingForServer => _waitingForServer ?? throw new UnassignedReferenceException();
-		[Export]
-		private Control? _waitingForPlayer;
-		private Control WaitingForPlayer => _waitingForPlayer ?? throw new UnassignedReferenceException();
-
-		[Export]
-		private SelectDeckController? _selectDeck;
-		public SelectDeckController SelectDeck => _selectDeck ?? throw new UnassignedReferenceException();
-
-		[Export]
-		private Control? _deckAcceptedTab;
-		private Control DeckAcceptedTab => _deckAcceptedTab
-			?? throw new UnassignedReferenceException(nameof(_deckAcceptedTab), this);
-
-
-		private enum State { ChooseHost, WaitingForServer, WaitingForPlayer, SelectDeck, DeckAccepted }
-		private Dictionary<State, Control?> Tabs = new();
-
-		private Task? connectionTask; //Awaited in TryConnect. not sure if this or a boolean is the better anti-reentrant mechanism
-
-		public override void _Ready()
+		foreach (State s in Enum.GetValues(typeof(State)))
 		{
-			base._Ready();
-
-			Tabs[State.ChooseHost] = ConnectToServer;
-			Tabs[State.WaitingForServer] = WaitingForServer;
-			Tabs[State.WaitingForPlayer] = WaitingForPlayer;
-			Tabs[State.SelectDeck] = SelectDeck;
-			Tabs[State.DeckAccepted] = DeckAcceptedTab;
-
-			foreach (State s in Enum.GetValues(typeof(State)))
-			{
-				if (!Tabs.ContainsKey(s)) Logger.Err($"No tab defined for game start state {s}");
-			}
-
-			ChangeState(State.ChooseHost);
+			if (!Tabs.ContainsKey(s)) Logger.Err($"No tab defined for game start state {s}");
 		}
 
-		/// <summary>
-		/// Tries to connect to the given IP.
-		/// Doesn't allow trying to connect while you're already trying to connect.
-		/// Fire and forget. Async void isn't great but I don't want to hang the app on a button press by awaiting it in Process
-		/// </summary>
-		/// <param name="ip"></param>
-		public async void TryConnect(string ip)
-		{
-			if (connectionTask != null)
-			{
-				Logger.Log("Already trying to connect!");
-				return;
-			}
+		ChangeState(State.ChooseHost);
+	}
 
-			connectionTask = Connect(ip);
-			await connectionTask;
-			connectionTask = null;
+	/// <summary>
+	/// Tries to connect to the given IP.
+	/// Doesn't allow trying to connect while you're already trying to connect.
+	/// Fire and forget. Async void isn't great but I don't want to hang the app on a button press by awaiting it in Process
+	/// </summary>
+	/// <param name="ip"></param>
+	public async void TryConnect(string ip)
+	{
+		if (connectionTask != null)
+		{
+			Logger.Log("Already trying to connect!");
+			return;
 		}
 
-		private async Task Connect(string ip)
+		connectionTask = Connect(ip);
+		await connectionTask;
+		connectionTask = null;
+	}
+
+	private async Task Connect(string ip)
+	{
+		ChangeState(State.WaitingForServer);
+		TcpClient? tcpClient = await ClientNetworker.Connect(ip);
+
+		if (tcpClient == null || !tcpClient.Connected) FailedToConnect();
+		else SuccessfullyConnected(tcpClient);
+	}
+
+	private void FailedToConnect()
+	{
+		Logger.Log("Failed to connect!");
+
+		ChangeState(State.ChooseHost);
+	}
+
+	private void SuccessfullyConnected(TcpClient tcpClient)
+	{
+		Logger.Log("Succeeded!");
+
+		ChangeState(State.WaitingForPlayer);
+		GameController.SuccessfullyConnected(tcpClient);
+	}
+
+	public void GetDeck() => ChangeState(State.SelectDeck);
+	public void DeckSubmitted() => ChangeState(State.WaitingForServer);
+	public void DeckAccepted() => ChangeState(State.DeckAccepted);
+
+	private void ChangeState(State state)
+	{
+		Logger.Log($"Changing state to {state}");
+
+		foreach (State s in Enum.GetValues(typeof(State)))
 		{
-			ChangeState(State.WaitingForServer);
-			TcpClient? tcpClient = await ClientNetworker.Connect(ip);
-
-			if (tcpClient == null || !tcpClient.Connected) FailedToConnect();
-			else SuccessfullyConnected(tcpClient);
-		}
-
-		private void FailedToConnect()
-		{
-			Logger.Log("Failed to connect!");
-
-			ChangeState(State.ChooseHost);
-		}
-
-		private void SuccessfullyConnected(TcpClient tcpClient)
-		{
-			Logger.Log("Succeeded!");
-
-			ChangeState(State.WaitingForPlayer);
-			GameController.SuccessfullyConnected(tcpClient);
-		}
-
-		public void GetDeck() => ChangeState(State.SelectDeck);
-		public void DeckSubmitted() => ChangeState(State.WaitingForServer);
-		public void DeckAccepted() => ChangeState(State.DeckAccepted);
-
-		private void ChangeState(State state)
-		{
-			Logger.Log($"Changing state to {state}");
-
-			foreach (State s in Enum.GetValues(typeof(State)))
-			{
-				var tab = Tabs[s];
-				if (tab != null) tab.Visible = s == state;
-			}
+			var tab = Tabs[s];
+			if (tab != null) tab.Visible = s == state;
 		}
 	}
 }

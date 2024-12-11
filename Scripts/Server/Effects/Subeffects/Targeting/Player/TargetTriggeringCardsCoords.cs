@@ -2,25 +2,24 @@
 using System.Threading.Tasks;
 using Kompas.Gamestate.Locations;
 
-namespace Kompas.Server.Effects.Models.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class TargetTriggeringCardsSpace : ServerSubeffect
 {
-	public class TargetTriggeringCardsSpace : ServerSubeffect
+	public bool after = false;
+
+	public override Task<ResolutionInfo> Resolve()
 	{
-		public bool after = false;
+		var cardInfo = (after
+			? ResolutionContext.TriggerContext?.MainCardAfter
+			: ResolutionContext.TriggerContext?.MainCardBefore)
+			?? throw new NullCardException(TargetWasNull);
+		if (cardInfo.Location != Location.Board) throw new InvalidCardException(cardInfo.Card, $"Card wasn't on board at the time!");
+		if (cardInfo.Position == null) throw new NullSpaceOnBoardException(cardInfo.Card);
+		if (!cardInfo.Position.IsValid) throw new InvalidSpaceException(cardInfo.Position, NoValidSpaceTarget);
 
-		public override Task<ResolutionInfo> Resolve()
-		{
-			var cardInfo = (after
-				? ResolutionContext.TriggerContext?.MainCardAfter
-				: ResolutionContext.TriggerContext?.MainCardBefore)
-				?? throw new NullCardException(TargetWasNull);
-			if (cardInfo.Location != Location.Board) throw new InvalidCardException(cardInfo.Card, $"Card wasn't on board at the time!");
-			if (cardInfo.Position == null) throw new NullSpaceOnBoardException(cardInfo.Card);
-			if (!cardInfo.Position.IsValid) throw new InvalidSpaceException(cardInfo.Position, NoValidSpaceTarget);
-
-			ServerEffect.AddSpace(cardInfo.Position.Copy);
-			Logger.Log($"Just added {SpaceTarget} from {cardInfo}");
-			return Task.FromResult(ResolutionInfo.Next);
-		}
+		ServerEffect.AddSpace(cardInfo.Position.Copy);
+		Logger.Log($"Just added {SpaceTarget} from {cardInfo}");
+		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

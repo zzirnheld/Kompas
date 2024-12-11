@@ -3,42 +3,41 @@ using System.Threading.Tasks;
 using Kompas.Gamestate.Exceptions;
 using Newtonsoft.Json;
 
-namespace Kompas.Server.Effects.Models.Subeffects
+namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class ChooseOption : ServerSubeffect
 {
-	public class ChooseOption : ServerSubeffect
+	[JsonProperty]
+	public string choiceBlurb = string.Empty;
+	[JsonProperty]
+	public string[] optionBlurbs = Array.Empty<string>();
+	[JsonProperty]
+	public bool hasDefault = true;
+	[JsonProperty]
+	public bool showX = false;
+
+	private async Task<int> AskForOptionChoice()
 	{
-		[JsonProperty]
-		public string choiceBlurb = string.Empty;
-		[JsonProperty]
-		public string[] optionBlurbs = Array.Empty<string>();
-		[JsonProperty]
-		public bool hasDefault = true;
-		[JsonProperty]
-		public bool showX = false;
+		var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+		return await ServerGame.Awaiter
+			.GetEffectOption(PlayerTarget,
+							cardName: Effect.Card.CardName,
+							choiceBlurb: choiceBlurb,
+							optionBlurbs: optionBlurbs,
+							hasDefault: hasDefault,
+							showX: showX,
+							x: Effect.X);
+	}
 
-		private async Task<int> AskForOptionChoice()
+	public override async Task<ResolutionInfo> Resolve()
+	{
+		int choice = -1;
+		_ = jumpIndices ?? throw new IllDefinedException();
+		while (choice < 0 || choice >= jumpIndices.Length)
 		{
-			var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
-			return await ServerGame.Awaiter
-				.GetEffectOption(PlayerTarget,
-								cardName: Effect.Card.CardName,
-								choiceBlurb: choiceBlurb,
-								optionBlurbs: optionBlurbs,
-								hasDefault: hasDefault,
-								showX: showX,
-								x: Effect.X);
+			choice = await AskForOptionChoice();
 		}
 
-		public override async Task<ResolutionInfo> Resolve()
-		{
-			int choice = -1;
-			_ = jumpIndices ?? throw new IllDefinedException();
-			while (choice < 0 || choice >= jumpIndices.Length)
-			{
-				choice = await AskForOptionChoice();
-			}
-
-			return ResolutionInfo.Index(jumpIndices[choice]);
-		}
+		return ResolutionInfo.Index(jumpIndices[choice]);
 	}
 }

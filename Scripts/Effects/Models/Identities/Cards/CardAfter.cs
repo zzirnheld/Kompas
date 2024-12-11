@@ -1,15 +1,14 @@
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.TriggeringEvent;
 
-namespace Kompas.Effects.Models.Identities.Cards
-{
-	public class CardAfter : TriggerContextualCardIdentityBase
-	{
-		public bool secondaryCard;
+namespace Kompas.Effects.Models.Identities.Cards;
 
-		protected override IGameCardInfo? AbstractItemFrom(IEventContext context)
-			=> secondaryCard
-				? context.SecondaryCardAfter
-				: context.MainCardAfter;
-	}
+public class CardAfter : TriggerContextualCardIdentityBase
+{
+	public bool secondaryCard;
+
+	protected override IGameCardInfo? AbstractItemFrom(IEventContext context)
+		=> secondaryCard
+			? context.SecondaryCardAfter
+			: context.MainCardAfter;
 }

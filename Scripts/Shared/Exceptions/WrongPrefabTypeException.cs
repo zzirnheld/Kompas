@@ -1,9 +1,8 @@
 using System;
 
-namespace Kompas.Shared.Exceptions
+namespace Kompas.Shared.Exceptions;
+
+public class WrongPrefabTypeException
+	: Exception
 {
-	public class WrongPrefabTypeException
-		: Exception
-	{
-	}
 }

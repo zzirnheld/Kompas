@@ -2,21 +2,20 @@ using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Identities.Players
-{
-	public class TargetIndex : ContextlessLeafIdentityBase<IPlayer>
-	{
-		[JsonProperty]
-		public int index = -1;
+namespace Kompas.Effects.Models.Identities.Players;
 
-		protected override IPlayer? AbstractItem
+public class TargetIndex : ContextlessLeafIdentityBase<IPlayer>
+{
+	[JsonProperty]
+	public int index = -1;
+
+	protected override IPlayer? AbstractItem
+	{
+		get
 		{
-			get
-			{
-				var effect = InitializationContext.effect
-					?? throw new IllDefinedException();
-				return effect.GetPlayer(index);
-			}
+			var effect = InitializationContext.effect
+				?? throw new IllDefinedException();
+			return effect.GetPlayer(index);
 		}
 	}
 }

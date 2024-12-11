@@ -5,31 +5,30 @@ using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
-namespace Kompas.Effects.Models.Restrictions.Cards
+namespace Kompas.Effects.Models.Restrictions.Cards;
+
+public class CanPlay : CardRestrictionBase
 {
-	public class CanPlay : CardRestrictionBase
+	[JsonProperty]
+	public IIdentity<Space>? destination;
+	[JsonProperty]
+	public IIdentity<IPlayer> player = new Identities.Players.TargetIndex();
+
+	public override void Initialize(InitializationContext initializationContext)
 	{
-		[JsonProperty]
-		public IIdentity<Space>? destination;
-		[JsonProperty]
-		public IIdentity<IPlayer> player = new Identities.Players.TargetIndex();
+		base.Initialize(initializationContext);
+		destination?.Initialize(initializationContext);
+		player.Initialize(initializationContext);
+	}
 
-		public override void Initialize(InitializationContext initializationContext)
-		{
-			base.Initialize(initializationContext);
-			destination?.Initialize(initializationContext);
-			player.Initialize(initializationContext);
-		}
+	protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
+	{
+		if (card == null) return false;
+		var controller = player.From(context);
+		bool IsValidEffectPlay(Space? space) => card.PlayRestriction.IsValid((space, controller), context);
 
-		protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
-		{
-			if (card == null) return false;
-			var controller = player.From(context);
-			bool IsValidEffectPlay(Space? space) => card.PlayRestriction.IsValid((space, controller), context);
+		if (destination == null) return Space.Spaces.Any(IsValidEffectPlay);
 
-			if (destination == null) return Space.Spaces.Any(IsValidEffectPlay);
-
-			else return IsValidEffectPlay(destination.From(context));
-		}
+		else return IsValidEffectPlay(destination.From(context));
 	}
 }
