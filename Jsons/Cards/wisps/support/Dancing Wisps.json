@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Dancing Wisps",
-	"effText": "When an enemy arrives adjacent to a Wisp, each Wisp adjacent to that enemy to another random space adjacent to that enemy. (In a random order.)",
+	"effText": "When an enemy arrives adjacent to a Wisp, each Wisp adjacent to that enemy to another random node adjacent to that enemy. (In a random order.)",
 	"effects": [
 		{
 			"blurb": "The Wisps Dance",

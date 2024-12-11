@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Wispernova",
-	"effText": "Until you can't:\nPip revive a random Wisp for 1 pip to a random valid space.",
+	"effText": "Until you can't:\nPip revive a random Wisp for 1 pip to a random valid node.",
 	"effects": [
 		{
 			"triggerData": {

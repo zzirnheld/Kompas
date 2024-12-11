@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Desperate Footpad",
-	"effText": "Supplicant: The first time each stack, move them to another space adjacent to a Supplicant.",
+	"effText": "Supplicant: The first time each stack, move them to another node adjacent to a Supplicant.",
 	"effects": [
 		{
 			"triggerData": {

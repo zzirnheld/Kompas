@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Trembling Bolete",
-	"effText": "Spores.\nWhen an enemy moves to or from an adjacent space, I pulse us.",
+	"effText": "Spores.\nWhen an enemy moves to or from an adjacent node, I pulse us.",
 	"effects": [
 		{
 			"blurb": "Tremble",

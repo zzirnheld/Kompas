@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Orry the Oviparous Mammal",
-	"effText": "When I move EXACTLY 3 spaces at once, hand \u2192 discard a card and give me +3 W.",
+	"effText": "When I move EXACTLY 3 nodes at once, hand \u2192 discard a card and give me +3 W.",
 	"effects": [
 		{
 			"triggerData": {

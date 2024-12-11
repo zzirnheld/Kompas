@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Boing Boing Launcher Guy",
-	"effText": "Speedemon.\nAfter I move, push another card adjacent to the space I moved from, 1 space away from there.",
+	"effText": "Speedemon.\nAfter I move, push another card adjacent to the node I moved from, 1 node away from there.",
 	"effects": [
 		{
 			"triggerData": {

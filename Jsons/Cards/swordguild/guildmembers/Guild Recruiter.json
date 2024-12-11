@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Guild Recruiter",
-	"effText": "When turns start, deck \u2192 summon a Squire to a space adjacent to at least 2 Warriors.",
+	"effText": "When turns start, deck \u2192 summon a Squire to a node adjacent to at least 2 Warriors.",
 	"effects": [
 		{
 			"blurb": "Recruit",

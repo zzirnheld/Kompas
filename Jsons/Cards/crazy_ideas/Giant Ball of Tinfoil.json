@@ -2,7 +2,7 @@
 	"cardType": 67,
 	"cardName": "Giant Ball of Tinfoil",
 	"effText": "Structure.\nWhen turns start, I roll along a diagonal until I hit a character, who I attack.",
-	"technicalEffText": "Structure.\nWhen turns start, choose an adjacent space, then keep moving me 1 space in that direction until you can't. I attack any adjacent character in the direction I was moving.",
+	"technicalEffText": "Structure.\nWhen turns start, choose an adjacent node, then keep moving me 1 node in that direction until you can't. I attack any adjacent character in the direction I was moving.",
 	"effects": [
 		{
 			"blurb": "THE ENTIRE EASTERN SEABOARD",

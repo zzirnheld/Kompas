@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Seigh Lorre",
-	"effText": "Waterborn.\nWhen turns start, move a card in Water through spaces in Water to another empty space.",
+	"effText": "Waterborn.\nWhen turns start, move a card in Water through nodes in Water to another empty node.",
 	"effects": [
 		{
 			"blurb": "Sail",

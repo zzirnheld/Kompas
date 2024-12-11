@@ -79,7 +79,8 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 			DisplayNone();
 
-			CanMove.Display(s => s.DistanceTo((2, 3)) <= 2, true);
+			//Left here for testing
+			//CanMove.Display(s => s.DistanceTo((2, 3)) <= 2, true);
 
 			LastSpacesController = CanMove;
 

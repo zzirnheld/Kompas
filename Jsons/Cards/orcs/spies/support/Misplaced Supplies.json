@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Misplaced Supplies",
-	"effText": "When an enemy defends, discard \u2192 cast me to an adjacent space of their controller's choice.\nWhen you board \u2192 hand a character here, gain 1 pip, draw 1 card, and dispel me.",
+	"effText": "When an enemy defends, discard \u2192 cast me to an adjacent node of their controller's choice.\nWhen you board \u2192 hand a character here, gain 1 pip, draw 1 card, and dispel me.",
 	"effects": [
 		{
 			"triggerData": {

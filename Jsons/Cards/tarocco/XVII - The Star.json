@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "XVII - The Star",
-	"effText": "When an enemy moves a character to a space adjacent to X Tarocco, draw 1 card X times.",
+	"effText": "When an enemy moves a character to a node adjacent to X Tarocco, draw 1 card X times.",
 	"effects": [
 		{
 			"blurb": "[redacted] upon a XVII",

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Not Thrones and Crowns",
-	"effText": "Move each enemy adjacent to a friendly Supplicant to any other space.",
+	"effText": "Move each enemy adjacent to a friendly Supplicant to any other node.",
 	"effects": [
 		{
 			"triggerData": {

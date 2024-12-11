@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Mid-Outfielder",
-	"effText": "When you augment me, move me up to 2 spaces.",
+	"effText": "When you augment me, move me up to 2 nodes.",
 	"effects": [
 		{
 			"triggerData": {

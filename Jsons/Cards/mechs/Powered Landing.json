@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Powered Landing",
-	"effText": "When you summon a Mech Golem, discard \u2192 attach me to them. They attack an enemy within 2 spaces of them.\nWhen this character attacks, give them +4 W.",
+	"effText": "When you summon a Mech Golem, discard \u2192 attach me to them. They attack an enemy within 2 nodes of them.\nWhen this character attacks, give them +4 W.",
 	"effects": [
 		{
 			"blurb": "Landing Blast",
@@ -43,7 +43,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "character within 4 spaces to have this Mech attack",
+					"blurb": "character within 4 nodes to have this Mech attack",
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",

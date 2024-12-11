@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Kraken",
-	"effText": "Aggressive.\nWhen I attack, move my target to any space in my area.",
+	"effText": "Aggressive.\nWhen I attack, move my target to any node in my area.",
 	"effects": [
 		{
 			"blurb": "Caught by a tentacle",

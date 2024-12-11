@@ -47,7 +47,7 @@
 				},
 				{
 					"$type": "Subeffect:SpaceTarget:",
-					"blurb": "Choose space to cast the spell",
+					"blurb": "Choose node to cast the spell",
 					"spaceRestriction": {
 						"$type": "Restrict.Spaces:CanPlayCard:",
 						"toPlay": { "$type": "Identify.Cards:TargetIndex:" }

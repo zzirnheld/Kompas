@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Revivance",
-	"effText": "When you revive a Spirit, move them 1 space.",
+	"effText": "When you revive a Spirit, move them 1 node.",
 	"effects": [
 		{
 			"triggerData": {

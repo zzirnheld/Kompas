@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Pishiwisp",
-	"effText": "Wisp: Push each adjacent character 1 space away.",
+	"effText": "Wisp: Push each adjacent character 1 node away.",
 	"effects": [
 		{
 			"blurb": "pish",
