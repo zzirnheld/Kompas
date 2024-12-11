@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Lengthening Elk",
-	"effText": "When turns start, move me 1 space. Deck \u2192 summon a Bone where I was.",
+	"effText": "When turns start, move me 1 node. Deck \u2192 summon a Bone where I was.",
 	"effects": [
 		{
 			"blurb": "Lengthen",

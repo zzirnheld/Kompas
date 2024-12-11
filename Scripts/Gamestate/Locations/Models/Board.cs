@@ -291,9 +291,9 @@ namespace Kompas.Gamestate.Locations.Models
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < Space.BoardLen; i++)
 			{
-				for (int j = 0; j < 7; j++)
+				for (int j = 0; j < Space.BoardLen; j++)
 				{
 					var card = board[i, j];
 					if (card != null) sb.Append($"At {i}, {j}, {card.CardName} id {card.ID}");

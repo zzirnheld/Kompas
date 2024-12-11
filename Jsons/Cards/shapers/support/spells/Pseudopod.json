@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Pseudopod",
-	"effText": "Teleport an enemy character to a space adjacent to a friendly Shaper.",
+	"effText": "Teleport an enemy character to a node adjacent to a friendly Shaper.",
 	"effects": [
 		{
 			"triggerData": {

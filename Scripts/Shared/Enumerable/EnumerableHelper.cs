@@ -22,6 +22,14 @@ namespace Kompas.Shared.Enumerable
 			foreach (var item in source) yield return item;
 		}
 
+		public static IEnumerable<R> CastOrReject<T, R>(this IEnumerable<T> source) 
+			where R : T
+		{
+			foreach (var elem in source) {
+				if (elem is R r) yield return r;
+			}
+		}
+
 		public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T elem)
 			=> source.Concat(new[] { elem });
 

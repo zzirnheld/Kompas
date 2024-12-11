@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Magnetizing Pulsar",
-	"effText": "The first time each stack your Avatar's S changes, move another card 1 space:\n+S: towards me.\n-S: away from me.",
+	"effText": "The first time each stack your Avatar's S changes, move another card 1 node:\n+S: towards me.\n-S: away from me.",
 	"effects": [
 		{
 			"triggerData": {

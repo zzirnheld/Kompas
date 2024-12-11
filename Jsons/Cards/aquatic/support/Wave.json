@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Wave",
-	"effText": "Move Water through spaces in Water. Move all characters that were in it, to spaces in it where it is now.",
+	"effText": "Move Water through nodes in Water. Move all characters that were in it, to nodes in it where it is now.",
 	"effects": [
 		{
 			"blurb": "Wave",

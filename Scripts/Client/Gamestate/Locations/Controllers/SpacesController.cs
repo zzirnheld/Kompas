@@ -79,6 +79,9 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 			DisplayNone();
 
+			//Left here for testing
+			//CanMove.Display(s => s.DistanceTo((2, 3)) <= 2, true);
+
 			LastSpacesController = CanMove;
 
 			SpacesClickingController.LeftClick += (_, tuple) => Clicked(tuple.space, tuple.doubleClick);
@@ -96,7 +99,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		public void DisplayCanMove(LinkedSpacesController.ShouldShowSpace predicate)
 		{
-			CanMove.Display(predicate, false);
+			CanMove.Display(predicate, true);
 			CanPlay.Display(_ => false, false);
 			Recommend.Display(_ => false, false);
 			Unrecommend.Display(_ => false, false);

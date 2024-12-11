@@ -32,6 +32,7 @@ namespace Kompas.Gamestate.Locations.Controllers
 		{
 			var pos = card.Card.Position
 				?? throw new InvalidOperationException($"Can't place {card} because its position is null!");
+			Logger.Log($"Placing {card} in {pos}");
 			SpaceToPosition[pos].Place(card);
 		}
 	}

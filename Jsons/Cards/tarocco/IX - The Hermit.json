@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "IX - The Hermit",
-	"effText": "The [USES.0.first] time each turn you draw X cards, move an enemy character X spaces.",
+	"effText": "The [USES.0.first] time each turn you draw X cards, move an enemy character X nodes.",
 	"effects": [
 		{
 			"blurb": "May you find solitude",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Bindshrinking Inkcap",
-	"effText": "Spores.\nWhen an enemy is played to, or dies in, an adjacent spaces, I pulse us/me.",
+	"effText": "Spores.\nWhen an enemy is played to, or dies in, an adjacent nodes, I pulse us/me.",
 	"effects": [
 		{
 			"blurb": "Shrink",

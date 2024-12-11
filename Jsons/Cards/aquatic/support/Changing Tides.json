@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Changing Tides",
-	"effText": "Move a Water spell up to 2 spaces. Draw 1 card.",
+	"effText": "Move a Water spell up to 2 nodes. Draw 1 card.",
 	"effects": [
 		{
 			"blurb": "Change Tides",

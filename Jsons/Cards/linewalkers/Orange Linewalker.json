@@ -1,7 +1,7 @@
 {
 	"cardType":67,
 	"cardName":"Orange Linewalker",
-	"effText":"LINEWALK.\nWhen I move X spaces, hand \u2192 reshuffle a distinct Linewalker and draw X cards.",
+	"effText":"LINEWALK.\nWhen I move X nodes, hand \u2192 reshuffle a distinct Linewalker and draw X cards.",
 	"effects":[
 		{
 			"blurb":"Orange Linewalked",

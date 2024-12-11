@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Mother of Dragons",
-	"effText": "When enemy turns start, tribute summons with total S X. From your deck's top X cards, summon an S <= X Dragon, 1 space from me.",
+	"effText": "When enemy turns start, tribute summons with total S X. From your deck's top X cards, summon an S <= X Dragon, 1 node from me.",
 	"effects": [
 		{
 			"blurb": "Dragonbirth",

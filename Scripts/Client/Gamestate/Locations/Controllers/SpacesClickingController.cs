@@ -21,11 +21,12 @@ namespace Kompas.Gamestate.Locations.Controllers
 				if (child is not Area3D area) continue;
 
 				area.InputEvent += CreateInputEventHandler((x, y));
-				x++;
-				if (x == Space.BoardLen)
+				Logger.Log($"{area.Name} at {x},{y}");
+				y++;
+				if (y == Space.BoardLen)
 				{
-					x = 0;
-					y++;
+					y = 0;
+					x++;
 				}
 			}
 

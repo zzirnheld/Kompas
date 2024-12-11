@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Kompas.Gamestate;
+using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers
@@ -22,60 +23,24 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 		{
 			base._Ready();
 			_spaces = LinkedSpacesParent.GetChildren()
-				.Where(child => child is LinkedSpaceController)
-				.Cast<LinkedSpaceController>()
+				.CastOrReject<Node, LinkedSpaceController>()
 				.ToDictionary(lsc => lsc.Coords);
 
 			if (Spaces.Values.Any(s => s.GetParent() != LinkedSpacesParent)) Logger.Err($"{Name} AAAAAAAAAAAAA");
 
 			//for testing
-			//Display(s => Math.Abs(s.x - 1) + Math.Abs(s.y - 2) <= 2);
+			//Display(s => s.DistanceTo((1, 2)) <= 1, true);
 		}
 
 		public delegate bool ShouldShowSpace(Space space);
 
-		/*
-		private IEnumerable<Space> ProduceSpacesInTopToBottomOrder()
-		{
-			(int x, int y) = Space.FarCorner;
-			for (int offset = 0; offset < Space.BoardLen; offset++)
-			{
-				//when offset = 1, iterate for xOffset = 0, 1
-				for (int xOffset = 0; xOffset <= offset; xOffset++)
-				{
-					int yOffset = offset - xOffset;
-					yield return (x - xOffset, y - yOffset);
-				}
-			}
-			for (int offset = Space.BoardLen; offset < 2 * Space.BoardLen; offset++)
-			{
-				//when offset = 7, need to have xoffset start at 6 and yOffset start at 1;
-				for (int xOffset = Space.BoardLen - 1; xOffset > offset - Space.BoardLen; xOffset--)
-				{
-					int yOffset = offset - xOffset;
-					yield return (x - xOffset, y - yOffset);
-				}
-			}
-		}
-
-		public void Display(ShouldShowSpace predicate)
-		{
-			//this is an entirely unnecessary dynamic programming approach that I did purely as a mental exercise.
-			//it's technically probably faster? but this is not a performance-intensive thing and so I'll stick with correctness
-			int[,] filled = new int[Space.BoardLen, Space.BoardLen];
-
-			foreach (var space in ProduceSpacesInTopToBottomOrder())
-			{
-				if (predicate(space));
-			}
-		}*/
-
 		public void Display(ShouldShowSpace predicate, bool showConnections)
 		{
+			//Logger.Log("Displaying linked spaces!");
 			foreach (var space in Spaces.Values) space.DisplayNone();
 
 			ISet<Space> shown = Space.Spaces
-				.Where(s => predicate(s))
+				.Where(predicate.Invoke)
 				.ToHashSet();
 
 			foreach (var space in shown)

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Fairy Dust Tooter Scooter",
-	"effText": "Speedemon.\nAfter I move, give characters adjacent to the space I moved from +1 SW.",
+	"effText": "Speedemon.\nAfter I move, give characters adjacent to the node I moved from +1 SW.",
 	"effects": [
 		{
 			"blurb": "scoot scoot doot doot",

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Leygrapple",
-	"effText": "When a character is summoned, move a Linewalker on the same diagonal to a space adjacent to the summon.",
+	"effText": "When a character is summoned, move a Linewalker on the same diagonal to a node adjacent to the summon.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Runegunner",
-	"effText": "Runecast, and if you cast it X spaces from me, pip echo it X times (or as many as you have pips for).",
+	"effText": "Runecast, and if you cast it X nodes from me, pip echo it X times (or as many as you have pips for).",
 	"effects": [
 		{
 			"activationRestriction": {

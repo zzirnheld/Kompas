@@ -1,7 +1,7 @@
 {
 	"cardType": 65,
 	"cardName": "Relived Wanderings",
-	"effText": "When you echo this summon, move them 1 space.",
+	"effText": "When you echo this summon, move them 1 node.",
 	"effects": [
 		{
 			"blurb": "Need to go back",

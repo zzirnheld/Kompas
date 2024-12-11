@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Structural Expansion",
-	"effText": "Pay the cost of a friendly Maya Structure. Hand \u2192  or deck \u2192 summon any number of copies of it, each to a space on the edge of the board.",
+	"effText": "Pay the cost of a friendly Maya Structure. Hand \u2192  or deck \u2192 summon any number of copies of it, each to a node on the edge of the board.",
 	"effects": [
 		{
 			"blurb": "Simple",

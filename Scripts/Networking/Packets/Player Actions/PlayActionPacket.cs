@@ -1,4 +1,5 @@
-﻿using Kompas.Networking.Packets;
+﻿using Kompas.Gamestate;
+using Kompas.Networking.Packets;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
@@ -32,8 +33,8 @@ namespace Kompas.Server.Networking
 		{
 			if (player.Index == 1)
 			{
-				x = 6 - x;
-				y = 6 - y;
+				x = Space.MaxIndex - x;
+				y = Space.MaxIndex - y;
 			}
 			var card = serverGame.LookupCardByID(cardId);
 			await player.TryPlay(card, (x, y));

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Yank",
-	"effText": "Move a spell to a space adjacent to me. Draw 1 card.",
+	"effText": "Move a spell to a node adjacent to me. Draw 1 card.",
 	"effects": [
 		{
 			"blurb": "The weight of binds",

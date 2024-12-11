@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Mr Power Vacuum",
-	"effText": "Speedemon.\nWhen I move to a space adjacent to another Speedemon, annihilate a card adjacent to the space I left.",
+	"effText": "Speedemon.\nWhen I move to a node adjacent to another Speedemon, annihilate a card adjacent to the node I left.",
 	"effects": [
 		{
 			"triggerData": {
