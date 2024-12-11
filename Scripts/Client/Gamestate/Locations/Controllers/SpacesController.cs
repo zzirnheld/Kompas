@@ -99,7 +99,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		public void DisplayCanMove(LinkedSpacesController.ShouldShowSpace predicate)
 		{
-			CanMove.Display(predicate, false);
+			CanMove.Display(predicate, true);
 			CanPlay.Display(_ => false, false);
 			Recommend.Display(_ => false, false);
 			Unrecommend.Display(_ => false, false);
