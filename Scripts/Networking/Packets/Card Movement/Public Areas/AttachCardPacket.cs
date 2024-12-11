@@ -2,6 +2,7 @@
 using Kompas.Client.Gamestate;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
+using Kompas.Gamestate;
 
 namespace Kompas.Networking.Packets
 {
@@ -20,8 +21,8 @@ namespace Kompas.Networking.Packets
 			this.cardId = cardId;
 			this.json = json;
 			this.controllerIndex = invert ? 1 - controllerIndex : controllerIndex;
-			this.x = invert ? 6 - x : x;
-			this.y = invert ? 6 - y : y;
+			this.x = invert ? Space.MaxIndex - x : x;
+			this.y = invert ? Space.MaxIndex - y : y;
 		}
 
 		public AttachCardPacket(GameCard card, int x, int y, bool invert = false)

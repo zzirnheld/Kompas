@@ -3104,6 +3104,7 @@ mesh = SubResource("ArrayMesh_sito4")
 skeleton = NodePath("")
 
 [node name="Node 0 1" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 0 1")
 Plus1X = NodePath("Connection 0+ 1")
@@ -3126,6 +3127,7 @@ mesh = SubResource("ArrayMesh_ajvu5")
 skeleton = NodePath("")
 
 [node name="Node 0 2" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 0 2")
 Plus1X = NodePath("Connection 0+ 2")
@@ -3148,6 +3150,7 @@ mesh = SubResource("ArrayMesh_j85qk")
 skeleton = NodePath("")
 
 [node name="Node 0 3" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 0 3")
 Plus1X = NodePath("Connection 0+ 3")
@@ -3170,6 +3173,7 @@ mesh = SubResource("ArrayMesh_0to2j")
 skeleton = NodePath("")
 
 [node name="Node 0 4" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 0 4")
 Plus1X = NodePath("Connection 0+ 4")
@@ -3208,6 +3212,7 @@ mesh = SubResource("ArrayMesh_21h6r")
 skeleton = NodePath("")
 
 [node name="Node 1 0" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 1 0")
 Plus1X = NodePath("Connection 1+ 0")
@@ -3230,6 +3235,7 @@ mesh = SubResource("ArrayMesh_4su2v")
 skeleton = NodePath("")
 
 [node name="Node 1 1" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 1 1")
 Plus1X = NodePath("Connection 1+ 1")
@@ -3253,6 +3259,7 @@ mesh = SubResource("ArrayMesh_eb6ir")
 skeleton = NodePath("")
 
 [node name="Node 1 2" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 1 2")
 Plus1X = NodePath("Connection 1+ 2")
@@ -3276,6 +3283,7 @@ mesh = SubResource("ArrayMesh_lnxss")
 skeleton = NodePath("")
 
 [node name="Node 1 3" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 1 3")
 Plus1X = NodePath("Connection 1+ 3")
@@ -3299,6 +3307,7 @@ mesh = SubResource("ArrayMesh_5mm3k")
 skeleton = NodePath("")
 
 [node name="Node 1 4" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 1 4")
 Plus1X = NodePath("Connection 1+ 4")
@@ -3322,6 +3331,7 @@ mesh = SubResource("ArrayMesh_0y3bs")
 skeleton = NodePath("")
 
 [node name="Node 1 5" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 1 5")
 Plus1X = NodePath("Connection 1+ 5")
@@ -3339,6 +3349,7 @@ mesh = SubResource("ArrayMesh_82ytl")
 skeleton = NodePath("")
 
 [node name="Node 2 0" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 2 0")
 Plus1X = NodePath("Connection 2+ 0")
@@ -3361,6 +3372,7 @@ mesh = SubResource("ArrayMesh_knvaj")
 skeleton = NodePath("")
 
 [node name="Node 2 1" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 2 1")
 Plus1X = NodePath("Connection 2+ 1")
@@ -3384,6 +3396,7 @@ mesh = SubResource("ArrayMesh_qhwwh")
 skeleton = NodePath("")
 
 [node name="Node 2 2" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 2 2")
 Plus1X = NodePath("Connection 2+ 2")
@@ -3407,6 +3420,7 @@ mesh = SubResource("ArrayMesh_6s4ys")
 skeleton = NodePath("")
 
 [node name="Node 2 3" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 2 3")
 Plus1X = NodePath("Connection 2+ 3")
@@ -3430,6 +3444,7 @@ mesh = SubResource("ArrayMesh_n1g2o")
 skeleton = NodePath("")
 
 [node name="Node 2 4" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 2 4")
 Plus1X = NodePath("Connection 2+ 4")
@@ -3453,6 +3468,7 @@ mesh = SubResource("ArrayMesh_ex488")
 skeleton = NodePath("")
 
 [node name="Node 2 5" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 2 5")
 Plus1X = NodePath("Connection 2+ 5")
@@ -3470,6 +3486,7 @@ mesh = SubResource("ArrayMesh_5uanm")
 skeleton = NodePath("")
 
 [node name="Node 3 0" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 3 0")
 Plus1X = NodePath("Connection 3+ 0")
@@ -3492,6 +3509,7 @@ mesh = SubResource("ArrayMesh_oqneq")
 skeleton = NodePath("")
 
 [node name="Node 3 1" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 3 1")
 Plus1X = NodePath("Connection 3+ 1")
@@ -3515,6 +3533,7 @@ mesh = SubResource("ArrayMesh_cr7fd")
 skeleton = NodePath("")
 
 [node name="Node 3 2" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 3 2")
 Plus1X = NodePath("Connection 3+ 2")
@@ -3538,6 +3557,7 @@ mesh = SubResource("ArrayMesh_ks6y2")
 skeleton = NodePath("")
 
 [node name="Node 3 3" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 3 3")
 Plus1X = NodePath("Connection 3+ 3")
@@ -3561,6 +3581,7 @@ mesh = SubResource("ArrayMesh_j7w5j")
 skeleton = NodePath("")
 
 [node name="Node 3 4" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 3 4")
 Plus1X = NodePath("Connection 3+ 4")
@@ -3584,6 +3605,7 @@ mesh = SubResource("ArrayMesh_f23ay")
 skeleton = NodePath("")
 
 [node name="Node 3 5" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 3 5")
 Plus1X = NodePath("Connection 3+ 5")
@@ -3601,6 +3623,7 @@ mesh = SubResource("ArrayMesh_0kesk")
 skeleton = NodePath("")
 
 [node name="Node 4 0" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 4 0")
 Plus1X = NodePath("Connection 4+ 0")
@@ -3623,6 +3646,7 @@ mesh = SubResource("ArrayMesh_2fxn1")
 skeleton = NodePath("")
 
 [node name="Node 4 1" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 4 1")
 Plus1X = NodePath("Connection 4+ 1")
@@ -3646,6 +3670,7 @@ mesh = SubResource("ArrayMesh_1jjxl")
 skeleton = NodePath("")
 
 [node name="Node 4 2" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 4 2")
 Plus1X = NodePath("Connection 4+ 2")
@@ -3669,6 +3694,7 @@ mesh = SubResource("ArrayMesh_0mxub")
 skeleton = NodePath("")
 
 [node name="Node 4 3" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 4 3")
 Plus1X = NodePath("Connection 4+ 3")
@@ -3692,6 +3718,7 @@ mesh = SubResource("ArrayMesh_5qc6b")
 skeleton = NodePath("")
 
 [node name="Node 4 4" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 4 4")
 Plus1X = NodePath("Connection 4+ 4")
@@ -3715,6 +3742,7 @@ mesh = SubResource("ArrayMesh_hfdeo")
 skeleton = NodePath("")
 
 [node name="Node 4 5" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1X")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 4 5")
 Plus1X = NodePath("Connection 4+ 5")
@@ -3732,6 +3760,7 @@ mesh = SubResource("ArrayMesh_pn750")
 skeleton = NodePath("")
 
 [node name="Node 5 0" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 5 0")
 Plus1Y = NodePath("Connection 5 0+")
@@ -3748,6 +3777,7 @@ mesh = SubResource("ArrayMesh_81qsf")
 skeleton = NodePath("")
 
 [node name="Node 5 1" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 5 1")
 Plus1Y = NodePath("Connection 5 1+")
@@ -3765,6 +3795,7 @@ mesh = SubResource("ArrayMesh_djkwl")
 skeleton = NodePath("")
 
 [node name="Node 5 2" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 5 2")
 Plus1Y = NodePath("Connection 5 2+")
@@ -3782,6 +3813,7 @@ mesh = SubResource("ArrayMesh_3bktc")
 skeleton = NodePath("")
 
 [node name="Node 5 3" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 5 3")
 Plus1Y = NodePath("Connection 5 3+")
@@ -3799,6 +3831,7 @@ mesh = SubResource("ArrayMesh_v876k")
 skeleton = NodePath("")
 
 [node name="Node 5 4" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile", "Plus1Y")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 5 4")
 Plus1Y = NodePath("Connection 5 4+")
@@ -3816,6 +3849,7 @@ mesh = SubResource("ArrayMesh_5382j")
 skeleton = NodePath("")
 
 [node name="Node 5 5" type="Node3D" parent="Circles Board 6 node caps merge" node_paths=PackedStringArray("_tile")]
+visible = false
 script = ExtResource("1_kgyqq")
 _tile = NodePath("Node Cap 5 5")
 x = 5

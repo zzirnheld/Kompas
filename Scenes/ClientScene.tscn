@@ -38,10 +38,10 @@
 [ext_resource type="PackedScene" uid="uid://bxkbv05n6jj3a" path="res://Scenes/Prefabs/ControlInfoDisplayer.tscn" id="16_p3apf"]
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/SpiralController.cs" id="16_plm70"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/CurrentStateController.cs" id="18_d6k15"]
-[ext_resource type="Shape3D" uid="uid://d1ytxdhppoc31" path="res://Shapes/CornerSpaceSphere.tres" id="18_jds7w"]
 [ext_resource type="PackedScene" uid="uid://brjjpkqpcrp4p" path="res://Scenes/Prefabs/Client Game/Player Info.tscn" id="18_q5fki"]
-[ext_resource type="Shape3D" uid="uid://bov1vdd4xs0yi" path="res://Shapes/NormalSpaceSphere.tres" id="19_kwn2x"]
+[ext_resource type="Shape3D" uid="uid://c7w1gdn5rbpmc" path="res://Shapes/CornerSpaceCylinder.tres" id="19_acpau"]
 [ext_resource type="Script" path="res://Scripts/Client/UI/EndTurnButton.cs" id="19_qtc5n"]
+[ext_resource type="Shape3D" uid="uid://ccy250lahyl14" path="res://Shapes/NormalSpaceCylinder.tres" id="20_dc6hp"]
 [ext_resource type="Texture2D" uid="uid://ba7ddvydhs7mi" path="res://Sprites/tarocco/I - The Magician.png" id="20_whe2q"]
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientStackView.cs" id="22_80qh3"]
 [ext_resource type="Script" path="res://Scripts/Client/Cards/Views/ClientTopLeftCameraDisplayer.cs" id="27_0k46m"]
@@ -353,524 +353,556 @@ _unrecommend = NodePath("Should Not Target Spaces")
 _recommendMaterial = ExtResource("12_becll")
 _unrecommendMaterial = ExtResource("14_nddoh")
 _spacesClickingController = NodePath("Clickables in Order")
-_placeInSpaceController = NodePath("Place In Spaces")
+_placeInSpaceController = NodePath("Place in Spaces New")
 
 [node name="Clickables in Order" type="Node3D" parent="Node/3D/Board/Spaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, -1.11022e-16)
 script = ExtResource("9_0nh6x")
 
 [node name="Area3D 0 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.41)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 0"]
-shape = ExtResource("18_jds7w")
+shape = ExtResource("19_acpau")
 
 [node name="Area3D 0 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0531696, 1.02445e-08, -0.271241)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 1"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 0 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109667, 1.7928e-08, -0.182913)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 2"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 0 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.184941, 2.44472e-08, -0.109595)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 3"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 0 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.271405, 2.91038e-08, -0.0548414)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 4"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 0 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41, 0, 0)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 0 5"]
-shape = ExtResource("18_jds7w")
+shape = ExtResource("19_acpau")
 
 [node name="Area3D 1 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.053, 0, -0.271)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 0"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 1 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.194)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 1"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 1 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0567222, 6.0536e-09, -0.124504)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 2"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 1 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0, -0.057)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 3"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 1 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.194, 0, 0)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 4"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 1 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.271, 0, 0.053)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 1 5"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 2 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11, 0, -0.183)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 0"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 2 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057, 0, -0.125)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 1"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 2 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000498869, 5.12227e-09, -0.0657011)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 2"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 2 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.066, 0, 0)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 3"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 2 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0, 0.057)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 4"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 2 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.183, 0, 0.11)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 2 5"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 3 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.11)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 0"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 3 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, 0, -0.057)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 1"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 3 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.066, 0, 0)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 2"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 3 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.066)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 3"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 3 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.057, 0, 0.125)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 4"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 3 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11, 0, 0.185)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 3 5"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 4 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.271, 0, -0.055)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 0"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 4 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194, 0, 0)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 1"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 4 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, 0, 0.057)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 2"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 4 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057, 0, 0.125)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 3"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 4 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.194)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 4"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 4 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.055, 0, 0.271)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 4 5"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 5 0" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41, 0, 0)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 0"]
-shape = ExtResource("18_jds7w")
+shape = ExtResource("19_acpau")
 
 [node name="Area3D 5 1" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.271, 0, 0.055)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 1"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 5 2" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, 0.11)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 2"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 5 3" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11, 0, 0.185)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 3"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 5 4" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0, 0.271)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 4"]
-shape = ExtResource("19_kwn2x")
+shape = ExtResource("20_dc6hp")
 
 [node name="Area3D 5 5" type="Area3D" parent="Node/3D/Board/Spaces/Clickables in Order"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/3D/Board/Spaces/Clickables in Order/Area3D 5 5"]
-shape = ExtResource("18_jds7w")
+shape = ExtResource("19_acpau")
 
 [node name="Can Move Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0)
 
 [node name="Can Play Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 
 [node name="Should Target Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 
 [node name="Should Not Target Spaces" parent="Node/3D/Board/Spaces" instance=ExtResource("9_06muj")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 
-[node name="Place In Spaces" type="Node3D" parent="Node/3D/Board/Spaces" node_paths=PackedStringArray("_positionsParent")]
-transform = Transform3D(-0.05, 4.37114e-09, 0, -4.37114e-09, -0.05, 0, 0, 0, 0.05, 0, -0.005, 0)
+[node name="Place in Spaces New" type="Node3D" parent="Node/3D/Board/Spaces" node_paths=PackedStringArray("_positionsParent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, -1.11022e-16)
 script = ExtResource("14_k7smq")
 _positionsParent = NodePath(".")
 
-[node name="0 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.37428e-14, 0, -6.01369)
+[node name="Area3D 0 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.2, 0, 0, 0, -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, -0.41)
 script = ExtResource("15_tornx")
 
-[node name="0 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.826277, 0, -4.66196)
+[node name="Area3D 0 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.0531696, 1.02445e-08, -0.271241)
 script = ExtResource("15_tornx")
 y = 1
 
-[node name="0 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.68623, 0, -3.59708)
+[node name="Area3D 0 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.109667, 1.7928e-08, -0.182913)
 script = ExtResource("15_tornx")
 y = 2
 
-[node name="0 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.68149e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.66018, -1.67638e-07, -2.61392)
+[node name="Area3D 0 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.184941, 2.44472e-08, -0.109595)
 script = ExtResource("15_tornx")
 y = 3
 
-[node name="0 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.64827, -1.75089e-07, -1.67635)
+[node name="Area3D 0 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.271405, 2.91038e-08, -0.0548414)
 script = ExtResource("15_tornx")
 y = 4
 
-[node name="0 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 4.64224, -1.56462e-07, -0.840337)
+[node name="Area3D 0 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.2, 0, 0, 0, -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0.41, 0, 0)
 script = ExtResource("15_tornx")
 y = 5
 
-[node name="0 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -5.74203e-22, -8.74228e-08, 6.6815e-22, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 5.9272, -1.67638e-07, 0.0515695)
-script = ExtResource("15_tornx")
-y = 6
-
-[node name="1 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.843417, 0, -4.58955)
+[node name="Area3D 1 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.053, 0, -0.271)
 script = ExtResource("15_tornx")
 x = 1
 
-[node name="1 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.5091e-14, 0, -3.58794)
+[node name="Area3D 1 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0, 0, -0.194)
 script = ExtResource("15_tornx")
 x = 1
 y = 1
 
-[node name="1 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.762724, 0, -2.59942)
+[node name="Area3D 1 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.0567222, 6.0536e-09, -0.124504)
 script = ExtResource("15_tornx")
 x = 1
 y = 2
 
-[node name="1 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.73243, 0, -1.71549)
+[node name="Area3D 1 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.125, 0, -0.057)
 script = ExtResource("15_tornx")
 x = 1
 y = 3
 
-[node name="1 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.6448, 0, -0.804712)
+[node name="Area3D 1 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.194, 0, 0)
 script = ExtResource("15_tornx")
 x = 1
 y = 4
 
-[node name="1 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.6396, 0, 0.0524449)
+[node name="Area3D 1 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.271, 0, 0.053)
 script = ExtResource("15_tornx")
 x = 1
 y = 5
 
-[node name="1 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 4.75935, 0, 0.895215)
-script = ExtResource("15_tornx")
-x = 1
-y = 6
-
-[node name="2 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.72204, 0, -3.51824)
+[node name="Area3D 2 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.11, 0, -0.183)
 script = ExtResource("15_tornx")
 x = 2
 
-[node name="2 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.843417, 0, -2.62745)
+[node name="Area3D 2 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.057, 0, -0.125)
 script = ExtResource("15_tornx")
 x = 2
 y = 1
 
-[node name="2 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.00205219, 0, -1.77245)
+[node name="Area3D 2 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.000498869, 5.12227e-09, -0.0657011)
 script = ExtResource("15_tornx")
 x = 2
 y = 2
 
-[node name="2 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.89835, 0, -0.857209)
+[node name="Area3D 2 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.066, 0, 0)
 script = ExtResource("15_tornx")
 x = 2
 y = 3
 
-[node name="2 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.76466, 0, 0.079433)
+[node name="Area3D 2 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.125, 0, 0.057)
 script = ExtResource("15_tornx")
 x = 2
 y = 4
 
-[node name="2 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.60848, 0, 0.847543)
+[node name="Area3D 2 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.183, 0, 0.11)
 script = ExtResource("15_tornx")
 x = 2
 y = 5
 
-[node name="2 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 3.64283, 0, 1.74073)
-script = ExtResource("15_tornx")
-x = 2
-y = 6
-
-[node name="3 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.60158, 0, -2.60416)
+[node name="Area3D 3 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.185, 0, -0.11)
 script = ExtResource("15_tornx")
 x = 3
 
-[node name="3 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.74771, 0, -1.69398)
+[node name="Area3D 3 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.125, 0, -0.057)
 script = ExtResource("15_tornx")
 x = 3
 y = 1
 
-[node name="3 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.891311, 0, -0.824659)
+[node name="Area3D 3 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.066, 0, 0)
 script = ExtResource("15_tornx")
 x = 3
 y = 2
 
-[node name="3 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.0010661, 0, -0.0185174)
+[node name="Area3D 3 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0, 0, 0.066)
 script = ExtResource("15_tornx")
 x = 3
 y = 3
 
-[node name="3 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.877744, 0, 0.820788)
+[node name="Area3D 3 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.057, 0, 0.125)
 script = ExtResource("15_tornx")
 x = 3
 y = 4
 
-[node name="3 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.73997, 0, 1.80506)
+[node name="Area3D 3 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.11, 0, 0.185)
 script = ExtResource("15_tornx")
 x = 3
 y = 5
 
-[node name="3 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 2.64144, 0, 2.65966)
-script = ExtResource("15_tornx")
-x = 3
-y = 6
-
-[node name="4 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.54693, 0, -1.68905)
+[node name="Area3D 4 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.271, 0, -0.055)
 script = ExtResource("15_tornx")
 x = 4
 
-[node name="4 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.64908, 0, -0.842801)
+[node name="Area3D 4 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.194, 0, 0)
 script = ExtResource("15_tornx")
 x = 4
 y = 1
 
-[node name="4 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.72857, 0, 0.0338094)
+[node name="Area3D 4 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.125, 0, 0.057)
 script = ExtResource("15_tornx")
 x = 4
 y = 2
 
-[node name="4 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.833411, 0, 0.831207)
+[node name="Area3D 4 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.057, 0, 0.125)
 script = ExtResource("15_tornx")
 x = 4
 y = 3
 
-[node name="4 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.00663064, 0, 1.75571)
+[node name="Area3D 4 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0, 0, 0.194)
 script = ExtResource("15_tornx")
 x = 4
 y = 4
 
-[node name="4 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.860496, 0, 2.67713)
+[node name="Area3D 4 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.055, 0, 0.271)
 script = ExtResource("15_tornx")
 x = 4
 y = 5
 
-[node name="4 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 1.72901, 0, 3.61207)
-script = ExtResource("15_tornx")
-x = 4
-y = 6
-
-[node name="5 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -4.68384, 0, -0.87947)
+[node name="Area3D 5 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.2, 0, 0, 0, -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, -0.41, 0, 0)
 script = ExtResource("15_tornx")
 x = 5
 
-[node name="5 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.56456, 0, 0.0221689)
+[node name="Area3D 5 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.271, 0, 0.055)
 script = ExtResource("15_tornx")
 x = 5
 y = 1
 
-[node name="5 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.67538, 0, 0.867522)
+[node name="Area3D 5 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.185, 0, 0.11)
 script = ExtResource("15_tornx")
 x = 5
 y = 2
 
-[node name="5 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.74696, 0, 1.67876)
+[node name="Area3D 5 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.11, 0, 0.185)
 script = ExtResource("15_tornx")
 x = 5
 y = 3
 
-[node name="5 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.772876, 0, 2.65349)
+[node name="Area3D 5 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.055, 0, 0.271)
 script = ExtResource("15_tornx")
 x = 5
 y = 4
 
-[node name="5 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.022989, 0, 3.63723)
+[node name="Area3D 5 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
+transform = Transform3D(0.2, 0, 0, 0, -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0.41)
 script = ExtResource("15_tornx")
 x = 5
 y = 5
-
-[node name="5 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0.887098, 0, 4.70474)
-script = ExtResource("15_tornx")
-x = 5
-y = 6
-
-[node name="6 0" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -5.84666, 0, -0.0197563)
-script = ExtResource("15_tornx")
-x = 6
-
-[node name="6 1" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -4.70606, 0, 0.856466)
-script = ExtResource("15_tornx")
-x = 6
-y = 1
-
-[node name="6 2" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -3.56321, 0, 1.70747)
-script = ExtResource("15_tornx")
-x = 6
-y = 2
-
-[node name="6 3" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -2.63613, 0, 2.61922)
-script = ExtResource("15_tornx")
-x = 6
-y = 3
-
-[node name="6 4" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -1.68543, 0, 3.52282)
-script = ExtResource("15_tornx")
-x = 6
-y = 4
-
-[node name="6 5" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, -0.83675, 0, 4.60707)
-script = ExtResource("15_tornx")
-x = 6
-y = 5
-
-[node name="6 6" type="Node3D" parent="Node/3D/Board/Spaces/Place In Spaces"]
-transform = Transform3D(-1, -1.24236e-21, -8.74228e-08, 0, 1, -1.42109e-14, 8.74228e-08, -1.42109e-14, -1, 0, 0, 5.835)
-script = ExtResource("15_tornx")
-x = 6
-y = 6
 
 [node name="Friendly Player" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_playerInfo", "_handController", "_discardController", "_deckController", "_annihilationController")]
 script = ExtResource("7_ju5wt")
@@ -993,7 +1025,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.31, 
 [node name="E Discard Spiral Card Area" parent="Node/3D/Enemy Player/Enemy Discard/Spiral Parent" instance=ExtResource("14_i4ntf")]
 
 [node name="UI" type="Control" parent="Node"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

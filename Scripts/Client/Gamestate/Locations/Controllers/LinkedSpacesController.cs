@@ -36,7 +36,7 @@ namespace Kompas.Client.Gamestate.Locations.Controllers
 
 		public void Display(ShouldShowSpace predicate, bool showConnections)
 		{
-			Logger.Log("Displaying linked spaces!");
+			//Logger.Log("Displaying linked spaces!");
 			foreach (var space in Spaces.Values) space.DisplayNone();
 
 			ISet<Space> shown = Space.Spaces

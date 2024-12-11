@@ -47,7 +47,7 @@ public partial class CameraFollowObject : Camera3D
 
 		if (lerp >= 1f && whenArrive != null)
 		{
-			GD.Print("arrived!");
+			//GD.Print("follow object: arrived!");
 			CullMask = arrivalLayerMask | ExtraLayerMask;
 			whenArrive();
 			whenArrive = null;

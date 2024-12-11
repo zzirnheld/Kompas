@@ -35,8 +35,8 @@ namespace Kompas.Networking.Packets
 			int x, int y, bool attached, bool known, bool invert = false)
 			: this(cardId, json, location, controllerIndex, invert: invert)
 		{
-			this.x = invert ? 6 - x : x;
-			this.y = invert ? 6 - y : y;
+			this.x = invert ? Space.MaxIndex - x : x;
+			this.y = invert ? Space.MaxIndex - y : y;
 			this.attached = attached;
 			this.known = known;
 		}

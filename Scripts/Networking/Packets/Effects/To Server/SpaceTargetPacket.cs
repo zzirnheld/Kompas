@@ -1,4 +1,5 @@
-﻿using Kompas.Networking.Packets;
+﻿using Kompas.Gamestate;
+using Kompas.Networking.Packets;
 using Kompas.Server.Gamestate;
 using Kompas.Server.Gamestate.Players;
 using System.Threading.Tasks;
@@ -30,8 +31,8 @@ namespace Kompas.Server.Networking
 		{
 			if (player.Index != 0)
 			{
-				x = 6 - x;
-				y = 6 - y;
+				x = Space.MaxIndex - x;
+				y = Space.MaxIndex - y;
 			}
 
 			serverGame.Awaiter.SpaceTarget = (x, y);
