@@ -19,7 +19,6 @@
 [ext_resource type="Material" uid="uid://cc1en2llxpysy" path="res://Materials/Card/Current Target Particle Material.tres" id="14_stomg"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
-[ext_resource type="Script" path="res://test4.cs" id="18_2cn8u"]
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="20_ptlga"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="21_4pvxp"]
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkOnOverrun.cs" id="22_mk8mh"]
@@ -1924,7 +1923,6 @@ script = ExtResource("16_jvvs6")
 transparent_bg = true
 canvas_item_default_texture_repeat = 1
 render_target_update_mode = 4
-script = ExtResource("18_2cn8u")
 
 [node name="Node2D" type="Node2D" parent="Effect Text SubViewport"]
 

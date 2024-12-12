@@ -1,6 +1,7 @@
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Gamestate.Locations.Controllers;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Gamestate.Locations.Controllers;
 
@@ -12,8 +13,12 @@ public partial class ClientBoardController : BoardController
 	[Export]
 	private SpacesController? _spacesController;
 	private SpacesController SpacesController => _spacesController
-		?? throw new System.NullReferenceException("Forgot to init");
+		?? throw new UnassignedReferenceException(nameof(_spacesController));
 
+	[Export]
+	private ClientTargetingController? _targetingController;
+	private ClientTargetingController TargetingController => _targetingController
+		?? throw new UnassignedReferenceException(nameof(_targetingController));
 	public override void Place(ICardController cardController)
 	{
 		SpacesController.Place(cardController);
