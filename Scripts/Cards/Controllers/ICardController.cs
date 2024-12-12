@@ -45,4 +45,9 @@ public interface ICardController
 	///</summary>
 	public IHoverableCardInfoDisplayer PlaceCameraAboveCard(CameraFollowObject cameraNode, uint cameraMask, uint arrivedCameraMask, Action<IHoverableCardInfoDisplayer> whenArrive);
 
+	/// <summary>
+	/// Exists so that I can animate the card flying up and down again.
+	/// Maybe there's a better way to do this, but if there is, I don't know it.
+	///</summary>
+	public void MoveToBoard(Action placeOnBoard);
 }

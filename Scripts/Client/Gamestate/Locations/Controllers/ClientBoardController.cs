@@ -21,9 +21,12 @@ public partial class ClientBoardController : BoardController
 		?? throw new UnassignedReferenceException(nameof(_targetingController));
 	public override void Place(ICardController cardController)
 	{
-		SpacesController.Place(cardController);
-		ScaleCard(cardController);
-		ScaleAdjacentCards(cardController);
+		cardController.MoveToBoard(() =>
+		{
+			SpacesController.Place(cardController);
+			ScaleCard(cardController);
+			ScaleAdjacentCards(cardController);
+		});
 	}
 
 	public override void Remove(ICardController cardController)

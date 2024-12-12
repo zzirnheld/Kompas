@@ -22,6 +22,8 @@ public class ServerCardController : ICardController
 
 	public void Delete() { }
 
+	public void MoveToBoard(Action placeOnBoard) { placeOnBoard(); }
+
 	public void RefreshAugments()
 	{
 		AnythingRefreshed?.Invoke(this, null);
