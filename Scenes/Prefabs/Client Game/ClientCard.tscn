@@ -5,6 +5,7 @@
 
 [sub_resource type="Animation" id="Animation_ot7ck"]
 resource_name = "RESET"
+length = 0.1
 tracks/0/type = "rotation_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -68,5 +69,6 @@ _animationPlayer = NodePath("AnimationPlayer")
 libraries = {
 "": SubResource("AnimationLibrary_cghhw")
 }
+playback_default_blend_time = 0.15
 
 [node name="Node3D" parent="." instance=ExtResource("1_e7upk")]
