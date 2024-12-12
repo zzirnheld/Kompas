@@ -16,11 +16,16 @@ public partial class PlaceableSpaceController : Node3D
 
 	public void Place (ICardController card)
 	{
-		this.TransferChild(card.Node);
-		card.Node.Visible = true;
+		Take(card);
 		card.Node.Scale = Vector3.One;
 		card.Node.Position = Vector3.Zero;
 		var rotation = card.Card.ControllingPlayer.Index * Mathf.Pi;
 		card.Node.Rotation = new Vector3(0, rotation, 0);
+	}
+
+	public void Take(ICardController card)
+	{
+		this.TransferChild(card.Node);
+		card.Node.Visible = true;
 	}
 }

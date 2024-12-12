@@ -219,7 +219,7 @@ public abstract class Board : IBoard
 
 			toPlay.ControllingPlayer = player;
 
-			boardController.Place(toPlay.CardController);
+			boardController.Play(toPlay.CardController);
 		}
 	}
 
@@ -250,7 +250,6 @@ public abstract class Board : IBoard
 		if (!ValidSpellSpaceFor(card, to)) throw new InvalidSpaceException(to, $"{swapDesc}, but the destination is an invalid spell space");
 		if (!ValidSpellSpaceFor(temp, from)) throw new InvalidSpaceException(from, $"{swapDesc}, but the start is an invalid spell space");
 
-
 		boardController.Remove(card.CardController);
 		if (temp != null) boardController.Remove(temp.CardController);
 
@@ -267,8 +266,9 @@ public abstract class Board : IBoard
 		card.Position = to;
 		if (temp != null) temp.Position = from;
 
-		boardController.Place(card.CardController);
-		if (temp != null) boardController.Place(temp.CardController);
+		//TODO: foist this logic off onto the MoveRestriction (with a teleport animation if the move is considered a teleport or the move is impossible)
+		boardController.Move(card.CardController, Space.ShortestPathBetween(from, to, _ => true));
+		if (temp != null) boardController.Move(temp.CardController, Space.ShortestPathBetween(to, from, _ => true));
 	}
 
 	public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)

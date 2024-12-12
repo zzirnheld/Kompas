@@ -7,7 +7,9 @@ namespace Kompas.Gamestate.Locations.Controllers;
 public abstract partial class BoardController : Node
 {
 	//TODO: replace with a "move" and a "play" function, to eventually add animations distinct to each
-	public abstract void Place(ICardController card);
+	public abstract void Play(ICardController card);
+
+	public abstract void Move(ICardController card, MovePath path);
 
 	public virtual void Remove(ICardController card) { }
 }
