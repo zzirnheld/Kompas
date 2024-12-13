@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using Kompas.Cards.Controllers;
 using Kompas.Client.Gamestate.Locations.Controllers;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Gamestate.Locations.Controllers;
@@ -38,12 +39,20 @@ public partial class PlaceInSpaceController : Node
 
 	public void Move(ICardController card, MovePath path) {
 		var tween = CreateTween();
+		
 		foreach (var space in path.Spaces) {
 			var pos = SpaceToPosition[space];
 			tween.TweenCallback(Callable.From(() => pos.Take(card)));
 
 			tween.TweenProperty(card.Node, "position", Vector3.Zero, 0.2d);
-			tween.Parallel().TweenProperty(card.Node, "scale", Vector3.One, 0.2d);
+			//tween.Parallel().TweenProperty(card.Node, "scale", Vector3.One, 0.2d);
 		}
+
+		tween.TweenCallback(Callable.From(() =>
+		{
+			var space = card.Card.Position ?? throw new NullSpaceOnBoardException(card.Card);
+			var finalPos = SpaceToPosition[space];
+			finalPos.Place(card);
+		}));
 	}
 }

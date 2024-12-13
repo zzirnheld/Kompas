@@ -28,6 +28,14 @@ public static class EnumerableHelper
 		}
 	}
 
+	public static IEnumerable<T> Peek<T>(this IEnumerable<T> source, System.Action<T> peeker)
+	{
+		foreach (var elem in source) {
+			peeker(elem);
+			yield return elem;
+		}
+	}
+
 	public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T elem)
 		=> source.Concat(new[] { elem });
 

@@ -82,6 +82,7 @@ public abstract class Networker : INetworker
 	{
 		if (packet == null) return;
 		if (tcpClient == null) return;
+		if (packet.command == Packet.Invalid) Logger.Err($"Sent packet with invalid command! It will be ignored");
 
 		NetworkStream networkStream = tcpClient.GetStream();
 		// we won't use a binary writer, because the endianness is unhelpful

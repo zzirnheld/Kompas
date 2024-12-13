@@ -25,7 +25,9 @@ public partial class PlaceableSpaceController : Node3D
 
 	public void Take(ICardController card)
 	{
+		var globalPos = card.Node.GlobalPosition;
 		this.TransferChild(card.Node);
 		card.Node.Visible = true;
+		card.Node.GlobalPosition = globalPos;
 	}
 }

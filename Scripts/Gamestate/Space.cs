@@ -34,6 +34,7 @@ public class Space
 
 	public Space Copy => new(x, y);
 
+
 	public static readonly Space NearCorner = (0, 0);
 	public static readonly Space FarCorner = (MaxIndex, MaxIndex);
 	public static readonly Space Nowhere = (-69, -420);
@@ -45,6 +46,7 @@ public class Space
 
 	public int Index => BoardLen * x + y;
 	public Space Inverse => (MaxIndex - x, MaxIndex - y);
+	public static Space FromIndex(int i) => (i / BoardLen, i % BoardLen);
 
 	public static bool IsValidSpace(int x, int y) => new Space(x, y).IsValid;
 
@@ -85,7 +87,7 @@ public class Space
 
 		var prevSpace = dest;
 
-		while (prevSpace != start) {
+		while (prevSpace != start && prevSpace != null) {
 			prevSpace = prev[prevSpace.x, prevSpace.y];
 			path.Insert(0, prevSpace);
 		}
@@ -263,4 +265,8 @@ public class Space
 
 public class MovePath {
 	public IList<Space> Spaces { get; init; } = System.Array.Empty<Space>();
+
+	//TODO: should the MovePath be aware of things like the MovementRestriction that created it?
+	//Should there be support for creating a new one, or just inverting the old?
+	public MovePath Invert() => new() { Spaces = Spaces.Reverse().ToList() };
 }

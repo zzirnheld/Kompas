@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
+using Kompas.Effects.Models;
+using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations.Models;
@@ -174,7 +176,10 @@ public class ServerPlayer : IPlayer
 		{
 			if (ServerGame.IsValidNormalMove(toMove, space, this))
 			{
-				toMove.Move(space, true, this);
+				var from = toMove.Position ?? throw new NullSpaceOnBoardException(toMove);
+				var path = toMove.MovementRestriction.Path(from, space, IResolutionContext.PlayerAction(this));
+				
+				toMove.Move(space, true, this, path: path);
 				await ServerGame.StackController.CheckForResponse();
 			}
 			else ServerNotifier.NotifyPutBack(this);
