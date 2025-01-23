@@ -11,12 +11,14 @@ namespace Kompas.Cards.Controllers;
 //very doable, fortunately
 public partial class CardAugmentsController : Node
 {
-	private const float VerticalStackBaseHeight = 0.05f;
+	private const float VerticalStackBaseHeight = 0.25f;
 	private const float VerticalStackIncrement = 0.1f;
 	private const float VerticalSpreadHeight = 0.25f;
 	
 	private const float HorizontalStackIncrement = 0.1f;
 	private const float HorizontalSpreadRadius = 1f;
+	private static readonly float BottomRightRightStackedOffset = HorizontalSpreadRadius * Mathf.Cos(SpreadAngleStartOffset);
+	private static readonly float BottomRightBackStackedOffset = HorizontalSpreadRadius * Mathf.Sin(SpreadAngleStartOffset);
 
 	private const float AugmentScaleInStack = 0.75f;
 	private const float AugmentScaleInSpread = AugmentScaleInStack;
@@ -42,7 +44,8 @@ public partial class CardAugmentsController : Node
 			node.Rotation = card.Card.ControllingPlayer.Index * TurnAroundRotation;
 
 			node.Position = (Vector3.Up * ((index * VerticalStackIncrement) + VerticalStackBaseHeight))
-						  + (Vector3.Right * index * HorizontalStackIncrement);
+						  + (Vector3.Right * ((index * HorizontalStackIncrement) + BottomRightRightStackedOffset))
+						  + (Vector3.Back * BottomRightBackStackedOffset);
 		}
 	}
 
