@@ -41,7 +41,7 @@ public class ServerBoard : Board
 		if (!toPlay.IsAvatar) ServerNotifier.NotifyPlay(controller, toPlay, to, wasKnown);
 	}
 
-	protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null)
+	protected override void Swap(GameCard card, Space to, bool normal, IPlayer? mover = null, IStackable? stackSrc = null, MovePath? path = null)
 	{
 		//TODO make a unit test with the old swap triggering event contexts.
 		//calculate distance before doing the swap
@@ -51,11 +51,11 @@ public class ServerBoard : Board
 		var incompletes = EnumerateMoveContexts(card, from, to, mover, stackSrc)
 			.Concat(EnumerateMoveContexts(at, to, from, mover, stackSrc));
 		var contexts = EventCapturer.Capture(incompletes,
-			() => base.Swap(card, to, normal, mover, stackSrc: stackSrc));
+			() => base.Swap(card, to, normal, mover, stackSrc: stackSrc, path: path));
 		EffectsController.TriggerFor(contexts);
 
 		//notify the players
-		ServerNotifier.NotifyMove(mover ?? card.OwningPlayer, card, to);
+		ServerNotifier.NotifyMove(mover ?? card.OwningPlayer, card, to, path ?? FallbackPath(from ?? Space.Invalid, to));
 	}
 
 	private IEnumerable<IIncompleteEventContext> EnumerateMoveContexts(GameCard? card, Space? from, Space? to, IPlayer? player, IStackable? stackSrc)

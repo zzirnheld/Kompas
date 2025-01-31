@@ -38,6 +38,7 @@ public interface ICardController
 
 	public Node3D Node { get; }
 	public IGameCardInfo Card { get; }
+	public bool Focused { get; }
 
 	/// <summary>
 	/// Place the given camera above the card, and return the control info displayer with events we can hook up.
@@ -45,4 +46,9 @@ public interface ICardController
 	///</summary>
 	public IHoverableCardInfoDisplayer PlaceCameraAboveCard(CameraFollowObject cameraNode, uint cameraMask, uint arrivedCameraMask, Action<IHoverableCardInfoDisplayer> whenArrive);
 
+	/// <summary>
+	/// Exists so that I can animate the card flying up and down again.
+	/// Maybe there's a better way to do this, but if there is, I don't know it.
+	///</summary>
+	public void MoveToBoard(Action placeOnBoard);
 }

@@ -1,5 +1,6 @@
 using Godot;
 using Kompas.Cards.Controllers;
+using Kompas.Gamestate;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Shared.Exceptions;
 
@@ -19,11 +20,21 @@ public partial class ClientBoardController : BoardController
 	private ClientTargetingController? _targetingController;
 	private ClientTargetingController TargetingController => _targetingController
 		?? throw new UnassignedReferenceException(nameof(_targetingController));
-	public override void Place(ICardController cardController)
+
+
+	public override void Play(ICardController cardController)
 	{
-		SpacesController.Place(cardController);
-		ScaleCard(cardController);
-		ScaleAdjacentCards(cardController);
+		cardController.MoveToBoard(() =>
+		{
+			SpacesController.Play(cardController);
+			ScaleCard(cardController);
+			ScaleAdjacentCards(cardController);
+		});
+	}
+
+	public override void Move(ICardController card, MovePath path)
+	{
+		SpacesController.Move(card, path);
 	}
 
 	public override void Remove(ICardController cardController)

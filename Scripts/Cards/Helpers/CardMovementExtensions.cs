@@ -33,8 +33,8 @@ public static class GameCardMovementExtensions
 	public static void Play(this GameCard card, Space to, IPlayer controllingPlayer, IStackable? stackSrc = null)
 		=> card.Game.Board.Play(card, to, controllingPlayer, stackSrc);
 
-	public static void Move(this GameCard card, Space to, bool normalMove, IPlayer? mover, IStackable? stackSrc = null)
-		=> card.Game.Board.Move(card, to, normalMove, mover, stackSrc);
+	public static void Move(this GameCard card, Space to, bool normalMove, IPlayer? mover, IStackable? stackSrc = null, MovePath? path = null)
+		=> card.Game.Board.Move(card, to, normalMove, mover, stackSrc, path);
 
 	public static void Dispel(this GameCard card, IStackable? stackSrc = null)
 	{

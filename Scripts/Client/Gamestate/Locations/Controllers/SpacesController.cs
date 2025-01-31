@@ -138,5 +138,7 @@ public partial class SpacesController : Node3D
 		return ctrl;
 	}
 
-	public void Place(ICardController card) => PlaceInSpaceController.Place(card);
+	public void Play(ICardController card) => PlaceInSpaceController.Place(card);
+
+	public void Move(ICardController card, MovePath path) => PlaceInSpaceController.Move(card, path);
 }

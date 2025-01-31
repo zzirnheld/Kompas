@@ -19,6 +19,8 @@ public class Swap : ServerSubeffect
 			throw new NullCardException(TargetWasNull);
 		if (forbidNotBoard && CardTarget.Location != Location.Board)
 			throw new InvalidLocationException(CardTarget.Location, CardTarget, MovedCardOffBoard);
+		if (CardTarget.Position == null)
+			throw new NullSpaceOnBoardException(CardTarget);
 
 		if (SecondTarget == null)
 			throw new NullCardException(TargetWasNull);
@@ -27,7 +29,9 @@ public class Swap : ServerSubeffect
 		if (SecondTarget.Position == null)
 			throw new NullSpaceOnBoardException(SecondTarget);
 
-		CardTarget.Move(SecondTarget.Position, false, PlayerTarget, ServerEffect);
+		CardTarget.Move(SecondTarget.Position, false, PlayerTarget, ServerEffect,
+			Kompas.Gamestate.Space.ShortestPathBetween(CardTarget.Position, SpaceTarget, 
+				space => CardTarget.MovementRestriction.IsValid(space, ResolutionContext)));
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

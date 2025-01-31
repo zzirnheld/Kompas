@@ -1,10 +1,71 @@
-[gd_scene load_steps=6 format=3 uid="uid://c312rohu62amq"]
+[gd_scene load_steps=8 format=3 uid="uid://c312rohu62amq"]
 
 [ext_resource type="PackedScene" uid="uid://dq50o17h7ceai" path="res://Scenes/Prefabs/Card Model.tscn" id="1_e7upk"]
 [ext_resource type="Script" path="res://Scripts/Client/Cards/Controllers/ClientCardController.cs" id="1_rjf3w"]
 
+[sub_resource type="Animation" id="Animation_7vfaa"]
+resource_name = "FlyDown"
+length = 0.1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(2.98023e-08, 1, 0, 20, 0, 0.1, 1, 0, 0.05, 0)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0.02, 1, 0.6, 0.6, 0.6)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.260054, 0, 0), Vector3(-0.260054, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wnw6o"]
+resource_name = "FlyUp"
+length = 0.1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0.02, 1, 0, 0.05, 0, 0.1, 1, 0, 20, 0)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0.02, 1, 0.6, 0.6, 0.6)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.260054, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ot7ck"]
 resource_name = "RESET"
+length = 0.1
 tracks/0/type = "rotation_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -55,6 +116,8 @@ tracks/2/keys = PackedFloat32Array(0, 1, 0.6, 0.6, 0.6)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cghhw"]
 _data = {
+"FlyDown": SubResource("Animation_7vfaa"),
+"FlyUp": SubResource("Animation_wnw6o"),
 "RESET": SubResource("Animation_ot7ck"),
 "Rotate": SubResource("Animation_u0val")
 }
@@ -68,5 +131,8 @@ _animationPlayer = NodePath("AnimationPlayer")
 libraries = {
 "": SubResource("AnimationLibrary_cghhw")
 }
+autoplay = "RESET"
+playback_default_blend_time = 0.15
+speed_scale = 0.5
 
 [node name="Node3D" parent="." instance=ExtResource("1_e7upk")]

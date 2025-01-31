@@ -90,8 +90,8 @@ public static class ServerNotifier
 		SendPackets(player, p, player.Enemy, q);
 	}
 
-	public static void NotifyMove(IPlayer player, GameCard toMove, Space space)
-		=> SendToBothInverting(player, new MoveCardPacket(toMove.ID, space.x, space.y, invert: player.Index != 0));
+	public static void NotifyMove(IPlayer player, GameCard toMove, Space space, MovePath path)
+		=> SendToBothInverting(player, new MoveCardPacket(toMove.ID, space.x, space.y, invert: player.Index != 0, path: path));
 
 	public static void NotifyDiscard(IPlayer player, GameCard toDiscard, bool wasKnown)
 		=> SendToBothInverting(player, new DiscardCardPacket(toDiscard, invert: player.Index != 0), wasKnown);

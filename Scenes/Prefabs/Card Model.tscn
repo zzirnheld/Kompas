@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=3 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=162 format=3 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]

@@ -34,6 +34,7 @@ public class Space
 
 	public Space Copy => new(x, y);
 
+
 	public static readonly Space NearCorner = (0, 0);
 	public static readonly Space FarCorner = (MaxIndex, MaxIndex);
 	public static readonly Space Nowhere = (-69, -420);
@@ -45,6 +46,7 @@ public class Space
 
 	public int Index => BoardLen * x + y;
 	public Space Inverse => (MaxIndex - x, MaxIndex - y);
+	public static Space FromIndex(int i) => (i / BoardLen, i % BoardLen);
 
 	public static bool IsValidSpace(int x, int y) => new Space(x, y).IsValid;
 
@@ -63,9 +65,8 @@ public class Space
 	/// <summary>
 	/// A really bad Dijkstra's because this is a fun side project and I'm not feeling smart today
 	/// </summary>
-	/// <param name="start">The card to start looking from</param>
-	/// <param name="x">The x coordinate you want a distance to</param>
-	/// <param name="y">The y coordinate you want a distance to</param>
+	/// <param name="start">The space to start looking from</param>
+	/// <param name="destination">The space you want a distance to</param>
 	/// <param name="throughPredicate">What all cards you go through must fit</param>
 	/// <returns></returns>
 	public static int DistanceBetween(Space? start, Space? destination, Func<Space, bool> throughPredicate)
@@ -73,8 +74,42 @@ public class Space
 		if (start == destination) return 0;
 		if (start == null || destination == null) return NoPathExists;
 
+		var (dist, _) = Dijkstra(start, destination, throughPredicate.Invoke);
+
+		return dist[destination.x, destination.y] <= 0 ? NoPathExists : dist[destination.x, destination.y];
+	}
+
+	public static MovePath ShortestPathBetween(Space start, Space dest, Predicate<Space> through)
+	{
+		var (_, prev) = Dijkstra(start, dest, through);
+
+		var path = new List<Space>() { dest };
+
+		var prevSpace = dest;
+
+		while (prevSpace != start && prevSpace != null) {
+			prevSpace = prev[prevSpace.x, prevSpace.y];
+			path.Insert(0, prevSpace);
+		}
+
+		return new MovePath { Spaces = path };
+	}
+
+	private static (int[,] distances, Space[,] previous) Dijkstra(Space start, Space dest, Predicate<Space> through)
+	{
+		if (start == dest) {
+			var retDistances = new int[BoardLen, BoardLen];
+			var retPrevious = new Space[BoardLen, BoardLen];
+
+			retDistances[start.x, start.y] = 0;
+			retPrevious[start.x, start.y] = start;
+
+			return (retDistances, retPrevious);
+		}
+
 		int[,] dist = new int[BoardLen, BoardLen];
 		bool[,] seen = new bool[BoardLen, BoardLen];
+		Space[,] prev = new Space[BoardLen, BoardLen];
 
 		var queue = new Queue<Space>();
 
@@ -91,7 +126,7 @@ public class Space
 			//consider the adjacent cards to the next node in the queue
 			var curr = queue.Dequeue();
 			var (currX, currY) = curr;
-			foreach (var next in curr.AdjacentSpaces.Where(throughPredicate))
+			foreach (var next in curr.AdjacentSpaces.Where(through.Invoke))
 			{
 				var (nextX, nextY) = next;
 				//if that adjacent card is never seen before, initialize its distance and add it to the structures
@@ -99,15 +134,20 @@ public class Space
 				{
 					seen[nextX, nextY] = true;
 					queue.Enqueue(next);
+
+					prev[nextX, nextY] = curr;
 					dist[nextX, nextY] = dist[currX, currY] + 1;
 				}
 				//otherwise, relax its distance if appropriate
 				else if (dist[currX, currY] + 1 < dist[nextX, nextY])
+				{
+					prev[nextX, nextY] = curr;
 					dist[nextX, nextY] = dist[currX, currY] + 1;
+				}
 			}
 		}
 
-		return dist[destination.x, destination.y] <= 0 ? NoPathExists : dist[destination.x, destination.y];
+		return (dist, prev);
 	}
 
 	public bool IsAdjacentTo(Space other) => DistanceTo(other) == 1;
@@ -221,4 +261,12 @@ public class Space
 	public override bool Equals(object? obj) => obj is Space spc && x == spc.x && y == spc.y;
 	public override string ToString() => $"{x}, {y}";
 	public override int GetHashCode() => x + BoardLen * y;
+}
+
+public class MovePath {
+	public IList<Space> Spaces { get; init; } = System.Array.Empty<Space>();
+
+	//TODO: should the MovePath be aware of things like the MovementRestriction that created it?
+	//Should there be support for creating a new one, or just inverting the old?
+	public MovePath Invert() => new() { Spaces = Spaces.Reverse().ToList() };
 }

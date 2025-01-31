@@ -23,7 +23,7 @@ public interface IBoard : ILocationModel
 	public IEnumerable<GameCard> CardsAndAugsWhere(Predicate<GameCard> predicate);
 
 	public void Play(GameCard toPlay, Space to, IPlayer player, IStackable? stackSrc = null);
-	public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null);
+	public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null, MovePath? path = null);
 
 	public bool AreConnectedBy(Space source, Space destination, IRestriction<IGameCardInfo> restriction, IResolutionContext context);
 	public bool AreConnectedBy(Space source, Space destination, Func<GameCard?, bool> throughPredicate);
@@ -219,12 +219,12 @@ public abstract class Board : IBoard
 
 			toPlay.ControllingPlayer = player;
 
-			boardController.Place(toPlay.CardController);
+			boardController.Play(toPlay.CardController);
 		}
 	}
 
 	//movement
-	protected virtual void Swap(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
+	protected virtual void Swap(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null, MovePath? path = null)
 	{
 		Logger.Log($"Swapping {card?.CardName} to {to}");
 
@@ -250,7 +250,6 @@ public abstract class Board : IBoard
 		if (!ValidSpellSpaceFor(card, to)) throw new InvalidSpaceException(to, $"{swapDesc}, but the destination is an invalid spell space");
 		if (!ValidSpellSpaceFor(temp, from)) throw new InvalidSpaceException(from, $"{swapDesc}, but the start is an invalid spell space");
 
-
 		boardController.Remove(card.CardController);
 		if (temp != null) boardController.Remove(temp.CardController);
 
@@ -267,11 +266,18 @@ public abstract class Board : IBoard
 		card.Position = to;
 		if (temp != null) temp.Position = from;
 
-		boardController.Place(card.CardController);
-		if (temp != null) boardController.Place(temp.CardController);
+		var mainPath = path ?? FallbackPath(from, to);
+		boardController.Move(card.CardController, mainPath);
+		if (temp != null)
+		{
+			var backPath = mainPath.Invert();
+			boardController.Move(temp.CardController, backPath);
+		}
 	}
 
-	public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null)
+	protected static MovePath FallbackPath(Space from, Space to) => Space.ShortestPathBetween(from, to, _ => true);
+
+	public void Move(GameCard card, Space to, bool normal, IPlayer? mover, IStackable? stackSrc = null, MovePath? path = null)
 	{
 		if (card.AugmentedCard != null)
 		{
@@ -283,7 +289,7 @@ public abstract class Board : IBoard
 			card.Remove(stackSrc);
 			target.AddAugment(card, stackSrc);
 		}
-		else Swap(card, to, normal, mover, stackSrc);
+		else Swap(card, to, normal, mover, stackSrc, path);
 	}
 	#endregion game mechanics
 

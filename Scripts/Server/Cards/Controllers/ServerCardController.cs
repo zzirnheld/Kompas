@@ -12,6 +12,7 @@ public class ServerCardController : ICardController
 	//FUTURE: when I want to display the card server side, have it store the card
 	public Node3D Node => throw new NullReferenceException("Server cards don't have nodes yet");
 	public IGameCardInfo Card => throw new NullReferenceException("Server cards don't have nodes yet");
+	public bool Focused => false;
 
 	public event EventHandler? Refreshed;
 	public event EventHandler<GameCard?>? AnythingRefreshed;
@@ -21,6 +22,8 @@ public class ServerCardController : ICardController
 	public event EventHandler<GameCard?>? TargetingRefreshed;
 
 	public void Delete() { }
+
+	public void MoveToBoard(Action placeOnBoard) { placeOnBoard(); }
 
 	public void RefreshAugments()
 	{

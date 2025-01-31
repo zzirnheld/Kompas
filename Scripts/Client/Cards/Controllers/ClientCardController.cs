@@ -30,8 +30,10 @@ public partial class ClientCardController : Node3D, ICardController
 
 	private const string FocusedAnimationName = "Rotate";
 	private const string ResetAnimationName = "RESET";
+	private const string FlyUpAnimationName = "FlyUp";
+	private const string FlyDownAnimationName = "FlyDown";
 
-	private bool focused;
+	public bool Focused { get; private set; }
 
 	private ClientCardView? _cardView;
 	public ClientCardView CardView
@@ -132,8 +134,10 @@ public partial class ClientCardController : Node3D, ICardController
 
 	public void RefreshAugments()
 	{
+		Card.AugmentedCard?.CardController.RefreshAugments();
+
 		var cardControllers = Card.Augments.Select(c => c.CardController);
-		if (focused) CardModelController.AugmentsController.Spread(cardControllers);
+		if (Focused || cardControllers.Any(cc => cc.Focused)) CardModelController.AugmentsController.Spread(cardControllers);
 		else CardModelController.AugmentsController.Stack(cardControllers);
 
 		AnythingRefreshed?.Invoke(this, Card);
@@ -149,10 +153,39 @@ public partial class ClientCardController : Node3D, ICardController
 
 	public void ShowFocused(bool value)
 	{
-		focused = value;
-		if (value) AnimationPlayer.Play(FocusedAnimationName);
-		else AnimationPlayer.Play(ResetAnimationName);
+		Focused = value;
+		if (value) AnimationPlayer.Play(name: FocusedAnimationName);
+		else AnimationPlayer.Play(name: ResetAnimationName);
 		RefreshAugments();
+	}
+
+	public void MoveToBoard(Action afterFlyUp)
+	{
+		Logger.Log($"{Card} moved to board!");
+		if (!Visible || GetParent() == null) {
+			afterFlyUp();
+			return;
+		}
+
+		AnimationPlayer.Play(name: FlyUpAnimationName);
+
+		actualAnimationFinishedHandler = () => {
+			afterFlyUp();
+			AnimationPlayer.Play(name: FlyDownAnimationName, customBlend: 0d);
+		};
+
+		AnimationPlayer.AnimationFinished += AnimationFinishedHandler;
+	}
+
+	//TODO: I think this is the correct way to have the function be able to clean up itself.
+	//This might create edge cases if I try and hang other stuff off this action.
+	//probably worth thinking about
+	private Action? actualAnimationFinishedHandler;
+
+	private void AnimationFinishedHandler(StringName _)
+	{
+		AnimationPlayer.AnimationFinished -= AnimationFinishedHandler;
+		actualAnimationFinishedHandler?.Invoke();
 	}
 
 	public void ShowEffectSource(bool current) => CardView.InfoDisplayer.DisplayEffectSource(current);
