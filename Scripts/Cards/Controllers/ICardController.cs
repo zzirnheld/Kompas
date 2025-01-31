@@ -38,6 +38,7 @@ public interface ICardController
 
 	public Node3D Node { get; }
 	public IGameCardInfo Card { get; }
+	public bool Focused { get; }
 
 	/// <summary>
 	/// Place the given camera above the card, and return the control info displayer with events we can hook up.

@@ -33,7 +33,7 @@ public partial class ClientCardController : Node3D, ICardController
 	private const string FlyUpAnimationName = "FlyUp";
 	private const string FlyDownAnimationName = "FlyDown";
 
-	private bool focused;
+	public bool Focused { get; private set; }
 
 	private ClientCardView? _cardView;
 	public ClientCardView CardView
@@ -134,8 +134,10 @@ public partial class ClientCardController : Node3D, ICardController
 
 	public void RefreshAugments()
 	{
+		Card.AugmentedCard?.CardController.RefreshAugments();
+
 		var cardControllers = Card.Augments.Select(c => c.CardController);
-		if (focused) CardModelController.AugmentsController.Spread(cardControllers);
+		if (Focused || cardControllers.Any(cc => cc.Focused)) CardModelController.AugmentsController.Spread(cardControllers);
 		else CardModelController.AugmentsController.Stack(cardControllers);
 
 		AnythingRefreshed?.Invoke(this, Card);
@@ -151,7 +153,7 @@ public partial class ClientCardController : Node3D, ICardController
 
 	public void ShowFocused(bool value)
 	{
-		focused = value;
+		Focused = value;
 		if (value) AnimationPlayer.Play(name: FocusedAnimationName);
 		else AnimationPlayer.Play(name: ResetAnimationName);
 		RefreshAugments();
