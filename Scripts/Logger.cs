@@ -10,7 +10,7 @@ public interface IKompasLogger
 	void Err(object? s);
 }
 
-internal class KompasLogger : IKompasLogger
+internal class GodotLogger : IKompasLogger
 {
 	void IKompasLogger.Err(object? s) => GD.PrintErr(s);
 
@@ -31,7 +31,7 @@ public class Logger
 	/// Public set, so that the logger can be replaced for unit testing.
 	/// Private get, so that you're forced to go through the static functions.
 	/// </summary>
-	public IKompasLogger KompasLogger { private get; set; } = new KompasLogger();
+	public IKompasLogger KompasLogger { private get; set; } = new GodotLogger();
 
 	public static void Log(object? s) => Singleton.KompasLogger.Log(s);
 	public static void Warn(object? s) => Singleton.KompasLogger.Warn(s);

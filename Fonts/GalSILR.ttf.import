@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/GalSILR.ttf-f9755c7da8d3d6f7b9c96107b1cf435b.
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
