@@ -107,8 +107,8 @@ public class ServerGame : IServerGame
 		}
 	}
 
-	private ServerGameController ServerGameController { get; init; }
-	public GameController GameController => ServerGameController;
+	private IServerGameController ServerGameController { get; init; }
+	public IGameController GameController => ServerGameController;
 
 	public Settings Settings => throw new System.NotImplementedException();
 
@@ -118,14 +118,14 @@ public class ServerGame : IServerGame
 
 	public event EventHandler<IPlayer>? TurnChanged;
 
-	private ServerGame(ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
+	private ServerGame(IServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
 	{
 		ServerGameController = gameController;
 		serverCardRepository = cardRepo;
 		_debugMode = debugMode;
 	}
 
-	public static ServerGame Create (ServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
+	public static ServerGame Create(IServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
 	{
 		ServerGame ret = new(gameController, cardRepo, debugMode);
 

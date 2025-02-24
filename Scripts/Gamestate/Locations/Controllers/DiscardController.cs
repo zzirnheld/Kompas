@@ -4,7 +4,7 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Gamestate.Locations.Controllers;
 
-public abstract partial class DiscardController : Node //TODO shared parent class for location controllers? similar to models?
+public abstract partial class DiscardController : Node, IDiscardController
 {
 	private Discard? _discardModel;
 	public Discard DiscardModel
@@ -16,4 +16,10 @@ public abstract partial class DiscardController : Node //TODO shared parent clas
 	public void Refresh() => SpreadOut();
 
 	protected abstract void SpreadOut();
+}
+
+public interface IDiscardController
+{
+	public Discard DiscardModel { get; set; }
+	public void Refresh();
 }

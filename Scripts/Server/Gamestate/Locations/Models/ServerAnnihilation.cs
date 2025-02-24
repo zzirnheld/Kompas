@@ -13,7 +13,7 @@ public class ServerAnnihilation : Annihilation
 {
 	private readonly ServerGame game;
 
-	public ServerAnnihilation(IPlayer owner, AnnihilationController annihilationController, ServerGame game)
+	public ServerAnnihilation(IPlayer owner, IAnnihilationController annihilationController, ServerGame game)
 		: base(owner, annihilationController)
 	{
 		this.game = game;
@@ -22,7 +22,7 @@ public class ServerAnnihilation : Annihilation
 	protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
 	{
 		bool wasKnown = card.KnownToEnemy;
-		
+
 		var contexts = IEventContext.Build(Trigger.Annhilate)
 			.PrimarilyAffecting(card)
 			.CausedBy(stackSrc)

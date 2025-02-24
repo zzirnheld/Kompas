@@ -12,7 +12,7 @@ public class ServerHand : Hand
 {
 	private readonly ServerGame game;
 
-	public ServerHand(IPlayer owner, HandController handController, ServerGame game)
+	public ServerHand(IPlayer owner, IHandController handController, ServerGame game)
 		: base(owner, handController)
 	{
 		this.game = game;
@@ -21,7 +21,7 @@ public class ServerHand : Hand
 	protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
 	{
 		bool wasKnown = card.KnownToEnemy;
-		
+
 		var contexts = IEventContext.Build(Trigger.Rehand)
 			.PrimarilyAffecting(card)
 			.CausedBy(stackSrc)

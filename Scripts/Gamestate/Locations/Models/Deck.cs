@@ -17,9 +17,9 @@ public abstract class Deck : OwnedLocationModel
 
 	public override Location Location => Location.Deck;
 
-	private readonly DeckController deckController;
+	private readonly IDeckController deckController;
 
-	protected Deck(IPlayer owner, DeckController deckController) : base(owner)
+	protected Deck(IPlayer owner, IDeckController deckController) : base(owner)
 	{
 		this.deckController = deckController;
 		deckController.DeckModel = this;

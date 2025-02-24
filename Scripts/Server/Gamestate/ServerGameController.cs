@@ -9,7 +9,7 @@ using System.Net.Sockets;
 
 namespace Kompas.Server.Gamestate;
 
-public partial class ServerGameController : GameController
+public partial class ServerGameController : GameController, IServerGameController
 {
 	private ServerGame? _serverGame;
 	public ServerGame ServerGame => _serverGame
@@ -20,15 +20,15 @@ public partial class ServerGameController : GameController
 	public ServerCardRepository CardRepository => _cardRepository
 		?? throw new NotInitializedException();
 
-	private IReadOnlyCollection<ServerNetworker>? _networkers;
-	public IReadOnlyCollection<ServerNetworker> Networkers => _networkers
+	private IReadOnlyCollection<IServerNetworker>? _networkers;
+	public IReadOnlyCollection<IServerNetworker> Networkers => _networkers
 		?? throw new NotInitializedException();
 
 	public void Init(TcpClient[] tcpClients, ServerCardRepository cardRepository, System.Func<bool> debugMode)
 	{
 		_cardRepository = cardRepository;
 		_serverGame = ServerGame.Create(this, CardRepository, debugMode);
-		
+
 		var players = ServerPlayer.Create(this,
 			(player, index) => new ServerNetworker(tcpClients[index], player, ServerGame));
 		_networkers = players.Select(p => p.Networker).ToArray();
@@ -45,4 +45,11 @@ public partial class ServerGameController : GameController
 		if (Networkers == null) return;
 		foreach (var networker in Networkers) await networker.Tick();
 	}
+}
+
+public interface IServerGameController : IGameController
+{
+	public ServerGame ServerGame { get; }
+	public ServerCardRepository CardRepository { get; }
+	public IReadOnlyCollection<IServerNetworker> Networkers { get; }
 }

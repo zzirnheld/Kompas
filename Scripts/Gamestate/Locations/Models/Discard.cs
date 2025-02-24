@@ -9,14 +9,14 @@ namespace Kompas.Gamestate.Locations.Models;
 
 public abstract class Discard : OwnedLocationModel
 {
-	private readonly DiscardController discardController;
+	private readonly IDiscardController discardController;
 
 	protected readonly List<GameCard> discard = new();
 
 	public override Location Location => Location.Discard;
 	public override IEnumerable<GameCard> Cards => discard;
 
-	protected Discard(IPlayer owner, DiscardController discardController) : base(owner)
+	protected Discard(IPlayer owner, IDiscardController discardController) : base(owner)
 	{
 		this.discardController = discardController;
 		discardController.DiscardModel = this;

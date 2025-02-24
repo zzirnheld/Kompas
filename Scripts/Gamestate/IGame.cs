@@ -66,7 +66,7 @@ public interface IGame
 		new Location[] { Location.Nowhere, Location.Deck, Location.Hand };
 
 	//other scripts
-	public GameController GameController { get; }
+	public IGameController GameController { get; }
 	public Settings Settings { get; }
 
 	//game mechanics
@@ -102,7 +102,7 @@ public interface IGame
 
 	//game mechanics
 	public static bool IsHiddenLocation(Location l) => HiddenLocations.Contains(l);
-	
+
 	public event EventHandler<IPlayer> TurnChanged;
 }
 

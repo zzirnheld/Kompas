@@ -13,9 +13,9 @@ public abstract class Annihilation : OwnedLocationModel
 	public override IEnumerable<GameCard> Cards => cards;
 
 	public override Location Location => Location.Annihilation;
-	private readonly AnnihilationController annihilationController;
+	private readonly IAnnihilationController annihilationController;
 
-	protected Annihilation(IPlayer owner, AnnihilationController annihilationController) : base(owner)
+	protected Annihilation(IPlayer owner, IAnnihilationController annihilationController) : base(owner)
 	{
 		this.annihilationController = annihilationController;
 		annihilationController.AnnihilationModel = this;

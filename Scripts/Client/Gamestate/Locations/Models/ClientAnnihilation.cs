@@ -6,7 +6,7 @@ namespace Kompas.Client.Gamestate.Locations.Models;
 
 public class ClientAnnihilation : Annihilation
 {
-	public ClientAnnihilation(IPlayer owner, AnnihilationController annihilationController) : base(owner, annihilationController)
+	public ClientAnnihilation(IPlayer owner, IAnnihilationController annihilationController) : base(owner, annihilationController)
 	{
 	}
 }

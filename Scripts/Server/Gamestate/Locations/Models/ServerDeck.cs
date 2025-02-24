@@ -14,7 +14,7 @@ public class ServerDeck : Deck
 {
 	private readonly ServerGame game;
 
-	public ServerDeck(IPlayer owner, DeckController deckController, ServerGame game)
+	public ServerDeck(IPlayer owner, IDeckController deckController, ServerGame game)
 		: base(owner, deckController)
 	{
 		this.game = game;

@@ -36,7 +36,7 @@ public class ClientGame : IGame
 	public ClientPlayer FriendlyPlayer => clientPlayers[0];
 
 	public ClientGameController ClientGameController { get; private set; }
-	public GameController GameController => ClientGameController;
+	public IGameController GameController => ClientGameController;
 
 	private readonly Dictionary<int, ClientGameCard> cardsByID = new();
 	public IReadOnlyCollection<GameCard> Cards => cardsByID.Values;
@@ -72,7 +72,7 @@ public class ClientGame : IGame
 		}
 	}
 
-	#nullable disable
+#nullable disable
 	private ClientGame(ClientGameController gameController)
 	{
 		ClientGameController = gameController;
@@ -81,7 +81,7 @@ public class ClientGame : IGame
 
 		StackController = new(gameController.StackView);
 	}
-	#nullable restore
+#nullable restore
 
 	public static ClientGame Create(ClientGameController gameController)
 	{

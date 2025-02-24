@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Kompas.Server.Networking;
 
+public interface IServerNetworker : INetworker { }
+
 //handles networking and such for a server game
-public class ServerNetworker : Networker
+public class ServerNetworker : Networker, IServerNetworker
 {
 	public static readonly string[] DontLogThesePackets =
 	{

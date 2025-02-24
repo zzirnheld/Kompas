@@ -39,5 +39,5 @@ public interface IPlayer
 
 	public Space SubjectiveCoords(Space space) => Index == 0 ? space : space.Inverse;
 
-	public PlayerController PlayerController { get; }
+	public IPlayerController PlayerController { get; }
 }

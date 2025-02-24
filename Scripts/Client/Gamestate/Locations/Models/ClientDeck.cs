@@ -6,7 +6,7 @@ namespace Kompas.Client.Gamestate.Locations.Models;
 
 public class ClientDeck : Deck
 {
-	public ClientDeck(IPlayer owner, DeckController deckController) : base(owner, deckController)
+	public ClientDeck(IPlayer owner, IDeckController deckController) : base(owner, deckController)
 	{
 	}
 }

@@ -18,8 +18,8 @@ namespace Kompas.Server.Gamestate.Players;
 
 public class ServerPlayer : IPlayer
 {
-	private ServerNetworker? _networker;
-	public ServerNetworker Networker => _networker
+	private IServerNetworker? _networker;
+	public IServerNetworker Networker => _networker
 		?? throw new UseFactoryException();
 	INetworker IPlayer.Networker => Networker;
 
@@ -75,9 +75,9 @@ public class ServerPlayer : IPlayer
 
 	public Space AvatarCorner => Index == 0 ? Space.NearCorner : Space.FarCorner;
 
-	public PlayerController PlayerController { get; }
+	public IPlayerController PlayerController { get; }
 
-	private ServerPlayer(ServerGame game, int index, PlayerController playerController)
+	private ServerPlayer(ServerGame game, int index, IPlayerController playerController)
 	{
 		ServerGame = game;
 		Index = index;
@@ -85,7 +85,7 @@ public class ServerPlayer : IPlayer
 	}
 
 	//Factory methods, so we can initialize the location models with the player
-	private static ServerPlayer Create(ServerGame game, PlayerController controller, int index, GetNetworker getNetworker)
+	private static ServerPlayer Create(ServerGame game, IPlayerController controller, int index, GetNetworker getNetworker)
 	{
 		ServerPlayer ret = new(game, index, controller);
 
@@ -98,7 +98,7 @@ public class ServerPlayer : IPlayer
 		return ret;
 	}
 
-	public static ServerPlayer[] Create(ServerGameController gameController, GetNetworker getNetworker)
+	public static ServerPlayer[] Create(IServerGameController gameController, GetNetworker getNetworker)
 	{
 		ServerPlayer[] ret =
 		{
@@ -112,7 +112,7 @@ public class ServerPlayer : IPlayer
 		return ret;
 	}
 
-	public delegate ServerNetworker GetNetworker(ServerPlayer player, int index);
+	public delegate IServerNetworker GetNetworker(ServerPlayer player, int index);
 
 
 	//If the player tries to do something, it goes here to check if it's ok, then do it if it is ok.
@@ -178,7 +178,7 @@ public class ServerPlayer : IPlayer
 			{
 				var from = toMove.Position ?? throw new NullSpaceOnBoardException(toMove);
 				var path = toMove.MovementRestriction.Path(from, space, IResolutionContext.PlayerAction(this));
-				
+
 				toMove.Move(space, true, this, path: path);
 				await ServerGame.StackController.CheckForResponse();
 			}
@@ -210,7 +210,7 @@ public class ServerPlayer : IPlayer
 	public async Task TryAttack(GameCard? attacker, GameCard? defender)
 	{
 		if (attacker == null || defender == null) return;
-		ServerNotifier.NotifyBothPutBack(new IPlayer[] {this, Enemy});
+		ServerNotifier.NotifyBothPutBack(new IPlayer[] { this, Enemy });
 
 		if (ServerGame.IsValidNormalAttack(attacker, defender, this))
 		{

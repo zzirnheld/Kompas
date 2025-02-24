@@ -15,11 +15,11 @@ public abstract class Hand : OwnedLocationModel
 
 	public override Location Location => Location.Hand;
 
-	private readonly HandController handController;
+	private readonly IHandController handController;
 
 	public int HandSize => hand.Count;
 
-	protected Hand(IPlayer owner, HandController handController) : base(owner)
+	protected Hand(IPlayer owner, IHandController handController) : base(owner)
 	{
 		this.handController = handController;
 		handController.HandModel = this; //TODO: is there another, better way to initialize HandModel? without leaking this

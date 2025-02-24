@@ -4,7 +4,7 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Gamestate.Locations.Controllers;
 
-public abstract partial class DeckController : Node //TODO shared parent class for location controllers? similar to models?
+public abstract partial class DeckController : Node, IDeckController //TODO shared parent class for location controllers? similar to models?
 {
 	private Deck? _deckModel;
 	public Deck DeckModel
@@ -16,4 +16,10 @@ public abstract partial class DeckController : Node //TODO shared parent class f
 	public void Refresh() => SpreadOut();
 
 	protected abstract void SpreadOut();
+}
+
+public interface IDeckController
+{
+	public Deck DeckModel { get; set; }
+	public void Refresh();
 }

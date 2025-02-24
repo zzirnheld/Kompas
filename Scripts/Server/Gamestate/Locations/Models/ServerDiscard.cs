@@ -12,16 +12,16 @@ public class ServerDiscard : Discard
 {
 	private readonly ServerGame game;
 
-	public ServerDiscard(IPlayer owner, DiscardController discardController, ServerGame game)
+	public ServerDiscard(IPlayer owner, IDiscardController discardController, ServerGame game)
 		: base(owner, discardController)
 	{
 		this.game = game;
 	}
 
 	protected override void PerformAdd(GameCard card, int? index, IStackable? stackSrc = null)
-	{	
+	{
 		bool wasKnown = card.KnownToEnemy;
-		
+
 		var contexts = IEventContext.Build(Trigger.Discard)
 			.PrimarilyAffecting(card)
 			.CausedBy(stackSrc)

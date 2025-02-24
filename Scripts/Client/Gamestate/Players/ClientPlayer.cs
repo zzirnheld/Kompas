@@ -27,7 +27,7 @@ public class ClientPlayer : IPlayer
 	public Discard Discard { get; private set; }
 	public Annihilation Annihilation { get; private set; }
 
-	public PlayerController PlayerController { get; }
+	public IPlayerController PlayerController { get; }
 
 	public int Index { get; }
 	private GameCard? _avatar;
@@ -56,20 +56,20 @@ public class ClientPlayer : IPlayer
 	public int PipsNextTurn { set => PlayerController.PipsNextTurn = value; }
 
 	//Non-nullable models are initialized in factory
-	#nullable disable
+#nullable disable
 	/// <summary>
 	/// Private constructor to enforce factory to initialize game locations without leaking this
 	/// </summary>
-	private ClientPlayer(ClientGame game, int index, PlayerController playerController, GetNetworker getNetworker)
+	private ClientPlayer(ClientGame game, int index, IPlayerController playerController, GetNetworker getNetworker)
 	{
 		this.game = game;
 		Index = index;
 		PlayerController = playerController;
 		this.getNetworker = getNetworker;
 	}
-	#nullable restore
+#nullable restore
 
-	public static ClientPlayer Create(ClientGame game, int index, PlayerController playerController, GetNetworker getNetworker)
+	public static ClientPlayer Create(ClientGame game, int index, IPlayerController playerController, GetNetworker getNetworker)
 	{
 		var ret = new ClientPlayer(game, index, playerController, getNetworker);
 

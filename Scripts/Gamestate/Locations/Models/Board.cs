@@ -40,9 +40,9 @@ public abstract class Board : IBoard
 	protected readonly GameCard?[,] board = new GameCard[Space.BoardLen, Space.BoardLen];
 	public IEnumerable<GameCard> Cards { get { foreach (var card in board) if (card != null) yield return card; } }
 
-	private readonly BoardController boardController;
+	private readonly IBoardController boardController;
 
-	protected Board(BoardController boardController)
+	protected Board(IBoardController boardController)
 	{
 		this.boardController = boardController;
 	}
@@ -169,7 +169,7 @@ public abstract class Board : IBoard
 			throw new InvalidSpaceException(toRemove.Position, "Can't remove a card from a null space");
 
 		boardController.Remove(toRemove.CardController);
-		
+
 		var (x, y) = toRemove.Position;
 		if (board[x, y] == toRemove)
 			board[x, y] = null;

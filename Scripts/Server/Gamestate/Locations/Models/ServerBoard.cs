@@ -19,7 +19,7 @@ public class ServerBoard : Board
 
 	private IServerStackController EffectsController => serverGame.StackController;
 
-	public ServerBoard(BoardController boardController, ServerGame serverGame) : base(boardController)
+	public ServerBoard(IBoardController boardController, ServerGame serverGame) : base(boardController)
 	{
 		this.serverGame = serverGame;
 	}
@@ -93,7 +93,7 @@ public class ServerBoard : Board
 
 	private static IEnumerable<IIncompleteEventContext> EnumerateMoveContexts(EventContextBuilder baseBuilder, GameCard mover,
 		IEnumerable<GameCard> cardsMoverLeft, IEnumerable<GameCard> cardsMoverLeftBehind)
-	{	
+	{
 		var affectingMover = baseBuilder.CloneForEvent(Trigger.Move)
 			.PrimarilyAffecting(mover);
 		yield return affectingMover;

@@ -23,6 +23,45 @@ public interface ICardRepository
 	public Texture2D? LoadSprite(string cardFileName);
 }
 
+public interface IFileLoader
+{
+	public static IFileLoader Godot => new FileLoader();
+
+	public string? LoadFileAsText(string path);
+
+	public Texture2D? LoadSprite(string cardFileName);
+
+	private class FileLoader : IFileLoader
+	{
+		public string? LoadFileAsText(string path)
+		{
+			//Logger.Log($"Trying to load {path}");
+			if (!FileAccess.FileExists(path)) return null;
+
+			using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+
+			return file.GetAsText();
+
+			/*
+			var json = ResourceLoader.Load<Json>(path);
+			Logger.Log($"{Json.Stringify(json)}\n\n{json.GetParsedText()}");
+			Json.Stringify(json);
+			return json.GetParsedText(); */
+		}
+
+		public Texture2D? LoadSprite(string cardFileName)
+		{
+			string path = $"{CardRepository.CardImagesPath}/{cardFileName}.png";
+			if (!ResourceLoader.Exists(path))
+			{
+				Logger.Log($"Warning: texture not found at {cardFileName}");
+				return null;
+			}
+			else return ResourceLoader.Load<Texture2D>(path);
+		}
+	}
+}
+
 public abstract class CardRepository : ICardRepository
 {
 	private const string CharCardFramePath = "res://Icons/Card Stuff/Char Frame.svg";
@@ -113,45 +152,6 @@ public abstract class CardRepository : ICardRepository
 	{
 		this.fileLoader = fileLoader;
 		this.throwExceptions = throwExceptions;
-	}
-
-	public interface IFileLoader
-	{
-		public static IFileLoader Godot => new FileLoader();
-
-		public string? LoadFileAsText(string path);
-
-		public Texture2D? LoadSprite(string cardFileName);
-	}
-
-	private class FileLoader : IFileLoader
-	{
-		public string? LoadFileAsText(string path)
-		{
-			//Logger.Log($"Trying to load {path}");
-			if (!FileAccess.FileExists(path)) return null;
-
-			using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-
-			return file.GetAsText();
-
-			/*
-			var json = ResourceLoader.Load<Json>(path);
-			Logger.Log($"{Json.Stringify(json)}\n\n{json.GetParsedText()}");
-			Json.Stringify(json);
-			return json.GetParsedText(); */
-		}
-
-		public Texture2D? LoadSprite(string cardFileName)
-		{
-			string path = $"{CardImagesPath}/{cardFileName}.png";
-			if (!ResourceLoader.Exists(path))
-			{
-				Logger.Log($"Warning: texture not found at {cardFileName}");
-				return null;
-			}
-			else return ResourceLoader.Load<Texture2D>(path);
-		}
 	}
 
 	public Texture2D? LoadSprite(string cardFileName) => fileLoader.LoadSprite(cardFileName);
@@ -305,7 +305,7 @@ public abstract class CardRepository : ICardRepository
 		=> cardJsons.Values
 			.Select(SerializableCardFromJson)
 			.NonNull();
-	
+
 	public static ITriggerRestriction[]? InstantiateTriggerKeyword(string keyword)
 	{
 		if (!triggerKeywordJsons.ContainsKey(keyword))

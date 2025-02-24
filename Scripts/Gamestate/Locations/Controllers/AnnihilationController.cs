@@ -4,7 +4,7 @@ using Kompas.Shared.Exceptions;
 
 namespace Kompas.Gamestate.Locations.Controllers;
 
-public partial class AnnihilationController : Node //TODO shared parent class for location controllers? similar to models?
+public partial class AnnihilationController : Node, IAnnihilationController //TODO shared parent class for location controllers? similar to models?
 {
 	private Annihilation? _annihilationModel;
 	public Annihilation AnnihilationModel
@@ -14,4 +14,10 @@ public partial class AnnihilationController : Node //TODO shared parent class fo
 	}
 
 	public virtual void Refresh() { }
+}
+
+public interface IAnnihilationController
+{
+	public Annihilation AnnihilationModel { get; set; }
+	public void Refresh();
 }
