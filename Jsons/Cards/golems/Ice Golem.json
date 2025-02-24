@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Ice Golem",
-	"effText": "GOLEM.\nWhen I become active, negate a character within [my N] nodes of me, until your next turn.",
+	"effText": "GOLEM.\nWhen I become active, negate a character within [my N] segments of me, until your next turn.",
 	"effects": [
 		{
 			"blurb": "Fun Not Allowed",

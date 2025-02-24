@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Ride the Winds",
-	"effText": "[USES.0.Once] each turn, you can move a Flying character 1 node.",
+	"effText": "[USES.0.Once] each turn, you can move a Flying character 1 segment.",
 	"effects": [
 		{
 			"blurb": "Ride the Winds",

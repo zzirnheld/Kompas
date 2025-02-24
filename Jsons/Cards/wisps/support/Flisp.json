@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Flisp",
-	"effText": "In a random order, move each friendly Wisp 1 random node, then another, then another, closer to their closest enemy.",
+	"effText": "In a random order, move each friendly Wisp 1 random segment, then another, then another, closer to their closest enemy. (Each Wisp moves 3 times.)",
 	"effects": [
 		{
 			"triggerData": {

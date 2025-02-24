@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Cyan Linewalker",
-	"effText": "LINEWALK.\nWhen I move X nodes, move a distinct card X nodes.",
+	"effText": "LINEWALK.\nWhen I move X segments, move a distinct card X segments.",
 	"effects": [
 		{
 			"blurb": "Cyan Linewalked",

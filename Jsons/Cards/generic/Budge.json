@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Budge",
-	"effText": "Move an adjacent card 1 node. Draw 1 card.",
+	"effText": "Move an adjacent card 1 segment. Draw 1 card.",
 	"effects": [
 		{
 			"blurb": "Budge",

@@ -115,7 +115,7 @@ public partial class RotatingTextureRect : TextureRect
 	/// <param name="x">[0, 1] progress along duration</param>
 	protected virtual void Progress(float x)
 	{
-		Rotation = start.Rotation + ((Target.Rotation - start.Rotation) * 6 * ((x * x / 2) - (x * x * x / 3)));
+		Rotation = start.Rotation + ((Target.Rotation - start.Rotation) * Shared.Math.Cubic(x));
 
 		float anchorX = ManipulateAnchorTimeProportion(x);
 		AnchorLeft 	 = start.LeftAnchor   + (Target.LeftAnchor   - start.LeftAnchor)   * anchorX;

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Hypnosympatheticizer",
-	"effText": "Speedemon.\nThe first time each stack I move, move a distinct character 1 node in the same direction.",
+	"effText": "Speedemon.\nThe first time each stack I move, move a distinct character 1 segment in the same direction.",
 	"effects": [
 		{
 			"blurb": "hyyyypnoooo SYMP",

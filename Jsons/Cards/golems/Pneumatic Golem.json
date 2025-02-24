@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Pneumatic Golem",
-	"effText": "GOLEM.\nWhen I become active, hand a character within [my N] nodes of me.",
+	"effText": "GOLEM.\nWhen I become active, hand a character within [my N] segments of me.",
 	"effects": [
 		{
 			"blurb": "Nope, Go Away",
@@ -27,7 +27,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "character within N nodes of Pneumatic Golem for it to hand",
+					"blurb": "character within [its N] segments of Pneumatic Golem for it to hand",
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",

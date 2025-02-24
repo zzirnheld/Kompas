@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "XVIII - The Moon",
-	"effText": "When you draw, swap the E or W of two summons within 2 nodes of each other.",
+	"effText": "When you draw, swap the E or W of two summons within 2 segments of each other.",
 	"effects": [
 		{
 			"blurb": "Swap E or W",

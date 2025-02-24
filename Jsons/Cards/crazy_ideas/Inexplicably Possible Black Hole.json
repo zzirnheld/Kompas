@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Inexplicably Possible Black Hole",
-	"effText": "Structure.\nWhen a character arrives normally, move them 1 node towards me.",
+	"effText": "Structure.\nWhen a character arrives normally, move them 1 segment towards me.",
 	"effects": [
 		{
 			"blurb": "The Suck",

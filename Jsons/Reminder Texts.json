@@ -3,12 +3,12 @@
 		{
 			"keywordRegex": "LINEWALK",
 			"keyword": "Linewalk",
-			"reminder": "Each 1 N I have lets me move any number of empty nodes along a diagonal."
+			"reminder": "Each 1 N I have lets me move any number of (empty) segments along a diagonal."
 		},
 		{
 			"keywordRegex": "SHAPE",
 			"keyword": "Shape",
-			"reminder": "I can move through X Ethereal characters to an empty node, after which I lose X E. This counts as 1 of my N nodes to move each turn."
+			"reminder": "I can move through X Ethereal characters to an empty node, after which I lose X E. This counts as 1 of my N segments to move each turn."
 		},
 		{
 			"keywordRegex": "VESSEL",
@@ -76,7 +76,7 @@
 		},
 		{
 			"keyword": "Wisp.",
-			"reminder": "When I'm summoned, or when turns start, move me 1 node. When I move:"
+			"reminder": "When I'm summoned, or when turns start, move me 1 segment. When I move:"
 		},
 		{
 			"keywordRegex": "INVOKE",
@@ -101,7 +101,7 @@
 		},
 		{
 			"keyword": "Speedemon",
-			"reminder": "After I move in a straight line, except by this effect, move me 1 node in the same direction."
+			"reminder": "After I move in a straight line, except by this effect, move me 1 segment in the same direction."
 		},
 		{
 			"keyword": "Pass Back",

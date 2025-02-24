@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Coach Lap",
-	"effText": "Speedemon.\nThe first time each stack a character arrives adjacent to me, their controller moves them 1 node.",
+	"effText": "Speedemon.\nThe first time each stack a character arrives adjacent to me, their controller moves them 1 segment.",
 	"effects": [
 		{
 			"blurb": "Lap! Yeah!",

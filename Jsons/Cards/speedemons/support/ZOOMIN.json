@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "ZOOMIN",
-	"effText": "Move a card 1 node. Move a card 1 node! MOVE A CARD 1 NODE!",
+	"effText": "Move a card 1 segment. Move a card 1 segment! MOVE A CARD 1 SEGMENT!",
 	"effects": [
 		{
 			"triggerData": {

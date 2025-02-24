@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Rocket-Propelled Ball",
-	"effText": "COMEBACKPLAY.\nWhen you augment an enemy character, move them 1 node.",
+	"effText": "COMEBACKPLAY.\nWhen you augment an enemy character, move them 1 segment.",
 	"effects": [
 		{
 			"triggerData": {

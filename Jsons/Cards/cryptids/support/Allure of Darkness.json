@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Allure of Darkness",
-	"effText": "When an enemy arrives normally, their controller moves them 1 node towards a Shadow.",
+	"effText": "When an enemy arrives normally, their controller moves them 1 segment towards a Shadow.",
 	"effects": [
 		{
 			"triggerData": {

@@ -1,7 +1,7 @@
 {
 	"cardType":65,
 	"cardName":"Super Nitro Powered Rocket Shoes",
-	"effText":"When this character moves, move them 1 node in the same direction. (This will trigger me again.)",
+	"effText":"When this character moves, move them 1 segment in the same direction. (This will trigger me again.)",
 	"effects":[
 		{
 			"blurb":"Speed Shoes",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Massive Moon Moth",
-	"effText": "Stealth.\nWhen a friendly Moth attacks a character in Light, swap the W of two characters within 2 nodes of each other.",
+	"effText": "Stealth.\nWhen a friendly Moth attacks a character in Light, swap the W of two characters within 2 segments of each other.",
 	"effects": [
 		{
 			"blurb": "this is my friend the moon moth",
