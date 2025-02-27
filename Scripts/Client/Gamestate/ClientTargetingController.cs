@@ -91,6 +91,11 @@ public partial class ClientTargetingController : Node
 			//or maybe animate the currently hovered card slightly, like popping it up, but leave the selection as it is
 			change.Old?.ClientCardController.ShowFocused(false);
 			change.New?.ClientCardController.ShowFocused(true);
+
+			// We need to refresh the can do highlights, but don't wanna waste time re-showing card information, so do this here to make sure they refresh when focus refreshes.
+			// TODO: trigger this better when card location changes?
+			// ideally would hook into card controller.LocationChange for focused card
+			ShowCanDoHighlights(TopLeftCardView.ShownCard);
 		};
 		TopLeftCardView.CardShown += (_, change) =>
 		{

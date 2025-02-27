@@ -63,6 +63,7 @@ public partial class ClientCardController : Node3D, ICardController
 	public event EventHandler<GameCard?>? LinksRefreshed;
 	public event EventHandler<GameCard?>? AugmentsRefreshed;
 	public event EventHandler<GameCard?>? TargetingRefreshed;
+	public event EventHandler<GameCard?>? LocationRefreshed;
 
 	private ClientGameCard? _card;
 	public ClientGameCard Card
@@ -77,7 +78,7 @@ public partial class ClientCardController : Node3D, ICardController
 			AOEController = GameController.TargetingController.SpacesController.AddAOE();
 			//TODO: update AOE material accordingly, once that's something I have assigned
 
-			Card.LocationChanged += (_, _) => RefreshAOE();
+			Card.LocationChanged += (_, _) => RefreshLocation();
 			Card.AugmentsChanged += (_, _) => RefreshAugments();
 		}
 	}
@@ -108,7 +109,13 @@ public partial class ClientCardController : Node3D, ICardController
 	//in case that's more natural for some people.
 	public void ShowEffectDialog() => GameController.UseEffectDialog.Display(this);
 
-	public void RefreshAOE() => AOEController.Display(Card.SpaceInAOE, true);
+	public void RefreshLocation()
+	{
+		AOEController.Display(Card.SpaceInAOE, true);
+
+		LocationRefreshed?.Invoke(this, Card);
+		AnythingRefreshed?.Invoke(this, Card);
+	}
 
 	/// <summary>
 	/// TODO reimpl for godot
@@ -162,16 +169,22 @@ public partial class ClientCardController : Node3D, ICardController
 	public void MoveToBoard(Action afterFlyUp)
 	{
 		Logger.Log($"{Card} moved to board!");
-		if (!Visible || GetParent() == null) {
+		if (!Visible || GetParent() == null)
+		{
 			afterFlyUp();
 			return;
 		}
 
 		AnimationPlayer.Play(name: FlyUpAnimationName);
 
-		actualAnimationFinishedHandler = () => {
+		actualAnimationFinishedHandler = () =>
+		{
 			afterFlyUp();
 			AnimationPlayer.Play(name: FlyDownAnimationName, customBlend: 0d);
+
+			//Problem: after card flies down, it should resume animations as if focused on
+			actualAnimationFinishedHandler = () => ShowFocused(GameController.TargetingController.TopLeftCardView.FocusedCard == Card);
+			AnimationPlayer.AnimationFinished += AnimationFinishedHandler;
 		};
 
 		AnimationPlayer.AnimationFinished += AnimationFinishedHandler;

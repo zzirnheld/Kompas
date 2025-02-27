@@ -26,17 +26,27 @@ public abstract class FocusableCardViewBase<CardType, DisplayerType>
 	{ }
 
 	/// <summary>
-	/// Focus on a given card.
-	/// If we're not currently doing something like hovering over another card, this is the one we should be showing
+	/// Focus on a given card,
+	// showing it whenever we don't want to show something else
+	// (something else like a temporary hover over)
 	/// </summary>
-	/// <param name="card"></param>
 	protected virtual void Focus(CardType? card)
 	{
-		Logger.Log($"{GetType()} focusing on {card}");
+		ShiftFocus(card);
+		Show(card);
+	}
+
+	/// <summary>
+	/// Shifts tracked focus to the given card.
+	/// If we're not currently doing something like hovering over another card,
+	/// this is the one we should be showing.
+	/// Doesn't show the card, though. See <see cref="Focus"/>
+	/// </summary>
+	protected void ShiftFocus(CardType? card)
+	{
 		var oldFocus = FocusedCard;
 		FocusedCard = card;
 		FocusChange?.Invoke(this, new CardChange() { Old = oldFocus, New = card });
-		Show(card);
 	}
 
 	protected override void Show(CardType? card, bool refresh = false)

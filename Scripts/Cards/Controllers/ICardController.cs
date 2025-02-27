@@ -25,12 +25,15 @@ public interface ICardController
 	/// </summary>
 	public void RefreshLinks();
 	public event EventHandler<GameCard?>? LinksRefreshed;
-	
+
 	public void RefreshAugments();
 	public event EventHandler<GameCard?>? AugmentsRefreshed;
 
 	public void RefreshTargeting();
 	public event EventHandler<GameCard?>? TargetingRefreshed;
+
+	public void RefreshLocation();
+	public event EventHandler<GameCard?>? LocationRefreshed;
 
 	public void ShowEffectSource(bool current);
 

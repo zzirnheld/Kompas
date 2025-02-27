@@ -29,6 +29,7 @@ public partial class ClientBoardController : BoardController
 			SpacesController.Play(cardController);
 			ScaleCard(cardController);
 			ScaleAdjacentCards(cardController);
+			cardController.RefreshLocation();
 		});
 	}
 

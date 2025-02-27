@@ -132,7 +132,7 @@ libraries = {
 "": SubResource("AnimationLibrary_cghhw")
 }
 autoplay = "RESET"
-playback_default_blend_time = 0.15
+playback_default_blend_time = 0.01
 speed_scale = 0.5
 
 [node name="Node3D" parent="." instance=ExtResource("1_e7upk")]

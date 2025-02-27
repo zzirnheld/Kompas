@@ -20,6 +20,7 @@ public class ServerCardController : ICardController
 	public event EventHandler<GameCard?>? LinksRefreshed;
 	public event EventHandler<GameCard?>? AugmentsRefreshed;
 	public event EventHandler<GameCard?>? TargetingRefreshed;
+	public event EventHandler<GameCard?>? LocationRefreshed;
 
 	public void Delete() { }
 
@@ -27,23 +28,28 @@ public class ServerCardController : ICardController
 
 	public void RefreshAugments()
 	{
-		AnythingRefreshed?.Invoke(this, null);
 		AugmentsRefreshed?.Invoke(this, null);
+		AnythingRefreshed?.Invoke(this, null);
 	}
 	public void RefreshLinks()
 	{
-		AnythingRefreshed?.Invoke(this, null);
 		LinksRefreshed?.Invoke(this, null);
+		AnythingRefreshed?.Invoke(this, null);
 	}
 	public void RefreshStats()
 	{
-		AnythingRefreshed?.Invoke(this, null);
 		StatsRefreshed?.Invoke(this, null);
+		AnythingRefreshed?.Invoke(this, null);
 	}
 	public void RefreshTargeting()
 	{
-		AnythingRefreshed?.Invoke(this, null);
 		TargetingRefreshed?.Invoke(this, null);
+		AnythingRefreshed?.Invoke(this, null);
+	}
+	public void RefreshLocation()
+	{
+		LocationRefreshed?.Invoke(this, null);
+		AnythingRefreshed?.Invoke(this, null);
 	}
 
 	public void ShowEffectSource(bool current) { }

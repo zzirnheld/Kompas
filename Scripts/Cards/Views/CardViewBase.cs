@@ -1,4 +1,5 @@
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.UI.CardInfoDisplayers;
 
 namespace Kompas.Cards.Views;
@@ -54,7 +55,7 @@ public abstract class CardViewBase<CardType, DisplayerType>
 
 		var old = ShownCard;
 		ShownCard = card;
-		CardShown?.Invoke(this, new() { Old = old, New = card});
+		CardShown?.Invoke(this, new() { Old = old, New = card });
 
 		//If we're now showing nothing, hide the window and be done
 		if (ShownCard == null) DisplayNothing();
