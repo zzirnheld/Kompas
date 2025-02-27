@@ -91,16 +91,25 @@ public partial class ClientTargetingController : Node
 			//or maybe animate the currently hovered card slightly, like popping it up, but leave the selection as it is
 			change.Old?.ClientCardController.ShowFocused(false);
 			change.New?.ClientCardController.ShowFocused(true);
-
-			// We need to refresh the can do highlights, but don't wanna waste time re-showing card information, so do this here to make sure they refresh when focus refreshes.
-			// TODO: trigger this better when card location changes?
-			// ideally would hook into card controller.LocationChange for focused card
-			ShowCanDoHighlights(TopLeftCardView.ShownCard);
 		};
 		TopLeftCardView.CardShown += (_, change) =>
 		{
 			ShowCanDoHighlights(change.New);
+
+			// We also want to make sure the highlights update if anything relevant changes.
+			// TODO: maybe create an event that's fired only when something changes that could affect can do highlights?
+			// that gets into the weeds of responsibilty, tho - who should know? because in theory I could create a card
+			// that moves based on W or something, so that might include info not specified rn.
+			// I think the smarter approach will be to evaluate whether the refresh changed the set of accessible things.
+			// I think it's also just... not a super expensive calculation. If performance concerns arise, deal with this then.
+			if (change.Old != null) change.Old.ClientCardController.AnythingRefreshed -= RefreshCanDoHighlights;
+			if (change.New != null) change.New.ClientCardController.AnythingRefreshed += RefreshCanDoHighlights;
 		};
+	}
+
+	private void RefreshCanDoHighlights(object? _, GameCard? card)
+	{
+		ShowCanDoHighlights(card);
 	}
 
 	/// <summary>
