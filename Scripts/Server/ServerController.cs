@@ -23,6 +23,11 @@ public partial class ServerController : Node
 	public bool DebugMode => _debugMode?.ButtonPressed
 		?? throw new UnassignedReferenceException();
 
+	[Export]
+	private CheckBox? _suppressTriggers;
+	public bool SuppressTriggers => _suppressTriggers?.ButtonPressed
+		?? throw new UnassignedReferenceException();
+
 	private ServerCardRepository? CardRepo { get; set; }
 
 	private TcpListener? listener;
@@ -59,7 +64,7 @@ public partial class ServerController : Node
 				var gameController = GamePrefab.Instantiate() as ServerGameController
 					?? throw new System.NotSupportedException("Server Game prefab wasn't a ServerGameController!");
 				AddChild(gameController);
-				gameController.Init(new TcpClient[] { currentlyWaitingTcpClient, client }, CardRepo, () => DebugMode);
+				gameController.Init(new TcpClient[] { currentlyWaitingTcpClient, client }, CardRepo, () => DebugMode, () => SuppressTriggers);
 				games.Add(gameController);
 				currentlyWaitingTcpClient = null;
 			}

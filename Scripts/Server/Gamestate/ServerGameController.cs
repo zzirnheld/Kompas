@@ -24,10 +24,10 @@ public partial class ServerGameController : GameController, IServerGameControlle
 	public IReadOnlyCollection<IServerNetworker> Networkers => _networkers
 		?? throw new NotInitializedException();
 
-	public void Init(TcpClient[] tcpClients, ServerCardRepository cardRepository, System.Func<bool> debugMode)
+	public void Init(TcpClient[] tcpClients, ServerCardRepository cardRepository, System.Func<bool> debugMode, System.Func<bool> shouldSuppresTriggers)
 	{
 		_cardRepository = cardRepository;
-		_serverGame = ServerGame.Create(this, CardRepository, debugMode);
+		_serverGame = ServerGame.Create(this, CardRepository, debugMode, shouldSuppresTriggers);
 
 		var players = ServerPlayer.Create(this,
 			(player, index) => new ServerNetworker(tcpClients[index], player, ServerGame));

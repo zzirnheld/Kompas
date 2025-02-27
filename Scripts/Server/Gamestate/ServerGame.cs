@@ -65,6 +65,10 @@ public class ServerGame : IServerGame
 	private readonly Func<bool> _debugMode;
 	public bool DebugMode => _debugMode();
 
+	private readonly Func<bool> _shouldSuppressTriggers;
+	public bool ShouldSuppressTriggers => _shouldSuppressTriggers();
+
+
 
 	//Dictionary of cards, and the forwardings to make that convenient
 	private readonly Dictionary<int, ServerGameCard> cardsByID = new();
@@ -82,7 +86,6 @@ public class ServerGame : IServerGame
 	private int cardCount = 0;
 
 	public bool GameHasStarted { get; private set; } = false;
-
 	public IPlayer? Winner { get; private set; }
 
 	private int _turnCount;
@@ -118,16 +121,17 @@ public class ServerGame : IServerGame
 
 	public event EventHandler<IPlayer>? TurnChanged;
 
-	private ServerGame(IServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
+	private ServerGame(IServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode, Func<bool> shouldSuppresTriggers)
 	{
 		ServerGameController = gameController;
 		serverCardRepository = cardRepo;
 		_debugMode = debugMode;
+		_shouldSuppressTriggers = shouldSuppresTriggers;
 	}
 
-	public static ServerGame Create(IServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode)
+	public static ServerGame Create(IServerGameController gameController, ServerCardRepository cardRepo, Func<bool> debugMode, Func<bool> shouldSuppresTriggers)
 	{
-		ServerGame ret = new(gameController, cardRepo, debugMode);
+		ServerGame ret = new(gameController, cardRepo, debugMode, shouldSuppresTriggers);
 
 		ret._stackController = new ServerStackController(ret);
 		ret._board = new ServerBoard(gameController.BoardController, ret);

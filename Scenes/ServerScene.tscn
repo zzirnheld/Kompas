@@ -3,13 +3,24 @@
 [ext_resource type="Script" path="res://Scripts/Server/ServerController.cs" id="1_1e66d"]
 [ext_resource type="PackedScene" uid="uid://cfx5khx5vsd52" path="res://Scenes/Prefabs/Server Game/ServerGame.tscn" id="2_k7psn"]
 
-[node name="ServerScene" type="Node" node_paths=PackedStringArray("_debugMode")]
+[node name="ServerScene" type="Node" node_paths=PackedStringArray("_debugMode", "_suppressTriggers")]
 script = ExtResource("1_1e66d")
 _gamePrefab = ExtResource("2_k7psn")
-_debugMode = NodePath("CheckBox")
+_debugMode = NodePath("Debug Mode")
+_suppressTriggers = NodePath("Suppress Triggers")
 
-[node name="CheckBox" type="CheckBox" parent="."]
+[node name="Debug Mode" type="CheckBox" parent="."]
 offset_right = 24.0
 offset_bottom = 24.0
 button_pressed = true
 text = "Debug mode"
+
+[node name="Suppress Triggers" type="CheckBox" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 127.0
+grow_vertical = 0
+button_pressed = true
+text = "Suppress Triggers"
