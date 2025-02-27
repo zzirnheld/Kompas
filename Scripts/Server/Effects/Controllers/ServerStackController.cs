@@ -384,7 +384,7 @@ public class ServerStackController : IServerStackController
 
 	private void TriggerFor(IEventContext context, string overrideEvent)
 	{
-		if (!game.GameHasStarted) return;
+		if (game.ShouldSuppressTriggers) return;
 
 		Logger.Log($"Triggering for condition {overrideEvent}, context {context}");
 		//first resolve any hanging effects

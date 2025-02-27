@@ -38,6 +38,8 @@ public interface IServerGame : IGame
 	public ServerAttack Attack(GameCard attacker, GameCard defender, ServerPlayer instigator, IStackable? stackSrc, bool manual = false);
 
 	public void AddCard(ServerGameCard card);
+
+	public Task StartGame();
 }
 
 public class ServerGame : IServerGame
@@ -66,9 +68,7 @@ public class ServerGame : IServerGame
 	public bool DebugMode => _debugMode();
 
 	private readonly Func<bool> _shouldSuppressTriggers;
-	public bool ShouldSuppressTriggers => _shouldSuppressTriggers();
-
-
+	public bool ShouldSuppressTriggers => _shouldSuppressTriggers() || !GameHasStarted;
 
 	//Dictionary of cards, and the forwardings to make that convenient
 	private readonly Dictionary<int, ServerGameCard> cardsByID = new();
