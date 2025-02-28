@@ -13,6 +13,9 @@ namespace Kompas.Effects.Models;
 [DataContract]
 public abstract class ContextInitializeableBase : IContextInitializeable
 {
+	/// <summary>
+	/// Used for things like ignoring specific default restrictions by name instead of type
+	/// </summary>
 	public string name;
 
 	protected bool Initialized { get; private set; }
