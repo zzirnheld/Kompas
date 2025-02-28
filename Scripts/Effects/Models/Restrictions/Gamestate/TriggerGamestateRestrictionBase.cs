@@ -11,6 +11,7 @@ namespace Kompas.Effects.Models.Restrictions.Gamestate;
 /// </summary>
 public abstract class TriggerGamestateRestrictionBase : ContextInitializeableBase, IGamestateRestriction, ITriggerRestriction
 {
+	// Trigger per [thing] restrictions aren't TriggerGamestateRestrictions, they're derived from TriggerRestrictionBase
 	public int? MaxUsesPerTurn => null;
 	public int? MaxUsesPerStack => null;
 	public int? MaxUsesPerRound => null;

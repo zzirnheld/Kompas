@@ -10,6 +10,10 @@ namespace Kompas.Effects.Models.Restrictions.Spaces;
 
 public class MovementRestriction : DualRestrictionBase<Space>, IMovementRestriction
 {
+	/// <summary>
+	/// Defines the thing that should be deducted from
+	/// <see cref="Kompas.Cards.Models.IGameCardInfo.SpacesCanMove">the spaces a card can move each turn</see> 
+	/// </summary>
 	public class MovementCost : ContextInitializeableBase
 	{
 		public IGamestateRestriction condition = new Restrictions.Gamestate.AlwaysValid();
@@ -83,11 +87,13 @@ public class MovementRestriction : DualRestrictionBase<Space>, IMovementRestrict
 			//Only characters can move, normally
 			yield return new Gamestate.CardFitsRestriction()
 			{
+				name = "OnlyCharactersCanMove",
 				card = new Identities.Cards.ThisCardNow(),
 				cardRestriction = new Cards.Character()
 			};
 			yield return new CompareDistance()
 			{
+				name = "AffordShortestEmptyPathWithSpacesCanMove",
 				//If you can move through cards, you just care about the taxicab distance.
 				//Most cards have to move through an empty path
 				shortestEmptyPath = !moveThroughCards,
