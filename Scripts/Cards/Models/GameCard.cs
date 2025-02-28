@@ -216,7 +216,7 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 
 		Logger.Log($"Finished setting up info for card {CardName}");
 
-		EffTextChanged += (_, _) => UpdateBBCodeEffectText();
+		EffectInformationChanged += (_, _) => UpdateBBCodeEffectText();
 	}
 
 	protected void UpdateBBCodeEffectText()

@@ -65,7 +65,7 @@ public class ClientGameCard : GameCard
 
 	private ClientGameCard(SerializableCard serializedCard, int id, ClientGame game,
 		IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar)
-		: base (serializedCard, id, owningPlayer, game.CardRepository)
+		: base(serializedCard, id, owningPlayer, game.CardRepository)
 	{
 		//TODO: game should add card after creating it
 		//owner.Game.AddCard(this);
@@ -88,7 +88,11 @@ public class ClientGameCard : GameCard
 		ClientGameCard ret = new(serializedCard, id, game, owningPlayer, effects, cardController, isAvatar);
 
 		cardController.Card = ret;
-		foreach (var (index, eff) in effects.Enumerate()) eff.SetInfo(ret, game, index, owningPlayer);
+		foreach (var (index, eff) in effects.Enumerate())
+		{
+			eff.SetInfo(ret, game, index, owningPlayer);
+			eff.EffectInformationChanged += (_, _) => ret.RefreshEffectInformation();
+		}
 		game.AddCard(ret);
 
 		ret.UpdateBBCodeEffectText();

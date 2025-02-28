@@ -43,18 +43,21 @@ public class ServerGameCard : GameCard
 		}
 	}
 
-	public override int SpacesMoved {
+	public override int SpacesMoved
+	{
 		get => base.SpacesMoved;
-		set {
+		set
+		{
 			bool changed = SpacesMoved != value;
 			base.SpacesMoved = value;
 			if (changed) ServerNotifier.NotifySpacesMoved(ControllingPlayer, this);
 		}
 	}
 
-	public override int AttacksThisTurn {
+	public override int AttacksThisTurn
+	{
 		get => base.AttacksThisTurn;
-		set 
+		set
 		{
 			bool changed = AttacksThisTurn != value;
 			base.AttacksThisTurn = value;
@@ -106,8 +109,11 @@ public class ServerGameCard : GameCard
 			game, cardController, effects, isAvatar);
 
 		foreach (var (index, eff) in effects.Enumerate())
+		{
 			eff.SetInfo(ret, game, index);
-			
+			eff.EffectInformationChanged += (_, _) => ret.RefreshEffectInformation();
+		}
+
 		ret.UpdateBBCodeEffectText();
 
 		return ret;
@@ -355,7 +361,7 @@ public class ServerGameCard : GameCard
 			EffectsController.TriggerFor(contexts);
 		}
 		else base.SetNegated(negated, stackSrc);
-		
+
 		//Notify of value being set to, even if it won't actually change whether the card is negated or not
 		//so that the client can know how many negations a card has
 		if (changed) ServerNotifier.NotifySetNegated(ControllingPlayer, this, negated);
@@ -375,7 +381,7 @@ public class ServerGameCard : GameCard
 			EffectsController.TriggerFor(contexts);
 		}
 		else base.SetActivated(activated, stackSrc);
-		
+
 		if (changed) ServerNotifier.NotifyActivate(ControllingPlayer, this, activated);
 	}
 	#endregion stats

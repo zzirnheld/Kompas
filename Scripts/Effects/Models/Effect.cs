@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
@@ -18,6 +19,8 @@ public interface IEffect : IStackable
 	public int TimesUsedThisTurn { get; }
 	public int TimesUsedThisRound { get; }
 	public int TimesUsedThisStack { get; set; }
+
+	public event EventHandler<IEffect>? EffectInformationChanged;
 
 	public bool Negated { get; set; }
 	public int X { get; set; }
@@ -87,16 +90,16 @@ public abstract class Effect : IEffect
 	/// <summary>
 	/// X value for card effect text (not coordinates)
 	/// </summary>
-	public int X  
+	public int X
 	{
-		get => CurrentResolutionContext?.X 
+		get => CurrentResolutionContext?.X
 			?? throw new EffectNotResolvingException(this);
 		set
 		{
 			_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
 			CurrentResolutionContext.X = value;
 		}
-	} 
+	}
 
 	//Triggering and Activating
 	public abstract Trigger? Trigger { get; }
@@ -108,12 +111,40 @@ public abstract class Effect : IEffect
 	//Misc effect info
 	public string? blurb;
 	public int arg; //used for keyword arguments, and such
+	private int _timesUsedThisTurn;
+	private int _timesUsedThisRound;
+	private int _timesUsedThisStack;
+	public event EventHandler<IEffect>? EffectInformationChanged;
 
 	public abstract IResolutionContext? CurrentResolutionContext { get; }
 	public IEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
-	public int TimesUsedThisTurn { get; protected set; }
-	public int TimesUsedThisRound { get; protected set; }
-	public int TimesUsedThisStack { get; set; }
+	public int TimesUsedThisTurn
+	{
+		get => _timesUsedThisTurn;
+		protected set
+		{
+			_timesUsedThisTurn = value;
+			EffectInformationChanged?.Invoke(this, this);
+		}
+	}
+	public int TimesUsedThisRound
+	{
+		get => _timesUsedThisRound;
+		protected set
+		{
+			_timesUsedThisRound = value;
+			EffectInformationChanged?.Invoke(this, this);
+		}
+	}
+	public int TimesUsedThisStack
+	{
+		get => _timesUsedThisStack;
+		set
+		{
+			_timesUsedThisStack = value;
+			EffectInformationChanged?.Invoke(this, this);
+		}
+	}
 
 	public virtual bool Negated { get; set; }
 
@@ -158,7 +189,8 @@ public abstract class Effect : IEffect
 	public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 
 
-	public virtual void AddTarget(GameCard card) {
+	public virtual void AddTarget(GameCard card)
+	{
 		CardTargets.Add(card);
 	}
 	public virtual void RemoveTarget(GameCard card) => CardTargets.Remove(card);

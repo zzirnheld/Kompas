@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Godot;
 using Kompas.Cards.Loading;
+using Kompas.Effects.Models;
 
 namespace Kompas.Cards.Models;
 
@@ -94,7 +95,7 @@ public abstract class CardBase : IComparable
 	public string CardName { get; private set; } = string.Empty;
 	public string SubtypeText { get; private set; } = string.Empty;
 
-	protected event EventHandler<string>? EffTextChanged;
+	protected event EventHandler<string>? EffectInformationChanged;
 	private string _effText = string.Empty;
 	public string EffText
 	{
@@ -102,7 +103,7 @@ public abstract class CardBase : IComparable
 		set
 		{
 			_effText = value;
-			EffTextChanged?.Invoke(this, value);
+			RefreshEffectInformation();
 		}
 	}
 	public virtual string BBCodeEffText => EffText;
@@ -214,6 +215,11 @@ public abstract class CardBase : IComparable
 	protected virtual void SetStats(CardStats cardStats)
 	{
 		(N, E, S, W, C, A) = cardStats;
+	}
+
+	protected void RefreshEffectInformation()
+	{
+		EffectInformationChanged?.Invoke(this, EffText);
 	}
 
 	public override string ToString()
