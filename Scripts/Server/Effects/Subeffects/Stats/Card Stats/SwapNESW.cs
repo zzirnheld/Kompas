@@ -19,8 +19,8 @@ public class SwapNESW : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var target1 = Effect.GetTarget(targetIndices[0]);
-		var target2 = Effect.GetTarget(targetIndices[1]);
+		var target1 = Effect.GetCardTarget(targetIndices[0]);
+		var target2 = Effect.GetCardTarget(targetIndices[1]);
 		if (target1 == null)
 			throw new NullCardException(TargetWasNull);
 		else if (forbidNotBoard && target1.Location != Location.Board)

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Restrictions.Cards;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;

@@ -12,6 +12,7 @@ using Kompas.Gamestate.Locations;
 using Kompas.Server.Networking;
 using Newtonsoft.Json;
 using System;
+using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 

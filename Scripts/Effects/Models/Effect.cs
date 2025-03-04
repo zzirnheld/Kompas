@@ -183,7 +183,7 @@ public abstract class Effect : IEffect
 	public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 		=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
 
-	public GameCard? GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
+	public GameCard? GetCardTarget(int num) => EffectHelper.GetItem(CardTargets, num);
 	public Space? GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
 	public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 

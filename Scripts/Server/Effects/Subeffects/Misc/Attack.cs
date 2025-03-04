@@ -11,7 +11,7 @@ public class Attack : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var attacker = Effect.GetTarget(attackerIndex);
+		var attacker = Effect.GetCardTarget(attackerIndex);
 		var defender = CardTarget;
 		if (attacker == null)
 			throw new NullCardException("Attacker was null");

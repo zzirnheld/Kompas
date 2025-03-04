@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Client.Networking;
 using Kompas.Effects.Models.TriggeringEvent;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
@@ -42,7 +43,7 @@ public interface IResolutionContext
 	/// so we wrap a IEventContext that simply says a player did it normally.
 	/// </summary>
 	public static IResolutionContext PlayerAction(IPlayer agent)
-		=> NotResolving(new TriggeringEvent.EventContext() {Player = agent});
+		=> NotResolving(new TriggeringEvent.EventContext() { Player = agent });
 
 	/// <summary>
 	/// Information describing the event that triggered this effect to occur, if any such event happened. (If it's player-triggered, this is null.) 
@@ -59,7 +60,7 @@ public interface IResolutionContext
 	public IStackable? DelayedStackableTarget { get; }
 	public int X { get; set; }
 	public List<IPlayer> playerTargets { get; }
-	public List<GameCard> rest { get;}
+	public List<GameCard> rest { get; }
 
 	public bool CanDeclineTarget { get; set; }
 
@@ -84,8 +85,8 @@ public interface IResolutionContext
 		public Space DelayedSpaceTarget => throw new System.NotImplementedException(NotImplementedMessage);
 		public IList<IStackable> StackableTargets => throw new System.NotImplementedException(NotImplementedMessage);
 		public IStackable DelayedStackableTarget => throw new System.NotImplementedException(NotImplementedMessage);
-        public List<IPlayer> playerTargets => throw new System.NotImplementedException(NotImplementedMessage);
-        public List<GameCard> rest => throw new System.NotImplementedException(NotImplementedMessage);
+		public List<IPlayer> playerTargets => throw new System.NotImplementedException(NotImplementedMessage);
+		public List<GameCard> rest => throw new System.NotImplementedException(NotImplementedMessage);
 
 		public int X
 		{
@@ -97,15 +98,42 @@ public interface IResolutionContext
 
 		public bool CanResolve => false;
 
-        public bool CanDeclineTarget
+		public bool CanDeclineTarget
 		{
 			get => throw new System.NotImplementedException(NotImplementedMessage);
 			set => throw new System.NotImplementedException(NotImplementedMessage);
 		}
 
-        public DummyResolutionContext(IEventContext? triggerContext)
+		public DummyResolutionContext(IEventContext? triggerContext)
 		{
 			TriggerContext = triggerContext;
 		}
 	}
+}
+
+public static class ResolutionContextExtensions
+{
+	public static GameCard? GetCardTarget(this IResolutionContext context, TargetingContext targetingContext)
+	{
+		var index = targetingContext?.cardTargetIndex;
+
+		return index is null
+			? null
+			: GetCardTarget(context, index.Value);
+	}
+
+	public static GameCard? GetCardTarget(this IResolutionContext context, int index)
+		=> EffectHelper.GetItem(context.CardTargets, index);
+
+	public static IPlayer? GetPlayerTarget(this IResolutionContext context, TargetingContext targetingContext)
+	{
+		var index = targetingContext?.cardTargetIndex;
+
+		return index is null
+			? null
+			: GetPlayerTarget(context, index.Value);
+	}
+
+	public static IPlayer? GetPlayerTarget(this IResolutionContext context, int index)
+		=> EffectHelper.GetItem(context.playerTargets, index);
 }

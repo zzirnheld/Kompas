@@ -1,4 +1,5 @@
 ﻿using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using System.Threading.Tasks;
@@ -24,8 +25,8 @@ public class PayStats : ServerSubeffect
 
 	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
 	{
-		var card = GetCardTarget(overrideContext);
-		return CardTarget == null || CardTarget.N < N || CardTarget.E < E || CardTarget.S < S || CardTarget.W < W;
+		var card = context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext));
+		return card == null || card.N < N || card.E < E || card.S < S || card.W < W;
 	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)

@@ -1,4 +1,5 @@
 using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 public class Show : ServerSubeffect
 {
 	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
-		=> GetCardTarget(overrideContext) == null;
+		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null;
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{

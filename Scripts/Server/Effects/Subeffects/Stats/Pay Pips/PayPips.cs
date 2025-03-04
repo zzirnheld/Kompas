@@ -2,14 +2,18 @@
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Numbers;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class PayPips : ServerSubeffect
 {
-	public override bool IsImpossible(IResolutionContext context, TargetingContext? targetingContext = null)
-		=> GetPlayerTarget(targetingContext)?.Pips < GetToPay(context);
+    public override bool IsImpossible(IResolutionContext context, TargetingContext? targetingContext = null)
+    {
+		var player = context.GetPlayerTarget(targetingContext.OrElse(CurrTargetingContext));
+        return player is not null && player.Pips < GetToPay(context);
+    }
 
     private int GetToPay(IResolutionContext context)
     {

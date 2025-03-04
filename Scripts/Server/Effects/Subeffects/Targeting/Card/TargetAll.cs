@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 

@@ -9,6 +9,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Identities.Numbers;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Newtonsoft.Json;
+using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 

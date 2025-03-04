@@ -4,15 +4,16 @@ using System.Threading.Tasks;
 using Kompas.Gamestate.Locations;
 using Kompas.Cards.Movement;
 using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Swap : ServerSubeffect
 {
 	public int SecondTargetIndex = -2;
-	public GameCard SecondTarget => Effect.GetTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
+	public GameCard SecondTarget => Effect.GetCardTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
 	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
-		=> GetCardTarget(overrideContext) == null || SecondTarget == null;
+		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null || SecondTarget == null;
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{

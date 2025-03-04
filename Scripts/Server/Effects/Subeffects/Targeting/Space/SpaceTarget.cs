@@ -9,6 +9,7 @@ using Kompas.Effects.Models.Restrictions.Spaces;
 using Kompas.Server.Networking;
 using Newtonsoft.Json;
 using Kompas.Shared.Enumerable;
+using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 

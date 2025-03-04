@@ -33,15 +33,6 @@ public abstract class Subeffect
 	public const string TooMuchEForHeal = "Target already has at least their printed E";
 	#endregion reasons for impossible
 
-	public class TargetingContext
-	{
-		public int? cardTargetIndex;
-		public int? spaceTargetIndex;
-		public int? cardInfoTargetIndex;
-		public int? playerTargetIndex;
-		public int? stackableTargetIndex;
-	}
-
 	public TargetingContext CurrTargetingContext => new()
 	{
 		cardTargetIndex = targetIndex,
@@ -142,7 +133,7 @@ public abstract class Subeffect
 	public int Count => (Effect.X * xMultiplier / xDivisor) + xModifier;
 	#endregion effect x
 
-	public GameCard CardTarget => Effect.GetTarget(targetIndex)
+	public GameCard CardTarget => Effect.GetCardTarget(targetIndex)
 		?? throw new NullCardException(TargetWasNull);
 	public Space SpaceTarget => Effect.GetSpace(spaceIndex)
 		?? throw new NullSpaceException(TargetWasNull);
@@ -151,44 +142,23 @@ public abstract class Subeffect
 		?? throw new NullPlayerException(TargetWasNull);
 	public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
-	//TODO migrate onto ServerEffectResolution
-	public GameCard? GetCardTarget(TargetingContext? overrideContext = null)
-	{
-		int num = overrideContext.OrElse(CurrTargetingContext).cardTargetIndex
-			?? throw new System.InvalidOperationException("No card target index to grab card target for!");
-		return Effect.GetTarget(num);
-	}
-
-	public Space? GetSpaceTarget(TargetingContext? overrideContext = null)
-	{
-		int index = overrideContext.OrElse(CurrTargetingContext).spaceTargetIndex
-			?? throw new System.InvalidOperationException("No space target index to grab space target for!");
-		return Effect.GetSpace(index);
-	}
-
-	public IPlayer? GetPlayerTarget(TargetingContext? overrideContext = null)
-	{
-		var index = overrideContext.OrElse(CurrTargetingContext).playerTargetIndex
-			?? throw new System.InvalidOperationException("No player target index to grab player target for!");
-		return Effect.GetPlayer(index);
-	}
-	public IStackable GetStackableTarget(TargetingContext? overrideContext = null)
-	{
-		var index = overrideContext.OrElse(CurrTargetingContext).stackableTargetIndex
-			?? throw new System.InvalidOperationException("No stackable target index to grab stackable target for!");
-		return EffectHelper.GetItem(Effect.StackableTargets, index)
-			?? throw new System.InvalidOperationException("No stackable target at index");
-	}
-
 	public int JumpIndex => EffectHelper.GetItem(jumpIndices
 		?? throw new System.InvalidOperationException("No jump indices, but a subeffect needed one!"),
 		jumpIndicesIndex);
 }
 
+public class TargetingContext
+{
+	public int? cardTargetIndex;
+	public int? spaceTargetIndex;
+	public int? cardInfoTargetIndex;
+	public int? playerTargetIndex;
+	public int? stackableTargetIndex;
+}
 public static class TargetingContextExtensions
 {
-	public static Subeffect.TargetingContext OrElse
-		(this Subeffect.TargetingContext? context, Subeffect.TargetingContext? other) => new()
+	public static TargetingContext OrElse
+		(this TargetingContext? context, TargetingContext? other) => new()
 	{
 		cardTargetIndex = context?.cardTargetIndex ?? other?.cardTargetIndex,
 		spaceTargetIndex = context?.spaceTargetIndex ?? other?.spaceTargetIndex,
