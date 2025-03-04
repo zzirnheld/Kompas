@@ -42,7 +42,7 @@ public class ServerResolutionContext : ResolutionContext, IServerResolutionConte
 		IEnumerable<IGameCardInfo> cardInfoTargets,
 		IEnumerable<Space> spaceTargets, Space? delayedSpaceTarget,
 		IEnumerable<IStackable> stackableTargets, IStackable? delayedStackableTarget)
-		: base (triggerContext,
+		: base(triggerContext,
 		startIndex,
 		cardTargets, delayedCardTarget,
 		cardInfoTargets,

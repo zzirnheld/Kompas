@@ -3,6 +3,7 @@ using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models;
 
@@ -19,6 +20,8 @@ public class ResolutionContext : IResolutionContext
 	public Space? DelayedSpaceTarget { get; }
 	public IList<IStackable> StackableTargets { get; }
 	public IStackable? DelayedStackableTarget { get; }
+	public List<IPlayer> playerTargets { get; } = new();
+	public List<GameCard> rest { get; } = new();
 
     public bool CanDeclineTarget { get; set; }
 

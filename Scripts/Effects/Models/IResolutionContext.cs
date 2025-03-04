@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
+using Kompas.Client.Networking;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
@@ -57,6 +58,8 @@ public interface IResolutionContext
 	public IList<IStackable> StackableTargets { get; }
 	public IStackable? DelayedStackableTarget { get; }
 	public int X { get; set; }
+	public List<IPlayer> playerTargets { get; }
+	public List<GameCard> rest { get;}
 
 	public bool CanDeclineTarget { get; set; }
 
@@ -81,13 +84,24 @@ public interface IResolutionContext
 		public Space DelayedSpaceTarget => throw new System.NotImplementedException(NotImplementedMessage);
 		public IList<IStackable> StackableTargets => throw new System.NotImplementedException(NotImplementedMessage);
 		public IStackable DelayedStackableTarget => throw new System.NotImplementedException(NotImplementedMessage);
-		public int X { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public List<IPlayer> playerTargets => throw new System.NotImplementedException(NotImplementedMessage);
+        public List<GameCard> rest => throw new System.NotImplementedException(NotImplementedMessage);
+
+		public int X
+		{
+			get => throw new System.NotImplementedException(NotImplementedMessage);
+			set => throw new System.NotImplementedException(NotImplementedMessage);
+		}
 
 		public IResolutionContext Copy => new DummyResolutionContext(TriggerContext);
 
 		public bool CanResolve => false;
 
-        public bool CanDeclineTarget { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public bool CanDeclineTarget
+		{
+			get => throw new System.NotImplementedException(NotImplementedMessage);
+			set => throw new System.NotImplementedException(NotImplementedMessage);
+		}
 
         public DummyResolutionContext(IEventContext? triggerContext)
 		{

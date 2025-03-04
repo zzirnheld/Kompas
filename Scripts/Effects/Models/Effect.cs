@@ -13,6 +13,8 @@ namespace Kompas.Effects.Models;
 
 public interface IEffect : IStackable
 {
+	public IGame Game { get; }
+
 	public ITriggerRestriction? TriggerRestriction { get; }
 	public IActivationRestriction? ActivationRestriction { get; }
 
@@ -78,12 +80,12 @@ public abstract class Effect : IEffect
 		?? throw new EffectNotResolvingException(this);
 	public IList<IStackable> StackableTargets => CurrentResolutionContext?.StackableTargets
 		?? throw new EffectNotResolvingException(this);
+	public IList<IPlayer> playerTargets => CurrentResolutionContext?.playerTargets
+		?? throw new EffectNotResolvingException(this);
 
 	protected readonly List<CardLink> cardLinks = new();
 
 	//we don't care about informing players of the contents of these. yet. but we might later
-	public readonly List<IPlayer> playerTargets = new();
-	public readonly List<GameCard> rest = new();
 
 	public IdentityOverrides identityOverrides = new();
 

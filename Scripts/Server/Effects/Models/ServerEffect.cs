@@ -22,6 +22,8 @@ namespace Kompas.Server.Effects.Models;
 
 public interface IServerEffect : IEffect, IServerStackable
 {
+	public ServerSubeffect[] ServerSubeffects { get; }
+
 	public void SetInfo(ServerGameCard card, IServerGame game, int index);
 
 	public bool CanBeActivatedBy(IPlayer player);
@@ -31,8 +33,6 @@ public interface IServerEffect : IEffect, IServerStackable
 
 public class ServerEffect : Effect, IServerEffect
 {
-	public const string EffectWasNegated = "Effect was negated";
-
 	private IServerGame? _serverGame;
 	public IServerGame ServerGame => _serverGame
 		?? throw new NotInitializedException();
@@ -52,6 +52,7 @@ public class ServerEffect : Effect, IServerEffect
 	public override IResolutionContext? CurrentResolutionContext => CurrentServerResolutionContext;
 
 	public ServerSubeffect[] subeffects = Array.Empty<ServerSubeffect>();
+	public ServerSubeffect[] ServerSubeffects => subeffects;
 	public override Subeffect[] Subeffects => subeffects;
 	public ServerTrigger? ServerTrigger { get; private set; }
 	public override Trigger? Trigger => ServerTrigger;
@@ -136,131 +137,6 @@ public class ServerEffect : Effect, IServerEffect
 		_serverGame = game;
 		ServerNotifier.NotifyEffectActivated(controller, this);
 	}
-	
-	//TODO: move resolution logic to resolution context?
-
-	#region resolution
-	public async Task StartResolution(IServerResolutionContext context)
-	{
-		Logger.Log($"Resolving effect {EffectIndex} of {Card.CardName} in context {context}");
-
-		//set context parameters
-		CurrentServerResolutionContext = context;
-		//Notify the targets one by one so the client knows that they're current targets
-		if (context.CardTargets != null) foreach (var tgt in context.CardTargets) NotifyAddCardTarget(tgt);
-
-		playerTargets.Add(context.ControllingPlayer);
-		if (context.TriggerContext?.StackableCause != null) StackableTargets.Add(context.TriggerContext.StackableCause);
-
-		//notify relevant to this effect starting
-		ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);
-		ServerNotifier.EffectResolving(context.ControllingPlayer, this);
-
-		//resolve the effect if possible
-		if (Negated) await EffectImpossible(EffectWasNegated);
-		else await Resolve(context.StartIndex);
-
-		//after all subeffects have finished, clean up
-		FinishResolution();
-
-		//then return. server effects controller will interpret returning as effect being done.
-	}
-
-	private async Task Resolve(int index)
-	{
-		//get first result
-		ResolutionInfo result = await ResolveSubeffect(index);
-
-		//then, so long as we should keep going, resolve subeffects
-		bool resolve = true;
-		while (resolve)
-		{
-			switch (result.result)
-			{
-				case ResolutionResult.Next:
-					index++;
-					if (index < subeffects.Length) result = await ResolveSubeffect(index);
-					else resolve = false; //stop if next subeffect index is out of bounds
-					break;
-				case ResolutionResult.Index:
-					index = result.index;
-					if (index < subeffects.Length) result = await ResolveSubeffect(index);
-					else resolve = false; //stop if that subeffect index is out of bounds
-					break;
-				case ResolutionResult.Impossible:
-					Logger.Log($"Effect of {Card?.CardName} was impossible at index {index} because {result.reason}. Going to OnImpossible if applicable");
-					result = await EffectImpossible(result.reason);
-					break;
-				case ResolutionResult.End:
-					//TODO send to player why resolution ended (including "[cardname] effect finished resolving")
-					Logger.Log($"Finished resolution of effect of {Card?.CardName} because {result.reason}");
-					resolve = false;
-					break;
-				default:
-					throw new System.ArgumentException($"Invalid resolution result {result.result}");
-			}
-		}
-	}
-
-	public async Task<ResolutionInfo> ResolveSubeffect(int index)
-	{
-		if (index >= subeffects.Length)
-		{
-			return ResolutionInfo.Impossible("Subeffect index out of bounds.");
-		}
-		Logger.Log($"Resolving subeffect of type {subeffects[index].GetType()}");
-		SubeffectIndex = index;
-		ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);
-		try
-		{
-			return await subeffects[index].Resolve();
-		}
-		catch (KompasException e)
-		{
-			Logger.Warn($"Caught {e.GetType()} while resolving {subeffects[index].GetType()} at {index}." +
-				$"\nStack trace:\n{e.StackTrace}");
-			return ResolutionInfo.Impossible(e.Message);
-		}
-	}
-
-	/// <summary>
-	/// If the effect finishes resolving, this method is called.
-	/// </summary>
-	private void FinishResolution()
-	{
-		SubeffectIndex = 0;
-		_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
-
-		CurrentServerResolutionContext = null;
-
-		ServerNotifier.NotifyBothPutBack(Game.Players);
-		foreach (var p in Game.Players) ServerNotifier.DisableDecliningTarget(p);
-	}
-
-	/// <summary>
-	/// Cancels resolution of the effect, 
-	/// or, if there is something pending if the effect becomes impossible, resolves that
-	/// </summary>
-	public async Task<ResolutionInfo> EffectImpossible(string why)
-	{
-		_ = CurrentServerResolutionContext ?? throw new EffectNotResolvingException(this);
-
-		Logger.Log($"Effect of {Card.CardName} is being declared impossible at subeffect {subeffects[SubeffectIndex].GetType()} because {why}");
-		if (CurrentServerResolutionContext.OnImpossible == null)
-		{
-			//TODO make the notifier tell the client why the effect was impossible
-			ServerNotifier.EffectImpossible(Game.Players);
-			foreach (var p in Game.Players) ServerNotifier.DisableDecliningTarget(p);
-
-			return ResolutionInfo.End(ResolutionInfo.EndedBecauseImpossible);
-		}
-		else
-		{
-			SubeffectIndex = CurrentServerResolutionContext.OnImpossible.SubeffIndex;
-			return await CurrentServerResolutionContext.OnImpossible.OnImpossible(why);
-		}
-	}
-	#endregion resolution
 
 	public override void AddTarget(GameCard card) => AddTarget(card);
 
@@ -309,4 +185,9 @@ public class ServerEffect : Effect, IServerEffect
 	}
 
 	public override string ToString() => $"Effect {EffectIndex} of {_card?.CardName}";
+
+	public async Task StartResolution(IServerResolutionContext context)
+	{
+		await new ServerEffectResolution(this, context).StartResolution();
+    }
 }
