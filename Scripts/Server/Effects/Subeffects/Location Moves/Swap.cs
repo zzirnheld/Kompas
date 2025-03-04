@@ -11,9 +11,13 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 public class Swap : ServerSubeffect
 {
 	public int SecondTargetIndex = -2;
-	public GameCard SecondTarget => Effect.GetCardTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
-	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
-		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null || SecondTarget == null;
+    public GameCard GetSecondTarget(IResolutionContext context)
+    {
+        return context.GetCardTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
+    }
+
+    public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null || GetSecondTarget(context) == null;
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
@@ -25,14 +29,15 @@ public class Swap : ServerSubeffect
 		if (firstTarget.Position == null)
 			throw new NullSpaceOnBoardException(firstTarget);
 
-		if (SecondTarget == null)
+		var secondTarget = GetSecondTarget(resolution.Context);
+		if (secondTarget == null)
 			throw new NullCardException(TargetWasNull);
-		if (SecondTarget.Location != Location.Board)
-			throw new InvalidLocationException(SecondTarget.Location, SecondTarget, MovedCardOffBoard);
-		if (SecondTarget.Position == null)
-			throw new NullSpaceOnBoardException(SecondTarget);
+		if (secondTarget.Location != Location.Board)
+			throw new InvalidLocationException(secondTarget.Location, secondTarget, MovedCardOffBoard);
+		if (secondTarget.Position == null)
+			throw new NullSpaceOnBoardException(secondTarget);
 
-        firstTarget.Move(SecondTarget.Position, false, GetPlayerTarget(resolution.Context), ServerEffect,
+        firstTarget.Move(secondTarget.Position, false, GetPlayerTarget(resolution.Context), ServerEffect,
 			Kompas.Gamestate.Space.ShortestPathBetween(firstTarget.Position, GetSpaceTarget(resolution.Context), 
 				space => firstTarget.MovementRestriction.IsValid(space, resolution.Context)));
 		return Task.FromResult(ResolutionInfo.Next);

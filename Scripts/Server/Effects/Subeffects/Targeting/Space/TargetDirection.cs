@@ -9,7 +9,7 @@ public class TargetDirection : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var secondarySpace = Effect.GetSpace(secondarySpaceIndex);
+		var secondarySpace = resolution.Context.GetSpaceTarget(secondarySpaceIndex);
 
 		if (GetSpaceTarget(resolution.Context) == null || secondarySpace == null)
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidSpaceTarget));

@@ -1,4 +1,5 @@
-﻿using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Effects.Models;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Gamestate.Players;
 using System;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ public class Attack : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var attacker = Effect.GetCardTarget(attackerIndex);
+		var attacker = resolution.Context.GetCardTarget(attackerIndex);
 		var defender = GetCardTarget(resolution.Context);
 		if (attacker == null)
 			throw new NullCardException("Attacker was null");

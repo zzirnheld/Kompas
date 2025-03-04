@@ -26,7 +26,7 @@ public class SwapStat : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var secondTarget = Effect.GetCardTarget(secondTargetIndex);
+		var secondTarget = resolution.Context.GetCardTarget(secondTargetIndex);
 		if (GetCardTarget(resolution.Context) == null)
 			throw new NullCardException(TargetWasNull);
 		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
