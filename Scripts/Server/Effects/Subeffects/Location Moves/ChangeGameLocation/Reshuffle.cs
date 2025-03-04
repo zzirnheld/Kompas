@@ -12,5 +12,6 @@ public class Reshuffle : ChangeGameLocation
 		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null;
 	protected override Location Destination => Location.Deck;
 
-	protected override void ChangeLocation(GameCard card) => card.Reshuffle(card.OwningPlayer, Effect);
+	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)
+		=> card.Reshuffle(card.OwningPlayer, Effect);
 }

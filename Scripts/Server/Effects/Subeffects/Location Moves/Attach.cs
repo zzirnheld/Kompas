@@ -17,7 +17,7 @@ public class Attach : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var toAttach = CardTarget;
+		var toAttach = GetCardTarget(resolution.Context);
 		var attachTo = Effect.GetCardTarget(targetToAttachTo);
 
 		//if everything goes to plan, resolve the next subeffect

@@ -35,7 +35,7 @@ public class ResummonAll : ServerSubeffect
 			var contexts = IEventContext.Build(Trigger.Play)
 				.PrimarilyAffecting(c)
 				.CausedBy(Effect)
-				.ForPlayer(PlayerTarget)
+				.ForPlayer(GetPlayerTarget(resolution.Context))
 				.At(c.Position)
 				.Capture(() => { },
 					ctxt => ctxt,

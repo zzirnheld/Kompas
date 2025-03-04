@@ -13,12 +13,12 @@ public class Damage : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null)
+		if (GetCardTarget(resolution.Context) == null)
 			throw new NullCardException(TargetWasNull);
-		else if (forbidNotBoard && CardTarget.Location != Location.Board)
-			throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
+		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
+			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
 
-		CardTarget.TakeDamage(Count, Effect);
+        GetCardTarget(resolution.Context).TakeDamage(Count, Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

@@ -31,18 +31,18 @@ public class PayStats : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null)
+		if (GetCardTarget(resolution.Context) == null)
 			throw new NullCardException(TargetWasNull);
-		else if (forbidNotBoard && CardTarget.Location != Location.Board)
-			throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
+		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
+			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
 
-		if (CardTarget.N < N ||
-			CardTarget.E < E ||
-			CardTarget.S < S ||
-			CardTarget.W < W)
+		if (GetCardTarget(resolution.Context).N < N ||
+            GetCardTarget(resolution.Context).E < E ||
+            GetCardTarget(resolution.Context).S < S ||
+            GetCardTarget(resolution.Context).W < W)
 			return Task.FromResult(ResolutionInfo.Impossible(CantAffordStats));
 
-		CardTarget.AddToCharStats(-1 * N, -1 * E, -1 * S, -1 * W, Effect);
+        GetCardTarget(resolution.Context).AddToCharStats(-1 * N, -1 * E, -1 * S, -1 * W, Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

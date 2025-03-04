@@ -15,9 +15,9 @@ public class Show : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null) throw new NullCardException(TargetWasNull);
+		if (GetCardTarget(resolution.Context) == null) throw new NullCardException(TargetWasNull);
 
-		try { CardTarget.Reveal(Effect); }
+		try { GetCardTarget(resolution.Context).Reveal(Effect); }
 		catch (AlreadyKnownException) { }
 
 		return Task.FromResult(ResolutionInfo.Next);

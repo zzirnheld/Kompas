@@ -17,12 +17,13 @@ public class Swap : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null)
+		var firstTarget = GetCardTarget(resolution.Context);
+		if (firstTarget == null)
 			throw new NullCardException(TargetWasNull);
-		if (forbidNotBoard && CardTarget.Location != Location.Board)
-			throw new InvalidLocationException(CardTarget.Location, CardTarget, MovedCardOffBoard);
-		if (CardTarget.Position == null)
-			throw new NullSpaceOnBoardException(CardTarget);
+		if (forbidNotBoard && firstTarget.Location != Location.Board)
+			throw new InvalidLocationException(firstTarget.Location, firstTarget, MovedCardOffBoard);
+		if (firstTarget.Position == null)
+			throw new NullSpaceOnBoardException(firstTarget);
 
 		if (SecondTarget == null)
 			throw new NullCardException(TargetWasNull);
@@ -31,9 +32,9 @@ public class Swap : ServerSubeffect
 		if (SecondTarget.Position == null)
 			throw new NullSpaceOnBoardException(SecondTarget);
 
-		CardTarget.Move(SecondTarget.Position, false, PlayerTarget, ServerEffect,
-			Kompas.Gamestate.Space.ShortestPathBetween(CardTarget.Position, SpaceTarget, 
-				space => CardTarget.MovementRestriction.IsValid(space, resolution.Context)));
+        firstTarget.Move(SecondTarget.Position, false, GetPlayerTarget(resolution.Context), ServerEffect,
+			Kompas.Gamestate.Space.ShortestPathBetween(firstTarget.Position, GetSpaceTarget(resolution.Context), 
+				space => firstTarget.MovementRestriction.IsValid(space, resolution.Context)));
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

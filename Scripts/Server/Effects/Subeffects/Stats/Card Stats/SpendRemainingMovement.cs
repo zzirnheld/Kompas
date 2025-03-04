@@ -11,7 +11,7 @@ public class SpendRemainingMovement : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var card = CardTarget ?? throw new NullCardException(TargetWasNull);
+		var card = GetCardTarget(resolution.Context) ?? throw new NullCardException(TargetWasNull);
 		int toSpend = (card.SpacesCanMove * mult / div) + mod;
 		if (toSpend <= 0 || card.SpacesCanMove < toSpend) return Task.FromResult(ResolutionInfo.Impossible(CantAffordStats));
 

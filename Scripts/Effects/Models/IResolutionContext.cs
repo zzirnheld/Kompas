@@ -125,6 +125,9 @@ public static class ResolutionContextExtensions
 	public static GameCard? GetCardTarget(this IResolutionContext context, int index)
 		=> EffectHelper.GetItem(context.CardTargets, index);
 
+	public static Space? GetSpaceTarget(this IResolutionContext context, int index)
+		=> EffectHelper.GetItem(context.SpaceTargets, index);
+
 	public static IPlayer? GetPlayerTarget(this IResolutionContext context, TargetingContext targetingContext)
 	{
 		var index = targetingContext?.cardTargetIndex;

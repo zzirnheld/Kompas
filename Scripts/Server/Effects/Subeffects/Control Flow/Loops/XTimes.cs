@@ -12,9 +12,9 @@ public class XTimes : Loop
         return count < ServerEffect.X;
     }
 
-    protected override void OnLoopExit()
+    protected override void OnLoopExit(IServerResolutionContext context)
 	{
-		base.OnLoopExit();
+		base.OnLoopExit(context);
 		count = 0;
 	}
 

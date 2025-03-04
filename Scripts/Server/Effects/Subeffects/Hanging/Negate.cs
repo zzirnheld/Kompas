@@ -13,7 +13,7 @@ public class Negate : HangingEffectSubeffect
 	{
 		var tempNegation = new NegationEffect(end: End, fallOff: FallOff,
 			source: ServerEffect, currentContext: context,
-			target: CardTarget, negated: negated);
+			target: GetCardTarget(context), negated: negated);
 		return new List<HangingEffect>() { tempNegation };
 	}
 

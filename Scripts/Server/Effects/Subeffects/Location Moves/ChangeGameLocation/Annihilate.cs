@@ -8,5 +8,6 @@ public class Annihilate : ChangeGameLocation
 {
 	protected override Location Destination => Location.Annihilation;
 
-	protected override void ChangeLocation(GameCard card) => card.Annihilate(Effect);
+	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)
+		=> card.Annihilate(Effect);
 }

@@ -11,14 +11,14 @@ public class Resummon : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var target = CardTarget ?? throw new NullCardException(TargetWasNull);
+		var target = GetCardTarget(resolution.Context) ?? throw new NullCardException(TargetWasNull);
 		if (forbidNotBoard && target.Location != Location.Board)
 			throw new InvalidLocationException(target.Location, target, "Target not on board :(");
 
 		var contexts = IEventContext.Build(Trigger.Play)
 			.PrimarilyAffecting(target)
 			.CausedBy(Effect)
-			.ForPlayer(PlayerTarget)
+			.ForPlayer(GetPlayerTarget(resolution.Context))
 			.At(target.Position)
 			.Capture(() => { },
 				ctxt => ctxt,

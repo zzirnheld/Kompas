@@ -6,7 +6,7 @@ public class ShuffleDeck : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		PlayerTarget.Deck.Shuffle();
+        GetPlayerTarget(resolution.Context).Deck.Shuffle();
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

@@ -7,7 +7,7 @@ public class TargetEnemy : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var player = PlayerTarget ?? throw new NullPlayerException("No player to get the enemy of");
+		var player = GetPlayerTarget(resolution.Context) ?? throw new NullPlayerException("No player to get the enemy of");
 		Effect.playerTargets.Add(player.Enemy);
 		return Task.FromResult(ResolutionInfo.Next);
 	}

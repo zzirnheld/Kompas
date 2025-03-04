@@ -6,7 +6,7 @@ public class AddPips : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		PlayerTarget.Pips += Count;
+        GetPlayerTarget(resolution.Context).Pips += Count;
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

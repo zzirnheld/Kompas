@@ -31,8 +31,8 @@ public class PayPips : ServerSubeffect
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		int toPay = GetToPay(resolution.Context);
-		var player = PlayerTarget
-			?? throw new NullPlayerException(TargetWasNull);
+		var player = GetPlayerTarget(resolution.Context)
+            ?? throw new NullPlayerException(TargetWasNull);
 		if (player.Pips < toPay) return Task.FromResult(ResolutionInfo.Impossible(CantAffordPips));
 
 		player.Pips -= toPay;

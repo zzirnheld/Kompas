@@ -16,11 +16,11 @@ public class ChooseOption : ServerSubeffect
 	[JsonProperty]
 	public bool showX = false;
 
-	private async Task<int> AskForOptionChoice()
+	private async Task<int> AskForOptionChoice(IServerResolutionContext context)
 	{
-		var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+		var player = GetPlayerTarget(context) ?? throw new NullPlayerException(TargetWasNull);
 		return await ServerGame.Awaiter
-			.GetEffectOption(PlayerTarget,
+			.GetEffectOption(player,
 							cardName: Effect.Card.CardName,
 							choiceBlurb: choiceBlurb,
 							optionBlurbs: optionBlurbs,
@@ -35,7 +35,7 @@ public class ChooseOption : ServerSubeffect
 		_ = jumpIndices ?? throw new IllDefinedException();
 		while (choice < 0 || choice >= jumpIndices.Length)
 		{
-			choice = await AskForOptionChoice();
+			choice = await AskForOptionChoice(resolution.Context);
 		}
 
 		return ResolutionInfo.Index(jumpIndices[choice]);

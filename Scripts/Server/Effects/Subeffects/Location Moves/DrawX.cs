@@ -12,7 +12,7 @@ public class DrawX : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var drawn = ServerGame.DrawX(PlayerTarget, ToDraw, Effect);
+		var drawn = ServerGame.DrawX(GetPlayerTarget(resolution.Context), ToDraw, Effect);
 		if (addAsTarget) foreach (var card in drawn) resolution.AddTarget(card);
 
 		if (drawn.Count < ToDraw) return Task.FromResult(ResolutionInfo.Impossible(CouldntDrawAllX));

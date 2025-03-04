@@ -8,7 +8,7 @@ public class DisableDecliningTarget : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+		var player = GetPlayerTarget(resolution.Context) ?? throw new NullPlayerException(TargetWasNull);
 		ServerNotifier.DisableDecliningTarget(player);
 		resolution.Context.CanDeclineTarget = false;
 

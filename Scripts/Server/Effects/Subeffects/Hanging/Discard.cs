@@ -12,7 +12,7 @@ public class Discard : HangingEffectSubeffect
 	{
 		var eff = new DiscardEffect(end: End, fallOff: FallOff,
 			sourceEff: ServerEffect, resolutionContext: context,
-			target: CardTarget);
+			target: GetCardTarget(context));
 		return new List<HangingEffect>() { eff };
 	}
 

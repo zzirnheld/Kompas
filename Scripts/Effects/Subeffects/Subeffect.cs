@@ -131,18 +131,39 @@ public abstract class Subeffect
 	/// If the effect uses X, this is the adjusted value of X
 	/// </summary>
 	public int Count => (Effect.X * xMultiplier / xDivisor) + xModifier;
-	#endregion effect x
+    #endregion effect x
 
-	public GameCard CardTarget => Effect.GetCardTarget(targetIndex)
-		?? throw new NullCardException(TargetWasNull);
-	public Space SpaceTarget => Effect.GetSpace(spaceIndex)
-		?? throw new NullSpaceException(TargetWasNull);
-	public IGameCardInfo? CardInfoTarget => EffectHelper.GetItem(Effect.CardInfoTargets, cardInfoIndex);
-	public IPlayer PlayerTarget => Effect.GetPlayer(playerIndex)
-		?? throw new NullPlayerException(TargetWasNull);
-	public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
+    public GameCard GetCardTarget(IResolutionContext context)
+    {
+        return context.GetCardTarget(targetIndex)
+        	?? throw new NullCardException(TargetWasNull);
+    }
 
-	public int JumpIndex => EffectHelper.GetItem(jumpIndices
+    public Space GetSpaceTarget(IResolutionContext context)
+    {
+        return context.GetSpaceTarget(spaceIndex)
+        	?? throw new NullSpaceException(TargetWasNull);
+    }
+
+    public IGameCardInfo GetCardInfoTarget(IResolutionContext context)
+    {
+		return EffectHelper.GetItem(context.CardInfoTargets, cardInfoIndex)
+			?? throw new NullCardException(TargetWasNull);
+    }
+
+    public IPlayer GetPlayerTarget(IResolutionContext context)
+    {
+        return context.GetPlayerTarget(playerIndex)
+        	?? throw new NullPlayerException(TargetWasNull);
+    }
+
+    public IStackable GetStackableTarget(IResolutionContext context)
+    {
+		return EffectHelper.GetItem(context.StackableTargets, stackableIndex)
+			?? throw new NullPlayerException(TargetWasNull);
+    }
+
+    public int JumpIndex => EffectHelper.GetItem(jumpIndices
 		?? throw new System.InvalidOperationException("No jump indices, but a subeffect needed one!"),
 		jumpIndicesIndex);
 }

@@ -19,7 +19,7 @@ public class TargetTriggeringCardsSpace : ServerSubeffect
 		if (!cardInfo.Position.IsValid) throw new InvalidSpaceException(cardInfo.Position, NoValidSpaceTarget);
 
 		resolution.AddSpace(cardInfo.Position.Copy);
-		Logger.Log($"Just added {SpaceTarget} from {cardInfo}");
+		Logger.Log($"Just added {GetSpaceTarget(resolution.Context)} from {cardInfo}");
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

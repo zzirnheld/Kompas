@@ -14,7 +14,7 @@ public class ResetStats : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var card = CardTarget ?? throw new NullCardException(TargetWasNull);
+		var card = GetCardTarget(resolution.Context) ?? throw new NullCardException(TargetWasNull);
 		if (resetN) card.SetN(card.BaseN, Effect);
 		if (resetE) card.SetE(card.BaseE, Effect);
 		if (resetS) card.SetS(card.BaseS, Effect);

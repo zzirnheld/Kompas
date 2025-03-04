@@ -11,11 +11,11 @@ public class TargetDirection : ServerSubeffect
 	{
 		var secondarySpace = Effect.GetSpace(secondarySpaceIndex);
 
-		if (SpaceTarget == null || secondarySpace == null)
+		if (GetSpaceTarget(resolution.Context) == null || secondarySpace == null)
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidSpaceTarget));
 
-		var displacement = secondarySpace.DirectionFromThisTo(SpaceTarget);
-		Logger.Log($"Displacement from {secondarySpace} to {SpaceTarget} is {displacement}");
+		var displacement = secondarySpace.DirectionFromThisTo(GetSpaceTarget(resolution.Context));
+		Logger.Log($"Displacement from {secondarySpace} to {GetSpaceTarget(resolution.Context)} is {displacement}");
 
 		resolution.AddSpace(displacement);
 		return Task.FromResult(ResolutionInfo.Next);

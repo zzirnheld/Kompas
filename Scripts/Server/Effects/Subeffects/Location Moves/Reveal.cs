@@ -14,9 +14,9 @@ public class Reveal : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null) throw new NullCardException(TargetWasNull);
+		if (GetCardTarget(resolution.Context) == null) throw new NullCardException(TargetWasNull);
 
-		CardTarget.Reveal(Effect);
+        GetCardTarget(resolution.Context).Reveal(Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

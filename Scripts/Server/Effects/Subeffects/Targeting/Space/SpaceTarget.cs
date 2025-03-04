@@ -32,10 +32,11 @@ public class SpaceTarget : ServerSubeffect
 
     public IEnumerable<Space> GetValidSpaces(IResolutionContext context)
     {
+		var player = GetPlayerTarget(context);
         return Space.Spaces
-            .Where(s => spaceRestriction.IsValid(s, context))
-            .Select(s => PlayerTarget?.SubjectiveCoords(s))
-            .NonNull();
+			.Where(s => spaceRestriction.IsValid(s, context))
+			.Select(s => player?.SubjectiveCoords(s))
+			.NonNull();
     }
 
     public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
@@ -66,7 +67,7 @@ public class SpaceTarget : ServerSubeffect
 		var spaces = GetValidSpaces(resolution.Context).ToArray();
 		var recommendedSpaces = ForPlay
 			? spaces
-				.Where(s => CardTarget?.PlayRestriction.IsRecommendedPlay((s, PlayerTarget), resolution.Context)
+				.Where(s => GetCardTarget(resolution.Context)?.PlayRestriction.IsRecommendedPlay((s, GetPlayerTarget(resolution.Context)), resolution.Context)
 					?? false)
 				.ToArray()
 			: spaces;
@@ -74,14 +75,14 @@ public class SpaceTarget : ServerSubeffect
 		{
 			Logger.Err($"Recommending 0 spaces! What? The spaces we were gonna allow were {spaces} while {resolution.Context}");
 		}
-		_ = PlayerTarget ?? throw new System.InvalidOperationException("Deleted a player target!?");
+		_ = GetPlayerTarget(resolution.Context) ?? throw new System.InvalidOperationException("Deleted a player target!?");
 		if (spaces.Length > 0)
 		{
 			var space = Space.Invalid;
 			while (!SetTargetIfValid(space, resolution))
 			{
 				space = await ServerGame.Awaiter.GetSpaceTarget
-					(PlayerTarget, Effect.Card?.CardName ?? string.Empty, blurb ?? string.Empty, spaces, recommendedSpaces);
+					(GetPlayerTarget(resolution.Context), Effect.Card?.CardName ?? string.Empty, blurb ?? string.Empty, spaces, recommendedSpaces);
 				if (space == Space.Invalid && resolution.Context.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
 			}
 			return ResolutionInfo.Next;
@@ -100,8 +101,8 @@ public class SpaceTarget : ServerSubeffect
 		{
 			Logger.Log($"Adding {space} as coords");
 			resolution.AddSpace(space);
-			_ = PlayerTarget ?? throw new System.InvalidOperationException("Deleted a player target!?");
-			ServerNotifier.AcceptTarget(PlayerTarget);
+			_ = GetPlayerTarget(resolution.Context) ?? throw new System.InvalidOperationException("Deleted a player target!?");
+			ServerNotifier.AcceptTarget(GetPlayerTarget(resolution.Context));
 			return true;
 		}
 		//else Logger.Err($"{x}, {y} not valid for restriction {spaceRestriction}");

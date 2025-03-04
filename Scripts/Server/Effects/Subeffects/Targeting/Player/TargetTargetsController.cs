@@ -7,8 +7,8 @@ public class TargetTargetsController : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null) throw new NullCardException(TargetWasNull);
-		Effect.playerTargets.Add(CardTarget.ControllingPlayer);
+		if (GetCardTarget(resolution.Context) == null) throw new NullCardException(TargetWasNull);
+		Effect.playerTargets.Add(GetCardTarget(resolution.Context).ControllingPlayer);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

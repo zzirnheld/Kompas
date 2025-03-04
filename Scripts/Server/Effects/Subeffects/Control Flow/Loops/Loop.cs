@@ -8,12 +8,12 @@ public class Loop : ServerSubeffect
 {
 	public bool canDecline = false;
 
-	protected virtual void OnLoopExit()
+	protected virtual void OnLoopExit(IServerResolutionContext context)
 	{
 		//make the "no other targets" button disappear
 		if (canDecline)
 		{
-			var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+			var player = GetPlayerTarget(context) ?? throw new NullPlayerException(TargetWasNull);
 			//TODO - do this for both players? in case loop contained something setting target. or maybe store the player that's in a can decline loop?
 			ServerNotifier.DisableDecliningTarget(player);
 			ServerNotifier.AcceptTarget(player); // otherwise it keeps them in the now-irrelevant target mode
@@ -35,7 +35,7 @@ public class Loop : ServerSubeffect
 			//tell the client to enable the button to exit the loop
 			if (canDecline)
 			{
-				var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+				var player = GetPlayerTarget(resolution.Context) ?? throw new NullPlayerException(TargetWasNull);
 				ServerNotifier.EnableDecliningTarget(player);
 				var currentResolution = ServerEffect.CurrentServerResolutionContext
 					?? throw new EffectNotResolvingException(ServerEffect);
@@ -59,7 +59,7 @@ public class Loop : ServerSubeffect
 		context.CanDeclineTarget = false;
 
 		//do anything necessary to clean up the loop
-		OnLoopExit();
+		OnLoopExit(context);
 
 		//then skip to after the loop (exitloop will sometimes be called while the effect is waiting on a target,
 		//on a subeffect that isn't this one. resolvenext won't work in that situation.

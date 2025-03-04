@@ -11,7 +11,7 @@ public class Activation : HangingEffectSubeffect
 	{
 		var tempActivation = new ActivationEffect(end: End, fallOff: FallOff,
 			sourceEff: ServerEffect, resolutionContext: context,
-			target: CardTarget, source: this);
+			target: GetCardTarget(context), source: this);
 		return new List<HangingEffect>() { tempActivation };
 	}
 	

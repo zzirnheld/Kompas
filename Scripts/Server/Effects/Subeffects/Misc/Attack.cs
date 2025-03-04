@@ -12,14 +12,14 @@ public class Attack : ServerSubeffect
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var attacker = Effect.GetCardTarget(attackerIndex);
-		var defender = CardTarget;
+		var defender = GetCardTarget(resolution.Context);
 		if (attacker == null)
 			throw new NullCardException("Attacker was null");
 		else if (defender == null)
 			throw new NullCardException("Defender was null");
 
 		var atk = ServerGame.Attack(attacker, defender,
-			instigator: PlayerTarget as ServerPlayer ?? throw new InvalidOperationException(),
+			instigator: GetPlayerTarget(resolution.Context) as ServerPlayer ?? throw new InvalidOperationException(),
 			stackSrc: Effect);
 		Effect.StackableTargets.Add(atk);
 		return Task.FromResult(ResolutionInfo.Next);

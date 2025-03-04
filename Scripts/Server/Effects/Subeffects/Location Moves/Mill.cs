@@ -9,7 +9,7 @@ public class Mill : ServerSubeffect
 	{
 		for (int i = 0; i < Count; i++)
 		{
-			var card = PlayerTarget.Deck.Topdeck;
+			var card = GetPlayerTarget(resolution.Context).Deck.Topdeck;
 			if (card == null) return Task.FromResult(ResolutionInfo.Impossible(CouldntMillAllX));
 			resolution.AddTarget(card);
 			card.Discard(ServerEffect);

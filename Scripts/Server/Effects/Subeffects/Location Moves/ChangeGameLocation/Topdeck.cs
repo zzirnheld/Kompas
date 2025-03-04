@@ -12,5 +12,6 @@ public class Topdeck : ChangeGameLocation
 		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null;
 	protected override Location Destination => Location.Deck;
 
-	protected override void ChangeLocation(GameCard card) => card.Topdeck(card.OwningPlayer, Effect);
+	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)
+		=> card.Topdeck(card.OwningPlayer, Effect);
 }

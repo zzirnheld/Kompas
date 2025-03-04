@@ -23,11 +23,12 @@ public abstract class ChangeGameLocation : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null) throw new NullCardException(TargetWasNull);
+        GameCard target = GetCardTarget(resolution.Context)
+			?? throw new NullCardException(TargetWasNull);
 
-		ChangeLocation(CardTarget);
+        ChangeLocation(target, resolution.Context);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 
-	protected abstract void ChangeLocation(GameCard card);
+	protected abstract void ChangeLocation(GameCard card, IServerResolutionContext context);
 }

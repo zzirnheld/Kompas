@@ -121,7 +121,7 @@ public class CardTarget : ServerSubeffect
 		Logger.Log($"Potential targets {string.Join(", ", targetIds)}");
 		listRestriction.PrepareForSending(context);
 
-		var player = PlayerTarget ?? throw new InvalidOperationException("Tried to send targets to noone!");
+		var player = GetPlayerTarget(context) ?? throw new InvalidOperationException("Tried to send targets to noone!");
 		return await ServerGame.Awaiter.GetCardListTargets(player, name, blurb, targetIds, listRestriction);
 	}
 
@@ -137,7 +137,7 @@ public class CardTarget : ServerSubeffect
 
 		//add all cards in the chosen list to targets
 		AddList(choices, resolution);
-		ServerNotifier.AcceptTarget(PlayerTarget ?? throw new InvalidOperationException("Accepted no one's target!?"));
+		ServerNotifier.AcceptTarget(GetPlayerTarget(resolution.Context) ?? throw new InvalidOperationException("Accepted no one's target!?"));
 		return true;
 	}
 
@@ -156,8 +156,8 @@ public class CardTarget : ServerSubeffect
 		var cardToLinkWith = toLinkWith?.From(resolution.Context, resolution.Context)?.Card;
 		foreach (var c in choices)
 		{
-			resolution.AddTarget(c, secretTarget ? PlayerTarget : null);
-			if (cardToLinkWith != null) ServerEffect.CreateCardLink(linkColor, secretTarget ? PlayerTarget : null, c, cardToLinkWith);
+			resolution.AddTarget(c, secretTarget ? GetPlayerTarget(resolution.Context) : null);
+			if (cardToLinkWith != null) ServerEffect.CreateCardLink(linkColor, secretTarget ? GetPlayerTarget(resolution.Context) : null, c, cardToLinkWith);
 		}
 	}
 }
