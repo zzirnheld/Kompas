@@ -22,14 +22,11 @@ public class LoopWhileHaveTargets : Loop
 		leaveRemainingTargets ??= new Kompas.Effects.Models.Identities.Numbers.Constant() { constant = remainingTargets };
 	}
 
-	protected override bool ShouldContinueLoop
+	protected override bool LoopContinuation(ServerEffectResolution resolution)
 	{
-		get
-		{
-			//if we're deleting and there's something to delete, delete it.
-			if (delete && ServerEffect.CardTargets.Any()) RemoveTarget();
-			//after any delete that might have happened, check if there's still targets
-			return ServerEffect.CardTargets.Count() > leaveRemainingTargets.From(ResolutionContext);
-		}
+		//if we're deleting and there's something to delete, delete it.
+		if (delete && ServerEffect.CardTargets.Any()) resolution.RemoveTarget(CardTarget);
+		//after any delete that might have happened, check if there's still targets
+		return resolution.Context.CardTargets.Count > leaveRemainingTargets.From(resolution.Context);
 	}
 }

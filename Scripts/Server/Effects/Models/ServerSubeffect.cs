@@ -39,19 +39,19 @@ public abstract class ServerSubeffect : Subeffect
 	/// Server Subeffect resolve method. Does whatever this type of subeffect does
 	/// <returns>A ResolutionInfo object describing what to do next</returns>
 	/// </summary>
-	public abstract Task<ResolutionInfo> Resolve();
+	public abstract Task<ResolutionInfo> Resolve(ServerEffectResolution resolution);
 
 	/// <summary>
 	/// Whether this subeffect will be considered EffectImpossible at this point
 	/// </summary>
 	/// <returns></returns>
-	public virtual bool IsImpossible(TargetingContext? overrideContext = null) => true;
+	public virtual bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null) => true;
 
 	/// <summary>
 	/// Optional method. If implemented, does something when the effect is declared impossible.
 	/// Default implementation just finishes resolution of the effect
 	/// </summary>
-	public virtual Task<ResolutionInfo> OnImpossible(string why)
+	public virtual Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
 	{
 		var currentResolution = ServerEffect.CurrentServerResolutionContext
 			?? throw new EffectNotResolvingException(ServerEffect);

@@ -138,26 +138,6 @@ public class ServerEffect : Effect, IServerEffect
 		ServerNotifier.NotifyEffectActivated(controller, this);
 	}
 
-	public override void AddTarget(GameCard card) => AddTarget(card);
-
-	public void AddTarget(GameCard card, IPlayer? onlyOneToKnow = null)
-	{
-		base.AddTarget(card);
-		NotifyAddCardTarget(card, onlyOneToKnow);
-	}
-
-	private void NotifyAddCardTarget(GameCard card, IPlayer? onlyOneToKnow = null)
-	{
-		if (onlyOneToKnow != null) ServerNotifier.AddHiddenTarget(onlyOneToKnow, Card, EffectIndex, card);
-		else ServerNotifier.AddTarget(Card, EffectIndex, card, Game.Players);
-	}
-
-	public override void RemoveTarget(GameCard card)
-	{
-		base.RemoveTarget(card);
-		ServerNotifier.RemoveTarget(Card, EffectIndex, card, Game.Players);
-	}
-
 	public void CreateCardLink(Color linkColor, IPlayer? onlyPlayerToKnow = null, params GameCard[] cards)
 	{
 		GameCard[] validCards = cards.Where(c => c != null).ToArray();

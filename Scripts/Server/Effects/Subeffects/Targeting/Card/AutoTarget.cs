@@ -9,7 +9,6 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Identities.Numbers;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Newtonsoft.Json;
-using System;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
@@ -42,8 +41,8 @@ public class AutoTarget : ServerSubeffect
 		cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 	}
 
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
-		=> !Game.Cards.Any(c => cardRestriction.IsValid(c, ResolutionContext));
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+		=> !Game.Cards.Any(c => cardRestriction.IsValid(c, context));
 
 	private static GameCard GetRandomCard(GameCard[] cards)
 	{
@@ -51,16 +50,16 @@ public class AutoTarget : ServerSubeffect
 		return cards[random.Next(cards.Length)];
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		GameCard? potentialTarget = null;
 		IEnumerable<GameCard>? potentialTargets = null;
 		try
 		{
-			var gameCardInfos = toSearch.From(ResolutionContext, ResolutionContext)
-				?? throw new InvalidOperationException();
+			var gameCardInfos = toSearch.From(resolution.Context, resolution.Context)
+				?? throw new System.InvalidOperationException();
 			potentialTargets = gameCardInfos
-				.Where(c => cardRestriction.IsValid(c, ResolutionContext))
+				.Where(c => cardRestriction.IsValid(c, resolution.Context))
 				.Select(c => c.Card);
 			potentialTarget = tiebreakerDirection switch
 			{
@@ -77,13 +76,13 @@ public class AutoTarget : ServerSubeffect
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 		}
 
-		ServerEffect.AddTarget(potentialTarget);
+		resolution.AddTarget(potentialTarget);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 
 	private GameCard GetMaximum(IEnumerable<GameCard> potentialTargets)
 	{
-		_ = tiebreakerValue ?? throw new InvalidOperationException();
+		_ = tiebreakerValue ?? throw new System.InvalidOperationException();
 		return potentialTargets
 			.OrderByDescending(tiebreakerValue.GetValueOf)
 			.First();

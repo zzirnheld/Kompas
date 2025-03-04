@@ -1,14 +1,15 @@
-﻿using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Effects.Models;
+using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Reveal : ServerSubeffect
 {
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
 		=> GetCardTarget(overrideContext)?.KnownToEnemy != false; //account for null prop
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		if (CardTarget == null) throw new NullCardException(TargetWasNull);
 

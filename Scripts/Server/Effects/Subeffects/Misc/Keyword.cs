@@ -31,5 +31,5 @@ public class Keyword : ServerSubeffect
 	//TODO maybe later it should stash any existing targets/rest, or clear it out?
 	//I think it'd be more useful to have access to what targets the partial keyword did use,
 	//for things like "Mech Pilot, and"
-	public override Task<ResolutionInfo> Resolve() => Task.FromResult(ResolutionInfo.Next);
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution) => Task.FromResult(ResolutionInfo.Next);
 }

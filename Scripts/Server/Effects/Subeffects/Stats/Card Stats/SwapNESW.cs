@@ -17,7 +17,7 @@ public class SwapNESW : ServerSubeffect
 	public bool swapS = false;
 	public bool swapW = false;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var target1 = Effect.GetTarget(targetIndices[0]);
 		var target2 = Effect.GetTarget(targetIndices[1]);

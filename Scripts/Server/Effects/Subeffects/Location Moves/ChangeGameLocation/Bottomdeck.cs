@@ -1,12 +1,13 @@
 ﻿using Kompas.Cards.Models;
 using Kompas.Cards.Movement;
+using Kompas.Effects.Models;
 using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Bottomdeck : ChangeGameLocation
 {
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
 		=> GetCardTarget(overrideContext) == null;
 	protected override Location Destination => Location.Deck;
 

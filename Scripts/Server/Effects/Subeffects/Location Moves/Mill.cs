@@ -5,13 +5,13 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Mill : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		for (int i = 0; i < Count; i++)
 		{
 			var card = PlayerTarget.Deck.Topdeck;
 			if (card == null) return Task.FromResult(ResolutionInfo.Impossible(CouldntMillAllX));
-			ServerEffect.AddTarget(card);
+			resolution.AddTarget(card);
 			card.Discard(ServerEffect);
 		}
 

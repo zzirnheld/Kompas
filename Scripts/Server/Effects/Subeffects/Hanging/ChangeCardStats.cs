@@ -42,17 +42,17 @@ public class ChangeCardStats : HangingEffectSubeffect
 		}
 	}
 
-	protected override IEnumerable<HangingEffect> CreateHangingEffects()
+	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		if (CardTarget == null)
 			throw new NullCardException(TargetWasNull);
 		else if (forbidNotBoard && CardTarget.Location != Location.Board)
 			throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
 
-		Logger.Log($"Creating temp NESW buff effect during context {ResolutionContext}");
+		Logger.Log($"Creating temp NESW buff effect during context {context}");
 
 		var temp = new ChangeCardStatsEffect(end: End, fallOff: FallOff,
-			sourceEff: ServerEffect, currentContext: ResolutionContext,
+			sourceEff: ServerEffect, currentContext: context,
 			buffRecipient: CardTarget, buff: Buff);
 
 		return new List<HangingEffect>() { temp };

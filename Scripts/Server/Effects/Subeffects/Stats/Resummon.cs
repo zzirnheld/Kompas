@@ -9,7 +9,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Resummon : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var target = CardTarget ?? throw new NullCardException(TargetWasNull);
 		if (forbidNotBoard && target.Location != Location.Board)

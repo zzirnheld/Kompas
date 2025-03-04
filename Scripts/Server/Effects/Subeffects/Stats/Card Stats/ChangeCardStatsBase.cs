@@ -33,12 +33,12 @@ public abstract class ChangeCardStatsBase : ServerSubeffect
 	public IIdentity<int>? spacesMoved;
 	public IIdentity<int>? duration;
 
-	protected IEnumerable<GameCard> CardsToAffect
-		=> cards.From(ResolutionContext)
-				?.Select(c => c.Card)
-				?? throw new InvalidOperationException();
+    protected IEnumerable<GameCard> GetCardsToAffect(IServerResolutionContext context)
+		=> cards.From(context)
+			?.Select(c => c.Card)
+			?? throw new InvalidOperationException();
 
-	public override void Initialize(ServerEffect eff, int subeffIndex)
+    public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
 		base.Initialize(eff, subeffIndex);
 

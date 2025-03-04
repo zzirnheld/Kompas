@@ -7,7 +7,7 @@ public class TargetDisplacement : ServerSubeffect
 {
 	public int secondarySpaceIndex = -2;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var secondarySpace = Effect.GetSpace(secondarySpaceIndex);
 
@@ -17,7 +17,7 @@ public class TargetDisplacement : ServerSubeffect
 		var displacement = secondarySpace.DisplacementTo(SpaceTarget);
 		Logger.Log($"Displacement from {secondarySpace} to {SpaceTarget} is {displacement}");
 
-		Effect.AddSpace(displacement);
+		resolution.AddSpace(displacement);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

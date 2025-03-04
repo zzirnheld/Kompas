@@ -15,6 +15,6 @@ public class SpaceRestrictionWillBeValid : CardRestrictionBase
 	{
 		_ = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
 		return InitializationContext.effect.Subeffects[subeffectIndex] is SpaceTarget spaceTgtSubeff
-				&& spaceTgtSubeff.WillBePossibleIfCardTargeted(theoreticalTarget: card?.Card);
+				&& spaceTgtSubeff.WillBePossibleIfCardTargeted(context: context, theoreticalTarget: card?.Card);
 	}
 }

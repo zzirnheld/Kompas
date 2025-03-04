@@ -9,7 +9,7 @@ public class Attack : ServerSubeffect
 {
 	public int attackerIndex = -2;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var attacker = Effect.GetTarget(attackerIndex);
 		var defender = CardTarget;

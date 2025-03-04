@@ -24,7 +24,7 @@ public class SwapStat : ServerSubeffect
 		secondTargetStat.Initialize(DefaultInitializationContext);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var secondTarget = Effect.GetTarget(secondTargetIndex);
 		if (CardTarget == null)

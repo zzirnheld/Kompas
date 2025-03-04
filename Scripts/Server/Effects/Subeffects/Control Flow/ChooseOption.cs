@@ -29,7 +29,7 @@ public class ChooseOption : ServerSubeffect
 							x: Effect.X);
 	}
 
-	public override async Task<ResolutionInfo> Resolve()
+	public override async Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		int choice = -1;
 		_ = jumpIndices ?? throw new IllDefinedException();

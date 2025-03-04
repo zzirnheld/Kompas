@@ -17,9 +17,9 @@ public class ConditionalJump : ServerSubeffect
 		jumpIfTrue.Initialize(DefaultInitializationContext);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (jumpIfTrue.IsValid(ResolutionContext)) return Task.FromResult(ResolutionInfo.Index(JumpIndex));
+		if (jumpIfTrue.IsValid(resolution.Context)) return Task.FromResult(ResolutionInfo.Index(JumpIndex));
 		else return Task.FromResult(ResolutionInfo.Next);
 	}
 }

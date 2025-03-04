@@ -6,24 +6,21 @@ public class XTimes : Loop
 {
 	private int count = 0;
 
-	protected override bool ShouldContinueLoop
-	{
-		get
-		{
-			count++;
-			return count < ServerEffect.X;
-		}
-	}
+    protected override bool LoopContinuation(ServerEffectResolution resolution)
+    {
+        count++;
+        return count < ServerEffect.X;
+    }
 
-	protected override void OnLoopExit()
+    protected override void OnLoopExit()
 	{
 		base.OnLoopExit();
 		count = 0;
 	}
 
-	public override Task<ResolutionInfo> OnImpossible(string why)
+	public override Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
 	{
 		count = 0;
-		return base.OnImpossible(why);
+		return base.OnImpossible(resolution, why);
 	}
 }

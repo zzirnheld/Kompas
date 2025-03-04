@@ -1,4 +1,5 @@
-﻿using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Effects.Models;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using System.Threading.Tasks;
 
@@ -21,13 +22,13 @@ public class PayStats : ServerSubeffect
 	public int S => sMult * Effect.X + sMod;
 	public int W => wMult * Effect.X + wMod;
 
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
 	{
 		var card = GetCardTarget(overrideContext);
 		return CardTarget == null || CardTarget.N < N || CardTarget.E < E || CardTarget.S < S || CardTarget.W < W;
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		if (CardTarget == null)
 			throw new NullCardException(TargetWasNull);

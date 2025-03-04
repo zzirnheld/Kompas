@@ -19,9 +19,9 @@ public class CanResolve : ServerSubeffect
 	[JsonProperty]
 	public TargetingContext? overrideTargetingContext; //If later necessary, make this an array
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var impossible = Subeffects.FirstOrDefault(s => s.IsImpossible(overrideTargetingContext));
+		var impossible = Subeffects.FirstOrDefault(s => s.IsImpossible(resolution.Context, overrideTargetingContext));
 		if (impossible == default) return Task.FromResult(ResolutionInfo.Next); //nothing was impossible
 		else
 		{

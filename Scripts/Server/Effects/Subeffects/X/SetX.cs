@@ -5,16 +5,18 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class SetX : ServerSubeffect
 {
-	public virtual int BaseCount => Effect.X;
+    public virtual int GetBaseCount(IServerResolutionContext context) => Effect.X;
 
-	public int TrueCount => (BaseCount * xMultiplier / xDivisor) + xModifier + (change ? Effect.X : 0);
+    public int GetTrueCount(IServerResolutionContext context)
+		=> (GetBaseCount(context) * xMultiplier / xDivisor)
+			+ xModifier
+			+ (change ? Effect.X : 0);
 
-	public bool change = false;
+    public bool change = false;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var context = Effect.CurrentResolutionContext ?? throw new EffectNotResolvingException(Effect);
-		context.X = TrueCount;
+		resolution.Context.X = GetTrueCount(resolution.Context);
 		Logger.Log($"Setting X to {Effect.X}");
 		return Task.FromResult(ResolutionInfo.Next);
 	}

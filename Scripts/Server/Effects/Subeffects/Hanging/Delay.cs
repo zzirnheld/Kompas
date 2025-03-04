@@ -19,11 +19,9 @@ public class Delay : HangingEffectSubeffect
 		if (jumpIndices == null) throw new System.InvalidOperationException(nameof(jumpIndices));
 	}
 
-	protected override IEnumerable<HangingEffect> CreateHangingEffects()
+	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
-		Logger.Log($"Is context null? {ResolutionContext == null}");
 		Logger.Log($"Are jump indices null? {jumpIndices == null}");
-		var context = ResolutionContext ?? throw new EffectNotResolvingException(Effect);
 		var controller = ServerEffect.CurrentServerResolutionContext?.ControllingPlayer
 			?? throw new InvalidOperationException();
 		var delay = new DelayEffect(end: End, fallOff: FallOff,

@@ -12,7 +12,7 @@ public class SwapOwnNESW : ServerSubeffect
 	public int Stat1;
 	public int Stat2;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		if (CardTarget == null)
 			throw new NullCardException(TargetWasNull);

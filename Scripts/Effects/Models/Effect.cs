@@ -32,9 +32,6 @@ public interface IEffect : IStackable
 	public Trigger? Trigger { get; }
 
 	public void Reset();
-
-	public void AddTarget(GameCard card);
-	public void RemoveTarget(GameCard card);
 }
 
 public static class EffectExtensions
@@ -191,13 +188,13 @@ public abstract class Effect : IEffect
 	public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
 
 
-	public virtual void AddTarget(GameCard card)
-	{
-		CardTargets.Add(card);
-	}
-	public virtual void RemoveTarget(GameCard card) => CardTargets.Remove(card);
+	// public virtual void AddTarget(GameCard card)
+	// {
+	// 	CardTargets.Add(card);
+	// }
+	// public virtual void RemoveTarget(GameCard card) => CardTargets.Remove(card);
 
-	public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
+	// public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
 
 	public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest)
 	{

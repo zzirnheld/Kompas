@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 /// </summary>
 public class SkipToEffectOnImpossible : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var currentResolution = ServerEffect.CurrentServerResolutionContext
 			?? throw new EffectNotResolvingException(ServerEffect);
@@ -16,7 +16,7 @@ public class SkipToEffectOnImpossible : ServerSubeffect
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 
-	public override Task<ResolutionInfo> OnImpossible(string why)
+	public override Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
 	{
 		//forget about this effect on impossible, and jump to a new one
 		var currentResolution = ServerEffect.CurrentServerResolutionContext

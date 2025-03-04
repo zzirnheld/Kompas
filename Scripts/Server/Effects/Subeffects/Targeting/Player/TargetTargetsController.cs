@@ -5,7 +5,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class TargetTargetsController : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		if (CardTarget == null) throw new NullCardException(TargetWasNull);
 		Effect.playerTargets.Add(CardTarget.ControllingPlayer);

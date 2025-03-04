@@ -3,6 +3,7 @@ using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 using Kompas.Gamestate.Locations;
 using Kompas.Cards.Movement;
+using Kompas.Effects.Models;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
@@ -10,10 +11,10 @@ public class Swap : ServerSubeffect
 {
 	public int SecondTargetIndex = -2;
 	public GameCard SecondTarget => Effect.GetTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
 		=> GetCardTarget(overrideContext) == null || SecondTarget == null;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		if (CardTarget == null)
 			throw new NullCardException(TargetWasNull);
@@ -31,7 +32,7 @@ public class Swap : ServerSubeffect
 
 		CardTarget.Move(SecondTarget.Position, false, PlayerTarget, ServerEffect,
 			Kompas.Gamestate.Space.ShortestPathBetween(CardTarget.Position, SpaceTarget, 
-				space => CardTarget.MovementRestriction.IsValid(space, ResolutionContext)));
+				space => CardTarget.MovementRestriction.IsValid(space, resolution.Context)));
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

@@ -10,7 +10,7 @@ public class TakeControl : ServerSubeffect
 	//TODO abstract this logic into a parent class with other player offset things
 	private IPlayer NewController => Game.Players[(PlayerTarget.Index + ControllerIndexOffset) % Game.Players.Length];
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		CardTarget.ControllingPlayer = NewController;
 		return Task.FromResult(ResolutionInfo.Next);

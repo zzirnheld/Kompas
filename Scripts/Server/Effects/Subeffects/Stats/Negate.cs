@@ -7,7 +7,7 @@ public class Negate : ServerSubeffect
 {
 	public bool negated = true;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var card = CardTarget ?? throw new NullCardException(TargetWasNull);
 		card.SetNegated(negated, ServerEffect);

@@ -4,7 +4,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class TargetTurnPlayer : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		Effect.playerTargets.Add(Game.TurnPlayer);
 		return Task.FromResult(ResolutionInfo.Next);

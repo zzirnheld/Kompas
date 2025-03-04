@@ -11,12 +11,9 @@ public class TTimesSubeffect : Loop
 		count = 0;
 	}
 
-	protected override bool ShouldContinueLoop
-	{
-		get
-		{
-			count++;
-			return count < T;
-		}
-	}
+    protected override bool LoopContinuation(ServerEffectResolution resolution)
+    {
+        count++;
+        return count < T;
+    }
 }

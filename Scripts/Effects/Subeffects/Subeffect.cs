@@ -60,14 +60,14 @@ public abstract class Subeffect
 
 	public int SubeffIndex { get; protected set; }
 
-	public IResolutionContext ResolutionContext
-	{
-		get
-		{
-			_ = Effect ?? throw new System.NullReferenceException("Checked resolution context of the subeffect before its effect was assigned!");
-			return Effect.CurrentResolutionContext ?? throw new NotInitializedException();
-		}
-	}
+	// public IResolutionContext ResolutionContext
+	// {
+	// 	get
+	// 	{
+	// 		_ = Effect ?? throw new System.NullReferenceException("Checked resolution context of the subeffect before its effect was assigned!");
+	// 		return Effect.CurrentResolutionContext ?? throw new NotInitializedException();
+	// 	}
+	// }
 
 	/// <summary>
 	/// Represents the type of subeffect this is
@@ -151,6 +151,7 @@ public abstract class Subeffect
 		?? throw new NullPlayerException(TargetWasNull);
 	public IStackable? StackableTarget => EffectHelper.GetItem(Effect.StackableTargets, stackableIndex);
 
+	//TODO migrate onto ServerEffectResolution
 	public GameCard? GetCardTarget(TargetingContext? overrideContext = null)
 	{
 		int num = overrideContext.OrElse(CurrTargetingContext).cardTargetIndex
@@ -182,13 +183,6 @@ public abstract class Subeffect
 	public int JumpIndex => EffectHelper.GetItem(jumpIndices
 		?? throw new System.InvalidOperationException("No jump indices, but a subeffect needed one!"),
 		jumpIndicesIndex);
-
-	public void RemoveTarget()
-	{
-		if (CardTarget == null) throw new NullCardException(TargetWasNull);
-
-		Effect.RemoveTarget(CardTarget);
-	}
 }
 
 public static class TargetingContextExtensions

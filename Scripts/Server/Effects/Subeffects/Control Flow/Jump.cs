@@ -4,7 +4,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Jump : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		//this will always jump to the given subeffect index
 		return Task.FromResult(ResolutionInfo.Index(JumpIndex));

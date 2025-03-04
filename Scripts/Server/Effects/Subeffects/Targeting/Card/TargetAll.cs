@@ -1,19 +1,20 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Kompas.Effects.Models;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class TargetAll: CardTarget
 {
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
-		=> !DeterminePossibleTargets().Any();
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+		=> !DeterminePossibleTargets(context).Any();
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		//check what targets there are now, before you add them, to not mess with NotAlreadyTarget restriction
 		//because Linq executes lazily, it would otherwise add the targets, then re-execute the query and not find any
-		var targets = DeterminePossibleTargets();
-		foreach (var t in targets) Effect.AddTarget(t);
+		var targets = DeterminePossibleTargets(resolution.Context);
+		foreach (var t in targets) resolution.AddTarget(t);
 
 		if (targets.Any()) return Task.FromResult(ResolutionInfo.Next);
 		else return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));

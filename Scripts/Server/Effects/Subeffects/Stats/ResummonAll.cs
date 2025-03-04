@@ -27,10 +27,10 @@ public class ResummonAll : ServerSubeffect
 		cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		//TODO make a toManyContexts that becomes a wrapper object for an enumerable set of contexts, which can all Capture the same event
-		foreach (var c in Game.Board.Cards.Where(c => cardRestriction.IsValid(c, ResolutionContext)))
+		foreach (var c in Game.Board.Cards.Where(c => cardRestriction.IsValid(c, resolution.Context)))
 		{
 			var contexts = IEventContext.Build(Trigger.Play)
 				.PrimarilyAffecting(c)

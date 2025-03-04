@@ -12,7 +12,7 @@ public class ResetStats : ServerSubeffect
 	public bool resetC = false;
 	public bool resetA = false;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var card = CardTarget ?? throw new NullCardException(TargetWasNull);
 		if (resetN) card.SetN(card.BaseN, Effect);

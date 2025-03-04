@@ -6,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class StashTargetsCardInfo : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		if (CardTarget == null) throw new NullCardException(NoValidCardTarget);
 

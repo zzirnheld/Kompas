@@ -54,28 +54,11 @@ public class ClientEffect : Effect, IClientStackable
 			ClientTrigger = new ClientTrigger(triggerData, this);
 	}
 
-	public override void AddTarget(GameCard card)
-	{
-		base.AddTarget(card);
-		//card.CardController.gameCardViewController.Refresh();
-	}
-
-	public override void RemoveTarget(GameCard card)
-	{
-		base.RemoveTarget(card);
-		//card.CardController.gameCardViewController.Refresh();
-	}
-
 	//TODO eventually make client aware of activation contexts
 	public void IncrementUses()
 	{
 		TimesUsedThisTurn++;
 		TimesUsedThisRound++;
 		TimesUsedThisStack++;
-	}
-
-	public void ResolutionStarted()
-	{
-		CardTargets.Clear();
 	}
 }

@@ -1,7 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models.Restrictions.Cards;
+using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Players;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models;
@@ -10,14 +13,14 @@ public class ServerEffectResolution
 {
 	public const string EffectWasNegated = "Effect was negated";
 
-    public IServerEffect Effect { get; }
+	public IServerEffect Effect { get; }
 	public IServerResolutionContext Context { get; }
-	
+
 	public int SubeffectIndex { get; set; }
 
 	private GameCard Card => Effect.Card ?? throw new NullCardException("effect must be on a card!");
 
-    public ServerEffectResolution(IServerEffect effect, IServerResolutionContext context)
+	public ServerEffectResolution(IServerEffect effect, IServerResolutionContext context)
 	{
 		Effect = effect;
 		Context = context;
@@ -94,7 +97,7 @@ public class ServerEffectResolution
 		ServerNotifier.NotifyEffectX(Card, Effect.EffectIndex, Context.X, Effect.Game.Players);
 		try
 		{
-			return await Effect.ServerSubeffects[index].Resolve();
+			return await Effect.ServerSubeffects[index].Resolve(this);
 		}
 		catch (KompasException e)
 		{
@@ -136,7 +139,27 @@ public class ServerEffectResolution
 		else
 		{
 			SubeffectIndex = Context.OnImpossible.SubeffIndex;
-			return await Context.OnImpossible.OnImpossible(why);
+			return await Context.OnImpossible.OnImpossible(this, why);
 		}
 	}
+
+	public void AddTarget(GameCard target, IPlayer? onlyOneToKnow = null)
+	{
+		Context.CardTargets.Add(target);
+		NotifyAddCardTarget(target, onlyOneToKnow);
+	}
+
+	private void NotifyAddCardTarget(GameCard target, IPlayer? onlyOneToKnow = null)
+	{
+		if (onlyOneToKnow != null) ServerNotifier.AddHiddenTarget(onlyOneToKnow, Card, Effect.EffectIndex, target);
+		else ServerNotifier.AddTarget(Card, Effect.EffectIndex, target, Effect.Game.Players);
+	}
+
+	public void RemoveTarget(GameCard target)
+	{
+		Context.CardTargets.Remove(target);
+		ServerNotifier.RemoveTarget(Card, Effect.EffectIndex, target, Effect.Game.Players);
+	}
+
+	public void AddSpace(Space space) => Context.SpaceTargets.Add(space.Copy);
 }

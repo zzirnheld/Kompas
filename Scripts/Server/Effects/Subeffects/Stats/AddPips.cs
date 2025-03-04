@@ -4,7 +4,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class AddPips : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		PlayerTarget.Pips += Count;
 		return Task.FromResult(ResolutionInfo.Next);
