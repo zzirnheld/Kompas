@@ -56,8 +56,6 @@ public class ServerEffect : Effect, IServerEffect
 	public ServerTrigger? ServerTrigger { get; private set; }
 	public override Trigger? Trigger => ServerTrigger;
 
-	public ServerSubeffect? OnImpossible { get; set; } = null; //TODO move to resolution context
-
 	public override bool Negated
 	{
 		get => base.Negated;
@@ -232,8 +230,8 @@ public class ServerEffect : Effect, IServerEffect
 	{
 		SubeffectIndex = 0;
 		_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
-		
-		OnImpossible = null;
+
+		CurrentServerResolutionContext = null;
 
 		ServerNotifier.NotifyBothPutBack(Game.Players);
 		foreach (var p in Game.Players) ServerNotifier.DisableDecliningTarget(p);
@@ -245,19 +243,21 @@ public class ServerEffect : Effect, IServerEffect
 	/// </summary>
 	public async Task<ResolutionInfo> EffectImpossible(string why)
 	{
+		_ = CurrentServerResolutionContext ?? throw new EffectNotResolvingException(this);
+
 		Logger.Log($"Effect of {Card.CardName} is being declared impossible at subeffect {subeffects[SubeffectIndex].GetType()} because {why}");
-		if (OnImpossible == null)
+		if (CurrentServerResolutionContext.OnImpossible == null)
 		{
 			//TODO make the notifier tell the client why the effect was impossible
 			ServerNotifier.EffectImpossible(Game.Players);
 			foreach (var p in Game.Players) ServerNotifier.DisableDecliningTarget(p);
-			
+
 			return ResolutionInfo.End(ResolutionInfo.EndedBecauseImpossible);
 		}
 		else
 		{
-			SubeffectIndex = OnImpossible.SubeffIndex;
-			return await OnImpossible.OnImpossible(why);
+			SubeffectIndex = CurrentServerResolutionContext.OnImpossible.SubeffIndex;
+			return await CurrentServerResolutionContext.OnImpossible.OnImpossible(why);
 		}
 	}
 	#endregion resolution

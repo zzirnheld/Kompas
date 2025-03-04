@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
@@ -9,7 +10,9 @@ public class ClearOnImpossible : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve()
 	{
-		ServerEffect.OnImpossible = null;
+		var currentResolution = ServerEffect.CurrentServerResolutionContext
+			?? throw new EffectNotResolvingException(ServerEffect);
+		currentResolution.OnImpossible = null;
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

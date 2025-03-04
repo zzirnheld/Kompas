@@ -1,6 +1,7 @@
 using Kompas.Effects.Models;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Gamestate;
 using Kompas.Shared.Exceptions;
 using System.Threading.Tasks;
@@ -46,14 +47,15 @@ public abstract class ServerSubeffect : Subeffect
 	/// <returns></returns>
 	public virtual bool IsImpossible(TargetingContext? overrideContext = null) => true;
 
-
 	/// <summary>
 	/// Optional method. If implemented, does something when the effect is declared impossible.
 	/// Default implementation just finishes resolution of the effect
 	/// </summary>
 	public virtual Task<ResolutionInfo> OnImpossible(string why)
 	{
-		ServerEffect.OnImpossible = null;
+		var currentResolution = ServerEffect.CurrentServerResolutionContext
+			?? throw new EffectNotResolvingException(ServerEffect);
+		currentResolution.OnImpossible = null;
 		return Task.FromResult(ResolutionInfo.Impossible(why));
 	}
 

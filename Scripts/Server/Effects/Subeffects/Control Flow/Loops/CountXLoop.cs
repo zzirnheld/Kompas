@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
@@ -16,7 +17,9 @@ public class CountXLoop : Loop
 			else ServerEffect.X++;
 
 			//let the effect know that if there are no more targets, then call this for loop exit
-			ServerEffect.OnImpossible = this;
+			var currentResolution = ServerEffect.CurrentServerResolutionContext
+				?? throw new EffectNotResolvingException(ServerEffect);
+			currentResolution.OnImpossible = this;
 
 			//always return true, if another iteration is chosen not to happen exit loop will be called
 			return true;

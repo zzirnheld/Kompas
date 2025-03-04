@@ -6,4 +6,5 @@ namespace Kompas.Server.Effects.Models;
 public interface IServerResolutionContext : IResolutionContext
 {
 	public ServerPlayer ControllingPlayer { get; }
+	public ServerSubeffect? OnImpossible { get; set; }
 }

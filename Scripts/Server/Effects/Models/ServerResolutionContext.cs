@@ -12,6 +12,8 @@ public class ServerResolutionContext : ResolutionContext, IServerResolutionConte
 {
 	public ServerPlayer ControllingPlayer { get; init; }
 
+	public ServerSubeffect? OnImpossible { get; set; } = null;
+
 	public static ServerResolutionContext PlayerTrigger(IEffect effect, IGame game, ServerPlayer controllingPlayer)
 		=> new(new EventContext() { StackableEvent = effect }, controllingPlayer);
 
