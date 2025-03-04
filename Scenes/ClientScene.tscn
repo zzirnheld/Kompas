@@ -381,9 +381,10 @@ mesh = SubResource("ArrayMesh_sj04j")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_epxuj")
 
-[node name="Board" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_spacesController")]
+[node name="Board" type="Node3D" parent="Node/3D" node_paths=PackedStringArray("_spacesController", "_targetingController")]
 script = ExtResource("1_l7n64")
 _spacesController = NodePath("Spaces")
+_targetingController = NodePath("../../../Targeting Controller")
 
 [node name="Kompas Board Background" type="CSGMesh3D" parent="Node/3D/Board"]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
@@ -788,195 +789,195 @@ transform = Transform3D(0.115, 0, 0, 0, -0.115, 1.73645e-08, 0, -1.73645e-08, -0
 script = ExtResource("15_tornx")
 
 [node name="Area3D 0 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.0531696, 1.02445e-08, -0.271241)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.0531696, 1.02445e-08, -0.271241)
 script = ExtResource("15_tornx")
 y = 1
 
 [node name="Area3D 0 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.109667, 1.7928e-08, -0.182913)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.109667, 1.7928e-08, -0.182913)
 script = ExtResource("15_tornx")
 y = 2
 
 [node name="Area3D 0 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.184941, 2.44472e-08, -0.109595)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.184941, 2.44472e-08, -0.109595)
 script = ExtResource("15_tornx")
 y = 3
 
 [node name="Area3D 0 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.271405, 2.91038e-08, -0.0548414)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.271405, 2.91038e-08, -0.0548414)
 script = ExtResource("15_tornx")
 y = 4
 
 [node name="Area3D 0 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.115, 0, 0, 0, -0.115, 1.73645e-08, 0, -1.73645e-08, -0.115, 0.41, 0, 0)
+transform = Transform3D(1.15, 0, 0, 0, -1.15, 1.73645e-07, 0, -1.73645e-07, -1.15, 0.41, 0, 0)
 script = ExtResource("15_tornx")
 y = 5
 
 [node name="Area3D 1 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.053, 0, -0.271)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.053, 0, -0.271)
 script = ExtResource("15_tornx")
 x = 1
 
 [node name="Area3D 1 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0, 0, -0.194)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0, 0, -0.194)
 script = ExtResource("15_tornx")
 x = 1
 y = 1
 
 [node name="Area3D 1 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.0567222, 6.0536e-09, -0.124504)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.0567222, 6.0536e-09, -0.124504)
 script = ExtResource("15_tornx")
 x = 1
 y = 2
 
 [node name="Area3D 1 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.125, 0, -0.057)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.125, 0, -0.057)
 script = ExtResource("15_tornx")
 x = 1
 y = 3
 
 [node name="Area3D 1 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.194, 0, 0)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.194, 0, 0)
 script = ExtResource("15_tornx")
 x = 1
 y = 4
 
 [node name="Area3D 1 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.271, 0, 0.053)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.271, 0, 0.053)
 script = ExtResource("15_tornx")
 x = 1
 y = 5
 
 [node name="Area3D 2 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.11, 0, -0.183)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.11, 0, -0.183)
 script = ExtResource("15_tornx")
 x = 2
 
 [node name="Area3D 2 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.057, 0, -0.125)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.057, 0, -0.125)
 script = ExtResource("15_tornx")
 x = 2
 y = 1
 
 [node name="Area3D 2 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.000498869, 5.12227e-09, -0.0657011)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.000498869, 5.12227e-09, -0.0657011)
 script = ExtResource("15_tornx")
 x = 2
 y = 2
 
 [node name="Area3D 2 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.066, 0, 0)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.066, 0, 0)
 script = ExtResource("15_tornx")
 x = 2
 y = 3
 
 [node name="Area3D 2 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.125, 0, 0.057)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.125, 0, 0.057)
 script = ExtResource("15_tornx")
 x = 2
 y = 4
 
 [node name="Area3D 2 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.183, 0, 0.11)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.183, 0, 0.11)
 script = ExtResource("15_tornx")
 x = 2
 y = 5
 
 [node name="Area3D 3 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.185, 0, -0.11)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.185, 0, -0.11)
 script = ExtResource("15_tornx")
 x = 3
 
 [node name="Area3D 3 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.125, 0, -0.057)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.125, 0, -0.057)
 script = ExtResource("15_tornx")
 x = 3
 y = 1
 
 [node name="Area3D 3 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.066, 0, 0)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.066, 0, 0)
 script = ExtResource("15_tornx")
 x = 3
 y = 2
 
 [node name="Area3D 3 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0, 0, 0.066)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0, 0, 0.066)
 script = ExtResource("15_tornx")
 x = 3
 y = 3
 
 [node name="Area3D 3 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.057, 0, 0.125)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.057, 0, 0.125)
 script = ExtResource("15_tornx")
 x = 3
 y = 4
 
 [node name="Area3D 3 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.11, 0, 0.185)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.11, 0, 0.185)
 script = ExtResource("15_tornx")
 x = 3
 y = 5
 
 [node name="Area3D 4 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.271, 0, -0.055)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.271, 0, -0.055)
 script = ExtResource("15_tornx")
 x = 4
 
 [node name="Area3D 4 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.194, 0, 0)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.194, 0, 0)
 script = ExtResource("15_tornx")
 x = 4
 y = 1
 
 [node name="Area3D 4 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.125, 0, 0.057)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.125, 0, 0.057)
 script = ExtResource("15_tornx")
 x = 4
 y = 2
 
 [node name="Area3D 4 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.057, 0, 0.125)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.057, 0, 0.125)
 script = ExtResource("15_tornx")
 x = 4
 y = 3
 
 [node name="Area3D 4 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0, 0, 0.194)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0, 0, 0.194)
 script = ExtResource("15_tornx")
 x = 4
 y = 4
 
 [node name="Area3D 4 5" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, 0.055, 0, 0.271)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, 0.055, 0, 0.271)
 script = ExtResource("15_tornx")
 x = 4
 y = 5
 
 [node name="Area3D 5 0" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.115, 0, 0, 0, -0.115, 1.73645e-08, 0, -1.73645e-08, -0.115, -0.41, 0, 0)
+transform = Transform3D(1.15, 0, 0, 0, -1.15, 1.73645e-07, 0, -1.73645e-07, -1.15, -0.41, 0, 0)
 script = ExtResource("15_tornx")
 x = 5
 
 [node name="Area3D 5 1" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.271, 0, 0.055)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.271, 0, 0.055)
 script = ExtResource("15_tornx")
 x = 5
 y = 1
 
 [node name="Area3D 5 2" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.185, 0, 0.11)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.185, 0, 0.11)
 script = ExtResource("15_tornx")
 x = 5
 y = 2
 
 [node name="Area3D 5 3" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.11, 0, 0.185)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.11, 0, 0.185)
 script = ExtResource("15_tornx")
 x = 5
 y = 3
 
 [node name="Area3D 5 4" type="Node3D" parent="Node/3D/Board/Spaces/Place in Spaces New"]
-transform = Transform3D(0.1, 0, 0, 0, -0.1, 8.74228e-09, 0, -8.74228e-09, -0.1, -0.055, 0, 0.271)
+transform = Transform3D(0.08, 0, 0, 0, -0.08, 1.20797e-08, 0, -1.20797e-08, -0.08, -0.055, 0, 0.271)
 script = ExtResource("15_tornx")
 x = 5
 y = 4
