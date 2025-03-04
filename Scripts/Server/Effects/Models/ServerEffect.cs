@@ -56,8 +56,7 @@ public class ServerEffect : Effect, IServerEffect
 	public ServerTrigger? ServerTrigger { get; private set; }
 	public override Trigger? Trigger => ServerTrigger;
 
-	public ServerSubeffect? OnImpossible { get; set; } = null;
-	public bool CanDeclineTarget = false;
+	public ServerSubeffect? OnImpossible { get; set; } = null; //TODO move to resolution context
 
 	public override bool Negated
 	{
@@ -139,6 +138,8 @@ public class ServerEffect : Effect, IServerEffect
 		_serverGame = game;
 		ServerNotifier.NotifyEffectActivated(controller, this);
 	}
+	
+	//TODO: move resolution logic to resolution context?
 
 	#region resolution
 	public async Task StartResolution(IServerResolutionContext context)
@@ -148,14 +149,14 @@ public class ServerEffect : Effect, IServerEffect
 		//set context parameters
 		CurrentServerResolutionContext = context;
 		//Notify the targets one by one so the client knows that they're current targets
-		if (context.CardTargets != null) foreach(var tgt in context.CardTargets) NotifyAddCardTarget(tgt);
-		
+		if (context.CardTargets != null) foreach (var tgt in context.CardTargets) NotifyAddCardTarget(tgt);
+
 		playerTargets.Add(context.ControllingPlayer);
 		if (context.TriggerContext?.StackableCause != null) StackableTargets.Add(context.TriggerContext.StackableCause);
 
 		//notify relevant to this effect starting
 		ServerNotifier.NotifyEffectX(Card, EffectIndex, X, Game.Players);
-		ServerNotifier.EffectResolving(context.ControllingPlayer,this);
+		ServerNotifier.EffectResolving(context.ControllingPlayer, this);
 
 		//resolve the effect if possible
 		if (Negated) await EffectImpossible(EffectWasNegated);
@@ -231,11 +232,11 @@ public class ServerEffect : Effect, IServerEffect
 	{
 		SubeffectIndex = 0;
 		_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
-		CurrentResolutionContext.X = 0;
-		CardTargets.Clear();
-		rest.Clear();
+		
 		OnImpossible = null;
-		Networking.ServerNotifier.NotifyBothPutBack(Game.Players);
+
+		ServerNotifier.NotifyBothPutBack(Game.Players);
+		foreach (var p in Game.Players) ServerNotifier.DisableDecliningTarget(p);
 	}
 
 	/// <summary>
@@ -249,6 +250,8 @@ public class ServerEffect : Effect, IServerEffect
 		{
 			//TODO make the notifier tell the client why the effect was impossible
 			ServerNotifier.EffectImpossible(Game.Players);
+			foreach (var p in Game.Players) ServerNotifier.DisableDecliningTarget(p);
+			
 			return ResolutionInfo.End(ResolutionInfo.EndedBecauseImpossible);
 		}
 		else

@@ -78,7 +78,7 @@ public class SpaceTarget : ServerSubeffect
 			{
 				space = await ServerGame.Awaiter.GetSpaceTarget
 					(PlayerTarget, Effect.Card?.CardName ?? string.Empty, blurb ?? string.Empty, spaces, recommendedSpaces);
-				if (space == Space.Invalid && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
+				if (space == Space.Invalid && ResolutionContext.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
 			}
 			return ResolutionInfo.Next;
 		}

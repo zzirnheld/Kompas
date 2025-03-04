@@ -106,7 +106,7 @@ public class CardTarget : ServerSubeffect
 		IEnumerable<GameCard>? targets = null;
 		do {
 			targets = await RequestTargets();
-			if (targets == null && ServerEffect.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
+			if (targets == null && ResolutionContext.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
 		} while (!AddListIfLegal(targets));
 
 		return ResolutionInfo.Next;

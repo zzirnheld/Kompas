@@ -5,7 +5,6 @@
 	"effects": [
 		{
 			"triggerData": {
-				"optional": true,
 				"blurb": "Tribute Dreamfog to gain 1 pip?",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
@@ -26,7 +25,13 @@
 			},
 			"subeffects": [
 				{
-					"$type": "Subeffect:TargetThis:"
+					"$type": "Subeffect:EnableDecliningTarget:"
+				},
+				{
+					"$type": "Subeffect:CardTarget:",
+					"blurb": "Tribute Dreamfog?",
+					"toSearch": { "$type": "Identify.Cards:ThisCardNow:" },
+					"cardRestriction": { "$type": "Restrict.Gamestate:AlwaysValid:" }
 				},
 				{
 					"$type": "Subeffect:Discard:"

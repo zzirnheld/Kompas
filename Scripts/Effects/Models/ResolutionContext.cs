@@ -20,6 +20,8 @@ public class ResolutionContext : IResolutionContext
 	public IList<IStackable> StackableTargets { get; }
 	public IStackable? DelayedStackableTarget { get; }
 
+    public bool CanDeclineTarget { get; set; }
+
 	public int X { get; set; }
 
 	public bool CanResolve => true;
@@ -75,7 +77,7 @@ public class ResolutionContext : IResolutionContext
 		SpaceTargets, DelayedSpaceTarget,
 		StackableTargets, DelayedStackableTarget);
 
-	public override string ToString()
+    public override string ToString()
 	{
 		var sb = new System.Text.StringBuilder();
 		sb.Append(base.ToString());

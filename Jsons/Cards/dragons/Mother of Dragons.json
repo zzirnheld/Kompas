@@ -7,7 +7,6 @@
 			"blurb": "Dragonbirth",
 			"triggerData": {
 				"blurb": "Dragonbirth",
-				"optional": true,
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -18,6 +17,9 @@
 				}
 			},
 			"subeffects": [
+				{
+					"$type": "Subeffect:EnableDecliningTarget:"
+				},
 				{
 					"$type": "Subeffect:SetX:",
 					"xMultiplier": 0
@@ -50,13 +52,13 @@
 					"$type": "Subeffect:Loop:",
 					"canDecline": true,
 					"jumpIndices": [
-						1
+						2
 					]
 				},
 				{
 					"$type": "Subeffect:SkipToEffectOnImpossible:",
 					"jumpIndices": [
-						10
+						11
 					]
 				},
 				{

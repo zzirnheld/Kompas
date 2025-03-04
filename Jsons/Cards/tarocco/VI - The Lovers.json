@@ -7,7 +7,6 @@
 			"blurb": "Better together",
 			"triggerData": {
 				"blurb": "Tribute me to deck-summon Tarocco with S <= X?",
-				"optional": true,
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -23,14 +22,13 @@
 			},
 			"subeffects": [
 				{
+					"$type": "Subeffect:EnableDecliningTarget:"
+				},
+				{
 					"$type": "Subeffect:TargetThisSpace:"
 				},
 				{
 					"$type": "Subeffect:TargetThis:"
-				},
-				{
-					"$type": "Subeffect:Discard:",
-					"targetIndex": -1
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
@@ -55,6 +53,10 @@
 							}
 						]
 					}
+				},
+				{
+					"$type": "Subeffect:Discard:",
+					"targetIndex": -2
 				},
 				{
 					"$type": "Subeffect:Play:",

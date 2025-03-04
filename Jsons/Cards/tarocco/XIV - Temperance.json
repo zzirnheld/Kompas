@@ -5,7 +5,6 @@
 	"effects": [
 		{
 			"triggerData": {
-				"optional": true,
 				"blurb": "Dispel a C <= X spell?",
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
@@ -22,6 +21,9 @@
 				}
 			},
 			"subeffects": [
+				{
+					"$type": "Subeffect:EnableDecliningTarget:"
+				},
 				{
 					"$type": "Subeffect:CardTarget:",
 					"blurb": "C <= X spell for Temperance to dispel",

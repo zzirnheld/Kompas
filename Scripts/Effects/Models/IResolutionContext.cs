@@ -58,6 +58,8 @@ public interface IResolutionContext
 	public IStackable? DelayedStackableTarget { get; }
 	public int X { get; set; }
 
+	public bool CanDeclineTarget { get; set; }
+
 	public IResolutionContext Copy { get; }
 
 	public bool CanResolve { get; }
@@ -85,7 +87,9 @@ public interface IResolutionContext
 
 		public bool CanResolve => false;
 
-		public DummyResolutionContext(IEventContext? triggerContext)
+        public bool CanDeclineTarget { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+        public DummyResolutionContext(IEventContext? triggerContext)
 		{
 			TriggerContext = triggerContext;
 		}
