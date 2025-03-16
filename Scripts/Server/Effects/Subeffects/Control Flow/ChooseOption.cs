@@ -26,7 +26,7 @@ public class ChooseOption : ServerSubeffect
 							optionBlurbs: optionBlurbs,
 							hasDefault: hasDefault,
 							showX: showX,
-							x: Effect.X);
+							x: context.X);
 	}
 
 	public override async Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)

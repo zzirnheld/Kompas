@@ -9,7 +9,7 @@ public class XTimes : Loop
     protected override bool LoopContinuation(ServerEffectResolution resolution)
     {
         count++;
-        return count < ServerEffect.X;
+        return count < resolution.Context.X;
     }
 
     protected override void OnLoopExit(IServerResolutionContext context)

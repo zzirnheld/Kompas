@@ -30,19 +30,16 @@ public class ChangeCardStats : HangingEffectSubeffect
 	public int cMultiplier = 0;
 	public int aMultiplier = 0;
 
-	protected CardStats Buff
-	{
-		get
-		{
-			CardStats buff = (nMultiplier, eMultiplier, sMultiplier, wMultiplier, cMultiplier, aMultiplier);
-			buff *= Effect.X;
-			buff += (nModifier, eModifier, sModifier, wModifier, cModifier, aModifier);
-			buff /= (nDivisor, eDivisor, sDivisor, wDivisor, cDivisor, aDivisor);
-			return buff;
-		}
-	}
+    protected CardStats ComputeBuff(int x)
+    {
+        CardStats buff = (nMultiplier, eMultiplier, sMultiplier, wMultiplier, cMultiplier, aMultiplier);
+        buff *= x;
+        buff += (nModifier, eModifier, sModifier, wModifier, cModifier, aModifier);
+        buff /= (nDivisor, eDivisor, sDivisor, wDivisor, cDivisor, aDivisor);
+        return buff;
+    }
 
-	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
+    protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		if (GetCardTarget(context) == null)
 			throw new NullCardException(TargetWasNull);
@@ -53,7 +50,7 @@ public class ChangeCardStats : HangingEffectSubeffect
 
 		var temp = new ChangeCardStatsEffect(end: End, fallOff: FallOff,
 			sourceEff: ServerEffect, currentContext: context,
-			buffRecipient: GetCardTarget(context), buff: Buff);
+			buffRecipient: GetCardTarget(context), buff: ComputeBuff(context.X));
 
 		return new List<HangingEffect>() { temp };
 	}

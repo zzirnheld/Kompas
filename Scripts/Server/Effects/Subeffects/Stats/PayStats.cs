@@ -18,15 +18,16 @@ public class PayStats : ServerSubeffect
 	public int sMod = 0;
 	public int wMod = 0;
 
-	public int N => nMult * Effect.X + nMod;
-	public int E => eMult * Effect.X + eMod;
-	public int S => sMult * Effect.X + sMod;
-	public int W => wMult * Effect.X + wMod;
+    public int GetN(int x) => nMult * x + nMod;
+    public int GetE(int x) => eMult * x + eMod;
+    public int GetS(int x) => sMult * x + sMod;
+    public int GetW(int x) => wMult * x + wMod;
 
-	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+    public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
 	{
+		int x = context.X;
 		var card = context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext));
-		return card == null || card.N < N || card.E < E || card.S < S || card.W < W;
+		return card == null || card.N < GetN(x) || card.E < GetE(x) || card.S < GetS(x) || card.W < GetW(x);
 	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
@@ -36,13 +37,15 @@ public class PayStats : ServerSubeffect
 		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
 			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
 
-		if (GetCardTarget(resolution.Context).N < N ||
-            GetCardTarget(resolution.Context).E < E ||
-            GetCardTarget(resolution.Context).S < S ||
-            GetCardTarget(resolution.Context).W < W)
+		int x = resolution.Context.X;
+
+		if (GetCardTarget(resolution.Context).N < GetN(x) ||
+			GetCardTarget(resolution.Context).E < GetE(x) ||
+			GetCardTarget(resolution.Context).S < GetS(x) ||
+			GetCardTarget(resolution.Context).W < GetW(x))
 			return Task.FromResult(ResolutionInfo.Impossible(CantAffordStats));
 
-        GetCardTarget(resolution.Context).AddToCharStats(-1 * N, -1 * E, -1 * S, -1 * W, Effect);
+        GetCardTarget(resolution.Context).AddToCharStats(-1 * GetN(x), -1 * GetE(x), -1 * GetS(x), -1 * GetW(x), Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

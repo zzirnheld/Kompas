@@ -18,7 +18,7 @@ public class Damage : ServerSubeffect
 		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
 			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
 
-        GetCardTarget(resolution.Context).TakeDamage(Count, Effect);
+        GetCardTarget(resolution.Context).TakeDamage(AdjustX(resolution.Context), Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

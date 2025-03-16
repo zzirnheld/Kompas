@@ -7,7 +7,7 @@ public class Mill : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		for (int i = 0; i < Count; i++)
+		for (int i = 0; i < AdjustX(resolution.Context); i++)
 		{
 			var card = GetPlayerTarget(resolution.Context).Deck.Topdeck;
 			if (card == null) return Task.FromResult(ResolutionInfo.Impossible(CouldntMillAllX));

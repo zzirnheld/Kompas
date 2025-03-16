@@ -24,7 +24,6 @@ public interface IEffect : IStackable
 	public event System.EventHandler<IEffect>? EffectInformationChanged;
 
 	public bool Negated { get; set; }
-	public int X { get; set; }
 
 	public int EffectIndex { get; }
 
@@ -68,20 +67,6 @@ public abstract class Effect : IEffect
 	//we don't care about informing players of the contents of these. yet. but we might later
 	public IdentityOverrides identityOverrides = new();
 
-	/// <summary>
-	/// X value for card effect text (not coordinates)
-	/// </summary>
-	public int X
-	{
-		get => CurrentResolutionContext?.X
-			?? throw new EffectNotResolvingException(this);
-		set
-		{
-			_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
-			CurrentResolutionContext.X = value;
-		}
-	}
-
 	//Triggering and Activating
 	public abstract Trigger? Trigger { get; }
 	public ITriggerRestriction? TriggerRestriction => Trigger?.TriggerRestriction;
@@ -98,7 +83,6 @@ public abstract class Effect : IEffect
 	public event System.EventHandler<IEffect>? EffectInformationChanged;
 
 	public abstract IResolutionContext? CurrentResolutionContext { get; }
-	public IEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
 	public int TimesUsedThisTurn
 	{
 		get => _timesUsedThisTurn;

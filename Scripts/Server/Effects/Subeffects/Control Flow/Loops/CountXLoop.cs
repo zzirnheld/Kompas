@@ -11,8 +11,8 @@ public class CountXLoop : Loop
     protected override bool LoopContinuation(ServerEffectResolution resolution)
     {
         //count the number of times this happens
-        if (decrement) ServerEffect.X--;
-        else ServerEffect.X++;
+        if (decrement) resolution.Context.X--;
+        else resolution.Context.X++;
 
         //let the effect know that if there are no more targets, then call this for loop exit
         var currentResolution = resolution.Context

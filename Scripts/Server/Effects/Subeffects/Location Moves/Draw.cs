@@ -2,5 +2,8 @@
 
 public class Draw : DrawX
 {
-	protected override int ToDraw => 1;
+    protected override int GetToDraw()
+    {
+        return 1;
+    }
 }

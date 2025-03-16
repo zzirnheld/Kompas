@@ -37,7 +37,7 @@ public class PlayerChooseX : ServerSubeffect
 	{
 		if (XRest.IsValid(x, context))
 		{
-			ServerEffect.X = x;
+			context.X = x;
 			return true;
 		}
 		return false;

@@ -127,10 +127,10 @@ public abstract class Subeffect
 	/// </summary>
 	public int xModifier = 0;
 
-	/// <summary>
-	/// If the effect uses X, this is the adjusted value of X
-	/// </summary>
-	public int Count => (Effect.X * xMultiplier / xDivisor) + xModifier;
+    /// <summary>
+    /// If the effect uses X, this is the adjusted value of X
+    /// </summary>
+    public int AdjustX(IResolutionContext context) => (context.X * xMultiplier / xDivisor) + xModifier;
     #endregion effect x
 
     public GameCard GetCardTarget(IResolutionContext context)
