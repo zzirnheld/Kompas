@@ -22,7 +22,7 @@ public class Attack : ServerSubeffect
 		var atk = ServerGame.Attack(attacker, defender,
 			instigator: GetPlayerTarget(resolution.Context) as ServerPlayer ?? throw new InvalidOperationException(),
 			stackSrc: Effect);
-		Effect.StackableTargets.Add(atk);
+		resolution.Context.StackableTargets.Add(atk);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

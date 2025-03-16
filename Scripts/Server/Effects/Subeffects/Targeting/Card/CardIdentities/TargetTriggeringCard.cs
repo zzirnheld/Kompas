@@ -19,7 +19,7 @@ public class TargetTriggeringCard : ServerSubeffect
 			throw new NullCardException(debugMessage: $"Trigger context was {resolution.Context.TriggerContext}", 
 				message: NoValidCardTarget);
 
-		if (info) ServerEffect.CardInfoTargets.Add(cardInfoToTarget);
+		if (info) resolution.Context.CardInfoTargets.Add(cardInfoToTarget);
 		else resolution.AddTarget(cardInfoToTarget.Card);
 
 		return Task.FromResult(ResolutionInfo.Next);

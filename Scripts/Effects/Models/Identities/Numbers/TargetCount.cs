@@ -26,7 +26,7 @@ public class TargetCount : EffectContextualLeafIdentityBase<int>
 	protected override int AbstractItemFrom(IResolutionContext toConsider)
 	{
 		var effect = InitializationContext.effect ?? throw new IllDefinedException();
-		return effect.CardTargets
+		return toConsider.CardTargets
 			.Count(c => cardRestriction.IsValid(c, toConsider));
 	}
 }

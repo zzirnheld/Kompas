@@ -10,7 +10,7 @@ public class SkipToEffectOnImpossible : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var currentResolution = ServerEffect.CurrentServerResolutionContext
+		var currentResolution = resolution.Context
 			?? throw new EffectNotResolvingException(ServerEffect);
 		currentResolution.OnImpossible = this;
 		return Task.FromResult(ResolutionInfo.Next);
@@ -19,7 +19,7 @@ public class SkipToEffectOnImpossible : ServerSubeffect
 	public override Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
 	{
 		//forget about this effect on impossible, and jump to a new one
-		var currentResolution = ServerEffect.CurrentServerResolutionContext
+		var currentResolution = resolution.Context
 			?? throw new EffectNotResolvingException(ServerEffect);
 		currentResolution.OnImpossible = null;
 		return Task.FromResult(ResolutionInfo.Index(JumpIndex));

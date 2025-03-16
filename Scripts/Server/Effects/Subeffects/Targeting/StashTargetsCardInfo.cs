@@ -12,7 +12,7 @@ public class StashTargetsCardInfo : ServerSubeffect
 
 		var targetInfo = GameCardInfo.CardInfoOf(GetCardTarget(resolution.Context))
 			?? throw new System.InvalidOperationException("Failed to create a card info!");
-		ServerEffect.CardInfoTargets.Add(targetInfo);
+		resolution.Context.CardInfoTargets.Add(targetInfo);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

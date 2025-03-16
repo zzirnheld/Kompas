@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
@@ -22,7 +21,7 @@ public interface IEffect : IStackable
 	public int TimesUsedThisRound { get; }
 	public int TimesUsedThisStack { get; set; }
 
-	public event EventHandler<IEffect>? EffectInformationChanged;
+	public event System.EventHandler<IEffect>? EffectInformationChanged;
 
 	public bool Negated { get; set; }
 	public int X { get; set; }
@@ -63,27 +62,10 @@ public abstract class Effect : IEffect
 
 	//subeffects
 	public abstract Subeffect[] Subeffects { get; }
-	/// <summary>
-	/// Current subeffect that's resolving
-	/// </summary>
-	public int SubeffectIndex { get; protected set; }
-
 	//Targets
-	public IList<GameCard> CardTargets => CurrentResolutionContext?.CardTargets
-		?? throw new EffectNotResolvingException(this);
-	public IList<Space> SpaceTargets => CurrentResolutionContext?.SpaceTargets
-		?? throw new EffectNotResolvingException(this);
-	public IList<IGameCardInfo> CardInfoTargets => CurrentResolutionContext?.CardInfoTargets
-		?? throw new EffectNotResolvingException(this);
-	public IList<IStackable> StackableTargets => CurrentResolutionContext?.StackableTargets
-		?? throw new EffectNotResolvingException(this);
-	public IList<IPlayer> playerTargets => CurrentResolutionContext?.playerTargets
-		?? throw new EffectNotResolvingException(this);
-
 	protected readonly List<CardLink> cardLinks = new();
 
 	//we don't care about informing players of the contents of these. yet. but we might later
-
 	public IdentityOverrides identityOverrides = new();
 
 	/// <summary>
@@ -113,7 +95,7 @@ public abstract class Effect : IEffect
 	private int _timesUsedThisTurn;
 	private int _timesUsedThisRound;
 	private int _timesUsedThisStack;
-	public event EventHandler<IEffect>? EffectInformationChanged;
+	public event System.EventHandler<IEffect>? EffectInformationChanged;
 
 	public abstract IResolutionContext? CurrentResolutionContext { get; }
 	public IEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
@@ -183,19 +165,11 @@ public abstract class Effect : IEffect
 	public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 		=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
 
-	// public virtual void AddTarget(GameCard card)
-	// {
-	// 	CardTargets.Add(card);
-	// }
-	// public virtual void RemoveTarget(GameCard card) => CardTargets.Remove(card);
-
-	// public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
-
-	public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest)
+	public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest, IResolutionContext context)
 	{
-		if (target != null) CardTargets.Add(target);
+		if (target != null) context.CardTargets.Add(target);
 		var ret = toTest();
-		if (target != null) CardTargets.RemoveAt(CardTargets.Count - 1);
+		if (target != null) context.CardTargets.RemoveAt(context.CardTargets.Count - 1);
 		return ret;
 	}
 

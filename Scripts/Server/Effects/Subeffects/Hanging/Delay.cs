@@ -1,8 +1,6 @@
 ﻿using Kompas.Effects.Models;
 using System.Collections.Generic;
 using Kompas.Server.Gamestate.Players;
-using System;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
@@ -22,8 +20,8 @@ public class Delay : HangingEffectSubeffect
 	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		Logger.Log($"Are jump indices null? {jumpIndices == null}");
-		var controller = ServerEffect.CurrentServerResolutionContext?.ControllingPlayer
-			?? throw new InvalidOperationException();
+		var controller = context.ControllingPlayer
+			?? throw new System.InvalidOperationException();
 		var delay = new DelayEffect(end: End, fallOff: FallOff,
 			sourceEff: ServerEffect, currentContext: context,
 			numTimesToDelay: numTimesToDelay, indexToResumeResolution: JumpIndex,

@@ -10,7 +10,7 @@ public class ClearOnImpossible : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var currentResolution = ServerEffect.CurrentServerResolutionContext
+		var currentResolution = resolution.Context
 			?? throw new EffectNotResolvingException(ServerEffect);
 		currentResolution.OnImpossible = null;
 		return Task.FromResult(ResolutionInfo.Next);

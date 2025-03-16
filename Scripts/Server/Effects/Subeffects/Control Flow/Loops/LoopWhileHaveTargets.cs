@@ -25,7 +25,7 @@ public class LoopWhileHaveTargets : Loop
 	protected override bool LoopContinuation(ServerEffectResolution resolution)
 	{
 		//if we're deleting and there's something to delete, delete it.
-		if (delete && ServerEffect.CardTargets.Any()) resolution.RemoveTarget(GetCardTarget(resolution.Context));
+		if (delete && resolution.Context.CardTargets.Any()) resolution.RemoveTarget(GetCardTarget(resolution.Context));
 		//after any delete that might have happened, check if there's still targets
 		return resolution.Context.CardTargets.Count > leaveRemainingTargets.From(resolution.Context);
 	}

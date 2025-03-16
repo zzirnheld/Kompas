@@ -114,20 +114,21 @@ public class ServerStackController : IServerStackController
 
 		sb.AppendLine("Currently Resolving:");
 		sb.AppendLine(CurrStackEntry.ToString());
-		if (CurrStackEntry is ServerEffect se)
-		{
-			if (se.CardTargets.Any())
-			{
-				sb.Append("Targets: ");
-				sb.AppendLine(string.Join(", ", se.CardTargets.Select(c => c.ToString())));
-			}
-			if (se.SpaceTargets.Any())
-			{
-				sb.Append("Coords: ");
-				sb.AppendLine(string.Join(", ", se.SpaceTargets.Select(c => c.ToString())));
-			}
-			sb.AppendLine($"X: {se.X}");
-		}
+		//TODO migrate this over to using Resolution objects for everything
+		// if (CurrStackEntry is ServerEffect se)
+		// {
+		// 	if (se.CardTargets.Any())
+		// 	{
+		// 		sb.Append("Targets: ");
+		// 		sb.AppendLine(string.Join(", ", se.CardTargets.Select(c => c.ToString())));
+		// 	}
+		// 	if (se.SpaceTargets.Any())
+		// 	{
+		// 		sb.Append("Coords: ");
+		// 		sb.AppendLine(string.Join(", ", se.SpaceTargets.Select(c => c.ToString())));
+		// 	}
+		// 	sb.AppendLine($"X: {se.X}");
+		// }
 		return sb.ToString();
 	}
 

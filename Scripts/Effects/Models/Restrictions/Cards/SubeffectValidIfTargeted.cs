@@ -34,7 +34,7 @@ public class SubeffectValidIfTargeted : CardRestrictionBase
 	protected override bool IsValidLogic(IGameCardInfo? card, IResolutionContext context)
 	{
 		var effect = InitializationContext.effect ?? throw new System.NullReferenceException("No eff");
-		return InitializationContext.effect.TestWithCardTarget(card as GameCard, () => ValidateAllSubeffectsPossible(context));
+		return InitializationContext.effect.TestWithCardTarget(card as GameCard, () => ValidateAllSubeffectsPossible(context), context);
 	}	
 
 	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)

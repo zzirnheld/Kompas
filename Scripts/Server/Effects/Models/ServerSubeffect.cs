@@ -53,7 +53,7 @@ public abstract class ServerSubeffect : Subeffect
 	/// </summary>
 	public virtual Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
 	{
-		var currentResolution = ServerEffect.CurrentServerResolutionContext
+		var currentResolution = resolution.Context
 			?? throw new EffectNotResolvingException(ServerEffect);
 		currentResolution.OnImpossible = null;
 		return Task.FromResult(ResolutionInfo.Impossible(why));

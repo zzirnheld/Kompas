@@ -15,7 +15,7 @@ public class CountXLoop : Loop
         else ServerEffect.X++;
 
         //let the effect know that if there are no more targets, then call this for loop exit
-        var currentResolution = ServerEffect.CurrentServerResolutionContext
+        var currentResolution = resolution.Context
             ?? throw new EffectNotResolvingException(ServerEffect);
         currentResolution.OnImpossible = this;
 

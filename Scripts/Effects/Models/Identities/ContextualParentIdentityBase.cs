@@ -34,16 +34,6 @@ public abstract class ContextualParentIdentityBase<ReturnType> : ContextInitiali
 		return AbstractItemFrom(context, secondaryContext);
 	}
 
-	public ReturnType? Item
-	{
-		get
-		{
-			var effect = InitializationContext.effect ?? throw new IllDefinedException();
-			var context = effect.CurrentResolutionContext ?? throw new IllDefinedException();
-			return From(context, context);
-		}
-	}
-
 	protected Attack GetAttack(IEventContext effectContext)
 	{
 		if (effectContext.StackableEvent is Attack eventAttack) return eventAttack;

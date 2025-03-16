@@ -37,7 +37,7 @@ public class Loop : ServerSubeffect
 			{
 				var player = GetPlayerTarget(resolution.Context) ?? throw new NullPlayerException(TargetWasNull);
 				ServerNotifier.EnableDecliningTarget(player);
-				var currentResolution = ServerEffect.CurrentServerResolutionContext
+				var currentResolution = resolution.Context
 					?? throw new EffectNotResolvingException(ServerEffect);
 				currentResolution.OnImpossible = this;
 				resolution.Context.CanDeclineTarget = true;
@@ -53,8 +53,7 @@ public class Loop : ServerSubeffect
 	public Task<ResolutionInfo> ExitLoop(IServerResolutionContext context)
 	{
 		//let parent know the loop is over
-		var currentResolution = ServerEffect.CurrentServerResolutionContext
-			?? throw new EffectNotResolvingException(ServerEffect);
+		var currentResolution = context;
 		if (currentResolution.OnImpossible == this) currentResolution.OnImpossible = null;
 		context.CanDeclineTarget = false;
 

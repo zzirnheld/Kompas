@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +7,6 @@ using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Cards.Models;
 using Kompas.Server.Effects.Controllers;
@@ -51,7 +49,7 @@ public class ServerEffect : Effect, IServerEffect
 	public IServerResolutionContext? CurrentServerResolutionContext { get; private set; }
 	public override IResolutionContext? CurrentResolutionContext => CurrentServerResolutionContext;
 
-	public ServerSubeffect[] subeffects = Array.Empty<ServerSubeffect>();
+	public ServerSubeffect[] subeffects = System.Array.Empty<ServerSubeffect>();
 	public ServerSubeffect[] ServerSubeffects => subeffects;
 	public override Subeffect[] Subeffects => subeffects;
 	public ServerTrigger? ServerTrigger { get; private set; }
