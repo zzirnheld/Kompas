@@ -254,10 +254,13 @@ public class ServerStackController : IServerStackController
 
     private async Task<IEnumerable<ServerTrigger>> GetTriggersOrder(IEnumerable<ServerTrigger> stillValid)
     {
-        HandlePlayerHavingOnlyOneTrigger(stillValid);
+        //now that all optional triggers have been answered, time to deal with ordering.
+        //if a player only has one trigger, don't bother asking them for an order.
+        foreach (var p in game.Players)  HandlePlayerHavingOnlyOneTrigger(stillValid, p);
+
         //now, if there's any triggers that have been confirmed but not ordered (that is, more than one confirmed trigger),
-        //then get an ordering from the player in question.
-        var confirmed = stillValid.Where(t => t.Confirmed);
+		//then get an ordering from the player in question.
+		var confirmed = stillValid.Where(t => t.Confirmed);
         if (!confirmed.All(t => t.Ordered))
         {
             //create a list to hold the tasks, so you can get trigger orderings from both players at once.
@@ -273,15 +276,10 @@ public class ServerStackController : IServerStackController
         return confirmed;
     }
 
-    private void HandlePlayerHavingOnlyOneTrigger(IEnumerable<ServerTrigger> stillValid)
+    private static void HandlePlayerHavingOnlyOneTrigger(IEnumerable<ServerTrigger> stillValid, IPlayer player)
     {
-        //now that all optional triggers have been answered, time to deal with ordering.
-        //if a player only has one trigger, don't bother asking them for an order.
-        foreach (var p in game.Players)
-        {
-            var onePlayersTriggers = stillValid.Where(t => t.ServerEffect.OwningPlayer == p && t.Confirmed);
-            if (onePlayersTriggers.Count() == 1) onePlayersTriggers.First().Order = 1;
-        }
+        var onePlayersTriggers = stillValid.Where(t => t.ServerEffect.OwningPlayer == player && t.Confirmed);
+        if (onePlayersTriggers.Count() == 1) onePlayersTriggers.Single().Order = 1;
     }
 
     private void PushTriggersToStack(IPlayer turnPlayer, TriggersTriggered triggered, IEnumerable<ServerTrigger> confirmed)
