@@ -4,6 +4,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Gamestate;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models;
@@ -23,6 +24,11 @@ public class ServerEffectResolution
 	public ServerEffectResolution(IServerEffect effect, IServerResolutionContext context)
 		: base(effect, context)
 	{ }
+
+    public void Declare()
+    {
+		Effect.PushedToStack(Context.ControllingPlayer);
+    }
 
 	public async Task StartResolution()
 	{

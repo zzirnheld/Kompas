@@ -26,7 +26,7 @@ public interface IServerEffect : IEffect, IServerStackable
 
 	public bool CanBeActivatedBy(IPlayer player);
 
-	public void PushedToStack(ServerGame serverGame, ServerPlayer controller);
+	public void PushedToStack(ServerPlayer controller);
 }
 
 public class ServerEffect : Effect, IServerEffect
@@ -126,7 +126,7 @@ public class ServerEffect : Effect, IServerEffect
 		=> (ServerGame?.DebugMode ?? false)
 		|| base.CanBeActivatedBy(controller);
 
-	public void PushedToStack(ServerGame game, ServerPlayer controller)
+	public void PushedToStack(ServerPlayer controller)
 	{
 		var contexts = IEventContext.Build(Trigger.EffectPushedToStack)
 			.CausedBy(this)
@@ -136,7 +136,7 @@ public class ServerEffect : Effect, IServerEffect
 		TimesUsedThisRound++;
 		TimesUsedThisTurn++;
 		TimesUsedThisStack++;
-		_serverGame = game;
+		// _serverGame = game; //TODO: verify commenting this out doesn't break anything
 		ServerNotifier.NotifyEffectActivated(controller, this);
 	}
 

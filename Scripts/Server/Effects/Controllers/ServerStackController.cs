@@ -103,23 +103,18 @@ public class ServerStackController : IServerStackController
 		return sb.ToString();
 	}
 
-	#region the stack
+    #region the stack
 
 
-	private void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext)
+    private void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext)
+		=> PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
+
+    public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
+		=> PushToStack(new ServerEffectResolution(eff, context));
+
+    public void PushToStack(IServerStackableResolution<IServerStackable> stackElement)
 	{
-		PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
-	}
-
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
-	{
-		eff.PushedToStack(game, controller); //TODO move to Declare()
-
-		PushToStack(new ServerEffectResolution(eff, context));
-	}
-
-	public void PushToStack(IServerStackableResolution<IServerStackable> stackElement)
-	{
+		stackElement.Declare();
 		stack.Push(stackElement);
 	}
 
