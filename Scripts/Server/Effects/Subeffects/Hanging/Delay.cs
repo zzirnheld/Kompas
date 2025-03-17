@@ -71,7 +71,8 @@ public class Delay : HangingEffectSubeffect
 		{
 			var myContext = ServerResolutionContext.Resume(StashedContext,
 				context, controller, indexToResumeResolution);
-			Effect.ServerGame.StackController.PushToStack(Effect, controller, myContext);
+			var resolution = new ServerEffectResolution(Effect, myContext);
+			Effect.ServerGame.StackController.PushToStack(resolution);
 		}
 	}
 }

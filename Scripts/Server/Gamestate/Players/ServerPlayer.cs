@@ -202,7 +202,8 @@ public class ServerPlayer : IPlayer
 		if (effect != null && effect.CanBeActivatedBy(this))
 		{
 			var context = ServerResolutionContext.PlayerTrigger(effect, Game, this);
-			ServerGame.StackController.PushToStack(effect, this, context);
+			var resolution = new ServerEffectResolution(effect, context);
+			ServerGame.StackController.PushToStack(resolution);
 			await ServerGame.StackController.CheckForResponse();
 		}
 	}

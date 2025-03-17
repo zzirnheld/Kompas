@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Kompas.Server.Effects.Models;
 using Kompas.Effects.Models;
-using Kompas.Server.Gamestate.Players;
 using Kompas.Gamestate;
 using Kompas.Effects.Models.TriggeringEvent;
 using System.Collections.Generic;
@@ -10,7 +9,6 @@ namespace Kompas.Server.Effects.Controllers;
 
 public interface IServerStackController : IStackController
 {
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context);
 	public void PushToStack(IServerStackableResolution<IServerStackable> stackEntry);
 
 	public Task ResolveNextStackEntry();
@@ -25,7 +23,6 @@ public interface IServerStackController : IStackController
 
 public static class IServerStackControllerExtensions
 {
-
 	public static void TriggerFor(this IServerStackController stack, params IEventContext[] contexts)
 		=> TriggerFor(stack, contexts);
 

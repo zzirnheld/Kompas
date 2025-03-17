@@ -104,14 +104,6 @@ public class ServerStackController : IServerStackController
 	}
 
     #region the stack
-
-
-    private void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext)
-		=> PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
-
-    public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
-		=> PushToStack(new ServerEffectResolution(eff, context));
-
     public void PushToStack(IServerStackableResolution<IServerStackable> stackElement)
 	{
 		stackElement.Declare();
@@ -275,9 +267,17 @@ public class ServerStackController : IServerStackController
 
 		//finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
 		foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
-			PushToStack(t.ServerEffect, t.ServerEffect.OwningServerPlayer, triggered.context);
+			PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
+			
 		foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
-			PushToStack(t.ServerEffect, t.ServerEffect.OwningServerPlayer, triggered.context);
+			PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
+	}
+
+	private void PushTriggeredEffectToStack(ServerEffect effect, IEventContext? triggerContext)
+	{
+		var resolutionContext = new ServerResolutionContext(triggerContext, effect.OwningServerPlayer);
+		var resolution = new ServerEffectResolution(effect, resolutionContext);
+		PushToStack(resolution);
 	}
 
 	/// <summary>
