@@ -279,7 +279,10 @@ public class ServerGame : IServerGame
 		if (notFirstTurn) Draw(TurnPlayer);
 
 		//do hand size
-		StackController.PushToStack(new ServerHandSizeStackable(this, TurnPlayer), ServerPlayers[TurnPlayer.Index], default);
+		var handSizeStackable = new ServerHandSizeStackable(this, TurnPlayer);
+        var resolutionConext = new ServerResolutionContext(default, ServerPlayers[TurnPlayer.Index]);
+        var handSizeResolution = new ServerHandSizeStackableResolution(handSizeStackable, resolutionConext, this);
+		StackController.PushToStack(handSizeResolution);
 
 		TurnChanged?.Invoke(this, TurnPlayer);
 	}
@@ -338,15 +341,18 @@ public class ServerGame : IServerGame
 	{
 		Logger.Log($"{attacker.CardName} attacking {defender.CardName} at {defender.Position}");
 		//push the attack to the stack, then check if any player wants to respond before resolving it
-		var attack = new ServerAttack(this, instigator, attacker, defender);
-		var context = IEventContext.Build()
+		var attack = new ServerAttack(instigator, attacker, defender);
+		var eventContext = IEventContext.Build()
 			.CausedBy(stackSrc)
 			.During(attack)
 			.ForPlayer(instigator)
 			.CaptureNothing();
-		StackController.PushToStack(attack, instigator, context);
+		var resolutionContext = new ServerResolutionContext(eventContext, instigator);
+		var attackResolution = new ServerAttackResolution(attack, resolutionContext, StackController);
+		StackController.PushToStack(attackResolution);
 		//check for triggers related to the attack (if this were in the constructor, the triggers would go on the stack under the attack
-		attack.Declare(stackSrc);
+		//TODO: now with the IServerStackableResolution interface, move Declare into PushToStack?
+		attackResolution.Declare(stackSrc);
 		if (manual) attacker.AttacksThisTurn++;
 		return attack;
 	}

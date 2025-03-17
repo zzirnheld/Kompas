@@ -1,8 +1,6 @@
-using System;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
-using Kompas.Effects.Models.Restrictions.Cards;
-using Kompas.Effects.Subeffects;
+using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
@@ -11,21 +9,20 @@ using Kompas.Server.Networking;
 namespace Kompas.Server.Effects.Models;
 
 public class ServerEffectResolution
+	: ResolvingStackable<IServerEffect, IServerResolutionContext>,
+		IServerStackableResolution
 {
 	public const string EffectWasNegated = "Effect was negated";
 
-	public IServerEffect Effect { get; }
-	public IServerResolutionContext Context { get; }
+	public IServerEffect Effect => Stackable;
 
 	public int SubeffectIndex { get; set; }
 
 	private GameCard Card => Effect.Card ?? throw new NullCardException("effect must be on a card!");
 
 	public ServerEffectResolution(IServerEffect effect, IServerResolutionContext context)
-	{
-		Effect = effect;
-		Context = context;
-	}
+		: base(effect, context)
+	{ }
 
 	public async Task StartResolution()
 	{
@@ -93,6 +90,7 @@ public class ServerEffectResolution
 		{
 			return ResolutionInfo.Impossible("Subeffect index out of bounds.");
 		}
+
 		Logger.Log($"Resolving subeffect of type {Effect.ServerSubeffects[index].GetType()}");
 		SubeffectIndex = index;
 		ServerNotifier.NotifyEffectX(Card, Effect.EffectIndex, Context.X, Effect.Game.Players);

@@ -43,7 +43,6 @@ public abstract class Effect : IEffect
 	private int _timesUsedThisStack;
 	public event System.EventHandler<IEffect>? EffectInformationChanged;
 
-	public abstract IResolutionContext? CurrentResolutionContext { get; }
 	public int TimesUsedThisTurn
 	{
 		get => _timesUsedThisTurn;

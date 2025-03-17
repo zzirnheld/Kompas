@@ -34,9 +34,9 @@ public class ResolutionContext : IResolutionContext
 	/// (NOT a situation in which a player is attempting to do something "normally" - that's what <see cref="IResolutionContext.PlayerAction"/> is for)
 	/// </summary>
 	public static ResolutionContext PlayerTriggeredEffect(Effect? effect)
-		=> new(new TriggeringEvent.EventContext() { StackableEvent = effect });
+		=> new(new EventContext() { StackableEvent = effect });
 
-	public ResolutionContext(IEventContext triggerContext)
+	public ResolutionContext(IEventContext? triggerContext)
 	: this(triggerContext, 0,
 		Enumerable.Empty<GameCard>(), default,
 		Enumerable.Empty<GameCardInfo>(),

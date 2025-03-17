@@ -13,33 +13,35 @@ using Kompas.Shared.Enumerable;
 
 namespace Kompas.Server.Effects.Models;
 
-public class ServerHandSizeStackable : HandSizeStackable, IServerStackable
+public class ServerHandSizeStackableResolution
+    : ResolvingStackable<ServerHandSizeStackable, IServerResolutionContext>,
+        IServerStackableResolution
 {
+	private readonly ServerGame serverGame;
+	
 	private bool awaitingChoices;
 
-	private readonly ServerGame serverGame;
+    public ServerHandSizeStackableResolution(ServerHandSizeStackable stackable, IServerResolutionContext context, ServerGame serverGame)
+        : base(stackable, context)
+    {
+        this.serverGame = serverGame;
+    }
 
-	public ServerHandSizeStackable(ServerGame serverGame, IPlayer controller)
-		: base(serverGame, controller)
-	{
-		this.serverGame = serverGame;
-		//tell the players this is here now
-		ServerNotifier.NotifyHandSizeToStack(controller);
-	}
-	public async Task StartResolution(IServerResolutionContext context) => await RequestTargets();
+    public async Task StartResolution() => await RequestTargets();
 
 	private async Task RequestTargets()
 	{
 		Logger.Log("Trying to request hand size targets");
 		awaitingChoices = true;
 
-		var context = new ResolutionContext(new EventContext() { StackableCause = this, StackableEvent = this });
-		int[] cardIds = game.Cards
-			.Where(c => HandSizeCardRestriction.IsValid(c, context))
+		var context = new ResolutionContext(new EventContext() { StackableCause = Stackable, StackableEvent = Stackable });
+		int[] cardIds = serverGame.Cards
+			.Where(c => Stackable.HandSizeCardRestriction.IsValid(c, context))
 			.Select(c => c.ID)
 			.ToArray();
 
-		int overHandSize = cardIds.Count() - player.HandSizeLimit;
+		var player = Stackable.ControllingPlayer ?? throw new System.InvalidOperationException();
+		int overHandSize = cardIds.Length - player.HandSizeLimit;
 		if (overHandSize <= 0)
 		{
 			awaitingChoices = false;
@@ -47,7 +49,7 @@ public class ServerHandSizeStackable : HandSizeStackable, IServerStackable
 		}
 
 		var listRestriction = IListRestriction.ConstantCount(overHandSize);
-		listRestriction.Initialize(new InitializationContext(game, source: null));
+		listRestriction.Initialize(new InitializationContext(serverGame, source: null));
 		string listRestrictionJson = listRestriction.SerializeToJSON(context);
 
 		int[]? choices = null;
@@ -64,18 +66,29 @@ public class ServerHandSizeStackable : HandSizeStackable, IServerStackable
 
 		GameCard[] cards = cardIds
 			.Distinct()
-			.Select(i => game.LookupCardByID(i))
+			.Select(i => serverGame.LookupCardByID(i))
 			.NonNull()
 			.ToArray();
 
-		int count = cards.Count();
-		var context = new ResolutionContext(new EventContext() { StackableCause = this, StackableEvent = this });
-		int correctCount = game.Cards.Count(c => HandSizeCardRestriction.IsValid(c, context)) - player.HandSizeLimit;
+		int count = cards.Length;
+		var player = Stackable.ControllingPlayer ?? throw new System.InvalidOperationException();
+		var context = new ResolutionContext(new EventContext() { StackableCause = Stackable, StackableEvent = Stackable });
+		int correctCount = serverGame.Cards.Count(c => Stackable.HandSizeCardRestriction.IsValid(c, context)) - player.HandSizeLimit;
 
-		if (count != correctCount || cards.Any(c => !HandSizeCardRestriction.IsValid(c, context))) return false;
+		if (count != correctCount || cards.Any(c => !Stackable.HandSizeCardRestriction.IsValid(c, context))) return false;
 
 		foreach (var card in cards) card.Reshuffle();
 		awaitingChoices = false;
 		return true;
+	}
+}
+
+public class ServerHandSizeStackable : HandSizeStackable, IServerStackable
+{
+	public ServerHandSizeStackable(ServerGame serverGame, IPlayer controller)
+		: base(serverGame, controller)
+	{
+		//tell the players this is here now
+		ServerNotifier.NotifyHandSizeToStack(controller); //TODO move to a Declare method
 	}
 }

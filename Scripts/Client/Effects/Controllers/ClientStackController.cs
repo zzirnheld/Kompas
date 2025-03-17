@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using Kompas.Cards.Models;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Effects.Views;
 using Kompas.Effects;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Client.Effects.Controllers;
 
@@ -28,21 +31,21 @@ public class ClientStackController : IStackController
 	public void Activated(ClientEffect effect)
 	{
 		effect.IncrementUses();
-		var stackable = IResolvingStackable.Resolving(effect, default(IResolutionContext));
+		var stackable = IResolvingStackable.Resolving(effect, new ResolutionContext(null));
 		stack.Push(stackable);
 		stackView.Activated(stackable);
 	}
 
 	public void Attacked(ClientAttack attack)
 	{
-		var stackable = IResolvingStackable.Resolving(attack, default(IResolutionContext));
+		var stackable = IResolvingStackable.Resolving(attack, new ResolutionContext(null));
 		stack.Push(stackable);
 		stackView.Attacked(stackable);
 	}
 
 	public void HandSize(ClientHandSizeStackable handSize)
 	{
-		var stackable = IResolvingStackable.Resolving(handSize, default(IResolutionContext));
+		var stackable = IResolvingStackable.Resolving(handSize, new ResolutionContext(null));
 		stack.Push(stackable);
 		stackView.HandSize(stackable);
 	}

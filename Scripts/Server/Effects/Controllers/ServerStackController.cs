@@ -19,8 +19,6 @@ namespace Kompas.Server.Effects.Controllers;
 
 public interface IServerStackController : IStackController
 {
-	public void PushToStack(IServerStackable atk, ServerPlayer controller, IEventContext? triggerContext);
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext);
 	public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context);
 	public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackEntry);
 
@@ -134,21 +132,17 @@ public class ServerStackController : IServerStackController
 
 	#region the stack
 
-	public void PushToStack(IServerStackable atk, ServerPlayer controller, IEventContext? triggerContext)
-	{
-		PushToStack(IResolvingStackable.Resolving(atk, new ServerResolutionContext(triggerContext, controller)));
-	}
 
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext)
+	private void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext)
 	{
 		PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
 	}
 
 	public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
 	{
-		eff.PushedToStack(game, controller);
+		eff.PushedToStack(game, controller); //TODO move to Declare()
 
-		PushToStack(IResolvingStackable.Resolving(eff, context));
+		PushToStack(new ServerEffectResolution(eff, context));
 	}
 
 	public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackElement)
@@ -216,7 +210,8 @@ public class ServerStackController : IServerStackController
 		CurrStackEntry = stackable;
 
 		//actually resolve the thing
-		await stackable.StartResolution(context);
+		//TODO fix the types of IServerStackableResolution and IResolvingStackable
+		await (stackEntry as IServerStackableResolution).StartResolution();
 
 		//after it resolves, tell the clients it's done resolving
 		ServerNotifier.RemoveStackEntry(currStackIndex, game.Players);

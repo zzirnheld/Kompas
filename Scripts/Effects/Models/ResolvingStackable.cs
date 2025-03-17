@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace Kompas.Effects.Models;
 
 public interface IResolvingStackable
 {
 	public IStackable Stackable { get; }
-	public IResolutionContext? Context { get; }
+	public IResolutionContext Context { get; }
 
 	public static IResolvingStackable<StackableType, ContextType> Resolving<StackableType, ContextType>
-		(StackableType stackable, ContextType? context)
+		(StackableType stackable, ContextType context)
 		where StackableType : IStackable
 		where ContextType : IResolutionContext
 		=> new ResolvingStackable<StackableType, ContextType>(stackable, context);
@@ -27,7 +28,7 @@ public interface IResolvingStackable<out StackableType, out ContextType>
 	where StackableType : IStackable
 	where ContextType : IResolutionContext
 {
-	public new ContextType? Context { get; }
+	public new ContextType Context { get; }
 }
 
 //NOTE: For this to work as a dictionary key, you'll need to provide the given equality comparer.
@@ -40,17 +41,17 @@ public interface IResolvingStackable<out StackableType, out ContextType>
 //Or, alternately, it makes it bad practice to do this sort of generic-implements-nongeneric-interface
 //for something you plan on using as a dictionary key.
 //Either way, it's a useful thing to know.
-public readonly struct ResolvingStackable<StackableType, ContextType>
+public abstract class ResolvingStackable<StackableType, ContextType>
 	: IResolvingStackable<StackableType, ContextType>
 	where StackableType : IStackable
 	where ContextType : IResolutionContext
 {
 	IStackable IResolvingStackable.Stackable => Stackable;
 	public StackableType Stackable { get; }
-	IResolutionContext? IResolvingStackable.Context => Context;
-	public ContextType? Context { get; }
+	IResolutionContext IResolvingStackable.Context => Context;
+	public ContextType Context { get; }
 
-	public ResolvingStackable(StackableType stackable, ContextType? context)
+	public ResolvingStackable(StackableType stackable, ContextType context)
 	{
 		Stackable = stackable;
 		Context = context;

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
@@ -10,17 +11,19 @@ using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models;
 
-public class ServerAttack : Attack, IServerStackable
+public class ServerAttackResolution
+    : ResolvingStackable<ServerAttack, IServerResolutionContext>,
+        IServerStackableResolution
 {
-	public ServerGame ServerGame { get; init; }
+	private readonly IServerStackController stack;
 
-	private IServerStackController EffCtrl => ServerGame.StackController;
+	private ServerAttack Attack => Stackable;
 
-	public ServerAttack(ServerGame serverGame, IPlayer instigator, GameCard attacker, GameCard defender)
-		: base(instigator, attacker, defender)
+	public ServerAttackResolution(ServerAttack stackable, IServerResolutionContext context,
+		IServerStackController stack)
+		: base(stackable, context)
 	{
-		ServerGame = serverGame
-			?? throw new System.ArgumentNullException(nameof(serverGame), "Server game cannot be null for attack");
+		this.stack = stack;
 	}
 
 	/// <summary>
@@ -29,43 +32,43 @@ public class ServerAttack : Attack, IServerStackable
 	/// </summary>
 	public void Declare(IStackable? stackSrc)
 	{
-		ServerNotifier.NotifyAttackStarted(instigator, attacker, defender);
+		ServerNotifier.NotifyAttackStarted(Attack.instigator, Attack.attacker, Attack.defender);
 
 		var battlesContext = IEventContext.Build(Trigger.Battles)
 			.CausedBy(stackSrc)
-			.During(this)
-			.CausedBy(attacker) //The attack itself is caused by the attacker
-			.ForPlayer(instigator);
-		var attackerBattles = battlesContext.Clone().AffectingBoth(attacker, defender);
-		var defenderBattles = battlesContext.Clone().AffectingBoth(defender, attacker);
+			.During(Attack)
+			.CausedBy(Attack.attacker) //The attack itself is caused by the attacker
+			.ForPlayer(Attack.instigator);
+		var attackerBattles = battlesContext.Clone().AffectingBoth(Attack.attacker, Attack.defender);
+		var defenderBattles = battlesContext.Clone().AffectingBoth(Attack.defender, Attack.attacker);
 		var contexts = EventCapturer.Capture(() => { },
 			attackerBattles.CloneForEvent(Trigger.Attacks),
 			defenderBattles.CloneForEvent(Trigger.Defends),
 			attackerBattles,
 			defenderBattles);
-		EffCtrl.TriggerFor(contexts);
+		stack.TriggerFor(contexts);
 	}
 
 	//this is factored out so i can maybe eventually add some indication of whether an attack is still gonna be valid
 	private bool StillValidAttack
 	{
-		get => attacker.Location == Location.Board
-			&& defender.Location == Location.Board;
+		get => Attack.attacker.Location == Location.Board
+			&& Attack.defender.Location == Location.Board;
 	}
 
-	public Task StartResolution(IServerResolutionContext context)
+	public Task StartResolution()
 	{
 		var battleEndsContext = IEventContext.Build(Trigger.BattleEnds)
-			.CausedBy(this)
-			.During(this)
-			.CausedBy(attacker) //The attack itself is caused by the attacker
-			.ForPlayer(instigator);
+			.CausedBy(Attack)
+			.During(Attack)
+			.CausedBy(Attack.attacker) //The attack itself is caused by the attacker
+			.ForPlayer(Attack.instigator);
 		var contexts = EventCapturer.Capture(
 			() => { if (StillValidAttack) DealDamage(); },
-			battleEndsContext.Clone().AffectingBoth(attacker, defender),
-			battleEndsContext.Clone().AffectingBoth(defender, attacker)
+			battleEndsContext.Clone().AffectingBoth(Attack.attacker, Attack.defender),
+			battleEndsContext.Clone().AffectingBoth(Attack.defender, Attack.attacker)
 		);
-		EffCtrl.TriggerFor(contexts);
+		stack.TriggerFor(contexts);
 		//then finish the resolution by just returning that completed the task. (don't need to call anything)
 		return Task.CompletedTask;
 	}
@@ -73,23 +76,24 @@ public class ServerAttack : Attack, IServerStackable
 	private void DealDamage()
 	{
 		//get damage from both, before either takes any damage, in case effects matter on hp
-		int attackerDmg = attacker.CombatDamage;
-		int defenderDmg = defender.CombatDamage;
+		int attackerDmg = Attack.attacker.CombatDamage;
+		int defenderDmg = Attack.defender.CombatDamage;
 
 		var baseContext = IEventContext.Build(Trigger.Anything)
-			.CausedBy(this) //Damage, however, is caused by the card that did the damage, not by the card that initiated the attack.
-			.During(this)
-			.ForPlayer(instigator);
+			.CausedBy(Attack) //Damage, however, is caused by the card that did the damage, not by the card that initiated the attack.
+			.During(Attack)
+			.ForPlayer(Attack.instigator);
 
 		var attackerBase = baseContext.Clone()
-			.AffectingBoth(attacker, defender);
+			.AffectingBoth(Attack.attacker, Attack.defender);
 		var defenderBase = baseContext.Clone()
-			.AffectingBoth(defender, attacker);
+			.AffectingBoth(Attack.defender, Attack.attacker);
 
 		var contexts = EventCapturer.Capture(
-			() => {
-				defender.TakeDamage(attackerDmg, stackSrc: this);
-				attacker.TakeDamage(defenderDmg, stackSrc: this);
+			() =>
+			{
+				Attack.defender.TakeDamage(attackerDmg, stackSrc: Attack);
+				Attack.attacker.TakeDamage(defenderDmg, stackSrc: Attack);
 			},
 			attackerBase.CloneForEvent(Trigger.TakeCombatDamage).WithX(defenderDmg),
 			defenderBase.CloneForEvent(Trigger.TakeCombatDamage).WithX(attackerDmg),
@@ -97,6 +101,13 @@ public class ServerAttack : Attack, IServerStackable
 			defenderBase.CloneForEvent(Trigger.DealCombatDamage).WithX(defenderDmg)
 		);
 
-		EffCtrl.TriggerFor(contexts);
+		stack.TriggerFor(contexts);
 	}
+}
+
+public class ServerAttack : Attack, IServerStackable
+{
+    public ServerAttack(IPlayer instigator, GameCard attacker, GameCard defender)
+		: base(instigator, attacker, defender)
+	{ }
 }

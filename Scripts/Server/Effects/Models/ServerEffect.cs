@@ -46,9 +46,6 @@ public class ServerEffect : Effect, IServerEffect
 		?? throw new NotInitializedException();
 	public override IPlayer OwningPlayer => OwningServerPlayer;
 
-	public IServerResolutionContext? CurrentServerResolutionContext { get; private set; }
-	public override IResolutionContext? CurrentResolutionContext => CurrentServerResolutionContext;
-
 	public ServerSubeffect[] subeffects = System.Array.Empty<ServerSubeffect>();
 	public ServerSubeffect[] ServerSubeffects => subeffects;
 	public override Subeffect[] Subeffects => subeffects;
@@ -99,19 +96,26 @@ public class ServerEffect : Effect, IServerEffect
 
 		ServerSubeffect[] combinedSubeffects = new ServerSubeffect[subeffects.Length + newSubeffects.Length];
 		int oldIndex;
+		int newIndex;
 		int combinedIndex;
 		//Add old subeffects to combined array, until you get to the index where you want to insert the new ones
-		for (oldIndex = 0, combinedIndex = 0; combinedIndex < startingAtIndex; oldIndex++, combinedIndex++)
+		for (oldIndex = 0, combinedIndex = 0;
+			combinedIndex < startingAtIndex;
+			oldIndex++, combinedIndex++)
 		{
 			combinedSubeffects[combinedIndex] = subeffects[oldIndex];
 		}
 		//Add all the new subeffects to the combined array
-		for (int newIndex = 0; newIndex < newSubeffects.Length; newIndex++, combinedIndex++)
+		for (newIndex = 0;
+			newIndex < newSubeffects.Length;
+			newIndex++, combinedIndex++)
 		{
 			combinedSubeffects[combinedIndex] = newSubeffects[newIndex];
 		}
 		//Add the remaining old subeffects to the array
-		for (; oldIndex < subeffects.Length; oldIndex++, combinedIndex++)
+		for (;
+			oldIndex < subeffects.Length;
+			oldIndex++, combinedIndex++)
 		{
 			combinedSubeffects[combinedIndex] = subeffects[oldIndex];
 		}

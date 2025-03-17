@@ -10,5 +10,5 @@ namespace Kompas.Client.Effects.Models;
         {
         }
 
-        public string StackableBlurb => $"{player} must reshuffle to hand size";
+        public string StackableBlurb => $"{Player} must reshuffle to hand size";
     }

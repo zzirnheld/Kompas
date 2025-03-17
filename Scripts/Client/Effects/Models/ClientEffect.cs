@@ -1,5 +1,3 @@
-
-using System;
 using Kompas.Cards.Models;
 using Kompas.Client.Cards.Models;
 using Kompas.Client.Gamestate;
@@ -33,13 +31,10 @@ public class ClientEffect : Effect, IClientStackable
 	}
 	public override IGame Game => ClientGame;
 
-	public DummySubeffect[] DummySubeffects { get; } = Array.Empty<DummySubeffect>();
+	public DummySubeffect[] DummySubeffects { get; } = System.Array.Empty<DummySubeffect>();
 	public override Subeffect[] Subeffects => DummySubeffects;
 	public override Trigger? Trigger => ClientTrigger;
 
-	private IResolutionContext? currentResolutionContext;
-	public override IResolutionContext CurrentResolutionContext
-		=> currentResolutionContext ??= ResolutionContext.PlayerTriggeredEffect(this);
 	//TODO controller? should have some way to track it client-side otherwise if effects ever can be activated by not the card's ocntroller something will break
 
 	public string StackableBlurb => blurb ?? string.Empty;
