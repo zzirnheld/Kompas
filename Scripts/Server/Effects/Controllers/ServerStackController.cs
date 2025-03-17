@@ -220,60 +220,81 @@ public class ServerStackController : IServerStackController
 	/// </summary>
 	/// <param name="turnPlayer">The turn player, whose effects get pushed to the stack first.</param>
 	private async Task CheckTriggers(IPlayer turnPlayer)
-	{
-		//get the list of triggers, and see if they're all still valid
-		var triggered = triggeredTriggers.Dequeue();
-		var stillValid = triggered.triggers.Where(t => t.StillValidForContext(triggered.context));
+    {
+        //get the list of triggers, and see if they're all still valid
+        var triggered = triggeredTriggers.Dequeue();
+        var stillValid = triggered.triggers.Where(t => t.StillValidForContext(triggered.context));
 
-		//if there's no triggers, skip all this logic
-		if (!stillValid.Any())
-		{
-			Logger.Log($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
-			return;
-		}
+        //if there's no triggers, skip all this logic
+        if (!stillValid.Any())
+        {
+            Logger.Log($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
+            return;
+        }
 
-		//if any triggers have not been responded to, make them get responded to.
-		//this is saved so that we know what trigger to okay or not if it's responded
-		currentlyCheckingOptionals = true;
-		foreach (var t in stillValid)
-		{
-			//TODO this doesn't stop any subsequent calls to CheckTriggers
-			if (!t.Responded) await t.Ask(t.Effect.OwningPlayer, triggered.context);
-		}
-		currentlyCheckingOptionals = false;
+        await AskForOptionalTriggers(triggered, stillValid); //TODO remove now that optional happens at start of resolution
 
-		//now that all optional triggers have been answered, time to deal with ordering.
-		//if a player only has one trigger, don't bother asking them for an order.
-		foreach (var p in game.Players)
-		{
-			var thisPlayers = stillValid.Where(t => t.ServerEffect.OwningPlayer == p && t.Confirmed);
-			if (thisPlayers.Count() == 1) thisPlayers.First().Order = 1;
-		}
+        var confirmed = await GetTriggersOrder(stillValid);
 
-		//now, if there's any triggers that have been confirmed but not ordered (that is, more than one confirmed trigger),
-		//then get an ordering from the player in question.
-		var confirmed = stillValid.Where(t => t.Confirmed);
-		if (!confirmed.All(t => t.Ordered))
-		{
-			//create a list to hold the tasks, so you can get trigger orderings from both players at once.
-			List<Task> triggerOrderings = new();
-			foreach (var p in game.Players)
-			{
-				var thisPlayers = confirmed.Where(t => t.ServerEffect.OwningPlayer == p);
-				if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(game.Awaiter.GetTriggerOrder(p, thisPlayers));
-			}
-			await Task.WhenAll(triggerOrderings);
-		}
+        PushTriggersToStack(turnPlayer, triggered, confirmed);
+    }
 
-		//finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
-		foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
-			PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
-			
-		foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
-			PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
-	}
+    private async Task AskForOptionalTriggers(TriggersTriggered triggered, IEnumerable<ServerTrigger> stillValid)
+    {
+        //if any triggers have not been responded to, make them get responded to.
+        //this is saved so that we know what trigger to okay or not if it's responded
+        currentlyCheckingOptionals = true;
+        foreach (var t in stillValid)
+        {
+            //TODO this doesn't stop any subsequent calls to CheckTriggers
+            if (!t.Responded) await t.Ask(t.Effect.OwningPlayer, triggered.context);
+        }
+        currentlyCheckingOptionals = false;
+    }
 
-	private void PushTriggeredEffectToStack(ServerEffect effect, IEventContext? triggerContext)
+    private async Task<IEnumerable<ServerTrigger>> GetTriggersOrder(IEnumerable<ServerTrigger> stillValid)
+    {
+        HandlePlayerHavingOnlyOneTrigger(stillValid);
+        //now, if there's any triggers that have been confirmed but not ordered (that is, more than one confirmed trigger),
+        //then get an ordering from the player in question.
+        var confirmed = stillValid.Where(t => t.Confirmed);
+        if (!confirmed.All(t => t.Ordered))
+        {
+            //create a list to hold the tasks, so you can get trigger orderings from both players at once.
+            List<Task> triggerOrderings = new();
+            foreach (var p in game.Players)
+            {
+                var thisPlayers = confirmed.Where(t => t.ServerEffect.OwningPlayer == p);
+                if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(game.Awaiter.GetTriggerOrder(p, thisPlayers));
+            }
+            await Task.WhenAll(triggerOrderings);
+        }
+
+        return confirmed;
+    }
+
+    private void HandlePlayerHavingOnlyOneTrigger(IEnumerable<ServerTrigger> stillValid)
+    {
+        //now that all optional triggers have been answered, time to deal with ordering.
+        //if a player only has one trigger, don't bother asking them for an order.
+        foreach (var p in game.Players)
+        {
+            var onePlayersTriggers = stillValid.Where(t => t.ServerEffect.OwningPlayer == p && t.Confirmed);
+            if (onePlayersTriggers.Count() == 1) onePlayersTriggers.First().Order = 1;
+        }
+    }
+
+    private void PushTriggersToStack(IPlayer turnPlayer, TriggersTriggered triggered, IEnumerable<ServerTrigger> confirmed)
+    {
+        //finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
+        foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
+            PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
+
+        foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
+            PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
+    }
+
+    private void PushTriggeredEffectToStack(ServerEffect effect, IEventContext? triggerContext)
 	{
 		var resolutionContext = new ServerResolutionContext(triggerContext, effect.OwningServerPlayer);
 		var resolution = new ServerEffectResolution(effect, resolutionContext);
