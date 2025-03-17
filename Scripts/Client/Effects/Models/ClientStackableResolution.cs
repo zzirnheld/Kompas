@@ -3,7 +3,7 @@ using Kompas.Effects.Models;
 namespace Kompas.Client.Effects.Models;
 
 public class ClientStackableResolution<Stackable>
-	: ResolvingStackable<Stackable, IResolutionContext>
+	: StackableResolution<Stackable, IResolutionContext>
 	where Stackable : IClientStackable
 {
 	//TODO: later create client resolution contexts

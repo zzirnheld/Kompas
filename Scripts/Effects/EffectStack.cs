@@ -5,7 +5,7 @@ using Kompas.Effects.Models;
 namespace Kompas.Effects;
 
 public class EffectStack<ResolutionType, StackableType>
-	where ResolutionType : class, IResolvingStackable<StackableType>
+	where ResolutionType : class, IStackableResolution<StackableType>
 	where StackableType : IStackable
 {
 	private readonly List<ResolutionType> stack = new();

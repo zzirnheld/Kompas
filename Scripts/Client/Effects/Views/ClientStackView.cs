@@ -52,9 +52,9 @@ public partial class ClientStackView : Control
 	private PackedScene HandSizeStackableView => _handSizeStackableView
 		?? throw new UnassignedReferenceException(nameof(_handSizeStackableView), this);
 
-	private readonly Dictionary<IResolvingStackable, ClientStackableView> stackableToView = new(new ResolvingStackableEqualityComparer());
+	private readonly Dictionary<IStackableResolution, ClientStackableView> stackableToView = new(new StackableResolutionEqualityComparer());
 
-	public void Activated(IResolvingStackable<ClientEffect> stackable)
+	public void Activated(IStackableResolution<ClientEffect> stackable)
 	{
 		this.Visible = true;
 
@@ -68,7 +68,7 @@ public partial class ClientStackView : Control
 		StackElementsParent.AddChild(view);
 	}
 
-	public void Attacked(IResolvingStackable<ClientAttack> stackable)
+	public void Attacked(IStackableResolution<ClientAttack> stackable)
 	{
 		this.Visible = true;
 
@@ -79,7 +79,7 @@ public partial class ClientStackView : Control
 		StackElementsParent.AddChild(view);
 	}
 
-	public void HandSize(IResolvingStackable<ClientHandSizeStackable> stackable)
+	public void HandSize(IStackableResolution<ClientHandSizeStackable> stackable)
 	{
 		this.Visible = true;
 
@@ -89,7 +89,7 @@ public partial class ClientStackView : Control
 		StackElementsParent.AddChild(view);
 	}
 
-	public void Resolving(IResolvingStackable? stackable)
+	public void Resolving(IStackableResolution? stackable)
 	{
 		if (stackable == null)
 		{
@@ -107,7 +107,7 @@ public partial class ClientStackView : Control
 		CurrentlyResolvingParent.TransferChild(view);
 	}
 
-	public void Cancel(IResolvingStackable stackable)
+	public void Cancel(IStackableResolution stackable)
 	{
 		stackableToView[stackable].QueueFree();
 		stackableToView.Remove(stackable);

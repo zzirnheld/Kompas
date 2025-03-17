@@ -4,13 +4,13 @@ using Kompas.Effects.Models;
 namespace Kompas.Server.Effects.Models;
 
 public interface IServerStackableResolution
-	: IResolvingStackable
+	: IStackableResolution
 {
 	public Task StartResolution();
 }
 
 public interface IServerStackableResolution<out StackableType>
 	: IServerStackableResolution,
-		IResolvingStackable<StackableType, IServerResolutionContext>
+		IStackableResolution<StackableType, IServerResolutionContext>
 	where StackableType : IServerStackable
 { }

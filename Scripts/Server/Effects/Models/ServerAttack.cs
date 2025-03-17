@@ -10,7 +10,7 @@ using Kompas.Server.Networking;
 namespace Kompas.Server.Effects.Models;
 
 public class ServerAttackResolution
-    : ResolvingStackable<ServerAttack, IServerResolutionContext>,
+    : StackableResolution<ServerAttack, IServerResolutionContext>,
         IServerStackableResolution<ServerAttack>
 {
 	private readonly IServerStackController stack;

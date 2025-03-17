@@ -13,7 +13,7 @@ namespace Kompas.Client.Effects.Controllers;
 public class ClientStackController : IStackController
 {
 	private readonly ClientStackView stackView;
-	private readonly EffectStack<IResolvingStackable<IClientStackable, IResolutionContext>, IClientStackable> stack = new();
+	private readonly EffectStack<IStackableResolution<IClientStackable, IResolutionContext>, IClientStackable> stack = new();
 
 	public IEnumerable<IClientStackable> StackEntries => stack.StackEntries;
 	IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
