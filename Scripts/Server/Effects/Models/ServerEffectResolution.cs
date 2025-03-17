@@ -10,7 +10,7 @@ namespace Kompas.Server.Effects.Models;
 
 public class ServerEffectResolution
 	: ResolvingStackable<IServerEffect, IServerResolutionContext>,
-		IServerStackableResolution
+		IServerStackableResolution<IServerEffect>
 {
 	public const string EffectWasNegated = "Effect was negated";
 

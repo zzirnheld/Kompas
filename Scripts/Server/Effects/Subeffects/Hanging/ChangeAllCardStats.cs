@@ -44,7 +44,7 @@ public class ChangeAllCardStats : ChangeCardStats
 				throw new InvalidLocationException(card.Location, card, ChangedStatsOfCardOffBoard);
 		}
 
-		var buff = ComputeBuff();
+		var buff = ComputeBuff(context.X);
 
 		foreach (var card in cards)
 		{

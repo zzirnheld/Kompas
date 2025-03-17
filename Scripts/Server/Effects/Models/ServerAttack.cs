@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
@@ -6,14 +5,13 @@ using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Effects.Controllers;
-using Kompas.Server.Gamestate;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models;
 
 public class ServerAttackResolution
     : ResolvingStackable<ServerAttack, IServerResolutionContext>,
-        IServerStackableResolution
+        IServerStackableResolution<ServerAttack>
 {
 	private readonly IServerStackController stack;
 

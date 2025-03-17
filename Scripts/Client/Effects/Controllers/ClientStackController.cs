@@ -13,7 +13,7 @@ namespace Kompas.Client.Effects.Controllers;
 public class ClientStackController : IStackController
 {
 	private readonly ClientStackView stackView;
-	private readonly EffectStack<IClientStackable, IResolutionContext> stack = new();
+	private readonly EffectStack<IResolvingStackable<IClientStackable, IResolutionContext>, IClientStackable> stack = new();
 
 	public IEnumerable<IClientStackable> StackEntries => stack.StackEntries;
 	IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
@@ -31,21 +31,21 @@ public class ClientStackController : IStackController
 	public void Activated(ClientEffect effect)
 	{
 		effect.IncrementUses();
-		var stackable = IResolvingStackable.Resolving(effect, new ResolutionContext(null));
+		var stackable = new ClientStackableResolution<ClientEffect>(effect);
 		stack.Push(stackable);
 		stackView.Activated(stackable);
 	}
 
 	public void Attacked(ClientAttack attack)
 	{
-		var stackable = IResolvingStackable.Resolving(attack, new ResolutionContext(null));
+		var stackable = new ClientStackableResolution<ClientAttack>(attack);
 		stack.Push(stackable);
 		stackView.Attacked(stackable);
 	}
 
 	public void HandSize(ClientHandSizeStackable handSize)
 	{
-		var stackable = IResolvingStackable.Resolving(handSize, new ResolutionContext(null));
+		var stackable = new ClientStackableResolution<ClientHandSizeStackable>(handSize);
 		stack.Push(stackable);
 		stackView.HandSize(stackable);
 	}

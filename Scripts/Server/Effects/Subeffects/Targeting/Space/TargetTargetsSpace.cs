@@ -8,12 +8,13 @@ public class TargetTargetsSpace : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (GetCardTarget(resolution.Context)?.Location != Location.Board)
+		var cardTarget = GetCardTarget(resolution.Context);
+		if (cardTarget?.Location != Location.Board)
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
-		if (GetCardTarget(resolution.Context).Position == null) throw new NullSpaceOnBoardException(GetCardTarget(resolution.Context));
+		if (cardTarget.Position == null) throw new NullSpaceOnBoardException(cardTarget);
 
-		resolution.AddSpace(GetCardTarget(resolution.Context).Position.Copy);
+		resolution.AddSpace(cardTarget.Position.Copy);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

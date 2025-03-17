@@ -20,7 +20,7 @@ namespace Kompas.Server.Effects.Controllers;
 public interface IServerStackController : IStackController
 {
 	public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context);
-	public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackEntry);
+	public void PushToStack(IServerStackableResolution<IServerStackable> stackEntry);
 
 	public Task ResolveNextStackEntry();
 	public void Cancel(Effect eff);
@@ -60,7 +60,7 @@ public class ServerStackController : IServerStackController
 
 	private readonly ServerGame game;
 
-	private readonly EffectStack<IServerStackable, IServerResolutionContext> stack = new();
+	private readonly EffectStack<IServerStackableResolution<IServerStackable>, IServerStackable> stack = new();
 	public IEnumerable<IServerStackable> StackEntries => stack.StackEntries;
 	IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
 
@@ -145,7 +145,7 @@ public class ServerStackController : IServerStackController
 		PushToStack(new ServerEffectResolution(eff, context));
 	}
 
-	public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackElement)
+	public void PushToStack(IServerStackableResolution<IServerStackable> stackElement)
 	{
 		stack.Push(stackElement);
 	}
@@ -211,7 +211,7 @@ public class ServerStackController : IServerStackController
 
 		//actually resolve the thing
 		//TODO fix the types of IServerStackableResolution and IResolvingStackable
-		await (stackEntry as IServerStackableResolution).StartResolution();
+		await stackEntry.StartResolution();
 
 		//after it resolves, tell the clients it's done resolving
 		ServerNotifier.RemoveStackEntry(currStackIndex, game.Players);

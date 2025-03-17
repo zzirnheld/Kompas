@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
 namespace Kompas.Effects.Models;
 
@@ -8,12 +7,6 @@ public interface IResolvingStackable
 {
 	public IStackable Stackable { get; }
 	public IResolutionContext Context { get; }
-
-	public static IResolvingStackable<StackableType, ContextType> Resolving<StackableType, ContextType>
-		(StackableType stackable, ContextType context)
-		where StackableType : IStackable
-		where ContextType : IResolutionContext
-		=> new ResolvingStackable<StackableType, ContextType>(stackable, context);
 }
 
 public interface IResolvingStackable<out StackableType>

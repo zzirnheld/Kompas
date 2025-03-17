@@ -4,23 +4,22 @@ using Kompas.Effects.Models;
 
 namespace Kompas.Effects;
 
-public class EffectStack<StackableType, ContextType>
-	where StackableType : class, IStackable
-	where ContextType : IResolutionContext
+public class EffectStack<ResolutionType, StackableType>
+	where ResolutionType : class, IResolvingStackable<StackableType>
+	where StackableType : IStackable
 {
-	private readonly List<IResolvingStackable<StackableType, ContextType>> stack = new();
-
+	private readonly List<ResolutionType> stack = new();
 	public IEnumerable<StackableType> StackEntries => stack.Select(entry => entry.Stackable);
 
 	public bool Empty => stack.Count == 0;
 	public int Count => stack.Count;
 
-	public void Push(IResolvingStackable<StackableType, ContextType> entry)
+	public void Push(ResolutionType entry)
 	{
 		stack.Add(entry);
 	}
 
-	public IResolvingStackable<StackableType, ContextType>? Pop()
+	public ResolutionType? Pop()
 	{
 		if (stack.Count == 0) return null;
 
@@ -29,7 +28,7 @@ public class EffectStack<StackableType, ContextType>
 		return last;
 	}
 
-	public IResolvingStackable<StackableType, ContextType>? Cancel(int index)
+	public ResolutionType? Cancel(int index)
 	{
 		if (index >= stack.Count) return default;
 

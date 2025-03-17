@@ -15,7 +15,7 @@ namespace Kompas.Server.Effects.Models;
 
 public class ServerHandSizeStackableResolution
     : ResolvingStackable<ServerHandSizeStackable, IServerResolutionContext>,
-        IServerStackableResolution
+        IServerStackableResolution<ServerHandSizeStackable>
 {
 	private readonly ServerGame serverGame;
 	
