@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, give an E X summon +X E.",
 	"effects": [
 		{
-			"blurb": "Calm",
+			"initialBlurb": "Calm",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

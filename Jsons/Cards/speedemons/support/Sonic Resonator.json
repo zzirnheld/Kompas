@@ -4,9 +4,8 @@
 	"effText": "When a character moves, give me +1 C, but I won't vanish until 2 turns after that.\nWhen I vanish with C X, deck \u2192 summon distinct Speedemons with total S <= X.",
 	"effects": [
 		{
-			"blurb": "Sonic +C",
+			"initialBlurb": "Sonic +C",
 			"triggerData": {
-				"blurb": "Sonic +C",
 				"triggerCondition": "Move",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},
@@ -26,9 +25,8 @@
 			]
 		},
 		{
-			"blurb": "Resound",
+			"initialBlurb": "Resound",
 			"triggerData": {
-				"blurb": "Resound",
 				"triggerCondition": "Vanish",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

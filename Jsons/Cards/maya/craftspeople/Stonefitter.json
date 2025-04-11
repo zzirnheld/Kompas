@@ -4,7 +4,7 @@
 	"effText": "When you summon a Structure normally, deck \u2192 summon a copy of it adjacent to me.",
 	"effects": [
 		{
-			"blurb": "Build temple",
+			"initialBlurb": "Build temple",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

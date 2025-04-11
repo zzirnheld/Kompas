@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, I Pilot a Mech, and if it dies, I return unnegated and do it again.",
 	"effects": [
 		{
-			"blurb": "Improvised Piloting",
+			"initialBlurb": "Improvised Piloting",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

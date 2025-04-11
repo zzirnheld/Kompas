@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, I Ambush.",
 	"effects": [
 		{
-			"blurb": "1T'5 4N 4MBU5H",
+			"initialBlurb": "1T'5 4N 4MBU5H",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

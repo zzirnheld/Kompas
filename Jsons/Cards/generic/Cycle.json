@@ -4,7 +4,7 @@
 	"effText": "You can hand \u2192 discard 1 to increase the leyload by 1.",
 	"effects": [
 		{
-			"blurb":"Pass",
+			"initialBlurb":"Pass",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

@@ -4,8 +4,8 @@
 	"effText": "IFICATE.\nRummage. Move an enemy up to 3 segments.",
 	"effects": [
 		{
+			"initialBlurb": "Wait Hold Up",
 			"triggerData": {
-				"blurb": "Wait Hold Up",
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

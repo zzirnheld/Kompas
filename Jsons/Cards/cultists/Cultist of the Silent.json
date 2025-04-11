@@ -4,8 +4,8 @@
 	"effText": "Restock.",
 	"effects": [
 		{
+			"initialBlurb": "Restock",
 			"triggerData": {
-				"blurb": "Reshuffle",
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

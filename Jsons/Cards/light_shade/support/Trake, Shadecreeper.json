@@ -4,7 +4,7 @@
 	"effText": "Stealth.\n[USES.0.Once] each turn, you can move Shade I'm in 1 segment.",
 	"effects": [
 		{
-			"blurb": "Creep",
+			"initialBlurb": "Creep",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

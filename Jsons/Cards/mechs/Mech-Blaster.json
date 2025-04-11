@@ -4,7 +4,7 @@
 	"effText": "Collectible.\nAttach me normally only to a Mech.\n• When this W X character attacks, give a character on their diagonal -X E. ",
 	"effects": [
 		{
-			"blurb": "Mechablast",
+			"initialBlurb": "Mechablast",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

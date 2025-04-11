@@ -4,8 +4,8 @@
 	"effText": "RECOVERABLE.\n• While equipped, activate this Golem.\n• When this Golem dies, revive them where they were.",
 	"effects": [
 		{
+			"initialBlurb": "Activate!",
 			"triggerData": {
-				"blurb": "Activate Golem",
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

@@ -4,7 +4,7 @@
 	"effText": "Give an adjacent character -1 E. Draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Crack geode",
+			"initialBlurb": "Crack geode",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

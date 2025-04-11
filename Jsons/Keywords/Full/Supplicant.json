@@ -1,7 +1,7 @@
 {
+	"initialBlurb":"Die",
 	"triggerData":
 	{
-		"blurb":"Die",
 		"triggerCondition":"Battle Start",
 		"triggerRestriction": {
 			"$type": "Restrict.Gamestate:CardsMatch:",

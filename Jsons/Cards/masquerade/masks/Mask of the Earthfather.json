@@ -4,7 +4,7 @@
 	"effText": "Mask.\nWhen this S X character attacks, give them +X E.",
 	"effects": [
 		{
-			"blurb": "Dance of Humus",
+			"initialBlurb": "Dance of Humus",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

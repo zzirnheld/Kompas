@@ -4,7 +4,7 @@
 	"effText": "Deck \u2192 summon 2 Mycelia.",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Simple",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

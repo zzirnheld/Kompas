@@ -4,7 +4,7 @@
 	"effText": "Reveal your hand, including X Spies. Give Orcs in your hand -1 S. Draw X cards.",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Simple",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

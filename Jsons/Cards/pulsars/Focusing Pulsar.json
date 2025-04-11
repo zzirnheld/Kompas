@@ -4,8 +4,8 @@
 	"effText": "When your Avatar's S changes, give adjacent characters:\n+S: +1 W.\n-S: -1 W.",
 	"effects": [
 		{
+			"initialBlurb": "Enfocus",
 			"triggerData": {
-				"blurb": "Enfocus",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -51,8 +51,8 @@
 			]
 		},
 		{
+			"initialBlurb": "Unfocus",
 			"triggerData": {
-				"blurb": "Unfocus",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

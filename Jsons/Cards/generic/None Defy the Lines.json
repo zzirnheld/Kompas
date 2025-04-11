@@ -4,7 +4,7 @@
 	"effText": "Push each character to their closest edge. (Your choice if tied. You choose the order.)",
 	"effects": [
 		{
-			"blurb": "Simple Effect",
+			"initialBlurb": "Simple Effect",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

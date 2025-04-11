@@ -4,7 +4,7 @@
 	"effText": "Waterborn Waterdweller.\nWhen I attack, dispel adjacent spells.",
 	"effects": [
 		{
-			"blurb": "Unexspell",
+			"initialBlurb": "Unexspell",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

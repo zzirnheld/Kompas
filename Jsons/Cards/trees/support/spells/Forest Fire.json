@@ -4,7 +4,7 @@
 	"effText": "Any number of times: Give a friendly Tree and all characters adjacent to it -4 E.",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Simple",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

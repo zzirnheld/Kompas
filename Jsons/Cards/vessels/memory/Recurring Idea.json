@@ -4,8 +4,8 @@
 	"effText": "When I'm destroyed, gain 1 pip.\nWhen turns start, discard \u2192 attach me to a Vessel.",
 	"effects": [
 		{
+			"initialBlurb": "Pip",
 			"triggerData": {
-				"blurb": "Pip",
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -41,8 +41,8 @@
 			]
 		},
 		{
+			"initialBlurb": "Recur",
 			"triggerData": {
-				"blurb": "Recur",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

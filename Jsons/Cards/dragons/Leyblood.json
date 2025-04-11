@@ -4,9 +4,9 @@
 	"effText":"When a Dragon kills a character, gain 1 pip.",
 	"effects":[
 		{
+			"initialBlurb":"Leyblood",
 			"triggerData":
 			{
-				"blurb":"Leyblood",
 				"triggerCondition":"Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

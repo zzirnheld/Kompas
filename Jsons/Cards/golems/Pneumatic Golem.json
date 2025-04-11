@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, hand a character within [my N] segments of me.",
 	"effects": [
 		{
-			"blurb": "Nope, Go Away",
+			"initialBlurb": "Nope, Go Away",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When I'm cast in Water with total cost X, annihilate me, then deck \u2192 summon an S <= X Aquatic character where I was.",
 	"effects": [
 		{
-			"blurb": "Monster!?",
+			"initialBlurb": "Monster!?",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

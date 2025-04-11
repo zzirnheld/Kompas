@@ -4,7 +4,7 @@
 	"effText": "When an enemy card is revealed, give friendly characters +1 SW and enemy characters -1 SW.",
 	"effects": [
 		{
-			"blurb": "Starstruck",
+			"initialBlurb": "Starstruck",
 			"triggerData": {
 				"triggerCondition": "Revealed",
 				"triggerRestriction": {

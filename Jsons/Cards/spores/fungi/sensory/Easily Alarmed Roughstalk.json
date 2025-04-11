@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen I fight a character, I pulse us.",
 	"effects": [
 		{
-			"blurb": "Shrink",
+			"initialBlurb": "Shrink",
 			"triggerData": {
 				"triggerCondition": "Battle Start",
 				"triggerRestriction": {

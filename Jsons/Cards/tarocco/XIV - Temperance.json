@@ -4,8 +4,8 @@
 	"effText": "Once each round, when you draw X cards, I can dispel a C <= X spell.",
 	"effects": [
 		{
+			"initialBlurb": "Dispel a C <= X spell?",
 			"triggerData": {
-				"blurb": "Dispel a C <= X spell?",
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

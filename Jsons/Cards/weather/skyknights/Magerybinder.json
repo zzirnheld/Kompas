@@ -4,7 +4,7 @@
 	"effText": "When an enemy casts a spell in Weather, SPINASTORM there.",
 	"effects": [
 		{
-			"blurb": "Bind the magic",
+			"initialBlurb": "Bind the magic",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

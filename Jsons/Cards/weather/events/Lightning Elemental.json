@@ -4,7 +4,7 @@
 	"effText": "WTHREVNT: Each gives an enemy there -7 E.",
 	"effects": [
 		{
-			"blurb": "Strike Lightning",
+			"initialBlurb": "Strike Lightning",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

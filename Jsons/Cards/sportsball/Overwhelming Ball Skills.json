@@ -4,8 +4,8 @@
 	"effText": "COMEBACKPLAY.\nWhen you augment an enemy character, give them -1 NW.",
 	"effects": [
 		{
+			"initialBlurb": "My balls are SKILLED!",
 			"triggerData": {
-				"blurb": "My balls are SKILLED!",
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

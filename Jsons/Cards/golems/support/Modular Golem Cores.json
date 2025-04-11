@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can swap a friendly Golem's Core for a distinct one in your deck.",
 	"effects": [
 		{
-			"blurb": "Swap Out Modules",
+			"initialBlurb": "Swap Out Modules",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

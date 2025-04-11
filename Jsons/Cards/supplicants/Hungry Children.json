@@ -4,8 +4,8 @@
 	"effText": "Supplicant: Give that character -1 N.",
 	"effects": [
 		{
+			"initialBlurb": "Hunger",
 			"triggerData": {
-				"blurb": "Hunger",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

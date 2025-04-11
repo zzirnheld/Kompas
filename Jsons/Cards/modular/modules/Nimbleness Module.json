@@ -4,7 +4,7 @@
 	"effText": "Give this character +1 N.",
 	"effects": [
 		{
-			"blurb": "+1 Nimbleness",
+			"initialBlurb": "+1 Nimbleness",
 			"triggerData": {
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {

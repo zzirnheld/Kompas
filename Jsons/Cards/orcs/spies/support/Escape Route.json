@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can hand an adjacent friendly character.",
 	"effects": [
 		{
-			"blurb": "Escape",
+			"initialBlurb": "Escape",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

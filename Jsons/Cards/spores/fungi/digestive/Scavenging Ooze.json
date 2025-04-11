@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen a Fungus pulses an enemy, reshuffle each player's most recently discarded card. Give me +1 ESW.",
 	"effects": [
 		{
-			"blurb": "Army",
+			"initialBlurb": "Army",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

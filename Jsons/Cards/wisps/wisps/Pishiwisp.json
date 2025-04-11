@@ -4,7 +4,7 @@
 	"effText": "Wisp: Push each adjacent character 1 segment away.",
 	"effects": [
 		{
-			"blurb": "pish",
+			"initialBlurb": "pish",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When I start turns with X A, give this summon -X E, then give me +1 A.",
 	"effects":[
 		{
-			"blurb": "doesn't it?",
+			"initialBlurb": "doesn't it?",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

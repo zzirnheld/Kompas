@@ -1,5 +1,5 @@
 {
-	"blurb": "The shadow vanishes...",
+	"initialBlurb": "The shadow vanishes...",
 	"triggerData": {
 		"triggerCondition": "Arrive",
 		"triggerRestriction": {

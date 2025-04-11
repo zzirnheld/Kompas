@@ -4,7 +4,7 @@
 	"effText": "When you draw X cards, give me and another summon -X E.",
 	"effects": [
 		{
-			"blurb": "Symbolic execution",
+			"initialBlurb": "Symbolic execution",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

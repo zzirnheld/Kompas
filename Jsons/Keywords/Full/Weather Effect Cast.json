@@ -1,5 +1,5 @@
 {
-	"blurb":"Shifting Weather Conditions",
+	"initialBlurb":"Shifting Weather Conditions",
 	"triggerData":
 	{
 		"triggerCondition":"Turn Start",

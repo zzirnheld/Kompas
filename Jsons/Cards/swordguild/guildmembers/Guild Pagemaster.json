@@ -4,7 +4,7 @@
 	"effText": "When you summon another Swordguild Warrior, deck \u2192 summon a Squire adjacent to them.",
 	"effects": [
 		{
-			"blurb": "Recruit",
+			"initialBlurb": "Recruit",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

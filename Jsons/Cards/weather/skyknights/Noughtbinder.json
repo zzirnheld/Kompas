@@ -4,7 +4,7 @@
 	"effText": "After an enemy turn starts, if they don't do anything before your next turn starts, SPINASTORM in Weather I'm in.",
 	"effects": [
 		{
-			"blurb": "Bind the curiosity",
+			"initialBlurb": "Bind the curiosity",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {

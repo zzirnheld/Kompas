@@ -4,7 +4,7 @@
 	"effText": "An enemy can reveal a Cost 1 card. If they don't, teleport an adjacent Reporter anywhere.",
 	"effects": [
 		{
-			"blurb": "Newsflash!",
+			"initialBlurb": "Newsflash!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

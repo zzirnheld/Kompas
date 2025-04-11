@@ -4,7 +4,7 @@
 	"effText": "COMEBACKPLAY.\nWhen an enemy wielding a Sportsball defends here, hand them.",
 	"effects": [
 		{
-			"blurb": "Time out!",
+			"initialBlurb": "Time out!",
 			"triggerData": {
 				"orderPriority": -5,
 				"triggerCondition": "Defend",

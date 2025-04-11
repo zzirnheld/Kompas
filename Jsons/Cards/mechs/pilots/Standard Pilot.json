@@ -4,7 +4,7 @@
 	"effText": "I can Pilot a Mech.",
 	"effects": [
 		{
-			"blurb": "Standard Piloting",
+			"initialBlurb": "Standard Piloting",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

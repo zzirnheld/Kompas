@@ -4,8 +4,8 @@
 	"effText": "Pass Back. RECOVERABLE.\nSticky, twice each turn.",
 	"effects": [
 		{
+			"initialBlurb": "Sticky!",
 			"triggerData": {
-				"blurb": "Sticky!",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

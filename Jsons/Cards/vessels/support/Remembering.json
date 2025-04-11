@@ -4,7 +4,7 @@
 	"effText": "When a Vessel echoes themselves, echo them again.",
 	"effects": [
 		{
-			"blurb": "Remember",
+			"initialBlurb": "Remember",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

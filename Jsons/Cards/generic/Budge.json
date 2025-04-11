@@ -4,7 +4,7 @@
 	"effText": "Move an adjacent card 1 segment. Draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Budge",
+			"initialBlurb": "Budge",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

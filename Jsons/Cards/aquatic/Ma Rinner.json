@@ -4,7 +4,7 @@
 	"effText": "Waterborn.\nWhen turns start, draw 2 cards. Then, unless I'm in Water, hand \u2192 bottomdeck 3.",
 	"effects": [
 		{
-			"blurb": "Gone Fishin'",
+			"initialBlurb": "Gone Fishin'",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

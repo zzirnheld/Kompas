@@ -1,5 +1,5 @@
 {
-	"blurb": "What *is* that shadow...",
+	"initialBlurb": "What *is* that shadow...",
 	"triggerData": {
 		"triggerCondition": "Play",
 		"triggerRestriction": {

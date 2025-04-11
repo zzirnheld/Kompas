@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, set a character's N to 0.",
 	"effects": [
 		{
-			"blurb": "Anxiety",
+			"initialBlurb": "Anxiety",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "Mask.\nWhen this summon defends, give their attacker's Avatar -5 E.",
 	"effects": [
 		{
-			"blurb": "You underestimate me",
+			"initialBlurb": "You underestimate me",
 			"triggerData":
 			{
 				"triggerCondition": "Defend",

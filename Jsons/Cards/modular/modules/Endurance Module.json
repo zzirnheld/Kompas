@@ -4,7 +4,7 @@
 	"effText": "Give this character +3 E.",
 	"effects": [
 		{
-			"blurb": "+3 Endurance",
+			"initialBlurb": "+3 Endurance",
 			"triggerData": {
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {

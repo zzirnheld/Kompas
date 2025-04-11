@@ -4,7 +4,7 @@
 	"effText": "Stealth.\nWhen a Moth attacks a character in Light, give one summon -1E and another +1E.",
 	"effects": [
 		{
-			"blurb": "oh? hello there",
+			"initialBlurb": "oh? hello there",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

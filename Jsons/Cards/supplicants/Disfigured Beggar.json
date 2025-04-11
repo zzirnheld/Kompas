@@ -4,8 +4,8 @@
 	"effText": "Supplicant: The [USES.0.first] time each turn, move that character one segment.",
 	"effects": [
 		{
+			"initialBlurb": "Hunger",
 			"triggerData": {
-				"blurb": "Hunger",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

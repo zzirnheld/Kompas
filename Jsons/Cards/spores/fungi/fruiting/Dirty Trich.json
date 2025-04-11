@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen a Fungus pulses a summon, give them +1 W if they're a Fungus, or -1 W if not.",
 	"effects": [
 		{
-			"blurb": "What a Dirty Trich",
+			"initialBlurb": "What a Dirty Trich",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

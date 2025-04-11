@@ -4,8 +4,8 @@
 	"effText": "When an enemy arrives adjacent to me, I INVOKE a character that costs less than me.",
 	"effects": [
 		{
+			"initialBlurb": "Invoke",
 			"triggerData": {
-				"blurb": "Invoke",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

@@ -4,8 +4,8 @@
 	"effText": "Supplicant: Give that character -1 E.",
 	"effects": [
 		{
+			"initialBlurb": "Leprosy",
 			"triggerData": {
-				"blurb": "Leprosy",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

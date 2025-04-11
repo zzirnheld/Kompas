@@ -4,7 +4,7 @@
 	"effText": "When this character attacks, give them, then their target -7 E.",
 	"effects": [
 		{
-			"blurb":"Blast",
+			"initialBlurb":"Blast",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

@@ -5,7 +5,7 @@
 	"technicalEffText": "Nimble GOLEM.\nWhen I move, destroy all X cards on a line between my origin and destination, and give me -X E.",
 	"effects": [
 		{
-			"blurb": "D35TR0Y!!!",
+			"initialBlurb": "D35TR0Y!!!",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

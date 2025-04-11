@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, deck \u2192 hand a Cultist.\nWhen friendly turns start, echo me.",
 	"effects": [
 		{
-			"blurb": "DOOM, sayeth the bell",
+			"initialBlurb": "DOOM, sayeth the bell",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When this Vessel attacks a W X character, give the Vessel +X E and echo them.",
 	"effects": [
 		{
-			"blurb": "We've fought before",
+			"initialBlurb": "We've fought before",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

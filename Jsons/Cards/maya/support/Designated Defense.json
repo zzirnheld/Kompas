@@ -4,7 +4,7 @@
 	"effText": "When turns start, an enemy chooses ANY node on the edge of the board. Deck \u2192 summon a Structure there (ignoring normal adjacency rules).",
 	"effects": [
 		{
-			"blurb": "Designate construction",
+			"initialBlurb": "Designate construction",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

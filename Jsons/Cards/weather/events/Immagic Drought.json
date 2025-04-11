@@ -4,7 +4,7 @@
 	"effText": "WTHREVNT: Each negates all enemy characters there, until the next turn starts.",
 	"effects": [
 		{
-			"blurb": "Dessicate",
+			"initialBlurb": "Dessicate",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

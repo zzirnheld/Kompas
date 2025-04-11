@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: +1 E.",
 	"effects": [
 		{
-			"blurb": "Sun smiles",
+			"initialBlurb": "Sun smiles",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

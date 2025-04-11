@@ -4,7 +4,7 @@
 	"effText": "When this E X character defends from a W > X character, give both -7 E.",
 	"effects": [
 		{
-			"blurb":"Blast",
+			"initialBlurb":"Blast",
 			"triggerData":
 			{
 				"triggerCondition": "Defend",

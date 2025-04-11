@@ -4,7 +4,7 @@
 	"effText": "When an enemy character enters Weather, SPINASTORM there.",
 	"effects": [
 		{
-			"blurb": "Bind the curiosity",
+			"initialBlurb": "Bind the curiosity",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

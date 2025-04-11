@@ -4,8 +4,8 @@
 	"effText": "COMEBACKPLAY.\nWhen a friendly character arrives while wielding Augments with total A X, give adjacent characters -X W.",
 	"effects": [
 		{
+			"initialBlurb": "Mad Jukes My Dude!",
 			"triggerData": {
-				"blurb": "Mad Jukes My Dude!",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

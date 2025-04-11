@@ -4,7 +4,7 @@
 	"effText": "Speedemon.\nAfter I move, give enemy characters adjacent to the node I moved from -1 E.",
 	"effects": [
 		{
-			"blurb": "BOOM",
+			"initialBlurb": "BOOM",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

@@ -4,8 +4,8 @@
 	"effText": "Pass Back. RECOVERABLE.\nBouncy, twice each turn.",
 	"effects": [
 		{
+			"initialBlurb": "Bouncy!",
 			"triggerData": {
-				"blurb": "Bouncy!",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

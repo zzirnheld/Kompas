@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, give a W X character +X W.",
 	"effects": [
 		{
-			"blurb": "Wildness",
+			"initialBlurb": "Wildness",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

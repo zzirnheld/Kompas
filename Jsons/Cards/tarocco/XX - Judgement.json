@@ -4,7 +4,7 @@
 	"effText": "When you draw X cards, kill an S <= X character.",
 	"effects": [
 		{
-			"blurb": "Judgement",
+			"initialBlurb": "Judgement",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

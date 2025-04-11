@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: Their controller hand \u2192 discards 2 cards, then draws 1.",
 	"effects": [
 		{
-			"blurb": "So tired",
+			"initialBlurb": "So tired",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

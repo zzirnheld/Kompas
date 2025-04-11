@@ -4,8 +4,8 @@
 	"effText": "IFICATE.\nWhen an enemy moves adjacent to a Crazy card, give them -5 W.",
 	"effects": [
 		{
+			"initialBlurb": "Right Into My Trap",
 			"triggerData": {
-				"blurb": "Right Into My Trap",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

@@ -4,7 +4,7 @@
 	"effText": "When this character survives dealing X damage, give them +X EW.",
 	"effects": [
 		{
-			"blurb": "Vampirism",
+			"initialBlurb": "Vampirism",
 			"triggerData": {
 				"triggerCondition": "Deal Combat Damage",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "Give an adjacent S X character -X E.",
 	"effects": [
 		{
-			"blurb": "The weight of binds",
+			"initialBlurb": "The weight of binds",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

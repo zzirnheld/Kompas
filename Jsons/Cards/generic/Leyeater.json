@@ -4,7 +4,7 @@
 	"effText": "Berserker.\nWhen I attack, dispel an enemy spell",
 	"effects": [
 		{
-			"blurb": "Eat magic",
+			"initialBlurb": "Eat magic",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

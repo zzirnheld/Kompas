@@ -4,7 +4,7 @@
 	"effText": "Waterborn Waterdweller. Spores.\nWhen turns start, pulse characters in Water.",
 	"effects": [
 		{
-			"blurb": "Waterborne Spores",
+			"initialBlurb": "Waterborne Spores",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" },

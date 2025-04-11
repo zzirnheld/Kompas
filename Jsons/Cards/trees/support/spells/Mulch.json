@@ -4,10 +4,9 @@
 	"effText":"When a Tree dies, DOHEAL friendly Trees.",
 	"effects":[
 		{
-			"blurb":"Mulch",
+			"initialBlurb":"Mulch",
 			"triggerData":
 			{
-				"blurb":"Mulch",
 				"triggerCondition":"Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -40,7 +39,6 @@
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction":
 					{
-						"blurb":"for Haemopoten to draw",
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Friendly:" },

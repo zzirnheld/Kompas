@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, this character can attack a character exactly 2 segments from them. (Doesn't cost normal attack.)",
 	"effects": [
 		{
-			"blurb": "Reaching Attack",
+			"initialBlurb": "Reaching Attack",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, choose an enemy character. Give all X enemy characters connected to them -X NESW.",
 	"effects": [
 		{
-			"blurb": "Displeasure",
+			"initialBlurb": "Displeasure",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

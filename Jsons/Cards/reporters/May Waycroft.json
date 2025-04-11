@@ -4,7 +4,7 @@
 	"effText": "When an enemy plays a card normally, if it had been revealed, give friendly Reporters +1 NEWS. Regardless, they reveal a card.",
 	"effects": [
 		{
-			"blurb":"The Value of Accountability",
+			"initialBlurb":"The Value of Accountability",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

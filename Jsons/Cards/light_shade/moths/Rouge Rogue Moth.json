@@ -4,7 +4,7 @@
 	"effText": "Stealth.\nWhen a Moth attacks a character in Light, double the Moth's W.",
 	"effects": [
 		{
-			"blurb": "hello there",
+			"initialBlurb": "hello there",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

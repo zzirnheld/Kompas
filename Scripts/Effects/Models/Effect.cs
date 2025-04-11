@@ -36,8 +36,8 @@ public abstract class Effect : IEffect
 	public IActivationRestriction? ActivationRestriction => activationRestriction;
 
 	//Misc effect info
-	public string? blurb;
-	public string InitialBlurb => blurb ??= $"Effect of {Card.CardName}";
+	public string? initialBlurb;
+	public string InitialBlurb => initialBlurb ??= $"Effect of {Card.CardName}";
 	public int arg; //used for keyword arguments, and such
 	private int _timesUsedThisTurn;
 	private int _timesUsedThisRound;

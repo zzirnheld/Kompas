@@ -4,10 +4,9 @@
 	"effText": "TERRITORIAL.\nWhen I attack, give my target and characters adjacent to them -3 E.",
 	"effects": [
 		{
-			"blurb": "Fire Breath",
+			"initialBlurb": "Fire Breath",
 			"triggerData": {
 				"triggerCondition": "Attack",
-				"blurb": "Fire Breath",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },

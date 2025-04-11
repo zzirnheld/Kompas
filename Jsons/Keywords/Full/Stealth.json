@@ -1,5 +1,5 @@
 {
-	"blurb":"Stealth",
+	"initialBlurb":"Stealth",
 	"triggerData": {
 		"triggerCondition": "Turn Start",
 		"triggerRestriction": {

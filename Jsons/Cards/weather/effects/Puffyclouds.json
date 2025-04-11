@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: +1 S.",
 	"effects": [
 		{
-			"blurb": "Inspiring clouds",
+			"initialBlurb": "Inspiring clouds",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

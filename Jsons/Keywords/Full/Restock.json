@@ -1,6 +1,6 @@
 {
+    "initialBlurb": "Restock",
     "triggerData": {
-        "blurb": "Restock",
         "triggerCondition": "Discard",
         "triggerRestriction": {
             "elements": [

@@ -4,7 +4,7 @@
 	"effText": "When you SPINASTORM, reshuffle all your annihilated Weather.",
 	"effects": [
 		{
-			"blurb": "Bind weather",
+			"initialBlurb": "Bind weather",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

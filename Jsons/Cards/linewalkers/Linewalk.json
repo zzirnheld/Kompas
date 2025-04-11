@@ -4,7 +4,7 @@
 	"effText": "Move a friendly Linewalker along their diagonal to an empty node. Draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Simple Effect",
+			"initialBlurb": "Simple Effect",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

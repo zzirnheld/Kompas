@@ -4,8 +4,8 @@
 	"effText": "When turns start, DOHEAL a Tree.",
 	"effects": [
 		{
+			"initialBlurb": "Regrowth",
 			"triggerData": {
-				"blurb": "Regrowth",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},

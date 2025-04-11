@@ -4,7 +4,7 @@
 	"effText": "When you summon a Fungus normally, tribute it. INVOKE a Fungus where it was.",
 	"effects": [
 		{
-			"blurb": "Funge",
+			"initialBlurb": "Funge",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

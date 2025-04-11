@@ -4,7 +4,7 @@
 	"effText": "Cast only in Light.\nDeck \u2192 hand a Brilliant Mage.",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Inspire!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

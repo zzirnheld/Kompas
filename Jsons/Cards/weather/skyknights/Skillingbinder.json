@@ -4,7 +4,7 @@
 	"effText": "When an enemy in Weather uses their effect, SPINASTORM there.",
 	"effects": [
 		{
-			"blurb": "Bind the show of skill",
+			"initialBlurb": "Bind the show of skill",
 			"triggerData": {
 				"triggerCondition": "Effect Pushed to Stack",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "Structure.\nWhen a character arrives normally, move them 1 segment towards me.",
 	"effects": [
 		{
-			"blurb": "The Suck",
+			"initialBlurb": "The Suck",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

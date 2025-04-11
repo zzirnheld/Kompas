@@ -4,7 +4,7 @@
 	"effText": "Undying.\nWhen I'm revived, gain 1 pip.",
 	"effects": [
 		{
-			"blurb": "Harvest",
+			"initialBlurb": "Harvest",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

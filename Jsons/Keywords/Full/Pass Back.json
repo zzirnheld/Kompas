@@ -1,8 +1,7 @@
 {
-	"blurb":"Pass Back",
+	"initialBlurb":"Pass Back",
 	"triggerData":
 	{
-		"blurb":"Pass Back",
 		"triggerCondition":"Defend",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:AllOf:",

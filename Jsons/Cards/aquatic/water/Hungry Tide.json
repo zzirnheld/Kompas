@@ -4,7 +4,7 @@
 	"effText": "You can hand \u2192 annihilate 2 Water spells to deck \u2192 hand an Aquatic character.\n<i>Vanishes after 2 turns.</i>",
 	"effects": [
 		{
-			"blurb": "The Tide Hungers",
+			"initialBlurb": "The Tide Hungers",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

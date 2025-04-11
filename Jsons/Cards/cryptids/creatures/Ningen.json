@@ -4,7 +4,7 @@
 	"effText": "When you summon a Cryptid in my area, deck \u2192 cast any spell that costs less.",
 	"effects": [
 		{
-			"blurb": "Whale whale whale",
+			"initialBlurb": "Whale whale whale",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When you play a Shadow in my area, gain 1 pip and draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Mothership supplies",
+			"initialBlurb": "Mothership supplies",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

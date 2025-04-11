@@ -4,8 +4,8 @@
 	"effText": "When an augmented character arrives adjacent to me, attach their Augment(s) to me.",
 	"effects": [
 		{
+			"initialBlurb": "Relay Long-Jump",
 			"triggerData": {
-				"blurb": "Relay Long-Jump",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

@@ -4,7 +4,7 @@
 	"effText": "When a Dancer defends normally, their attacker attacks them a second time.",
 	"effects": [
 		{
-			"blurb": "Singing Defense",
+			"initialBlurb": "Singing Defense",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When you summon a Skyknight normally, deck \u2192 hand Weather.\nWhen you cast Weather normally, deck \u2192 hand a Skyknight.",
 	"effects": [
 		{
-			"blurb": "Bind weather",
+			"initialBlurb": "Bind weather",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -57,7 +57,7 @@
 			]
 		},
 		{
-			"blurb": "Bind Skyknight",
+			"initialBlurb": "Bind Skyknight",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

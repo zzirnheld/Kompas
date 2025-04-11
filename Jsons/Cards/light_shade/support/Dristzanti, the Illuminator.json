@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can deck \u2192 cast Light to a node in Shade. Reshuffle all Shade that overlaps with it.",
 	"effects": [
 		{
-			"blurb": "Illuminate!",
+			"initialBlurb": "Illuminate!",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

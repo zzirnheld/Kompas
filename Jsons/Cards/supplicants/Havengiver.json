@@ -4,9 +4,9 @@
 	"effText":"When turns start, revive a Supplicant.",
 	"effects":[
 		{
+			"initialBlurb":"Give Safe Haven",
 			"triggerData":
 			{
-				"blurb":"Give Safe Haven",
 				"triggerCondition":"Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},

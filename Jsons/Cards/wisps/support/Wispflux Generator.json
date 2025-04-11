@@ -4,8 +4,8 @@
 	"effText": "When turns start, INVOKE a Wisp to a random valid node.",
 	"effects": [
 		{
+			"blurb": "Invoke wisp",
 			"triggerData": {
-				"blurb": "Invoke",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},

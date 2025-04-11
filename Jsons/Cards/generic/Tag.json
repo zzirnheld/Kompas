@@ -4,8 +4,8 @@
 	"effText": "Sticky.\nWhen I'm attached from one character to their enemy, draw 1 card and gain 1 pip.",
 	"effects": [
 		{
+			"initialBlurb": "Sticky!",
 			"triggerData": {
-				"blurb": "Sticky!",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

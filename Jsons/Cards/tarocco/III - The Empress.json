@@ -4,8 +4,8 @@
 	"effText": "When you draw X cards, you MUST hand \u2192 summon an S <= X character.",
 	"effects": [
 		{
+			"initialBlurb": "From my hand!",
 			"triggerData": {
-				"blurb": "Hand-summon character with S <= X?",
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

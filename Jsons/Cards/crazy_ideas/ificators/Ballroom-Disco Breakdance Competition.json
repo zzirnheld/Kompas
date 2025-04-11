@@ -5,8 +5,8 @@
 	"technicalEffText": "IFICATE.\nWhen an N X character arrives here, give them -X N until the next time this effect activates.",
 	"effects": [
 		{
+			"initialBlurb": "LET'S BREAKDANCE",
 			"triggerData": {
-				"blurb": "LET'S BREAKDANCE",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

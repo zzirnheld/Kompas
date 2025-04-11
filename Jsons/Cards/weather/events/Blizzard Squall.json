@@ -4,7 +4,7 @@
 	"effText": "WTHREVNT: Each sets the N of all enemies there to 0.",
 	"effects": [
 		{
-			"blurb": "Freeze",
+			"initialBlurb": "Freeze",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

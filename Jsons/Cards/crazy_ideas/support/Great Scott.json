@@ -4,7 +4,7 @@
 	"effText": "When an enemy moves normally, hand \u2192 discard a card and move them 1 segment. 1 turn later, draw 1 card.",
 	"effects": [
 		{
-			"blurb": "SCARTY, THE MAR!!",
+			"initialBlurb": "SCARTY, THE MAR!!",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

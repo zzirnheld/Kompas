@@ -4,8 +4,8 @@
 	"effText": "WTHRCOND: Their controller draws 1 card, then hand \u2192 bottomdecks 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Inspiration strikes",
 			"triggerData": {
-				"blurb": "Inspiration strikes",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

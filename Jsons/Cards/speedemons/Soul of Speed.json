@@ -4,7 +4,7 @@
 	"effText": "When a Speedemon moves, move me the same direction and distance, and give me +1 EW.",
 	"effects": [
 		{
-			"blurb": "Speedsoul",
+			"initialBlurb": "Speedsoul",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

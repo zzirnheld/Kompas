@@ -4,7 +4,7 @@
 	"effText": "Negate this character.\nWhen I vanish, give them +10 ESW.",
 	"effects": [
 		{
-			"blurb": "Hibernation",
+			"initialBlurb": "Hibernation",
 			"triggerData": {
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {

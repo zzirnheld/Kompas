@@ -1,5 +1,5 @@
 {
-	"blurb": "+1 C",
+	"initialBlurb": "+1 C",
 	"triggerData": {
 		"triggerCondition": "Turn Start",
 		"triggerRestriction": {

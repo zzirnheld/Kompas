@@ -4,9 +4,8 @@
 	"effText": "When this summoned Spy defends, give their W X attacker -X W until the fight ends. After the fight, hand this Spy.",
 	"effects": [
 		{
-			"blurb": "Decoy!",
+			"initialBlurb": "Decoy!",
 			"triggerData": {
-				"blurb": "It's just a piece of wood!?",
 				"triggerCondition": "Defend",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

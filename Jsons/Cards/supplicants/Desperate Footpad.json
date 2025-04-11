@@ -4,8 +4,8 @@
 	"effText": "Supplicant: The first time each stack, move them to another node adjacent to a Supplicant.",
 	"effects": [
 		{
+			"initialBlurb": "Hunger",
 			"triggerData": {
-				"blurb": "Hunger",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

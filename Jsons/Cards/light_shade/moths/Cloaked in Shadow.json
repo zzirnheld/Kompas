@@ -4,7 +4,7 @@
 	"effText": "When Shade arrives, give Moths there +1 NESW.",
 	"effects": [
 		{
-			"blurb": "The darkness hides us",
+			"initialBlurb": "The darkness hides us",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

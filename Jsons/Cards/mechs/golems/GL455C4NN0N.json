@@ -4,7 +4,7 @@
 	"effText": "Revenant GOLEM.\nWhen I'm revived, activate me.",
 	"effects": [
 		{
-			"blurb": "Activate",
+			"initialBlurb": "Activate",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

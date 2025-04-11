@@ -4,7 +4,7 @@
 	"effText": "Attended 2.\nWhen turns start, choose a secondary heading. Give the closest card to me in that direction -3 E.",
 	"effects": [
 		{
-			"blurb": "Automaticfire",
+			"initialBlurb": "Automaticfire",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

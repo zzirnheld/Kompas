@@ -4,8 +4,8 @@
 	"effText": "When I arrive adjacent to a Supplicant, negate adjacent characters until I leave play.",
 	"effects": [
 		{
+			"initialBlurb": "Mercy",
 			"triggerData": {
-				"blurb": "Mercy",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

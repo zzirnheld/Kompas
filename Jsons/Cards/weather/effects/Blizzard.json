@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: -Their N until they leave.",
 	"effects": [
 		{
-			"blurb": "Out in the cold",
+			"initialBlurb": "Out in the cold",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, give all adjacent characters -4 E.",
 	"effects": [
 		{
-			"blurb": "Heheh. Grenade.",
+			"initialBlurb": "Heheh. Grenade.",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

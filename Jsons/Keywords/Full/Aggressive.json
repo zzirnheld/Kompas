@@ -1,5 +1,5 @@
 {
-	"blurb":"Aggressive",
+	"initialBlurb":"Aggressive",
 	"triggerData":
 	{
 		"triggerCondition": "Play",

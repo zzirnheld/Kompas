@@ -4,7 +4,7 @@
 	"effText": "Undying.\nYou can pip revive me.",
 	"effects": [
 		{
-			"blurb": "Revive",
+			"initialBlurb": "Revive",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"locations": [ "Discard" ]

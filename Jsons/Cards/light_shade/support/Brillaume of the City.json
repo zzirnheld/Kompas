@@ -4,7 +4,7 @@
 	"effText": "Thrice each turn, you can move Light or Shade to a node adjacent to a friendly character.",
 	"effects": [
 		{
-			"blurb": "Creep",
+			"initialBlurb": "Creep",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:", "max": 3 } ]

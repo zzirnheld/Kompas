@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, your \"Lengthening Elk\" attacks an enemy adjacent to them.",
 	"effects": [
 		{
-			"blurb": "Elk? Attack!",
+			"initialBlurb": "Elk? Attack!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

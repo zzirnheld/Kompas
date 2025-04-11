@@ -4,7 +4,7 @@
 	"effText": "You can hand \u2192 reshuffle your S X Dragon to give me +X/2 S.",
 	"effects": [
 		{
-			"blurb": "Dragonseek",
+			"initialBlurb": "Dragonseek",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

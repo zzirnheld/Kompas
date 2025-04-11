@@ -4,7 +4,7 @@
 	"effText": "Give an adjacent E X character -X W.",
 	"effects": [
 		{
-			"blurb": "The weight of good health",
+			"initialBlurb": "The weight of good health",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

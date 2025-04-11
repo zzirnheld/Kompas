@@ -4,8 +4,8 @@
 	"effText": "When I attack, I INVOKE a character that costs less than me.",
 	"effects": [
 		{
+			"initialBlurb": "Invoke",
 			"triggerData": {
-				"blurb": "Invoke",
 				"triggerCondition": "Attack",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

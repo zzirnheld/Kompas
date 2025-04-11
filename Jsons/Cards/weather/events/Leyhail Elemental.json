@@ -4,7 +4,7 @@
 	"effText": "WTHREVNT: Each looks at each character there, and gives their controller 1 pip.",
 	"effects": [
 		{
-			"blurb": "Leyhailstones",
+			"initialBlurb": "Leyhailstones",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

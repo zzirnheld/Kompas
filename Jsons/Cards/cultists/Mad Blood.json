@@ -4,8 +4,8 @@
 	"effText": "When a friendly Cultist dies, annihilate me to deck \u2192 summon 2 Cultist Mooks.",
 	"effects": [
 		{
+			"initialBlurb": "Mad Bloodcurse",
 			"triggerData": {
-				"blurb": "Mad Bloodcurse",
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

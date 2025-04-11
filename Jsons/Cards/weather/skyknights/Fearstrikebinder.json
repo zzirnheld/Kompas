@@ -4,7 +4,7 @@
 	"effText": "When a friendly defends in Weather, SPINASTORM there.",
 	"effects": [
 		{
-			"blurb": "Bind the fear",
+			"initialBlurb": "Bind the fear",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

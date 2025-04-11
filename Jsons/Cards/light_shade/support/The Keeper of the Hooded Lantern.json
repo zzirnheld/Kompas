@@ -4,7 +4,7 @@
 	"effText": "When I arrive, reshuffle all Light and Shade I'm in. Deck \u2192 cast Light adjacent to me.",
 	"effects": [
 		{
-			"blurb": "Who goes there?",
+			"initialBlurb": "Who goes there?",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When this Mech dies, deck \u2192 hand a distinct Mech GOLEM. 1 turn later, discard \u2192 hand me.",
 	"effects": [
 		{
-			"blurb": "Postmortem Analysis",
+			"initialBlurb": "Postmortem Analysis",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

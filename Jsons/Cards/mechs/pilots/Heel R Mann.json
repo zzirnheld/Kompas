@@ -4,7 +4,7 @@
 	"effText": "I can Pilot a Mech, and give it +2 E.",
 	"effects": [
 		{
-			"blurb": "Hearty Piloting",
+			"initialBlurb": "Hearty Piloting",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

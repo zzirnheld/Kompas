@@ -1,5 +1,5 @@
 {
-	"blurb": "Must Contain",
+	"initialBlurb": "Must Contain",
 	"triggerData":
 	{
 		"triggerCondition":"Stack End",
