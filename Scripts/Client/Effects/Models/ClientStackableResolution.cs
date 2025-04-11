@@ -7,7 +7,7 @@ public class ClientStackableResolution<Stackable>
 	where Stackable : IClientStackable
 {
 	//TODO: later create client resolution contexts
-	public ClientStackableResolution(Stackable stackable, IResolutionContext? context = null)
-		: base(stackable, context ?? new ResolutionContext(null))
+	public ClientStackableResolution(Stackable stackable, string blurb, IResolutionContext? context = null)
+		: base(stackable, context ?? new ResolutionContext(null, blurb))
 	{ }
 }

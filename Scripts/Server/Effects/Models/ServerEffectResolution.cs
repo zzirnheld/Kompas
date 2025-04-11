@@ -27,7 +27,7 @@ public class ServerEffectResolution
 
     public void Declare()
     {
-		Effect.PushedToStack(Context.ControllingPlayer);
+		Effect.PushedToStack(Context.ControllingPlayer, Context.Blurb);
     }
 
 	public async Task StartResolution()
@@ -37,7 +37,7 @@ public class ServerEffectResolution
 		//Notify the targets one by one so the client knows that they're current targets
 		if (Context.CardTargets != null) foreach (var tgt in Context.CardTargets) NotifyAddCardTarget(tgt);
 
-		Context.playerTargets.Add(Context.ControllingPlayer);
+		Context.PlayerTargets.Add(Context.ControllingPlayer);
 		if (Context.TriggerContext?.StackableCause != null) Context.StackableTargets.Add(Context.TriggerContext.StackableCause);
 
 		//notify relevant to this effect starting

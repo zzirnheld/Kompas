@@ -28,24 +28,24 @@ public class ClientStackController : IStackController
 		this.stackView = stackView;
 	}
 
-	public void Activated(ClientEffect effect)
+	public void Activated(ClientEffect effect, string blurb)
 	{
 		effect.IncrementUses();
-		var stackable = new ClientStackableResolution<ClientEffect>(effect);
+		var stackable = new ClientStackableResolution<ClientEffect>(effect, blurb);
 		stack.Push(stackable);
 		stackView.Activated(stackable);
 	}
 
 	public void Attacked(ClientAttack attack)
 	{
-		var stackable = new ClientStackableResolution<ClientAttack>(attack);
+		var stackable = new ClientStackableResolution<ClientAttack>(attack, attack.InitialBlurb);
 		stack.Push(stackable);
 		stackView.Attacked(stackable);
 	}
 
 	public void HandSize(ClientHandSizeStackable handSize)
 	{
-		var stackable = new ClientStackableResolution<ClientHandSizeStackable>(handSize);
+		var stackable = new ClientStackableResolution<ClientHandSizeStackable>(handSize, handSize.InitialBlurb);
 		stack.Push(stackable);
 		stackView.HandSize(stackable);
 	}

@@ -8,8 +8,11 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 public class Delay : HangingEffectSubeffect
 {
 	public int numTimesToDelay = 0;
+	public string? blurbAfterDelay;
 	public bool clearWhenResume = true;
+
 	public override bool ContinueResolution => false;
+	private string BlurbAfterDelay => blurbAfterDelay ?? Effect.InitialBlurb;
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
@@ -25,7 +28,7 @@ public class Delay : HangingEffectSubeffect
 		var delay = new DelayEffect(end: End, fallOff: FallOff,
 			sourceEff: ServerEffect, currentContext: context,
 			numTimesToDelay: numTimesToDelay, indexToResumeResolution: JumpIndex,
-			controller: controller, clearIfResolve: clearWhenResume);
+			controller: controller, clearIfResolve: clearWhenResume, blurb: BlurbAfterDelay);
 		return new List<HangingEffect>() { delay };
 	}
 
@@ -35,16 +38,19 @@ public class Delay : HangingEffectSubeffect
 		private int numTimesDelayed;
 		private readonly int indexToResumeResolution;
 		private readonly ServerPlayer controller;
+		private readonly string blurb;
 
 		public DelayEffect(EndCondition end, EndCondition fallOff,
 			ServerEffect sourceEff, IResolutionContext currentContext,
 			int numTimesToDelay, int indexToResumeResolution,
-			ServerPlayer controller, bool clearIfResolve)
+			ServerPlayer controller, bool clearIfResolve, string blurb)
 			: base(end, fallOff, sourceEff, currentContext, clearIfResolve)
 		{
 			this.numTimesToDelay = numTimesToDelay;
 			this.indexToResumeResolution = indexToResumeResolution;
 			this.controller = controller;
+			this.blurb = blurb;
+			
 			numTimesDelayed = 0;
 		}
 
@@ -70,7 +76,7 @@ public class Delay : HangingEffectSubeffect
 		protected override void ResolveLogic(IEventContext context)
 		{
 			var myContext = ServerResolutionContext.Resume(StashedContext,
-				context, controller, indexToResumeResolution);
+				context, controller, indexToResumeResolution, blurb);
 			var resolution = new ServerEffectResolution(Effect, myContext);
 			Effect.ServerGame.StackController.PushToStack(resolution);
 		}

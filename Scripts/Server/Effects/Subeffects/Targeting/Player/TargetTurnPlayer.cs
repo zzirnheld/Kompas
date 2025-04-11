@@ -6,7 +6,7 @@ public class TargetTurnPlayer : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		resolution.Context.playerTargets.Add(Game.TurnPlayer);
+		resolution.Context.PlayerTargets.Add(Game.TurnPlayer);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

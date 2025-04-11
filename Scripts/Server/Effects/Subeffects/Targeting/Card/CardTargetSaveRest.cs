@@ -1,4 +1,5 @@
 ﻿using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
@@ -34,7 +35,7 @@ public class CardTargetSaveRest : CardTarget
 	{
 		_ = restRestriction ?? throw new NotInitializedException();
 		var rest = ServerGame.Cards.Where(c => restRestriction.IsValid(c, context));
-		context.rest.AddRange(rest);
+		context.AddRest(rest);
 		return base.NoPossibleTargets(context);
 	}
 
@@ -46,6 +47,6 @@ public class CardTargetSaveRest : CardTarget
 			?.Where(c => restRestriction.IsValid(c, resolution.Context) && !choices.Contains(c))
 			.Select(c => c.Card))
 			?? throw new InvalidOperationException();
-		resolution.Context.rest.AddRange(rest);
+		resolution.Context.AddRest(rest);
 	}
 }

@@ -6,7 +6,7 @@ public class BottomdeckRest : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-        GetPlayerTarget(resolution.Context).Deck.BottomdeckMany(resolution.Context.rest);
+        GetPlayerTarget(resolution.Context).Deck.BottomdeckMany(resolution.Context.Rest);
 
 		return Task.FromResult(ResolutionInfo.Next);
 	}

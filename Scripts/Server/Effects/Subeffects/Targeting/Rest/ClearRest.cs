@@ -6,7 +6,7 @@ public class ClearRest : ServerSubeffect
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		resolution.Context.rest.Clear();
+		resolution.Context.Rest.Clear();
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

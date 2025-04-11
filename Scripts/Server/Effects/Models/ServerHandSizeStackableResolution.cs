@@ -34,7 +34,7 @@ public class ServerHandSizeStackableResolution
 		Logger.Log("Trying to request hand size targets");
 		awaitingChoices = true;
 
-		var context = new ResolutionContext(new EventContext() { StackableCause = Stackable, StackableEvent = Stackable });
+		var context = new ResolutionContext(new EventContext() { StackableCause = Stackable, StackableEvent = Stackable }, Stackable.InitialBlurb);
 		int[] cardIds = serverGame.Cards
 			.Where(c => Stackable.HandSizeCardRestriction.IsValid(c, context))
 			.Select(c => c.ID)
@@ -72,7 +72,7 @@ public class ServerHandSizeStackableResolution
 
 		int count = cards.Length;
 		var player = Stackable.ControllingPlayer ?? throw new System.InvalidOperationException();
-		var context = new ResolutionContext(new EventContext() { StackableCause = Stackable, StackableEvent = Stackable });
+		var context = new ResolutionContext(new EventContext() { StackableCause = Stackable, StackableEvent = Stackable }, Stackable.InitialBlurb);
 		int correctCount = serverGame.Cards.Count(c => Stackable.HandSizeCardRestriction.IsValid(c, context)) - player.HandSizeLimit;
 
 		if (count != correctCount || cards.Any(c => !Stackable.HandSizeCardRestriction.IsValid(c, context))) return false;

@@ -37,6 +37,7 @@ public abstract class Effect : IEffect
 
 	//Misc effect info
 	public string? blurb;
+	public string InitialBlurb => blurb ??= $"Effect of {Card.CardName}";
 	public int arg; //used for keyword arguments, and such
 	private int _timesUsedThisTurn;
 	private int _timesUsedThisRound;
@@ -85,7 +86,6 @@ public abstract class Effect : IEffect
 		//TODO go back to a SerializableEffect model. The Subeffects will still be specified "manually" but that's the cross I'll have to bear, I think,
 		//unless I want to make a Serializable version of every subeffect. Which might be a good idea anyway (I'd just put them in the same file for convenience)
 		if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
-		blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {Card.CardName}" : blurb;
 		activationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
 		TimesUsedThisTurn = 0;
 	}

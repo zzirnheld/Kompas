@@ -201,7 +201,7 @@ public class ServerPlayer : IPlayer
 		Logger.Log($"Player {Index} trying to activate effect of {effect?.Card?.CardName}");
 		if (effect != null && effect.CanBeActivatedBy(this))
 		{
-			var context = ServerResolutionContext.PlayerTrigger(effect, Game, this);
+			var context = ServerResolutionContext.PlayerTrigger(effect, this);
 			var resolution = new ServerEffectResolution(effect, context);
 			ServerGame.StackController.PushToStack(resolution);
 			await ServerGame.StackController.CheckForResponse();

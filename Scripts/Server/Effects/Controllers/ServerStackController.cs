@@ -6,7 +6,6 @@ using Kompas.Server.Effects.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects;
 using Kompas.Server.Gamestate;
-using Kompas.Server.Gamestate.Players;
 using Godot;
 using Kompas.Gamestate;
 using Kompas.Cards.Models;
@@ -294,7 +293,7 @@ public class ServerStackController : IServerStackController
 
     private void PushTriggeredEffectToStack(ServerEffect effect, IEventContext? triggerContext)
 	{
-		var resolutionContext = new ServerResolutionContext(triggerContext, effect.OwningServerPlayer);
+		var resolutionContext = new ServerResolutionContext(triggerContext, effect.OwningServerPlayer, effect.InitialBlurb);
 		var resolution = new ServerEffectResolution(effect, resolutionContext);
 		PushToStack(resolution);
 	}
