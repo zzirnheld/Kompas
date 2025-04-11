@@ -59,7 +59,7 @@ public partial class ClientStackView : Control
 		this.Visible = true;
 
 		var view = EffectStackableView.Instantiate<ClientEffectStackableView>();
-		view.Initialize(stackable.Stackable);
+		view.Initialize(stackable);
 		view.MouseEntered += () => stackable.Stackable.Card.CardController.ShowEffectSource(true);
 		view.MouseExited += () => stackable.Stackable.Card.CardController.ShowEffectSource(false);
 

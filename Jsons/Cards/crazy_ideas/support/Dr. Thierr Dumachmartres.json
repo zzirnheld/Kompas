@@ -4,6 +4,7 @@
 	"effText": "When an enemy plays a card normally, hand \u2192 discard 1 card. 1 turn later, draw 1 card.",
 	"effects": [
 		{
+			"blurb": "Takes me a moment to find my...",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -13,7 +14,7 @@
 						{
 							"$type": "Restrict.Gamestate:PlayersMatch:",
 							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },
-							"secondPlayer": { "$type": "Identify.Players:FriendlyPlayer:" }
+							"secondPlayer": { "$type": "Identify.Players:EnemyPlayer:" }
 						},
 						{ "$type": "Restrict.Gamestate:Normally:" }
 					]
@@ -37,7 +38,8 @@
 					"numTimesToDelay": 0,
 					"jumpIndices": [ 4 ],
 					"fallOffCondition": "",
-					"endCondition": "Turn Start"
+					"endCondition": "Turn Start",
+					"blurbAfterDelay": "Aha!"
 				},
 				{
 					"$type": "Subeffect:Draw:"
