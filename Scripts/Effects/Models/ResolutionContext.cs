@@ -33,7 +33,7 @@ public class ResolutionContext : IResolutionContext
 	/// (NOT a situation in which a player is attempting to do something "normally" - that's what <see cref="IResolutionContext.PlayerAction"/> is for)
 	/// </summary>
 	public static ResolutionContext PlayerTriggeredEffect(Effect? effect)
-		=> new(new EventContext() { StackableEvent = effect }, effect?.blurb ?? "");
+		=> new(new EventContext() { StackableEvent = effect }, effect?.InitialBlurb ?? "");
 
 	public ResolutionContext(IEventContext? triggerContext, string blurb)
 	: this(triggerContext, 0,

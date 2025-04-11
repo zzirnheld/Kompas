@@ -222,7 +222,7 @@ public class ServerStackController : IServerStackController
     {
         //get the list of triggers, and see if they're all still valid
         var triggered = triggeredTriggers.Dequeue();
-        var stillValid = triggered.triggers.Where(t => t.StillValidForContext(triggered.context));
+        var stillValid = triggered.triggers.Where(t => t.StillValidForContext(triggered.context)).ToList();
 
         //if there's no triggers, skip all this logic
         if (!stillValid.Any())
@@ -231,24 +231,9 @@ public class ServerStackController : IServerStackController
             return;
         }
 
-        await AskForOptionalTriggers(triggered, stillValid); //TODO remove now that optional happens at start of resolution
-
         var confirmed = await GetTriggersOrder(stillValid);
 
         PushTriggersToStack(turnPlayer, triggered, confirmed);
-    }
-
-    private async Task AskForOptionalTriggers(TriggersTriggered triggered, IEnumerable<ServerTrigger> stillValid)
-    {
-        //if any triggers have not been responded to, make them get responded to.
-        //this is saved so that we know what trigger to okay or not if it's responded
-        currentlyCheckingOptionals = true;
-        foreach (var t in stillValid)
-        {
-            //TODO this doesn't stop any subsequent calls to CheckTriggers
-            if (!t.Responded) await t.Ask(t.Effect.OwningPlayer, triggered.context);
-        }
-        currentlyCheckingOptionals = false;
     }
 
     private async Task<IEnumerable<ServerTrigger>> GetTriggersOrder(IEnumerable<ServerTrigger> stillValid)
@@ -259,25 +244,24 @@ public class ServerStackController : IServerStackController
 
         //now, if there's any triggers that have been confirmed but not ordered (that is, more than one confirmed trigger),
 		//then get an ordering from the player in question.
-		var confirmed = stillValid.Where(t => t.Confirmed);
-        if (!confirmed.All(t => t.Ordered))
+        if (!stillValid.All(t => t.Ordered))
         {
             //create a list to hold the tasks, so you can get trigger orderings from both players at once.
             List<Task> triggerOrderings = new();
             foreach (var p in game.Players)
             {
-                var thisPlayers = confirmed.Where(t => t.ServerEffect.OwningPlayer == p);
+                var thisPlayers = stillValid.Where(t => t.ServerEffect.OwningPlayer == p);
                 if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(game.Awaiter.GetTriggerOrder(p, thisPlayers));
             }
             await Task.WhenAll(triggerOrderings);
         }
 
-        return confirmed;
+        return stillValid;
     }
 
     private static void HandlePlayerHavingOnlyOneTrigger(IEnumerable<ServerTrigger> stillValid, IPlayer player)
     {
-        var onePlayersTriggers = stillValid.Where(t => t.ServerEffect.OwningPlayer == player && t.Confirmed);
+        var onePlayersTriggers = stillValid.Where(t => t.ServerEffect.OwningPlayer == player);
         if (onePlayersTriggers.Count() == 1) onePlayersTriggers.Single().Order = 1;
     }
 
@@ -310,10 +294,6 @@ public class ServerStackController : IServerStackController
 		while (triggeredTriggers.Any())
 		{
 			await CheckTriggers(turnPlayer: turnPlayer);
-			foreach (var tList in triggerMap.Values)
-			{
-				foreach (var t in tList) t.ResetConfirmation();
-			}
 		}
 	}
 
@@ -381,7 +361,7 @@ public class ServerStackController : IServerStackController
 				.ToArray();
 			if (!validTriggers.Any()) return;
 			var triggers = new TriggersTriggered(triggers: validTriggers, context: context);
-			Logger.Log($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Card.ID + t.Blurb))}");
+			Logger.Log($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Card.ID + t.Effect.InitialBlurb))}");
 			triggeredTriggers.Enqueue(triggers);
 		}
 

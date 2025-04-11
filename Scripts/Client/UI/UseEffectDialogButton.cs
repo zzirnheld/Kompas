@@ -31,7 +31,7 @@ public partial class UseEffectDialogButton : Node
 	{
 		_dialog = dialog;
 		_effect = effect;
-		EffectName.Text = effect.blurb;
+		EffectName.Text = effect.InitialBlurb;
 	}
 
 	private void ActivateEffect() => Dialog.Activate(Effect);

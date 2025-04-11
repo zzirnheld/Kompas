@@ -73,7 +73,7 @@ public class AutoTarget : ServerSubeffect
 		catch (System.InvalidOperationException)
 		{
 			Logger.Err($"More than one card fit the card restriction {cardRestriction} " +
-				$"for the effect {Effect.blurb} of {Effect.Card.CardName}. Those cards were {potentialTargets}");
+				$"for the effect {Effect.InitialBlurb} of {Effect.Card.CardName}. Those cards were {potentialTargets}");
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 		}
 

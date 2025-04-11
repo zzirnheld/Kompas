@@ -1,10 +1,8 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
-using Kompas.Gamestate.Players;
 
 namespace Kompas.Server.Effects.Models;
 
@@ -15,41 +13,15 @@ public class ServerTrigger : Trigger
 	public override GameCard Card => ServerEffect.Card;
 	public override Effect Effect => ServerEffect;
 
-	private bool responded = false;
-	/// <summary>
-	/// Represents whether this trigger, if optional, has been responded to (to accept or decline).
-	/// If not optional, is true.
-	/// </summary>
-	public bool Responded
-	{
-		get => !Optional || responded;
-		set => responded = value;
-	}
-
-	private bool confirmed = false;
-	/// <summary>
-	/// Represents whether this trigger, if optional, was chosen to be used or not.
-	/// </summary>
-	public bool Confirmed
-	{
-		get => !Optional || confirmed;
-		set => confirmed = value;
-	}
-
 	/// <summary>
 	/// Represents the order this trigger has been given, amongst other simultaneously triggered triggers.
 	/// </summary>
 	private int order = -1;
 	public int Order
-	{
-		get => order;
-		set
-		{
-			order = value;
-			Responded = true;
-		}
-	}
-	public bool Ordered => order != -1;
+    {
+        get => order; set => order = value;
+    }
+    public bool Ordered => order != -1;
 
 	private ServerTrigger(TriggerData triggerData, ServerEffect serverEffect) : base(triggerData, serverEffect)
 	{
@@ -86,22 +58,4 @@ public class ServerTrigger : Trigger
 	/// <returns></returns>
 	public bool StillValidForContext(IEventContext context)
 		=> TriggerRestriction.IsStillValidTriggeringContext(context);
-
-	/// <summary>
-	/// Resets Confirmed and Responded, for the next time this effect might be triggered
-	/// </summary>
-	public void ResetConfirmation()
-	{
-		Responded = false;
-		Confirmed = false;
-		order = -1;
-	}
-
-	public async Task Ask(IPlayer player, IEventContext context)
-	{
-		int x = context?.X ?? 0;
-		//Assume for now that optional triggers are always asked to the card's owner
-		Confirmed = await ServerEffect.ServerGame.Awaiter.GetOptionalTriggerChoice(player, this, x, TriggerData.showX);
-		Responded = true;
-	}
 }
