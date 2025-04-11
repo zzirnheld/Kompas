@@ -1,8 +1,7 @@
 {
-	"blurb":"Speedemon",
+	"initialBlurb":"Speedemon",
 	"triggerData":
 	{
-		"blurb":"Speedemon",
 		"triggerCondition":"Move",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:AllOf:",

@@ -1,5 +1,5 @@
 {
-	"blurb":"Collectible",
+	"initialBlurb":"Collectible",
 	"triggerData":
 	{
 		"triggerCondition":"Discard",

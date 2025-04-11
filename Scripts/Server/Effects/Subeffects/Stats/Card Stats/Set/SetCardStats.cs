@@ -7,21 +7,21 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 public class SetCardStats : ChangeCardStatsBase
 {
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		int? nValue = n?.From(ResolutionContext, ResolutionContext);
-		int? eValue = e?.From(ResolutionContext, ResolutionContext);
-		int? sValue = s?.From(ResolutionContext, ResolutionContext);
-		int? wValue = w?.From(ResolutionContext, ResolutionContext);
-		int? cValue = c?.From(ResolutionContext, ResolutionContext);
-		int? aValue = a?.From(ResolutionContext, ResolutionContext);
+		int? nValue = n?.From(resolution.Context, resolution.Context);
+		int? eValue = e?.From(resolution.Context, resolution.Context);
+		int? sValue = s?.From(resolution.Context, resolution.Context);
+		int? wValue = w?.From(resolution.Context, resolution.Context);
+		int? cValue = c?.From(resolution.Context, resolution.Context);
+		int? aValue = a?.From(resolution.Context, resolution.Context);
 
-		int? turnsOnBoardChange	 = turnsOnBoard?.From(ResolutionContext, ResolutionContext);
-		int? attacksThisTurnChange  = attacksThisTurn?.From(ResolutionContext, ResolutionContext);
-		int? spacesMovedChange	  = spacesMoved?.From(ResolutionContext, ResolutionContext);
-		int? durationChange		 = duration?.From(ResolutionContext, ResolutionContext);
+		int? turnsOnBoardChange	 = turnsOnBoard?.From(resolution.Context, resolution.Context);
+		int? attacksThisTurnChange  = attacksThisTurn?.From(resolution.Context, resolution.Context);
+		int? spacesMovedChange	  = spacesMoved?.From(resolution.Context, resolution.Context);
+		int? durationChange		 = duration?.From(resolution.Context, resolution.Context);
 
-		var cards = this.cards.From(ResolutionContext, ResolutionContext)
+		var cards = this.cards.From(resolution.Context, resolution.Context)
 			?? throw new InvalidOperationException();
 		foreach (var card in cards.Select(c => c.Card))
 		{

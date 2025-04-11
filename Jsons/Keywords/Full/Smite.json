@@ -1,7 +1,6 @@
 {
-	"blurb": "Smite",
+	"initialBlurb": "Smite",
 	"triggerData": {
-		"blurb": "Smite",
 		"triggerCondition": "Attack",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:AllOf:",

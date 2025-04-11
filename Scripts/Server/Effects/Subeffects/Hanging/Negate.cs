@@ -9,11 +9,11 @@ public class Negate : HangingEffectSubeffect
 {
 	public bool negated = true;
 
-	protected override IEnumerable<HangingEffect> CreateHangingEffects()
+	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		var tempNegation = new NegationEffect(end: End, fallOff: FallOff,
-			source: ServerEffect, currentContext: ResolutionContext,
-			target: CardTarget, negated: negated);
+			source: ServerEffect, currentContext: context,
+			target: GetCardTarget(context), negated: negated);
 		return new List<HangingEffect>() { tempNegation };
 	}
 

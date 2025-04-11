@@ -1,5 +1,5 @@
 {
-	"blurb": "Evasive",
+	"initialBlurb": "Evasive",
 	"triggerData": {
 		"triggerCondition": "Battle Start",
 		"triggerRestriction": {

@@ -1,5 +1,5 @@
 {
-	"blurb": "Masquerade",
+	"initialBlurb": "Masquerade",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:",
 		"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:", "max": 2 } ]

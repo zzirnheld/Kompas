@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: -4 W.",
 	"effects": [
 		{
-			"blurb": "Rain depression",
+			"initialBlurb": "Rain depression",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

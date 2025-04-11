@@ -3,35 +3,43 @@ using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 using Kompas.Gamestate.Locations;
 using Kompas.Cards.Movement;
+using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Swap : ServerSubeffect
 {
 	public int SecondTargetIndex = -2;
-	public GameCard SecondTarget => Effect.GetTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
-		=> GetCardTarget(overrideContext) == null || SecondTarget == null;
+    public GameCard GetSecondTarget(IResolutionContext context)
+    {
+        return context.GetCardTarget(SecondTargetIndex) ?? throw new NullCardException(TargetWasNull);
+    }
 
-	public override Task<ResolutionInfo> Resolve()
+    public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null || GetSecondTarget(context) == null;
+
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null)
+		var firstTarget = GetCardTarget(resolution.Context);
+		if (firstTarget == null)
 			throw new NullCardException(TargetWasNull);
-		if (forbidNotBoard && CardTarget.Location != Location.Board)
-			throw new InvalidLocationException(CardTarget.Location, CardTarget, MovedCardOffBoard);
-		if (CardTarget.Position == null)
-			throw new NullSpaceOnBoardException(CardTarget);
+		if (forbidNotBoard && firstTarget.Location != Location.Board)
+			throw new InvalidLocationException(firstTarget.Location, firstTarget, MovedCardOffBoard);
+		if (firstTarget.Position == null)
+			throw new NullSpaceOnBoardException(firstTarget);
 
-		if (SecondTarget == null)
+		var secondTarget = GetSecondTarget(resolution.Context);
+		if (secondTarget == null)
 			throw new NullCardException(TargetWasNull);
-		if (SecondTarget.Location != Location.Board)
-			throw new InvalidLocationException(SecondTarget.Location, SecondTarget, MovedCardOffBoard);
-		if (SecondTarget.Position == null)
-			throw new NullSpaceOnBoardException(SecondTarget);
+		if (secondTarget.Location != Location.Board)
+			throw new InvalidLocationException(secondTarget.Location, secondTarget, MovedCardOffBoard);
+		if (secondTarget.Position == null)
+			throw new NullSpaceOnBoardException(secondTarget);
 
-		CardTarget.Move(SecondTarget.Position, false, PlayerTarget, ServerEffect,
-			Kompas.Gamestate.Space.ShortestPathBetween(CardTarget.Position, SpaceTarget, 
-				space => CardTarget.MovementRestriction.IsValid(space, ResolutionContext)));
+        firstTarget.Move(secondTarget.Position, false, GetPlayerTarget(resolution.Context), ServerEffect,
+			Kompas.Gamestate.Space.ShortestPathBetween(firstTarget.Position, GetSpaceTarget(resolution.Context), 
+				space => firstTarget.MovementRestriction.IsValid(space, resolution.Context)));
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

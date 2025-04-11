@@ -4,7 +4,7 @@
 	"effText": "Mask.\nWhen this character attacks an S X character, gain X pips.",
 	"effects": [
 		{
-			"blurb": "Dance of Creation",
+			"initialBlurb": "Dance of Creation",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

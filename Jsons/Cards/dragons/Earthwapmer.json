@@ -4,7 +4,7 @@
 	"effText": "TERRITORIAL.\nWhen I attack, hand a friendly Dragon.",
 	"effects": [
 		{
-			"blurb": "Earthwap",
+			"initialBlurb": "Earthwap",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

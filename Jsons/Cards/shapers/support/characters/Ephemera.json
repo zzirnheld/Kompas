@@ -51,8 +51,8 @@
 			]
 		},
 		{
+			"initialBlurb": "Dissipate",
 			"triggerData": {
-				"blurb": "Dissipate",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

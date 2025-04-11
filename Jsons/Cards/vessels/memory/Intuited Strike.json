@@ -4,7 +4,7 @@
 	"effText": "When this summon attacks, echo them.\nWhen you echo this summon, give them +3 W.",
 	"effects": [
 		{
-			"blurb": "Pressure point there...",
+			"initialBlurb": "Pressure point there...",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -42,7 +42,7 @@
 			]
 		},
 		{
-			"blurb": "Remember where to strike...",
+			"initialBlurb": "Remember where to strike...",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

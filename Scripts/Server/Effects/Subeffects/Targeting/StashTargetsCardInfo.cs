@@ -6,13 +6,13 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class StashTargetsCardInfo : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null) throw new NullCardException(NoValidCardTarget);
+		if (GetCardTarget(resolution.Context) == null) throw new NullCardException(NoValidCardTarget);
 
-		var targetInfo = GameCardInfo.CardInfoOf(CardTarget)
+		var targetInfo = GameCardInfo.CardInfoOf(GetCardTarget(resolution.Context))
 			?? throw new System.InvalidOperationException("Failed to create a card info!");
-		ServerEffect.CardInfoTargets.Add(targetInfo);
+		resolution.Context.CardInfoTargets.Add(targetInfo);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

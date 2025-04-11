@@ -4,7 +4,7 @@
 	"effText": "When you cast Weather Conditions, discard your topdeck. If it's a Weather Event, hand it; otherwise, bottomdeck it.",
 	"effects": [
 		{
-			"blurb": "Oh. Oh no.",
+			"initialBlurb": "Oh. Oh no.",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

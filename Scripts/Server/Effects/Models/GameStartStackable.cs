@@ -11,7 +11,9 @@ public class GameStartStackable : IStackable, IServerStackable
 
 	public IPlayer? ControllingPlayer => null;
 
-	public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
+    public string InitialBlurb => "Game start!";
+
+    public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 
 	public Task StartResolution(IServerResolutionContext context)
 	{

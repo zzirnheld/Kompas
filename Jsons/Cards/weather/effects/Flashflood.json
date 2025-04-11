@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: -1 N.",
 	"effects": [
 		{
-			"blurb": "Floodwaters",
+			"initialBlurb": "Floodwaters",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

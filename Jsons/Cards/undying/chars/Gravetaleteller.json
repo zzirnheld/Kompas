@@ -4,7 +4,7 @@
 	"effText": "Undying.\nWhen I'm revived, draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Taletell",
+			"initialBlurb": "Taletell",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

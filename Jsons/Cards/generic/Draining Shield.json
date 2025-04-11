@@ -4,7 +4,7 @@
 	"effText": "When this character defends from a W X character, destroy me, then give them +2 * X E.",
 	"effects": [
 		{
-			"blurb":"Drain",
+			"initialBlurb":"Drain",
 			"triggerData":
 			{
 				"triggerCondition":"Defend",

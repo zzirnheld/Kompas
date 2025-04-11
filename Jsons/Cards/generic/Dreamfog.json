@@ -4,8 +4,8 @@
 	"effText": "When a character moves, you can tribute me to gain 1 pip.",
 	"effects": [
 		{
+			"initialBlurb": "Tribute Dreamfog to gain 1 pip?",
 			"triggerData": {
-				"blurb": "Tribute Dreamfog to gain 1 pip?",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

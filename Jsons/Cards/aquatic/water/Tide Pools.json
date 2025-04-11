@@ -4,7 +4,7 @@
 	"effText": "When turns start, if I'm in distinct Water, reset my turn count. <i>Otherwise, vanishes after 2 turns.</i>",
 	"effects": [
 		{
-			"blurb": "Refill",
+			"initialBlurb": "Refill",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {

@@ -5,18 +5,15 @@ public class TTimesSubeffect : Loop
 	public int T;
 	private int count = 0;
 
-	protected override void OnLoopExit()
+	protected override void OnLoopExit(IServerResolutionContext context)
 	{
-		base.OnLoopExit();
+		base.OnLoopExit(context);
 		count = 0;
 	}
 
-	protected override bool ShouldContinueLoop
-	{
-		get
-		{
-			count++;
-			return count < T;
-		}
-	}
+    protected override bool LoopContinuation(ServerEffectResolution resolution)
+    {
+        count++;
+        return count < T;
+    }
 }

@@ -4,7 +4,7 @@
 	"effText": "When turns start, gain 1 pip.",
 	"effects": [
 		{
-			"blurb": "Energize",
+			"initialBlurb": "Energize",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

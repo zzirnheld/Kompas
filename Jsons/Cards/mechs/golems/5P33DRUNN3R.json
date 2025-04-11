@@ -4,7 +4,7 @@
 	"effText": "Speedemon. GOLEM.\nWhen I become active, give adjacent characters +2 N.",
 	"effects": [
 		{
-			"blurb": "5P33DRUN 5TR4T5",
+			"initialBlurb": "5P33DRUN 5TR4T5",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

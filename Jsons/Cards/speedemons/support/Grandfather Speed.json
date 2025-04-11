@@ -4,7 +4,7 @@
 	"effText": "Geminii.\nWhen I'm summoned, deck \u2192 hand \"Ready!\"",
 	"effects": [
 		{
-			"blurb": "Ready?",
+			"initialBlurb": "Ready?",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

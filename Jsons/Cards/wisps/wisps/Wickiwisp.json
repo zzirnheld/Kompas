@@ -4,7 +4,7 @@
 	"effText": "Wisp: Give adjacent enemies -1 W.",
 	"effects": [
 		{
-			"blurb": "wick",
+			"initialBlurb": "wick",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

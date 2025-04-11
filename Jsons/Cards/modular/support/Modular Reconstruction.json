@@ -38,7 +38,7 @@
 			]
 		},
 		{
-			"blurb": "Recur",
+			"initialBlurb": "Recur",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {

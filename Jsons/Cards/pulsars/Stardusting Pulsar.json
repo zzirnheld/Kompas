@@ -4,8 +4,8 @@
 	"effText": "When your Avatar's S changes, give a summon:\n+S: +1 NESW.\n-S: -1 NESW.",
 	"effects": [
 		{
+			"initialBlurb": "Flare",
 			"triggerData": {
-				"blurb": "Flare",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -54,8 +54,8 @@
 			]
 		},
 		{
+			"initialBlurb": "Diminish",
 			"triggerData": {
-				"blurb": "Diminish",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

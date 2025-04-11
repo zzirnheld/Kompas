@@ -4,8 +4,8 @@
 	"effText": "When your Avatar's S changes, give adjacent characters:\n+S: +1 E.\n-S: -1 E.",
 	"effects": [
 		{
+			"initialBlurb": "Embolden",
 			"triggerData": {
-				"blurb": "Embolden",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -51,8 +51,8 @@
 			]
 		},
 		{
+			"initialBlurb": "Unbolden",
 			"triggerData": {
-				"blurb": "Unbolden",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

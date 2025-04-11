@@ -4,9 +4,9 @@
 	"effText": "Hand \u2192 topdeck a Spirit. Gain 3 pips.",
 	"effects": [
 		{
+			"initialBlurb": "Prepare the Name",
 			"triggerData": {
 				"triggerCondition": "Play",
-				"blurb": "Prepare the Name",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },

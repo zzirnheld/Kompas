@@ -4,7 +4,7 @@
 	"effText": "When this character deals X damage, draw X cards.",
 	"effects": [
 		{
-			"blurb": "Curiosity Bears Fruit",
+			"initialBlurb": "Curiosity bears fruit",
 			"triggerData": {
 				"triggerCondition": "Deal Combat Damage",
 				"triggerRestriction": {

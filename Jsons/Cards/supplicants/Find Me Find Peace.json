@@ -4,9 +4,9 @@
 	"effText": "Deck \u2192 hand any number of Supplicants from your deck's top 7 cards.",
 	"effects": [
 		{
+			"initialBlurb": "Find Me, Find Peace",
 			"triggerData": {
 				"triggerCondition": "Play",
-				"blurb": "Find Me, Find Peace",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },

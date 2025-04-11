@@ -4,8 +4,8 @@
 	"effText": "The first time each stack your Avatar's S changes, move another card 1 segment:\n+S: towards me.\n-S: away from me.",
 	"effects": [
 		{
+			"initialBlurb": "Attract",
 			"triggerData": {
-				"blurb": "Attract",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -83,8 +83,8 @@
 			]
 		},
 		{
+			"initialBlurb": "Repel",
 			"triggerData": {
-				"blurb": "Repel",
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

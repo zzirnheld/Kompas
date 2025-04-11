@@ -5,7 +5,7 @@
 	"effects": [
 		{
 			"triggerData": {
-				"blurb": "Replant Tree",
+				"initialBlurb": "Replant Tree",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},

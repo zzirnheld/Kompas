@@ -1,5 +1,5 @@
 {
-	"blurb": "Artillery",
+	"initialBlurb": "Artillery",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:",
 		"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

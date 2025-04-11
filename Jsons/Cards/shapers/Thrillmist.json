@@ -4,8 +4,8 @@
 	"effText": "SHAPE.\nWhen a Shaper Shapes through me, give us both +3 W.",
 	"effects": [
 		{
+			"initialBlurb": "Thrill",
 			"triggerData": {
-				"blurb": "Thrill",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

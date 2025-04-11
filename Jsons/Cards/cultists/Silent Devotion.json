@@ -4,8 +4,8 @@
 	"effText": "When friendly turns start, deck \u2192 summon a Cultist Mook.",
 	"effects": [
 		{
+			"initialBlurb": "New Silent Devotee",
 			"triggerData": {
-				"blurb": "New Silent Devotee",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

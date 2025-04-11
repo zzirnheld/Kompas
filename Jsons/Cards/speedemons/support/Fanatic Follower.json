@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, choose an adjacent character. Each time they move, move me adjacent to them and give me +1 EW. (Disgusting.)",
 	"effects": [
 		{
-			"blurb": "DISGOSTIN!",
+			"initialBlurb": "DISGOSTIN!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

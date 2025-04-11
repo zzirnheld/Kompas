@@ -1,8 +1,7 @@
 {
-	"blurb":"Recoverable",
+	"initialBlurb":"Recoverable",
 	"triggerData":
 	{
-		"blurb":"Recoverable",
 		"triggerCondition":"Discard",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:AllOf:",

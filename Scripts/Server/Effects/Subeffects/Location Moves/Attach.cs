@@ -1,4 +1,6 @@
-﻿using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
+using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
@@ -9,14 +11,14 @@ public class Attach : ServerSubeffect
 	//default is two targets ago
 	public int targetToAttachTo = -2;
 
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
-		=> GetCardTarget(overrideContext) == null
-		|| Effect.GetTarget(targetToAttachTo) == null;
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null
+		|| context.GetCardTarget(targetToAttachTo) == null;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var toAttach = CardTarget;
-		var attachTo = Effect.GetTarget(targetToAttachTo);
+		var toAttach = GetCardTarget(resolution.Context);
+		var attachTo = resolution.Context.GetCardTarget(targetToAttachTo);
 
 		//if everything goes to plan, resolve the next subeffect
 		if (toAttach == null) throw new NullCardException(TargetWasNull);

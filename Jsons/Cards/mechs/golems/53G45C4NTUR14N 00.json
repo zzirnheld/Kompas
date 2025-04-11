@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nI can Pilot a Mech, and give them what my stats were.",
 	"effects": [
 		{
-			"blurb": "00 BB",
+			"initialBlurb": "00 BB",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

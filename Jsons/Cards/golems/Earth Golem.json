@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, I give a character \u00b11 EW.",
 	"effects": [
 		{
-			"blurb": "++ or --",
+			"initialBlurb": "++ or --",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

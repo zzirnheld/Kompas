@@ -8,5 +8,6 @@ public class Play : ChangeGameLocation
 {
 	protected override Location Destination => Location.Board;
 
-	protected override void ChangeLocation(GameCard card) => card.Play(SpaceTarget, PlayerTarget, Effect);
+	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)
+		=> card.Play(GetSpaceTarget(context), GetPlayerTarget(context), Effect);
 }

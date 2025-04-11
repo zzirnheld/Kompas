@@ -4,7 +4,7 @@
 	"effText": "Give friendly Structures +7 EW.",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Simple",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

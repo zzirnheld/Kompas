@@ -21,18 +21,18 @@ public class AutoSpaceTarget : ServerSubeffect
 		spaceRestriction.Initialize(DefaultInitializationContext);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		try
 		{
-			Space potentialTarget = Space.Spaces.Single(s => spaceRestriction.IsValid(s, ResolutionContext));
-			ServerEffect.AddSpace(potentialTarget);
+			Space potentialTarget = Space.Spaces.Single(s => spaceRestriction.IsValid(s, resolution.Context));
+			resolution.AddSpace(potentialTarget);
 			return Task.FromResult(ResolutionInfo.Next);
 		}
 		catch (System.InvalidOperationException ioe)
 		{
 			Logger.Err($"Zero, or more than one space fit the space restriction {spaceRestriction} " +
-				$"for the effect {Effect.blurb} of {Effect.Card?.CardName}. Exception {ioe}");
+				$"for the effect {Effect.InitialBlurb} of {Effect.Card?.CardName}. Exception {ioe}");
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 		}
 	}

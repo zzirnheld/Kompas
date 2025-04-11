@@ -1,4 +1,5 @@
 ﻿using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
@@ -30,22 +31,22 @@ public class CardTargetSaveRest : CardTarget
 		restRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 	}
 
-	protected override Task<ResolutionInfo> NoPossibleTargets()
+	protected override Task<ResolutionInfo> NoPossibleTargets(IServerResolutionContext context)
 	{
 		_ = restRestriction ?? throw new NotInitializedException();
-		var rest = ServerGame.Cards.Where(c => restRestriction.IsValid(c, ResolutionContext));
-		ServerEffect.rest.AddRange(rest);
-		return base.NoPossibleTargets();
+		var rest = ServerGame.Cards.Where(c => restRestriction.IsValid(c, context));
+		context.AddRest(rest);
+		return base.NoPossibleTargets(context);
 	}
 
-	protected override void AddList(IEnumerable<GameCard> choices)
+	protected override void AddList(IEnumerable<GameCard> choices, ServerEffectResolution resolution)
 	{
 		_ = restRestriction ?? throw new NotInitializedException();
-		base.AddList(choices);
-		var rest = (toSearch.From(ResolutionContext, ResolutionContext)
-			?.Where(c => restRestriction.IsValid(c, ResolutionContext) && !choices.Contains(c))
+		base.AddList(choices, resolution);
+		var rest = (toSearch.From(resolution.Context, resolution.Context)
+			?.Where(c => restRestriction.IsValid(c, resolution.Context) && !choices.Contains(c))
 			.Select(c => c.Card))
 			?? throw new InvalidOperationException();
-		ServerEffect.rest.AddRange(rest);
+		resolution.Context.AddRest(rest);
 	}
 }

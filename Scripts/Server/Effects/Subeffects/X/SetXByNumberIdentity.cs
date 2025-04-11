@@ -19,5 +19,8 @@ public class SetXByNumberIdentity: SetX
 		numberIdentity.Initialize(initializationContext: DefaultInitializationContext);
 	}
 
-	public override int BaseCount => numberIdentity.From(ResolutionContext, ResolutionContext);
+    public override int GetBaseCount(IServerResolutionContext context)
+    {
+        return numberIdentity.From(context, context);
+    }
 }

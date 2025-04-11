@@ -4,7 +4,7 @@
 	"effText": "When an adjacent Modular character attaches a Module to themselves, discard \u2192 attach a Module to them.",
 	"effects": [
 		{
-			"blurb": "Retrofit Module",
+			"initialBlurb": "Retrofit Module",
 			"triggerData": {
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {

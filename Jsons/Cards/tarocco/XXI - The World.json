@@ -4,7 +4,7 @@
 	"effText": "When a character dies, draw 1 card, but bottomdeck it if your hand was already full.",
 	"effects": [
 		{
-			"blurb": "The World Goes On",
+			"initialBlurb": "The World Goes On",
 			"triggerData": {
 				"orderPriority": 5,
 				"triggerCondition": "Discard",

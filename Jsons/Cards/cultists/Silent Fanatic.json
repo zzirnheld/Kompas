@@ -4,8 +4,8 @@
 	"effText": "When I die, deck \u2192 summon 2 Cultist Mooks.",
 	"effects": [
 		{
+			"initialBlurb": "Deck-summon followers",
 			"triggerData": {
-				"blurb": "Deck-summon followers",
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

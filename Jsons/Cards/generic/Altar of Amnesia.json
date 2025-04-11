@@ -4,7 +4,7 @@
 	"effText": "During your turn, you can tribute a character here, set another character here's stats to the tributed character's.",
 	"effects": [
 		{
-			"blurb": "You are someone else",
+			"initialBlurb": "You are someone else",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

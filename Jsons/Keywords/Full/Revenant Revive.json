@@ -1,5 +1,5 @@
 {
-	"blurb":"Revive",
+	"initialBlurb":"Revive",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:",
 		"locations": [ "Discard" ]

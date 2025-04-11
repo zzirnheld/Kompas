@@ -27,12 +27,12 @@ public class ChangeAllCardStats : ChangeCardStats
 		cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 	}
 
-	protected override IEnumerable<HangingEffect> CreateHangingEffects()
+	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		var effs = new List<HangingEffect>();
 
 		IEnumerable<GameCard> cards
-			= ServerGame.Cards.Where(c => cardRestriction.IsValid(c, ResolutionContext));
+			= ServerGame.Cards.Where(c => cardRestriction.IsValid(c, context));
 
 		//First make sure are allowed to set their stats.
 		//Don't affect any card unless all that should be affected, can be.
@@ -44,12 +44,12 @@ public class ChangeAllCardStats : ChangeCardStats
 				throw new InvalidLocationException(card.Location, card, ChangedStatsOfCardOffBoard);
 		}
 
-		var buff = Buff;
+		var buff = ComputeBuff(context.X);
 
 		foreach (var card in cards)
 		{
 			var temp = new ChangeCardStatsEffect(end: End, fallOff: FallOff,
-				sourceEff: ServerEffect, currentContext: ResolutionContext,
+				sourceEff: ServerEffect, currentContext: context,
 				buffRecipient: card, buff: buff);
 
 			effs.Add(temp);

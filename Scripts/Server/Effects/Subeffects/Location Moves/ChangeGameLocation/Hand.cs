@@ -8,5 +8,6 @@ public class Hand : ChangeGameLocation
 {
 	protected override Location Destination => Location.Hand;
 
-	protected override void ChangeLocation(GameCard card) => card.Hand(card.OwningPlayer, Effect);
+	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)
+		=> card.Hand(card.OwningPlayer, Effect);
 }

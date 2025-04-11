@@ -1,5 +1,6 @@
 using Godot;
 using Kompas.Client.Effects.Models;
+using Kompas.Effects.Models;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Client.Effects.Views;
@@ -19,12 +20,12 @@ public partial class ClientEffectStackableView
 
 	private ClientEffect? effect;
 
-	public void Initialize(ClientEffect effect)
+	public void Initialize(IStackableResolution<ClientEffect> effectResolution)
 	{
-		if (this.effect != null) throw new AlreadyInitializedException();
-		this.effect = effect;
+		if (effect != null) throw new AlreadyInitializedException();
+		effect = effectResolution.Stackable;
 
 		PrimaryCardImage.Texture = effect.Card.CardFaceImage;
-		EffectBlurbLabel.Text = effect.blurb; //TODO allow for different blurbs on resume delayed effect
+		EffectBlurbLabel.Text = effectResolution.Context.Blurb;
 	}
 }

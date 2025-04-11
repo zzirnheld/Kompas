@@ -4,7 +4,7 @@
 	"effText": "When an enemy dies in Weather, SPINASTORM there.",
 	"effects": [
 		{
-			"blurb": "Bind the soul",
+			"initialBlurb": "Bind the soul",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

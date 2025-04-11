@@ -1,8 +1,7 @@
 {
-	"blurb":"Waterdweller",
+	"initialBlurb":"Waterdweller",
 	"triggerData":
 	{
-		"blurb":"Waterdweller",
 		"triggerCondition":"Stack End",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:AllOf:",

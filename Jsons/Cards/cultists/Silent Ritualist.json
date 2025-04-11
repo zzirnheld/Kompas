@@ -4,7 +4,7 @@
 	"effText": "When turns start, tribute a character. Deck \u2192 cast a Silent spell where they were.",
 	"effects": [
 		{
-			"blurb": "Ritual",
+			"initialBlurb": "Ritual",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

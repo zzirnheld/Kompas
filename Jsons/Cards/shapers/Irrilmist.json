@@ -4,8 +4,8 @@
 	"effText": "SHAPE. Evasive.\nWhen a Shaper Shapes through me, hand me and teleport an Ethereal to where I was.",
 	"effects": [
 		{
+			"initialBlurb": "Condense",
 			"triggerData": {
-				"blurb": "Condense",
 				"triggerCondition": "Move",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

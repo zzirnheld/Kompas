@@ -4,7 +4,7 @@
 	"effText": "When turns start, hand \u2192 summon a Maya Structure to a node on the edge of the board, then draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Planned construction",
+			"initialBlurb": "Planned construction",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

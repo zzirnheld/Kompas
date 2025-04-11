@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, hand \u2192 summon a Bone.",
 	"effects": [
 		{
-			"blurb": "Boneus!",
+			"initialBlurb": "Boneus!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

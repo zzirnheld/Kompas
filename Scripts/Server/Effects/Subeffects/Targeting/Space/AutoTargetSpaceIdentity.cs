@@ -23,14 +23,14 @@ public class AutoTargetSpaceIdentity : ServerSubeffect
 		spaceIdentity.Initialize(initializationContext: DefaultInitializationContext);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var space = spaceIdentity.From(ResolutionContext, ResolutionContext);
+		var space = spaceIdentity.From(resolution.Context, resolution.Context);
 		
 		if (space == null) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
-		if (!spaceRestriction.IsValid(space, ResolutionContext)) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
+		if (!spaceRestriction.IsValid(space, resolution.Context)) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
-		Effect.AddSpace(space);
+		resolution.AddSpace(space);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

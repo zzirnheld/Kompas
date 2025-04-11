@@ -4,7 +4,7 @@
 	"effText": "When this Fungus pulses an enemy, give this Fungus +1 NESW and the enemy -1 NESW.",
 	"effects": [
 		{
-			"blurb": "Vampirism",
+			"initialBlurb": "Vampirism",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

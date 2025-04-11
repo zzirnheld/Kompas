@@ -4,8 +4,8 @@
 	"effText": "RECOVERABLE.\nWhile equipped, activate this Golem and give them +1 N.",
 	"effects": [
 		{
+			"initialBlurb": "Activate!",
 			"triggerData": {
-				"blurb": "Activate Golem",
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

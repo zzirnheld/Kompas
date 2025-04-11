@@ -4,8 +4,8 @@
 	"effText": "IFICATE.\nGive an adjacent character -7 W. If they're Crazy, also give them +5 N.",
 	"effects": [
 		{
+			"initialBlurb": "MAXIMUM OVERDRIVE",
 			"triggerData": {
-				"blurb": "MAXIMUM OVERDRIVE",
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

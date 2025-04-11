@@ -4,7 +4,7 @@
 	"effText": "RECOVERABLE.\nWhen turns start, pulse this Golem (activate, then deactivate them).",
 	"effects": [
 		{
-			"blurb": "Choo Choo Activate",
+			"initialBlurb": "Choo Choo Activate",
 			"triggerData": {
 				"blurb": "Pulse Golem",
 				"triggerCondition": "Turn Start",

@@ -5,7 +5,7 @@
 	"technicalEffText": "If there's NO enemy characters here and nothing else is happening, swap me for Shade in your deck.",
 	"effects": [
 		{
-			"blurb":"Become Shade",
+			"initialBlurb":"Become Shade",
 			"triggerData":
 			{
 				"triggerCondition":"Stack End",

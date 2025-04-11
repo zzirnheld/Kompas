@@ -1,3 +1,5 @@
+using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using System.Threading.Tasks;
@@ -6,17 +8,17 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Damage : ServerSubeffect
 {
-	public override bool IsImpossible (TargetingContext? overrideContext = null)
-		=> GetCardTarget(overrideContext) == null;
+	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null)
+		if (GetCardTarget(resolution.Context) == null)
 			throw new NullCardException(TargetWasNull);
-		else if (forbidNotBoard && CardTarget.Location != Location.Board)
-			throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
+		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
+			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
 
-		CardTarget.TakeDamage(Count, Effect);
+        GetCardTarget(resolution.Context).TakeDamage(AdjustX(resolution.Context), Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

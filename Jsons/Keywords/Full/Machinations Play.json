@@ -1,7 +1,7 @@
 {
+	"initialBlurb": "C to 0",
 	"triggerData": {
 		"triggerCondition": "Play",
-		"blurb": "C to 0",
 		"triggerRestriction": {
 			"elements": [
 				{

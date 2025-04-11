@@ -101,12 +101,8 @@ public abstract class Trigger
 	public abstract GameCard Card { get; }
 	public abstract Effect Effect { get; }
 
-	public string TriggerCondition => TriggerData.triggerCondition
-		?? throw new InvalidOperationException("Trigger data didn't have a trigger condition");
 	public ITriggerRestriction TriggerRestriction => TriggerData.triggerRestriction
 		?? throw new InvalidOperationException("Trigger data didn't have a trigger restriction");
-	public bool Optional => TriggerData.optional;
-	public string Blurb => TriggerData.blurb ?? Effect.blurb ?? string.Empty;
 	public int OrderPriority => TriggerData.orderPriority;
 
 	public Trigger(TriggerData triggerData, Effect effect)
@@ -121,7 +117,7 @@ public abstract class Trigger
 		}
 		catch (NullReferenceException)
 		{
-			Logger.Err($"Issue initializing {Blurb} trigger of {effect.Card}");
+			Logger.Err($"Issue initializing {Effect.InitialBlurb} trigger of {effect.Card}");
 			throw;
 		}
 	}

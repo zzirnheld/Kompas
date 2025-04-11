@@ -4,8 +4,8 @@
 	"effText": "The first time each stack you augment me, attach my Augments to another character within 4 segments of me.",
 	"effects": [
 		{
+			"initialBlurb": "Punt Augment",
 			"triggerData": {
-				"blurb": "Punt Augment",
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

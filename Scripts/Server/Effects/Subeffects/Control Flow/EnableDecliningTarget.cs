@@ -6,12 +6,12 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class EnableDecliningTarget : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
-		
+		var player = GetPlayerTarget(resolution.Context) ?? throw new NullPlayerException(TargetWasNull);
+
 		ServerNotifier.EnableDecliningTarget(player);
-		ResolutionContext.CanDeclineTarget = true;
+		resolution.Context.CanDeclineTarget = true;
 
 		return Task.FromResult(ResolutionInfo.Next);
 	}

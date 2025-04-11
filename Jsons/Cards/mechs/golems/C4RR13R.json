@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, I INVOKE a Mech Golem and activate it.",
 	"effects": [
 		{
-			"blurb": "C4RRY1NG TH1S WH0L3 T34M",
+			"initialBlurb": "C4RRY1NG TH1S WH0L3 T34M",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

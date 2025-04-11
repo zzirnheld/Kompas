@@ -4,7 +4,7 @@
 	"effText": "Endless.\nTribute a character. Gain 1 pip.",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Simple",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

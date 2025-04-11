@@ -4,7 +4,7 @@
 	"effText": "Spores.\nThe first time each stack a friendly Fungus pulses an enemy, INVOKE a Fungus.",
 	"effects": [
 		{
-			"blurb": "Ring around the enemy enemy",
+			"initialBlurb": "Ring around the enemy enemy",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

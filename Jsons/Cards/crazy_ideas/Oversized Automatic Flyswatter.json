@@ -4,9 +4,9 @@
 	"effText":"When a character arrives adjacent to me, give them -1 E.",
 	"effects":[
 		{
+			"initialBlurb":"BEGONE! SWAT!",
 			"triggerData":
 			{
-				"blurb":"BEGONE! SWAT!",
 				"triggerCondition":"Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

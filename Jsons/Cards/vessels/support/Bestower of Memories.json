@@ -4,7 +4,7 @@
 	"effText": "When you bestow a Memory unto a Vessel, deck \u2192  or discard \u2192 bestow a copy unto a Vessel without one.",
 	"effects": [
 		{
-			"blurb": "Bestow Memory",
+			"initialBlurb": "Bestow Memory",
 			"triggerData": {
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {

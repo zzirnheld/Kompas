@@ -4,7 +4,7 @@
 	"effText": "Stealth.\nWhen a Moth attacks an S X character in Light, give the defender -X S and the Moth +X ESW.",
 	"effects": [
 		{
-			"blurb": "*slurps your fluids*",
+			"initialBlurb": "*slurps your fluids*",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

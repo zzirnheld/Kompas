@@ -6,7 +6,7 @@
 		{
 			"triggerData":
 			{
-				"blurb":"Fog",
+				"initialBlurb":"Fog",
 				"triggerCondition":"Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

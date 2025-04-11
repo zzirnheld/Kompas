@@ -4,8 +4,8 @@
 	"effText": "When I start turns adjacent to an enemy Avatar, I INVOKE a character that costs less than me.",
 	"effects": [
 		{
+			"initialBlurb": "Invoke",
 			"triggerData": {
-				"blurb": "Invoke",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

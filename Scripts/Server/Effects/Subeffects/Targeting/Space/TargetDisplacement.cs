@@ -7,17 +7,17 @@ public class TargetDisplacement : ServerSubeffect
 {
 	public int secondarySpaceIndex = -2;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var secondarySpace = Effect.GetSpace(secondarySpaceIndex);
+		var secondarySpace = resolution.Context.GetSpaceTarget(secondarySpaceIndex);
 
-		if (SpaceTarget == null || secondarySpace == null)
+		if (GetSpaceTarget(resolution.Context) == null || secondarySpace == null)
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidSpaceTarget));
 
-		var displacement = secondarySpace.DisplacementTo(SpaceTarget);
-		Logger.Log($"Displacement from {secondarySpace} to {SpaceTarget} is {displacement}");
+		var displacement = secondarySpace.DisplacementTo(GetSpaceTarget(resolution.Context));
+		Logger.Log($"Displacement from {secondarySpace} to {GetSpaceTarget(resolution.Context)} is {displacement}");
 
-		Effect.AddSpace(displacement);
+		resolution.AddSpace(displacement);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

@@ -4,7 +4,7 @@
 	"effText": "Mask.\nWhen this summon defends, give the attacker -3 NW.",
 	"effects": [
 		{
-			"blurb": "You underestimate me",
+			"initialBlurb": "You underestimate me",
 			"triggerData":
 			{
 				"triggerCondition": "Defend",

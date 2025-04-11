@@ -4,7 +4,7 @@
 	"effText": "When you draw X cards, give me +X C.\n1 turn after I'm cast, deck \u2192 summon a Tarocco with S <= my C.",
 	"effects": [
 		{
-			"blurb": "+X C",
+			"initialBlurb": "+X C",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
@@ -30,7 +30,7 @@
 			]
 		},
 		{
-			"blurb": "You are Summoned",
+			"initialBlurb": "You are Summoned",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

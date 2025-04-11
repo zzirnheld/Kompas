@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Draw draw draw",
+			"initialBlurb": "Draw draw draw",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

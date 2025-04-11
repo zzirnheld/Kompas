@@ -4,8 +4,8 @@
 	"effText": "Supplicant: give that character -1 W.",
 	"effects": [
 		{
+			"initialBlurb": "Sobbing",
 			"triggerData": {
-				"blurb": "Sobbing",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

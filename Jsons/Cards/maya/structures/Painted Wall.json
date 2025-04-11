@@ -4,7 +4,7 @@
 	"effText": "Structure.\nIf I'm in a corner when a Structure on my diagonal defends, draw 3 cards.",
 	"effects": [
 		{
-			"blurb": "The walls remember",
+			"initialBlurb": "The walls remember",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

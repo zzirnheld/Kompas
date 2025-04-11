@@ -8,63 +8,66 @@ public class Loop : ServerSubeffect
 {
 	public bool canDecline = false;
 
-	protected virtual void OnLoopExit()
+	protected virtual void OnLoopExit(IServerResolutionContext context)
 	{
 		//make the "no other targets" button disappear
 		if (canDecline)
 		{
-			var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+			var player = GetPlayerTarget(context) ?? throw new NullPlayerException(TargetWasNull);
 			//TODO - do this for both players? in case loop contained something setting target. or maybe store the player that's in a can decline loop?
 			ServerNotifier.DisableDecliningTarget(player);
 			ServerNotifier.AcceptTarget(player); // otherwise it keeps them in the now-irrelevant target mode
 		}
 	}
 
-	protected virtual bool ShouldContinueLoop => true;
+    /// <summary>
+    /// Logic when we finish an iteration of the loop
+    /// </summary>
+    /// <returns>Whether to continue looping</returns>
+    protected virtual bool LoopContinuation(ServerEffectResolution resolution) => true;
 
-	public override Task<ResolutionInfo> Resolve()
+    public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		//loop again if necessary
 		Logger.Log($"im in ur loop of type {GetType()}, the one that jumps to {JumpIndex}");
-		if (ShouldContinueLoop)
+		if (LoopContinuation(resolution))
 		{
 			//tell the client to enable the button to exit the loop
 			if (canDecline)
 			{
-				var player = PlayerTarget ?? throw new NullPlayerException(TargetWasNull);
+				var player = GetPlayerTarget(resolution.Context) ?? throw new NullPlayerException(TargetWasNull);
 				ServerNotifier.EnableDecliningTarget(player);
-				var currentResolution = ServerEffect.CurrentServerResolutionContext
+				var currentResolution = resolution.Context
 					?? throw new EffectNotResolvingException(ServerEffect);
 				currentResolution.OnImpossible = this;
-				ResolutionContext.CanDeclineTarget = true;
+				resolution.Context.CanDeclineTarget = true;
 			}
 			return Task.FromResult(ResolutionInfo.Index(JumpIndex));
 		}
-		else return ExitLoop();
+		else return ExitLoop(resolution.Context);
 	}
 
 	/// <summary>
 	/// Cancels the loop (because the player declined another target, or because there are no more valid targets)
 	/// </summary>
-	public Task<ResolutionInfo> ExitLoop()
+	public Task<ResolutionInfo> ExitLoop(IServerResolutionContext context)
 	{
 		//let parent know the loop is over
-		var currentResolution = ServerEffect.CurrentServerResolutionContext
-			?? throw new EffectNotResolvingException(ServerEffect);
+		var currentResolution = context;
 		if (currentResolution.OnImpossible == this) currentResolution.OnImpossible = null;
-		ResolutionContext.CanDeclineTarget = false;
+		context.CanDeclineTarget = false;
 
 		//do anything necessary to clean up the loop
-		OnLoopExit();
+		OnLoopExit(context);
 
 		//then skip to after the loop (exitloop will sometimes be called while the effect is waiting on a target,
 		//on a subeffect that isn't this one. resolvenext won't work in that situation.
 		return Task.FromResult(ResolutionInfo.Index(SubeffIndex + 1));
 	}
 
-	public override Task<ResolutionInfo> OnImpossible(string why)
+	public override Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
 	{
-		if (canDecline) return ExitLoop();
-		else return base.OnImpossible(why);
+		if (canDecline) return ExitLoop(resolution.Context);
+		else return base.OnImpossible(resolution, why);
 	}
 }

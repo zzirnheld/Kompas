@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nI can spend 1 segment of movement to teleport to a node adjacent to a friendly Mech.",
 	"effects": [
 		{
-			"blurb": "T3L3P0RT",
+			"initialBlurb": "T3L3P0RT",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [

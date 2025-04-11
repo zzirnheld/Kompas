@@ -14,7 +14,7 @@ namespace Kompas.Networking.Packets
 		public int x;
 		public int y;
 
-		public int[] path;
+		public int[]? path;
 
 		public MoveCardPacket() : base(MoveCard) { }
 
@@ -66,6 +66,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
+			_ = path ?? throw new System.NullReferenceException("Path can't be null!");
 			var movePath = new MovePath() { Spaces = path.Select(Space.FromIndex).ToArray() };
 			Logger.Log($"Moving {cardId} to {x}, {y} via {string.Join(", ", movePath.Spaces)}");
 			clientGame.LookupCardByID(cardId)

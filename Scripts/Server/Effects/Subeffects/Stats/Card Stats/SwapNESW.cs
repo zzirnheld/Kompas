@@ -1,4 +1,5 @@
-﻿using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Effects.Models;
+using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ public class SwapNESW : ServerSubeffect
 	public bool swapS = false;
 	public bool swapW = false;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var target1 = Effect.GetTarget(targetIndices[0]);
-		var target2 = Effect.GetTarget(targetIndices[1]);
+		var target1 = resolution.Context.GetCardTarget(targetIndices[0]);
+		var target2 = resolution.Context.GetCardTarget(targetIndices[1]);
 		if (target1 == null)
 			throw new NullCardException(TargetWasNull);
 		else if (forbidNotBoard && target1.Location != Location.Board)

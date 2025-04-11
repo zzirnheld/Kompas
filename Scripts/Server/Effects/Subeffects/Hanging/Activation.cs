@@ -7,11 +7,11 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
 public class Activation : HangingEffectSubeffect
 {
-	protected override IEnumerable<HangingEffect> CreateHangingEffects()
+	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		var tempActivation = new ActivationEffect(end: End, fallOff: FallOff,
-			sourceEff: ServerEffect, resolutionContext: ResolutionContext,
-			target: CardTarget, source: this);
+			sourceEff: ServerEffect, resolutionContext: context,
+			target: GetCardTarget(context), source: this);
 		return new List<HangingEffect>() { tempActivation };
 	}
 	

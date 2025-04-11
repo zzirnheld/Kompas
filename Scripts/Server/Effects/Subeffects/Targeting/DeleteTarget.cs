@@ -4,9 +4,9 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class DeleteTarget : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		RemoveTarget();
+		resolution.RemoveTarget(GetCardTarget(resolution.Context));
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

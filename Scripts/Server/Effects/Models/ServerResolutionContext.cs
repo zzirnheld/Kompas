@@ -14,40 +14,41 @@ public class ServerResolutionContext : ResolutionContext, IServerResolutionConte
 
 	public ServerSubeffect? OnImpossible { get; set; } = null;
 
-	public static ServerResolutionContext PlayerTrigger(IEffect effect, IGame game, ServerPlayer controllingPlayer)
-		=> new(new EventContext() { StackableEvent = effect }, controllingPlayer);
+	public static ServerResolutionContext PlayerTrigger(IEffect effect, ServerPlayer controllingPlayer)
+		=> new(new EventContext() { StackableEvent = effect }, controllingPlayer, effect.InitialBlurb);
 
-	public ServerResolutionContext(IEventContext? triggerContext, ServerPlayer controllingPlayer)
+	public ServerResolutionContext(IEventContext? triggerContext, ServerPlayer controllingPlayer, string blurb)
 	: this(triggerContext, controllingPlayer, 0,
-		Enumerable.Empty<GameCard>(), default,
+		Enumerable.Empty<GameCard>(),
 		Enumerable.Empty<GameCardInfo>(),
-		Enumerable.Empty<Space>(), default,
-		Enumerable.Empty<IStackable>(), default)
+		Enumerable.Empty<Space>(),
+		Enumerable.Empty<IStackable>(),
+		blurb)
 	{ }
 
 	public static ServerResolutionContext Resume(IResolutionContext context,
-		IEventContext newTriggerContext, ServerPlayer controllingPlayer, int startIndex)
+		IEventContext newTriggerContext, ServerPlayer controllingPlayer, int startIndex, string blurb)
 	{
 		return new ServerResolutionContext(triggerContext: newTriggerContext,
 			controllingPlayer, startIndex,
-			context.CardTargets, default,
+			context.CardTargets,
 			context.CardInfoTargets,
-			context.SpaceTargets, default,
-			context.StackableTargets, default);
+			context.SpaceTargets,
+			context.StackableTargets, 
+			blurb);
 	}
 
 	public ServerResolutionContext(IEventContext? triggerContext,
 		ServerPlayer controllingPlayer, int startIndex,
-		IEnumerable<GameCard> cardTargets, GameCard? delayedCardTarget,
+		IEnumerable<GameCard> cardTargets,
 		IEnumerable<IGameCardInfo> cardInfoTargets,
-		IEnumerable<Space> spaceTargets, Space? delayedSpaceTarget,
-		IEnumerable<IStackable> stackableTargets, IStackable? delayedStackableTarget)
-		: base (triggerContext,
-		startIndex,
-		cardTargets, delayedCardTarget,
-		cardInfoTargets,
-		spaceTargets, delayedSpaceTarget,
-		stackableTargets, delayedStackableTarget)
+		IEnumerable<Space> spaceTargets,
+		IEnumerable<IStackable> stackableTargets,
+		string blurb)
+		: base(triggerContext, startIndex,
+		cardTargets, cardInfoTargets,
+		spaceTargets, stackableTargets,
+		blurb)
 	{
 		ControllingPlayer = controllingPlayer;
 	}

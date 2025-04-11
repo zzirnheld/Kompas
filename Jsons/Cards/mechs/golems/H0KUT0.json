@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nIf I'm active when an enemy is summoned, I move to an adjacent node, then attack them.",
 	"effects": [
 		{
-			"blurb": "0M43 W4 M0U 5H1ND31RU",
+			"initialBlurb": "0M43 W4 M0U 5H1ND31RU",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" },

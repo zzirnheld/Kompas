@@ -4,9 +4,8 @@
 	"effText": "RECOVERABLE.\nWhile equipped, activate this Golem. When they defend, swap me for a Golem Core in your hand.",
 	"effects": [
 		{
-			"blurb": "Defense Activate!",
+			"initialBlurb": "Activate!",
 			"triggerData": {
-				"blurb": "Activate Golem",
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
@@ -47,9 +46,8 @@
 			]
 		},
 		{
-			"blurb": "You Shouldn't Have Done That",
+			"initialBlurb": "You Shouldn't Have Done That",
 			"triggerData": {
-				"blurb": "Golem Defense",
 				"triggerCondition": "Defend",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

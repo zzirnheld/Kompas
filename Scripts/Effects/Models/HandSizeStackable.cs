@@ -18,7 +18,9 @@ public abstract class HandSizeStackable : IStackable
 
 	public IPlayer? ControllingPlayer => player;
 
-	protected HandSizeStackable(IGame game, IPlayer player)
+	public string InitialBlurb => $"{(player.Friendly ? "You" : "Opponent")} reshuffling to hand size";
+
+    protected HandSizeStackable(IGame game, IPlayer player)
 	{
 		this.game = game;
 		this.player = player;

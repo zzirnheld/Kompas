@@ -4,8 +4,8 @@
 	"effText": "Dispel an adjacent friendly CX Enchant. Draw X.",
 	"effects": [
 		{
+			"initialBlurb": "Hi-yah!",
 			"triggerData": {
-				"blurb": "Hi-yah!",
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

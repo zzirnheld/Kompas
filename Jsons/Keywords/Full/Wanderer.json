@@ -1,8 +1,7 @@
 {
-	"blurb":"Wanderer",
+	"initialBlurb":"Wanderer",
 	"triggerData":
 	{
-		"blurb":"Wander",
 		"triggerCondition":"Turn Start",
 		"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 	},

@@ -4,7 +4,7 @@
 	"effText": "When turns start, hand \u2192 summon a Bone and draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Bonecast",
+			"initialBlurb": "Bonecast",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

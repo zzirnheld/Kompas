@@ -17,10 +17,10 @@ public class ConditionalEnd : ServerSubeffect
 		endIfTrue.Initialize(DefaultInitializationContext);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		//TODO implement a ToHumanReadableString sort of thing to provide as a reason here
-		if (endIfTrue.IsValid(ResolutionContext)) return Task.FromResult(ResolutionInfo.End("I said so"));
+		if (endIfTrue.IsValid(resolution.Context)) return Task.FromResult(ResolutionInfo.End("I said so"));
 		else return Task.FromResult(ResolutionInfo.Next);
 	}
 }

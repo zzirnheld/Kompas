@@ -4,7 +4,7 @@
 	"effText": "The [USES.0.first] time each turn a Dancer dies, hand \u2192 summon a distinct Masked Dancer where they were.",
 	"effects": [
 		{
-			"blurb": "The Dance Continues",
+			"initialBlurb": "The Dance Continues",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

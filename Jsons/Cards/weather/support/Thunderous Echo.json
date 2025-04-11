@@ -4,7 +4,7 @@
 	"effText": "When you hand \u2192 summon a Weather Event, echo it.",
 	"effects": [
 		{
-			"blurb": "Thunderous Echo",
+			"initialBlurb": "Thunderous Echo",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

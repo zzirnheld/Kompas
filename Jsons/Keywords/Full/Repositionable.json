@@ -1,5 +1,5 @@
 {
-	"blurb":"Repositionable",
+	"initialBlurb":"Repositionable",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:"
 	},

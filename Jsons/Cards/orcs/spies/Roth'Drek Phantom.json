@@ -20,7 +20,7 @@
 			]
 		},
 		{
-			"blurb": "Withdraw",
+			"initialBlurb": "Withdraw",
 			"triggerData": {
 				"triggerCondition": "Rehand",
 				"triggerRestriction": {

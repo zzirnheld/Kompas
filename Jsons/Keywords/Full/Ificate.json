@@ -1,7 +1,6 @@
 {
-	"blurb":"Ificate",
+	"initialBlurb":"Ificate",
 	"triggerData":{
-		"blurb":"Ificate",
 		"triggerCondition":"Discard",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:AllOf:",

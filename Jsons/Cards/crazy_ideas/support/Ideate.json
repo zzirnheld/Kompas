@@ -4,7 +4,7 @@
 	"effText": "Deck \u2192 discard a Crazy Idea.",
 	"effects": [
 		{
-			"blurb":"Ideate",
+			"initialBlurb":"Ideate",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

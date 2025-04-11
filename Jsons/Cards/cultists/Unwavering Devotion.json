@@ -4,8 +4,8 @@
 	"effText": "When a friendly Cultist dies, give friendly Cultists +1 W.",
 	"effects": [
 		{
+			"initialBlurb": "Unwavering Devotion",
 			"triggerData": {
-				"blurb": "Unwavering Devotion",
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

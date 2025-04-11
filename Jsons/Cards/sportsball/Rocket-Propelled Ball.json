@@ -4,8 +4,8 @@
 	"effText": "COMEBACKPLAY.\nWhen you augment an enemy character, move them 1 segment.",
 	"effects": [
 		{
+			"initialBlurb": "Rocket my balls!",
 			"triggerData": {
-				"blurb": "Rocket my balls!",
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

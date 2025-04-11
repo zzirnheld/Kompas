@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.TriggeringEvent;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
 
@@ -41,24 +42,53 @@ public interface IResolutionContext
 	/// so we wrap a IEventContext that simply says a player did it normally.
 	/// </summary>
 	public static IResolutionContext PlayerAction(IPlayer agent)
-		=> NotResolving(new TriggeringEvent.EventContext() {Player = agent});
+		=> NotResolving(new TriggeringEvent.EventContext() { Player = agent });
 
 	/// <summary>
 	/// Information describing the event that triggered this effect to occur, if any such event happened. (If it's player-triggered, this is null.) 
 	/// </summary>
 	public IEventContext? TriggerContext { get; }
 
+	/// <summary>
+	/// The index at which this resolution did or should start
+	/// </summary>
 	public int StartIndex { get; }
-	public IList<GameCard> CardTargets { get; }
-	public IList<IGameCardInfo> CardInfoTargets { get; }
-	public GameCard? DelayedCardTarget { get; }
-	public IList<Space> SpaceTargets { get; }
-	public Space? DelayedSpaceTarget { get; }
-	public IList<IStackable> StackableTargets { get; }
-	public IStackable? DelayedStackableTarget { get; }
-	public int X { get; set; }
 
+	/// <summary>
+	/// The cards currently targeted by this resolution of this effect
+	/// </summary>
+	public IList<GameCard> CardTargets { get; }
+
+	/// <summary>
+	/// Like <see cref="CardTargets"/>, but instead of referring to a card at any point in time,
+	/// refers to snapshots of cards as they existed at a moment in time.
+	/// Ex: Used for copying the stats of a card as they existed at the moment the effect was triggered
+	/// </summary>
+	public IList<IGameCardInfo> CardInfoTargets { get; }
+
+	public IList<Space> SpaceTargets { get; }
+	public IList<IStackable> StackableTargets { get; }
+	public IList<IPlayer> PlayerTargets { get; }
+	public IList<GameCard> Rest { get; }
+
+	/// <summary>
+	/// Whether the player is currently allowed to decline selecting an additional target.
+	/// Used both for effects that allow an arbitrary number of targets,
+	/// and for optional effects (but since this is Kompas, optional choices occur on resolution)
+	/// </summary>
 	public bool CanDeclineTarget { get; set; }
+
+	/// <summary>
+	/// A single integer referenced in card effects, used when trying to do something in proportion to something else.
+	/// We only allow one integer for card design reasons: more than one would make things hard to read.
+	/// </summary>
+	public int X { get; set; }
+	
+	/// <summary>
+	/// The text that should display to describe what's happening in this (resolution of the) effect.
+	/// Ex: "It's in here somewhere!", "Dragonbirth", "Mad-blood-curse"
+	/// </summary>
+	public string Blurb { get; set; }
 
 	public IResolutionContext Copy { get; }
 
@@ -76,22 +106,71 @@ public interface IResolutionContext
 		public int StartIndex => throw new System.NotImplementedException(NotImplementedMessage);
 		public IList<GameCard> CardTargets => throw new System.NotImplementedException(NotImplementedMessage);
 		public IList<IGameCardInfo> CardInfoTargets => throw new System.NotImplementedException(NotImplementedMessage);
-		public GameCard DelayedCardTarget => throw new System.NotImplementedException(NotImplementedMessage);
 		public IList<Space> SpaceTargets => throw new System.NotImplementedException(NotImplementedMessage);
-		public Space DelayedSpaceTarget => throw new System.NotImplementedException(NotImplementedMessage);
 		public IList<IStackable> StackableTargets => throw new System.NotImplementedException(NotImplementedMessage);
-		public IStackable DelayedStackableTarget => throw new System.NotImplementedException(NotImplementedMessage);
-		public int X { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+		public IList<IPlayer> PlayerTargets => throw new System.NotImplementedException(NotImplementedMessage);
+		public IList<GameCard> Rest => throw new System.NotImplementedException(NotImplementedMessage);
+
+		public int X
+		{
+			get => throw new System.NotImplementedException(NotImplementedMessage);
+			set => throw new System.NotImplementedException(NotImplementedMessage);
+		}
+
+		public string Blurb
+		{
+			get => throw new System.NotImplementedException(NotImplementedMessage);
+			set => throw new System.NotImplementedException(NotImplementedMessage);
+		}
 
 		public IResolutionContext Copy => new DummyResolutionContext(TriggerContext);
 
 		public bool CanResolve => false;
 
-        public bool CanDeclineTarget { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+		public bool CanDeclineTarget
+		{
+			get => throw new System.NotImplementedException(NotImplementedMessage);
+			set => throw new System.NotImplementedException(NotImplementedMessage);
+		}
 
-        public DummyResolutionContext(IEventContext? triggerContext)
+		public DummyResolutionContext(IEventContext? triggerContext)
 		{
 			TriggerContext = triggerContext;
 		}
+	}
+}
+
+public static class ResolutionContextExtensions
+{
+	public static GameCard? GetCardTarget(this IResolutionContext context, TargetingContext targetingContext)
+	{
+		var index = targetingContext?.cardTargetIndex;
+
+		return index is null
+			? null
+			: GetCardTarget(context, index.Value);
+	}
+
+	public static GameCard? GetCardTarget(this IResolutionContext context, int index)
+		=> EffectHelper.GetItem(context.CardTargets, index);
+
+	public static Space? GetSpaceTarget(this IResolutionContext context, int index)
+		=> EffectHelper.GetItem(context.SpaceTargets, index);
+
+	public static IPlayer? GetPlayerTarget(this IResolutionContext context, TargetingContext targetingContext)
+	{
+		var index = targetingContext?.cardTargetIndex;
+
+		return index is null
+			? null
+			: GetPlayerTarget(context, index.Value);
+	}
+
+	public static IPlayer? GetPlayerTarget(this IResolutionContext context, int index)
+		=> EffectHelper.GetItem(context.PlayerTargets, index);
+
+	public static void AddRest(this IResolutionContext context, IEnumerable<GameCard> cards)
+	{
+		foreach (var card in cards) context.Rest.Add(card);
 	}
 }

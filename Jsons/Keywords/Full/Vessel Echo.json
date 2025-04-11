@@ -1,5 +1,5 @@
 {
-	"blurb":"Vessel",
+	"initialBlurb":"Vessel",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:"
 	},

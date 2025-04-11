@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, give an N X character +X N.",
 	"effects": [
 		{
-			"blurb": "Excitement",
+			"initialBlurb": "Excitement",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

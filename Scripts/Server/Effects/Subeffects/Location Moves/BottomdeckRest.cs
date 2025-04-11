@@ -4,9 +4,9 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class BottomdeckRest : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		PlayerTarget.Deck.BottomdeckMany(Effect.rest);
+        GetPlayerTarget(resolution.Context).Deck.BottomdeckMany(resolution.Context.Rest);
 
 		return Task.FromResult(ResolutionInfo.Next);
 	}

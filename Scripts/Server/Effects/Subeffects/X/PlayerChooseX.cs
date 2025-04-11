@@ -18,25 +18,26 @@ public class PlayerChooseX : ServerSubeffect
 		XRest.Initialize(DefaultInitializationContext);
 	}
 
-	private async Task<int> AskForX() => await ServerGame.Awaiter.GetPlayerXValue(PlayerTarget
-		?? throw new InvalidOperationException("Did you delete a player?"));
+	private async Task<int> AskForX(IServerResolutionContext context)
+		=> await ServerGame.Awaiter.GetPlayerXValue(GetPlayerTarget(context)
+			?? throw new InvalidOperationException("Did you delete a player from the player targets list?"));
 
-	public override async Task<ResolutionInfo> Resolve()
+	public override async Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		bool xLegal = false;
 		while (!xLegal)
 		{
-			int x = await AskForX();
-			xLegal = SetXIfLegal(x);
+			int x = await AskForX(resolution.Context);
+			xLegal = SetXIfLegal(x, resolution.Context);
 		}
 		return ResolutionInfo.Next;
 	}
 
-	public bool SetXIfLegal(int x)
+	public bool SetXIfLegal(int x, IServerResolutionContext context)
 	{
-		if (XRest.IsValid(x, ResolutionContext))
+		if (XRest.IsValid(x, context))
 		{
-			ServerEffect.X = x;
+			context.X = x;
 			return true;
 		}
 		return false;

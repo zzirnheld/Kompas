@@ -4,7 +4,7 @@
 	"effText": "When you hurt a summon, DOHEAL it.",
 	"effects": [
 		{
-			"blurb": "Nurse to health",
+			"initialBlurb": "Nurse to health",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

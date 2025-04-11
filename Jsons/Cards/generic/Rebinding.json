@@ -4,7 +4,7 @@
 	"effText": "Kill an adjacent friendly SX character. Give two cards +X cost (characters get +X S, spells get +X C, augments get +X A).",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Rebind",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -16,7 +16,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "for Rebinding to kill",
+					"initialBlurb": "for Rebinding to kill",
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
@@ -42,7 +42,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "for Rebinding to buff",
+					"initialBlurb": "for Rebinding to buff",
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Not:",
@@ -57,7 +57,7 @@
 				},
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "for Rebinding to buff",
+					"initialBlurb": "for Rebinding to buff",
 					"toSearch": { "$type": "Identify.ManyCards:Board:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Not:",

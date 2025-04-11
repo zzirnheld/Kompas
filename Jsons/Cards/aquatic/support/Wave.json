@@ -4,7 +4,7 @@
 	"effText": "Choose a Water card. Note all characters in it. Move it through nodes in Water. Teleport the noted characters to nodes in the moved Water.",
 	"effects": [
 		{
-			"blurb": "Wave",
+			"initialBlurb": "Wave",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

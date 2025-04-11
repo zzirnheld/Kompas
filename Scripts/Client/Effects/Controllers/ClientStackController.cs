@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
+using Kompas.Cards.Models;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Effects.Views;
 using Kompas.Effects;
 using Kompas.Effects.Models;
+using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Client.Effects.Controllers;
 
 public class ClientStackController : IStackController
 {
 	private readonly ClientStackView stackView;
-	private readonly EffectStack<IClientStackable, IResolutionContext> stack = new();
+	private readonly EffectStack<IStackableResolution<IClientStackable, IResolutionContext>, IClientStackable> stack = new();
 
 	public IEnumerable<IClientStackable> StackEntries => stack.StackEntries;
 	IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
@@ -25,24 +28,24 @@ public class ClientStackController : IStackController
 		this.stackView = stackView;
 	}
 
-	public void Activated(ClientEffect effect)
+	public void Activated(ClientEffect effect, string blurb)
 	{
 		effect.IncrementUses();
-		var stackable = IResolvingStackable.Resolving(effect, default(IResolutionContext));
+		var stackable = new ClientStackableResolution<ClientEffect>(effect, blurb);
 		stack.Push(stackable);
 		stackView.Activated(stackable);
 	}
 
 	public void Attacked(ClientAttack attack)
 	{
-		var stackable = IResolvingStackable.Resolving(attack, default(IResolutionContext));
+		var stackable = new ClientStackableResolution<ClientAttack>(attack, attack.InitialBlurb);
 		stack.Push(stackable);
 		stackView.Attacked(stackable);
 	}
 
 	public void HandSize(ClientHandSizeStackable handSize)
 	{
-		var stackable = IResolvingStackable.Resolving(handSize, default(IResolutionContext));
+		var stackable = new ClientStackableResolution<ClientHandSizeStackable>(handSize, handSize.InitialBlurb);
 		stack.Push(stackable);
 		stackView.HandSize(stackable);
 	}

@@ -1,6 +1,8 @@
-﻿namespace Kompas.Server.Effects.Models.Subeffects;
+﻿using Kompas.Effects.Models;
+
+namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Draw : DrawX
 {
-	protected override int ToDraw => 1;
+    protected override int GetToDraw(IResolutionContext _) => 1;
 }

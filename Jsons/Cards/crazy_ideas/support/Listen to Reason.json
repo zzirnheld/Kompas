@@ -4,8 +4,8 @@
 	"effText": "Discard your hand, including X Crazy Ideas. Draw X cards.",
 	"effects": [
 		{
+			"initialBlurb": "Please",
 			"triggerData": {
-				"blurb": "Please",
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

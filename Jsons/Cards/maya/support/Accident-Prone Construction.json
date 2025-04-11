@@ -4,7 +4,7 @@
 	"effText": "When you summon an S X Structure, give it and all characters adjacent to it -X E.",
 	"effects": [
 		{
-			"blurb": "Rocks fall,",
+			"initialBlurb": "Rocks fall,",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

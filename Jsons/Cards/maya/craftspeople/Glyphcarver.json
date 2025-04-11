@@ -4,7 +4,7 @@
 	"effText": "When I start turns adjacent to X Structures, draw X cards.",
 	"effects": [
 		{
-			"blurb": "Carve Glyphs",
+			"initialBlurb": "Carve Glyphs",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

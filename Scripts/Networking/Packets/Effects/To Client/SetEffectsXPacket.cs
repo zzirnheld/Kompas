@@ -31,12 +31,13 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			var card = clientGame.LookupCardByID(sourceCardId);
-			if (card != null)
-			{
-				Logger.Log($"{card} ;;;;\n {card.Effects} ;;;;\n {card.Effects.ElementAt(effIndex)}");
-				card.Effects.ElementAt(effIndex).X = x;
-			}
+			//TODO: actually set X on effect. needs stack index now, methinks?
+			// var card = clientGame.LookupCardByID(sourceCardId);
+			// if (card != null)
+			// {
+			// 	Logger.Log($"{card} ;;;;\n {card.Effects} ;;;;\n {card.Effects.ElementAt(effIndex)}");
+			// 	card.Effects.ElementAt(effIndex).X = x;
+			// }
 		}
 	}
 }

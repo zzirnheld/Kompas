@@ -1,5 +1,5 @@
 {
-	"blurb":"Flashback",
+	"initialBlurb":"Flashback",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:",
 		"locations": [ "Discard" ]

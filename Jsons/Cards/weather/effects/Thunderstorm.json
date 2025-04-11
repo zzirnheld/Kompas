@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: -3 E.",
 	"effects": [
 		{
-			"blurb": "Thunderstrike",
+			"initialBlurb": "Thunderstrike",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

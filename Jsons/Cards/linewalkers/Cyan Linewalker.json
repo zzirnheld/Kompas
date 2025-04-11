@@ -4,7 +4,7 @@
 	"effText": "LINEWALK.\nWhen I move X segments, move a distinct card X segments.",
 	"effects": [
 		{
-			"blurb": "Cyan Linewalked",
+			"initialBlurb": "Cyan Linewalked",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

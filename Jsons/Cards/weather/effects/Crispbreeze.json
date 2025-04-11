@@ -4,7 +4,7 @@
 	"effText": "WTHRCOND: +1 W.",
 	"effects": [
 		{
-			"blurb": "Crispy",
+			"initialBlurb": "Crispy",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can give me -1 E to draw a card.",
 	"effects":[
 		{
-			"blurb": "Seek in Shadow",
+			"initialBlurb": "Seek in Shadow",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

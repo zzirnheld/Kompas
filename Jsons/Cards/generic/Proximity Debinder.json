@@ -4,7 +4,7 @@
 	"effText": "When this character dies fighting, hand the character they were fighting.",
 	"effects": [
 		{
-			"blurb":"Debind",
+			"initialBlurb":"Debind",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

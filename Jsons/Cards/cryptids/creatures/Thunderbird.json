@@ -4,7 +4,7 @@
 	"effText": "Aggressive.\nWhen I attack with X characters are in my area, give me +X W.",
 	"effects": [
 		{
-			"blurb": "Surging strike",
+			"initialBlurb": "Surging strike",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

@@ -4,8 +4,8 @@
 	"effText": "When you draw, swap two characters' N.",
 	"effects": [
 		{
+			"initialBlurb": "One's speed is another's sloth",
 			"triggerData": {
-				"blurb": "Swap two characters' N?",
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

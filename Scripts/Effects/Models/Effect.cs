@@ -1,54 +1,12 @@
-using System;
 using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Restrictions;
-using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models;
-
-public interface IEffect : IStackable
-{
-	public ITriggerRestriction? TriggerRestriction { get; }
-	public IActivationRestriction? ActivationRestriction { get; }
-
-	public int TimesUsedThisTurn { get; }
-	public int TimesUsedThisRound { get; }
-	public int TimesUsedThisStack { get; set; }
-
-	public event EventHandler<IEffect>? EffectInformationChanged;
-
-	public bool Negated { get; set; }
-	public int X { get; set; }
-
-	public int EffectIndex { get; }
-
-	public Trigger? Trigger { get; }
-
-	public void Reset();
-
-	public void AddTarget(GameCard card);
-	public void RemoveTarget(GameCard card);
-}
-
-public static class EffectExtensions
-{
-	public static int? MaxPerTurn(this IEffect effect)
-		=> effect.TriggerRestriction?.MaxUsesPerTurn
-		?? effect.ActivationRestriction?.MaxUsesPerTurn;
-
-	public static int? MaxPerRound(this IEffect effect)
-		=> effect.TriggerRestriction?.MaxUsesPerRound
-		?? effect.ActivationRestriction?.MaxUsesPerRound;
-
-	public static int? MaxPerStack(this IEffect effect)
-		=> effect.TriggerRestriction?.MaxUsesPerStack
-		?? effect.ActivationRestriction?.MaxUsesPerStack;
-}
 
 /// <summary>
 /// Effects will only be resolved on server. Clients will just get to know what effects they can use
@@ -64,42 +22,11 @@ public abstract class Effect : IEffect
 
 	//subeffects
 	public abstract Subeffect[] Subeffects { get; }
-	/// <summary>
-	/// Current subeffect that's resolving
-	/// </summary>
-	public int SubeffectIndex { get; protected set; }
-
 	//Targets
-	public IList<GameCard> CardTargets => CurrentResolutionContext?.CardTargets
-		?? throw new EffectNotResolvingException(this);
-	public IList<Space> SpaceTargets => CurrentResolutionContext?.SpaceTargets
-		?? throw new EffectNotResolvingException(this);
-	public IList<IGameCardInfo> CardInfoTargets => CurrentResolutionContext?.CardInfoTargets
-		?? throw new EffectNotResolvingException(this);
-	public IList<IStackable> StackableTargets => CurrentResolutionContext?.StackableTargets
-		?? throw new EffectNotResolvingException(this);
-
 	protected readonly List<CardLink> cardLinks = new();
 
 	//we don't care about informing players of the contents of these. yet. but we might later
-	public readonly List<IPlayer> playerTargets = new();
-	public readonly List<GameCard> rest = new();
-
 	public IdentityOverrides identityOverrides = new();
-
-	/// <summary>
-	/// X value for card effect text (not coordinates)
-	/// </summary>
-	public int X
-	{
-		get => CurrentResolutionContext?.X
-			?? throw new EffectNotResolvingException(this);
-		set
-		{
-			_ = CurrentResolutionContext ?? throw new EffectNotResolvingException(this);
-			CurrentResolutionContext.X = value;
-		}
-	}
 
 	//Triggering and Activating
 	public abstract Trigger? Trigger { get; }
@@ -109,15 +36,14 @@ public abstract class Effect : IEffect
 	public IActivationRestriction? ActivationRestriction => activationRestriction;
 
 	//Misc effect info
-	public string? blurb;
+	public string? initialBlurb;
+	public string InitialBlurb => initialBlurb ??= $"Effect of {Card.CardName}";
 	public int arg; //used for keyword arguments, and such
 	private int _timesUsedThisTurn;
 	private int _timesUsedThisRound;
 	private int _timesUsedThisStack;
-	public event EventHandler<IEffect>? EffectInformationChanged;
+	public event System.EventHandler<IEffect>? EffectInformationChanged;
 
-	public abstract IResolutionContext? CurrentResolutionContext { get; }
-	public IEventContext? CurrTriggerContext => CurrentResolutionContext?.TriggerContext;
 	public int TimesUsedThisTurn
 	{
 		get => _timesUsedThisTurn;
@@ -160,7 +86,6 @@ public abstract class Effect : IEffect
 		//TODO go back to a SerializableEffect model. The Subeffects will still be specified "manually" but that's the cross I'll have to bear, I think,
 		//unless I want to make a Serializable version of every subeffect. Which might be a good idea anyway (I'd just put them in the same file for convenience)
 		if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
-		blurb = string.IsNullOrEmpty(blurb) ? $"Effect of {Card.CardName}" : blurb;
 		activationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
 		TimesUsedThisTurn = 0;
 	}
@@ -184,27 +109,13 @@ public abstract class Effect : IEffect
 	public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 		=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
 
-	public GameCard? GetTarget(int num) => EffectHelper.GetItem(CardTargets, num);
-	public Space? GetSpace(int num) => EffectHelper.GetItem(SpaceTargets, num);
-	public IPlayer? GetPlayer(int num) => EffectHelper.GetItem(playerTargets, num);
-
-
-	public virtual void AddTarget(GameCard card)
+	public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest, IResolutionContext context)
 	{
-		CardTargets.Add(card);
-	}
-	public virtual void RemoveTarget(GameCard card) => CardTargets.Remove(card);
-
-	public void AddSpace(Space space) => SpaceTargets.Add(space.Copy);
-
-	public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest)
-	{
-		if (target != null) CardTargets.Add(target);
+		if (target != null) context.CardTargets.Add(target);
 		var ret = toTest();
-		if (target != null) CardTargets.RemoveAt(CardTargets.Count - 1);
+		if (target != null) context.CardTargets.RemoveAt(context.CardTargets.Count - 1);
 		return ret;
 	}
-
 
 	public override string ToString() => $"Effect of {(Card == null ? "Nothing???" : Card.CardName)}";
 

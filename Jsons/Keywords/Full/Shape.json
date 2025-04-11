@@ -1,5 +1,5 @@
 {
-	"blurb":"Shape",
+	"initialBlurb":"Shape",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:"
 	},

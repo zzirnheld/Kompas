@@ -4,7 +4,7 @@
 	"effText": "TERRITORIAL.\nWhen I fight, give me +11 S.",
 	"effects": [
 		{
-			"blurb": "Damage Boost",
+			"initialBlurb": "Damage Boost",
 			"triggerData": {
 				"triggerCondition": "Battle Start",
 				"triggerRestriction": {

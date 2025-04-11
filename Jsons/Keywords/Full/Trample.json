@@ -1,5 +1,5 @@
 {
-	"blurb": "Trample",
+	"initialBlurb": "Trample",
 	"triggerData": {
 		"triggerCondition": "Take Combat Damage",
 		"triggerRestriction": {

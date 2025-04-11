@@ -4,9 +4,9 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class ShuffleDeck : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		PlayerTarget.Deck.Shuffle();
+        GetPlayerTarget(resolution.Context).Deck.Shuffle();
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

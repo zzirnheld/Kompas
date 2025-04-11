@@ -4,8 +4,8 @@
 	"effText": "COMEBACKPLAY.\nThe first time each stack you augment a character, draw 1.",
 	"effects": [
 		{
+			"initialBlurb": "Teamwork! Draw!",
 			"triggerData": {
-				"blurb": "Teamwork! Draw!",
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

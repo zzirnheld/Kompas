@@ -4,7 +4,7 @@
 	"effText": "Mask.\nWhen this character attacks an S X character, draw X cards.",
 	"effects": [
 		{
-			"blurb": "Dance of Ideation",
+			"initialBlurb": "Dance of Ideation",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

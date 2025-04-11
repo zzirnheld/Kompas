@@ -1,5 +1,5 @@
 {
-	"blurb": "Charge up",
+	"initialBlurb": "Charge up",
 	"triggerData": {
 		"triggerCondition": "Attack",
 		"triggerRestriction": {

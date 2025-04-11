@@ -6,14 +6,14 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class TargetThisSpace : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		_ = Effect ?? throw new System.NullReferenceException("Was the effect not resolving?");
 
 		if (Effect.Card?.Location != Location.Board)
 			return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
-		ServerEffect.AddSpace(Effect.Card.Position ?? throw new NullSpaceOnBoardException(Effect.Card));
+		resolution.AddSpace(Effect.Card.Position ?? throw new NullSpaceOnBoardException(Effect.Card));
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

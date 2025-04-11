@@ -4,7 +4,7 @@
 	"effText": "When I start turns adjacent to X Structures, deck \u2192 hand X Structures.",
 	"effects": [
 		{
-			"blurb": "Plan new structures",
+			"initialBlurb": "Plan new structures",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

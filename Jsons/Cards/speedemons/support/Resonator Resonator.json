@@ -4,7 +4,7 @@
 	"effText": "When turns start, deck \u2192 hand \"Sonic Resonator\".",
 	"effects": [
 		{
-			"blurb": "Resonate",
+			"initialBlurb": "Resonate",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

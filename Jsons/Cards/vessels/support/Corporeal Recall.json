@@ -4,7 +4,7 @@
 	"effText": "When turns start, hand \u2192  or discard \u2192 reshuffle Memories with total A X. Deck \u2192 summon an S <= X Vessel. ",
 	"effects": [
 		{
-			"blurb": "Recall Corporeal Form",
+			"initialBlurb": "Recall Corporeal Form",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

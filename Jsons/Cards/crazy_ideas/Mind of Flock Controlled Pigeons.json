@@ -4,8 +4,8 @@
 	"effText": "When I deal damage, hand \u2192 discard a Crazy Idea and draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "bawk bawk bawk",
 			"triggerData": {
-				"blurb": "bawk bawk bawk",
 				"triggerCondition": "Deal Combat Damage",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",
@@ -16,7 +16,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "Mind bawk bawk Controlled Pigeons",
+					"initialBlurb": "Mind bawk bawk Controlled Pigeons",
 					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",

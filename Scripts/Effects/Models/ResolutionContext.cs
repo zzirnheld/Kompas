@@ -3,6 +3,7 @@ using System.Linq;
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
+using Kompas.Gamestate.Players;
 
 namespace Kompas.Effects.Models;
 
@@ -14,15 +15,16 @@ public class ResolutionContext : IResolutionContext
 	public int StartIndex { get; }
 	public IList<GameCard> CardTargets { get; }
 	public IList<IGameCardInfo> CardInfoTargets { get; }
-	public GameCard? DelayedCardTarget { get; }
 	public IList<Space> SpaceTargets { get; }
-	public Space? DelayedSpaceTarget { get; }
 	public IList<IStackable> StackableTargets { get; }
-	public IStackable? DelayedStackableTarget { get; }
+	public IList<IPlayer> PlayerTargets { get; } = new List<IPlayer>();
+	public IList<GameCard> Rest { get; } = new List<GameCard>();
 
     public bool CanDeclineTarget { get; set; }
 
 	public int X { get; set; }
+	
+	public string Blurb { get; set; }
 
 	public bool CanResolve => true;
 
@@ -31,38 +33,35 @@ public class ResolutionContext : IResolutionContext
 	/// (NOT a situation in which a player is attempting to do something "normally" - that's what <see cref="IResolutionContext.PlayerAction"/> is for)
 	/// </summary>
 	public static ResolutionContext PlayerTriggeredEffect(Effect? effect)
-		=> new(new TriggeringEvent.EventContext() { StackableEvent = effect });
+		=> new(new EventContext() { StackableEvent = effect }, effect?.InitialBlurb ?? "");
 
-	public ResolutionContext(IEventContext triggerContext)
+	public ResolutionContext(IEventContext? triggerContext, string blurb)
 	: this(triggerContext, 0,
-		Enumerable.Empty<GameCard>(), default,
+		Enumerable.Empty<GameCard>(),
 		Enumerable.Empty<GameCardInfo>(),
-		Enumerable.Empty<Space>(), default,
-		Enumerable.Empty<IStackable>(), default)
+		Enumerable.Empty<Space>(),
+		Enumerable.Empty<IStackable>(),
+		blurb)
 	{ }
 
 	public ResolutionContext(IEventContext? triggerContext,
 		int startIndex,
-		IEnumerable<GameCard> cardTargets, GameCard? delayedCardTarget,
+		IEnumerable<GameCard> cardTargets,
 		IEnumerable<IGameCardInfo> cardInfoTargets,
-		IEnumerable<Space> spaceTargets, Space? delayedSpaceTarget,
-		IEnumerable<IStackable> stackableTargets, IStackable? delayedStackableTarget)
+		IEnumerable<Space> spaceTargets,
+		IEnumerable<IStackable> stackableTargets,
+		string blurb)
 	{
 		TriggerContext = triggerContext;
 		StartIndex = startIndex;
 
 		CardTargets = Clone(cardTargets);
-		DelayedCardTarget = delayedCardTarget;
-
 		CardInfoTargets = Clone(cardInfoTargets);
-
 		SpaceTargets = Clone(spaceTargets);
-		DelayedSpaceTarget = delayedSpaceTarget;
-
 		StackableTargets = Clone(stackableTargets);
-		DelayedStackableTarget = delayedStackableTarget;
 
 		X = TriggerContext?.X ?? 0;
+		Blurb = blurb;
 	}
 
 	private static List<T> Clone<T>(IEnumerable<T>? list)
@@ -72,10 +71,9 @@ public class ResolutionContext : IResolutionContext
 	}
 
 	public IResolutionContext Copy => new ResolutionContext(TriggerContext, StartIndex,
-		CardTargets, DelayedCardTarget,
-		CardInfoTargets,
-		SpaceTargets, DelayedSpaceTarget,
-		StackableTargets, DelayedStackableTarget);
+		CardTargets, CardInfoTargets,
+		SpaceTargets, StackableTargets,
+		Blurb);
 
     public override string ToString()
 	{

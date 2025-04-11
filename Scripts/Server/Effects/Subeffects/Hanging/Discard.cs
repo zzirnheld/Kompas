@@ -8,11 +8,11 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
 public class Discard : HangingEffectSubeffect
 {
-	protected override IEnumerable<HangingEffect> CreateHangingEffects()
+	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		var eff = new DiscardEffect(end: End, fallOff: FallOff,
-			sourceEff: ServerEffect, resolutionContext: ResolutionContext,
-			target: CardTarget);
+			sourceEff: ServerEffect, resolutionContext: context,
+			target: GetCardTarget(context));
 		return new List<HangingEffect>() { eff };
 	}
 

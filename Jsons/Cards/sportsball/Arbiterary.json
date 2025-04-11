@@ -4,8 +4,8 @@
 	"effText": "When you attach an Augment, give it +1 A. If you attached it to an enemy Avatar, it has A X, and I'm in a corner; give the Avatar -X E, attach it to me, and reset its A.",
 	"effects": [
 		{
+			"initialBlurb": "Score Pass",
 			"triggerData": {
-				"blurb": "Score Pass",
 				"triggerCondition": "Augment Attached",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

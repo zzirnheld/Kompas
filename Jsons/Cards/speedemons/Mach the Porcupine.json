@@ -4,7 +4,7 @@
 	"effText": "Speedemon.\n• When I move, give me +1 W.\n• After I fight, set my W to 0.",
 	"effects": [
 		{
-			"blurb": "go fast (req'd)",
+			"initialBlurb": "go fast (req'd)",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {
@@ -24,7 +24,7 @@
 			]
 		},
 		{
-			"blurb": "*drops rings*",
+			"initialBlurb": "*drops rings*",
 			"triggerData": {
 				"triggerCondition": "Battle End",
 				"triggerRestriction": {

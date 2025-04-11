@@ -4,8 +4,8 @@
 	"effText": "IFICATE.\nWhen turns start, rummage.",
 	"effects": [
 		{
+			"initialBlurb": "Generate Stupid Idea",
 			"triggerData": {
-				"blurb": "Generate Stupid Idea",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},

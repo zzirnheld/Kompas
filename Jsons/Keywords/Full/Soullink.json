@@ -1,5 +1,5 @@
 {
-	"blurb": "Soullink",
+	"initialBlurb": "Soullink",
 	"triggerData": {
 		"triggerCondition": "Take Combat Damage",
 		"triggerRestriction": {

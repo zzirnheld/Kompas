@@ -12,16 +12,16 @@ public class SwapOwnNESW : ServerSubeffect
 	public int Stat1;
 	public int Stat2;
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (CardTarget == null)
+		if (GetCardTarget(resolution.Context) == null)
 			throw new NullCardException(TargetWasNull);
-		else if (forbidNotBoard && CardTarget.Location != Location.Board)
-			throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
+		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
+			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
 
-		int[] newStats = { CardTarget.N, CardTarget.E, CardTarget.S, CardTarget.W };
+		int[] newStats = { GetCardTarget(resolution.Context).N, GetCardTarget(resolution.Context).E, GetCardTarget(resolution.Context).S, GetCardTarget(resolution.Context).W };
 		(newStats[Stat1], newStats[Stat2]) = (newStats[Stat2], newStats[Stat1]);
-		CardTarget.SetCharStats(newStats[0], newStats[1], newStats[2], newStats[3]);
+        GetCardTarget(resolution.Context).SetCharStats(newStats[0], newStats[1], newStats[2], newStats[3]);
 
 		return Task.FromResult(ResolutionInfo.Next);
 	}

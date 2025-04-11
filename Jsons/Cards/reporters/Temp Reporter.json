@@ -4,7 +4,7 @@
 	"effText": "When turns start, annihilate me.\nWhen I'm summoned, an enemy can reveal 2 cards. If they don't, give me +4 NEWS.",
 	"effects": [
 		{
-			"blurb": "Annihilate me",
+			"initialBlurb": "Annihilate me",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, negate an adjacent enemy character.",
 	"effects": [
 		{
-			"blurb": "Frustration",
+			"initialBlurb": "Frustration",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

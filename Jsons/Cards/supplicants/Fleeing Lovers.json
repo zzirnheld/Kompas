@@ -4,9 +4,9 @@
 	"effText":"Supplicant.\nWhen I'm summoned normally, deck \u2192 summon a copy of me adjacent to me.",
 	"effects":[
 		{
+			"initialBlurb": "Lovers fleeing together",
 			"triggerData":
 			{
-				"blurb": "Lovers fleeing together",
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

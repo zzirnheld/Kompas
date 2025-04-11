@@ -9,9 +9,9 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class Heal : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var target = CardTarget ?? throw new NullCardException(TargetWasNull);
+		var target = GetCardTarget(resolution.Context) ?? throw new NullCardException(TargetWasNull);
 		if (forbidNotBoard && target.Location != Location.Board)
 			throw new InvalidLocationException(target.Location, target, ChangedStatsOfCardOffBoard);
 		if (target.E >= target.BaseE)
@@ -21,7 +21,7 @@ public class Heal : ServerSubeffect
 		var contexts = IEventContext.Build(Trigger.Healed)
 			.PrimarilyAffecting(target)
 			.CausedBy(Effect)
-			.ForPlayer(PlayerTarget)
+			.ForPlayer(GetPlayerTarget(resolution.Context))
 			.WithX(healedFor)
 			.Capture(() => target.SetE(target.BaseE, stackSrc: ServerEffect));
 		ServerEffect.EffectsController.TriggerFor(contexts);

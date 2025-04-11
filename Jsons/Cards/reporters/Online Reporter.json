@@ -4,7 +4,7 @@
 	"effText": "Linewalk.\nWhen I move X, an enemy can reveal a Cost < X card. If they don't, give me +X ESW.",
 	"effects": [
 		{
-			"blurb": "Onlinewalked",
+			"initialBlurb": "Onlinewalked",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

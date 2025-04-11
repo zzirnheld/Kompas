@@ -4,7 +4,7 @@
 	"effText": "When a character moves, give me +1 C for the turn. If my C > 20, annihilate me and give that character that moved +10 ESW.",
 	"effects": [
 		{
-			"blurb": "Sound Barrier",
+			"initialBlurb": "Sound Barrier",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

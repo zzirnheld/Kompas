@@ -4,7 +4,7 @@
 	"effText": "Stealth.\nWhen a Moth attacks a character in Light, draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Faerie stealth",
+			"initialBlurb": "Faerie stealth",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

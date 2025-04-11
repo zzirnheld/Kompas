@@ -173,11 +173,11 @@ public static class ServerNotifier
 	public static void ChooseEffectOption(IPlayer player, string cardName, string choiceBlurb, string[] optionBlurbs, bool hasDefault, bool showX, int x)
 		=> SendPacket(player, new GetEffectOptionPacket(cardName, choiceBlurb, optionBlurbs, hasDefault, showX, x));
 
-	public static void EffectResolving(IPlayer player, ServerEffect eff)
-		=> SendToBothInverting(player, new EffectResolvingPacket(eff.Card.ID, eff.EffectIndex, player.Index, invert: player.Index != 0));
+	public static void EffectResolving(IPlayer player, IServerEffect eff)
+		=> SendToBothInverting(player, new EffectResolvingPacket(eff.Card!.ID, eff.EffectIndex, player.Index, invert: player.Index != 0));
 
-	public static void NotifyEffectActivated(IPlayer player, ServerEffect eff)
-		=> SendToAll(new EffectActivatedPacket(eff.Card.ID, eff.EffectIndex), new IPlayer[] {player, player.Enemy});
+	public static void NotifyEffectActivated(IPlayer player, ServerEffect eff, string blurb)
+		=> SendToAll(new EffectActivatedPacket(eff.Card.ID, eff.EffectIndex, blurb), new IPlayer[] {player, player.Enemy});
 
 	public static void RemoveStackEntry(int i, IPlayer[] players) => SendToAll(new RemoveStackEntryPacket(i), players);
 

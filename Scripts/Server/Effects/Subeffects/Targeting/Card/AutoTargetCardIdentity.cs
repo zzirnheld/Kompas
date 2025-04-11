@@ -18,12 +18,12 @@ public class AutoTargetCardIdentity : ServerSubeffect
 		subeffectCardIdentity.Initialize(initializationContext: DefaultInitializationContext);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var card = subeffectCardIdentity.From(ResolutionContext, ResolutionContext);
+		var card = subeffectCardIdentity.From(resolution.Context, resolution.Context);
 		if (card == null) return Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
-		Effect.AddTarget(card.Card);
+		resolution.AddTarget(card.Card);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

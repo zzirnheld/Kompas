@@ -4,8 +4,8 @@
 	"effText": "When you augment me, attach my Augments to the character immediately due N of me.",
 	"effects": [
 		{
+			"initialBlurb": "Run Forward!",
 			"triggerData": {
-				"blurb": "Run Forward!",
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

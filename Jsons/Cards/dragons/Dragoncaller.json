@@ -4,7 +4,7 @@
 	"effText": "You can tribute an S X character to give me +2*X ES or SW.",
 	"effects": [
 		{
-			"blurb": "Dragoncall",
+			"initialBlurb": "Dragoncall",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

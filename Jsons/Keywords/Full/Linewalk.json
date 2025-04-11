@@ -1,5 +1,5 @@
 {
-	"blurb":"Linewalk",
+	"initialBlurb":"Linewalk",
 	"activationRestriction": {
 		"$type": "Restrict.Players:ActivationRestriction:",
 		"elements": [

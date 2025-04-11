@@ -13,12 +13,14 @@ public abstract class Attack : IStackable
 
 	public IPlayer? ControllingPlayer => instigator;
 
-	/// <summary>
-	/// Constructor should be called when the attack is declared
-	/// </summary>
-	/// <param name="attacker"></param>
-	/// <param name="defender"></param>
-	public Attack(IPlayer instigator, GameCard attacker, GameCard defender)
+	public string InitialBlurb => $"{attacker.CardName} attacking {defender.CardName}";
+
+    /// <summary>
+    /// Constructor should be called when the attack is declared
+    /// </summary>
+    /// <param name="attacker"></param>
+    /// <param name="defender"></param>
+    public Attack(IPlayer instigator, GameCard attacker, GameCard defender)
 	{
 		this.instigator = instigator ?? throw new System.ArgumentNullException(nameof(instigator), "Cannot have null controller of attack");
 		this.attacker = attacker ?? throw new System.ArgumentNullException(nameof(attacker), "Cannot have null attacker");

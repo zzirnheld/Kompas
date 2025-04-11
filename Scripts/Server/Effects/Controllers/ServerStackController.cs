@@ -6,7 +6,6 @@ using Kompas.Server.Effects.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects;
 using Kompas.Server.Gamestate;
-using Kompas.Server.Gamestate.Players;
 using Godot;
 using Kompas.Gamestate;
 using Kompas.Cards.Models;
@@ -16,35 +15,6 @@ using Kompas.Server.Networking;
 using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Controllers;
-
-public interface IServerStackController : IStackController
-{
-	public void PushToStack(IServerStackable atk, ServerPlayer controller, IEventContext? triggerContext);
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext);
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context);
-	public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackEntry);
-
-	public Task ResolveNextStackEntry();
-	public void Cancel(Effect eff);
-	public Task CheckForResponse();
-
-	public void TriggerFor(IEventContext context);
-
-	public void RegisterTrigger(string condition, ServerTrigger trigger);
-	public void RegisterHangingEffect(string condition, HangingEffect hangingEff, string? fallOffCondition = default);
-}
-
-public static class IServerStackControllerExtensions
-{
-
-	public static void TriggerFor(this IServerStackController stack, params IEventContext[] contexts)
-		=> TriggerFor(stack, contexts);
-
-	public static void TriggerFor(this IServerStackController stack, IReadOnlyCollection<IEventContext> contexts)
-	{
-		foreach (var context in contexts) stack.TriggerFor(context);
-	}
-}
 
 public class ServerStackController : IServerStackController
 {
@@ -62,7 +32,7 @@ public class ServerStackController : IServerStackController
 
 	private readonly ServerGame game;
 
-	private readonly EffectStack<IServerStackable, IServerResolutionContext> stack = new();
+	private readonly EffectStack<IServerStackableResolution<IServerStackable>, IServerStackable> stack = new();
 	public IEnumerable<IServerStackable> StackEntries => stack.StackEntries;
 	IEnumerable<IStackable> IStackController.StackEntries => StackEntries;
 
@@ -114,44 +84,28 @@ public class ServerStackController : IServerStackController
 
 		sb.AppendLine("Currently Resolving:");
 		sb.AppendLine(CurrStackEntry.ToString());
-		if (CurrStackEntry is ServerEffect se)
-		{
-			if (se.CardTargets.Any())
-			{
-				sb.Append("Targets: ");
-				sb.AppendLine(string.Join(", ", se.CardTargets.Select(c => c.ToString())));
-			}
-			if (se.SpaceTargets.Any())
-			{
-				sb.Append("Coords: ");
-				sb.AppendLine(string.Join(", ", se.SpaceTargets.Select(c => c.ToString())));
-			}
-			sb.AppendLine($"X: {se.X}");
-		}
+		//TODO migrate this over to using Resolution objects for everything
+		// if (CurrStackEntry is ServerEffect se)
+		// {
+		// 	if (se.CardTargets.Any())
+		// 	{
+		// 		sb.Append("Targets: ");
+		// 		sb.AppendLine(string.Join(", ", se.CardTargets.Select(c => c.ToString())));
+		// 	}
+		// 	if (se.SpaceTargets.Any())
+		// 	{
+		// 		sb.Append("Coords: ");
+		// 		sb.AppendLine(string.Join(", ", se.SpaceTargets.Select(c => c.ToString())));
+		// 	}
+		// 	sb.AppendLine($"X: {se.X}");
+		// }
 		return sb.ToString();
 	}
 
-	#region the stack
-
-	public void PushToStack(IServerStackable atk, ServerPlayer controller, IEventContext? triggerContext)
+    #region the stack
+    public void PushToStack(IServerStackableResolution<IServerStackable> stackElement)
 	{
-		PushToStack(IResolvingStackable.Resolving(atk, new ServerResolutionContext(triggerContext, controller)));
-	}
-
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IEventContext triggerContext)
-	{
-		PushToStack(eff, controller, new ServerResolutionContext(triggerContext, controller));
-	}
-
-	public void PushToStack(IServerEffect eff, ServerPlayer controller, IServerResolutionContext context)
-	{
-		eff.PushedToStack(game, controller);
-
-		PushToStack(IResolvingStackable.Resolving(eff, context));
-	}
-
-	public void PushToStack(IResolvingStackable<IServerStackable, IServerResolutionContext> stackElement)
-	{
+		stackElement.Declare();
 		stack.Push(stackElement);
 	}
 
@@ -215,7 +169,8 @@ public class ServerStackController : IServerStackController
 		CurrStackEntry = stackable;
 
 		//actually resolve the thing
-		await stackable.StartResolution(context);
+		//TODO fix the types of IServerStackableResolution and IResolvingStackable
+		await stackEntry.StartResolution();
 
 		//after it resolves, tell the clients it's done resolving
 		ServerNotifier.RemoveStackEntry(currStackIndex, game.Players);
@@ -264,56 +219,67 @@ public class ServerStackController : IServerStackController
 	/// </summary>
 	/// <param name="turnPlayer">The turn player, whose effects get pushed to the stack first.</param>
 	private async Task CheckTriggers(IPlayer turnPlayer)
-	{
-		//get the list of triggers, and see if they're all still valid
-		var triggered = triggeredTriggers.Dequeue();
-		var stillValid = triggered.triggers.Where(t => t.StillValidForContext(triggered.context));
+    {
+        //get the list of triggers, and see if they're all still valid
+        var triggered = triggeredTriggers.Dequeue();
+        var stillValid = triggered.triggers.Where(t => t.StillValidForContext(triggered.context)).ToList();
 
-		//if there's no triggers, skip all this logic
-		if (!stillValid.Any())
-		{
-			Logger.Log($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
-			return;
-		}
+        //if there's no triggers, skip all this logic
+        if (!stillValid.Any())
+        {
+            Logger.Log($"All the triggers that were valid from {string.Join(",", triggered.triggers)} aren't anymore");
+            return;
+        }
 
-		//if any triggers have not been responded to, make them get responded to.
-		//this is saved so that we know what trigger to okay or not if it's responded
-		currentlyCheckingOptionals = true;
-		foreach (var t in stillValid)
-		{
-			//TODO this doesn't stop any subsequent calls to CheckTriggers
-			if (!t.Responded) await t.Ask(t.Effect.OwningPlayer, triggered.context);
-		}
-		currentlyCheckingOptionals = false;
+        var confirmed = await GetTriggersOrder(stillValid);
 
-		//now that all optional triggers have been answered, time to deal with ordering.
-		//if a player only has one trigger, don't bother asking them for an order.
-		foreach (var p in game.Players)
-		{
-			var thisPlayers = stillValid.Where(t => t.ServerEffect.OwningPlayer == p && t.Confirmed);
-			if (thisPlayers.Count() == 1) thisPlayers.First().Order = 1;
-		}
+        PushTriggersToStack(turnPlayer, triggered, confirmed);
+    }
 
-		//now, if there's any triggers that have been confirmed but not ordered (that is, more than one confirmed trigger),
+    private async Task<IEnumerable<ServerTrigger>> GetTriggersOrder(IEnumerable<ServerTrigger> stillValid)
+    {
+        //now that all optional triggers have been answered, time to deal with ordering.
+        //if a player only has one trigger, don't bother asking them for an order.
+        foreach (var p in game.Players)  HandlePlayerHavingOnlyOneTrigger(stillValid, p);
+
+        //now, if there's any triggers that have been confirmed but not ordered (that is, more than one confirmed trigger),
 		//then get an ordering from the player in question.
-		var confirmed = stillValid.Where(t => t.Confirmed);
-		if (!confirmed.All(t => t.Ordered))
-		{
-			//create a list to hold the tasks, so you can get trigger orderings from both players at once.
-			List<Task> triggerOrderings = new();
-			foreach (var p in game.Players)
-			{
-				var thisPlayers = confirmed.Where(t => t.ServerEffect.OwningPlayer == p);
-				if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(game.Awaiter.GetTriggerOrder(p, thisPlayers));
-			}
-			await Task.WhenAll(triggerOrderings);
-		}
+        if (!stillValid.All(t => t.Ordered))
+        {
+            //create a list to hold the tasks, so you can get trigger orderings from both players at once.
+            List<Task> triggerOrderings = new();
+            foreach (var p in game.Players)
+            {
+                var thisPlayers = stillValid.Where(t => t.ServerEffect.OwningPlayer == p);
+                if (thisPlayers.Any(t => !t.Ordered)) triggerOrderings.Add(game.Awaiter.GetTriggerOrder(p, thisPlayers));
+            }
+            await Task.WhenAll(triggerOrderings);
+        }
 
-		//finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
-		foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
-			PushToStack(t.ServerEffect, t.ServerEffect.OwningServerPlayer, triggered.context);
-		foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
-			PushToStack(t.ServerEffect, t.ServerEffect.OwningServerPlayer, triggered.context);
+        return stillValid;
+    }
+
+    private static void HandlePlayerHavingOnlyOneTrigger(IEnumerable<ServerTrigger> stillValid, IPlayer player)
+    {
+        var onePlayersTriggers = stillValid.Where(t => t.ServerEffect.OwningPlayer == player);
+        if (onePlayersTriggers.Count() == 1) onePlayersTriggers.Single().Order = 1;
+    }
+
+    private void PushTriggersToStack(IPlayer turnPlayer, TriggersTriggered triggered, IEnumerable<ServerTrigger> confirmed)
+    {
+        //finally, push the triggers to the stack, in the proscribed order, starting with the turn player's
+        foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer).OrderBy(t => t.Order))
+            PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
+
+        foreach (var t in confirmed.Where(t => t.ServerEffect.OwningPlayer == turnPlayer.Enemy).OrderBy(t => t.Order))
+            PushTriggeredEffectToStack(t.ServerEffect, triggered.context);
+    }
+
+    private void PushTriggeredEffectToStack(ServerEffect effect, IEventContext? triggerContext)
+	{
+		var resolutionContext = new ServerResolutionContext(triggerContext, effect.OwningServerPlayer, effect.InitialBlurb);
+		var resolution = new ServerEffectResolution(effect, resolutionContext);
+		PushToStack(resolution);
 	}
 
 	/// <summary>
@@ -328,10 +294,6 @@ public class ServerStackController : IServerStackController
 		while (triggeredTriggers.Any())
 		{
 			await CheckTriggers(turnPlayer: turnPlayer);
-			foreach (var tList in triggerMap.Values)
-			{
-				foreach (var t in tList) t.ResetConfirmation();
-			}
 		}
 	}
 
@@ -399,7 +361,7 @@ public class ServerStackController : IServerStackController
 				.ToArray();
 			if (!validTriggers.Any()) return;
 			var triggers = new TriggersTriggered(triggers: validTriggers, context: context);
-			Logger.Log($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Card.ID + t.Blurb))}");
+			Logger.Log($"Triggers triggered: {string.Join(", ", triggers.triggers.Select(t => t.Card.ID + t.Effect.InitialBlurb))}");
 			triggeredTriggers.Enqueue(triggers);
 		}
 

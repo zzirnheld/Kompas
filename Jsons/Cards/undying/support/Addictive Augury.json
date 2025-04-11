@@ -4,7 +4,7 @@
 	"effText": "Endless.\nTribute an S X character. Draw X cards.",
 	"effects": [
 		{
-			"blurb": "Simple",
+			"initialBlurb": "Simple",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

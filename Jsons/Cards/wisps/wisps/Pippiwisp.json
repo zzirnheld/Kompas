@@ -4,7 +4,7 @@
 	"effText": "Wisp: Gain 1 pip for each adjacent enemy.",
 	"effects": [
 		{
-			"blurb": "pipp",
+			"initialBlurb": "pipp",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

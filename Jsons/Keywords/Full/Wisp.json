@@ -1,8 +1,7 @@
 {
-	"blurb":"Wisp Turn Start",
+	"initialBlurb":"Wisp Turn Start",
 	"triggerData":
 	{
-		"blurb":"Wisp Turn Start",
 		"triggerCondition":"Turn Start",
 		"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 	},

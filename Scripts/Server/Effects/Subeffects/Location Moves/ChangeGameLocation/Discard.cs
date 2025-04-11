@@ -11,17 +11,18 @@ public class Discard : ChangeGameLocation
 {
 	protected override Location Destination => Location.Discard;
 
-	protected override void ChangeLocation(GameCard card) => card.Discard(Effect);
+	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)
+		=> card.Discard(Effect);
 }
 
 public class Vanish : Discard
 {
-	protected override void ChangeLocation(GameCard card)
+	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)
 	{
 		var contexts = IEventContext.Build(Trigger.Vanish)
 			.PrimarilyAffecting(card)
 			.CausedBy(Effect)
-			.Capture(() => base.ChangeLocation(card));
+			.Capture(() => base.ChangeLocation(card, context));
 		ServerEffect.EffectsController.TriggerFor(contexts);
 	}
 }

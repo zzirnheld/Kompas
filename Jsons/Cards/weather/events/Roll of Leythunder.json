@@ -4,7 +4,7 @@
 	"effText": "WTHREVNT: Each dispels all enemy spells there.",
 	"effects": [
 		{
-			"blurb": "Leythunder",
+			"initialBlurb": "Leythunder",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

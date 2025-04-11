@@ -66,10 +66,10 @@ public abstract class HangingEffectSubeffect : ServerSubeffect
 		}
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		//create the hanging effects, of which there can be multiple
-		var effectsApplied = CreateHangingEffects();
+		var effectsApplied = CreateHangingEffects(resolution.Context);
 
 		//each of the effects needs to be registered, and registered for how it could fall off
 		foreach (var eff in effectsApplied)
@@ -82,5 +82,5 @@ public abstract class HangingEffectSubeffect : ServerSubeffect
 		else return Task.FromResult(ResolutionInfo.End(EndOnPurpose));
 	}
 
-	protected abstract IEnumerable<HangingEffect> CreateHangingEffects();
+	protected abstract IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context);
 }

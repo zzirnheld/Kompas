@@ -4,7 +4,7 @@
 	"effText": "Warrior Trainer: +3 W.\nWhen a friendly W X Warrior dies fighting, give that character they were fighting -X E.",
 	"effects": [
 		{
-			"blurb": "Train W",
+			"initialBlurb": "Train W",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -42,7 +42,7 @@
 			]
 		},
 		{
-			"blurb":"Debind",
+			"initialBlurb":"Debind",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

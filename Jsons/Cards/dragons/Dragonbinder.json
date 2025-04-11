@@ -4,9 +4,8 @@
 	"effText": "When I'm summoned, choose X (a positive number). Give the enemy Avatar +2*X E, then give me +X S.",
 	"effects": [
 		{
-			"blurb": "Dragonbind",
+			"initialBlurb": "Dragonbind",
 			"triggerData": {
-				"blurb": "Dragonbind",
 				"triggerCondition": "Play",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

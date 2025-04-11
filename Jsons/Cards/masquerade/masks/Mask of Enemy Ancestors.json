@@ -4,7 +4,7 @@
 	"effText": "Mask.\nWhen this summon defends, annihilate their attacker's dead.",
 	"effects": [
 		{
-			"blurb": "You underestimate me",
+			"initialBlurb": "You underestimate me",
 			"triggerData":
 			{
 				"triggerCondition": "Defend",

@@ -31,7 +31,8 @@ namespace Kompas.Client.Networking
 		{
 			var source = clientGame.LookupCardByID(sourceCardId);
 			var target = clientGame.LookupCardByID(targetCardId);
-			if (source != null && target != null) source.Effects.ElementAt(effIndex)?.RemoveTarget(target);
+			//TODO see add target client packet
+			// if (source != null && target != null) source.Effects.ElementAt(effIndex)?.RemoveTarget(target);
 		}
 	}
 }

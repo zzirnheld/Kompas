@@ -4,8 +4,8 @@
 	"effText": "When I die having X S, annihilate me, gain X/2 pips, and draw 1.",
 	"effects": [
 		{
+			"initialBlurb": "Offered to annihilation",
 			"triggerData": {
-				"blurb": "Annihilate",
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

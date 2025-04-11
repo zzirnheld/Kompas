@@ -4,7 +4,7 @@
 	"effText": "Stealth.\nWhen a friendly Moth attacks a character in Light, deck \u2192 hand a copy of me.",
 	"effects": [
 		{
-			"blurb": "Attack together",
+			"initialBlurb": "Attack together",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

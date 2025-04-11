@@ -5,7 +5,7 @@
 	"effects": [
 		{
 			"triggerData": {
-				"blurb": "Thundersun",
+				"initialBlurb": "Thundersun",
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

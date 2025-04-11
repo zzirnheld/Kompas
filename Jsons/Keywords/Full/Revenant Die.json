@@ -1,7 +1,7 @@
 {
+	"initialBlurb":"Annihilate",
 	"triggerData":
 	{
-		"blurb":"Annihilate",
 		"triggerCondition":"Discard",
 		"triggerRestriction": {
 			"$type": "Restrict.Triggering:AllOf:",

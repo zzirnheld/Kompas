@@ -4,7 +4,7 @@
 	"effText":"When this character moves, move them 1 segment in the same direction. (This will trigger me again.)",
 	"effects":[
 		{
-			"blurb":"Speed Shoes",
+			"initialBlurb":"Speed Shoes",
 			"triggerCondition":"Move",
 			"triggerRestriction":{
 				"elements": [

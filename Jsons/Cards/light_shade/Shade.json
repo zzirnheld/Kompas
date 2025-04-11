@@ -5,7 +5,7 @@
 	"tehnicalEffText": "If there's ANY enemy characters here and nothing else is happening, swap me for Light in your deck.",
 	"effects": [
 		{
-			"blurb":"Light Up",
+			"initialBlurb":"Light Up",
 			"triggerData":
 			{
 				"triggerCondition":"Stack End",

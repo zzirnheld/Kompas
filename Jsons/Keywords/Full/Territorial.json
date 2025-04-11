@@ -1,8 +1,7 @@
 {
-	"blurb":"Territorial",
+	"initialBlurb": "Territorial",
 	"triggerData":
 	{
-		"blurb":"Territorial",
 		"triggerCondition":"Turn Start",
 		"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 	},

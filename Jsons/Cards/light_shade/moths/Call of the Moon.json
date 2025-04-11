@@ -4,7 +4,7 @@
 	"effText": "When a friendly Moth attacks a character in Light, give the Moth +1 NESW.",
 	"effects": [
 		{
-			"blurb": "brOther, the mOOn",
+			"initialBlurb": "brOther, the mOOn",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

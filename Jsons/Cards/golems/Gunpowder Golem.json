@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, give me and a distinct summon -[my W] E.",
 	"effects": [
 		{
-			"blurb": "Boom",
+			"initialBlurb": "Boom",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

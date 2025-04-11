@@ -4,7 +4,7 @@
 	"effText": "WTHREVNT: Each moves all characters there, to a random node.",
 	"effects": [
 		{
-			"blurb": "Blow away",
+			"initialBlurb": "Blow away",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

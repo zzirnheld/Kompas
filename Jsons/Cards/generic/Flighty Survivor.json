@@ -4,7 +4,7 @@
 	"effText": "Attended 1.\nWhen turns start, give me +1 EW.",
 	"effects": [
 		{
-			"blurb": "Survive",
+			"initialBlurb": "Survive",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

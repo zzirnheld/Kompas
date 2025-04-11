@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can deck \u2192 hand a Cultist.",
 	"effects": [
 		{
-			"blurb": "DOOM cometh!",
+			"initialBlurb": "DOOM cometh!",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

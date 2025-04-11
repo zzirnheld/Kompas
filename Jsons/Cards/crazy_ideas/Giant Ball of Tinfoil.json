@@ -5,7 +5,7 @@
 	"technicalEffText": "Structure.\nWhen turns start, choose an adjacent node, then keep moving me 1 segment in that direction until you can't. I attack any adjacent character in the direction I was moving.",
 	"effects": [
 		{
-			"blurb": "THE ENTIRE EASTERN SEABOARD",
+			"initialBlurb": "THE ENTIRE EASTERN SEABOARD",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

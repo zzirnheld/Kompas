@@ -5,9 +5,9 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class TargetTriggeringCoords : ServerSubeffect
 {
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		ServerEffect.AddSpace(ResolutionContext.TriggerContext?.Space
+		resolution.AddSpace(resolution.Context.TriggerContext?.Space
 			?? throw new InvalidSpaceException(null, NoValidSpaceTarget));
 		return Task.FromResult(ResolutionInfo.Next);
 	}

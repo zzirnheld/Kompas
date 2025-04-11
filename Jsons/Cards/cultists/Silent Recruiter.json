@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, if I'm adjacent to an enemy, you can deck \u2192 summon a Cultist Mook",
 	"effects": [
 		{
-			"blurb": "Recruit",
+			"initialBlurb": "Recruit",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [

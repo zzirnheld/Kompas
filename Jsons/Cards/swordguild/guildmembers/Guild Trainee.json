@@ -124,7 +124,7 @@
 			]
 		},
 		{
-			"blurb": "Training Complete",
+			"initialBlurb": "Training Complete",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

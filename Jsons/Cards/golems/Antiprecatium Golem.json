@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, dispel a spell within [my W] segments of me.",
 	"effects": [
 		{
-			"blurb": "Dispel",
+			"initialBlurb": "Dispel",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

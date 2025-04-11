@@ -17,7 +17,7 @@ public class UpdateCardStats : ChangeCardStatsBase
 		base.Initialize(eff, subeffIndex);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		_ = n ?? throw new NotInitializedException();
 		_ = e ?? throw new NotInitializedException();
@@ -25,19 +25,19 @@ public class UpdateCardStats : ChangeCardStatsBase
 		_ = w ?? throw new NotInitializedException();
 		_ = c ?? throw new NotInitializedException();
 		_ = a ?? throw new NotInitializedException();
-		int nChange = n.From(ResolutionContext, ResolutionContext);
-		int eChange = e.From(ResolutionContext, ResolutionContext);
-		int sChange = s.From(ResolutionContext, ResolutionContext);
-		int wChange = w.From(ResolutionContext, ResolutionContext);
-		int cChange = c.From(ResolutionContext, ResolutionContext);
-		int aChange = a.From(ResolutionContext, ResolutionContext);
+		int nChange = n.From(resolution.Context, resolution.Context);
+		int eChange = e.From(resolution.Context, resolution.Context);
+		int sChange = s.From(resolution.Context, resolution.Context);
+		int wChange = w.From(resolution.Context, resolution.Context);
+		int cChange = c.From(resolution.Context, resolution.Context);
+		int aChange = a.From(resolution.Context, resolution.Context);
 
-		int? turnsOnBoardChange = turnsOnBoard?.From(ResolutionContext, ResolutionContext);
-		int? attacksThisTurnChange = attacksThisTurn?.From(ResolutionContext, ResolutionContext);
-		int? spacesMovedChange = spacesMoved?.From(ResolutionContext, ResolutionContext);
-		int? durationChange = duration?.From(ResolutionContext, ResolutionContext);
+		int? turnsOnBoardChange = turnsOnBoard?.From(resolution.Context, resolution.Context);
+		int? attacksThisTurnChange = attacksThisTurn?.From(resolution.Context, resolution.Context);
+		int? spacesMovedChange = spacesMoved?.From(resolution.Context, resolution.Context);
+		int? durationChange = duration?.From(resolution.Context, resolution.Context);
 
-		foreach (var card in CardsToAffect)
+		foreach (var card in GetCardsToAffect(resolution.Context))
 		{
 			ValidateCardOnBoard(card);
 

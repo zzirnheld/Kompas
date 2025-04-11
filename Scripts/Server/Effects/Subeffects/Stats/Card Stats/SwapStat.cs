@@ -24,22 +24,22 @@ public class SwapStat : ServerSubeffect
 		secondTargetStat.Initialize(DefaultInitializationContext);
 	}
 
-	public override Task<ResolutionInfo> Resolve()
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var secondTarget = Effect.GetTarget(secondTargetIndex);
-		if (CardTarget == null)
+		var secondTarget = resolution.Context.GetCardTarget(secondTargetIndex);
+		if (GetCardTarget(resolution.Context) == null)
 			throw new NullCardException(TargetWasNull);
-		else if (forbidNotBoard && CardTarget.Location != Location.Board)
-			throw new InvalidLocationException(CardTarget.Location, CardTarget, ChangedStatsOfCardOffBoard);
+		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
+			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
 
 		if (secondTarget == null)
 			throw new NullCardException(TargetWasNull);
-		else if (forbidNotBoard && CardTarget.Location != Location.Board)
+		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
 			throw new InvalidLocationException(secondTarget.Location, secondTarget, ChangedStatsOfCardOffBoard);
 
-		var firstStat = firstTargetStat.GetValueOf(CardTarget);
+		var firstStat = firstTargetStat.GetValueOf(GetCardTarget(resolution.Context));
 		var secondStat = secondTargetStat.GetValueOf(secondTarget);
-		firstTargetStat.SetValueOf(CardTarget, secondStat, Effect);
+		firstTargetStat.SetValueOf(GetCardTarget(resolution.Context), secondStat, Effect);
 		secondTargetStat.SetValueOf(secondTarget, firstStat, Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
