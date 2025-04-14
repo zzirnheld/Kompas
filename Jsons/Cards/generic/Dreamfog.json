@@ -4,7 +4,7 @@
 	"effText": "When a character moves, you can tribute me to gain 1 pip.",
 	"effects": [
 		{
-			"initialBlurb": "Tribute Dreamfog to gain 1 pip?",
+			"initialBlurb": "Kinetic energy",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

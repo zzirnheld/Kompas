@@ -4,6 +4,7 @@
 	"effText": "Draw 4 cards.",
 	"effects": [
 		{
+			"initialBlurb": "This card allows me draw 4 cards from my deck and add them to my hand",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

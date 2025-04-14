@@ -4,6 +4,7 @@
 	"effText": "Cannot be Avatar. (He's not ready for that kind of responsibility.)\nThe first time each stack you draw, draw 1.",
 	"effects": [
 		{
+			"initialBlurb": "Additional draw, sir",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

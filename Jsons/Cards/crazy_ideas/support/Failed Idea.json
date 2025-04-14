@@ -4,6 +4,7 @@
 	"effText":"When you hand \u2192 discard an Ificator, deck \u2192 discard a Crazy Idea, then tribute me.",
 	"effects":[
 		{
+			"initialBlurb": "Is it failure if you can come back later?",
 			"triggerData":
 			{
 				"triggerCondition":"Discard",

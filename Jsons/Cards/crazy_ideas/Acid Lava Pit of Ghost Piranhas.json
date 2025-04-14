@@ -4,7 +4,7 @@
 	"effText": "When another character arrives here, annihilate me to give them -11 E.",
 	"effects": [
 		{
-			"initialBlurb": "acid/lava burn with ghost pirhanas",
+			"initialBlurb": "Acid/lava burn (with ghost pirhanas)",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

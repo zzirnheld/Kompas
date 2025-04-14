@@ -4,7 +4,7 @@
 	"effText": "LINEWALK.\nWhen I move X segments, give me and adjacent characters +X E.",
 	"effects": [
 		{
-			"initialBlurb": "Red Linewalked",
+			"initialBlurb": "Red mometum: Fortitude",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

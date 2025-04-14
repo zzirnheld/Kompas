@@ -4,7 +4,7 @@
 	"effText": "LINEWALK.\nWhen I move X segments, gain X pips, then give your opponent X - 2 pips.",
 	"effects": [
 		{
-			"initialBlurb": "Yellow Linewalked",
+			"initialBlurb": "Yellow momentum: Fortune",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

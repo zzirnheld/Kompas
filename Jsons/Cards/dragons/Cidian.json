@@ -4,7 +4,7 @@
 	"effText": "TERRITORIAL.\nWhen I deal X more damage than my defender's E, give other characters adjacent to them -X EW.",
 	"effects": [
 		{
-			"initialBlurb": "Acid Breath",
+			"initialBlurb": "Solventbreath",
 			"triggerData": {
 				"triggerCondition": "Take Combat Damage",
 				"triggerRestriction": {

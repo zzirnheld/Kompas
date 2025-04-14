@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, deck \u2192 summon a Cultist Mook.",
 	"effects": [
 		{
+			"initialBlurb": "Silent convert",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

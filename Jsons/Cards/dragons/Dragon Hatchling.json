@@ -1,9 +1,10 @@
 {
 	"cardType":67,
 	"cardName":"Dragon Hatchling",
-	"effText":"1 turn after I'm summoned, tribute me, hand \u2192 discard a Dragon, and HAND \u2192 summon a Dragon where I was.",
+	"effText":"1 turn after I'm summoned, tribute me, hand \u2192 discard a Dragon, then HAND \u2192 summon a Dragon where I was.",
 	"effects":[
 		{
+			"initialBlurb": "Dragon grows",
 			"triggerData":
 			{
 				"triggerCondition":"Play",
@@ -18,7 +19,8 @@
 					"$type":"Subeffect:Hanging.Delay:",
 					"numTimesToDelay":0,
 					"jumpIndices":[1],
-					"endCondition":"Turn Start"
+					"endCondition":"Turn Start",
+					"blurbAfterDelay": "Dragon has grown"
 				},
 				{
 					"$type":"Subeffect:TargetThis:"

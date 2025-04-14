@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, set two characters' N to 0.",
 	"effects": [
 		{
-			"initialBlurb": "Go to Bonky Jail",
+			"initialBlurb": "Concussive force",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

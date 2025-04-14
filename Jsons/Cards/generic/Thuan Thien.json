@@ -4,6 +4,7 @@
 	"effText": "The first time each round this W X character fights, give them +X W.",
 	"effects": [
 		{
+			"initialBlurb": "Double W",
 			"triggerData": {
 				"triggerCondition": "Battle Start",
 				"triggerRestriction": {

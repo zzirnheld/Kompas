@@ -4,7 +4,7 @@
 	"effText": "Waterborn Waterdweller.\nWhen I attack a summon, give me +6 W until the fight ends.",
 	"effects": [
 		{
-			"initialBlurb": "Ex Nihilo",
+			"initialBlurb": "Surprise factor",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

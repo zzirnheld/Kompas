@@ -4,6 +4,7 @@
 	"effText":"When I attack, give my target -1 E.",
 	"effects":[
 		{
+			"initialBlurb": "First bite",
 			"triggerData":
 			{
 				"triggerCondition":"Attack",

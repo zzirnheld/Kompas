@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, draw 3 cards.",
 	"effects": [
 		{
-			"initialBlurb": "Creativity",
+			"initialBlurb": "Inspire",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

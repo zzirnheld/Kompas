@@ -4,7 +4,7 @@
 	"effText": "TERRITORIAL.\nWhen I fight, give me +1 N.",
 	"effects": [
 		{
-			"initialBlurb": "Movement Boost",
+			"initialBlurb": "Aggressive acceleration",
 			"triggerData": {
 				"triggerCondition": "Battle Start",
 				"triggerRestriction": {

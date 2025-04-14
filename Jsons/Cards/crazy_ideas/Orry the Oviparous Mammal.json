@@ -4,6 +4,7 @@
 	"effText": "When I move EXACTLY 3 segments at once, hand \u2192 discard a card and give me +3 W.",
 	"effects": [
 		{
+			"initialBlurb": "Actually, you can call him \"Agent O\"",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, I give a character \u00b11 EW.",
 	"effects": [
 		{
-			"initialBlurb": "++ or --",
+			"initialBlurb": "Earth provides",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

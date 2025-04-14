@@ -2,59 +2,9 @@
 	"cardType": 67,
 	"cardName": "Cultist of the Silent",
 	"effText": "Restock.",
-	"effects": [
-		{
-			"initialBlurb": "Restock",
-			"triggerData": {
-				"triggerCondition": "Discard",
-				"triggerRestriction": {
-					"$type": "Restrict.Triggering:AllOf:",
-					"elements": [
-						{
-							"$type": "Restrict.Gamestate:CardsMatch:",
-							"card": { "$type": "Identify.Cards:CardBefore:" },
-							"other": { "$type": "Identify.Cards:ThisCardNow:" }
-						},
-						{
-							"$type": "Restrict.Gamestate:CardFitsRestriction:",
-							"card": { "$type": "Identify.Cards:CardBefore:" },
-							
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
-									{
-										"$type": "Restrict.Cards:AtLocation:",
-										"locations": [ "Board" ]
-									}
-								]
-							}
-						}
-					]
-				}
-			},
-			"subeffects": [
-				{
-					"$type": "Subeffect:TargetThis:"
-				},
-				{
-					"$type": "Subeffect:ConditionalEnd:",
-					"endIfTrue": {
-						"$type": "Restrict.Gamestate:Not:",
-						"negated": {
-							"$type": "Restrict.Gamestate:CardFitsRestriction:",
-							"card": { "$type": "Identify.Cards:TargetIndex:" },
-							"cardRestriction": {
-								"$type": "Restrict.Cards:AtLocation:",
-								"locations": [ "Discard" ]
-							}
-						}
-					}
-				},
-				{
-					"$type": "Subeffect:Reshuffle:"
-				}
-			]
-		}
+	"effects": [ ],
+	"keywords": [
+		"Restock"
 	],
 	"n": 1,
 	"e": 1,

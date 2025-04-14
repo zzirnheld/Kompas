@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, choose 1 friendly discarded Crazy Idea, then reshuffle all other X. Give me +X W.",
 	"effects": [
 		{
-			"initialBlurb":"Intern Nonsense",
+			"initialBlurb": "I don't think these are used for anything",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

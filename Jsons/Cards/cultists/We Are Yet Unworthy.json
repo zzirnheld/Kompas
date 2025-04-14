@@ -4,6 +4,7 @@
 	"effText": "Tribute an adjacent Cultist, hand \u2192 reshuffle a card, and annihilate me. Draw 2 cards and gain 2 Pips.",
 	"effects": [
 		{
+			"initialBlurb": "Silent transmutation",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

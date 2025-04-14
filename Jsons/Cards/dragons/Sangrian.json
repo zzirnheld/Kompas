@@ -4,7 +4,7 @@
 	"effText": "TERRITORIAL.\nWhen an S X character I'm attacking dies, give a character +X ESW.",
 	"effects": [
 		{
-			"initialBlurb": "Bloody Breath",
+			"initialBlurb": "Bloodbreath",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "When a character here dies, give me +1 C.\nYou can tribute Altars with total C 13 to hand \u2192  or deck \u2192 summon any character.",
 	"effects": [
 		{
+			"initialBlurb": "Empower the altar",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
@@ -42,6 +43,7 @@
 			]
 		},
 		{
+			"initialBlurb": "Finalize the sacrifice",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

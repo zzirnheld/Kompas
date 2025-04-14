@@ -4,7 +4,7 @@
 	"effText": "When turns start, move me 1 segment. Deck \u2192 summon a Bone where I was.",
 	"effects": [
 		{
-			"initialBlurb": "Lengthen",
+			"initialBlurb": "L e n g t h e n",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

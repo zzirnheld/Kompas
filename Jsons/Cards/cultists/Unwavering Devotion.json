@@ -4,7 +4,7 @@
 	"effText": "When a friendly Cultist dies, give friendly Cultists +1 W.",
 	"effects": [
 		{
-			"initialBlurb": "Unwavering Devotion",
+			"initialBlurb": "Death grows devotion",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

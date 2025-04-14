@@ -4,7 +4,7 @@
 	"effText": "When a character dies, give characters adjacent to where they died +1 EW.",
 	"effects": [
 		{
-			"initialBlurb": "Sangromancy",
+			"initialBlurb": "Silent transfusion",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

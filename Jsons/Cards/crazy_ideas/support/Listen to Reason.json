@@ -4,7 +4,7 @@
 	"effText": "Discard your hand, including X Crazy Ideas. Draw X cards.",
 	"effects": [
 		{
-			"initialBlurb": "Please",
+			"initialBlurb": "I'm begging you",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

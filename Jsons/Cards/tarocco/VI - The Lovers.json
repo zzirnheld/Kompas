@@ -6,7 +6,6 @@
 		{
 			"initialBlurb": "Better together",
 			"triggerData": {
-				"blurb": "Tribute me to deck-summon Tarocco with S <= X?",
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

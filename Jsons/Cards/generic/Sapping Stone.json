@@ -4,6 +4,7 @@
 	"effText": "When turns start, I give all characters here -1 EW.",
 	"effects": [
 		{
+			"initialBlurb": "Sap",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

@@ -4,9 +4,8 @@
 	"effText": "RECOVERABLE.\nWhen turns start, pulse this Golem (activate, then deactivate them).",
 	"effects": [
 		{
-			"initialBlurb": "Choo Choo Activate",
+			"initialBlurb": "Pulse!",
 			"triggerData": {
-				"blurb": "Pulse Golem",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Dragonspeaker",
-	"effText": "You can tribute a distinct S X character to give me +2*X S. If you're \"Mother of Dragons\", draw 1.",
+	"effText": "You can tribute a distinct S X character to give me +2\u00d7X S. If you're \"Mother of Dragons\", draw 1.",
 	"effects": [
 		{
 			"initialBlurb": "Dragonspeak",

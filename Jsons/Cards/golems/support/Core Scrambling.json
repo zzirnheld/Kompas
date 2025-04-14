@@ -4,7 +4,7 @@
 	"effText": "The [USES.0.first] time each turn a Golem defends, discard \u2192 apply a Golem Core to them.",
 	"effects": [
 		{
-			"initialBlurb": "Core? CORE!",
+			"initialBlurb": "Scramble cores",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

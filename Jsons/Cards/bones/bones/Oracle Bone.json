@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, gain 1 pip.",
 	"effects": [
 		{
-			"initialBlurb": "Oracular manna",
+			"initialBlurb": "Good portents",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

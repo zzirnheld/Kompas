@@ -4,6 +4,7 @@
 	"effText": "Hand \u2192 discard an Ethereal. Draw 2 cards.",
 	"effects": [
 		{
+			"initialBlurb": "Unfind",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

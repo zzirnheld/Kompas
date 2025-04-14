@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "Draw draw draw",
+			"initialBlurb": "Shower of wealth",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

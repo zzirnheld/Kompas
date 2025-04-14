@@ -4,7 +4,7 @@
 	"effText": "Move a Water spell up to 2 segments. Draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "Change Tides",
+			"initialBlurb": "Tide's change",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

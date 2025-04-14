@@ -4,6 +4,7 @@
 	"effText": "IFICATE.\n[USES.0.Once] each turn, you can yeet something 1 segment.",
 	"effects": [
 		{
+			"initialBlurb": "This char empty! YEET!",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

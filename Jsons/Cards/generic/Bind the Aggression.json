@@ -4,6 +4,7 @@
 	"effText": "When this character kills an SX character, gain X pips.",
 	"effects": [
 		{
+			"initialBlurb": "Bind aggression",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

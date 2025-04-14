@@ -4,9 +4,9 @@
 	"effText": "IFICATE.\nDiscard your hand. (lol)",
 	"effects": [
 		{
+			"initialBlurb": "lol",
 			"triggerData": {
 				"triggerCondition": "Play",
-				"blurb": "A Frayed Knot",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",
 					"card": { "$type": "Identify.Cards:CardBefore:" },

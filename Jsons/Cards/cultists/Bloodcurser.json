@@ -4,7 +4,7 @@
 	"effText": "The first time each round a Cultist dies, give me -2 E to deck \u2192 summon 2 Cultist Mooks.",
 	"effects": [
 		{
-			"initialBlurb": "Bloodcurse",
+			"initialBlurb": "Bloodcurse fulfilled",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

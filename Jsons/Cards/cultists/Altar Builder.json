@@ -4,7 +4,7 @@
 	"effText": "When a friendly Cultist dies, give me +1 S.\nI can pay 9 S to deck-cast an Altar.",
 	"effects": [
 		{
-			"initialBlurb": "Strengthen Builder",
+			"initialBlurb": "Empower the Altar Builder",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
@@ -43,7 +43,7 @@
 			]
 		},
 		{
-			"initialBlurb": "Build Altar",
+			"initialBlurb": "Build altar",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

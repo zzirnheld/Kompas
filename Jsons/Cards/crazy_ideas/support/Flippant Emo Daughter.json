@@ -4,6 +4,7 @@
 	"effText": "When you play a Crazy Idea, give me +2 ESW.",
 	"effects": [
 		{
+			"initialBlurb": "Eurgh. Dad!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

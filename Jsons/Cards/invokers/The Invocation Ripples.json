@@ -1,9 +1,10 @@
 {
 	"cardType": 83,
-	"cardName": "Invocation Ripples",
-	"effText": "When your Invoker summons an S X character, discard your deck's top X cards. Revive a Spirit among them.",
+	"cardName": "The Invocation Ripples",
+	"effText": "When your Invoker summons a Spirit, discard your deck's top X cards. Revive a Spirit among them.",
 	"effects": [
 		{
+			"initialBlurb": "Rippling summons",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -18,14 +19,13 @@
 						{
 							"$type": "Restrict.Gamestate:CardFitsRestriction:",
 							"card": { "$type": "Identify.Cards:CardBefore:" },
-							
-						"cardRestriction": {
-							"$type": "Restrict.Cards:AllOf:",
-							"elements": [
+							"cardRestriction": {
+								"$type": "Restrict.Cards:AllOf:",
+								"elements": [
 									{ "$type": "Restrict.Cards:Character:" },
 									{
 										"$type": "Restrict.Cards:Subtypes:",
-										"subtypes": [ "Ethereal" ]
+										"subtypes": [ "Spirit" ]
 									}
 								]
 							}

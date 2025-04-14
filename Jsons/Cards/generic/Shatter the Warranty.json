@@ -4,7 +4,7 @@
 	"effText": "Dispel an adjacent friendly CX Enchant. Draw X.",
 	"effects": [
 		{
-			"initialBlurb": "Hi-yah!",
+			"initialBlurb": "Shatter the warranty",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

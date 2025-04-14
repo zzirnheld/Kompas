@@ -4,6 +4,7 @@
 	"effText": "Discard \u2192 reshuffle X Cultists. Gain X pips. Annihilate me.",
 	"effects": [
 		{
+			"initialBlurb": "Cyclical sacrifice",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

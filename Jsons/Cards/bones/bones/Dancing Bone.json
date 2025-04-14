@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, give your \"Lengthening Elk\" and its Bones +1 N.",
 	"effects": [
 		{
-			"initialBlurb": "Bone dance",
+			"initialBlurb": "Bone dance!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

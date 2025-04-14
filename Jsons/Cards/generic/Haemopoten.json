@@ -1,9 +1,10 @@
 {
 	"cardType": 67,
 	"cardName": "Haemopoten",
-	"effText": "The Xth time each turn, you can give me -X E. Annihilate your topdeck. 1 turn later, hand it.",
+	"effText": "The Xth time you do this each turn, you can give me -X E. Annihilate your topdeck. 1 turn later, hand it.",
 	"effects": [
 		{
+			"initialBlurb": "Bloody power",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

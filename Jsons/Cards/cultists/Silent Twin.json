@@ -4,6 +4,7 @@
 	"effText": "When you summon me, deck \u2192 summon a Cultist Mook, but kill them immediately.",
 	"effects": [
 		{
+			"initialBlurb": "Silent birth, silent death",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

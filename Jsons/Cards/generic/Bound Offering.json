@@ -4,7 +4,7 @@
 	"effText": "When I die having X S, annihilate me and gain X/2 pips.",
 	"effects": [
 		{
-			"initialBlurb": "Annihilate",
+			"initialBlurb": "Power beyond the grave",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

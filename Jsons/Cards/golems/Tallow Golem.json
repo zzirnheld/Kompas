@@ -4,6 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, activate a character until your next turn.",
 	"effects": [
 		{
+			"initialBlurb": "Animation",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

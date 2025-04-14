@@ -4,6 +4,7 @@
 	"effText": "Flashback.\nDiscard \u2192 topdeck X Spirits. Draw 3 * X cards.",
 	"effects": [
 		{
+			"initialBlurb": "Advise",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

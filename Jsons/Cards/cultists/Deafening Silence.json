@@ -4,6 +4,7 @@
 	"effText": "If you have X dead Cultists, give a character -X EW.",
 	"effects": [
 		{
+			"initialBlurb": "Silence deafens",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
