@@ -4,6 +4,7 @@
 	"effText": "Discard \u2192 hand all Modules.\nWhen turns start, discard \u2192 hand me, then hand \u2192 discard a card.",
 	"effects": [
 		{
+			"initialBlurb": "Recover modules",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

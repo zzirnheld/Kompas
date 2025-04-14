@@ -4,6 +4,7 @@
 	"effText": "Deck \u2192 hand as many distinct Basic Modules as possible.",
 	"effects": [
 		{
+			"initialBlurb": "Acquire the basics",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

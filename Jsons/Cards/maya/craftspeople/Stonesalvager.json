@@ -4,7 +4,7 @@
 	"effText": "When I start turns adjacent to X Structures, discard \u2192 reshuffle up to X Structures. Gain 1 pip for each.",
 	"effects": [
 		{
-			"initialBlurb": "Reconstruct",
+			"initialBlurb": "Salvage stone",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "I can Pilot a Mech, and give it +1 NESW.",
 	"effects": [
 		{
-			"initialBlurb": "Leading Piloting",
+			"initialBlurb": "Leading piloting",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

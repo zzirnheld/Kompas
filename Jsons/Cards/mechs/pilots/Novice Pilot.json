@@ -4,7 +4,7 @@
 	"effText":"I can Pilot a Mech, but give it -3 NESW.",
 	"effects":[
 		{
-			"initialBlurb":"Substandard Piloting",
+			"initialBlurb":"Substandard piloting",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

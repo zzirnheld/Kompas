@@ -4,6 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can reveal an S X Reporter. An enemy can reveal an S X character. If they don't, pip deck \u2192 summon an S <= X character at half cost.",
 	"effects": [
 		{
+			"initialBlurb": "Let's discuss our colleagues",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

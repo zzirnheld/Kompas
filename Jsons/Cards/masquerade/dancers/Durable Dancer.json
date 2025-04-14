@@ -4,6 +4,7 @@
 	"effText": "Masquerade.\nWhen I'm summoned, deck \u2192 attach a Mask to me.",
 	"effects": [
 		{
+			"initialBlurb": "Conjure mask",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

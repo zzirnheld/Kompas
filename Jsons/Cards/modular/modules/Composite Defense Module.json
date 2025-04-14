@@ -4,7 +4,7 @@
 	"effText": "When this character defends while wielding X Modules, give them +X NESW.",
 	"effects": [
 		{
-			"initialBlurb": "Composite Defense",
+			"initialBlurb": "Composite defense",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

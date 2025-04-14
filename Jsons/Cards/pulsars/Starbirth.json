@@ -4,6 +4,7 @@
 	"effText": "Hand \u2192 discard X Pulsars. Give your Avatar +X S. Draw X cards. Gain X pips. Annihilate me.",
 	"effects": [
 		{
+			"initialBlurb": "Starbirth",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

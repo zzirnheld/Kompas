@@ -4,6 +4,7 @@
 	"effText": "Masquerade.\nWhen I'm summoned, hand \u2192 attach a Mask to me.",
 	"effects": [
 		{
+			"initialBlurb": "Don mask",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

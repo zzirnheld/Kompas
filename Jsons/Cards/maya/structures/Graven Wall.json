@@ -4,7 +4,7 @@
 	"effText": "Structure.\nIf I'm in a corner when a Structure on my diagonal defends, gain 3 pips.",
 	"effects": [
 		{
-			"initialBlurb": "The walls remember",
+			"initialBlurb": "Graven memory",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

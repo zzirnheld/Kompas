@@ -4,7 +4,7 @@
 	"effText": "Give this character +5 NESW.\nWhen your Dancer dons a Mask, discard \u2192 attach me to them.",
 	"effects":[
 		{
-			"initialBlurb": "Ancestors' power",
+			"initialBlurb": "Empowered by ancestors",
 			"triggerData":
 			{
 				"triggerCondition":"Augment Attached",

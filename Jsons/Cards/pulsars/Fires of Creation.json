@@ -4,6 +4,7 @@
 	"effText": "When you summon a Pulsar with:\nMore S than your Avatar: gain 1 pip.\nLess S than your Avatar: draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Create pip",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -53,6 +54,7 @@
 			]
 		},
 		{
+			"initialBlurb": "Create draw",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

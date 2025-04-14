@@ -4,7 +4,7 @@
 	"effText": "When an enemy card is revealed, pip hand \u2192 summon a character at half cost.",
 	"effects": [
 		{
-			"initialBlurb": "Weather Report",
+			"initialBlurb": "Weather report",
 			"triggerData": {
 				"triggerCondition": "Revealed",
 				"triggerRestriction": {

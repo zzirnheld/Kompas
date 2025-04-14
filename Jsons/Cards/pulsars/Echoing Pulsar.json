@@ -4,7 +4,7 @@
 	"effText": "The first time each stack your Avatar's S changes, give them:\n+S: +1 S.\n-S: -1 S.",
 	"effects": [
 		{
-			"initialBlurb": "Echo Up",
+			"initialBlurb": "Echo up",
 			"triggerData": {
 				"triggerCondition": "S Change",
 				"triggerRestriction": {
@@ -43,7 +43,7 @@
 			]
 		},
 		{
-			"initialBlurb": "Echo Down",
+			"initialBlurb": "Echo down",
 			"triggerData": {
 				"triggerCondition": "S Change",
 				"triggerRestriction": {

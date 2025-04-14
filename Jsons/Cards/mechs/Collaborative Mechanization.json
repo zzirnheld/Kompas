@@ -4,6 +4,7 @@
 	"effText": "Hand \u2192 discard X Mech Pilots. Deck \u2192 hand X Mech Golems. Annihilate me. Gain X pips.",
 	"effects": [
 		{
+			"initialBlurb": "Pilots become mechanics",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

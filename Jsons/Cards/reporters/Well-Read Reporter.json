@@ -4,7 +4,7 @@
 	"effText": "When you cast a C X spell, an enemy can reveal a C > X spell. If they don't, give me +1 NEWS.",
 	"effects": [
 		{
-			"blurb": "Reveal a spell?",
+			"blurb": "Your paper trail betrays you",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

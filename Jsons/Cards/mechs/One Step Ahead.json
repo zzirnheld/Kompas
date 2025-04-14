@@ -4,7 +4,7 @@
 	"effText": "When I'm cast, deck \u2192 choose a Mech. At least 1 turn later, when a friendly Mech dies, deck \u2192 hand a copy of your choice, and repeat this process.",
 	"effects": [
 		{
-			"initialBlurb": "Always thinking",
+			"initialBlurb": "Select a mech design",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -35,7 +35,8 @@
 					"jumpIndices": [
 						2
 					],
-					"endCondition": "Turn Start"
+					"endCondition": "Turn Start",
+					"blurbAfterDelay": "Plans complete, awaiting materials"
 				},
 				{
 					"$type": "Subeffect:Hanging.Delay:",
@@ -66,7 +67,8 @@
 								}
 							}
 						]
-					}
+					},
+					"blurbAfterDelay": "Materials obtained, crafting mech"
 				},
 				{
 					"$type": "Subeffect:AutoTarget:",

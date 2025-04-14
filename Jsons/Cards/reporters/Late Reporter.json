@@ -4,6 +4,7 @@
 	"effText": "Speedemon, but move me back afterwards.\nWhen I move, an enemy can reveal a card. If they don't, give me +1 ESW.",
 	"effects": [
 		{
+			"initialBlurb": "Be right back!",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {
@@ -39,6 +40,7 @@
 			]
 		},
 		{
+			"initialBlurb": "By the way, while I'm here",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {
