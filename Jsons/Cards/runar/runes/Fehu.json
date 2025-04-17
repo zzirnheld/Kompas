@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nDraw 2.",
 	"effects": [
 		{
+			"blurb": "Wealth",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

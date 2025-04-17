@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nSet an adjacent character's N to 1 and ESW to 10.",
 	"effects": [
 		{
+			"blurb": "God's might",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

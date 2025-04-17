@@ -4,7 +4,7 @@
 	"effText": "The [USES.0.first] time each turn a Shaper moves, give them +1 N and DOHEAL them.",
 	"effects": [
 		{
-			"initialBlurb": "Only in dreams can shapes be truly free",
+			"initialBlurb": "Enter the Dreamscape",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

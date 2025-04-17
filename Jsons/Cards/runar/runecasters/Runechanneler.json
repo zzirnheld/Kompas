@@ -4,6 +4,7 @@
 	"effText": "Runecast, but reshuffle X of your discarded Runes rather than paying its cost of X pips.",
 	"effects": [
 		{
+			"blurb": "Runecast by reshuffling",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

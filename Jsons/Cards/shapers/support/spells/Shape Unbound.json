@@ -4,6 +4,7 @@
 	"effText": "Annihilate an adjacent friendly Shaper summon. Deck \u2192 summon a Shaper.",
 	"effects": [
 		{
+			"blurb": "Unbind shape",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

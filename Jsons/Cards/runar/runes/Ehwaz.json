@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nGive an adjacent character +2 N.",
 	"effects": [
 		{
+			"blurb": "Horse's speed",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

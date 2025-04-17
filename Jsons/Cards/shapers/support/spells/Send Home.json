@@ -4,6 +4,7 @@
 	"effText": "Cast only adjacent to a Shaper.\nAnnihilate an adjacent character.",
 	"effects": [
 		{
+			"blurb": "Shatter binds",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

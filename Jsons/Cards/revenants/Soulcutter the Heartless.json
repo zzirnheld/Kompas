@@ -4,6 +4,7 @@
 	"effText": "REVENANT.\nWhen a card is annihilated, hand \u2192 discard a Revenant, then draw 1 card.",
 	"effects": [
 		{
+			"blurb": "Soulshape: Draw",
 			"triggerData": {
 				"triggerCondition": "Annihilate",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

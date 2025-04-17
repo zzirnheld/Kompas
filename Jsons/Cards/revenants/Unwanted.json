@@ -4,6 +4,7 @@
 	"effText": "REVENANT.\nWhen I'm summoned, hand \u2192 discard a Revenant and draw 1.",
 	"effects": [
 		{
+			"blurb": "Inflict oblivion",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

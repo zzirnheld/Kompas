@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nHand a character from your deck's top 10 cards.",
 	"effects": [
 		{
+			"blurb": "Mankind",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

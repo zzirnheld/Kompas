@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nWhen a character moves to a node here normally, move them 1 segment.",
 	"effects": [
 		{
+			"blurb": "Lake",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned adjacent to a Shaper, gain 1 pip.",
 	"effects": [
 		{
+			"blurb": "Tether spirit",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

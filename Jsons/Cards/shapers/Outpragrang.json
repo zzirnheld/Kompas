@@ -4,6 +4,7 @@
 	"effText": "Shaper.\nWhen a distinct Shaper moves, move me adjacent to them.",
 	"effects": [
 		{
+			"blurb": "Outpouring anger",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

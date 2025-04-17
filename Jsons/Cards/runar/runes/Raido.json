@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nTeleport an adjacent card anywhere.",
 	"effects": [
 		{
+			"blurb": "Journey",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

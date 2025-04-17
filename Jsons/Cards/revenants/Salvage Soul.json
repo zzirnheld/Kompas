@@ -4,6 +4,7 @@
 	"effText": "Board \u2192 hand a friendly Revenant. Rummage, rummage, rummage.",
 	"effects": [
 		{
+			"blurb": "Salvage soul",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

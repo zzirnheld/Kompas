@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nHand me.",
 	"effects": [
 		{
+			"blurb": "Symbolic heritage",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "SHAPE.\nWhen I'm summoned, hand \u2192 discard 2 cards or kill me.",
 	"effects": [
 		{
+			"blurb": "Reckless dreams",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

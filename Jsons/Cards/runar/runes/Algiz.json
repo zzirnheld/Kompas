@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nGive an adjacent character +4 E.",
 	"effects": [
 		{
+			"blurb": "Elk's protection",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

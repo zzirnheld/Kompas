@@ -4,6 +4,7 @@
 	"effText": "Runecast.",
 	"effects": [
 		{
+			"blurb": "Runecast",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

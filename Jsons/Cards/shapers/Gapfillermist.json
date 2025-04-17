@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen a Shaper Shapes through me, DOHEAL them, reshuffle me, and draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "Condense",
+			"initialBlurb": "My dreams fulfill",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

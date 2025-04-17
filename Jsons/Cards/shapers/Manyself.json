@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen a Shaper Shapes through me, give me +2 NSW.",
 	"effects": [
 		{
-			"initialBlurb": "Condense",
+			"initialBlurb": "Amalgamate selves",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

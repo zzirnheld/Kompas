@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nDispel an adjacent spell.",
 	"effects": [
 		{
+			"blurb": "Joyful freedom",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
