@@ -4,7 +4,7 @@
 	"effText": "RUNIC.\nGive an adjacent character -3 EW.",
 	"effects": [
 		{
-			"blurb": "Ulcer",
+			"initialBlurb": "Ulcer",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

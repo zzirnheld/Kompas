@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen I move X segments, hand \u2192 summon an S X Ethereal to the node I left.",
 	"effects": [
 		{
-			"blurb": "Eddies form dream-selves",
+			"initialBlurb": "Eddies form dream-selves",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

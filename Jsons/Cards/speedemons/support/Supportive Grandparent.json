@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, choose an adjacent character. Each time they move, give them +1 ESW.",
 	"effects": [
 		{
+			"blurb": "Warm cookies",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

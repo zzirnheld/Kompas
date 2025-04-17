@@ -4,7 +4,7 @@
 	"effText": "REVENANT.\nWhen I'm summoned, hand \u2192 discard a Revenant and deck \u2192 hand a Revenant.",
 	"effects": [
 		{
-			"blurb": "Inflict amnesia",
+			"initialBlurb": "Inflict amnesia",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

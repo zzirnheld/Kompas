@@ -4,7 +4,7 @@
 	"effText": "Runecast, and deck \u2192 hand a different Rune from your deck's top 10 cards.",
 	"effects": [
 		{
-			"blurb": "Runecast and iterate",
+			"initialBlurb": "Runecast and iterate",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

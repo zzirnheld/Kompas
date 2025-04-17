@@ -4,7 +4,7 @@
 	"effText": "RUNIC.\nWhen turns start, I give all characters here -2 NEW.",
 	"effects": [
 		{
-			"blurb": "Hailstorm",
+			"initialBlurb": "Hailstorm",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

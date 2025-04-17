@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned adjacent to a Shaper, draw 1 card.",
 	"effects": [
 		{
-			"blurb": "Shape dreams",
+			"initialBlurb": "Shape dreams",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

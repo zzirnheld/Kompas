@@ -4,7 +4,7 @@
 	"effText": "Runecast, and if you cast it X segments from me, pip echo it X times (or until you run out of pips).",
 	"effects": [
 		{
-			"blurb": "Runecast and echo",
+			"initialBlurb": "Runecast and echo",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

@@ -4,7 +4,7 @@
 	"effText": "RUNIC.\nPip revive a character at half cost (rounding down).",
 	"effects": [
 		{
-			"blurb": "Yew's descendancy",
+			"initialBlurb": "Yew's descendancy",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

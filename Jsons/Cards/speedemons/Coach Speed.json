@@ -4,6 +4,7 @@
 	"effText": "Speedemon.\n[USES.0.Once] each turn, you can move a card 1 segment.",
 	"effects": [
 		{
+			"initialBlurb": "Let's get movin!",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

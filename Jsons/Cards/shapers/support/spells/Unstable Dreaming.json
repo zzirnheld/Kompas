@@ -4,7 +4,7 @@
 	"effText": "Hand \u2192 summon a Shaper, but annihilate them when friendly turns start.",
 	"effects": [
 		{
-			"blurb": "Unstable dream-binds",
+			"initialBlurb": "Unstable dream-binds",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

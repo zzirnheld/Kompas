@@ -4,7 +4,7 @@
 	"effText": "RUNIC.\nGive all enemy characters -3 E.",
 	"effects": [
 		{
-			"blurb": "Painful hunger",
+			"initialBlurb": "Painful hunger",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

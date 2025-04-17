@@ -4,7 +4,7 @@
 	"effText": "Discard \u2192 annihilate your Revenants with total S X. Annihilate an adjacent S <= X / 2 character.",
 	"effects": [
 		{
-			"blurb": "Souls kill souls",
+			"initialBlurb": "Souls kill souls",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

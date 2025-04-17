@@ -4,7 +4,7 @@
 	"effText": "Move any enemy character any distance to a node adjacent to a friendly Shaper.",
 	"effects": [
 		{
-			"blurb": "Pseudopod",
+			"initialBlurb": "Pseudopod",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

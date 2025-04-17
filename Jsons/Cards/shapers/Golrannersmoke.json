@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen I'm summoned, I Ambush.",
 	"effects": [
 		{
-			"blurb": "Smoky ambush",
+			"initialBlurb": "Smoky ambush",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

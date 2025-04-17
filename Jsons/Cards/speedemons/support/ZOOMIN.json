@@ -4,6 +4,7 @@
 	"effText": "Move a card 1 segment. Move a card 1 segment! MOVE A CARD 1 SEGMENT!",
 	"effects": [
 		{
+			"blurb": "ZOOMIN",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

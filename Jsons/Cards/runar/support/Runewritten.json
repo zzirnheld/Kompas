@@ -4,7 +4,7 @@
 	"effText": "When you cast a Rune, give me +1 EW.",
 	"effects": [
 		{
-			"blurb": "So it is written",
+			"initialBlurb": "So it is written",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

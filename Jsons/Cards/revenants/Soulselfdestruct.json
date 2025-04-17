@@ -4,7 +4,7 @@
 	"effText": "Tribute an adjacent S X Ethereal. Deck \u2192 discard X Revenants.",
 	"effects": [
 		{
-			"blurb": "Soulselfdestruct",
+			"initialBlurb": "Soulselfdestruct",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

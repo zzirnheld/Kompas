@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen I lose XE, deck \u2192 summon an E X Shaper.",
 	"effects": [
 		{
-			"blurb": "Agony anchors dreams",
+			"initialBlurb": "Agony anchors dreams",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

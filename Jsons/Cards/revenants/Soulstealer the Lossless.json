@@ -4,7 +4,7 @@
 	"effText": "REVENANT.\nWhen a card is annihilated, give friendly Ethereals +1 E.",
 	"effects": [
 		{
-			"blurb": "Soulshape: Resist",
+			"initialBlurb": "Soulshape: Resist",
 			"triggerData": {
 				"triggerCondition": "Annihilate",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

@@ -4,7 +4,7 @@
 	"effText": "Hand \u2192 annihilate X Revenants. Draw X cards and gain X pips.",
 	"effects": [
 		{
-			"blurb": "Soulflare",
+			"initialBlurb": "Soulflare",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

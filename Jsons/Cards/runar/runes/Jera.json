@@ -4,7 +4,7 @@
 	"effText": "RUNIC.\nIf it's your turn, gain 3 pips and end your turn.",
 	"effects": [
 		{
-			"blurb": "Bountiful harvest",
+			"initialBlurb": "Bountiful harvest",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

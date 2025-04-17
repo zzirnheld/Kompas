@@ -4,7 +4,7 @@
 	"effText": "When you draw a Revenant, hand \u2192 discard it and draw 1.\n(Vanishes when a turn starts.)",
 	"effects": [
 		{
-			"blurb": "Draw again",
+			"initialBlurb": "Draw again",
 			"triggerData": {
 				"blurb": "Hand \u2192 discard the drawn Revenant to draw 1?",
 				"triggerCondition": "Each Card Drawn",

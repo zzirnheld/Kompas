@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen a Fungus pulses an enemy, deck \u2192  or discard \u2192 summon Mycelium.",
 	"effects": [
 		{
-			"initialBlurb": "Army",
+			"initialBlurb": "Army of mycelium",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

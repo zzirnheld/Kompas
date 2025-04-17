@@ -4,7 +4,7 @@
 	"effText": "RUNIC.\nHand up to 3 spells from your deck's top 10 cards",
 	"effects": [
 		{
-			"blurb": "Mystic unknowns",
+			"initialBlurb": "Mystic unknowns",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

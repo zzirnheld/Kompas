@@ -4,7 +4,7 @@
 	"effText": "RUNIC.\nPip discard \u2192 cast a distinct spell at half cost (rounding down).",
 	"effects": [
 		{
-			"blurb": "Yngvi's ken",
+			"initialBlurb": "Yngvi's ken",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

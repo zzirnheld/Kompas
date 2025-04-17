@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen I'm summoned, annhilate a friendly SX Ethereal to give me +X EW.",
 	"effects": [
 		{
-			"blurb": "Concentrate grudge",
+			"initialBlurb": "Concentrate grudge",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

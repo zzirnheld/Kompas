@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen I lose XE, give me +X W.",
 	"effects": [
 		{
-			"blurb": "Agony begets agony",
+			"initialBlurb": "Agony begets agony",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

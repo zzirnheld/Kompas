@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can hand \u2192 , field \u2192 , or discard \u2192 reshuffle a Rune to hand a Runar from your deck's top 10 cards.",
 	"effects": [
 		{
-			"blurb": "Inscribe rune",
+			"initialBlurb": "Inscribe rune",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]
