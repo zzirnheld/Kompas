@@ -4,6 +4,7 @@
 	"effText": "When you summon a Vessel adjacent to me, give them +1 EW.",
 	"effects": [
 		{
+			"initialBlurb": "Guide to rememory",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

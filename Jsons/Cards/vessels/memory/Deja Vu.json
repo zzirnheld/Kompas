@@ -4,7 +4,7 @@
 	"effText": "When something distinct echoes this character, echo them again.",
 	"effects": [
 		{
-			"initialBlurb": "Deja Vu",
+			"initialBlurb": "Deja vu",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

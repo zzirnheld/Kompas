@@ -4,7 +4,7 @@
 	"effText": "VESSEL.\nWhen turns start, destroy an A X Memory attached to me. Give me +X ESW. Move me up to X segments.",
 	"effects": [
 		{
-			"initialBlurb": "No!",
+			"initialBlurb": "Unwilling destruction",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

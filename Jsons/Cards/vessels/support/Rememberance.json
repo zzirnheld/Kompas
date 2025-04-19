@@ -4,6 +4,7 @@
 	"effText": "Discard \u2192 annihilate an S X character. Discard \u2192 hand either a cost <= X card or up to X Memories.",
 	"effects": [
 		{
+			"initialBlurb": "In memoriam",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

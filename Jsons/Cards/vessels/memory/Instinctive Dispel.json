@@ -4,7 +4,7 @@
 	"effText": "When this summon attacks, echo them.\nWhen you echo this summon, dispel an adjacent spell to give them +5 W.",
 	"effects": [
 		{
-			"initialBlurb": "Powerhunger",
+			"initialBlurb": "Instinctual dispelling",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -60,7 +60,7 @@
 			]
 		},
 		{
-			"initialBlurb": "Echoed powerhunger",
+			"initialBlurb": "Powerhunger",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

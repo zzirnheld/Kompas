@@ -4,6 +4,7 @@
 	"effText": "Tribute an adjacent Vessel's Memory. Deck \u2192 bestow 2 distinct Memories unto that Vessel.",
 	"effects": [
 		{
+			"initialBlurb": "Unlock the past",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

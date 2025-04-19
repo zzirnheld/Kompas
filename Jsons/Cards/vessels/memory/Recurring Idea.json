@@ -4,7 +4,7 @@
 	"effText": "When I'm destroyed, gain 1 pip.\nWhen turns start, discard \u2192 attach me to a Vessel.",
 	"effects": [
 		{
-			"initialBlurb": "Pip",
+			"initialBlurb": "Sparkstruck idea",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When you echo this summon, move them 1 segment.",
 	"effects": [
 		{
-			"initialBlurb": "Need to go back",
+			"initialBlurb": "Remember wanderings",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

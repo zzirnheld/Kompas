@@ -4,7 +4,7 @@
 	"effText": "When this summon defends, echo them thrice.\nWhen you echo this summon, give them +1 E.",
 	"effects": [
 		{
-			"initialBlurb": "Reflexive Defense",
+			"initialBlurb": "Reflexive fortification",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -42,7 +42,7 @@
 			]
 		},
 		{
-			"initialBlurb": "I HEAR ENEMIES",
+			"initialBlurb": "Reflexive echoes",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

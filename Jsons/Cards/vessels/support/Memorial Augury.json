@@ -4,6 +4,7 @@
 	"effText": "Tribute an adjacent S X Vessel. Deck \u2192 hand up to X distinct Memories.",
 	"effects": [
 		{
+			"initialBlurb": "Augury reminds",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
