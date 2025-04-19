@@ -4,6 +4,7 @@
 	"effText": "The first time each stack I gain E, draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Thinkgrowth",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

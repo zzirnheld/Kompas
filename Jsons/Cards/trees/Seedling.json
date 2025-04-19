@@ -4,6 +4,7 @@
 	"effText": "2 turns after I'm summoned, tribute me and deck \u2192 summon a Tree where I was.",
 	"effects": [
 		{
+			"initialBlurb": "Plant seed",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -19,7 +20,8 @@
 					"jumpIndices": [
 						1
 					],
-					"endCondition": "Turn Start"
+					"endCondition": "Turn Start",
+					"blurbAfterDelay": "Tree grew up"
 				},
 				{
 					"$type": "Subeffect:TargetThis:"

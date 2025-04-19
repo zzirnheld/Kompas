@@ -4,6 +4,7 @@
 	"effText": "When I gain X E, give an adjacent character -X N.",
 	"effects": [
 		{
+			"initialBlurb": "Chokegrowth",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

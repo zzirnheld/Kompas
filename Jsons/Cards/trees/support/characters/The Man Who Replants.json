@@ -4,8 +4,8 @@
 	"effText": "When turns start, revive a Tree, then give it -3 ES.",
 	"effects": [
 		{
+			"initialBlurb": "Replant tree",
 			"triggerData": {
-				"initialBlurb": "Replant Tree",
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }
 			},

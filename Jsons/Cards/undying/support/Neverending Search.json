@@ -4,7 +4,7 @@
 	"effText": "Endless.\nRummage. Revive, then kill, a character.",
 	"effects": [
 		{
-			"initialBlurb": "Simple",
+			"initialBlurb": "Search without end",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

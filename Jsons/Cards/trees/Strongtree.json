@@ -4,6 +4,7 @@
 	"effText": "When I gain X E, give me +X W.",
 	"effects": [
 		{
+			"initialBlurb": "Stronggrowth",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {
