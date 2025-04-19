@@ -30,7 +30,7 @@
 			]
 		},
 		{
-			"initialBlurb": "You are Summoned",
+			"initialBlurb": "Queen's summons",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

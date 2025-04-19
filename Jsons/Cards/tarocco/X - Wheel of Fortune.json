@@ -4,7 +4,7 @@
 	"effText": "When you draw, swap two characters' N.",
 	"effects": [
 		{
-			"initialBlurb": "One's speed is another's sloth",
+			"initialBlurb": "Fortune's reversal",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

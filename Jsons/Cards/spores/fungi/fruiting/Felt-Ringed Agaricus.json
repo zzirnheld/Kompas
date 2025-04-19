@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen a Fungus pulses a summon, give them +1 N if they're a Fungus, or -1 N if not.",
 	"effects": [
 		{
-			"initialBlurb": "Felt in your Bones",
+			"initialBlurb": "Binding rings",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

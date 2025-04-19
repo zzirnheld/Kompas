@@ -4,6 +4,7 @@
 	"effText": "When you draw X cards, give me +X NW.",
 	"effects": [
 		{
+			"initialBlurb": "Chariot's momentum",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

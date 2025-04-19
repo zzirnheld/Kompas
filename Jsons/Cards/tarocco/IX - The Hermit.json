@@ -4,7 +4,7 @@
 	"effText": "The [USES.0.first] time each turn you draw X cards, move an enemy character X segments.",
 	"effects": [
 		{
-			"initialBlurb": "May you find solitude",
+			"initialBlurb": "Hermit's isolation",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

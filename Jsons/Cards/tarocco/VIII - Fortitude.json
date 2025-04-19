@@ -4,6 +4,7 @@
 	"effText": "The [USES.0.first three] times each turn a friendly character attacks, draw 1.",
 	"effects": [
 		{
+			"initialBlurb": "Fortitude's courage",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

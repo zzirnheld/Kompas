@@ -4,7 +4,7 @@
 	"effText": "When you draw, swap the E or W of two summons within 2 segments of each other.",
 	"effects": [
 		{
-			"initialBlurb": "Swap E or W",
+			"initialBlurb": "Moon's changeability",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

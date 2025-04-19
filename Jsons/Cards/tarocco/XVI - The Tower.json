@@ -4,7 +4,7 @@
 	"effText": "When something else makes you draw X, give me -X E, draw X again, and reshuffle to hand size.",
 	"effects": [
 		{
-			"initialBlurb": "Folly",
+			"initialBlurb": "Tower's folly",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

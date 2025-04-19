@@ -584,6 +584,7 @@ sportsball/Goal-Net Touchdown
 sportsball/Rocket-Propelled Ball
 sportsball/Overwhelming Ball Skills
 sportsball/Penalty Box
+sportsball/Red Card
 
 swordguild/guildmembers/Guild Armsmaster
 swordguild/guildmembers/Guild Pagemaster

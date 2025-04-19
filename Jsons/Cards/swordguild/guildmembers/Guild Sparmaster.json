@@ -4,7 +4,7 @@
 	"effText": "Warrior Trainer: +1 EW.",
 	"effects": [
 		{
-			"initialBlurb": "Train W",
+			"initialBlurb": "Train EW",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

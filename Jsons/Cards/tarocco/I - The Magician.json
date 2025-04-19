@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can hand \u2192 bottomdeck X cards to draw X cards.",
 	"effects": [
 		{
-			"initialBlurb": "Redraw",
+			"initialBlurb": "Card trick",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

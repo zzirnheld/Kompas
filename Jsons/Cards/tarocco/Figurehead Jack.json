@@ -4,6 +4,7 @@
 	"effText": "Draw 1 card. Hand \u2192 bottomdeck a Tarocco to draw another card.",
 	"effects": [
 		{
+			"initialBlurb": "Jack allows trades",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

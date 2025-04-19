@@ -4,6 +4,7 @@
 	"effText":"Set X to the number of friendly Tarocco. Draw X cards.",
 	"effects":[
 		{
+			"initialBlurb": "The Greatest Game",
 			"triggerData":
 			{
 				"triggerCondition":"Play",

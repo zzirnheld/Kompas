@@ -4,7 +4,7 @@
 	"effText": "When turns start, attach each possible friendly Sportsball to a character adjacent to them.",
 	"effects": [
 		{
-			"initialBlurb": "Dreamwork! Pass!",
+			"initialBlurb": "Everyone! Pass!",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

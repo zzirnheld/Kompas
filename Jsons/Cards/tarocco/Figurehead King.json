@@ -4,6 +4,7 @@
 	"effText": "Choose a Tarocco in your hand, then reshuffle the other X cards. Gain X pips.",
 	"effects": [
 		{
+			"initialBlurb": "The King stands alone",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

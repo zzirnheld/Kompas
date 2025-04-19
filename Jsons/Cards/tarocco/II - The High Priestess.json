@@ -4,6 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can draw 3 cards, then hand \u2192 topdeck 3 cards.",
 	"effects": [
 		{
+			"initialBlurb": "Readings in threes",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

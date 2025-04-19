@@ -4,7 +4,7 @@
 	"effText": "When an enemy moves a character to a node adjacent to X Tarocco, draw 1 card X times.",
 	"effects": [
 		{
-			"initialBlurb": "When you [redacted] upon a XVII",
+			"initialBlurb": "Star's brilliance",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

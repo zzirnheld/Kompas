@@ -4,6 +4,7 @@
 	"effText": "When you draw X cards, give an adjacent summon +X EW.",
 	"effects": [
 		{
+			"initialBlurb": "Emperor's rule",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "Deck \u2192 attach a Sportsball to your Avatar.",
 	"effects": [
 		{
+			"initialBlurb": "Grab a ball from the bin",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

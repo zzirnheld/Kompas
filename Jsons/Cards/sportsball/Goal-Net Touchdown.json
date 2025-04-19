@@ -4,7 +4,7 @@
 	"effText": "COMEBACKPLAY.\nWhen a character arrives adjacent to an enemy Avatar, apply their Augment(s) to that Avatar.",
 	"effects": [
 		{
-			"initialBlurb": "Touchdown!",
+			"initialBlurb": "Into the end goal!",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When you augment me, move me up to 2 segments.",
 	"effects": [
 		{
-			"initialBlurb": "Run Augment Outfield",
+			"initialBlurb": "Run outfield",
 			"triggerData": {
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {

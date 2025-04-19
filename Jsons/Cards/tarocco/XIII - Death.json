@@ -4,6 +4,7 @@
 	"effText": "When you draw, give me +1 W.\nI can pay X W to kill an adjacent S X character.",
 	"effects": [
 		{
+			"initialBlurb": "+1 W",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
@@ -29,6 +30,7 @@
 			]
 		},
 		{
+			"initialBlurb": "Death's reaping",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

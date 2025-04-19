@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen an enemy is played to, or dies in, an adjacent nodes, I pulse us/me.",
 	"effects": [
 		{
-			"initialBlurb": "Shrink",
+			"initialBlurb": "Bind-triggered shrink",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

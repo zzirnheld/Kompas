@@ -1,9 +1,10 @@
 {
 	"cardType":83,
-	"cardName":"Time Out",
+	"cardName":"Red Card",
 	"effText":"Choose an adjacent character wielding friendly Augment(s). Attach those Augments to your Avatar. Hand the character.",
 	"effects":[
 		{
+			"initialBlurb": "Red card!",
 			"triggerData":
 			{
 				"triggerCondition":"Play",

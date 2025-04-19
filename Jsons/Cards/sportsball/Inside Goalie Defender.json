@@ -4,7 +4,7 @@
 	"effText": "When you augment your adjacent Avatar, attach their Augment(s) to another character adjacent to me.",
 	"effects": [
 		{
-			"initialBlurb": "Goal Kick",
+			"initialBlurb": "Goal kick",
 			"triggerData": {
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {

@@ -1,17 +1,17 @@
 {
 	"cardType": 67,
 	"cardName": "XIV - Temperance",
-	"effText": "Once each round, when you draw X cards, I can dispel a C <= X spell.",
+	"effText": "The first time each turn you draw X cards, I can dispel a C <= X spell.",
 	"effects": [
 		{
-			"initialBlurb": "Dispel a C <= X spell?",
+			"initialBlurb": "Temperant refusal",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",
 					"elements": [
 						{ "$type": "Restrict.Gamestate:ThisCardInPlay:" },
-						{ "$type": "Restrict.Gamestate:MaxPerRound:" },
+						{ "$type": "Restrict.Gamestate:MaxPerTurn:" },
 						{
 							"$type": "Restrict.Gamestate:PlayersMatch:",
 							"firstPlayer": { "$type": "Identify.Players:TriggeringPlayer:" },

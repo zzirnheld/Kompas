@@ -4,7 +4,7 @@
 	"effText": "The first time each stack this character is pulsed, pulse them again.",
 	"effects": [
 		{
-			"initialBlurb": "Pulsation",
+			"initialBlurb": "Hypersensitive pulsation",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {
