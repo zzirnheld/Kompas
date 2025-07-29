@@ -84,7 +84,7 @@ public partial class ClientTargetingController : Node
 	{
 		base._Ready();
 		if (TopLeftInfoDisplayer == null) throw new System.NullReferenceException("Forgot to init");
-		_topLeftCardView = new(ReminderTextPopup, TopLeftInfoDisplayer);
+		_topLeftCardView = new(TopLeftInfoDisplayer);
 		TopLeftCardView.FocusChange += (_, change) =>
 		{
 			//TODO: maybe animate the currently shown card? that's probably more helpful? think about it

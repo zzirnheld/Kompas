@@ -20,10 +20,14 @@ public partial class ReminderTextPopup : Control
 	{
 		Keyword.Text = reminderTextInfo.Keyword;
 		ReminderText.Text = reminderTextInfo.Reminder;
-		var mousePos = GetViewport().GetMousePosition();
-		OffsetLeft = OffsetRight = mousePos.X;
-		OffsetTop = OffsetBottom = mousePos.Y;
-		Visible = true;
+		var viewport = GetViewport();
+		if (viewport is not null)
+		{
+			var mousePos = viewport.GetMousePosition();
+			OffsetLeft = OffsetRight = mousePos.X;
+			OffsetTop = OffsetBottom = mousePos.Y;
+			Visible = true;
+		}
 	}
 
 	public void StopDisplaying()

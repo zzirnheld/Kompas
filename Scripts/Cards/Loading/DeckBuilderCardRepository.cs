@@ -23,7 +23,10 @@ public class DeckBuilderCardRepository : CardRepository
 	public DeckBuilderCard CreateDeckBuilderCard(SerializableCard serializableCard)
 	{
 		_ = serializableCard.cardName ?? throw new System.NullReferenceException($"{serializableCard} had no name");
-		var (_, elseText) = Enhance(serializableCard.effText ?? string.Empty, System.Array.Empty<IEffect>());
+		var (_, elseText, _) = Enhance(serializableCard.effText ?? string.Empty, System.Array.Empty<IEffect>());
 		return new(serializableCard, cardFileNames[serializableCard.cardName], elseText, this);
 	}
+
+	protected override string ConstructKeywordTag(ReminderTextInfo reminderTextInfo)
+		=> $"[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]";
 }

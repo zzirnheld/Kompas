@@ -16,8 +16,8 @@ public interface ICardRepository
 	public string? FileNameFor(string? cardName);
 	public string? GetJsonFromName(string? cardName);
 
-	public (string fieldText, string elseText) Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects);
-	public string AddKeywordHints(string effText);
+	public (string fieldText, string elseText, IList<ReminderTextInfo> replacedKeywords)
+		Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects);
 	public ReminderTextInfo LookupKeywordReminderText(string keyword);
 
 	public Texture2D? LoadSprite(string cardFileName);
@@ -325,12 +325,13 @@ public abstract class CardRepository : ICardRepository
 		}
 	}
 
-	public (string fieldText, string elseText) Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects)
+	public (string fieldText, string elseText, IList<ReminderTextInfo> replacedKeywords)
+		Enhance(string cardEffText, IReadOnlyCollection<IEffect> effects)
 	{
-		string keywordsReplaced = AddKeywordHints(cardEffText);
-		string replacedWithFallback = usesRegex.Replace(keywordsReplaced, match => UseToText(match, effects, true));
-		string replacedWithoutFallback = usesRegex.Replace(keywordsReplaced, match => UseToText(match, effects, false));
-		return (replacedWithoutFallback, replacedWithFallback);
+		var (withKeywordsReplaced, replacedKeywords) = HandleKeywords(cardEffText);
+		string replacedWithFallback = usesRegex.Replace(withKeywordsReplaced, match => UseToText(match, effects, true));
+		string replacedWithoutFallback = usesRegex.Replace(withKeywordsReplaced, match => UseToText(match, effects, false));
+		return (replacedWithoutFallback, replacedWithFallback, replacedKeywords);
 	}
 
 	private static string UseToText(Match match, IReadOnlyCollection<IEffect> effects, bool fallBack)
@@ -377,16 +378,22 @@ public abstract class CardRepository : ICardRepository
 	/// </summary>
 	/// <param name="baseEffText"></param>
 	/// <returns></returns>
-	public string AddKeywordHints(string baseEffText)
+	public (string, IList<ReminderTextInfo>) HandleKeywords(string baseEffText)
 	{
 		string bbCodeEffText = baseEffText;
+		var list = new List<ReminderTextInfo>();
 		foreach (var reminderTextInfo in Reminders.KeywordToReminder.Values)
 		{
-			string keywordTag = $"[url={reminderTextInfo.KeywordStringKey}]{reminderTextInfo.Keyword}[/url]";
+			if (!reminderTextInfo.KeywordReplaceRegex.IsMatch(bbCodeEffText)) continue;
+
+			list.Add(reminderTextInfo);
+			string keywordTag = ConstructKeywordTag(reminderTextInfo);
 			bbCodeEffText = reminderTextInfo.KeywordReplaceRegex.Replace(bbCodeEffText, keywordTag);
 		}
-		return bbCodeEffText;
+		return (bbCodeEffText, list);
 	}
+
+	protected virtual string ConstructKeywordTag(ReminderTextInfo reminderTextInfo) => $"[u]{reminderTextInfo.Keyword}[/u]";
 
 	public ReminderTextInfo LookupKeywordReminderText(string keyword) => Reminders.KeywordToReminder[keyword];
 }

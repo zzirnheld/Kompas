@@ -175,6 +175,8 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 		}
 	}
 
+	public IList<ReminderTextInfo> ReminderTexts { get; set; } = new List<ReminderTextInfo>();
+
 	public string BaseJson => Game.CardRepository.GetJsonFromName(CardName)
 		?? throw new System.NullReferenceException($"{CardName} doesn't have an associated json?");
 
@@ -232,7 +234,7 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 
 	protected void UpdateBBCodeEffectText()
 	{
-		(fieldBBCodeEffText, elseBBCodeEffText) = OwningPlayer.Game.CardRepository.Enhance(EffText, Effects);
+		(fieldBBCodeEffText, elseBBCodeEffText, ReminderTexts) = OwningPlayer.Game.CardRepository.Enhance(EffText, Effects);
 	}
 
 	/// <summary>
