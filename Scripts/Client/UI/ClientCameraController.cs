@@ -192,9 +192,9 @@ public partial class ClientCameraController : Node3D
 		//HandObject.GlobalRotation = fromHandRotation;
 
 		var tween = GetTree().CreateTween();
-		tween.TweenProperty(Camera, "position", Vector3.Zero, 0.5);
-		tween.Parallel().TweenProperty(Camera, "rotation", node.CameraRotation, 0.5);
-		tween.Parallel().TweenProperty(HandObject, "rotation", DefaultCameraParentRotation + node.CameraRotation, 0.5);
+		tween.TweenProperty(Camera, "position", Vector3.Zero, 0.5).SetTrans(Tween.TransitionType.Cubic);
+		tween.Parallel().TweenProperty(Camera, "rotation", node.CameraRotation, 0.5).SetTrans(Tween.TransitionType.Cubic);
+		tween.Parallel().TweenProperty(HandObject, "rotation", DefaultCameraParentRotation + node.CameraRotation, 0.5).SetTrans(Tween.TransitionType.Cubic);
 	}
 
 	/// <summary>
