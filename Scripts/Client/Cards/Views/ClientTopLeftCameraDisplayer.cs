@@ -1,6 +1,7 @@
 using Godot;
 using Kompas.Cards.Models;
 using Kompas.Client.UI;
+using Kompas.Godot;
 using Kompas.Shared.Exceptions;
 using Kompas.UI.CardInfoDisplayers;
 
@@ -23,10 +24,17 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 	private CameraFollowObject RingCamera => _camera
 		?? throw new UnassignedReferenceException(nameof(_camera), this);
 
-	public bool ShowingInfo { set { } } // => TextureRect.Visible = value; }
+	[Export]
+	private PackedScene? _reminderTextPrefab;
+	private PackedScene ReminderTextPrefab => _reminderTextPrefab
+		?? throw new UnassignedReferenceException(nameof(_reminderTextPrefab), this);
 
-	public event System.EventHandler<string>? HoverKeyword;
-	public event System.EventHandler<string>? StopHoverKeyword;
+	[Export]
+	private Control? _reminderTextParent;
+	private Control ReminderTextParent => _reminderTextParent
+		?? throw new UnassignedReferenceException(nameof(_reminderTextParent), this);
+
+	public bool ShowingInfo { set { } } // => TextureRect.Visible = value; }
 
 	private IHoverableCardInfoDisplayer? lastDisplayed;
 	private const uint FocusedCullMask = 1 << (3 - 1) | 1 << (5 - 1);
@@ -37,25 +45,20 @@ public partial class ClientTopLeftCameraDisplayer : Control, ICardInfoDisplayer
 
 	public void Display(CardBase card)
 	{
-		//Logger.Log($"At {System.DateTime.Now.Millisecond} Top left camera Displaying {card}");
-		if (lastDisplayed != null)
-		{
-			lastDisplayed.BeginHoverKeyword -= HoverKeyword;
-			lastDisplayed.EndHoverKeyword -= StopHoverKeyword;
-		}
-
 		if (card is not GameCard gameCard) throw new System.InvalidOperationException("Can only handle a game card!");
 
 		lastDisplayed?.UpdateZoomedInLayerMask(UnfocusedLayerMask);
 		lastDisplayed = gameCard.CardController.PlaceCameraAboveCard(RingCamera, UnfocusedCullMask, FocusedCullMask,
 			(infoDisplayer) => infoDisplayer.UpdateZoomedInLayerMask(FocusedLayerMask));
 
-		//TODO: make sure we hook up the keywords correctly for mouse hover
-		lastDisplayed.BeginHoverKeyword += HoverKeyword;
-		lastDisplayed.EndHoverKeyword += StopHoverKeyword;
-
-		HoverKeyword += (_, str) => GD.Print($"Begin {str}");
-		StopHoverKeyword += (_, str) => GD.Print($"End {str}");
+		ReminderTextParent.QueueFreeChildren();
+		foreach (var reminderText in gameCard.ReminderTexts)
+		{
+			var reminderPopup = ReminderTextPrefab.Instantiate() as ReminderTextPopup
+				?? throw new System.InvalidOperationException("Wrong type for prefab!");
+			reminderPopup.Display(reminderText);
+			ReminderTextParent.AddChild(reminderPopup);
+		}
 	}
 
 	//Need this to fit the interface to preserve using the original focus code, but it shouldn't ever call these.
