@@ -4,6 +4,7 @@
 	"effText": "Restock.\nWhen I'm summoned, deck-summon a copy of me.",
 	"effects": [
 		{
+			"initialBlurb": "Clone",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

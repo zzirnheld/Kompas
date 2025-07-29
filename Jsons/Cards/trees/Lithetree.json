@@ -4,6 +4,7 @@
 	"effText": "The [USES.0.first] time each turn I gain X E, give me +X N.",
 	"effects": [
 		{
+			"initialBlurb": "Lithegrowth",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

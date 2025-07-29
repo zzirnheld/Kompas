@@ -4,6 +4,7 @@
 	"effText": "When a Warrior trains me, also give me +1 S.\nYou can swap me for a distinct Swordguild Warrior in your deck that costs less.",
 	"effects": [
 		{
+			"initialBlurb": "Training tightens binds",
 			"triggerData": {
 				"triggerCondition": "N Change",
 				"triggerRestriction": {
@@ -44,6 +45,7 @@
 			]
 		},
 		{
+			"initialBlurb": "Training tightens binds",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {
@@ -84,6 +86,7 @@
 			]
 		},
 		{
+			"initialBlurb": "Training tightens binds",
 			"triggerData": {
 				"triggerCondition": "W Change",
 				"triggerRestriction": {
@@ -124,7 +127,7 @@
 			]
 		},
 		{
-			"initialBlurb": "Training Complete",
+			"initialBlurb": "Training complete",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

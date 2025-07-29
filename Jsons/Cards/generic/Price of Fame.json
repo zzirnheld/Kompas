@@ -4,6 +4,7 @@
 	"effText": "Kill an adjacent unique character.",
 	"effects": [
 		{
+			"initialBlurb": "$you",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

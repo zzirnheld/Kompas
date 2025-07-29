@@ -1,9 +1,10 @@
 {
 	"cardType": 83,
-	"cardName": "Do You Understand How Greedy This Jar Is",
-	"effText": "Draw 7 cards.",
+	"cardName": "Greedy Jar",
+	"effText": "Draw 2 cards.",
 	"effects": [
 		{
+			"initialBlurb": "This card allows me draw 2 cards from my deck and add them to my hand",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -16,12 +17,12 @@
 				{
 					"$type": "Subeffect:DrawX:",
 					"xMultiplier": 0,
-					"xModifier": 7
+					"xModifier": 2
 				}
 			]
 		}
 	],
-	"c": 4,
+	"c": 2,
 	"spellTypes": [
 		"Simple"
 	],

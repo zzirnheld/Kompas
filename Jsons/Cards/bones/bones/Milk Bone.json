@@ -4,7 +4,7 @@
 	"effText": "When I'm summoned, give your \"Lengthening Elk\" and its Bones +1 E.",
 	"effects": [
 		{
-			"initialBlurb": "Drink your milk",
+			"initialBlurb": "Milk strengthens bones",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

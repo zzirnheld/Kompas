@@ -4,7 +4,7 @@
 	"effText":"When a Dragon kills me, hand \u2192 discard an S X Dragon and gain X pips.",
 	"effects":[
 		{
-			"initialBlurb":"*notices your dragon*",
+			"initialBlurb":"uwu *notices your dragon*",
 			"triggerData":
 			{
 				"triggerCondition":"Discard",

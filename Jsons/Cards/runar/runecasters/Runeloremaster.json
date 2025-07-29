@@ -4,7 +4,7 @@
 	"effText": "Runecast up to 3 times each turn.",
 	"effects": [
 		{
-			"blurb": "Master Runelore",
+			"initialBlurb": "Runecast",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:", "max": 3 } ]

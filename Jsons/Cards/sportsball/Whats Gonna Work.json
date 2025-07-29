@@ -4,6 +4,7 @@
 	"effText": "Deck \u2192 cast \"Teamwork!\".",
 	"effects": [
 		{
+			"initialBlurb": "Teamwork!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

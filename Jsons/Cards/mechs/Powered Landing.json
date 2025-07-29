@@ -4,7 +4,7 @@
 	"effText": "When you summon a Mech Golem, discard \u2192 attach me to them. They attack an enemy within 2 segments of them.\nWhen this character attacks, give them +4 W.",
 	"effects": [
 		{
-			"initialBlurb": "Landing Blast",
+			"initialBlurb": "Meet on arrival",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -73,7 +73,7 @@
 			]
 		},
 		{
-			"blurb":"Boom",
+			"blurb":"Kinetic empowerment",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

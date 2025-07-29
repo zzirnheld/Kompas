@@ -4,6 +4,7 @@
 	"effText": "Hand \u2192 reshuffle a Linewalker. Deck \u2192 hand 2 distinct Linewalkers.",
 	"effects": [
 		{
+			"initialBlurb": "Leypathmake",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

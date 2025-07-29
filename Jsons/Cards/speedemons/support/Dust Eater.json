@@ -4,6 +4,7 @@
 	"effText": "When a character moves away from me, give me +1 W.",
 	"effects": [
 		{
+			"blurb": "They really did say \"Eat my dust!\"",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

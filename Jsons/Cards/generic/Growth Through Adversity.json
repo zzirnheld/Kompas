@@ -4,6 +4,7 @@
 	"effText": "When you HEALTRIGGER a character, give them +5 E.",
 	"effects": [
 		{
+			"initialBlurb": "Overheal",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

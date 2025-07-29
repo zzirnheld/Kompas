@@ -4,7 +4,7 @@
 	"effText": "Deck \u2192 summon a Fungus adjacent to X enemies (but still adjacent to a friendly). Pulse it X times. ",
 	"effects": [
 		{
-			"initialBlurb": "Simple",
+			"initialBlurb": "Sus",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

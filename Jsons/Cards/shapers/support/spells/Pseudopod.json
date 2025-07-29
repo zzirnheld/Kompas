@@ -1,9 +1,10 @@
 {
 	"cardType": 83,
 	"cardName": "Pseudopod",
-	"effText": "Teleport an enemy character to a node adjacent to a friendly Shaper.",
+	"effText": "Move any enemy character any distance to a node adjacent to a friendly Shaper.",
 	"effects": [
 		{
+			"initialBlurb": "Pseudopod",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

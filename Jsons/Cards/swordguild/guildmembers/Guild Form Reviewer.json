@@ -4,6 +4,7 @@
 	"effText": "When a Warrior trains me, draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Review form",
 			"triggerData": {
 				"triggerCondition": "N Change",
 				"triggerRestriction": {

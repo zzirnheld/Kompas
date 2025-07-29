@@ -4,7 +4,7 @@
 	"effText": "Move a spell to a node adjacent to me. Draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "The weight of binds",
+			"initialBlurb": "Yank",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

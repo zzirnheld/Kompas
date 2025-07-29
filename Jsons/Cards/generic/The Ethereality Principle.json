@@ -4,6 +4,7 @@
 	"effText": "When you revive an S X Ethereal character, discard your deck's top X. Put one of those cards back on top.",
 	"effects": [
 		{
+			"initialBlurb": "Discard unwanted ideas",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

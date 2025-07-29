@@ -4,6 +4,7 @@
 	"effText": "Double or halve your Avatar's S. (Round up.) Draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Mold starstuff",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

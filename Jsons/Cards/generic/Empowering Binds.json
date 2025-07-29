@@ -4,6 +4,7 @@
 	"effText": "When you summon a character, give them +1 EW.",
 	"effects": [
 		{
+			"initialBlurb": "Empowered binding",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

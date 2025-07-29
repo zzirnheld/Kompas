@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, give a summon -5 E.",
 	"effects": [
 		{
-			"initialBlurb": "Shards of Glass",
+			"initialBlurb": "Shardstrike",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

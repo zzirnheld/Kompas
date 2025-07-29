@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, negate adjacent spells until I die. Also, delay 2 turns, then kill me and dispel those spells.",
 	"effects": [
 		{
+			"initialBlurb": "Set spellbombs",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
@@ -79,7 +80,8 @@
 					"jumpIndices": [
 						1
 					],
-					"endCondition": "Turn Start"
+					"endCondition": "Turn Start",
+					"blurbAfterDelay": "Detonate spellbombs"
 				},
 				{
 					"$type": "Subeffect:TargetThis:"

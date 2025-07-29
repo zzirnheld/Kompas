@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, dispel an adjacent enemy spell.",
 	"effects": [
 		{
-			"initialBlurb": "Annoyance",
+			"initialBlurb": "Annoy",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

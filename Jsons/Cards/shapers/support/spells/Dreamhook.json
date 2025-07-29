@@ -4,6 +4,7 @@
 	"effText": "Teleport an adjacent Shaper to a node adjacent to an enemy character. The Shaper attacks the enemy.",
 	"effects": [
 		{
+			"initialBlurb": "Dreamhook",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

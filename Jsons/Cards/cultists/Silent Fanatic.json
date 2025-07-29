@@ -4,7 +4,7 @@
 	"effText": "When I die, deck \u2192 summon 2 Cultist Mooks.",
 	"effects": [
 		{
-			"initialBlurb": "Deck-summon followers",
+			"initialBlurb": "Silent fanatic's legacy",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

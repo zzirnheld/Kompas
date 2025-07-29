@@ -4,6 +4,7 @@
 	"effText": "Kill a character adjacent to both me and a Cultist. Deck \u2192 summon a Cultist Mook where they were.",
 	"effects": [
 		{
+			"initialBlurb": "Silent conversion",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

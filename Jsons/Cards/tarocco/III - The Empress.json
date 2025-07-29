@@ -4,7 +4,7 @@
 	"effText": "When you draw X cards, you MUST hand \u2192 summon an S <= X character.",
 	"effects": [
 		{
-			"initialBlurb": "From my hand!",
+			"initialBlurb": "Empress' summons",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "The first time each stack I gain E, an enemy can reveal a character with more E than me. If they don't, give friendly characters +1 NEWS.",
 	"effects": [
 		{
+			"initialBlurb": "Take a look at this beautiful tree!",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "MUST be cast normally.\nGive a Runar summon +25 ESW, then hand-cast any number of spells. (Yes, seriously, for free.)",
 	"effects": [
 		{
+			"initialBlurb": "Tell your saga",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

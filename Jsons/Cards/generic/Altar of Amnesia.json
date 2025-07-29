@@ -1,10 +1,10 @@
 {
 	"cardType": 83,
 	"cardName": "Altar of Amnesia",
-	"effText": "During your turn, you can tribute a character here, set another character here's stats to the tributed character's.",
+	"effText": "During your turn, you can tribute a character here. Set the stats of a summon here to the tributed character's.",
 	"effects": [
 		{
-			"initialBlurb": "You are someone else",
+			"initialBlurb": "Memory transfer",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

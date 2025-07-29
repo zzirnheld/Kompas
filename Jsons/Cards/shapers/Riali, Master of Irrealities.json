@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen a Shaper kills themselves, revive them where they died, with all movement expended.",
 	"effects": [
 		{
-			"initialBlurb": "Empower the Shaper",
+			"initialBlurb": "Reshape realities",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

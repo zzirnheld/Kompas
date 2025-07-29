@@ -4,6 +4,7 @@
 	"effText": "IFICATE.\nRummage. Move a card 1 segment.",
 	"effects": [
 		{
+			"initialBlurb": "if you could just please move just a little bit more",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

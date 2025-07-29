@@ -4,6 +4,7 @@
 	"effText": "Deck \u2192 hand \"Set\", then a Speedemon.",
 	"effects": [
 		{
+			"blurb": "Ready?",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

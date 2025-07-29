@@ -4,7 +4,7 @@
 	"effText":"LINEWALK.\nWhen I move X segments, hand \u2192 reshuffle a distinct Linewalker and draw X cards.",
 	"effects":[
 		{
-			"initialBlurb":"Orange Linewalked",
+			"initialBlurb":"Orange momentum: Inspiration",
 			"triggerData":
 			{
 				"triggerCondition":"Move",

@@ -75,6 +75,8 @@ public partial class ClientCameraController : Node3D
 	private CameraGraphNode CurrentPosition => _currentPosition
 		?? throw new NotReadyYetException();
 
+	private CameraGraphNode? stashedPosition;
+
 	public readonly struct LookingAt
 	{
 		public Location Location { get; init; }
@@ -91,7 +93,7 @@ public partial class ClientCameraController : Node3D
 		= new Dictionary<LookingAt, CameraGraphNode>();
 
 	public event EventHandler<LookingAt>? Departed;
-	public event EventHandler<LookingAt>? Arrived;
+	public event EventHandler<LookingAt>? StartedMovingTowards;
 
 	public override void _Ready()
 	{
@@ -157,18 +159,27 @@ public partial class ClientCameraController : Node3D
 		else if (Input.IsActionJustReleased(CameraUpActionName)) 	GoToCameraPosition(CurrentPosition.Up);
 	}
 
-	public void GoTo(LookingAt lookingAt)
+	/// <summary>
+	/// Moves camera to look at a given <see cref="LookingAt"/> 
+	/// </summary>
+	/// <param name="lookingAt">Where to look, including the location, and whether it's the friendly or enemy one</param>
+	/// <param name="stash">If true, caches the currently looked-at position before moving to the new one.
+	/// If false, the cached position will be the new one.</param>
+	public void GoTo(LookingAt lookingAt, bool stash = false)
 	{
-		GoToCameraPosition(lookingAtToNode[lookingAt]);
+		GoToCameraPosition(lookingAtToNode[lookingAt], stash: stash);
 	}
 
-	private void GoToCameraPosition(CameraGraphNode? node)
+	private void GoToCameraPosition(CameraGraphNode? node, bool stash = false)
 	{
 		if (node == null) return;
 
 		if (_currentPosition != null) Departed?.Invoke(this, _currentPosition.LookingAt);
+		stashedPosition = stash
+			? _currentPosition
+			: node;
 		_currentPosition = node;
-		Arrived?.Invoke(this, node.LookingAt);
+		StartedMovingTowards?.Invoke(this, node.LookingAt);
 
 		var fromCameraPosition = Camera.GlobalPosition;
 		var fromCameraRotation = Camera.GlobalRotation;
@@ -181,9 +192,18 @@ public partial class ClientCameraController : Node3D
 		//HandObject.GlobalRotation = fromHandRotation;
 
 		var tween = GetTree().CreateTween();
-		tween.TweenProperty(Camera, "position", Vector3.Zero, 0.5);
-		tween.Parallel().TweenProperty(Camera, "rotation", node.CameraRotation, 0.5);
-		tween.Parallel().TweenProperty(HandObject, "rotation", DefaultCameraParentRotation + node.CameraRotation, 0.5);
+		tween.TweenProperty(Camera, "position", Vector3.Zero, 0.5).SetTrans(Tween.TransitionType.Cubic);
+		tween.Parallel().TweenProperty(Camera, "rotation", node.CameraRotation, 0.5).SetTrans(Tween.TransitionType.Cubic);
+		tween.Parallel().TweenProperty(HandObject, "rotation", DefaultCameraParentRotation + node.CameraRotation, 0.5).SetTrans(Tween.TransitionType.Cubic);
+	}
+
+	/// <summary>
+	/// If the last call to <see cref="GoToCameraPosition"/> 
+	/// included <c>stash = true</c>, moves the camera to where it was before that call.
+	/// </summary>
+	public void RestoreCurrentLook()
+	{
+		GoToCameraPosition(stashedPosition);
 	}
 
 	public enum CameraPosition

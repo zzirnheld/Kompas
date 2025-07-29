@@ -4,7 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can hand a Dancer's Mask to deck \u2192 attach a Mask to that Dancer.",
 	"effects": [
 		{
-			"initialBlurb": "Continue the masquerade",
+			"initialBlurb": "Evolve the masquerade",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

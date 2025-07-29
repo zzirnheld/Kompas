@@ -4,7 +4,7 @@
 	"effText":"Heal an adjacent Tree. Draw 1 card.",
 	"effects":[
 		{
-			"initialBlurb": "Simple",
+			"initialBlurb": "Apply bark salve",
 			"triggerData":
 			{
 				"triggerCondition":"Play",

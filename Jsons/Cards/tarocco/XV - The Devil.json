@@ -4,6 +4,7 @@
 	"effText": "When an enemy deck \u2192 hands a card, unless your hand is full, draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Devil's ken",
 			"triggerData": {
 				"triggerCondition": "Rehand",
 				"triggerRestriction": {

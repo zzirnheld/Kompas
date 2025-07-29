@@ -4,7 +4,7 @@
 	"effText": "When turns start, discard \u2192 reshuffle all X friendly Pulsars, give your Avatar +-X S, and draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "Repurpose Starstuff",
+			"initialBlurb": "Repurpose starstuff",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

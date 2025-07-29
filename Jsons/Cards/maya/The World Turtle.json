@@ -4,6 +4,7 @@
 	"effText": "Speedemon, but move me back afterwards.\nIf there are cards in all corners when I arrive, give adjacent characters -10 E.",
 	"effects": [
 		{
+			"initialBlurb": "Weight of the world",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

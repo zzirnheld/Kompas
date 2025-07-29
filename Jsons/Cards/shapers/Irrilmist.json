@@ -4,7 +4,7 @@
 	"effText": "SHAPE. Evasive.\nWhen a Shaper Shapes through me, hand me and teleport an Ethereal to where I was.",
 	"effects": [
 		{
-			"initialBlurb": "Condense",
+			"initialBlurb": "Unreality dreams another",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

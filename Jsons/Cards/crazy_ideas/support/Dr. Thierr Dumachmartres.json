@@ -4,7 +4,7 @@
 	"effText": "When an enemy plays a card normally, hand \u2192 discard 1 card. 1 turn later, draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "Takes me a moment to find my...",
+			"initialBlurb": "Takes me a moment to find my, uh...",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

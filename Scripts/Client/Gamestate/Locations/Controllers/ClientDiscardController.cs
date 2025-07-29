@@ -22,8 +22,14 @@ public partial class ClientDiscardController : DiscardController
 	public override void _Ready()
 	{
 		base._Ready();
-		CameraController.Arrived += (_, at) => { if (DiscardModel.IsLocation(at.Location, at.Friendly)) Arrived(); };
-		CameraController.Departed += (_, at) => { if (DiscardModel.IsLocation(at.Location, at.Friendly)) Departed(); };
+		CameraController.StartedMovingTowards += (_, at) =>
+		{
+			if (DiscardModel.IsLocation(at.Location, at.Friendly)) Arrived();
+		};
+		CameraController.Departed += (_, at) =>
+		{
+			if (DiscardModel.IsLocation(at.Location, at.Friendly)) Departed();
+		};
 	}
 
 	private void Arrived() => CardArranger.Open();

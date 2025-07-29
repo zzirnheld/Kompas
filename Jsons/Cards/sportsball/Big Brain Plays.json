@@ -4,6 +4,7 @@
 	"effText": "Pip deck \u2192 cast a Team Play.",
 	"effects": [
 		{
+			"initialBlurb": "It's big brain time",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

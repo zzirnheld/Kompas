@@ -4,6 +4,7 @@
 	"effText":"The [USES.0.first] time each turn you play another card that costs exactly 1, gain 1 pip.",
 	"effects":[
 		{
+			"initialBlurb": "Master the aces",
 			"triggerData":
 			{
 				"orderPriority": 5,

@@ -4,7 +4,7 @@
 	"effText": "Spores.\nThe [USES.0.first] time each turn a Fungus defends, pulse me and that Fungus.",
 	"effects": [
 		{
-			"initialBlurb": "Push the Button?",
+			"initialBlurb": "Defensive button",
 			"triggerData": {
 				"triggerCondition": "Defend",
 				"triggerRestriction": {

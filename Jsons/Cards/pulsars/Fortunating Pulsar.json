@@ -4,7 +4,7 @@
 	"effText": "The first three times each turn your Avatar's S changes:\n+S: rummage.\n-S: give both players 1 pip.",
 	"effects": [
 		{
-			"initialBlurb": "Fortune-card",
+			"initialBlurb": "Fortune's pulse",
 			"triggerData": {
 				"triggerCondition": "S Change",
 				"triggerRestriction": {

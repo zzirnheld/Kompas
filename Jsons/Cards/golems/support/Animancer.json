@@ -4,7 +4,7 @@
 	"effText": "You can hand \u2192 discard Golems with total cost X to deck \u2192 hand a cost < X Golem.",
 	"effects": [
 		{
-			"initialBlurb": "It's In Here Somewhere",
+			"initialBlurb": "Cobble together Golem",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:"
 			},

@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen an enemy moves to or from an adjacent node, I pulse us.",
 	"effects": [
 		{
-			"initialBlurb": "Tremble",
+			"initialBlurb": "Tremble from movement",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

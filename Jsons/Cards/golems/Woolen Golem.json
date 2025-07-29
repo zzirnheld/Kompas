@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, give me and a distinct character -[my E] W.",
 	"effects": [
 		{
-			"initialBlurb": "Wooly Wool",
+			"initialBlurb": "Cushion",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "When I gain E, DOHEAL a character.",
 	"effects": [
 		{
+			"initialBlurb": "Sharegrowth",
 			"triggerData": {
 				"triggerCondition": "E Change",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, I attack a character.",
 	"effects": [
 		{
+			"initialBlurb": "...something...",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

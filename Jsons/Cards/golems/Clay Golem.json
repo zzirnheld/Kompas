@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, tribute me. Deck \u2192 summon a Golem where I was.",
 	"effects": [
 		{
-			"initialBlurb": "Golemorph",
+			"initialBlurb": "Shape clay",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

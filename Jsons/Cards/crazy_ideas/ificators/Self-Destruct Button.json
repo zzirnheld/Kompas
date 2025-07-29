@@ -4,6 +4,7 @@
 	"effText": "IFICATE.\nTribute another Crazy Idea. Discard \u2192 hand all your Crazy Ideas. Hand \u2192 discard up to 3 cards.",
 	"effects": [
 		{
+			"initialBlurb": "...Oops.",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

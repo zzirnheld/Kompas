@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen a friendly Shaper moves X segments, hand \u2192 discard 1 card, give me -X E, and draw X cards.",
 	"effects": [
 		{
-			"initialBlurb": "Shape ideas",
+			"initialBlurb": "Reality is malleable",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

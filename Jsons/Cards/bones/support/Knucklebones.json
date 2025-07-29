@@ -4,6 +4,7 @@
 	"effText": "Hand X friendly Bones. Draw X cards. Gain X pips.",
 	"effects": [
 		{
+			"initialBlurb": "Toss the bones",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

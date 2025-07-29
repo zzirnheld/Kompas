@@ -4,7 +4,7 @@
 	"effText": "When you echo this summon, draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "Spurt of Creativity",
+			"initialBlurb": "Spurt of creativity",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

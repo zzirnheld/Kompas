@@ -4,7 +4,7 @@
 	"effText": "Repositionable.\nWhen turns start, swap a friendly S X Golem here for an S <= X+1 one in your discard. Give the new Golem the old one's Cores.",
 	"effects": [
 		{
-			"initialBlurb": "Modify Golem (Slightly)",
+			"initialBlurb": "Modify Golem (slightly)",
 			"triggerData": {
 				"orderPriority": -5,
 				"triggerCondition": "Turn Start",

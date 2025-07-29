@@ -4,6 +4,7 @@
 	"effText": "When you draw, give each friendly character:\nDuring friendly turns: +1 W.\nDuring enemy turns: +1 E.",
 	"effects": [
 		{
+			"initialBlurb": "Summon aggressive knight",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
@@ -35,6 +36,7 @@
 			]
 		},
 		{
+			"initialBlurb": "Summon defensive knight",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

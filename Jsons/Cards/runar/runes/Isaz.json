@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nSet adjacent characters' N to 0.",
 	"effects": [
 		{
+			"initialBlurb": "Freeze",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

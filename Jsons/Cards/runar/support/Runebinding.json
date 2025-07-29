@@ -4,6 +4,7 @@
 	"effText": "The [USES.0.first] time each turn you cast a Rune, deck \u2192 hand a Mage.",
 	"effects": [
 		{
+			"initialBlurb": "Bind men to runes",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

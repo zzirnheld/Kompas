@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nSet an adjacent summon's W to 0 and E to 5.",
 	"effects": [
 		{
+			"initialBlurb": "Birch transformation",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

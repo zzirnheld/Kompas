@@ -4,6 +4,7 @@
 	"effText": "If you don't have a discarded \"Ready\", deck \u2192 hand one and reshuffle me. If you do, give an adjacent character +1 N and deck \u2192 hand \"GO\".",
 	"effects": [
 		{
+			"blurb": "Set...",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

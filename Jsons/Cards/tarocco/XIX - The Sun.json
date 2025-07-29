@@ -4,7 +4,7 @@
 	"effText": "When you draw, give a summon -1 E and another +1 E.",
 	"effects": [
 		{
-			"initialBlurb": "Scorching Heat",
+			"initialBlurb": "Sun's heat",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "SHAPE.\nWhen I move, move a distinct Shaper to a node adjacent to me",
 	"effects": [
 		{
+			"initialBlurb": "Momentum's gravity",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

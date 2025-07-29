@@ -4,6 +4,7 @@
 	"effText": "The first time each round this character attacks, if their target is behind them, swap their places and give the defender -5 W.",
 	"effects": [
 		{
+			"initialBlurb": "Disable",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

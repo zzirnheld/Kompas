@@ -4,6 +4,7 @@
 	"effText": "When an S X Revenant is annihilated, discard your deck's top X.",
 	"effects": [
 		{
+			"initialBlurb": "Soul's drain",
 			"triggerData": {
 				"triggerCondition": "Annihilate",
 				"triggerRestriction": {

@@ -4,9 +4,8 @@
 	"effText": "When you draw X cards, you can tribute me to deck \u2192 summon an S <= X Tarocco where I was.",
 	"effects": [
 		{
-			"initialBlurb": "Better together",
+			"initialBlurb": "Lovers' flight",
 			"triggerData": {
-				"blurb": "Tribute me to deck-summon Tarocco with S <= X?",
 				"triggerCondition": "Draw",
 				"triggerRestriction": {
 					"$type": "Restrict.Triggering:AllOf:",

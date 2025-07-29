@@ -4,6 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can swap a Module attached to a friendly character for 2 distinct Modules in your hand.",
 	"effects": [
 		{
+			"initialBlurb": "Make space for new modules",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

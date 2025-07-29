@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nDouble an adjacent character's W.",
 	"effects": [
 		{
+			"initialBlurb": "Thor's might",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

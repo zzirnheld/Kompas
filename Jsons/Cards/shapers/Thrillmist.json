@@ -4,7 +4,7 @@
 	"effText": "SHAPE.\nWhen a Shaper Shapes through me, give us both +3 W.",
 	"effects": [
 		{
-			"initialBlurb": "Thrill",
+			"initialBlurb": "Infectious thrill",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

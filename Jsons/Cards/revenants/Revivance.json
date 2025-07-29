@@ -4,6 +4,7 @@
 	"effText": "When you revive a Spirit, move them 1 segment.",
 	"effects": [
 		{
+			"initialBlurb": "Revival trance",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can draw 1 card until you have as many in hand as your enemy.",
 	"effects": [
 		{
+			"initialBlurb": "Justice's scales",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

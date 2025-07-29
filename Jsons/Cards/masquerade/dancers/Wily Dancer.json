@@ -4,6 +4,7 @@
 	"effText": "Masquerade.\nWhen I'm summoned, discard \u2192 attach a Mask to me.",
 	"effects": [
 		{
+			"initialBlurb": "Recover mask",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

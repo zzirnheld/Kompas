@@ -4,6 +4,7 @@
 	"effText":"2 turns after I'm summoned, tribute me and deck-summon a Dragon where I was.",
 	"effects":[
 		{
+			"initialBlurb": "Dragon incubation",
 			"triggerData":
 			{
 				"triggerCondition":"Play",
@@ -18,7 +19,8 @@
 					"$type":"Subeffect:Hanging.Delay:",
 					"numTimesToDelay":1,
 					"jumpIndices":[1],
-					"endCondition":"Turn Start"
+					"endCondition":"Turn Start",
+					"blurbAfterDelay": "Dragon hatches"
 				},
 				{
 					"$type":"Subeffect:TargetThis:"

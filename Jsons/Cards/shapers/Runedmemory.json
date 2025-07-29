@@ -4,6 +4,7 @@
 	"effText": "SHAPE.\nWhen I move X segments, hand \u2192 cast a C X Shaping.",
 	"effects": [
 		{
+			"initialBlurb": "He once knew runes",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen a Fungus pulses an enemy, draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "Milk of the enemy",
+			"initialBlurb": "Stolen thoughts",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

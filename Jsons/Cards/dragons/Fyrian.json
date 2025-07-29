@@ -4,7 +4,7 @@
 	"effText": "TERRITORIAL.\nWhen I attack, give my target and characters adjacent to them -3 E.",
 	"effects": [
 		{
-			"initialBlurb": "Fire Breath",
+			"initialBlurb": "Firebreath",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

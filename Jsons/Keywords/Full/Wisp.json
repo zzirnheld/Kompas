@@ -1,5 +1,5 @@
 {
-	"initialBlurb":"Wisp Turn Start",
+	"initialBlurb":"Wisp movement",
 	"triggerData":
 	{
 		"triggerCondition":"Turn Start",

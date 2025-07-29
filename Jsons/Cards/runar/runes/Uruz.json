@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nGive adjacent characters +2 E.",
 	"effects": [
 		{
+			"initialBlurb": "Ox's endurance",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

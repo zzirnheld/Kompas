@@ -117,7 +117,7 @@ public abstract class Effect : IEffect
 		return ret;
 	}
 
-	public override string ToString() => $"Effect of {(Card == null ? "Nothing???" : Card.CardName)}";
+	public override string ToString() => InitialBlurb;
 
 	public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 

@@ -4,7 +4,7 @@
 	"effText": "When turns start, hand \u2192 summon a Bone and gain 1 pip.",
 	"effects": [
 		{
-			"initialBlurb": "Bonecast",
+			"initialBlurb": "Bonesee",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

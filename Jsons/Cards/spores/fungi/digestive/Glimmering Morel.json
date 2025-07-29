@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen a Fungus pulses an enemy, gain 1 pip.",
 	"effects": [
 		{
-			"initialBlurb": "Milk of the enemy",
+			"initialBlurb": "Stolen glimmers",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

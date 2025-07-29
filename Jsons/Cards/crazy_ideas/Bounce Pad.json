@@ -4,7 +4,7 @@
 	"effText": "When another character arrives here, annihilate me to hand them.",
 	"effects": [
 		{
-			"initialBlurb": "bounce",
+			"initialBlurb": "Let's bounce",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

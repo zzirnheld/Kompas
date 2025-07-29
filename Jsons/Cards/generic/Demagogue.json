@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, give adjacent characters +1 S.",
 	"effects": [
 		{
+			"initialBlurb": "We all must tighten binds",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

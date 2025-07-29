@@ -4,7 +4,7 @@
 	"effText": "2 turns after a friendly Mech Golem dies here, discard \u2192 hand them.",
 	"effects": [
 		{
-			"blurb": "Repair Mech",
+			"blurb": "Begin repairs",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {
@@ -44,7 +44,8 @@
 					"jumpIndices": [
 						1
 					],
-					"endCondition": "Turn Start"
+					"endCondition": "Turn Start",
+					"blurbAfterDelay": "Repairs complete!"
 				},
 				{
 					"$type": "Subeffect:TargetTriggeringCard:"

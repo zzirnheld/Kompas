@@ -4,7 +4,7 @@
 	"effText": "Mask.\nWhen this summon defends, give them +5 E.",
 	"effects": [
 		{
-			"initialBlurb": "You underestimate me",
+			"initialBlurb": "Dance of Expansion",
 			"triggerData":
 			{
 				"triggerCondition": "Defend",

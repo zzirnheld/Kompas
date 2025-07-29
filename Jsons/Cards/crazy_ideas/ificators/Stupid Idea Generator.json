@@ -4,7 +4,7 @@
 	"effText": "IFICATE.\nWhen turns start, rummage.",
 	"effects": [
 		{
-			"initialBlurb": "Generate Stupid Idea",
+			"initialBlurb": "Creating Kompas card...",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

@@ -4,6 +4,7 @@
 	"effText": "Choose a Memory. Echo all X friendly Vessels bearing a copy of it, X times.",
 	"effects": [
 		{
+			"initialBlurb": "Collective memory",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "Speedemon.\nWhen I move, hand \u2192 reshuffle a card. (Yes, you have to.) Give me +2 ESW. ",
 	"effects": [
 		{
+			"initialBlurb": "CHOO CHOO",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

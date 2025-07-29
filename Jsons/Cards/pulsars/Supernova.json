@@ -4,6 +4,7 @@
 	"effText": "Repeat until your Avatar's S is 0:\nGive your Avatar -1 S.",
 	"effects": [
 		{
+			"initialBlurb": "Supernova detonation",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "Speedemon.\nThe first time each stack a character arrives adjacent to me, their controller moves them 1 segment.",
 	"effects": [
 		{
-			"initialBlurb": "Lap! Yeah!",
+			"initialBlurb": "Good lap!",
 			"triggerData": {
 				"triggerCondition": "Arrive",
 				"triggerRestriction": {

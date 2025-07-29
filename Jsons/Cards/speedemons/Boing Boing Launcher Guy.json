@@ -4,6 +4,7 @@
 	"effText": "Speedemon.\nAfter I move, push another card adjacent to the node I moved from, 1 segment the opposite direction.",
 	"effects": [
 		{
+			"initialBlurb": "Boing boing, launch!",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

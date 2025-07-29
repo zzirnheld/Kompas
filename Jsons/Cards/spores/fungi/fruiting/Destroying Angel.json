@@ -4,7 +4,7 @@
 	"effText": "Spores.\nWhen a Fungus pulses a summon, give them +1 E if they're a Fungus, or -1 E if not.",
 	"effects": [
 		{
-			"initialBlurb": "Angel's Judgement",
+			"initialBlurb": "Angel's judgement",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

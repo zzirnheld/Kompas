@@ -4,7 +4,7 @@
 	"effText": "When friendly Water vanishes, hand \u2192 cast Water where it was, then draw 1 card.",
 	"effects": [
 		{
-			"initialBlurb": "The Tide Shifts",
+			"initialBlurb": "Tides shift",
 			"triggerData": {
 				"triggerCondition": "Vanish",
 				"triggerRestriction": {

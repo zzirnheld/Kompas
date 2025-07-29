@@ -4,6 +4,7 @@
 	"effText": "When you draw X, your enemy can reveal X cards. If they don't, give me +X/2 ESW.",
 	"effects": [
 		{
+			"initialBlurb": "Better talk fast cause if you don't",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

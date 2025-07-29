@@ -4,6 +4,7 @@
 	"effText": "When your Vessel echoes themselves, give them +1 NESW.",
 	"effects": [
 		{
+			"initialBlurb": "Rememories",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

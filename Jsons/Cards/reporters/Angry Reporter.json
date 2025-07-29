@@ -4,6 +4,7 @@
 	"effText": "[USES.0.Once] each turn, you can choose a friendly W X. An enemy can reveal a cost > X card. If they don't, the chosen character attacks.",
 	"effects": [
 		{
+			"initialBlurb": "Will you admit your CRIMES!?",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

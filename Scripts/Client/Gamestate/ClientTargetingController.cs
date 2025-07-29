@@ -11,6 +11,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Kompas.Server.Effects.Models.Subeffects;
 using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
 
@@ -61,18 +62,17 @@ public partial class ClientTargetingController : Node
 		RefreshCardsForSearchChange();
 
 		var locations = currentSearch.SearchedLocations;
-		if (locations.Count == 1) GameController.Camera.GoTo(new ClientCameraController.LookingAt(locations.Single()));
-		//TODO open the deck/discard for each one of these. should GameController or CameraController handle that?
+		if (locations.Count == 1)
+		{
+			GameController.Camera.GoTo(new ClientCameraController.LookingAt(locations.Single()), stash: true);
+		}
 	}
 
 	private void EndSearch()
 	{
 		currentSearch = null;
-
 		RefreshCardsForSearchChange();
-
-		//When end search, go back to board (FUTURE: go back to what we were last looking at?)
-		GameController.Camera.GoTo(new ClientCameraController.LookingAt((Location.Board, true)));
+		GameController.Camera.RestoreCurrentLook();
 	}
 
 	public bool CanDeclineFurtherTargets
@@ -187,7 +187,8 @@ public partial class ClientTargetingController : Node
 
 	public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
 	{
-		var search = CardSearch.Create(potentialTargetIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
+		var targets = potentialTargetIDs.Select(GameController.Game.LookupCardByID).NonNull();
+		var search = CardSearch.Create(targets, listRestriction,
 			GameController.Game, this, GameController.Notifier);
 
 		if (search == null)

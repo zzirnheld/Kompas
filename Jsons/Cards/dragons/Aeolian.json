@@ -4,9 +4,8 @@
 	"effText": "TERRITORIAL.\nWhen I attack a character, move them X segments (as far as you want), then give them -X E.",
 	"effects": [
 		{
-			"initialBlurb": "Air Breath",
+			"initialBlurb": "Galebreath",
 			"triggerData": {
-				"blurb": "Air Breath",
 				"triggerCondition": "Attack",
 				"triggerRestriction": {
 					"$type": "Restrict.Gamestate:CardsMatch:",

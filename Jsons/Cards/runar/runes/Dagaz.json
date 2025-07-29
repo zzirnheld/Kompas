@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nWhen you cast another Rune, gain 1 pip.",
 	"effects": [
 		{
+			"initialBlurb": "Daybreak sunrays",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

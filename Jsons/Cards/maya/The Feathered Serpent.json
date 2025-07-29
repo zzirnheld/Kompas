@@ -4,7 +4,7 @@
 	"effText": "Summon only if there's 14 cards on the edge of the board.\nYou can tribute a Person adjacent to a Structure to revive me.",
 	"effects": [
 		{
-			"initialBlurb": "Death Begets Life",
+			"initialBlurb": "Death begets life",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"locations": [ "Discard" ]

@@ -4,7 +4,7 @@
 	"effText": "When a Squire with total NESW X survives killing a character, tribute them and deck \u2192 summon an S <= X Warrior where they were.",
 	"effects": [
 		{
-			"initialBlurb": "Bestow Knighthood",
+			"initialBlurb": "Bestow knighthood",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

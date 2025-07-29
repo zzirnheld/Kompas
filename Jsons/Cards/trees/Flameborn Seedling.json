@@ -4,6 +4,7 @@
 	"effText": "When I die, deck \u2192 summon a Tree where I was. Give them -3 ES.",
 	"effects": [
 		{
+			"initialBlurb": "Flameborne growth",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

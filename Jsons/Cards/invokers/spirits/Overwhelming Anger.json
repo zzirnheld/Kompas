@@ -4,7 +4,7 @@
 	"effText": "When I'm revived, give an adjacent character -[my E] E.",
 	"effects": [
 		{
-			"initialBlurb": "Anger",
+			"initialBlurb": "Infuriate",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

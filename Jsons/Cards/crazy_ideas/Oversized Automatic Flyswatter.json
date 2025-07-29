@@ -1,10 +1,10 @@
 {
 	"cardType":67,
-	"cardName":"Oversized Automatic Flyswatter",
-	"effText":"When a character arrives adjacent to me, give them -1 E.",
-	"effects":[
+	"cardName": "Oversized Automatic Flyswatter",
+	"effText": "When a character arrives adjacent to me, give them -1 E.",
+	"effects": [
 		{
-			"initialBlurb":"BEGONE! SWAT!",
+			"initialBlurb": "BEGONE! SWAT!",
 			"triggerData":
 			{
 				"triggerCondition":"Arrive",
@@ -18,7 +18,7 @@
 					]
 				}
 			},
-			"subeffects":[
+			"subeffects": [
 				{
 					"$type":"Subeffect:TargetTriggeringCard:"
 				},

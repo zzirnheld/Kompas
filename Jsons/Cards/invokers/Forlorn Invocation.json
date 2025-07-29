@@ -4,6 +4,7 @@
 	"effText": "Flashback.\nCast only adjacent to an Invoker.\n• INVOKE a NON-Spirit.",
 	"effects": [
 		{
+			"initialBlurb": "Invoke",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

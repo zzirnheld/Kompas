@@ -4,7 +4,7 @@
 	"effText": "IFICATE.\nThe first time each stack another card moves to a node here, teleport them to a corner. If you can't, annihilate me.",
 	"effects": [
 		{
-			"initialBlurb": "Yeeterate",
+			"initialBlurb": "YEETerate",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

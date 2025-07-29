@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nGive X enemy characters +1 EW. Gain X pips.",
 	"effects": [
 		{
+			"initialBlurb": "Gifts and gratitude",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

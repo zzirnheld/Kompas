@@ -4,6 +4,7 @@
 	"effText": "A friendly adjacent character attacks an enemy character adjacent to them.",
 	"effects": [
 		{
+			"initialBlurb": "Fight!",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

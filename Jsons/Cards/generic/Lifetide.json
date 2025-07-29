@@ -4,6 +4,7 @@
 	"effText": "When enemy turns start, give characters +1 E.\nWhen friendly turns start, give characters -1 E.",
 	"effects": [
 		{
+			"initialBlurb": "Lifetide rising",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {
@@ -24,6 +25,7 @@
 			]
 		},
 		{
+			"initialBlurb": "Lifetide falling",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {

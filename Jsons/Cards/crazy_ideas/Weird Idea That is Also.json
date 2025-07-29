@@ -4,6 +4,7 @@
 	"effText": "Also, [USES.0.Once] each turn, you can give me -1 E. Hand \u2192 discard 1 card. Also, give a character +1 W.",
 	"effects": [
 		{
+			"initialBlurb": "Also",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

@@ -4,7 +4,7 @@
 	"effText": "When you augment me, attach my Augments to an adjacent Avatar.",
 	"effects": [
 		{
-			"initialBlurb": "Slam Dunk!",
+			"initialBlurb": "Slam dunk!",
 			"triggerData": {
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {

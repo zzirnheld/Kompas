@@ -4,7 +4,7 @@
 	"effText": "The [USES.0.first] time each turn you hand \u2192 discard a Crazy Idea, play it.",
 	"effects": [
 		{
-			"initialBlurb": "Play discarded Crazy",
+			"initialBlurb": "We can use that!",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

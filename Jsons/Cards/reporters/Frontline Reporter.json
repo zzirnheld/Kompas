@@ -4,6 +4,7 @@
 	"effText": "When I'm summoned, an enemy can reveal a spell. If they don't, draw 2.",
 	"effects": [
 		{
+			"initialBlurb": "On the front lines of the wizard war",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -4,7 +4,7 @@
 	"effText": "When a friendly Cultist dies, annihilate me to deck \u2192 summon 2 Cultist Mooks.",
 	"effects": [
 		{
-			"initialBlurb": "Mad Bloodcurse",
+			"initialBlurb": "Silent blood madness",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

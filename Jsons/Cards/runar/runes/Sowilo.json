@@ -4,6 +4,7 @@
 	"effText": "RUNIC.\nGive an adjacent character -1 E. Give another +1 E. Draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Sunburst",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

@@ -1,9 +1,10 @@
 {
 	"cardType": 67,
 	"cardName": "Notcropoten",
-	"effText": "When friendly turns start, I pay X E. Annihilate your deck's top X cards. 1 turn later, hand them.",
+	"effText": "When friendly turns start, I pay X E (your choice). Annihilate your deck's top X cards. 1 turn later, hand them.",
 	"effects": [
 		{
+			"initialBlurb": "It's not \"Necropotence\"",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "During enemy turns, the first time each stack a friendly character here dies, draw 1 card.",
 	"effects": [
 		{
+			"initialBlurb": "Fodder recovery",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

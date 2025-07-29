@@ -4,6 +4,7 @@
 	"effText": "Speedemon.\nWhen I move to a node adjacent to another Speedemon, annihilate a card adjacent to the node I left.",
 	"effects": [
 		{
+			"initialBlurb": "the vacoomer",
 			"triggerData": {
 				"triggerCondition": "Move",
 				"triggerRestriction": {

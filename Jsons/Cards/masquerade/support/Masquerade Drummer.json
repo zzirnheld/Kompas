@@ -4,7 +4,7 @@
 	"effText": "When a Dancer attacks normally, then attack the same character a second time.",
 	"effects": [
 		{
-			"initialBlurb": "Drum Attack",
+			"initialBlurb": "Rhythmic repetition",
 			"triggerData": {
 				"triggerCondition": "Attack",
 				"triggerRestriction": {

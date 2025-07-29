@@ -4,6 +4,7 @@
 	"effText": "Runecast, and hand a copy of that Rune from your deck's top 10 cards.",
 	"effects": [
 		{
+			"initialBlurb": "Runecast and duplicate",
 			"activationRestriction": {
 				"$type": "Restrict.Players:ActivationRestriction:",
 				"elements": [ { "$type": "Restrict.Gamestate:MaxPerTurn:" } ]

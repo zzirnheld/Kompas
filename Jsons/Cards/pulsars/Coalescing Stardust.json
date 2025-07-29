@@ -33,7 +33,7 @@
 			]
 		},
 		{
-			"initialBlurb": "Coalesce Summon",
+			"initialBlurb": "Coalescent result",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

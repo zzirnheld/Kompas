@@ -4,7 +4,7 @@
 	"effText": "Endless.\nChoose a node adjacent to an Ethereal. Teleport a friendly Ethereal to that node, then kill them.",
 	"effects": [
 		{
-			"initialBlurb": "Simple",
+			"initialBlurb": "Endless shaping",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

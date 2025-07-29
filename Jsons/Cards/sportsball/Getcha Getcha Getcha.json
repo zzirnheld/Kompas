@@ -4,7 +4,7 @@
 	"effText": "COMEBACKPLAY.\nWhen you augment a character, give them +1 N.",
 	"effects": [
 		{
-			"initialBlurb": "Getcha Getcha Getcha",
+			"initialBlurb": "Getcha head in the game",
 			"triggerData": {
 				"triggerCondition": "Augmented",
 				"triggerRestriction": {

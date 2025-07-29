@@ -4,6 +4,7 @@
 	"effText": "Reveal a Mask. Pip deck \u2192 summon a Dancer.",
 	"effects": [
 		{
+			"initialBlurb": "Begin the masquerade",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

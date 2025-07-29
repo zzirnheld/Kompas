@@ -4,7 +4,7 @@
 	"effText": "Waterborn.\nWhen turns start, move a card in Water through nodes in Water to another empty node.",
 	"effects": [
 		{
-			"initialBlurb": "Sail",
+			"initialBlurb": "Sail!",
 			"triggerData": {
 				"triggerCondition": "Turn Start",
 				"triggerRestriction": { "$type": "Restrict.Gamestate:ThisCardInPlay:" }

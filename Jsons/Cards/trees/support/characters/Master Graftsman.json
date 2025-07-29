@@ -4,6 +4,7 @@
 	"effText": "When you summon another character, give them -3 E, but +1 NW.",
 	"effects": [
 		{
+			"initialBlurb": "Masterful graft",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

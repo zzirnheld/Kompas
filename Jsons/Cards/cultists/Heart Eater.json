@@ -4,7 +4,7 @@
 	"effText": "When a friendly character dies, give me +1 EW.",
 	"effects": [
 		{
-			"initialBlurb": "Eat Heart",
+			"initialBlurb": "Eat heart",
 			"triggerData": {
 				"triggerCondition": "Discard",
 				"triggerRestriction": {

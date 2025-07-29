@@ -50,14 +50,14 @@ generic/Ethereate
 generic/Empowering Binds
 generic/Growth Through Adversity
 generic/Leyeater
-generic/Greedy Jar
-generic/Very Greedy Jar
-generic/Do You Understand How Greedy This Jar Is
 generic/Tag
 
 generic/removal/Time Flies
 
 generic/cardDraw/Curiosity's Fruit
+generic/cardDraw/Greedy Jar
+generic/cardDraw/Very Greedy Jar
+generic/cardDraw/Do You Understand How Greedy This Jar Is
 
 aquatic/support/Changing Tides
 aquatic/support/Fishing
@@ -238,6 +238,7 @@ invokers/Novice Invocation
 invokers/Forlorn Invocation
 invokers/Peruser of Ancient Texts
 invokers/Spiritual Medium
+invokers/The Invocation Ripples
 
 invokers/spirits/A Lot of Disappointment
 invokers/spirits/Allconsuming Frustration
@@ -583,6 +584,7 @@ sportsball/Goal-Net Touchdown
 sportsball/Rocket-Propelled Ball
 sportsball/Overwhelming Ball Skills
 sportsball/Penalty Box
+sportsball/Red Card
 
 swordguild/guildmembers/Guild Armsmaster
 swordguild/guildmembers/Guild Pagemaster

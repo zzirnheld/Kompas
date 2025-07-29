@@ -4,7 +4,7 @@
 	"effText": "GOLEM.\nWhen I become active, negate a character within [my N] segments of me, until your next turn.",
 	"effects": [
 		{
-			"initialBlurb": "Fun Not Allowed",
+			"initialBlurb": "Freeze",
 			"triggerData": {
 				"triggerCondition": "Activate",
 				"triggerRestriction": {

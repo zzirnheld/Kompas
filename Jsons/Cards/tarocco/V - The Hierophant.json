@@ -4,6 +4,7 @@
 	"effText": "When you draw X cards, give me +X W.",
 	"effects": [
 		{
+			"initialBlurb": "Hierophant's conviction",
 			"triggerData": {
 				"triggerCondition": "Draw",
 				"triggerRestriction": {

@@ -4,6 +4,7 @@
 	"effText": "The [USES.0.first] time each turn you cast a Rune, deck \u2192 hand a Rune.",
 	"effects": [
 		{
+			"initialBlurb": "Consult the runestones",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {

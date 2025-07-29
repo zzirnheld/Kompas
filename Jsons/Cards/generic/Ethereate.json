@@ -4,6 +4,7 @@
 	"effText": "Revive an Ethereal, but annihilate them once the stack ends.",
 	"effects": [
 		{
+			"initialBlurb": "Ethereate",
 			"triggerData": {
 				"triggerCondition": "Play",
 				"triggerRestriction": {
