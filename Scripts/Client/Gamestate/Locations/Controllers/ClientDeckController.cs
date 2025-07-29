@@ -22,7 +22,7 @@ public partial class ClientDeckController : DeckController
 	public override void _Ready()
 	{
 		base._Ready();
-		CameraController.Arrived += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Arrived(); };
+		CameraController.StartedMovingTowards += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Arrived(); };
 		CameraController.Departed += (_, at) => { if (DeckModel.IsLocation(at.Location, at.Friendly)) Departed(); };
 		CardArranger.Close();
 	}
