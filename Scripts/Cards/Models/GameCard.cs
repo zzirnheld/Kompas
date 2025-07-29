@@ -11,6 +11,7 @@ using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Gamestate.Players;
+using Kompas.Server.Effects.Models.Subeffects;
 
 namespace Kompas.Cards.Models;
 
@@ -38,10 +39,14 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 		get => Negations > 0;
 		protected set
 		{
+			var was = Negated;
+
 			if (value) Negations++;
 			else Negations--;
 
 			foreach (var e in Effects) e.Negated = Negated;
+
+			if (was != Negated) NegationChanged?.Invoke(this, Negated);
 		}
 	}
 	public int Activations { get; private set; } = 0;
@@ -50,8 +55,12 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 		get => Activations > 0;
 		protected set
 		{
+			var was = Activated;
+
 			if (value) Activations++;
 			else Activations--;
+
+			if (was != Activated) ActivationChanged?.Invoke(this, Activated);
 		}
 	}
 
@@ -114,7 +123,6 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 			}
 		}
 	}
-	public event EventHandler<IReadOnlyCollection<GameCard>>? AugmentsChanged;
 	#endregion
 
 	#region effects
@@ -174,7 +182,10 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 
 	public GameCardLinksModel CardLinkHandler { get; private set; }
 
-	public EventHandler<Space?>? LocationChanged;
+	public event EventHandler<IReadOnlyCollection<GameCard>>? AugmentsChanged;
+	public event EventHandler<Space?>? LocationChanged;
+	public event EventHandler<bool>? NegationChanged;
+	public event EventHandler<bool>? ActivationChanged;
 
 	public override string ToString()
 	{

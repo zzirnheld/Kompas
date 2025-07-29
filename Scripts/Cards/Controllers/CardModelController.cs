@@ -25,4 +25,9 @@ public partial class CardModelController : Node3D
 	private Node3D? _cameraPosition;
 	public Node3D CameraPosition => _cameraPosition
 		?? throw new UnassignedReferenceException(nameof(_cameraPosition), this);
+
+	[Export]
+	private CardHighlightsController? _highlightsController;
+	public CardHighlightsController HighlightsController => _highlightsController
+		?? throw new UnassignedReferenceException(nameof(_highlightsController), this);
 }

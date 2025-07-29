@@ -24,8 +24,6 @@ public class ClientGameCard : GameCard
 		protected set
 		{
 			base.Location = value;
-			//TODO see if this ends up still being necessary
-			//ClientGame.clientUIController.Leyload = Game.Leyload;
 			if (CardController != null)
 			{
 				//CardController.gameCardViewController.Refresh();
@@ -67,16 +65,11 @@ public class ClientGameCard : GameCard
 		IPlayer owningPlayer, ClientEffect[] effects, ClientCardController cardController, bool isAvatar)
 		: base(serializedCard, id, owningPlayer, game.CardRepository)
 	{
-		//TODO: game should add card after creating it
-		//owner.Game.AddCard(this);
-
 		ClientCardController = cardController;
 		ClientGame = game;
 		ClientEffects = effects;
 
 		this.isAvatar = isAvatar;
-
-		//cardController.gameCardViewController.Focus(this);
 	}
 
 	/// <summary>

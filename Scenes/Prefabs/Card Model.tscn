@@ -1463,13 +1463,14 @@ content_margin_bottom = 1000.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vb4nl"]
 
-[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController", "_cameraPosition")]
+[node name="Card Model Controller" type="Node3D" node_paths=PackedStringArray("_infoDisplayer", "_mouseController", "_augmentsController", "_cameraPosition", "_highlightsController")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_7rrlp")
 _infoDisplayer = NodePath("Actual Card Model")
 _mouseController = NodePath("Mouse Controller")
 _augmentsController = NodePath("Augments Controller")
 _cameraPosition = NodePath("Actual Card Model/Camera Spot")
+_highlightsController = NodePath("Card Highlights")
 
 [node name="Actual Card Model" type="Node3D" parent="." node_paths=PackedStringArray("_zoomedOut", "_zoomedIn", "_validTargetParticles", "_currentTargetParticles", "_effectSourceParticles")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
@@ -1909,12 +1910,14 @@ _activated = NodePath("Activation Instance")
 
 [node name="Negation Instance" type="MeshInstance3D" parent="Card Highlights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_go8nt")
 mesh = SubResource("PlaneMesh_bldm3")
 skeleton = NodePath("../..")
 
 [node name="Activation Instance" type="MeshInstance3D" parent="Card Highlights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_yuelx")
 mesh = SubResource("PlaneMesh_bldm3")
 skeleton = NodePath("../..")

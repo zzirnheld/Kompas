@@ -80,6 +80,8 @@ public partial class ClientCardController : Node3D, ICardController
 
 			Card.LocationChanged += (_, _) => RefreshLocation();
 			Card.AugmentsChanged += (_, _) => RefreshAugments();
+			Card.NegationChanged += (_, negated) => RefreshNegated(negated);
+			Card.ActivationChanged += (_, activated) => RefreshActivated(activated);
 		}
 	}
 
@@ -115,6 +117,16 @@ public partial class ClientCardController : Node3D, ICardController
 
 		LocationRefreshed?.Invoke(this, Card);
 		AnythingRefreshed?.Invoke(this, Card);
+	}
+
+	public void RefreshNegated(bool negated)
+	{
+		CardModelController.HighlightsController.Negated = negated;
+	}
+
+	public void RefreshActivated(bool activated)
+	{
+		CardModelController.HighlightsController.Activated = activated;
 	}
 
 	/// <summary>
