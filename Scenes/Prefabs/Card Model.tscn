@@ -1,4 +1,4 @@
-[gd_scene load_steps=162 format=4 uid="uid://dq50o17h7ceai"]
+[gd_scene load_steps=168 format=4 uid="uid://dq50o17h7ceai"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardModelController.cs" id="1_7rrlp"]
 [ext_resource type="Script" path="res://Scripts/Cards/Views/Zoomable3DCardInfoDisplayer.cs" id="1_8duf6"]
@@ -17,8 +17,11 @@
 [ext_resource type="Material" uid="uid://calq4naeva2a3" path="res://Materials/Card/Valid Target Particle Material.tres" id="13_iacg7"]
 [ext_resource type="Script" path="res://Scripts/Shared/Controllers/Area3DAroundViewportQuad.cs" id="13_pifky"]
 [ext_resource type="Material" uid="uid://cc1en2llxpysy" path="res://Materials/Card/Current Target Particle Material.tres" id="14_stomg"]
+[ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardHighlightsController.cs" id="15_kmsu2"]
+[ext_resource type="Texture2D" uid="uid://dk6l0u1yw6a65" path="res://Icons/Card Stuff/Negated.png" id="15_veipw"]
 [ext_resource type="Script" path="res://Scripts/Cards/Controllers/CardAugmentsController.cs" id="16_jvvs6"]
 [ext_resource type="Material" uid="uid://ckjf6i0tnoluy" path="res://Materials/Card/Current Effect Source Particle Material.tres" id="16_m765c"]
+[ext_resource type="Texture2D" uid="uid://wtp30kdy3e66" path="res://Icons/Card Stuff/Activated.png" id="16_vf4sv"]
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkRichTextOnOverrun.cs" id="20_ptlga"]
 [ext_resource type="Theme" uid="uid://wumnx7jekv63" path="res://Themes/Standard Theme.tres" id="21_4pvxp"]
 [ext_resource type="Script" path="res://Scripts/UI/Text Behavior/ShrinkOnOverrun.cs" id="22_mk8mh"]
@@ -1421,6 +1424,18 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_w3jxq")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go8nt"]
+transparency = 1
+albedo_color = Color(1, 0.2495, 0.21, 0.313726)
+albedo_texture = ExtResource("15_veipw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bldm3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yuelx"]
+transparency = 1
+albedo_color = Color(0.3008, 0.87608, 0.94, 0.458824)
+albedo_texture = ExtResource("16_vf4sv")
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sttby"]
 height = 0.1
 radius = 1.0
@@ -1886,6 +1901,23 @@ visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Actual Card Model/Camera Spot/Camera3D"]
 layers = 3
+
+[node name="Card Highlights" type="Node3D" parent="." node_paths=PackedStringArray("_negated", "_activated")]
+script = ExtResource("15_kmsu2")
+_negated = NodePath("Negation Instance")
+_activated = NodePath("Activation Instance")
+
+[node name="Negation Instance" type="MeshInstance3D" parent="Card Highlights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = SubResource("StandardMaterial3D_go8nt")
+mesh = SubResource("PlaneMesh_bldm3")
+skeleton = NodePath("../..")
+
+[node name="Activation Instance" type="MeshInstance3D" parent="Card Highlights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = SubResource("StandardMaterial3D_yuelx")
+mesh = SubResource("PlaneMesh_bldm3")
+skeleton = NodePath("../..")
 
 [node name="Mouse Controller" type="Area3D" parent="."]
 script = ExtResource("12_fpypf")
