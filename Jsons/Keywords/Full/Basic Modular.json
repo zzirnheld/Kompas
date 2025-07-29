@@ -1,4 +1,5 @@
 {
+	"initialBlurb": "Basic Modular",
 	"triggerData": {
 		"triggerCondition": "Play",
 		"triggerRestriction": {
