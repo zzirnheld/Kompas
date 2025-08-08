@@ -50,13 +50,13 @@ public static class IncompleteEventContextExtensions
 	public static IEventContext CacheAfterEvent(this IIncompleteEventContext incomplete) => new EventContext(incomplete.TriggeringEvent)
 	{
 		MainCardBefore = incomplete.MainCardBefore,
-		MainCardAfter = incomplete.MainCardBefore?.Now(),
+		MainCardAfter = incomplete.MainCardBefore?.SnapshotNow(),
 
 		SecondaryCardBefore = incomplete.SecondaryCardBefore,
-		SecondaryCardAfter = incomplete.SecondaryCardBefore?.Now(),
+		SecondaryCardAfter = incomplete.SecondaryCardBefore?.SnapshotNow(),
 
 		CauseCardBefore = incomplete.CauseCardBefore,
-		CauseCardAfter = incomplete.CauseCardBefore?.Now(),
+		CauseCardAfter = incomplete.CauseCardBefore?.SnapshotNow(),
 
 		StackableEvent = incomplete.StackableEvent,
 		StackableCause = incomplete.StackableCause,

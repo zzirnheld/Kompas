@@ -25,7 +25,6 @@
 					"blurb": "spell for Mannaz to search (to hand)",
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
-						"constant": 10,
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Friendly:" },

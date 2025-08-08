@@ -34,14 +34,14 @@ public class EventContextBuilder
 
 	public EventContextBuilder PrimarilyAffecting(IGameCardInfo card)
 	{
-		MainCardBefore = card;
+		MainCardBefore = card.SnapshotNow();
 		DetermineCauseCard();
 		return this;
 	}
 
 	public EventContextBuilder SecondarilyAffecting(IGameCardInfo card)
 	{
-		SecondaryCardBefore = card;
+		SecondaryCardBefore = card.SnapshotNow();
 		return this;
 	}
 

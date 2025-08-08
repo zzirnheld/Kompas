@@ -37,7 +37,9 @@ public class Name : CardRestrictionBase
 
 public class DistinctName : CardRestrictionBase
 {
+	[JsonProperty]
 	public IIdentity<IGameCardInfo> from = new Identities.Cards.ThisCardNow();
+	[JsonProperty]
 	public IIdentity<IReadOnlyCollection<IGameCardInfo>>? cards;
 
 	public override void Initialize(InitializationContext initializationContext)

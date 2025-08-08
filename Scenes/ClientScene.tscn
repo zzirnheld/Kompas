@@ -264,10 +264,9 @@ _cardPrefab = ExtResource("2_q0mge")
 _playerControllers = [NodePath("Node/3D/Friendly Player"), NodePath("Node/3D/Enemy Player")]
 _boardController = NodePath("Node/3D/Board")
 
-[node name="Targeting Controller" type="Node" parent="." node_paths=PackedStringArray("_topLeftInfoDisplayer", "_reminderTextPopup", "_gameController", "_canDeclineFurtherTargetsButton", "_spacesController")]
+[node name="Targeting Controller" type="Node" parent="." node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton", "_spacesController")]
 script = ExtResource("2_cdbal")
 _topLeftInfoDisplayer = NodePath("../Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control")
-_reminderTextPopup = NodePath("")
 _gameController = NodePath("..")
 _canDeclineFurtherTargetsButton = NodePath("../Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button")
 _spacesController = NodePath("../Node/3D/Board/Spaces")

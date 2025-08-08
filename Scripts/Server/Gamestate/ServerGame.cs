@@ -44,7 +44,7 @@ public interface IServerGame : IGame
 
 public class ServerGame : IServerGame
 {
-	public const int MinDeckSize = 49;
+	public const int MinDeckSize = 48; //excluding avatar
 	public const int AvatarEBonus = 15;
 
 	public bool Debug => DebugMode;

@@ -13,7 +13,7 @@ namespace Kompas.Cards.Models;
 
 public static class GameCardInfoExtensions
 {
-	public static IGameCardInfo Now(this IGameCardInfo card) => GameCardInfo.CardInfoOf(card.Card);
+	public static IGameCardInfo SnapshotNow(this IGameCardInfo card) => GameCardInfo.CardInfoOf(card.Card);
 }
 
 /// <summary>

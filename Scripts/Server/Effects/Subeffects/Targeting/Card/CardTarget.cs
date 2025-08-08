@@ -69,10 +69,11 @@ public class CardTarget : ServerSubeffect
 
 	protected IReadOnlyCollection<GameCard> DeterminePossibleTargets(IResolutionContext context)
 	{
-		var possibleTargets = from card in toSearch.From(context, context)
-								where cardRestriction.IsValid(card, context)
-								select card.Card;
-		return possibleTargets.ToArray();
+		return toSearch.From(context, context)
+			?.Where(card => cardRestriction.IsValid(card, context))
+			.Select(card => card.Card)
+			.ToArray()
+			?? Array.Empty<GameCard>();
 	}
 
 	protected virtual Task<ResolutionInfo> NoPossibleTargets(IServerResolutionContext context)
