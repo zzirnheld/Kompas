@@ -39,7 +39,7 @@ public abstract class OwnedLocationModel : ILocationModel
 	/// </summary>
 	public void Add(GameCard card, int? index = null, IStackable? stackableCause = null)
 	{
-		Logger.Log($"Trying to {Location} {card}");
+		Logger.Log($"Trying to {Location} {card} because of {stackableCause}");
 		if (card == null) throw new NullCardException($"Cannot add null card to {Location}");
 		if (!AllowAlreadyHereWhenAdd && this == card.LocationModel) throw new AlreadyHereException(Location);
 

@@ -20,6 +20,7 @@ public class LoopWhileHaveTargets : Loop
 	{
 		base.Initialize(eff, subeffIndex);
 		leaveRemainingTargets ??= new Kompas.Effects.Models.Identities.Numbers.Constant() { constant = remainingTargets };
+		leaveRemainingTargets.Initialize(DefaultInitializationContext);
 	}
 
 	protected override bool LoopContinuation(ServerEffectResolution resolution)

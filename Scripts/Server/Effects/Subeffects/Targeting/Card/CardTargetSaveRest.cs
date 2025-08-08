@@ -33,20 +33,27 @@ public class CardTargetSaveRest : CardTarget
 
 	protected override Task<ResolutionInfo> NoPossibleTargets(IServerResolutionContext context)
 	{
-		_ = restRestriction ?? throw new NotInitializedException();
-		var rest = ServerGame.Cards.Where(c => restRestriction.IsValid(c, context));
-		context.AddRest(rest);
+		AddRestTo(context);
 		return base.NoPossibleTargets(context);
 	}
 
 	protected override void AddList(IEnumerable<GameCard> choices, ServerEffectResolution resolution)
 	{
-		_ = restRestriction ?? throw new NotInitializedException();
 		base.AddList(choices, resolution);
-		var rest = (toSearch.From(resolution.Context, resolution.Context)
-			?.Where(c => restRestriction.IsValid(c, resolution.Context) && !choices.Contains(c))
-			.Select(c => c.Card))
+		AddRestTo(resolution.Context, where: cardInfo => !choices.Contains(cardInfo));
+	}
+
+	private void AddRestTo(IServerResolutionContext context, Func<IGameCardInfo, bool>? where = null)
+	{
+		_ = restRestriction ?? throw new NotInitializedException();
+		where ??= cardInfo => true;
+
+		var cardsToSearch = toSearch.From(context, context)
 			?? throw new InvalidOperationException();
-		resolution.Context.AddRest(rest);
+		var rest = cardsToSearch
+			.Where(cardInfo => restRestriction.IsValid(cardInfo, context))
+			.Where(where)
+			.Select(cardInfo => cardInfo.Card);
+		context.AddRest(rest);
 	}
 }
