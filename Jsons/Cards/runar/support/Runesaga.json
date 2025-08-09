@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Runesaga",
-	"effText": "MUST be cast normally.\nGive a Runar summon +25 ESW, then hand-cast any number of spells. (Yes, seriously, for free.)",
+	"effText": "MUST be cast normally.\nGive a Runar +25 ESW, then hand-cast any number of spells. (Yes, seriously, for free.)",
 	"effects": [
 		{
 			"initialBlurb": "Tell your saga",
@@ -22,7 +22,6 @@
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
 							{ "$type": "Restrict.Cards:Character:" },
-							{ "$type": "Restrict.Cards:Summoned:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Runar" ]

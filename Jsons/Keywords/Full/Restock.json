@@ -3,6 +3,7 @@
     "triggerData": {
         "triggerCondition": "Discard",
         "triggerRestriction": {
+			"$type": "Restrict.Triggering:AllOf:",
             "elements": [
                 {
                     "$type": "Restrict.Gamestate:CardsMatch:",

@@ -37,6 +37,6 @@
 	"subtypes": [
 		"Radial"
 	],
-	"subtypeText": "Rune Radius",
+	"subtypeText": "Radius",
 	"radius": 1
 }

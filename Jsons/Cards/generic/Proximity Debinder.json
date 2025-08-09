@@ -42,6 +42,6 @@
 		}
 	],
 	"PlayRestriction": { "$type": "Restrict.Play:PlayRestriction:", "playAsAugment": true },
-	"a": 5,
+	"a": 3,
 	"subtypeText": "Explosive"
 }

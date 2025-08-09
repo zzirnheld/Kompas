@@ -367,34 +367,6 @@ modular/support/Modular Experimenter
 modular/support/Modular Modules
 modular/support/Modular Reconstruction
 
-orcs/smiters/freebies/Glimmer of Hope
-orcs/smiters/freebies/Unassuming Bush
-
-orcs/smiters/Roth Avenger
-orcs/smiters/Roth'Drek Crusader
-orcs/smiters/Roth'Ka Inquisitor
-
-orcs/spies/support/Bind the Blood
-orcs/spies/support/Bind the Shadows
-orcs/spies/support/Clever Decoy
-orcs/spies/support/Escape Route
-orcs/spies/support/Misplaced Supplies
-orcs/spies/support/Nothing to Hide
-
-orcs/spies/Raven Scout
-orcs/spies/Roth Agent
-orcs/spies/Roth Assassin
-orcs/spies/Roth'Drek Phantom
-orcs/spies/Roth'Ka Spymaster
-
-orcs/Alkorath'Kil, Fury in the Blood
-orcs/Malgonir'Kil, Secrets in the Shadows
-orcs/Roth Guerilla
-orcs/Roth Warrior
-orcs/Roth'Drek Champion
-orcs/Roth'Kil Blood Acolyte
-orcs/Roth'Kil Shadow Acolyte
-
 pulsars/Accelerating Pulsar
 pulsars/Boldening Pulsar
 pulsars/Cannot Be Created Nor Destroyed
