@@ -12,7 +12,6 @@ _effectBlurbLabel = NodePath("Label")
 
 [node name="Primary Card" type="TextureRect" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("1_yoypf")
 expand_mode = 2
 stretch_mode = 4
@@ -20,14 +19,14 @@ stretch_mode = 4
 [node name="Control" type="Control" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.05
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.9
 text = "Effect Label"
-autowrap_mode = 2
+text_overrun_behavior = 3
 
 [node name="Secondary Card" type="TextureRect" parent="."]
 visible = false
