@@ -13,30 +13,25 @@ _secondaryCardImage = NodePath("Secondary Card")
 
 [node name="Primary Card" type="TextureRect" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("1_7y8c6")
 expand_mode = 2
 stretch_mode = 4
 
 [node name="Attack Icon" type="TextureRect" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("2_3p4fy")
 expand_mode = 2
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Attacks"
-autowrap_mode = 2
 
 [node name="Secondary Card" type="TextureRect" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("1_7y8c6")
-expand_mode = 4
+expand_mode = 2
 stretch_mode = 4
 
 [node name="Control" type="Control" parent="."]

@@ -19,7 +19,7 @@ stretch_mode = 4
 [node name="Control" type="Control" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.05
+size_flags_stretch_ratio = 0.1
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -31,6 +31,6 @@ text_overrun_behavior = 3
 [node name="Secondary Card" type="TextureRect" parent="."]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("1_yoypf")
-expand_mode = 4
+expand_mode = 2
+stretch_mode = 4

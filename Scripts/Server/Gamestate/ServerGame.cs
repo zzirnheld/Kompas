@@ -350,9 +350,6 @@ public class ServerGame : IServerGame
 		var resolutionContext = new ServerResolutionContext(eventContext, instigator, attack.InitialBlurb);
 		var attackResolution = new ServerAttackResolution(attack, resolutionContext, StackController);
 		StackController.PushToStack(attackResolution);
-		//check for triggers related to the attack (if this were in the constructor, the triggers would go on the stack under the attack
-		//TODO: now with the IServerStackableResolution interface, move Declare into PushToStack?
-		attackResolution.Declare();
 		if (manual) attacker.AttacksThisTurn++;
 		return attack;
 	}
