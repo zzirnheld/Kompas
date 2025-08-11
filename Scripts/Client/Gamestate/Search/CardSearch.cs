@@ -59,7 +59,7 @@ public class CardSearch : ISearch
 	}
 
 	protected CardSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
-		IGame game, ClientTargetingController targetingController, ClientNotifier clientNotifier)
+		IGame game, ClientNotifier clientNotifier)
 	{
 		this.toSearch = toSearch.ToArray();
 		Array.Sort(this.toSearch);
@@ -72,13 +72,13 @@ public class CardSearch : ISearch
 	}
 
 	public static CardSearch? Create(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
-		IGame game, ClientTargetingController targetingController, ClientNotifier notifier)
+		IGame game, ClientNotifier notifier)
 	{
 		//if the list is empty, don't search
 		if (!toSearch.Any()) return null;
 
 		Logger.Log($"Searching a list of {toSearch.Count()} cards: {string.Join(",", toSearch.Select(c => c.CardName))}");
-		return new(toSearch, listRestriction, game, targetingController, notifier);
+		return new(toSearch, listRestriction, game, notifier);
 	}
 
 	public void Select(Space space) => Logger.Log("Selecting a space while searching for a card does nothing");

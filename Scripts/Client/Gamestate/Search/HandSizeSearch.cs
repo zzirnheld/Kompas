@@ -10,8 +10,8 @@ namespace Kompas.Client.Gamestate.Search;
 public class HandSizeSearch : CardSearch
 {
 	public HandSizeSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
-		IGame game, ClientTargetingController targetingController, ClientNotifier clientNotifier)
-		: base(toSearch, listRestriction, game, targetingController, clientNotifier)
+		IGame game, ClientNotifier clientNotifier)
+		: base(toSearch, listRestriction, game, clientNotifier)
 	{ }
 
 	protected override void SendChoices(IList<GameCard> choices)

@@ -189,7 +189,7 @@ public partial class ClientTargetingController : Node
 	{
 		var targets = potentialTargetIDs.Select(GameController.Game.LookupCardByID).NonNull();
 		var search = CardSearch.Create(targets, listRestriction,
-			GameController.Game, this, GameController.Notifier);
+			GameController.Game, GameController.Notifier);
 
 		if (search == null)
 		{
@@ -206,7 +206,7 @@ public partial class ClientTargetingController : Node
 	public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
 	{
 		var search = new HandSizeSearch(cardIDs.Select(GameController.Game.LookupCardByID).NonNull(), listRestriction,
-			GameController.Game, this, GameController.Notifier);
+			GameController.Game, GameController.Notifier);
 
 		StartSearch(search);
 		GameController.CurrentStateController.ShowCurrentStateInfo($"Reshuffle down to hand size");
