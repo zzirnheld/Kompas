@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=77 format=4 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -57,6 +57,7 @@
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="37_8517u"]
 [ext_resource type="PackedScene" uid="uid://ctrmi7srh8d5d" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="48_3yctp"]
+[ext_resource type="Script" path="res://Scripts/PID.cs" id="58_wgpfv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ols17"]
 
@@ -1976,6 +1977,13 @@ alignment = 0
 
 [node name="Escape Menu" parent="Node/UI" instance=ExtResource("48_3yctp")]
 layout_mode = 1
+
+[node name="Label" type="Label" parent="Node/UI"]
+layout_mode = 0
+offset_right = 213.0
+offset_bottom = 23.0
+text = "PID: "
+script = ExtResource("58_wgpfv")
 
 [connection signal="pressed" from="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button" to="Targeting Controller" method="DeclineFurtherTargets"]
 [connection signal="pressed" from="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/End Turn Button" to="Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/End Turn Button" method="EndTurn"]

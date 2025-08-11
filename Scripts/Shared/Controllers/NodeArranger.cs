@@ -12,4 +12,6 @@ public abstract partial class NodeArranger : Node3D
 
 	public abstract void Open();
 	public abstract void Close();
+
+	public abstract bool IsOpen { get; }
 }

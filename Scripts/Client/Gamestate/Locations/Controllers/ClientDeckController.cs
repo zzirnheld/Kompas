@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Kompas.Client.UI;
@@ -24,6 +26,8 @@ public partial class ClientDeckController : DeckController
 	private ClientTargetingController TargetingController => _targetingController
 		?? throw new UnassignedReferenceException(nameof(_targetingController), this);
 
+	private ISet<int> lastArrangedCards = new HashSet<int>();
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -32,17 +36,28 @@ public partial class ClientDeckController : DeckController
 		CardArranger.Close();
 	}
 
-	private void Arrived() => CardArranger.Open();
+	private void Arrived()
+	{
+		CardArranger.Open();
+		Refresh();
+	}
 
 	private void Departed() => CardArranger.Close();
 
 	protected override void SpreadOut()
 	{
-		var cards = DeckModel.Cards;
-		if (TargetingController.Searching()) cards = cards.Where(TargetingController.IsBeingSearched);
-		var toShow = cards
+		if (!CardArranger.IsOpen) return;
+
+		var cardsToArrange = DeckModel.Cards;
+		if (TargetingController.Searching()) cardsToArrange = cardsToArrange.Where(TargetingController.IsBeingSearched).ToArray();
+
+		var cardsToArrangeSet = new HashSet<int>(cardsToArrange.Select(card => card.ID));
+		if (lastArrangedCards.SetEquals(cardsToArrangeSet)) return;
+
+		lastArrangedCards = cardsToArrangeSet;
+		var nodesToArrange = cardsToArrange
 			.Select(c => c.CardController.Node)
 			.ToArray();
-		CardArranger.Arrange(toShow);
+		CardArranger.Arrange(nodesToArrange);
 	}
 }

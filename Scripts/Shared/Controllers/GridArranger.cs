@@ -47,6 +47,9 @@ public partial class GridArranger : NodeArranger
 	private int columns;
 	private float objectSize;
 
+	private bool isOpen = false;
+	public override bool IsOpen => isOpen;
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -80,12 +83,14 @@ public partial class GridArranger : NodeArranger
 
 	public override void Open()
 	{
+		isOpen = true;
 		AnimationPlayer.Play(OpenAnimationName);
 		AnimationPlayer.Queue(WhileOpenAnimationName);
 	}
 
 	public override void Close()
 	{
+		isOpen = false;
 		AnimationPlayer.Play(CloseAnimationName);
 	}
 }
