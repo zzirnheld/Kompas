@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Dagaz",
-	"effText": "RUNIC.\nWhen you cast another Rune, gain 1 pip.",
+	"effText": "RUNIC.\nWhen you cast another Runic spell, gain 1 pip.",
 	"effects": [
 		{
 			"initialBlurb": "Daybreak sunrays",
@@ -28,7 +28,7 @@
 									},
 									{
 										"$type": "Restrict.Cards:Subtypes:",
-										"subtypes": [ "Rune" ]
+										"subtypes": [ "Runic" ]
 									}
 								]
 							}
@@ -54,10 +54,7 @@
 	"spellTypes": [
 		"Vanishing"
 	],
-	"subtypes": [
-		"Rune",
-		"Vanishing"
-	],
-	"subtypeText": "Rune",
+	"subtypes": [ "Runic" ],
+	"subtypeText": "Vanishing 1 Runic",
 	"duration": 1
 }

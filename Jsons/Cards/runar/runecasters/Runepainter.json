@@ -20,7 +20,7 @@
 							{ "$type": "Restrict.Cards:Spell:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
@@ -74,7 +74,7 @@
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",

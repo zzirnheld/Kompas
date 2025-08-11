@@ -39,10 +39,7 @@
 	"spellTypes": [
 		"Radial"
 	],
-	"subtypes": [
-		"Rune",
-		"Radial"
-	],
-	"subtypeText": "Rune Radius",
+	"subtypes": [ "Runic" ],
+	"subtypeText": "Runic Radial 1",
 	"radius": 1
 }

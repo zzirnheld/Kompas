@@ -17,7 +17,7 @@
 						"cards": { "$type": "Identify.ManyCards:Discard:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:Subtypes:",
-							"subtypes": [ "Rune" ]
+							"subtypes": [ "Runic" ]
 						}
 					}
 				},
@@ -31,7 +31,7 @@
 							{ "$type": "Restrict.Cards:Spell:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							},
 							{ "$type": "Restrict.Cards:CanPlay:" },
 							{
@@ -63,7 +63,7 @@
 						"elements": [
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							}
 						]
 					},

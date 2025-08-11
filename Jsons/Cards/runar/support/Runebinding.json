@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Runebinding",
-	"effText": "The [USES.0.first] time each turn you cast a Rune, deck \u2192 hand a Mage.",
+	"effText": "The [USES.0.first] time each turn you cast a Runic spell, deck \u2192 hand a Mage.",
 	"effects": [
 		{
 			"initialBlurb": "Bind men to runes",
@@ -23,7 +23,7 @@
 									{ "$type": "Restrict.Cards:Spell:" },
 									{
 										"$type": "Restrict.Cards:Subtypes:",
-										"subtypes": [ "Rune" ]
+										"subtypes": [ "Runic" ]
 									}
 								]
 							}

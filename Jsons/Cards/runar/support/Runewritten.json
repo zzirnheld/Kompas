@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Runewritten",
-	"effText": "When you cast a Rune, give me +1 EW.",
+	"effText": "When you cast a Runic spell, give me +1 EW.",
 	"effects": [
 		{
 			"initialBlurb": "So it is written",
@@ -27,7 +27,7 @@
 									{ "$type": "Restrict.Cards:Spell:" },
 									{
 										"$type": "Restrict.Cards:Subtypes:",
-										"subtypes": [ "Rune" ]
+										"subtypes": [ "Runic" ]
 									}
 								]
 							}

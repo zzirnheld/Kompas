@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Runestones",
-	"effText": "The [USES.0.first] time each turn you cast a Rune, deck \u2192 hand a Rune.",
+	"effText": "The [USES.0.first] time each turn you cast a Runic spell, deck \u2192 hand another.",
 	"effects": [
 		{
 			"initialBlurb": "Consult the runestones",
@@ -23,7 +23,7 @@
 									{ "$type": "Restrict.Cards:Spell:" },
 									{
 										"$type": "Restrict.Cards:Subtypes:",
-										"subtypes": [ "Rune" ]
+										"subtypes": [ "Runic" ]
 									}
 								]
 							}
@@ -38,7 +38,7 @@
 					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:Subtypes:",
-						"subtypes": [ "Rune" ]
+						"subtypes": [ "Runic" ]
 					}
 				},
 				{

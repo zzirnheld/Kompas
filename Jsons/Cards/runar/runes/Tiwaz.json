@@ -53,14 +53,9 @@
 	},
 	"c": 1,
 	"spellTypes": [
-		"Enchant",
 		"Radial"
 	],
-	"subtypes": [
-		"Rune",
-		"Enchant",
-		"Radial"
-	],
-	"subtypeText": "Rune Enchant",
+	"subtypes": [ "Runic" ],
+	"subtypeText": "Runic Radial 1",
 	"radius": 1
 }

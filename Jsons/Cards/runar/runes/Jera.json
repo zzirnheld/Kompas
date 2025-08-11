@@ -37,9 +37,6 @@
 	"spellTypes": [
 		"Simple"
 	],
-	"subtypes": [
-		"Rune",
-		"Simple"
-	],
-	"subtypeText": "Rune Simple"
+	"subtypes": [ "Runic" ],
+	"subtypeText": "Runic Simple"
 }

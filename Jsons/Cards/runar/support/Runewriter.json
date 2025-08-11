@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Runewriter",
-	"effText": "[USES.0.Once] each turn, you can hand \u2192 , field \u2192 , or discard \u2192 reshuffle a Rune to hand a Runar from your deck's top 10 cards.",
+	"effText": "[USES.0.Once] each turn, you can hand \u2192 , field \u2192 , or discard \u2192 reshuffle a Runic spell to hand a Runar from your deck's top 10 cards.",
 	"effects": [
 		{
 			"initialBlurb": "Inscribe rune",
@@ -23,7 +23,7 @@
 							},
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							}
 						]
 					},

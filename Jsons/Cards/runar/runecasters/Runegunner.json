@@ -20,7 +20,7 @@
 							{ "$type": "Restrict.Cards:Spell:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							},
 							{ "$type": "Restrict.Cards:CanPlay:" }
 						]

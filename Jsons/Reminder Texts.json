@@ -149,7 +149,7 @@
 		},
 		{
 			"keyword": "Runecast",
-			"reminder": "[USES.0.Once] each turn, you can pip hand \u2192 cast a Rune."
+			"reminder": "Once each turn, you can pip hand \u2192 cast a Runic spell."
 		},
 		{
 			"keyword": "Rummage",

@@ -25,7 +25,7 @@
 							{ "$type": "Restrict.Cards:DistinctName:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
@@ -78,9 +78,6 @@
 	"spellTypes": [
 		"Simple"
 	],
-	"subtypes": [
-		"Rune",
-		"Simple"
-	],
-	"subtypeText": "Rune Simple"
+	"subtypes": [ "Runic" ],
+	"subtypeText": "Runic Simple"
 }

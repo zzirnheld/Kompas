@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Runespeaker",
-	"effText": "Runecast, and deck \u2192 hand a different Rune from your deck's top 10 cards.",
+	"effText": "Runecast, and deck \u2192 hand a distinct Runic spell from your deck's top 10 cards.",
 	"effects": [
 		{
 			"initialBlurb": "Runecast and iterate",
@@ -20,7 +20,7 @@
 							{ "$type": "Restrict.Cards:Spell:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
@@ -74,7 +74,7 @@
 							{ "$type": "Restrict.Cards:Friendly:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
-								"subtypes": [ "Rune" ]
+								"subtypes": [ "Runic" ]
 							},
 							{
 								"$type": "Restrict.Cards:CardValueFits:",
