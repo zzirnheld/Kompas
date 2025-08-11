@@ -26,6 +26,7 @@ public class SpaceSearch : ISearch
 
 	public bool IsCurrentTarget(GameCard card) => false;
 	public bool IsValidTarget(GameCard card) => false;
+	public bool IsBeingSearched(GameCard card) => false;
 
 	public void Select(GameCard card)
 	{

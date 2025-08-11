@@ -47,6 +47,8 @@ public class CardTarget : ServerSubeffect
 	[JsonProperty]
 	public Color linkColor = CardLink.DefaultColor; // "r": #, "g" ... etc
 
+	//TODO: should these be moved to CurrentResolutionContext?
+	protected IReadOnlyCollection<int>? stashedToSearchIDs;
 	protected IReadOnlyCollection<GameCard>? stashedPotentialTargets;
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
@@ -67,24 +69,33 @@ public class CardTarget : ServerSubeffect
 		listRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
 	}
 
-	protected IReadOnlyCollection<GameCard> DeterminePossibleTargets(IResolutionContext context)
+	protected (IReadOnlyCollection<int> toSearchIDs, IReadOnlyCollection<GameCard> validTargets)
+		DeterminePossibleTargets(IResolutionContext context)
 	{
-		return toSearch.From(context, context)
-			?.Where(card => cardRestriction.IsValid(card, context))
-			.Select(card => card.Card)
-			.ToArray()
+		var cardInfosToSearch = toSearch.From(context, context)
 			?? Array.Empty<GameCard>();
+		var validTargets = cardInfosToSearch
+			.Where(card => cardRestriction.IsValid(card, context))
+			.Select(card => card.Card)
+			.ToArray();
+		var toSearchIDs = cardInfosToSearch
+			.Select(c => c.Card.ID)
+			.ToArray();
+		return (toSearchIDs, validTargets);
 	}
 
 	protected virtual Task<ResolutionInfo> NoPossibleTargets(IServerResolutionContext context)
 		=> Task.FromResult(ResolutionInfo.Impossible(NoValidCardTarget));
 
-	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
-		=> !listRestriction.AllowsValidChoice(DeterminePossibleTargets(context), context);
+	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
+	{
+		var (_, validTargets) = DeterminePossibleTargets(context);
+		return !listRestriction.AllowsValidChoice(validTargets, context);
+	}
 
 	public override async Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		stashedPotentialTargets = DeterminePossibleTargets(resolution.Context);
+		(stashedToSearchIDs, stashedPotentialTargets) = DeterminePossibleTargets(resolution.Context);
 		//if there's no possible valid combo, throw effect impossible
 		if (!listRestriction.AllowsValidChoice(stashedPotentialTargets, resolution.Context))
 		{
@@ -117,13 +128,16 @@ public class CardTarget : ServerSubeffect
 	protected async Task<IEnumerable<GameCard>?> RequestTargets(IServerResolutionContext context)
 	{
 		string name = Effect.Card.CardName;
+
 		_ = stashedPotentialTargets ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");
+		_ = stashedToSearchIDs ?? throw new InvalidOperationException("Tried to add list of targets before asking for targets!");
+
 		int[] targetIds = stashedPotentialTargets.Select(c => c.ID).ToArray();
 		Logger.Log($"Potential targets {string.Join(", ", targetIds)}");
 		listRestriction.PrepareForSending(context);
 
 		var player = GetPlayerTarget(context) ?? throw new InvalidOperationException("Tried to send targets to noone!");
-		return await ServerGame.Awaiter.GetCardListTargets(player, name, blurb, targetIds, listRestriction);
+		return await ServerGame.Awaiter.GetCardListTargets(player, name, blurb, targetIds, listRestriction, stashedToSearchIDs.ToArray());
 	}
 
 	public bool AddListIfLegal(IEnumerable<GameCard>? choices, ServerEffectResolution resolution)

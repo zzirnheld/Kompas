@@ -11,6 +11,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Server.Effects.Models.Subeffects;
 using Kompas.Shared.Enumerable;
 using Kompas.Shared.Exceptions;
@@ -34,6 +35,10 @@ public partial class ClientTargetingController : Node
 	[Export]
 	private SpacesController? _spacesController;
 	public SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
+	[Export]
+	private DeckController[]? _deckControllers;
+	private DeckController[] DeckControllers => _deckControllers
+		?? throw new UnassignedReferenceException(nameof(_deckControllers), this);
 
 	private ClientTopLeftCameraView? _topLeftCardView;
 	public ClientTopLeftCameraView TopLeftCardView => _topLeftCardView ?? throw new NotReadyYetException();
@@ -53,6 +58,7 @@ public partial class ClientTargetingController : Node
 	{
 		foreach (var card in GameController.Game.Cards) card.CardController.RefreshTargeting();
 		TopLeftCardView.Refresh();
+		foreach (var ctrl in DeckControllers) ctrl.Refresh();
 	}
 
 	private void StartSearch(ISearch newSearch)
@@ -185,10 +191,10 @@ public partial class ClientTargetingController : Node
 		if (ShownCard == card) TopLeftCardView.Hover(null);
 	}
 
-	public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, string targetBlurb)
+	public void StartCardSearch(IEnumerable<int> potentialTargetIDs, IListRestriction listRestriction, IEnumerable<int> toSearchIDs, string targetBlurb)
 	{
 		var targets = potentialTargetIDs.Select(GameController.Game.LookupCardByID).NonNull();
-		var search = CardSearch.Create(targets, listRestriction,
+		var search = CardSearch.Create(targets, listRestriction, toSearchIDs,
 			GameController.Game, GameController.Notifier);
 
 		if (search == null)
@@ -236,6 +242,7 @@ public partial class ClientTargetingController : Node
 	public bool IsValidTarget(GameCard card) => currentSearch?.IsValidTarget(card) ?? false;
 	public bool IsSelectedTarget(GameCard card) => currentSearch?.IsCurrentTarget(card) ?? false;
 	public bool IsUnselectedValidTarget(GameCard card) => IsValidTarget(card) && !IsSelectedTarget(card);
+	public bool IsBeingSearched(GameCard card) => currentSearch?.IsBeingSearched(card) ?? false;
 
 	public void ShowCanDoHighlights(GameCard? card)
 	{

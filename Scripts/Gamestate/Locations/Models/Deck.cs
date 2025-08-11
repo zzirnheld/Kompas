@@ -69,7 +69,7 @@ public abstract class Deck : OwnedLocationModel
 			throw new CardNotHereException(Location, card, $"Couldn't remove {card.CardName} from deck, it wasn't in deck!");
 
 		deck.Remove(card);
-		deckController.Refresh();
+		deckController.Refresh(); //TODO don't refresh if removing from deck so can go to deck
 	}
 
 	//misc

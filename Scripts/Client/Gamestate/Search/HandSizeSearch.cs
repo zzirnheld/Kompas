@@ -11,7 +11,7 @@ public class HandSizeSearch : CardSearch
 {
 	public HandSizeSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
 		IGame game, ClientNotifier clientNotifier)
-		: base(toSearch, listRestriction, game, clientNotifier)
+		: base(toSearch, listRestriction, toSearch.Select(c => c.ID), game, clientNotifier)
 	{ }
 
 	protected override void SendChoices(IList<GameCard> choices)

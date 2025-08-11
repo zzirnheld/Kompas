@@ -15,9 +15,10 @@ namespace Kompas.Client.Gamestate.Search;
 /// </summary>
 public class CardSearch : ISearch
 {
-	public readonly GameCard[] toSearch;
+	public readonly GameCard[] validTargets;
 	public readonly IListRestriction listRestriction;
-	public readonly IList<GameCard> searched = new List<GameCard>();
+	public readonly ISet<int> toSearchIDs;
+	public readonly IList<GameCard> currentTargets = new List<GameCard>();
 
 	private readonly IGame game;
 	protected readonly ClientNotifier clientNotifier;
@@ -33,19 +34,19 @@ public class CardSearch : ISearch
 	/// Whether the list restriction of this search data determines that enough cards have <b>already</b> been searched 
 	/// that the search can end before the maximum possible number of cards have been searched.
 	/// </summary>
-	public bool HaveEnough => listRestriction?.HaveEnough(searched.Count) ?? false;
+	public bool HaveEnough => listRestriction?.HaveEnough(currentTargets.Count) ?? false;
 
 	/// <summary>
 	/// Whether any cards currently able to be searched can't currently be seen and clicked on.
 	/// </summary>
-	private bool AnyToSearchNotVisible => toSearch.Any(c => c.InHiddenLocation && !c.KnownToEnemy); //TODO confirm this instead of "visible"
+	private bool AnyToSearchNotVisible => validTargets.Any(c => c.InHiddenLocation && !c.KnownToEnemy); //TODO confirm this instead of "visible"
 	public bool ShouldShowSearchUI => AnyToSearchNotVisible || HaveEnough || listRestriction.GetStashedMaximum() == int.MaxValue;
 
 	public string SearchProgress
 	{
 		get
 		{
-			int numSearched = searched.Count;
+			int numSearched = currentTargets.Count;
 			int min = listRestriction?.GetStashedMinimum() ?? 0;
 			int max = listRestriction?.GetStashedMaximum() ?? 0;
 
@@ -58,27 +59,27 @@ public class CardSearch : ISearch
 		}
 	}
 
-	protected CardSearch(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+	protected CardSearch(IEnumerable<GameCard> validTargets, IListRestriction listRestriction, IEnumerable<int> toSearchIDs,
 		IGame game, ClientNotifier clientNotifier)
 	{
-		this.toSearch = toSearch.ToArray();
-		Array.Sort(this.toSearch);
+		this.validTargets = validTargets.ToArray();
 		this.listRestriction = listRestriction;
+		this.toSearchIDs = new HashSet<int>(toSearchIDs);
 
 		this.game = game;
 		this.clientNotifier = clientNotifier;
 
-		SearchedLocations = toSearch.Select(c => (c.Location, c.ControllingPlayer.Friendly)).Distinct().ToArray();
+		SearchedLocations = validTargets.Select(c => (c.Location, c.ControllingPlayer.Friendly)).Distinct().ToArray();
 	}
 
-	public static CardSearch? Create(IEnumerable<GameCard> toSearch, IListRestriction listRestriction,
+	public static CardSearch? Create(IEnumerable<GameCard> validTargets, IListRestriction listRestriction, IEnumerable<int> toSearchIDs,
 		IGame game, ClientNotifier notifier)
 	{
 		//if the list is empty, don't search
-		if (!toSearch.Any()) return null;
+		if (!validTargets.Any()) return null;
 
-		Logger.Log($"Searching a list of {toSearch.Count()} cards: {string.Join(",", toSearch.Select(c => c.CardName))}");
-		return new(toSearch, listRestriction, game, notifier);
+		Logger.Log($"Searching a list of {validTargets.Count()} cards: {string.Join(",", validTargets.Select(c => c.CardName))}, from {string.Join(",", toSearchIDs)}");
+		return new(validTargets, listRestriction, toSearchIDs, game, notifier);
 	}
 
 	public void Select(Space space) => Logger.Log("Selecting a space while searching for a card does nothing");
@@ -91,7 +92,7 @@ public class CardSearch : ISearch
 	public void Select(GameCard nextTarget)
 	{
 		//if it's already selected, deselect it
-		if (searched.Contains(nextTarget)) RemoveTarget(nextTarget);
+		if (currentTargets.Contains(nextTarget)) RemoveTarget(nextTarget);
 		//otherwise, deselect
 		else AddTarget(nextTarget);
 	}
@@ -105,26 +106,26 @@ public class CardSearch : ISearch
 		Logger.Log($"Tried to add {nextTarget} as next target");
 
 		//check if the target is a valid potential target
-		if (!toSearch.Contains(nextTarget))
+		if (!validTargets.Contains(nextTarget))
 		{
 			Logger.Err($"Tried to target card {nextTarget.CardName} that isn't a valid target");
 			return;
 		}
 
-		if (listRestriction.Deduplicate(searched).Count()
-			== listRestriction.Deduplicate(searched.Append(nextTarget)).Count())
+		if (listRestriction.Deduplicate(currentTargets).Count()
+			== listRestriction.Deduplicate(currentTargets.Append(nextTarget)).Count())
 		{
-			Logger.Err($"Allowed user to target non-distinct card {nextTarget} when they had already seen {string.Join(",", searched.Select(c => c.CardName))}");
+			Logger.Err($"Allowed user to target non-distinct card {nextTarget} when they had already seen {string.Join(",", currentTargets.Select(c => c.CardName))}");
 			return;
 		}
 
-		searched.Add(nextTarget);
+		currentTargets.Add(nextTarget);
 		//TODO make be handled by card view controller
 		// Debug.Log($"Added {nextTarget.CardName}, targets are now {string.Join(",", CurrSearchData.Value.searched.Select(c => c.CardName))}");
 
 		if (listRestriction == null) SendTargets();
 		//if we were given a maximum number to be searched, and hit that number, no reason to keep asking
-		else if (searched.Count == listRestriction.GetStashedMaximum()) SendTargets();
+		else if (currentTargets.Count == listRestriction.GetStashedMaximum()) SendTargets();
 
 		nextTarget.CardController.RefreshTargeting();
 	}
@@ -132,7 +133,7 @@ public class CardSearch : ISearch
 	public void RemoveTarget(GameCard target)
 	{
 		Logger.Log($"Tried to remove {target} as next target");
-		searched.Remove(target);
+		currentTargets.Remove(target);
 		target.CardController.RefreshTargeting();
 	}
 
@@ -145,14 +146,14 @@ public class CardSearch : ISearch
 			return;
 		}
 
-		SendTargets(searched);
+		SendTargets(currentTargets);
 	}
 
-	private void SendTargets(IList<GameCard> choices)
+	private void SendTargets(IList<GameCard> targets)
 	{
-		Logger.Log($"Sending targets {string.Join(",", choices.Select(c => c.CardName))} ");
+		Logger.Log($"Sending targets {string.Join(",", targets.Select(c => c.CardName))} ");
 
-		SendChoices(choices);
+		SendChoices(targets);
 		foreach (var card in game.Cards) card.CardController.RefreshTargeting();
 		SearchFinished?.Invoke(this, EventArgs.Empty);
 	}
@@ -160,8 +161,9 @@ public class CardSearch : ISearch
 	protected virtual void SendChoices(IList<GameCard> choices)
 		=> clientNotifier.RequestListChoices(choices);
 
-	public bool IsValidTarget(GameCard card) => toSearch.Contains(card);
-	public bool IsCurrentTarget(GameCard card) => searched.Contains(card);
+	public bool IsValidTarget(GameCard card) => validTargets.Contains(card);
+	public bool IsCurrentTarget(GameCard card) => currentTargets.Contains(card);
+	public bool IsBeingSearched(GameCard card) => toSearchIDs.Contains(card.ID);
 
 	public bool IsRecommendedTarget(Space space) => false;
 	public bool IsUnrecommendedTarget(Space space) => false;

@@ -264,12 +264,13 @@ _cardPrefab = ExtResource("2_q0mge")
 _playerControllers = [NodePath("Node/3D/Friendly Player"), NodePath("Node/3D/Enemy Player")]
 _boardController = NodePath("Node/3D/Board")
 
-[node name="Targeting Controller" type="Node" parent="." node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton", "_spacesController")]
+[node name="Targeting Controller" type="Node" parent="." node_paths=PackedStringArray("_topLeftInfoDisplayer", "_gameController", "_canDeclineFurtherTargetsButton", "_spacesController", "_deckControllers")]
 script = ExtResource("2_cdbal")
 _topLeftInfoDisplayer = NodePath("../Node/UI/Main Game UI/HBoxContainer/Left Pane/MarginContainer/Card Info VBox/Control")
 _gameController = NodePath("..")
 _canDeclineFurtherTargetsButton = NodePath("../Node/UI/Main Game UI/HBoxContainer/Right Pane (Current State)/VBoxContainer/Spacer/VBoxContainer/No Further Targets Button")
 _spacesController = NodePath("../Node/3D/Board/Spaces")
+_deckControllers = [NodePath("../Node/3D/Friendly Player/Friendly Deck"), NodePath("../Node/3D/Enemy Player/Enemy Deck")]
 
 [node name="Node" type="Node" parent="."]
 
@@ -1006,11 +1007,12 @@ _rightBound = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Control
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Friendly Deck" type="Node3D" parent="Node/3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Friendly Deck" type="Node3D" parent="Node/3D/Friendly Player" node_paths=PackedStringArray("_cardArranger", "_cameraController", "_targetingController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0, 0.185)
 script = ExtResource("9_u740w")
 _cardArranger = NodePath("Spiral Parent/F Deck Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
+_targetingController = NodePath("../../../../Targeting Controller")
 
 [node name="Spiral Parent" type="Node3D" parent="Node/3D/Friendly Player/Friendly Deck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0, 0.31)
@@ -1071,11 +1073,12 @@ transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("8_4q2k2")
 
-[node name="Enemy Deck" type="Node3D" parent="Node/3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController")]
+[node name="Enemy Deck" type="Node3D" parent="Node/3D/Enemy Player" node_paths=PackedStringArray("_cardArranger", "_cameraController", "_targetingController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185, 0, -0.185)
 script = ExtResource("9_u740w")
 _cardArranger = NodePath("Spiral Parent/E Deck Spiral Card Area")
 _cameraController = NodePath("../../Engine Stuff/Camera Over Board/Main Camera Controller")
+_targetingController = NodePath("../../../../Targeting Controller")
 
 [node name="Enemy Deck Camera Position" type="Node3D" parent="Node/3D/Enemy Player/Enemy Deck"]
 transform = Transform3D(0.996195, 0.0871557, 0, -0.00456138, 0.0521368, 0.99863, 0.0870363, -0.994829, 0.052336, 0, 1, -0.35)

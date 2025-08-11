@@ -11,15 +11,17 @@ namespace Kompas.Networking.Packets
 		public string? targetBlurb;
 		public int[]? potentialTargetIDs;
 		public IListRestriction? listRestriction;
+		public int[]? toSearchIDs;
 
 		public GetCardTargetPacket() : base(GetCardTarget) { }
 
-		public GetCardTargetPacket(string sourceCardName, string targetBlurb, int[] potentialTargetIDs, IListRestriction listRestriction) : this()
+		public GetCardTargetPacket(string sourceCardName, string targetBlurb, int[] potentialTargetIDs, IListRestriction listRestriction, int[] toSearchIDs) : this()
 		{
 			this.sourceCardName = sourceCardName;
 			this.targetBlurb = targetBlurb;
 			this.potentialTargetIDs = potentialTargetIDs;
 			this.listRestriction = listRestriction;
+			this.toSearchIDs = toSearchIDs;
 		}
 
 		public override Packet Copy() => new GetCardTargetPacket()
@@ -38,7 +40,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			if (sourceCardName == null || targetBlurb == null || potentialTargetIDs == null)
+			if (sourceCardName == null || targetBlurb == null || potentialTargetIDs == null || toSearchIDs == null)
 			{
 				Logger.Err("Nulls for card target client packet");
 				return;
@@ -46,7 +48,7 @@ namespace Kompas.Client.Networking
 			IListRestriction listRestriction = this.listRestriction ?? IListRestriction.SingleElement;
 			listRestriction.Initialize(new InitializationContext(game: clientGame, source: default));
 
-			clientGame.ClientGameController.TargetingController.StartCardSearch(potentialTargetIDs, listRestriction, targetBlurb);
+			clientGame.ClientGameController.TargetingController.StartCardSearch(potentialTargetIDs, listRestriction, toSearchIDs, targetBlurb);
 		}
 	}
 }

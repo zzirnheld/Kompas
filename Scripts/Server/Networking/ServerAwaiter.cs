@@ -139,9 +139,9 @@ public class ServerAwaiter
 	/// <returns>The cards the person chose and false if they chose targets;<br></br>
 	/// null and true if they declined to choose targets</returns>
 	public async Task<IEnumerable<GameCard>?> GetCardListTargets
-		(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, IListRestriction listRestriction)
+		(IPlayer toAsk, string sourceCardName, string blurb, int[] ids, IListRestriction listRestriction, int[] toSearchIDs)
 	{
-		ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestriction);
+		ServerNotifier.GetCardTarget(toAsk, sourceCardName, blurb, ids, listRestriction, toSearchIDs);
 		while (true)
 		{
 			if (CardListTargets != null)

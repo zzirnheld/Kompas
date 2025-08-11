@@ -60,6 +60,7 @@ public partial class GridArranger : NodeArranger
 
 	public override void Arrange(IReadOnlyCollection<Node3D> nodes)
 	{
+		NodeParent.RemoveChildren();
 		int col = 0;
 		int row = 0;
 		foreach (var (index, node) in nodes.Enumerate())

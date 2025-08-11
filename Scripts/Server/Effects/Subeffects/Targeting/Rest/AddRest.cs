@@ -7,7 +7,8 @@ public class AddRestSubeffect : CardTarget
 {
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		resolution.Context.AddRest(DeterminePossibleTargets(resolution.Context));
+		var (_, targets) = DeterminePossibleTargets(resolution.Context);
+		resolution.Context.AddRest(targets);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }

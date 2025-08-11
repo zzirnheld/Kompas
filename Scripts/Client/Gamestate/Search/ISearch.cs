@@ -17,6 +17,7 @@ public interface ISearch
 
 	public bool IsValidTarget(GameCard card);
 	public bool IsCurrentTarget(GameCard card);
+	public bool IsBeingSearched(GameCard card);
 
 	/// <summary>
 	/// Is a valid target, and recommended.

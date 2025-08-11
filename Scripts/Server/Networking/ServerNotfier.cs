@@ -159,8 +159,8 @@ public static class ServerNotifier
 	#endregion card stats
 
 	#region request targets
-	public static void GetCardTarget(IPlayer player, string cardName, string targetBlurb, int[] ids, IListRestriction listRestriction)
-		=> SendPacket(player, new GetCardTargetPacket(cardName, targetBlurb, ids, listRestriction));
+	public static void GetCardTarget(IPlayer player, string cardName, string targetBlurb, int[] ids, IListRestriction listRestriction, int[] toSearchIDs)
+		=> SendPacket(player, new GetCardTargetPacket(cardName, targetBlurb, ids, listRestriction, toSearchIDs));
 
 	public static void GetSpaceTarget(IPlayer player, string cardName, string targetBlurb, Space[] spaces, Space[] recommendedSpaces)
 		=> SendPacket(player, new GetSpaceTargetPacket(cardName, targetBlurb, spaces, recommendedSpaces));

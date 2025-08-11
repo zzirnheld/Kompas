@@ -12,7 +12,7 @@
 			"subeffects": [
 				{
 					"$type": "Subeffect:CardTarget:",
-					"blurb": "Rune for Runespeaker to cast",
+					"blurb": "Rune to speak",
 					"toSearch": { "$type": "Identify.ManyCards:Hand:" },
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
@@ -40,7 +40,7 @@
 				},
 				{
 					"$type": "Subeffect:SpaceTarget:",
-					"blurb": "where for Runespeaker to cast its target Rune",
+					"blurb": "where to speak the Rune",
 					"spaceRestriction": {
 						"$type": "Restrict.Spaces:AllOf:",
 						"elements": [
@@ -67,23 +67,25 @@
 				{
 					"$type": "Subeffect:CardTargetSaveRest:",
 					"blurb": "Rune for Runespeaker to search (to hand)",
-					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
+					"toSearch": {
+						"$type": "Identify.ManyCards:Restricted:",
+						"cards": { "$type": "Identify.ManyCards:Deck:" },
+						"cardRestriction": {
+							"$type": "Restrict.Cards:CardValueFits:",
+							"cardValue": { "value": "Index" },
+							"numberRestriction": {
+								"$type": "Restrict.Numbers:Compare:",
+								"comparison": { "$type": "Relationships.Numbers:LessThan:" },
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
+							}
+						}
+					},
 					"cardRestriction": {
 						"$type": "Restrict.Cards:AllOf:",
 						"elements": [
-							{ "$type": "Restrict.Cards:Friendly:" },
 							{
 								"$type": "Restrict.Cards:Subtypes:",
 								"subtypes": [ "Runic" ]
-							},
-							{
-								"$type": "Restrict.Cards:CardValueFits:",
-								"cardValue": { "value": "Index" },
-								"numberRestriction": {
-									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
-									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
-								}
 							},
 							{
 								"$type": "Restrict.Cards:DistinctName:",
@@ -92,23 +94,8 @@
 						]
 					},
 					"restRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-						"elements": [
-							{ "$type": "Restrict.Cards:Friendly:" },
-							{
-								"$type": "Restrict.Cards:CardValueFits:",
-								"cardValue": { "value": "Index" },
-								"numberRestriction": {
-									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
-									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
-								}
-							},
-							{
-								"$type": "Restrict.Cards:Not:",
-								"negated": { "$type": "Restrict.Cards:Target:" }
-							}
-						]
+						"$type": "Restrict.Cards:Not:",
+						"negated": { "$type": "Restrict.Cards:Target:" }
 					}
 				},
 				{

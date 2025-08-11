@@ -42,6 +42,19 @@ public static class NodeExtensions
 		}
 	}
 
+	/// <summary>
+	/// Removes each of the parent node's children from the children list.
+	/// Does NOT queue the children for freeing - use when you want the nodes to persist
+	/// </summary>
+	/// <param name="parent"></param>
+	public static void RemoveChildren(this Node parent)
+	{
+		foreach (var child in parent.GetChildren().ToArray())
+		{
+			parent.RemoveChild(child);
+		}
+	}
+
 	public static Vector2 GlobalCenter(this Control node)
 	{
 		return node.GlobalPosition + (node.Size / 2);

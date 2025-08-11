@@ -23,41 +23,23 @@
 				{
 					"$type": "Subeffect:CardTargetSaveRest:",
 					"blurb": "spell for Perthro to search (to hand)",
-					"toSearch": { "$type": "Identify.ManyCards:Deck:" },
-					"cardRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-						"elements": [
-							{ "$type": "Restrict.Cards:Friendly:" },
-							{ "$type": "Restrict.Cards:Spell:" },
-							{
-								"$type": "Restrict.Cards:CardValueFits:",
-								"cardValue": { "value": "Index" },
-								"numberRestriction": {
-									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
-									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
-								}
+					"toSearch": {
+						"$type": "Identify.ManyCards:Restricted:",
+						"cards": { "$type": "Identify.ManyCards:Deck:" },
+						"cardRestriction": {
+							"$type": "Restrict.Cards:CardValueFits:",
+							"cardValue": { "value": "Index" },
+							"numberRestriction": {
+								"$type": "Restrict.Numbers:Compare:",
+								"comparison": { "$type": "Relationships.Numbers:LessThan:" },
+								"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
 							}
-						]
+						}
 					},
+					"cardRestriction": { "$type": "Restrict.Cards:Spell:" },
 					"restRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-						"elements": [
-							{ "$type": "Restrict.Cards:Friendly:" },
-							{
-								"$type": "Restrict.Cards:CardValueFits:",
-								"cardValue": { "value": "Index" },
-								"numberRestriction": {
-									"$type": "Restrict.Numbers:Compare:",
-									"comparison": { "$type": "Relationships.Numbers:LessThan:" },
-									"other": { "$type": "Identify.Numbers:Constant:", "constant": 10 }
-								}
-							},
-							{
-								"$type": "Restrict.Cards:Not:",
-								"negated": { "$type": "Restrict.Cards:Target:" }
-							}
-						]
+						"$type": "Restrict.Cards:Not:",
+						"negated": { "$type": "Restrict.Cards:Target:" }
 					},
 					"listRestriction": {
 						"$type": "Restrict.ManyCards:Maximum:",

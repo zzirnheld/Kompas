@@ -12,12 +12,17 @@ public partial class ClientDeckController : DeckController
 	[Export]
 	private GridArranger? _cardArranger;
 	private GridArranger CardArranger => _cardArranger
-		?? throw new UnassignedReferenceException();
+		?? throw new UnassignedReferenceException(nameof(_cardArranger), this);
 
 	[Export]
 	private ClientCameraController? _cameraController;
 	private ClientCameraController CameraController => _cameraController
-		?? throw new UnassignedReferenceException();
+		?? throw new UnassignedReferenceException(nameof(_cameraController), this);
+
+	[Export]
+	private ClientTargetingController? _targetingController;
+	private ClientTargetingController TargetingController => _targetingController
+		?? throw new UnassignedReferenceException(nameof(_targetingController), this);
 
 	public override void _Ready()
 	{
@@ -33,6 +38,11 @@ public partial class ClientDeckController : DeckController
 
 	protected override void SpreadOut()
 	{
-		CardArranger.Arrange(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
+		var cards = DeckModel.Cards;
+		if (TargetingController.Searching()) cards = cards.Where(TargetingController.IsBeingSearched);
+		var toShow = cards
+			.Select(c => c.CardController.Node)
+			.ToArray();
+		CardArranger.Arrange(toShow);
 	}
 }
