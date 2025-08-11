@@ -172,8 +172,14 @@
 			"reminder": "3 attacks each turn."
 		},
 		{
+			"keywordRegex": "UNDYING",
 			"keyword": "Undying",
 			"reminder": "1 turn after I die, revive me where I died."
+		},
+		{
+			"keywordRegex": "ENDLESS",
+			"keyword": "Endless",
+			"reminder": "1 turn after I'm board->discarded, play me where I was."
 		},
 		{
 			"keyword": "Soullink",

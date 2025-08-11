@@ -32,7 +32,7 @@
 		{
 			"$type":"Subeffect:Hanging.Delay:",
 			"numTimesToDelay": 0,
-			"jumpIndices": [ 1 ],
+			"jumpIndices": [ 3 ],
 			"endCondition": "Turn Start"
 		},
 		{

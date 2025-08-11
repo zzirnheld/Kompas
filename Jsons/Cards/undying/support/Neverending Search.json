@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Neverending Search",
-	"effText": "Endless.\nRummage. Revive, then kill, a character.",
+	"effText": "ENDLESS.\nRummage. Revive, then kill, a character.",
 	"effects": [
 		{
 			"initialBlurb": "Search without end",

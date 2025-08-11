@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Addictive Haemomancy",
-	"effText": "Endless.\nTribute a character. Gain 1 pip.",
+	"effText": "ENDLESS.\nTribute a character. Gain 1 pip.",
 	"effects": [
 		{
 			"initialBlurb": "Haemomancy",

@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Paleshade Harvester",
-	"effText": "Undying.\nWhen I'm revived, gain 1 pip.",
+	"effText": "UNDYING.\nWhen I'm revived, gain 1 pip.",
 	"effects": [
 		{
 			"initialBlurb": "Harvest",

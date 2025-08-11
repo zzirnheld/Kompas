@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Gravetaleteller",
-	"effText": "Undying.\nWhen I'm revived, draw 1 card.",
+	"effText": "UNDYING.\nWhen I'm revived, draw 1 card.",
 	"effects": [
 		{
 			"initialBlurb": "Taletell",

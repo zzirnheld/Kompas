@@ -1,7 +1,7 @@
 {
 	"cardType": 67,
 	"cardName": "Revivant Spirit",
-	"effText": "Undying.\nYou can pip revive me.",
+	"effText": "UNDYING.\nYou can pip revive me.",
 	"effects": [
 		{
 			"initialBlurb": "Revive",

@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Addictive Augury",
-	"effText": "Endless.\nTribute an S X character. Draw X cards.",
+	"effText": "ENDLESS.\nTribute an S X character. Draw X cards.",
 	"effects": [
 		{
 			"initialBlurb": "Augury",

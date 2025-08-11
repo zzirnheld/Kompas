@@ -1,7 +1,7 @@
 {
 	"cardType": 83,
 	"cardName": "Circle of Life",
-	"effText": "Endless.\nTribute a character. Revive a character that costs less. ",
+	"effText": "ENDLESS.\nTribute a character. Revive a character that costs less. ",
 	"effects": [
 		{
 			"initialBlurb": "Circular revival",
