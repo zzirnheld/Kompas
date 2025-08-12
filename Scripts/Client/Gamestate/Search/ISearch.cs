@@ -30,4 +30,18 @@ public interface ISearch
 	///</summary>
 	public bool IsUnrecommendedTarget(Space space);
 	public bool IsCurrentTarget(Space space);
+
+	/// <summary>
+	/// If the search has sufficient targets,
+	/// sends that list of targets.
+	/// This will only happen if the minimum number of targets
+	/// is strictly less than the maximum,
+	/// and the player has already selected enough targets.
+	/// </summary>
+	/// <returns>
+	/// <see langword="true"/> if the search had a minimum,
+	/// and had enough cards to send the given choices.
+	/// <see langword="false"/> otherwise.
+	/// </returns>
+	public bool SendIfHaveEnough();
 }

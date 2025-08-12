@@ -49,4 +49,6 @@ public class SpaceSearch : ISearch
 	public bool IsUnrecommendedTarget(Space space) => validSpaces.Contains(space) && !recommendedSpaces.Contains(space);
 
 	public bool IsCurrentTarget(Space space) => false;
+	
+	public bool SendIfHaveEnough() => false;
 }

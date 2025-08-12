@@ -28,19 +28,16 @@ public class CardSearch : ISearch
 	/// </summary>
 	public event EventHandler? SearchFinished;
 
+	/// <summary>
+	/// Triggered when the following changes: <br/>
+	/// Whether the search has enough cards that the player may decline further targets,
+	/// but not so many that we hit the maximum.
+	/// </summary>
+	public event EventHandler<bool>? HaveEnoughChanged;
+
+	public bool HaveEnough => currentTargets.Count >= listRestriction.GetStashedMinimum();
+
 	public IReadOnlyCollection<(Location, bool)> SearchedLocations { get; }
-
-	/// <summary>
-	/// Whether the list restriction of this search data determines that enough cards have <b>already</b> been searched 
-	/// that the search can end before the maximum possible number of cards have been searched.
-	/// </summary>
-	public bool HaveEnough => listRestriction?.HaveEnough(currentTargets.Count) ?? false;
-
-	/// <summary>
-	/// Whether any cards currently able to be searched can't currently be seen and clicked on.
-	/// </summary>
-	private bool AnyToSearchNotVisible => validTargets.Any(c => c.InHiddenLocation && !c.KnownToEnemy); //TODO confirm this instead of "visible"
-	public bool ShouldShowSearchUI => AnyToSearchNotVisible || HaveEnough || listRestriction.GetStashedMaximum() == int.MaxValue;
 
 	public string SearchProgress
 	{
@@ -78,7 +75,8 @@ public class CardSearch : ISearch
 		//if the list is empty, don't search
 		if (!validTargets.Any()) return null;
 
-		Logger.Log($"Searching a list of {validTargets.Count()} cards: {string.Join(",", validTargets.Select(c => c.CardName))}, from {string.Join(",", toSearchIDs)}");
+		Logger.Log($"Searching a list of {validTargets.Count()} cards: {string.Join(",", validTargets.Select(c => c.CardName))}, from {string.Join(",", toSearchIDs)}."
+			+ $"Min of {listRestriction.GetStashedMinimum()}, max of {listRestriction.GetStashedMaximum()}");
 		return new(validTargets, listRestriction, toSearchIDs, game, notifier);
 	}
 
@@ -104,6 +102,7 @@ public class CardSearch : ISearch
 	private void AddTarget(GameCard nextTarget)
 	{
 		Logger.Log($"Tried to add {nextTarget} as next target");
+		var hadEnough = HaveEnough;
 
 		//check if the target is a valid potential target
 		if (!validTargets.Contains(nextTarget))
@@ -126,15 +125,30 @@ public class CardSearch : ISearch
 		if (listRestriction == null) SendTargets();
 		//if we were given a maximum number to be searched, and hit that number, no reason to keep asking
 		else if (currentTargets.Count == listRestriction.GetStashedMaximum()) SendTargets();
+		else if (!hadEnough && HaveEnough) HaveEnoughChanged?.Invoke(this, true);
 
 		nextTarget.CardController.RefreshTargeting();
 	}
 
 	public void RemoveTarget(GameCard target)
 	{
+		var hadEnough = HaveEnough;
 		Logger.Log($"Tried to remove {target} as next target");
 		currentTargets.Remove(target);
 		target.CardController.RefreshTargeting();
+
+		if (hadEnough && !HaveEnough) HaveEnoughChanged?.Invoke(this, false);
+	}
+
+	public bool SendIfHaveEnough()
+	{
+		if (HaveEnough)
+		{
+			SendTargets();
+			return true;
+		}
+
+		return false;
 	}
 
 	public void SendTargets(bool confirmed = false)

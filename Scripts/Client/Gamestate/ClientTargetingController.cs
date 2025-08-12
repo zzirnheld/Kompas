@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -22,22 +23,32 @@ public partial class ClientTargetingController : Node
 {
 	[Export]
 	private ClientTopLeftCameraDisplayer? _topLeftInfoDisplayer;
-	private ClientTopLeftCameraDisplayer TopLeftInfoDisplayer => _topLeftInfoDisplayer ?? throw new UnassignedReferenceException();
+	private ClientTopLeftCameraDisplayer TopLeftInfoDisplayer
+		=> _topLeftInfoDisplayer ?? throw new UnassignedReferenceException(nameof(_topLeftInfoDisplayer), this);
+
 	[Export]
 	private ReminderTextPopup? _reminderTextPopup;
-	private ReminderTextPopup ReminderTextPopup => _reminderTextPopup ?? throw new UnassignedReferenceException();
+	private ReminderTextPopup ReminderTextPopup
+		=> _reminderTextPopup ?? throw new UnassignedReferenceException(nameof(_reminderTextPopup), this);
+
 	[Export]
 	private ClientGameController? _gameController;
-	private ClientGameController GameController => _gameController ?? throw new UnassignedReferenceException();
+	private ClientGameController GameController
+		=> _gameController ?? throw new UnassignedReferenceException(nameof(_gameController), this);
+
 	[Export]
 	private Control? _canDeclineFurtherTargetsButton;
-	private Control CanDeclineFurtherTargetsButton => _canDeclineFurtherTargetsButton ?? throw new UnassignedReferenceException();
+	private Control CanDeclineFurtherTargetsButton
+		=> _canDeclineFurtherTargetsButton ?? throw new UnassignedReferenceException(nameof(_canDeclineFurtherTargetsButton), this);
+
 	[Export]
 	private SpacesController? _spacesController;
-	public SpacesController SpacesController => _spacesController ?? throw new UnassignedReferenceException();
+	public SpacesController SpacesController
+		=> _spacesController ?? throw new UnassignedReferenceException(nameof(_spacesController), this);
+
 	[Export]
 	private DeckController[]? _deckControllers;
-	private DeckController[] DeckControllers => _deckControllers
+	public DeckController[] DeckControllers => _deckControllers
 		?? throw new UnassignedReferenceException(nameof(_deckControllers), this);
 
 	private ClientTopLeftCameraView? _topLeftCardView;
@@ -74,6 +85,7 @@ public partial class ClientTargetingController : Node
 		}
 	}
 
+	private void EndSearch(object? _o, EventArgs _e) => EndSearch();
 	private void EndSearch()
 	{
 		currentSearch = null;
@@ -89,7 +101,6 @@ public partial class ClientTargetingController : Node
 	public override void _Ready()
 	{
 		base._Ready();
-		if (TopLeftInfoDisplayer == null) throw new System.NullReferenceException("Forgot to init");
 		_topLeftCardView = new(TopLeftInfoDisplayer);
 		TopLeftCardView.FocusChange += (_, change) =>
 		{
@@ -137,13 +148,17 @@ public partial class ClientTargetingController : Node
 		if (!doubleClick) return;
 
 		Logger.Log($"Selecting {space}");
-		if (currentSearch == null)
+		if (currentSearch != null)
 		{
-			var notifier = SelectedCard?.ClientGame.ClientGameController.Notifier;
-			if (SelectedCard?.Location == Location.Board) notifier?.RequestMove(SelectedCard, space.x, space.y);
-			if (SelectedCard?.Location == Location.Hand) notifier?.RequestPlay(SelectedCard, space.x, space.y);
+			currentSearch.Select(space);
+			return;
 		}
-		else currentSearch.Select(space);
+
+		if (SelectedCard is null) return;
+
+		var notifier = SelectedCard.ClientGame.ClientGameController.Notifier;
+		if (SelectedCard.Location == Location.Board) notifier.RequestMove(SelectedCard, space.x, space.y);
+		if (SelectedCard.Location == Location.Hand) notifier.RequestPlay(SelectedCard, space.x, space.y);
 	}
 
 	/// <summary>
@@ -168,20 +183,29 @@ public partial class ClientTargetingController : Node
 	/// </summary>
 	public void SuperSelect(ClientGameCard card)
 	{
-		var notifier = LastSelectedCard?.ClientGame.ClientGameController.Notifier;
 		if (currentSearch != null) currentSearch.Select(card);
-		else if (LastSelectedCard?.Location == Location.Board
-			 && card.Location == Location.Board)
-			notifier?.RequestAttack(LastSelectedCard, card);
-		else if (LastSelectedCard?.Location == Location.Hand
-			 && card.Location == Location.Board
-			 && LastSelectedCard?.CardType == 'A')
-		{
-			_ = card.Position ?? throw new NullSpaceOnBoardException(card);
-			notifier?.RequestPlay(LastSelectedCard, card.Position.x, card.Position.y);
-		}
+		else if (card.Location == Location.Board) SuperSelectOnBoard(card);
 
 		Select(card);
+	}
+
+	private void SuperSelectOnBoard(ClientGameCard card)
+	{
+		if (LastSelectedCard?.Location is not Location lastSelectedLocation) return;
+
+		var notifier = LastSelectedCard.ClientGame.ClientGameController.Notifier;
+
+		switch (lastSelectedLocation)
+		{
+			case Location.Board:
+				notifier.RequestAttack(LastSelectedCard, card);
+				break;
+			case Location.Hand:
+				if (LastSelectedCard.CardType != 'A') break;
+				var (x, y) = card.Position ?? throw new NullSpaceOnBoardException(card);
+				notifier.RequestPlay(LastSelectedCard, x, y);
+				break;
+		}
 	}
 
 	public void Highlight(ClientGameCard? card) => TopLeftCardView.Hover(card);
@@ -206,8 +230,12 @@ public partial class ClientTargetingController : Node
 
 		StartSearch(search);
 		GameController.CurrentStateController.ShowCurrentStateInfo(targetBlurb);
-		search.SearchFinished += (_, _) => EndSearch();
+		search.SearchFinished += EndSearch;
+		search.HaveEnoughChanged += HaveEnough;
+		HaveEnough(enough: search.HaveEnough);
 	}
+
+	private void HaveEnough(object? _ = null, bool enough = true) => CanDeclineFurtherTargets = enough;
 
 	public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
 	{
@@ -216,7 +244,7 @@ public partial class ClientTargetingController : Node
 
 		StartSearch(search);
 		GameController.CurrentStateController.ShowCurrentStateInfo($"Reshuffle down to hand size");
-		search.SearchFinished += (_, _) => EndSearch();
+		search.SearchFinished += EndSearch;
 	}
 
 	public void StartSpaceSearch(IEnumerable<Space> spaces, IEnumerable<Space> recommendedSpaces, string blurb)
@@ -225,14 +253,15 @@ public partial class ClientTargetingController : Node
 
 		StartSearch(search);
 		GameController.CurrentStateController.ShowCurrentStateInfo(blurb);
-		search.SearchFinished += (_, _) => EndSearch();
+		search.SearchFinished += EndSearch;
 	}
 
 	public void TargetAccepted() { }
 
 	public void DeclineFurtherTargets()
 	{
-		_ = GameController ?? throw new System.NullReferenceException("Failed to initialize");
+		if (currentSearch is not null && currentSearch.SendIfHaveEnough()) return;
+
 		EndSearch();
 		GameController.Notifier.DeclineAnotherTarget();
 	}

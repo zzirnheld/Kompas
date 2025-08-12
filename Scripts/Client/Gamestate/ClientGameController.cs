@@ -99,7 +99,16 @@ public partial class ClientGameController : GameController
 		await EscapeMenu.CameFromMainMenuClose();
 
 		//TODO add event to game started that should close the load window
-		game.GameStarted += (_, _) => GameStartController.Hide();
+		game.GameStarted += GameStartOperations;
+	}
+
+	private void GameStartOperations(object? _o, System.EventArgs _e)
+	{
+		GameStartController.Hide();
+		foreach (var deck in TargetingController.DeckControllers)
+		{
+			deck.Refresh();
+		}
 	}
 
 	private async void Rematch() => await SwitchSceneTo(RematchPath);
