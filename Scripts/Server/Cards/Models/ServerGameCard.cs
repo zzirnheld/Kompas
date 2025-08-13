@@ -240,10 +240,7 @@ public class ServerGameCard : GameCard
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newN - N)
 			.Capture(() => base.SetN(newN, stackSrc));
-		//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-		EffectsController?.TriggerFor(contexts);
-
-		if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
+		EffectsController.TriggerFor(contexts);
 	}
 
 	public override void SetE(int newE, IStackable? stackSrc = null, bool onlyStatBeingSet = true)
@@ -256,10 +253,7 @@ public class ServerGameCard : GameCard
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newE - E)
 			.Capture(() => base.SetE(newE, stackSrc));
-		//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-		EffectsController?.TriggerFor(contexts);
-
-		if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
+		EffectsController.TriggerFor(contexts);
 
 		//kill if applicable
 		if (E <= 0 && CardType == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
@@ -275,10 +269,7 @@ public class ServerGameCard : GameCard
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newS - S)
 			.Capture(() => base.SetS(newS, stackSrc));
-		//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-		EffectsController?.TriggerFor(contexts);
-
-		if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
+		EffectsController.TriggerFor(contexts);
 	}
 
 	public override void SetW(int newW, IStackable? stackSrc, bool onlyStatBeingSet = true)
@@ -291,10 +282,7 @@ public class ServerGameCard : GameCard
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newW - W)
 			.Capture(() => base.SetW(newW, stackSrc));
-		//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-		EffectsController?.TriggerFor(contexts);
-
-		if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
+		EffectsController.TriggerFor(contexts);
 	}
 
 	public override void SetC(int newC, IStackable? stackSrc, bool onlyStatBeingSet = true)
@@ -307,10 +295,7 @@ public class ServerGameCard : GameCard
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newC - C)
 			.Capture(() => base.SetC(newC, stackSrc));
-		//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-		EffectsController?.TriggerFor(contexts);
-
-		if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
+		EffectsController.TriggerFor(contexts);
 	}
 
 	public override void SetA(int newA, IStackable? stackSrc, bool onlyStatBeingSet = true)
@@ -323,8 +308,7 @@ public class ServerGameCard : GameCard
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newA - A)
 			.Capture(() => base.SetA(newA, stackSrc));
-		//Pretty sure this is because the game hasn't started yet when Avatar stats are changed
-		EffectsController?.TriggerFor(contexts);
+		EffectsController.TriggerFor(contexts);
 
 		if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
 	}
@@ -335,15 +319,9 @@ public class ServerGameCard : GameCard
 		base.TakeDamage(netDmg, stackSrc);
 	}
 
-	public override void SetCharStats(int n, int e, int s, int w, IStackable? stackSrc = null)
+	protected override void OnStatChangeOperations()
 	{
-		base.SetCharStats(n, e, s, w, stackSrc);
-		ServerNotifier.NotifyStats(ControllingPlayer, this);
-	}
-
-	public override void SetStats(CardStats stats, IStackable? stackSrc = null)
-	{
-		base.SetStats(stats, stackSrc);
+		base.OnStatChangeOperations();
 		ServerNotifier.NotifyStats(ControllingPlayer, this);
 	}
 

@@ -73,6 +73,6 @@ public partial class SquareGridContainer : Container
 
 		child.Visible = true;
 
-		Logger.Log($"Sclaing {child} to {child.Size} at {child.Position}");
+		// Logger.Log($"Sclaing {child} to {child.Size} at {child.Position}");
 	}
 }

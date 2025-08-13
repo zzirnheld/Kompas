@@ -388,14 +388,44 @@ public abstract class GameCardBase : CardBase
 		: base(stats, subtext, spellTypes, unique, radius, duration, cardType, cardName, fileName, effText, subtypeText, cardRepository)
 	{}
 
-	/* This must happen through setters, not properties, so that notifications and stack sending
-	 * can be managed as intended. */
-	public virtual void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true) => N = n;
-	public virtual void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true) => E = e;
-	public virtual void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true) => S = s;
-	public virtual void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true) => W = w;
-	public virtual void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true) => C = c;
-	public virtual void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true) => A = a;
+	//NOTE: Stat stetting happens through methods, not property setters, to have this extra information about stackable causes.
+	//The onlyStatBeingSet parameters are used to avoid sending 6x the card stat update events/packets.
+
+	public virtual void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	{
+		N = n;
+		if (onlyStatBeingSet) OnStatChangeOperations();
+	}
+
+	public virtual void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	{
+		E = e;
+		if (onlyStatBeingSet) OnStatChangeOperations();
+	}
+
+	public virtual void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	{
+		S = s;
+		if (onlyStatBeingSet) OnStatChangeOperations();
+	}
+
+	public virtual void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	{
+		W = w;
+		if (onlyStatBeingSet) OnStatChangeOperations();
+	}
+
+	public virtual void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	{
+		C = c;
+		if (onlyStatBeingSet) OnStatChangeOperations();
+	}
+
+	public virtual void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	{
+		A = a;
+		if (onlyStatBeingSet) OnStatChangeOperations();
+	}
 
 	protected override void SetStats(CardStats cardStats) => SetStats(cardStats, stackSrc: null);
 
@@ -412,6 +442,8 @@ public abstract class GameCardBase : CardBase
 		SetA(stats.a, stackSrc, onlyStatBeingSet: false);
 		//E goes last in case the character should die.
 		SetE(stats.e, stackSrc, onlyStatBeingSet: false);
+
+		OnStatChangeOperations();
 	}
 
 	/// <summary>
@@ -425,7 +457,11 @@ public abstract class GameCardBase : CardBase
 		SetW(w, stackSrc, onlyStatBeingSet: false);
 		//E goes last in case the character should die.
 		SetE(e, stackSrc, onlyStatBeingSet: false);
+
+		OnStatChangeOperations();
 	}
+
+	protected virtual void OnStatChangeOperations() { }
 
 	/// <summary>
 	/// Shorthand for modifying a card's NESW all at once.

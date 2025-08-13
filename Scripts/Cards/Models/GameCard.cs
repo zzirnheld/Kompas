@@ -296,51 +296,9 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 	#endregion augments
 
 	#region statfuncs
-	public override void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	protected override void OnStatChangeOperations()
 	{
-		base.SetN(n, stackSrc, onlyStatBeingSet);
-		if (onlyStatBeingSet) CardController.RefreshStats();
-	}
-
-	public override void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true)
-	{
-		base.SetE(e, stackSrc, onlyStatBeingSet);
-		if (onlyStatBeingSet) CardController.RefreshStats();
-	}
-
-	public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
-	{
-		base.SetS(s, stackSrc, onlyStatBeingSet);
-		if (onlyStatBeingSet) CardController.RefreshStats();
-	}
-
-	public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
-	{
-		base.SetW(w, stackSrc, onlyStatBeingSet);
-		if (onlyStatBeingSet) CardController.RefreshStats();
-	}
-
-	public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
-	{
-		base.SetC(c, stackSrc, onlyStatBeingSet);
-		if (onlyStatBeingSet) CardController.RefreshStats();
-	}
-
-	public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
-	{
-		base.SetA(a, stackSrc, onlyStatBeingSet);
-		if (onlyStatBeingSet) CardController.RefreshStats();
-	}
-
-	public override void SetStats(CardStats stats, IStackable? stackSrc = null)
-	{
-		base.SetStats(stats, stackSrc);
-		CardController.RefreshStats();
-	}
-
-	public override void SetCharStats(int n, int e, int s, int w, IStackable? stackSrc = null)
-	{
-		base.SetCharStats(n, e, s, w, stackSrc);
+		base.OnStatChangeOperations();
 		CardController.RefreshStats();
 	}
 
