@@ -24,7 +24,7 @@ namespace Kompas.Client.Networking
 	{
 		public void Execute(ClientGame clientGame)
 		{
-			clientGame.ClientGameController.TargetingController.CanDeclineFurtherTargets = enabled;
+			clientGame.ClientGameController.TargetingController.OverrideCanDeclineFurtherTargets = enabled;
 		}
 	}
 }

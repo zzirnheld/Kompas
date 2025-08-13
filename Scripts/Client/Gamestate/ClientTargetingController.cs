@@ -64,6 +64,16 @@ public partial class ClientTargetingController : Node
 	private ClientGameCard? LastSelectedCard { get; set; }
 
 	private ISearch? currentSearch;
+	private bool _overrideCanDeclineFurtherTargets;
+	public bool OverrideCanDeclineFurtherTargets
+	{
+		get => _overrideCanDeclineFurtherTargets;
+		set
+		{
+			_overrideCanDeclineFurtherTargets = value;
+			ShowCanDeclineFurtherTargets(value);
+		}
+	}
 
 	private void RefreshCardsForSearchChange()
 	{
@@ -91,11 +101,6 @@ public partial class ClientTargetingController : Node
 		currentSearch = null;
 		RefreshCardsForSearchChange();
 		GameController.Camera.RestoreCurrentLook();
-	}
-
-	public bool CanDeclineFurtherTargets
-	{
-		set => CanDeclineFurtherTargetsButton.Visible = value;
 	}
 
 	public override void _Ready()
@@ -235,7 +240,13 @@ public partial class ClientTargetingController : Node
 		HaveEnough(enough: search.HaveEnough);
 	}
 
-	private void HaveEnough(object? _ = null, bool enough = true) => CanDeclineFurtherTargets = enough;
+	private void HaveEnough(object? _ = null, bool enough = true) => ShowCanDeclineFurtherTargets(enough);
+
+
+	private void ShowCanDeclineFurtherTargets(bool can)
+	{
+		CanDeclineFurtherTargetsButton.Visible = can || OverrideCanDeclineFurtherTargets;
+	}
 
 	public void StartHandSizeSearch(IEnumerable<int> cardIDs, IListRestriction listRestriction)
 	{

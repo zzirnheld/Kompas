@@ -230,7 +230,7 @@ public class ServerGameCard : GameCard
 	}
 
 	#region stats
-	public override void SetN(int newN, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	public override void SetN(int newN, IStackable? stackSrc, bool onlyStatBeingSet)
 	{
 		if (newN == N) return;
 
@@ -239,11 +239,11 @@ public class ServerGameCard : GameCard
 			.CausedBy(stackSrc)
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newN - N)
-			.Capture(() => base.SetN(newN, stackSrc));
+			.Capture(() => base.SetN(newN, stackSrc, onlyStatBeingSet));
 		EffectsController.TriggerFor(contexts);
 	}
 
-	public override void SetE(int newE, IStackable? stackSrc = null, bool onlyStatBeingSet = true)
+	public override void SetE(int newE, IStackable? stackSrc, bool onlyStatBeingSet)
 	{
 		if (newE == E) return;
 
@@ -252,14 +252,14 @@ public class ServerGameCard : GameCard
 			.CausedBy(stackSrc)
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newE - E)
-			.Capture(() => base.SetE(newE, stackSrc));
+			.Capture(() => base.SetE(newE, stackSrc, onlyStatBeingSet));
 		EffectsController.TriggerFor(contexts);
 
 		//kill if applicable
 		if (E <= 0 && CardType == 'C' && Summoned && Location != Location.Nowhere && Location != Location.Discard) this.Discard(stackSrc);
 	}
 
-	public override void SetS(int newS, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	public override void SetS(int newS, IStackable? stackSrc, bool onlyStatBeingSet)
 	{
 		if (newS == S) return;
 
@@ -268,11 +268,11 @@ public class ServerGameCard : GameCard
 			.CausedBy(stackSrc)
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newS - S)
-			.Capture(() => base.SetS(newS, stackSrc));
+			.Capture(() => base.SetS(newS, stackSrc, onlyStatBeingSet));
 		EffectsController.TriggerFor(contexts);
 	}
 
-	public override void SetW(int newW, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	public override void SetW(int newW, IStackable? stackSrc, bool onlyStatBeingSet)
 	{
 		if (newW == W) return;
 
@@ -281,11 +281,11 @@ public class ServerGameCard : GameCard
 			.CausedBy(stackSrc)
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newW - W)
-			.Capture(() => base.SetW(newW, stackSrc));
+			.Capture(() => base.SetW(newW, stackSrc, onlyStatBeingSet));
 		EffectsController.TriggerFor(contexts);
 	}
 
-	public override void SetC(int newC, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	public override void SetC(int newC, IStackable? stackSrc, bool onlyStatBeingSet)
 	{
 		if (newC == C) return;
 
@@ -294,11 +294,11 @@ public class ServerGameCard : GameCard
 			.CausedBy(stackSrc)
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newC - C)
-			.Capture(() => base.SetC(newC, stackSrc));
+			.Capture(() => base.SetC(newC, stackSrc, onlyStatBeingSet));
 		EffectsController.TriggerFor(contexts);
 	}
 
-	public override void SetA(int newA, IStackable? stackSrc, bool onlyStatBeingSet = true)
+	public override void SetA(int newA, IStackable? stackSrc, bool onlyStatBeingSet)
 	{
 		if (newA == A) return;
 
@@ -307,7 +307,7 @@ public class ServerGameCard : GameCard
 			.CausedBy(stackSrc)
 			.ForPlayer(stackSrc?.ControllingPlayer)
 			.WithX(newA - A)
-			.Capture(() => base.SetA(newA, stackSrc));
+			.Capture(() => base.SetA(newA, stackSrc, onlyStatBeingSet));
 		EffectsController.TriggerFor(contexts);
 
 		if (onlyStatBeingSet) ServerNotifier.NotifyStats(ControllingPlayer, this);
