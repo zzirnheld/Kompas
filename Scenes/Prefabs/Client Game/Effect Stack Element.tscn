@@ -3,34 +3,76 @@
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientEffectStackableView.cs" id="1_r53k3"]
 [ext_resource type="Texture2D" uid="uid://co51lpuioy57" path="res://Sprites/golems/support/Animancer.png" id="1_yoypf"]
 
-[node name="Effect Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_effectBlurbLabel")]
+[node name="Effect Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_effectBlurbLabel", "_primaryCardImageLarge", "_effectBlurbLabelLarge", "_onStackParent", "_currentlyResolvingParent")]
+offset_right = 174.0
+offset_bottom = 38.0
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_r53k3")
-_primaryCardImage = NodePath("Primary Card")
-_effectBlurbLabel = NodePath("Label")
+_primaryCardImage = NodePath("Small Stack Element/Primary Card")
+_effectBlurbLabel = NodePath("Small Stack Element/Label")
+_primaryCardImageLarge = NodePath("Large Stack Element/Primary Card")
+_effectBlurbLabelLarge = NodePath("Large Stack Element/Label")
+_onStackParent = NodePath("Small Stack Element")
+_currentlyResolvingParent = NodePath("Large Stack Element")
 
-[node name="Primary Card" type="TextureRect" parent="."]
+[node name="Small Stack Element" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Primary Card" type="TextureRect" parent="Small Stack Element"]
 layout_mode = 2
 texture = ExtResource("1_yoypf")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="Small Stack Element"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Small Stack Element"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.9
 text = "Effect Label"
 text_overrun_behavior = 3
 
-[node name="Secondary Card" type="TextureRect" parent="."]
+[node name="Secondary Card" type="TextureRect" parent="Small Stack Element"]
 visible = false
 layout_mode = 2
 texture = ExtResource("1_yoypf")
 expand_mode = 2
+stretch_mode = 4
+
+[node name="Large Stack Element" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Primary Card" type="TextureRect" parent="Large Stack Element"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_yoypf")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Control" type="Control" parent="Large Stack Element"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+
+[node name="Label" type="Label" parent="Large Stack Element"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.9
+text = "Effect Label is long enough for multiple lines"
+autowrap_mode = 2
+
+[node name="Secondary Card" type="TextureRect" parent="Large Stack Element"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_yoypf")
+expand_mode = 4
 stretch_mode = 4

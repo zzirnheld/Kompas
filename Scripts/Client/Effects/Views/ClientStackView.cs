@@ -103,6 +103,7 @@ public partial class ClientStackView : Control
 		//Unclear whether this is a language problem or a problem with the VSCode debugger.
 		var view = stackableToView[stackable];
 		stackableToView.Remove(stackable);
+		view.ShowCurrentlyResolving(true);
 		CurrentlyResolvingParent.QueueFreeChildren();
 		CurrentlyResolvingParent.TransferChild(view);
 	}

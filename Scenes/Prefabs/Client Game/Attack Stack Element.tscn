@@ -4,36 +4,67 @@
 [ext_resource type="Script" path="res://Scripts/Client/Effects/Views/ClientAttackStackableView.cs" id="1_rett6"]
 [ext_resource type="Texture2D" uid="uid://b4g7cx5sjom6l" path="res://Icons/sword-wound.png" id="2_3p4fy"]
 
-[node name="Attack Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_secondaryCardImage")]
+[node name="Attack Stack Element" type="HBoxContainer" node_paths=PackedStringArray("_primaryCardImage", "_secondaryCardImage", "_onStackParent", "_currentlyResolvingParent")]
+offset_right = 106.0
+offset_bottom = 49.0
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_rett6")
-_primaryCardImage = NodePath("Primary Card")
-_secondaryCardImage = NodePath("Secondary Card")
+_primaryCardImage = NodePath("Small Stack Element/Primary Card")
+_secondaryCardImage = NodePath("Small Stack Element/Secondary Card")
+_onStackParent = NodePath("Small Stack Element")
+_currentlyResolvingParent = NodePath("Large Stack Element")
 
-[node name="Primary Card" type="TextureRect" parent="."]
+[node name="Small Stack Element" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Primary Card" type="TextureRect" parent="Small Stack Element"]
 layout_mode = 2
 texture = ExtResource("1_7y8c6")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Attack Icon" type="TextureRect" parent="."]
+[node name="Attack Icon" type="TextureRect" parent="Small Stack Element"]
 layout_mode = 2
 texture = ExtResource("2_3p4fy")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Small Stack Element"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Attacks"
 
-[node name="Secondary Card" type="TextureRect" parent="."]
+[node name="Secondary Card" type="TextureRect" parent="Small Stack Element"]
 layout_mode = 2
 texture = ExtResource("1_7y8c6")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Control" type="Control" parent="."]
+[node name="Large Stack Element" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Primary Card" type="TextureRect" parent="Large Stack Element"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_7y8c6")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Attack Icon" type="TextureRect" parent="Large Stack Element"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_3p4fy")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Secondary Card" type="TextureRect" parent="Large Stack Element"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_7y8c6")
+expand_mode = 4
+stretch_mode = 4

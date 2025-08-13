@@ -11,12 +11,22 @@ public partial class ClientEffectStackableView
 	[Export]
 	private TextureRect? _primaryCardImage;
 	private TextureRect PrimaryCardImage => _primaryCardImage
-		?? throw new UnassignedReferenceException(nameof(_primaryCardImage));
+		?? throw new UnassignedReferenceException(nameof(_primaryCardImage), this);
 
 	[Export]
 	private Label? _effectBlurbLabel;
 	private Label EffectBlurbLabel => _effectBlurbLabel
-		?? throw new UnassignedReferenceException(nameof(_effectBlurbLabel));
+		?? throw new UnassignedReferenceException(nameof(_effectBlurbLabel), this);
+
+	[Export]
+	private TextureRect? _primaryCardImageLarge;
+	private TextureRect PrimaryCardImageLarge => _primaryCardImageLarge
+		?? throw new UnassignedReferenceException(nameof(_primaryCardImageLarge), this);
+
+	[Export]
+	private Label? _effectBlurbLabelLarge;
+	private Label EffectBlurbLabelLarge => _effectBlurbLabelLarge
+		?? throw new UnassignedReferenceException(nameof(_effectBlurbLabelLarge), this);
 
 	private ClientEffect? effect;
 
@@ -27,5 +37,8 @@ public partial class ClientEffectStackableView
 
 		PrimaryCardImage.Texture = effect.Card.CardFaceImage;
 		EffectBlurbLabel.Text = effectResolution.Context.Blurb;
+
+		PrimaryCardImageLarge.Texture = effect.Card.CardFaceImage;
+		EffectBlurbLabelLarge.Text = effectResolution.Context.Blurb;
 	}
 }
