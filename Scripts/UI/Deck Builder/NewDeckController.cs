@@ -34,7 +34,7 @@ public partial class NewDeckController : Control
 		DeckBuilderDeckController.ShowController(DeckBuilderDeckController.Tab.Normal);
 	}
 
-	private static bool AllowedDeckName(string name) => name != string.Empty && name.All(char.IsLetterOrDigit);
+	private static bool AllowedDeckName(string name) => name != string.Empty && name.All(c => char.IsLetterOrDigit(c) || c == ' ');
 
 	public void Cancel()
 	{

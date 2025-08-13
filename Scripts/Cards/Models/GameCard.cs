@@ -299,37 +299,48 @@ public abstract class GameCard : GameCardBase, IGameCardInfo
 	public override void SetN(int n, IStackable? stackSrc, bool onlyStatBeingSet = true)
 	{
 		base.SetN(n, stackSrc, onlyStatBeingSet);
-		//TODO leverage onlyStatBeingSet to only call refresh when necessary. (Will require bookkeeping)
-		CardController.RefreshStats();
+		if (onlyStatBeingSet) CardController.RefreshStats();
 	}
 
 	public override void SetE(int e, IStackable? stackSrc, bool onlyStatBeingSet = true)
 	{
 		base.SetE(e, stackSrc, onlyStatBeingSet);
-		CardController.RefreshStats();
+		if (onlyStatBeingSet) CardController.RefreshStats();
 	}
 
 	public override void SetS(int s, IStackable? stackSrc, bool onlyStatBeingSet = true)
 	{
 		base.SetS(s, stackSrc, onlyStatBeingSet);
-		CardController.RefreshStats();
+		if (onlyStatBeingSet) CardController.RefreshStats();
 	}
 
 	public override void SetW(int w, IStackable? stackSrc, bool onlyStatBeingSet = true)
 	{
 		base.SetW(w, stackSrc, onlyStatBeingSet);
-		CardController.RefreshStats();
+		if (onlyStatBeingSet) CardController.RefreshStats();
 	}
 
 	public override void SetC(int c, IStackable? stackSrc, bool onlyStatBeingSet = true)
 	{
 		base.SetC(c, stackSrc, onlyStatBeingSet);
-		CardController.RefreshStats();
+		if (onlyStatBeingSet) CardController.RefreshStats();
 	}
 
 	public override void SetA(int a, IStackable? stackSrc, bool onlyStatBeingSet = true)
 	{
 		base.SetA(a, stackSrc, onlyStatBeingSet);
+		if (onlyStatBeingSet) CardController.RefreshStats();
+	}
+
+	public override void SetStats(CardStats stats, IStackable? stackSrc = null)
+	{
+		base.SetStats(stats, stackSrc);
+		CardController.RefreshStats();
+	}
+
+	public override void SetCharStats(int n, int e, int s, int w, IStackable? stackSrc = null)
+	{
+		base.SetCharStats(n, e, s, w, stackSrc);
 		CardController.RefreshStats();
 	}
 
