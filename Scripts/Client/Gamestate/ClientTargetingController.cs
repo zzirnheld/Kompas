@@ -286,9 +286,10 @@ public partial class ClientTargetingController : Node
 		//static bool canPlayTo(Space s, GameCard card)
 		//	=> card.PlayRestriction.IsValid((s, card.ControllingPlayer), ResolutionContext.PlayerTrigger(null, card.Game));
 		static bool canMoveTo(Space s, GameCard card)
-			=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
+			=> s == card.Position //Include origin space so the green visually links to the card
+			|| card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
 		if (card == null) SpacesController.DisplayNone();
-		else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => s == card.Position || canMoveTo(s, card));
+		else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => canMoveTo(s, card));
 		else if (card.Location == Location.Hand) SpacesController.DisplayCanPlay(s => recommendPlayTo(s, card));
 	}
 }
