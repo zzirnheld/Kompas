@@ -288,7 +288,7 @@ public partial class ClientTargetingController : Node
 		static bool canMoveTo(Space s, GameCard card)
 			=> card.MovementRestriction.WouldBeValidNormalMoveInOpenGamestate(s);
 		if (card == null) SpacesController.DisplayNone();
-		else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => canMoveTo(s, card));
+		else if (card.Location == Location.Board) SpacesController.DisplayCanMove(s => s == card.Position || canMoveTo(s, card));
 		else if (card.Location == Location.Hand) SpacesController.DisplayCanPlay(s => recommendPlayTo(s, card));
 	}
 }
