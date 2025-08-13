@@ -12,11 +12,13 @@ public abstract partial class BoardController : Node, IBoardController
 	public abstract void Move(ICardController card, MovePath path);
 
 	public virtual void Remove(ICardController card) { }
+
+	//TODO: it shouldn't be refreshed
+	public void Refresh() => throw new System.NotImplementedException();
 }
 
-public interface IBoardController
+public interface IBoardController : ILocationController
 {
 	public void Play(ICardController card);
 	public void Move(ICardController card, MovePath path);
-	public void Remove(ICardController card);
 }

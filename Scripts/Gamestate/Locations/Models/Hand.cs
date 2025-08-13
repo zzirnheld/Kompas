@@ -47,6 +47,6 @@ public abstract class Hand : OwnedLocationModel
 			$"Hand of \n{string.Join(", ", hand.Select(c => c.CardName))}\n doesn't contain {card}, can't remove it!");
 
 		hand.Remove(card);
-		handController.Refresh();
+		handController.Remove(card.CardController);
 	}
 }

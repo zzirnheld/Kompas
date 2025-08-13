@@ -39,7 +39,7 @@ public abstract class Annihilation : OwnedLocationModel
 			throw new CardNotHereException(Location.Annihilation, card, "Card was not in annihilation, couldn't be removed");
 
 		cards.Remove(card);
-		annihilationController.Refresh();
+		annihilationController.Remove(card.CardController);
 	}
 
 	public override int IndexOf(GameCard card) => cards.IndexOf(card);

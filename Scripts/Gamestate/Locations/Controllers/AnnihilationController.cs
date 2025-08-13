@@ -1,4 +1,6 @@
 using Godot;
+using Kompas.Cards.Controllers;
+using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Shared.Exceptions;
 
@@ -14,10 +16,14 @@ public partial class AnnihilationController : Node, IAnnihilationController //TO
 	}
 
 	public virtual void Refresh() { }
+	public void Remove(ICardController cardController)
+	{
+		cardController.Hide();
+		Refresh();
+	}
 }
 
-public interface IAnnihilationController
+public interface IAnnihilationController : ILocationController
 {
 	public Annihilation AnnihilationModel { get; set; }
-	public void Refresh();
 }

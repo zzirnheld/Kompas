@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Cards.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Shared.Exceptions;
 
@@ -14,12 +15,16 @@ public abstract partial class HandController : Node, IHandController
 	}
 
 	public void Refresh() => SpreadAllCards();
+	public void Remove(ICardController cardController)
+	{
+		cardController.Hide();
+		Refresh();
+	}
 
 	protected abstract void SpreadAllCards();
 }
 
-public interface IHandController
+public interface IHandController : ILocationController
 {
 	public Hand HandModel { get; set; }
-	public void Refresh();
 }

@@ -58,4 +58,6 @@ public class ServerCardController : ICardController
 	{
 		throw new NotImplementedException();
 	}
+
+	public void Hide() { }
 }

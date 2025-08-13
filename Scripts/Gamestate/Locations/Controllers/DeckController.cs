@@ -1,4 +1,5 @@
 using Godot;
+using Kompas.Cards.Controllers;
 using Kompas.Gamestate.Locations.Models;
 using Kompas.Shared.Exceptions;
 
@@ -14,12 +15,16 @@ public abstract partial class DeckController : Node, IDeckController //TODO shar
 	}
 
 	public void Refresh() => SpreadOut();
+	public void Remove(ICardController cardController)
+	{
+		cardController.Hide();
+		Refresh();
+	}
 
 	protected abstract void SpreadOut();
 }
 
-public interface IDeckController
+public interface IDeckController : ILocationController
 {
 	public Deck DeckModel { get; set; }
-	public void Refresh();
 }

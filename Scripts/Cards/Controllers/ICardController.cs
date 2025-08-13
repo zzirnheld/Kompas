@@ -54,4 +54,10 @@ public interface ICardController
 	/// Maybe there's a better way to do this, but if there is, I don't know it.
 	///</summary>
 	public void MoveToBoard(Action placeOnBoard);
+
+	/// <summary>
+	/// Hides the card.
+	/// Primarily used when the card is being removed from a location.
+	/// </summary>
+	public void Hide();
 }
