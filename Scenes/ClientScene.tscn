@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://bjm0p572yofis"]
+[gd_scene load_steps=78 format=4 uid="uid://bjm0p572yofis"]
 
 [ext_resource type="Script" path="res://Scripts/Client/Gamestate/ClientGameController.cs" id="1_6rnfv"]
 [ext_resource type="Material" uid="uid://djthkubenbbha" path="res://Materials/Gameboard LowQ Begg.tres" id="1_k7cme"]
@@ -57,6 +57,7 @@
 [ext_resource type="PackedScene" uid="uid://jqjtk727hw1t" path="res://Scenes/Prefabs/Client Game/UseEffectDialogButton.tscn" id="33_xkpbn"]
 [ext_resource type="PackedScene" uid="uid://cnskajqolchmv" path="res://Scenes/Prefabs/Reminder Text.tscn" id="37_8517u"]
 [ext_resource type="PackedScene" uid="uid://ctrmi7srh8d5d" path="res://Scenes/Prefabs/EscapeMenu.tscn" id="48_3yctp"]
+[ext_resource type="Script" path="res://Scripts/Client/UI/AttackDialogButton.cs" id="57_cfb2y"]
 [ext_resource type="Script" path="res://Scripts/PID.cs" id="58_wgpfv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ols17"]
@@ -1902,7 +1903,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="Use Effect" type="Control" parent="Node/UI" node_paths=PackedStringArray("_camera", "_cardName", "_effectButtonsParent", "_cancelButton")]
+[node name="Use Effect" type="Control" parent="Node/UI" node_paths=PackedStringArray("_camera", "_cardName", "_effectButtonsParent", "_cancelButton", "_targetingController", "_attackDialogButton")]
 visible = false
 anchors_preset = 0
 offset_right = 200.0
@@ -1914,6 +1915,8 @@ _cardName = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/MarginC
 _effectButtonPrefab = ExtResource("33_xkpbn")
 _effectButtonsParent = NodePath("MarginContainer/MarginContainer/Effect Parent VBox")
 _cancelButton = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/Cancel Effect Button")
+_targetingController = NodePath("../../../Targeting Controller")
+_attackDialogButton = NodePath("MarginContainer/MarginContainer/Effect Parent VBox/Attack Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="Node/UI/Use Effect"]
 layout_mode = 0
@@ -1967,6 +1970,16 @@ size_flags_horizontal = 0
 theme = ExtResource("6_5db68")
 theme_override_font_sizes/font_size = 20
 text = "Card Name"
+
+[node name="Attack Button" type="Button" parent="Node/UI/Use Effect/MarginContainer/MarginContainer/Effect Parent VBox" node_paths=PackedStringArray("_button", "_dialog")]
+layout_mode = 2
+theme = ExtResource("6_5db68")
+theme_override_font_sizes/font_size = 16
+text = "Attack"
+alignment = 0
+script = ExtResource("57_cfb2y")
+_button = NodePath(".")
+_dialog = NodePath("../../../..")
 
 [node name="Cancel Effect Button" type="Button" parent="Node/UI/Use Effect/MarginContainer/MarginContainer/Effect Parent VBox"]
 layout_mode = 2
