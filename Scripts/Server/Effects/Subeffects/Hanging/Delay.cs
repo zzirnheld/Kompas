@@ -2,14 +2,32 @@
 using System.Collections.Generic;
 using Kompas.Server.Gamestate.Players;
 using Kompas.Effects.Models.TriggeringEvent;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public class Delay : HangingEffectSubeffect
+public class DelayData : HangingEffectData
 {
+	[JsonProperty]
 	public int numTimesToDelay = 0;
+	[JsonProperty]
 	public string? blurbAfterDelay;
+	[JsonProperty]
 	public bool clearWhenResume = true;
+}
+
+public class Delay : HangingEffectSubeffect<DelayData>
+{
+	private readonly int numTimesToDelay;
+	private readonly string? blurbAfterDelay;
+	private readonly bool clearWhenResume;
+
+	public Delay(DelayData data) : base(data)
+	{
+		numTimesToDelay = data.numTimesToDelay;
+		blurbAfterDelay = data.blurbAfterDelay;
+		clearWhenResume = data.clearWhenResume;
+	}
 
 	public override bool ContinueResolution => false;
 	private string BlurbAfterDelay => blurbAfterDelay ?? Effect.InitialBlurb;
@@ -50,7 +68,7 @@ public class Delay : HangingEffectSubeffect
 			this.indexToResumeResolution = indexToResumeResolution;
 			this.controller = controller;
 			this.blurb = blurb;
-			
+
 			numTimesDelayed = 0;
 		}
 

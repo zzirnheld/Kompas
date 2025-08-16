@@ -58,26 +58,26 @@ public class ChangeCardStats : ChangeCardStats<ChangeCardStatsData>
 public abstract class ChangeCardStats<DataType> : HangingEffectSubeffect<DataType>
 	where DataType : ChangeCardStatsData
 {
-	public int nModifier;
-	public int eModifier;
-	public int sModifier;
-	public int wModifier;
-	public int cModifier;
-	public int aModifier;
+	private readonly int nModifier;
+	private readonly int eModifier;
+	private readonly int sModifier;
+	private readonly int wModifier;
+	private readonly int cModifier;
+	private readonly int aModifier;
 
-	public int nDivisor;
-	public int eDivisor;
-	public int sDivisor;
-	public int wDivisor;
-	public int cDivisor;
-	public int aDivisor;
+	private readonly int nDivisor;
+	private readonly int eDivisor;
+	private readonly int sDivisor;
+	private readonly int wDivisor;
+	private readonly int cDivisor;
+	private readonly int aDivisor;
 
-	public int nMultiplier;
-	public int eMultiplier;
-	public int sMultiplier;
-	public int wMultiplier;
-	public int cMultiplier;
-	public int aMultiplier;
+	private readonly int nMultiplier;
+	private readonly int eMultiplier;
+	private readonly int sMultiplier;
+	private readonly int wMultiplier;
+	private readonly int cMultiplier;
+	private readonly int aMultiplier;
 
 	public ChangeCardStats(DataType data) : base(data)
 	{

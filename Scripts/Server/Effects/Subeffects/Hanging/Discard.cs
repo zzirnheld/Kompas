@@ -6,8 +6,12 @@ using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public class Discard : HangingEffectSubeffect
+public class DiscardData : HangingEffectData { }
+
+public class Discard : HangingEffectSubeffect<DiscardData>
 {
+	public Discard(DiscardData data) : base(data) { }
+
 	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		var eff = new DiscardEffect(end: End, fallOff: FallOff,

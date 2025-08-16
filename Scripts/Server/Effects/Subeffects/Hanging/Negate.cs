@@ -2,12 +2,24 @@
 using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public class Negate : HangingEffectSubeffect
+public class NegateData : HangingEffectData
 {
+	[JsonProperty]
 	public bool negated = true;
+}
+
+public class Negate : HangingEffectSubeffect<NegateData>
+{
+	private readonly bool negated;
+
+	public Negate(NegateData data) : base(data)
+	{
+		negated = data.negated;
+	}
 
 	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
