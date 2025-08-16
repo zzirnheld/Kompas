@@ -39,6 +39,18 @@ public abstract partial class MeshCardInfoDisplayerBase : Node3D, IHoverableCard
 
 	[Export]
 	private MeshInstance3D[]? _cardImageObjects;
+	private MeshInstance3D[] CardImageObjects => _cardImageObjects
+		?? throw new UnassignedReferenceException(nameof(_cardImageObjects));
+
+	[Export]
+	private Node3D? _charParent;
+	private Node3D CharParent => _charParent
+		?? throw new UnassignedReferenceException(nameof(_charParent), this);
+
+	[Export]
+	private Node3D? _nonCharParent;
+	private Node3D NonCharParent => _nonCharParent
+		?? throw new UnassignedReferenceException(nameof(_nonCharParent), this);
 
 	public IEnumerable<VisualInstance3D> AllVisibleObjects => this.GetDescendants()
 		.OfType<VisualInstance3D>();
@@ -48,9 +60,6 @@ public abstract partial class MeshCardInfoDisplayerBase : Node3D, IHoverableCard
 
 	protected void BeginHover(string keyword) => BeginHoverKeyword?.Invoke(this, keyword);
 	protected void EndHover(string keyword) => EndHoverKeyword?.Invoke(this, keyword);
-
-	private MeshInstance3D[] CardImageObjects => _cardImageObjects
-		?? throw new UnassignedReferenceException(nameof(_cardImageObjects));
 
 	public bool ShowingInfo { set => Visible = value; }
 
@@ -79,7 +88,7 @@ public abstract partial class MeshCardInfoDisplayerBase : Node3D, IHoverableCard
 		DisplayFrame(true);
 	} //*/
 
-	public void DisplayFrame(Color color)
+	public void DisplayFrame(Color color, bool isCharacter)
 	{
 		_ = FrameObjects ?? throw new System.NullReferenceException("Failed to init");
 
@@ -88,6 +97,9 @@ public abstract partial class MeshCardInfoDisplayerBase : Node3D, IHoverableCard
 			obj.MaterialOverride = CardFrameMaterial;
 			obj.SetInstanceShaderParameter(ShaderAlbedoUniformName, color);
 		}
+
+		CharParent.Visible = isCharacter;
+		NonCharParent.Visible = !isCharacter;
 	}
 
 	public void DisplayGreyedOut(bool greyedOut)

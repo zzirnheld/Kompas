@@ -35,7 +35,7 @@ public class ClientCardView : FocusableCardViewBase<ClientGameCard, Zoomable3DCa
 		var color = ShownCard?.OwningPlayer.Friendly ?? false
 			? FriendlyColor
 			: EnemyColor;
-		InfoDisplayer.DisplayFrame(color);
+		InfoDisplayer.DisplayFrame(color, ShownCard?.CardType == 'C');
 	}
 
 	private void DisplayTargeting(ClientGameCard shownCard)

@@ -78,10 +78,10 @@ public partial class Zoomable3DCardInfoDisplayer : Node3D, IHoverableCardInfoDis
 		ZoomedIn.DisplayCardRulesText(card);
 	}
 
-	public void DisplayFrame(Color albedo)
+	public void DisplayFrame(Color albedo, bool isCharacter)
 	{
-		ZoomedOut.DisplayFrame(albedo);
-		ZoomedIn.DisplayFrame(albedo);
+		ZoomedOut.DisplayFrame(albedo, isCharacter);
+		ZoomedIn.DisplayFrame(albedo, isCharacter);
 	}
 
 	public void DisplayGreyedOut(bool greyedOut)
