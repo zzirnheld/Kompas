@@ -78,27 +78,26 @@ public partial class SelectDeckController : Control
 		_ = deckLoader ?? throw new NotInitializedException();
 
 		ClearDeck();
+		var deck = new List<Control>();
 		foreach (var cardName in decklist.deck)
 		{
 			var card = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(cardName);
 			if (card == null)
 			{
-				Logger.Err($"Couldn't init card {cardName}");
+				Logger.Err($"Deck select failed to init card {cardName}");
 				continue;
 			}
 			var ctrl = CreateCardController();
 			ctrl.Init(card);
-
-			Logger.Log($"Loaded {cardName}");
-
-			DeckContainer.AddChild(ctrl);
+			deck.Add(ctrl);
 		}
+		DeckContainer.AddChildren(deck);
 
 		string avatarName = decklist.avatarName ?? throw new NullReferenceException();
 		var avatar = GameStartController.GameController.CardRepository.InstantiateDeckSelectCard(avatarName);
 		if (avatar == null)
 		{
-			Logger.Err($"Couldn't init avatar {decklist.avatarName}");
+			Logger.Err($"Deck select failed to init avatar {decklist.avatarName}");
 			return;
 		}
 		AvatarController.Init(avatar);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace Kompas.UI;
@@ -23,6 +24,16 @@ public partial class SquareGridContainer : Container
 	{
 		base.AddChild(child);
 		ResizeChild(child);
+		ScaleCustomMinimumSize();
+	}
+
+	public void AddChildren(IEnumerable<Control> children)
+	{
+		foreach (var child in children)
+		{
+			base.AddChild(child);
+			ResizeChild(child);
+		}
 		ScaleCustomMinimumSize();
 	}
 
@@ -55,7 +66,7 @@ public partial class SquareGridContainer : Container
 		//FUTURE: test edge cases with non-exact multiples
 		var y = (Size.X / ColumnCount) * (Mathf.Ceil((GetChildCount() - 1) / ColumnCount) + 1);
 		CustomMinimumSize = new(Size.X, y);
-		Logger.Log($"Custom minimum size from {Size} to {CustomMinimumSize}");
+		// Logger.Log($"Custom minimum size from {Size} to {CustomMinimumSize}");
 		scalingCustomMin = false;
 	}
 
