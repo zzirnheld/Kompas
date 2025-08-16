@@ -1,9 +1,17 @@
 using System;
 using System.Threading.Tasks;
+using Kompas.Effects.Subeffects;
 using Kompas.Server.Cards.Loading;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
+
+public class KeywordData : SubeffectData
+{
+	[JsonProperty(Required = Required.Always)]
+	public string? keyword;
+}
 
 /// <summary>
 /// Represents an entire keyword part of an effect,
@@ -11,18 +19,18 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 /// </summary>
 public class Keyword : ServerSubeffect
 {
-	[JsonProperty(Required = Required.Always)]
-	public string keyword = string.Empty;
+	private readonly string keyword;
+
+	public Keyword(KeywordData data) : base(data)
+	{
+		keyword = data.keyword ?? throw new MissingJSONValueException(nameof(keyword), this);
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
 		base.Initialize(eff, subeffIndex);
 		var subeffects = ServerCardRepository.InstantiateServerPartialKeyword(keyword)
 			?? throw new InvalidOperationException($"Failed to instantiate {keyword}");
-		foreach (var s in subeffects)
-		{
-			Logger.Log($"Loaded subeff with jump indices {s.jumpIndices}");
-		}
 		ServerEffect.InsertSubeffects(subeffIndex + 1, subeffects);
 		//The subeffects will then be initialized by the calling Effect
 	}
