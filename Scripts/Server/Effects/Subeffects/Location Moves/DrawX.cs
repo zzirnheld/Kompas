@@ -1,15 +1,26 @@
 ﻿using System.Threading.Tasks;
 using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class DrawXData : SubeffectData
+{
+	[JsonProperty]
+	public bool addAsTarget = false;
+}
+
 public class DrawX : ServerSubeffect
 {
-    protected virtual int GetToDraw(IResolutionContext context) => AdjustX(context);
+	private readonly bool addAsTarget;
 
-    [JsonProperty]
-	public bool addAsTarget = false;
+	public DrawX(DrawXData data) : base(data)
+	{
+		addAsTarget = data.addAsTarget;
+	}
+
+	protected virtual int GetToDraw(IResolutionContext context) => AdjustX(context);
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{

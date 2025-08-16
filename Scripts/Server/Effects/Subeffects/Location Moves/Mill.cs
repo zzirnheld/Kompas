@@ -1,10 +1,15 @@
 ﻿using Kompas.Cards.Movement;
+using Kompas.Effects.Subeffects;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class MillData : SubeffectData { }
+
 public class Mill : ServerSubeffect
 {
+	public Mill(MillData data) : base(data) { }
+
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		for (int i = 0; i < AdjustX(resolution.Context); i++)

@@ -5,18 +5,22 @@ using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class RevealData : SubeffectData { }
+
 public class Reveal : ServerSubeffect
 {
-	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+	public Reveal(RevealData data) : base(data) { }
+
+	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 		=> false //account for null prop
 		!= context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext))
-			?.KnownToEnemy != false; 
+			?.KnownToEnemy != false;
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (GetCardTarget(resolution.Context) == null) throw new NullCardException(TargetWasNull);
-
-        GetCardTarget(resolution.Context).Reveal(Effect);
+		var card = GetCardTarget(resolution.Context)
+			?? throw new NullCardException(TargetWasNull);
+		card.Reveal(Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }
