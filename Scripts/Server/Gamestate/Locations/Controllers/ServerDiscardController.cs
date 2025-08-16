@@ -5,7 +5,7 @@ namespace Kompas.Server.Gamestate.Locations.Controllers;
 
 public partial class ServerDiscardController : DiscardController
 {
-	public override void Refresh(ICardController cardController) { }
+	public override void RefreshJustAdded(ICardController cardController) { }
 
 	protected override void SpreadOut() { }
 }

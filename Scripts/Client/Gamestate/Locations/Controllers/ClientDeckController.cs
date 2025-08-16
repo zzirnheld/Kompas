@@ -44,7 +44,7 @@ public partial class ClientDeckController : DeckController
 
 	private void Departed() => CardArranger.Close();
 
-	public override void Refresh(ICardController cardController)
+	public override void RefreshJustAdded(ICardController cardController)
 	{
 		if (!CardArranger.IsOpen)
 		{

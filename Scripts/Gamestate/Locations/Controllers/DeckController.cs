@@ -15,17 +15,12 @@ public abstract partial class DeckController : Node, IDeckController //TODO shar
 	}
 
 	public void Refresh() => SpreadOut();
-	public void Remove(ICardController cardController)
-	{
-		cardController.Hide();
-		Refresh();
-	}
-	public abstract void Refresh(ICardController cardController);
+	public abstract void RefreshJustAdded(ICardController cardController);
 
 	protected abstract void SpreadOut();
 }
 
-public interface IDeckController : ILocationController
+public interface IDeckController : IRefreshableLocationController
 {
 	public Deck DeckModel { get; set; }
 }

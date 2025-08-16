@@ -15,17 +15,12 @@ public abstract partial class HandController : Node, IHandController
 	}
 
 	public void Refresh() => SpreadAllCards();
-	public void Remove(ICardController cardController)
-	{
-		cardController.Hide();
-		Refresh();
-	}
-	public void Refresh(ICardController cardController) => Refresh();
+	public void RefreshJustAdded(ICardController cardController) => Refresh();
 
 	protected abstract void SpreadAllCards();
 }
 
-public interface IHandController : ILocationController
+public interface IHandController : IRefreshableLocationController
 {
 	public Hand HandModel { get; set; }
 }

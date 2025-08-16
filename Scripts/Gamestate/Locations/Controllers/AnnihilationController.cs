@@ -16,15 +16,10 @@ public partial class AnnihilationController : Node, IAnnihilationController //TO
 	}
 
 	public virtual void Refresh() { }
-	public void Remove(ICardController cardController)
-	{
-		cardController.Hide();
-		Refresh();
-	}
-	public void Refresh(ICardController cardController) => Refresh(); //TODO
+	public void RefreshJustAdded(ICardController cardController) => Refresh(); //TODO
 }
 
-public interface IAnnihilationController : ILocationController
+public interface IAnnihilationController : IRefreshableLocationController
 {
 	public Annihilation AnnihilationModel { get; set; }
 }
