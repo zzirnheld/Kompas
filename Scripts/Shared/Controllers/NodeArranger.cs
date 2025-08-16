@@ -8,6 +8,7 @@ namespace Kompas.Shared.Controllers;
 /// </summary>
 public abstract partial class NodeArranger : Node3D
 {
+	public abstract void TakeWithoutArranging(Node3D node);
 	public abstract void Arrange(IReadOnlyCollection<Node3D> nodes);
 
 	public abstract void Open();

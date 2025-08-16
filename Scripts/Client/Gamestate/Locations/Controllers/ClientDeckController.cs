@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Kompas.Cards.Controllers;
 using Kompas.Client.UI;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Shared.Controllers;
@@ -44,13 +44,20 @@ public partial class ClientDeckController : DeckController
 
 	private void Departed() => CardArranger.Close();
 
-	protected override void SpreadOut()
+	public override void Refresh(ICardController cardController)
 	{
 		if (!CardArranger.IsOpen)
 		{
-			CardArranger.TakeWithoutArranging(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
+			CardArranger.TakeWithoutArranging(cardController.Node);
 			return;
 		}
+
+		SpreadOut();
+	}
+
+	protected override void SpreadOut()
+	{
+		if (!CardArranger.IsOpen) return;
 
 		var cardsToArrange = DeckModel.Cards;
 		if (TargetingController.Searching()) cardsToArrange = cardsToArrange.Where(TargetingController.IsBeingSearched).ToArray();

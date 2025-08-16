@@ -20,6 +20,7 @@ public abstract partial class DiscardController : Node, IDiscardController
 		cardController.Hide();
 		Refresh();
 	}
+	public abstract void Refresh(ICardController cardController);
 
 	protected abstract void SpreadOut();
 }

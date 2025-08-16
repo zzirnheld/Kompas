@@ -35,7 +35,7 @@ public abstract class Deck : OwnedLocationModel
 	protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 	{
 		base.PerformAdd(card, index, stackableCause);
-		deckController.Refresh();
+		deckController.Refresh(card.CardController);
 	}
 
 	protected override void AddToCollection(GameCard card, int? index)

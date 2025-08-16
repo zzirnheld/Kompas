@@ -21,6 +21,7 @@ public partial class AnnihilationController : Node, IAnnihilationController //TO
 		cardController.Hide();
 		Refresh();
 	}
+	public void Refresh(ICardController cardController) => Refresh(); //TODO
 }
 
 public interface IAnnihilationController : ILocationController

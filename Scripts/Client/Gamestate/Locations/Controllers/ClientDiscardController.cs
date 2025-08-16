@@ -1,5 +1,6 @@
 using System.Linq;
 using Godot;
+using Kompas.Cards.Controllers;
 using Kompas.Client.UI;
 using Kompas.Gamestate.Locations.Controllers;
 using Kompas.Shared.Controllers;
@@ -36,7 +37,23 @@ public partial class ClientDiscardController : DiscardController
 
 	private void Departed() => CardArranger.Close();
 
-	protected override void SpreadOut()
-		=> CardArranger.Arrange(DiscardModel.Cards.Select(c => c.CardController.Node).ToArray());
+	public override void Refresh(ICardController cardController)
+	{
+		if (!CardArranger.IsOpen)
+		{
+			CardArranger.TakeWithoutArranging(cardController.Node);
+			return;
+		}
 
+		SpreadOut();
+	}
+
+	protected override void SpreadOut()
+	{
+		if (!CardArranger.IsOpen) return;
+
+		//TODO ordered comparison of cards in both - if same in same order, skip
+		
+		CardArranger.Arrange(DiscardModel.Cards.Select(c => c.CardController.Node).ToArray());
+	}
 }

@@ -6,4 +6,5 @@ public interface ILocationController
 {
 	public void Refresh();
 	public void Remove(ICardController cardController);
+	public void Refresh(ICardController justAdded);
 }

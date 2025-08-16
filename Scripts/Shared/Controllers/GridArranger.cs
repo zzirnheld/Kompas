@@ -61,12 +61,9 @@ public partial class GridArranger : NodeArranger
 		objectSize = xWidth / columns;
 	}
 
-	public void TakeWithoutArranging(IReadOnlyCollection<Node3D> nodes)
+	public override void TakeWithoutArranging(Node3D node)
 	{
-		foreach (var node in nodes)
-		{
-			NodeParent.TransferChild(node);
-		}
+		NodeParent.TransferChild(node);
 	}
 
 	public override void Arrange(IReadOnlyCollection<Node3D> nodes)

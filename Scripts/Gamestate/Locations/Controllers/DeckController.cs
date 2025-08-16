@@ -20,6 +20,7 @@ public abstract partial class DeckController : Node, IDeckController //TODO shar
 		cardController.Hide();
 		Refresh();
 	}
+	public abstract void Refresh(ICardController cardController);
 
 	protected abstract void SpreadOut();
 }

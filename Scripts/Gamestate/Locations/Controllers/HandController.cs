@@ -20,6 +20,7 @@ public abstract partial class HandController : Node, IHandController
 		cardController.Hide();
 		Refresh();
 	}
+	public void Refresh(ICardController cardController) => Refresh();
 
 	protected abstract void SpreadAllCards();
 }
