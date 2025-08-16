@@ -4,8 +4,12 @@ using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class Hand : ChangeGameLocation
+public class HandData : ChangeGameLocationData { }
+
+public class Hand : ChangeGameLocation<HandData>
 {
+	public Hand(HandData data) : base(data) { }
+
 	protected override Location Destination => Location.Hand;
 
 	protected override void ChangeLocation(GameCard card, IServerResolutionContext context)

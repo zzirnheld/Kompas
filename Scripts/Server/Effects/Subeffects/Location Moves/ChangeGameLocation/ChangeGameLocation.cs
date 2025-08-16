@@ -7,11 +7,16 @@ using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class ChangeGameLocationData : SubeffectData { }
+
 /// <summary>
 /// Moves cards between discard/field/etc
 /// </summary>
-public abstract class ChangeGameLocation : ServerSubeffect
+public abstract class ChangeGameLocation<DataType> : ServerSubeffect<DataType>
+	where DataType : ChangeGameLocationData
 {
+	protected ChangeGameLocation(DataType data) : base(data) { }
+
 	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 	{
 		var currLocation = context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext))
@@ -23,10 +28,10 @@ public abstract class ChangeGameLocation : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-        GameCard target = GetCardTarget(resolution.Context)
+		GameCard target = GetCardTarget(resolution.Context)
 			?? throw new NullCardException(TargetWasNull);
 
-        ChangeLocation(target, resolution.Context);
+		ChangeLocation(target, resolution.Context);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 

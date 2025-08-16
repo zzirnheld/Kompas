@@ -6,8 +6,12 @@ using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class Topdeck : ChangeGameLocation
+public class TopdeckData : ChangeGameLocationData { }
+
+public class Topdeck : ChangeGameLocation<TopdeckData>
 {
+	public Topdeck(TopdeckData data) : base(data) { }
+
 	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null;
 	protected override Location Destination => Location.Deck;

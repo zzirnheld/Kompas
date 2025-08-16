@@ -6,9 +6,13 @@ using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class Reshuffle : ChangeGameLocation
+public class ReshuffleData : ChangeGameLocationData { }
+
+public class Reshuffle : ChangeGameLocation<ReshuffleData>
 {
-	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+	public Reshuffle(ReshuffleData data) : base(data) { }
+
+	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null;
 	protected override Location Destination => Location.Deck;
 
