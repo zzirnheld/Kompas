@@ -6,25 +6,45 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Gamestate;
 using Kompas.Effects.Models.Restrictions.Triggering;
 using Newtonsoft.Json;
+using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public abstract class HangingEffectSubeffect : ServerSubeffect
+public abstract class HangingEffectData : SubeffectData
 {
-	//BEWARE: once per turn might not work for these as impl rn, because it's kind of ill-defined.
-	//this is only a problem if I one day start creating hanging effects that can later trigger once each turn.
+	[JsonProperty(Required = Required.Always)]
+	public string? endCondition;
 	[JsonProperty]
-	public ITriggerRestriction triggerRestriction = new AlwaysValid();
-	#nullable disable
-	[JsonProperty (Required = Required.Always)]
-	public string endCondition;
-	#nullable restore
+	public ITriggerRestriction? triggerRestriction;
 
 	[JsonProperty]
 	public string fallOffCondition = Trigger.Remove;
 	[JsonProperty]
 	public ITriggerRestriction? fallOffRestriction;
 	
+}
+
+public abstract class HangingEffectSubeffect<DataType> : ServerSubeffect<DataType>
+	where DataType : HangingEffectData
+{
+	private readonly string endCondition;
+	//BEWARE: once per turn might not work for these as impl rn, because it's kind of ill-defined.
+	//this is only a problem if I one day start creating hanging effects that can later trigger once each turn.
+	private readonly ITriggerRestriction triggerRestriction;
+
+	private readonly string fallOffCondition;
+	private readonly ITriggerRestriction? fallOffRestriction;
+
+	protected HangingEffectSubeffect(DataType data) : base(data)
+	{
+		endCondition = data.endCondition ?? throw new MissingJSONValueException(nameof(endCondition), this);
+
+		triggerRestriction = data.triggerRestriction ?? new AlwaysValid();
+		fallOffCondition = data.fallOffCondition;
+		fallOffRestriction = data.fallOffRestriction;
+	}
+
 	public virtual bool ContinueResolution => true;
 
 	protected HangingEffect.EndCondition End => new()

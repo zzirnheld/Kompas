@@ -5,8 +5,12 @@ using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public class Activation : HangingEffectSubeffect
+public class ActivationData : HangingEffectData { }
+
+public class Activation : HangingEffectSubeffect<ActivationData>
 {
+	public Activation(ActivationData data) : base(data) { }
+
 	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		var tempActivation = new ActivationEffect(end: End, fallOff: FallOff,
@@ -14,14 +18,14 @@ public class Activation : HangingEffectSubeffect
 			target: GetCardTarget(context), source: this);
 		return new List<HangingEffect>() { tempActivation };
 	}
-	
+
 	private class ActivationEffect : HangingEffect
 	{
 		private readonly GameCard target;
-		private readonly ServerSubeffect source;
+		private readonly IServerSubeffect source;
 
 		public ActivationEffect(EndCondition end, EndCondition fallOff,
-			ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target, ServerSubeffect source)
+			ServerEffect sourceEff, IResolutionContext resolutionContext, GameCard target, IServerSubeffect source)
 			: base(end, fallOff, sourceEff, resolutionContext, removeIfEnd: true)
 		{
 			this.target = target ?? throw new System.ArgumentNullException(nameof(target), "Cannot target a null card for a hanging activation");

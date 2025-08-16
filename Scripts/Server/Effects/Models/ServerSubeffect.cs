@@ -15,8 +15,9 @@ namespace Kompas.Server.Effects.Models;
 public abstract class ServerSubeffect<DataType> : Subeffect<DataType>, IServerSubeffect
 	where DataType : SubeffectData
 {
+	//TODO: protected property access to these?
 	/// <summary> See <see cref="SubeffectData.forbidNotBoard"/> </summary>
-	private readonly bool forbidNotBoard;
+	protected readonly bool forbidNotBoard;
 
 	/// <summary> See <see cref="SubeffectData.targetIndex"/> </summary>
 	private readonly int targetIndex;

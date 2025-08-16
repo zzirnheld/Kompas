@@ -4,42 +4,115 @@ using System.Collections.Generic;
 using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
 using Kompas.Effects.Models.TriggeringEvent;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public class ChangeCardStats : HangingEffectSubeffect
+public class ChangeCardStatsData : HangingEffectData
 {
+	[JsonProperty]
 	public int nModifier = 0;
+	[JsonProperty]
 	public int eModifier = 0;
+	[JsonProperty]
 	public int sModifier = 0;
+	[JsonProperty]
 	public int wModifier = 0;
+	[JsonProperty]
 	public int cModifier = 0;
+	[JsonProperty]
 	public int aModifier = 0;
 
+	[JsonProperty]
 	public int nDivisor = 1;
+	[JsonProperty]
 	public int eDivisor = 1;
+	[JsonProperty]
 	public int sDivisor = 1;
+	[JsonProperty]
 	public int wDivisor = 1;
+	[JsonProperty]
 	public int cDivisor = 1;
+	[JsonProperty]
 	public int aDivisor = 1;
 
+	[JsonProperty]
 	public int nMultiplier = 0;
+	[JsonProperty]
 	public int eMultiplier = 0;
+	[JsonProperty]
 	public int sMultiplier = 0;
+	[JsonProperty]
 	public int wMultiplier = 0;
+	[JsonProperty]
 	public int cMultiplier = 0;
+	[JsonProperty]
 	public int aMultiplier = 0;
+}
 
-    protected CardStats ComputeBuff(int x)
-    {
-        CardStats buff = (nMultiplier, eMultiplier, sMultiplier, wMultiplier, cMultiplier, aMultiplier);
-        buff *= x;
-        buff += (nModifier, eModifier, sModifier, wModifier, cModifier, aModifier);
-        buff /= (nDivisor, eDivisor, sDivisor, wDivisor, cDivisor, aDivisor);
-        return buff;
-    }
+public class ChangeCardStats : ChangeCardStats<ChangeCardStatsData>
+{
+	public ChangeCardStats(ChangeCardStatsData data) : base(data) { }
+}
 
-    protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
+public abstract class ChangeCardStats<DataType> : HangingEffectSubeffect<DataType>
+	where DataType : ChangeCardStatsData
+{
+	public int nModifier;
+	public int eModifier;
+	public int sModifier;
+	public int wModifier;
+	public int cModifier;
+	public int aModifier;
+
+	public int nDivisor;
+	public int eDivisor;
+	public int sDivisor;
+	public int wDivisor;
+	public int cDivisor;
+	public int aDivisor;
+
+	public int nMultiplier;
+	public int eMultiplier;
+	public int sMultiplier;
+	public int wMultiplier;
+	public int cMultiplier;
+	public int aMultiplier;
+
+	public ChangeCardStats(DataType data) : base(data)
+	{
+		nModifier = data.nModifier;
+		eModifier = data.eModifier;
+		sModifier = data.sModifier;
+		wModifier = data.wModifier;
+		cModifier = data.cModifier;
+		aModifier = data.aModifier;
+
+		nMultiplier = data.nMultiplier;
+		eMultiplier = data.eMultiplier;
+		sMultiplier = data.sMultiplier;
+		wMultiplier = data.wMultiplier;
+		cMultiplier = data.cMultiplier;
+		aMultiplier = data.aMultiplier;
+
+		nDivisor = data.nDivisor;
+		eDivisor = data.eDivisor;
+		sDivisor = data.sDivisor;
+		wDivisor = data.wDivisor;
+		cDivisor = data.cDivisor;
+		aDivisor = data.aDivisor;
+	}
+
+	protected CardStats ComputeBuff(int x)
+	{
+		CardStats buff = (nMultiplier, eMultiplier, sMultiplier, wMultiplier, cMultiplier, aMultiplier);
+		buff *= x;
+		buff += (nModifier, eModifier, sModifier, wModifier, cModifier, aModifier);
+		buff /= (nDivisor, eDivisor, sDivisor, wDivisor, cDivisor, aDivisor);
+		return buff;
+	}
+
+	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		if (GetCardTarget(context) == null)
 			throw new NullCardException(TargetWasNull);

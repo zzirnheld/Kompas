@@ -6,8 +6,12 @@ using Kompas.Effects.Models.TriggeringEvent;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public class Annihilation : HangingEffectSubeffect
+public class AnnihilationData : HangingEffectData { }
+
+public class Annihilation : HangingEffectSubeffect<AnnihilationData>
 {
+	public Annihilation(AnnihilationData data) : base(data) { }
+
 	protected override IEnumerable<HangingEffect> CreateHangingEffects(IServerResolutionContext context)
 	{
 		var eff = new AnnihilationEffect(end: End, fallOff: FallOff,

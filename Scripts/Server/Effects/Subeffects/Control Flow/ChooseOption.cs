@@ -17,7 +17,6 @@ public class ChooseOptionData : SubeffectData
 	public bool hasDefault = true;
 	[JsonProperty]
 	public bool showX = false;
-	
 }
 
 public class ChooseOption : ServerSubeffect<ChooseOptionData>

@@ -9,11 +9,21 @@ using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
-public class ChangeAllCardStats : ChangeCardStats
+public class ChangeAllCardStatsData : ChangeCardStatsData
 {
 	//default to making sure things are characters before changing their stats
 	[JsonProperty]
 	public IRestriction<IGameCardInfo> cardRestriction = new Character();
+}
+
+public class ChangeAllCardStats : ChangeCardStats<ChangeAllCardStatsData>
+{
+	private readonly IRestriction<IGameCardInfo> cardRestriction;
+
+	public ChangeAllCardStats(ChangeAllCardStatsData data) : base(data)
+	{
+		cardRestriction = data.cardRestriction;
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
