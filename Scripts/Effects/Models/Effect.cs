@@ -21,7 +21,7 @@ public abstract class Effect : IEffect
 	public IPlayer ControllingPlayer => OwningPlayer; //FUTURE: effects can change control. for now, assume same player
 
 	//subeffects
-	public abstract Subeffect[] Subeffects { get; }
+	public abstract ISubeffect[] Subeffects { get; }
 	//Targets
 	protected readonly List<CardLink> cardLinks = new();
 
@@ -121,6 +121,6 @@ public abstract class Effect : IEffect
 
 	public GameCard? GetCause(IGameCardInfo? withRespectTo) => Card;
 
-	public InitializationContext CreateInitializationContext(Subeffect subeffect, Trigger? trigger)
+	public InitializationContext CreateInitializationContext(ISubeffect subeffect, Trigger? trigger)
 		=> new(game: Game, source: Card, effect: this, trigger: trigger, subeffect: subeffect);
 }

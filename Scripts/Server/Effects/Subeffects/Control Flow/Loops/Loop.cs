@@ -1,12 +1,29 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Networking;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class Loop : ServerSubeffect
+public class LoopData : SubeffectData
 {
 	public bool canDecline = false;
+}
+
+public class Loop : Loop<LoopData>
+{
+	public Loop(LoopData data) : base(data) { }
+}
+
+public abstract class Loop<DataType> : ServerSubeffect<DataType>
+	where DataType : LoopData
+{
+	private readonly bool canDecline;
+
+	protected Loop(DataType data) : base(data)
+	{
+		canDecline = data.canDecline;
+	}
 
 	protected virtual void OnLoopExit(IServerResolutionContext context)
 	{
@@ -20,13 +37,13 @@ public class Loop : ServerSubeffect
 		}
 	}
 
-    /// <summary>
-    /// Logic when we finish an iteration of the loop
-    /// </summary>
-    /// <returns>Whether to continue looping</returns>
-    protected virtual bool LoopContinuation(ServerEffectResolution resolution) => true;
+	/// <summary>
+	/// Logic when we finish an iteration of the loop
+	/// </summary>
+	/// <returns>Whether to continue looping</returns>
+	protected virtual bool LoopContinuation(ServerEffectResolution resolution) => true;
 
-    public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
+	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		//loop again if necessary
 		Logger.Log($"im in ur loop of type {GetType()}, the one that jumps to {JumpIndex}");

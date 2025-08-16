@@ -1,17 +1,67 @@
+using Kompas.Cards.Models;
+using Kompas.Effects;
 using Kompas.Effects.Models;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
+using Kompas.Gamestate.Players;
+using Kompas.Server.Effects.Models.Subeffects;
 using Kompas.Server.Gamestate;
-using Kompas.Effects.Subeffects;
 using Kompas.Shared.Exceptions;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models;
 
-public abstract class ServerSubeffect<DataType> : Subeffect<DataType>
+public abstract class ServerSubeffect<DataType> : Subeffect<DataType>, IServerSubeffect
 	where DataType : SubeffectData
 {
+	/// <summary> See <see cref="SubeffectData.forbidNotBoard"/> </summary>
+	private readonly bool forbidNotBoard;
+
+	/// <summary> See <see cref="SubeffectData.targetIndex"/> </summary>
+	private readonly int targetIndex;
+
+	/// <summary> See <see cref="SubeffectData.spaceIndex"/> </summary>
+	private readonly int spaceIndex;
+
+	/// <summary> See <see cref="SubeffectData.cardInfoIndex"/> </summary>
+	private readonly int cardInfoIndex;
+
+	/// <summary> See <see cref="SubeffectData.playerIndex"/> </summary>
+	private readonly int playerIndex;
+
+	/// <summary> See <see cref="SubeffectData.stackableIndex"/> </summary>
+	private readonly int stackableIndex;
+
+	/// <summary> See <see cref="SubeffectData.jumpIndices"/> </summary>
+	private readonly int[]? jumpIndices;
+
+	/// <summary> See <see cref="SubeffectData.jumpIndicesIndex"/> </summary>
+	private readonly int jumpIndicesIndex;
+
+	/// <summary> See <see cref="SubeffectData.xMultiplier"/> </summary>
+	private readonly int xMultiplier;
+
+	/// <summary> See <see cref="SubeffectData.xDivisor"/> </summary>
+	private readonly int xDivisor;
+
+	/// <summary> See <see cref="SubeffectData.xModifier"/> </summary>
+	private readonly int xModifier;
+
+	protected ServerSubeffect(DataType data) : base(data)
+	{
+		targetIndex = data.targetIndex;
+		spaceIndex = data.spaceIndex;
+		cardInfoIndex = data.cardInfoIndex;
+		playerIndex = data.playerIndex;
+		stackableIndex = data.stackableIndex;
+		jumpIndices = data.jumpIndices;
+		jumpIndicesIndex = data.jumpIndicesIndex;
+		xMultiplier = data.xMultiplier;
+		xDivisor = data.xDivisor;
+		xModifier = data.xModifier;
+	}
+
 	protected override Effect _Effect => ServerEffect;
 	protected override IGame _Game => ServerGame;
 
@@ -24,38 +74,25 @@ public abstract class ServerSubeffect<DataType> : Subeffect<DataType>
 	public InitializationContext DefaultInitializationContext
 		=> Effect.CreateInitializationContext(this, default);
 
-	protected ServerSubeffect(DataType data) : base(data)
+	public TargetingContext CurrTargetingContext => new()
 	{
-	}
+		cardTargetIndex = targetIndex,
+		spaceTargetIndex = spaceIndex,
+		cardInfoTargetIndex = cardInfoIndex,
+		playerTargetIndex = playerIndex,
+		stackableTargetIndex = stackableIndex
+	};
 
-	/// <summary>
-	/// Sets up the subeffect with whatever necessary values.
-	/// Usually also initializes any restrictions the effects are using.
-	/// </summary>
-	/// <param name="eff">The effect this subeffect is part of.</param>
-	/// <param name="subeffIndex">The index in the subeffect array of its parent <paramref name="eff"/> this subeffect is.</param>
 	public virtual void Initialize(ServerEffect eff, int subeffIndex)
 	{
 		_serverEffect = eff;
 		SubeffIndex = subeffIndex;
 	}
 
-	/// <summary>
-	/// Server Subeffect resolve method. Does whatever this type of subeffect does
-	/// <returns>A ResolutionInfo object describing what to do next</returns>
-	/// </summary>
 	public abstract Task<ResolutionInfo> Resolve(ServerEffectResolution resolution);
 
-	/// <summary>
-	/// Whether this subeffect will be considered EffectImpossible at this point
-	/// </summary>
-	/// <returns></returns>
 	public virtual bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null) => true;
 
-	/// <summary>
-	/// Optional method. If implemented, does something when the effect is declared impossible.
-	/// Default implementation just finishes resolution of the effect
-	/// </summary>
 	public virtual Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
 	{
 		var currentResolution = resolution.Context
@@ -65,5 +102,45 @@ public abstract class ServerSubeffect<DataType> : Subeffect<DataType>
 	}
 
 	public virtual void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
-		=> ContextInitializeableBase.AdjustSubeffectIndices(Data.jumpIndices, increment, startingAtIndex);
+		=> ContextInitializeableBase.AdjustSubeffectIndices(jumpIndices, increment, startingAtIndex);
+
+
+	/// <summary>
+	/// If the effect uses X, this is the adjusted value of X
+	/// </summary>
+	public int AdjustX(IResolutionContext context) => (context.X * xMultiplier / xDivisor) + xModifier;
+
+    public GameCard GetCardTarget(IResolutionContext context)
+    {
+        return context.GetCardTarget(targetIndex)
+        	?? throw new NullCardException(TargetWasNull);
+    }
+
+    public Space GetSpaceTarget(IResolutionContext context)
+    {
+        return context.GetSpaceTarget(spaceIndex)
+        	?? throw new NullSpaceException(TargetWasNull);
+    }
+
+    public IGameCardInfo GetCardInfoTarget(IResolutionContext context)
+    {
+		return EffectHelper.GetItem(context.CardInfoTargets, cardInfoIndex)
+			?? throw new NullCardException(TargetWasNull);
+    }
+
+    public IPlayer GetPlayerTarget(IResolutionContext context)
+    {
+        return context.GetPlayerTarget(playerIndex)
+        	?? throw new NullPlayerException(TargetWasNull);
+    }
+
+    public IStackable GetStackableTarget(IResolutionContext context)
+    {
+		return EffectHelper.GetItem(context.StackableTargets, stackableIndex)
+			?? throw new NullPlayerException(TargetWasNull);
+    }
+
+    public int JumpIndex => EffectHelper.GetItem(jumpIndices
+		?? throw new System.InvalidOperationException("No jump indices, but a subeffect needed one!"),
+		jumpIndicesIndex);
 }

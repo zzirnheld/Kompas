@@ -16,7 +16,7 @@ public readonly struct InitializationContext
 	public readonly Effect? effect;
 
 	public readonly Trigger? trigger;
-	public readonly Subeffect? subeffect;
+	public readonly ISubeffect? subeffect;
 
 	private readonly IPlayer? ownerOverride;
 	public readonly IPlayer? Owner => ownerOverride ?? effect?.OwningPlayer ?? source?.ControllingPlayer;
@@ -24,12 +24,12 @@ public readonly struct InitializationContext
 	public readonly IContextInitializeable? parent;
 
 	public InitializationContext(IGame game, GameCard? source, 
-		Effect? effect = default, Trigger? trigger = default, Subeffect? subeffect = default, IPlayer? controller = default)
+		Effect? effect = default, Trigger? trigger = default, ISubeffect? subeffect = default, IPlayer? controller = default)
 		: this (game, source, effect, trigger, subeffect, controller, default)
 	{ }
 
 	private InitializationContext(IGame game, GameCard? source,
-		Effect? effect, Trigger? trigger, Subeffect? subeffect, IPlayer? controller, IContextInitializeable? parent)
+		Effect? effect, Trigger? trigger, ISubeffect? subeffect, IPlayer? controller, IContextInitializeable? parent)
 	{
 		this.game = game;
 		this.source = source;

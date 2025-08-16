@@ -1,4 +1,5 @@
 using Kompas.Effects.Models;
+using Kompas.Server.Effects.Models.Subeffects;
 using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Effects.Models;
@@ -6,5 +7,5 @@ namespace Kompas.Server.Effects.Models;
 public interface IServerResolutionContext : IResolutionContext
 {
 	public ServerPlayer ControllingPlayer { get; }
-	public ServerSubeffect? OnImpossible { get; set; }
+	public IServerSubeffect? OnImpossible { get; set; }
 }

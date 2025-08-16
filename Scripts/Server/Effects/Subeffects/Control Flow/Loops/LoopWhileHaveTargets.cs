@@ -4,22 +4,35 @@ using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class LoopWhileHaveTargets : Loop
+public class LoopWhileHaveTargetsData : LoopData
 {
 	[JsonProperty]
 	public bool delete = false;
 
 	[JsonProperty]
 	public int remainingTargets = 0;
-	#nullable disable
+
 	[JsonProperty]
-	public IIdentity<int> leaveRemainingTargets;
-	#nullable restore
+	public IIdentity<int>? leaveRemainingTargets;
+}
+
+public class LoopWhileHaveTargets : Loop<LoopWhileHaveTargetsData>
+{
+	private readonly bool delete;
+	private readonly int remainingTargets;
+	private readonly IIdentity<int> leaveRemainingTargets;
+
+	public LoopWhileHaveTargets(LoopWhileHaveTargetsData data) : base(data)
+	{
+		delete = data.delete;
+		remainingTargets = data.remainingTargets;
+		leaveRemainingTargets = data.leaveRemainingTargets
+			?? new Kompas.Effects.Models.Identities.Numbers.Constant() { constant = remainingTargets };
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
 		base.Initialize(eff, subeffIndex);
-		leaveRemainingTargets ??= new Kompas.Effects.Models.Identities.Numbers.Constant() { constant = remainingTargets };
 		leaveRemainingTargets.Initialize(DefaultInitializationContext);
 	}
 

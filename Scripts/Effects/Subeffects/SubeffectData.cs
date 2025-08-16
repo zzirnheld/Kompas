@@ -4,7 +4,6 @@ public abstract class SubeffectData
 {
 	public bool forbidNotBoard = true;
 
-	#region targeting indices
 	/// <summary>
 	/// The index in the card targets list for which target this effect uses.
 	/// If positive, just an index.
@@ -46,9 +45,7 @@ public abstract class SubeffectData
 	/// Same +- rules as the target/space indices
 	/// </summary>
 	public int jumpIndicesIndex = -1;
-	#endregion targeting indices
 
-	#region effect x
 	/// <summary>
 	/// If the effect uses X, this is the multiplier to X. Default: 1
 	/// </summary>
@@ -63,6 +60,4 @@ public abstract class SubeffectData
 	/// If the effect uses X, this is the modifier to X. Default: 0
 	/// </summary>
 	public int xModifier = 0;
-	#endregion
-	
 }

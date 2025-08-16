@@ -3,12 +3,24 @@ using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class CountXLoop : Loop
+public class CountXLoopData : LoopData
 {
-	//if true, increments x each iteration. if false, decrements
-	public bool decrement = false;
+    /// <summary>
+    /// if true, increments x each iteration. if false, decrements
+    /// </summary>
+    public bool decrement = false;
+}
 
-    protected override bool LoopContinuation(ServerEffectResolution resolution)
+public class CountXLoop : Loop<CountXLoopData>
+{
+    private readonly bool decrement;
+
+    public CountXLoop(CountXLoopData data) : base(data)
+    {
+        decrement = data.decrement;
+    }
+
+	protected override bool LoopContinuation(ServerEffectResolution resolution)
     {
         //count the number of times this happens
         if (decrement) resolution.Context.X--;
@@ -25,5 +37,5 @@ public class CountXLoop : Loop
 
     //Specifically for this type of loop, if another target isn't found, that's when we exit the loop
     public override Task<ResolutionInfo> OnImpossible(ServerEffectResolution resolution, string why)
-		=> ExitLoop(resolution.Context);
+        => ExitLoop(resolution.Context);
 }

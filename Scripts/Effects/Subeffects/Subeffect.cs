@@ -1,9 +1,5 @@
-using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Gamestate;
-using Kompas.Gamestate.Exceptions;
-using Kompas.Gamestate.Players;
-using Kompas.Effects.Subeffects;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Effects.Subeffects;
@@ -35,15 +31,6 @@ public abstract class Subeffect<DataType> : ISubeffect
 	public const string TooMuchEForHeal = "Target already has at least their printed E";
 	#endregion reasons for impossible
 
-	public TargetingContext CurrTargetingContext => new()
-	{
-		cardTargetIndex = Data.targetIndex,
-		spaceTargetIndex = Data.spaceIndex,
-		cardInfoTargetIndex = Data.cardInfoIndex,
-		playerTargetIndex = Data.playerIndex,
-		stackableTargetIndex = Data.stackableIndex
-	};
-
 	protected abstract Effect? _Effect { get; }
 	public Effect Effect => _Effect
 		?? throw new NotInitializedException();
@@ -53,50 +40,5 @@ public abstract class Subeffect<DataType> : ISubeffect
 
 	public int SubeffIndex { get; protected set; }
 
-	protected DataType Data { get; }
-
-	protected Subeffect(DataType data)
-	{
-		Data = data;
-	}
-
-
-	/// <summary>
-	/// If the effect uses X, this is the adjusted value of X
-	/// </summary>
-	public int AdjustX(IResolutionContext context) => (context.X * Data.xMultiplier / Data.xDivisor) + Data.xModifier;
-
-    public GameCard GetCardTarget(IResolutionContext context)
-    {
-        return context.GetCardTarget(Data.targetIndex)
-        	?? throw new NullCardException(TargetWasNull);
-    }
-
-    public Space GetSpaceTarget(IResolutionContext context)
-    {
-        return context.GetSpaceTarget(Data.spaceIndex)
-        	?? throw new NullSpaceException(TargetWasNull);
-    }
-
-    public IGameCardInfo GetCardInfoTarget(IResolutionContext context)
-    {
-		return EffectHelper.GetItem(context.CardInfoTargets, Data.cardInfoIndex)
-			?? throw new NullCardException(TargetWasNull);
-    }
-
-    public IPlayer GetPlayerTarget(IResolutionContext context)
-    {
-        return context.GetPlayerTarget(Data.playerIndex)
-        	?? throw new NullPlayerException(TargetWasNull);
-    }
-
-    public IStackable GetStackableTarget(IResolutionContext context)
-    {
-		return EffectHelper.GetItem(context.StackableTargets, Data.stackableIndex)
-			?? throw new NullPlayerException(TargetWasNull);
-    }
-
-    public int JumpIndex => EffectHelper.GetItem(Data.jumpIndices
-		?? throw new System.InvalidOperationException("No jump indices, but a subeffect needed one!"),
-		Data.jumpIndicesIndex);
+	protected Subeffect(DataType data) { }
 }

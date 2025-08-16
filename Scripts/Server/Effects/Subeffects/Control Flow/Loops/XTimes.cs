@@ -2,17 +2,21 @@
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class XTimesData : LoopData { }
+
 public class XTimes : Loop
 {
 	private int count = 0;
 
-    protected override bool LoopContinuation(ServerEffectResolution resolution)
-    {
-        count++;
-        return count < resolution.Context.X;
-    }
+	public XTimes(LoopData data) : base(data) { }
 
-    protected override void OnLoopExit(IServerResolutionContext context)
+	protected override bool LoopContinuation(ServerEffectResolution resolution)
+	{
+		count++;
+		return count < resolution.Context.X;
+	}
+
+	protected override void OnLoopExit(IServerResolutionContext context)
 	{
 		base.OnLoopExit(context);
 		count = 0;
