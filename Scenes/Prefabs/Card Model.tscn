@@ -1482,7 +1482,7 @@ _validTargetParticles = NodePath("../Particles/Valid Target Particles")
 _currentTargetParticles = NodePath("../Particles/Current Target Particles")
 _effectSourceParticles = NodePath("../Particles/Effect Source Particles")
 
-[node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "_frameObjects", "_cardImageObjects")]
+[node name="Zoomed Out" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "_frameObjects", "_cardImageObjects", "_charParent", "_nonCharParent")]
 script = ExtResource("2_cdddr")
 N = NodePath("Char/ZO N Label")
 E = NodePath("Char/ZO E Label")
@@ -1491,6 +1491,8 @@ W = NodePath("Char/ZO W Label")
 _cardFrameMaterial = ExtResource("7_hpixu")
 _frameObjects = [NodePath("Char/ZO Char Frame Stats"), NodePath("NonChar/ZO NonChar Frame Stats"), NodePath("All/ZO All Frame Cost"), NodePath("All/ZO All Frame Corners"), NodePath("All/ZO All Baseplate")]
 _cardImageObjects = [NodePath("Char/ZO Char Baseplate Image"), NodePath("NonChar/ZO NonChar Baseplate Image")]
+_charParent = NodePath("Char")
+_nonCharParent = NodePath("NonChar")
 
 [node name="Char" type="Node3D" parent="Actual Card Model/Zoomed Out"]
 
@@ -1682,7 +1684,7 @@ skeleton = NodePath("")
 
 [node name="Label3D" type="Label3D" parent="Actual Card Model/Zoomed In With Text/Node3D3"]
 
-[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_effText", "_frameObjects", "_cardImageObjects")]
+[node name="Zoomed In No Text" type="Node3D" parent="Actual Card Model" node_paths=PackedStringArray("N", "E", "Cost", "W", "CardName", "Subtypes", "_effText", "_frameObjects", "_cardImageObjects", "_charParent", "_nonCharParent")]
 script = ExtResource("2_0v3lq")
 N = NodePath("Char/N Label")
 E = NodePath("Char/E Label")
@@ -1694,6 +1696,8 @@ _effText = NodePath("../../Effect Text SubViewport/Node2D/Panel/Eff Text Backing
 _cardFrameMaterial = ExtResource("7_hpixu")
 _frameObjects = [NodePath("All/Frame Objects/ZI NT All Frame Cost"), NodePath("All/Frame Objects/ZI NT All Baseplate"), NodePath("All/Frame Objects/ZI NT All Frame Bottom Half "), NodePath("All/Frame Objects/ZI NT All Frame Top Half"), NodePath("Char/Frame Objects/ZI NT Char E"), NodePath("Char/Frame Objects/ZI NT Char N"), NodePath("Char/Frame Objects/ZI NT Char W"), NodePath("NonChar/ZI NT NonChar Frame Stat Caps")]
 _cardImageObjects = [NodePath("All/ZI NT All Baseplate Image")]
+_charParent = NodePath("Char")
+_nonCharParent = NodePath("NonChar")
 
 [node name="All" type="Node3D" parent="Actual Card Model/Zoomed In No Text"]
 
