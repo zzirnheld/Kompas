@@ -12,7 +12,7 @@ public class NegateData : HangingEffectData
 	public bool negated = true;
 }
 
-public class Negate : HangingEffectSubeffect<NegateData>
+public class Negate : HangingEffectSubeffect
 {
 	private readonly bool negated;
 

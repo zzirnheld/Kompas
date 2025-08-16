@@ -15,7 +15,7 @@ public class Loop : Loop<LoopData>
 	public Loop(LoopData data) : base(data) { }
 }
 
-public abstract class Loop<DataType> : ServerSubeffect<DataType>
+public abstract class Loop<DataType> : ServerSubeffect
 	where DataType : LoopData
 {
 	private readonly bool canDecline;

@@ -7,8 +7,7 @@ namespace Kompas.Effects.Subeffects;
 /// <summary>
 /// Not abstract because it's instantiated as part of loading subeffects
 /// </summary>
-public abstract class Subeffect<DataType> : ISubeffect
-	where DataType : SubeffectData
+public abstract class Subeffect : ISubeffect
 {
 	#region reasons for impossible
 	public const string TargetWasNull = "No target to affect";
@@ -40,5 +39,5 @@ public abstract class Subeffect<DataType> : ISubeffect
 
 	public int SubeffIndex { get; protected set; }
 
-	protected Subeffect(DataType data) { }
+	protected Subeffect() { }
 }

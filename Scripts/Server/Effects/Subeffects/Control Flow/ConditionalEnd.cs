@@ -12,7 +12,7 @@ public class ConditionalEndData : SubeffectData
 	public IGamestateRestriction? endIfTrue;
 }
 
-public class ConditionalEnd : ServerSubeffect<ConditionalEndData>
+public class ConditionalEnd : ServerSubeffect
 {
 	private readonly IGamestateRestriction endIfTrue;
 

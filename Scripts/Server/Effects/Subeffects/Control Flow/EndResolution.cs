@@ -5,7 +5,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class EndResolutionData : SubeffectData { }
 
-public class EndResolution : ServerSubeffect<EndResolutionData>
+public class EndResolution : ServerSubeffect
 {
 	public EndResolution(EndResolutionData data) : base(data) { }
 	

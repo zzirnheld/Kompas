@@ -7,7 +7,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class VanishData : DiscardData { }
 
-public class Vanish : Discard<VanishData>
+public class Vanish : Discard
 {
 	public Vanish(VanishData data) : base(data) { }
 

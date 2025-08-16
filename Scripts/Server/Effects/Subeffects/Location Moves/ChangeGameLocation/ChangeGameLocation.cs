@@ -12,10 +12,9 @@ public class ChangeGameLocationData : SubeffectData { }
 /// <summary>
 /// Moves cards between discard/field/etc
 /// </summary>
-public abstract class ChangeGameLocation<DataType> : ServerSubeffect<DataType>
-	where DataType : ChangeGameLocationData
+public abstract class ChangeGameLocation : ServerSubeffect
 {
-	protected ChangeGameLocation(DataType data) : base(data) { }
+	protected ChangeGameLocation(ChangeGameLocationData data) : base(data) { }
 
 	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 	{

@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class ReshuffleData : ChangeGameLocationData { }
 
-public class Reshuffle : ChangeGameLocation<ReshuffleData>
+public class Reshuffle : ChangeGameLocation
 {
 	public Reshuffle(ReshuffleData data) : base(data) { }
 

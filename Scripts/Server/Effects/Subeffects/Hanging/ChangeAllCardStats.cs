@@ -16,7 +16,7 @@ public class ChangeAllCardStatsData : ChangeCardStatsData
 	public IRestriction<IGameCardInfo> cardRestriction = new Character();
 }
 
-public class ChangeAllCardStats : ChangeCardStats<ChangeAllCardStatsData>
+public class ChangeAllCardStats : ChangeCardStats
 {
 	private readonly IRestriction<IGameCardInfo> cardRestriction;
 

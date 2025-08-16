@@ -19,7 +19,7 @@ public class CanResolveData : SubeffectData
 	public TargetingContext? overrideTargetingContext; //If later necessary, make this an array
 }
 
-public class CanResolve : ServerSubeffect<CanResolveData>
+public class CanResolve : ServerSubeffect
 {
 	private readonly int[] subeffIndices;
 	private readonly int skipIndex;

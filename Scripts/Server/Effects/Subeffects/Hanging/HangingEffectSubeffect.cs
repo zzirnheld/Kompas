@@ -25,8 +25,7 @@ public abstract class HangingEffectData : SubeffectData
 	
 }
 
-public abstract class HangingEffectSubeffect<DataType> : ServerSubeffect<DataType>
-	where DataType : HangingEffectData
+public abstract class HangingEffectSubeffect : ServerSubeffect
 {
 	private readonly string endCondition;
 	//BEWARE: once per turn might not work for these as impl rn, because it's kind of ill-defined.
@@ -36,7 +35,7 @@ public abstract class HangingEffectSubeffect<DataType> : ServerSubeffect<DataTyp
 	private readonly string fallOffCondition;
 	private readonly ITriggerRestriction? fallOffRestriction;
 
-	protected HangingEffectSubeffect(DataType data) : base(data)
+	protected HangingEffectSubeffect(HangingEffectData data) : base(data)
 	{
 		endCondition = data.endCondition ?? throw new MissingJSONValueException(nameof(endCondition), this);
 

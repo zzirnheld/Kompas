@@ -7,7 +7,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class EnableDecliningTargetData : SubeffectData { }
 
-public class EnableDecliningTarget : ServerSubeffect<EnableDecliningTargetData>
+public class EnableDecliningTarget : ServerSubeffect
 {
 	public EnableDecliningTarget(EnableDecliningTargetData data) : base(data) { }
 

@@ -16,7 +16,7 @@ public class DelayData : HangingEffectData
 	public bool clearWhenResume = true;
 }
 
-public class Delay : HangingEffectSubeffect<DelayData>
+public class Delay : HangingEffectSubeffect
 {
 	private readonly int numTimesToDelay;
 	private readonly string? blurbAfterDelay;

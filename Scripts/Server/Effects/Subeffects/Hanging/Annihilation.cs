@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
 public class AnnihilationData : HangingEffectData { }
 
-public class Annihilation : HangingEffectSubeffect<AnnihilationData>
+public class Annihilation : HangingEffectSubeffect
 {
 	public Annihilation(AnnihilationData data) : base(data) { }
 

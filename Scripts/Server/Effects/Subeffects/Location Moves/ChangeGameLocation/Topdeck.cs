@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class TopdeckData : ChangeGameLocationData { }
 
-public class Topdeck : ChangeGameLocation<TopdeckData>
+public class Topdeck : ChangeGameLocation
 {
 	public Topdeck(TopdeckData data) : base(data) { }
 

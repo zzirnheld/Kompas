@@ -9,7 +9,7 @@ public class SkipToEffectOnImpossibleData : SubeffectData { }
 /// <summary>
 /// Resolves a specified subeffect if at any point the effect is declared impossible
 /// </summary>
-public class SkipToEffectOnImpossible : ServerSubeffect<SkipToEffectOnImpossibleData>
+public class SkipToEffectOnImpossible : ServerSubeffect
 {
 	public SkipToEffectOnImpossible(SkipToEffectOnImpossibleData data) : base(data) { }
 

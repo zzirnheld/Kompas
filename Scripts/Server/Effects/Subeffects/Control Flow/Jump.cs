@@ -5,7 +5,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class JumpData : SubeffectData { }
 
-public class Jump : ServerSubeffect<JumpData>
+public class Jump : ServerSubeffect
 {
 	public Jump(JumpData data) : base(data) { }
 	

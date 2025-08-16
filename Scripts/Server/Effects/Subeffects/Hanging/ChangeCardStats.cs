@@ -50,13 +50,7 @@ public class ChangeCardStatsData : HangingEffectData
 	public int aMultiplier = 0;
 }
 
-public class ChangeCardStats : ChangeCardStats<ChangeCardStatsData>
-{
-	public ChangeCardStats(ChangeCardStatsData data) : base(data) { }
-}
-
-public abstract class ChangeCardStats<DataType> : HangingEffectSubeffect<DataType>
-	where DataType : ChangeCardStatsData
+public class ChangeCardStats : HangingEffectSubeffect
 {
 	private readonly int nModifier;
 	private readonly int eModifier;
@@ -79,7 +73,7 @@ public abstract class ChangeCardStats<DataType> : HangingEffectSubeffect<DataTyp
 	private readonly int cMultiplier;
 	private readonly int aMultiplier;
 
-	public ChangeCardStats(DataType data) : base(data)
+	public ChangeCardStats(ChangeCardStatsData data) : base(data)
 	{
 		nModifier = data.nModifier;
 		eModifier = data.eModifier;

@@ -7,7 +7,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
 public class ActivationData : HangingEffectData { }
 
-public class Activation : HangingEffectSubeffect<ActivationData>
+public class Activation : HangingEffectSubeffect
 {
 	public Activation(ActivationData data) : base(data) { }
 

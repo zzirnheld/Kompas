@@ -8,7 +8,7 @@ namespace Kompas.Server.Effects.Models.Subeffects.Hanging;
 
 public class DiscardData : HangingEffectData { }
 
-public class Discard : HangingEffectSubeffect<DiscardData>
+public class Discard : HangingEffectSubeffect
 {
 	public Discard(DiscardData data) : base(data) { }
 

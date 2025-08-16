@@ -6,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class AnnihilateData : ChangeGameLocationData { }
 
-public class Annihilate : ChangeGameLocation<AnnihilateData>
+public class Annihilate : ChangeGameLocation
 {
 	public Annihilate(AnnihilateData data) : base(data) { }
 

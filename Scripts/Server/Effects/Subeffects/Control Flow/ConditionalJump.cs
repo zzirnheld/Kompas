@@ -12,7 +12,7 @@ public class ConditionalJumpData : SubeffectData
 	public IGamestateRestriction? jumpIfTrue;
 }
 
-public class ConditionalJump : ServerSubeffect<ConditionalJumpData>
+public class ConditionalJump : ServerSubeffect
 {
 	private readonly IGamestateRestriction jumpIfTrue;
 

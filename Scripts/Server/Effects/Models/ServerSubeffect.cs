@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models;
 
-public abstract class ServerSubeffect<DataType> : Subeffect<DataType>, IServerSubeffect
-	where DataType : SubeffectData
+public abstract class ServerSubeffect : Subeffect, IServerSubeffect
 {
 	//TODO: protected property access to these?
 	/// <summary> See <see cref="SubeffectData.forbidNotBoard"/> </summary>
@@ -49,7 +48,7 @@ public abstract class ServerSubeffect<DataType> : Subeffect<DataType>, IServerSu
 	/// <summary> See <see cref="SubeffectData.xModifier"/> </summary>
 	private readonly int xModifier;
 
-	protected ServerSubeffect(DataType data) : base(data)
+	protected ServerSubeffect(SubeffectData data)
 	{
 		targetIndex = data.targetIndex;
 		spaceIndex = data.spaceIndex;

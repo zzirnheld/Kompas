@@ -19,7 +19,7 @@ public class ChooseOptionData : SubeffectData
 	public bool showX = false;
 }
 
-public class ChooseOption : ServerSubeffect<ChooseOptionData>
+public class ChooseOption : ServerSubeffect
 {
 	private readonly string choiceBlurb;
 	private readonly string[] optionBlurbs;

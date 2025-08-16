@@ -6,7 +6,7 @@ namespace Kompas.Server.Effects.Models.Subeffects;
 
 public class PlayData : ChangeGameLocationData { }
 
-public class Play : ChangeGameLocation<PlayData>
+public class Play : ChangeGameLocation
 {
 	public Play(PlayData data) : base(data) { }
 
