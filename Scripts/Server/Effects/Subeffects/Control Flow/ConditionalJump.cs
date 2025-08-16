@@ -1,15 +1,25 @@
 ﻿using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class ConditionalJump : ServerSubeffect
+public class ConditionalJumpData : SubeffectData
 {
-	#nullable disable
-	[JsonProperty (Required = Required.Always)]
-	public IGamestateRestriction jumpIfTrue;
-	#nullable restore
+	[JsonProperty(Required = Required.Always)]
+	public IGamestateRestriction? jumpIfTrue;
+}
+
+public class ConditionalJump : ServerSubeffect<ConditionalJumpData>
+{
+	private readonly IGamestateRestriction jumpIfTrue;
+
+	public ConditionalJump(ConditionalJumpData data) : base(data)
+	{
+		jumpIfTrue = data.jumpIfTrue ?? throw new MissingJSONValueException(nameof(jumpIfTrue), this);
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{

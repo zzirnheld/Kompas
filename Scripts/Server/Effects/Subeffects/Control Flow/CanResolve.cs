@@ -2,23 +2,38 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class CanResolve : ServerSubeffect
+public class CanResolveData : SubeffectData
 {
-	#nullable disable
-	[JsonProperty (Required = Required.Always)]
-	public int[] subeffIndices;
-	#nullable restore
-	private IEnumerable<ServerSubeffect> Subeffects => subeffIndices.Select(s => ServerEffect.subeffects[s]);
+	[JsonProperty(Required = Required.Always)]
+	public int[]? subeffIndices;
 
 	[JsonProperty]
 	public int skipIndex = int.MinValue;
 
 	[JsonProperty]
 	public TargetingContext? overrideTargetingContext; //If later necessary, make this an array
+}
+
+public class CanResolve : ServerSubeffect<CanResolveData>
+{
+	private readonly int[] subeffIndices;
+	private readonly int skipIndex;
+	private readonly TargetingContext? overrideTargetingContext;
+
+	private IEnumerable<IServerSubeffect> Subeffects => subeffIndices.Select(s => ServerEffect.subeffects[s]);
+
+	public CanResolve(CanResolveData data) : base(data)
+	{
+		subeffIndices = data.subeffIndices ?? throw new MissingJSONValueException(nameof(subeffIndices), this);
+
+		skipIndex = data.skipIndex;
+		overrideTargetingContext = data.overrideTargetingContext;
+	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{

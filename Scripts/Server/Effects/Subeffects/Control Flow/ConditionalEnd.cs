@@ -1,15 +1,25 @@
 ﻿using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class ConditionalEnd : ServerSubeffect
+public class ConditionalEndData : SubeffectData
 {
-	#nullable disable
-	[JsonProperty (Required = Required.Always)]
-	public IGamestateRestriction endIfTrue;
-	#nullable restore
+	[JsonProperty(Required = Required.Always)]
+	public IGamestateRestriction? endIfTrue;
+}
+
+public class ConditionalEnd : ServerSubeffect<ConditionalEndData>
+{
+	private readonly IGamestateRestriction endIfTrue;
+
+	public ConditionalEnd(ConditionalEndData data) : base(data)
+	{
+		endIfTrue = data.endIfTrue ?? throw new MissingJSONValueException(nameof(endIfTrue), this);
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{

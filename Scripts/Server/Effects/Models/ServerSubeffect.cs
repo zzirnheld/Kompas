@@ -34,7 +34,7 @@ public abstract class ServerSubeffect<DataType> : Subeffect<DataType>, IServerSu
 	private readonly int stackableIndex;
 
 	/// <summary> See <see cref="SubeffectData.jumpIndices"/> </summary>
-	private readonly int[]? jumpIndices;
+	protected readonly int[]? jumpIndices;
 
 	/// <summary> See <see cref="SubeffectData.jumpIndicesIndex"/> </summary>
 	private readonly int jumpIndicesIndex;

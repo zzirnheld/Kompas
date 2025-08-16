@@ -1,13 +1,18 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class SkipToEffectOnImpossibleData : SubeffectData { }
+
 /// <summary>
 /// Resolves a specified subeffect if at any point the effect is declared impossible
 /// </summary>
-public class SkipToEffectOnImpossible : ServerSubeffect
+public class SkipToEffectOnImpossible : ServerSubeffect<SkipToEffectOnImpossibleData>
 {
+	public SkipToEffectOnImpossible(SkipToEffectOnImpossibleData data) : base(data) { }
+
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var currentResolution = resolution.Context
