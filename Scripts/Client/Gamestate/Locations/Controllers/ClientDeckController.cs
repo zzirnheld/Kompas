@@ -46,7 +46,11 @@ public partial class ClientDeckController : DeckController
 
 	protected override void SpreadOut()
 	{
-		if (!CardArranger.IsOpen) return;
+		if (!CardArranger.IsOpen)
+		{
+			CardArranger.TakeWithoutArranging(DeckModel.Cards.Select(c => c.CardController.Node).ToArray());
+			return;
+		}
 
 		var cardsToArrange = DeckModel.Cards;
 		if (TargetingController.Searching()) cardsToArrange = cardsToArrange.Where(TargetingController.IsBeingSearched).ToArray();

@@ -183,6 +183,7 @@ public partial class ClientCardController : Node3D, ICardController
 		Logger.Log($"{Card} moved to board!");
 		if (!Visible || GetParent() == null)
 		{
+			//now that we remove from hand before adding to board, this is broken
 			afterFlyUp();
 			return;
 		}

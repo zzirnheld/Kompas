@@ -39,7 +39,8 @@ public abstract class Discard : OwnedLocationModel
 		if (!discard.Contains(card)) throw new CardNotHereException(Location.Discard, card);
 
 		discard.Remove(card);
-		discardController.Remove(card.CardController);
+		discardController.Refresh();
+		// discardController.Remove(card.CardController);
 	}
 
 	public override int IndexOf(GameCard card) => discard.IndexOf(card);

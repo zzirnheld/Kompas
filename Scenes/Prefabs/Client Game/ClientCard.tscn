@@ -5,14 +5,14 @@
 
 [sub_resource type="Animation" id="Animation_7vfaa"]
 resource_name = "FlyDown"
-length = 0.1
+length = 0.2
 tracks/0/type = "position_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Node3D")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(2.98023e-08, 1, 0, 20, 0, 0.1, 1, 0, 0.05, 0)
+tracks/0/keys = PackedFloat32Array(2.98023e-08, 1, 0, 20, 0, 0.2, 1, 0, 0.05, 0)
 tracks/1/type = "scale_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -27,7 +27,7 @@ tracks/2/path = NodePath("Node3D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1),
+"times": PackedFloat32Array(0, 0.05, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(-0.260054, 0, 0), Vector3(-0.260054, 0, 0), Vector3(0, 0, 0)]
