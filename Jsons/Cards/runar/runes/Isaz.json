@@ -15,17 +15,20 @@
 			},
 			"subeffects": [
 				{
-					"$type": "Subeffect:SetAllCardStats:",
-					
+					"$type": "Subeffect:SetCardStats:",
+					"cards": {
+						"$type": "Identify.ManyCards:Restricted:",
+						"cards": { "$type": "Identify.ManyCards:Board:" },
 						"cardRestriction": {
 							"$type": "Restrict.Cards:AllOf:",
 							"elements": [
-							{ "$type": "Restrict.Cards:Character:" },
-							{
-								"$type": "Restrict.Spaces:AdjacentTo:",
-								"space": { "$type": "Identify.Cards:ThisCardNow:" }
-							}
-						]
+								{ "$type": "Restrict.Cards:Character:" },
+								{
+									"$type": "Restrict.Spaces:AdjacentTo:",
+									"space": { "$type": "Identify.Cards:ThisCardNow:" }
+								}
+							]
+						}
 					},
 					"nVal": 0
 				}

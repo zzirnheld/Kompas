@@ -37,17 +37,21 @@
 					}
 				},
 				{
-					"$type": "Subeffect:SetAllCardStats:",
-					"cardRestriction": {
-						"$type": "Restrict.Cards:AllOf:",
-							"elements": [
-							{ "$type": "Restrict.Cards:Character:" },
-							{ "$type": "Restrict.Cards:Enemy:" },
-							{
-								"$type": "Restrict.Spaces:InAOEOf:",
-								"card": { "$type": "Identify.Cards:TargetIndex:" }
-							}
-						]
+					"$type": "Subeffect:SetCardStats:",
+					"cards": {
+						"$type": "Identify.ManyCards:Restricted:",
+						"cards": { "$type": "Identify.ManyCards:Board:" },
+						"cardRestriction": {
+							"$type": "Restrict.Cards:AllOf:",
+								"elements": [
+								{ "$type": "Restrict.Cards:Character:" },
+								{ "$type": "Restrict.Cards:Enemy:" },
+								{
+									"$type": "Restrict.Spaces:InAOEOf:",
+									"card": { "$type": "Identify.Cards:TargetIndex:" }
+								}
+							]
+						}
 					},
 					"nVal": 0
 				},
