@@ -3,23 +3,30 @@ using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Server.Gamestate;
+using Kompas.Effects.Subeffects;
 using Kompas.Shared.Exceptions;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models;
 
-public abstract class ServerSubeffect : Subeffect
+public abstract class ServerSubeffect<DataType> : Subeffect<DataType>
+	where DataType : SubeffectData
 {
 	protected override Effect _Effect => ServerEffect;
 	protected override IGame _Game => ServerGame;
 
 	private ServerEffect? _serverEffect;
+
 	public ServerEffect ServerEffect => _serverEffect
 		?? throw new NotInitializedException();
 	public IServerGame ServerGame => ServerEffect.ServerGame;
 
 	public InitializationContext DefaultInitializationContext
 		=> Effect.CreateInitializationContext(this, default);
+
+	protected ServerSubeffect(DataType data) : base(data)
+	{
+	}
 
 	/// <summary>
 	/// Sets up the subeffect with whatever necessary values.
@@ -29,10 +36,8 @@ public abstract class ServerSubeffect : Subeffect
 	/// <param name="subeffIndex">The index in the subeffect array of its parent <paramref name="eff"/> this subeffect is.</param>
 	public virtual void Initialize(ServerEffect eff, int subeffIndex)
 	{
-		//Logger.Log($"Finishing setup for new subeffect of type {GetType()}");
 		_serverEffect = eff;
 		SubeffIndex = subeffIndex;
-		if (xMultiplier == 1 && xModifier != 0) Logger.Log($"x mulitplier {xMultiplier}, relies on default on eff of {Effect.Card}");
 	}
 
 	/// <summary>
@@ -60,26 +65,5 @@ public abstract class ServerSubeffect : Subeffect
 	}
 
 	public virtual void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
-		=> ContextInitializeableBase.AdjustSubeffectIndices(jumpIndices, increment, startingAtIndex);
-}
-
-public struct ResolutionInfo
-{
-	public const string EndedBecauseImpossible = "Ended because effect was impossible";
-
-	public ResolutionResult result;
-
-	public int index;
-
-	public string reason;
-
-	public static ResolutionInfo Next => new ResolutionInfo { result = ResolutionResult.Next };
-	public static ResolutionInfo Index(int index) => new ResolutionInfo { result = ResolutionResult.Index, index = index };
-	public static ResolutionInfo Impossible(string why) => new ResolutionInfo { result = ResolutionResult.Impossible, reason = why };
-	public static ResolutionInfo End(string why) => new ResolutionInfo { result = ResolutionResult.End, reason = why };
-}
-
-public enum ResolutionResult
-{
-	Next, Index, Impossible, End
+		=> ContextInitializeableBase.AdjustSubeffectIndices(Data.jumpIndices, increment, startingAtIndex);
 }

@@ -3,6 +3,7 @@ using Kompas.Effects.Models;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Players;
+using Kompas.Effects.Subeffects;
 using Kompas.Shared.Exceptions;
 
 namespace Kompas.Effects.Subeffects;
@@ -10,7 +11,8 @@ namespace Kompas.Effects.Subeffects;
 /// <summary>
 /// Not abstract because it's instantiated as part of loading subeffects
 /// </summary>
-public abstract class Subeffect
+public abstract class Subeffect<DataType> : ISubeffect
+	where DataType : SubeffectData
 {
 	#region reasons for impossible
 	public const string TargetWasNull = "No target to affect";
@@ -35,11 +37,11 @@ public abstract class Subeffect
 
 	public TargetingContext CurrTargetingContext => new()
 	{
-		cardTargetIndex = targetIndex,
-		spaceTargetIndex = spaceIndex,
-		cardInfoTargetIndex = cardInfoIndex,
-		playerTargetIndex = playerIndex,
-		stackableTargetIndex = stackableIndex
+		cardTargetIndex = Data.targetIndex,
+		spaceTargetIndex = Data.spaceIndex,
+		cardInfoTargetIndex = Data.cardInfoIndex,
+		playerTargetIndex = Data.playerIndex,
+		stackableTargetIndex = Data.stackableIndex
 	};
 
 	protected abstract Effect? _Effect { get; }
@@ -51,140 +53,50 @@ public abstract class Subeffect
 
 	public int SubeffIndex { get; protected set; }
 
-	// public IResolutionContext ResolutionContext
-	// {
-	// 	get
-	// 	{
-	// 		_ = Effect ?? throw new System.NullReferenceException("Checked resolution context of the subeffect before its effect was assigned!");
-	// 		return Effect.CurrentResolutionContext ?? throw new NotInitializedException();
-	// 	}
-	// }
+	protected DataType Data { get; }
+
+	protected Subeffect(DataType data)
+	{
+		Data = data;
+	}
+
 
 	/// <summary>
-	/// Represents the type of subeffect this is
+	/// If the effect uses X, this is the adjusted value of X
 	/// </summary>
-	//public string subeffType;
-
-	public bool forbidNotBoard = true;
-
-	#region targeting indices
-	/// <summary>
-	/// The index in the card targets list for which target this effect uses.
-	/// If positive, just an index.
-	/// If negative, it's Effect.targets.Count + targetIndex (aka that many back from the end)
-	/// </summary>
-	public int targetIndex = -1;
-
-	/// <summary>
-	/// The index in the space targets list that this subeffect uses.
-	/// If positive, just an index.
-	/// If negative, it's Count + targetIndex (aka that many back)
-	/// </summary>
-	public int spaceIndex = -1;
-
-	/// <summary>
-	/// The index in the card info targets list for which target this effect uses.
-	/// If positive, just an index.
-	/// If negative, it's Effect.targets.Count + targetIndex (aka that many back from the end)
-	/// </summary>
-	public int cardInfoIndex = -1;
-
-	/// <summary>
-	/// The index of player in the player targets list
-	/// </summary>
-	public int playerIndex = -1;
-
-	/// <summary>
-	/// The index of the stackable in the stackable targets list
-	/// </summary>
-	public int stackableIndex = -1;
-
-	/// <summary>
-	/// Index for the subeffect to jump to, if it's not going to the next one for some reason
-	/// </summary>
-	public int[]? jumpIndices;
-
-	/// <summary>
-	/// Which of the jump indices to jump to.
-	/// Same +- rules as the target/space indices
-	/// </summary>
-	public int jumpIndicesIndex = -1;
-	#endregion targeting indices
-
-	#region effect x
-	/// <summary>
-	/// If the effect uses X, this is the multiplier to X. Default: 1
-	/// </summary>
-	public int xMultiplier = 1;
-
-	/// <summary>
-	/// If the effect uses X, this is the divisor to X. Default: 1
-	/// </summary>
-	public int xDivisor = 1;
-
-	/// <summary>
-	/// If the effect uses X, this is the modifier to X. Default: 0
-	/// </summary>
-	public int xModifier = 0;
-
-    /// <summary>
-    /// If the effect uses X, this is the adjusted value of X
-    /// </summary>
-    public int AdjustX(IResolutionContext context) => (context.X * xMultiplier / xDivisor) + xModifier;
-    #endregion effect x
+	public int AdjustX(IResolutionContext context) => (context.X * Data.xMultiplier / Data.xDivisor) + Data.xModifier;
 
     public GameCard GetCardTarget(IResolutionContext context)
     {
-        return context.GetCardTarget(targetIndex)
+        return context.GetCardTarget(Data.targetIndex)
         	?? throw new NullCardException(TargetWasNull);
     }
 
     public Space GetSpaceTarget(IResolutionContext context)
     {
-        return context.GetSpaceTarget(spaceIndex)
+        return context.GetSpaceTarget(Data.spaceIndex)
         	?? throw new NullSpaceException(TargetWasNull);
     }
 
     public IGameCardInfo GetCardInfoTarget(IResolutionContext context)
     {
-		return EffectHelper.GetItem(context.CardInfoTargets, cardInfoIndex)
+		return EffectHelper.GetItem(context.CardInfoTargets, Data.cardInfoIndex)
 			?? throw new NullCardException(TargetWasNull);
     }
 
     public IPlayer GetPlayerTarget(IResolutionContext context)
     {
-        return context.GetPlayerTarget(playerIndex)
+        return context.GetPlayerTarget(Data.playerIndex)
         	?? throw new NullPlayerException(TargetWasNull);
     }
 
     public IStackable GetStackableTarget(IResolutionContext context)
     {
-		return EffectHelper.GetItem(context.StackableTargets, stackableIndex)
+		return EffectHelper.GetItem(context.StackableTargets, Data.stackableIndex)
 			?? throw new NullPlayerException(TargetWasNull);
     }
 
-    public int JumpIndex => EffectHelper.GetItem(jumpIndices
+    public int JumpIndex => EffectHelper.GetItem(Data.jumpIndices
 		?? throw new System.InvalidOperationException("No jump indices, but a subeffect needed one!"),
-		jumpIndicesIndex);
-}
-
-public class TargetingContext
-{
-	public int? cardTargetIndex;
-	public int? spaceTargetIndex;
-	public int? cardInfoTargetIndex;
-	public int? playerTargetIndex;
-	public int? stackableTargetIndex;
-}
-public static class TargetingContextExtensions
-{
-	public static TargetingContext OrElse
-		(this TargetingContext? context, TargetingContext? other) => new()
-	{
-		cardTargetIndex = context?.cardTargetIndex ?? other?.cardTargetIndex,
-		spaceTargetIndex = context?.spaceTargetIndex ?? other?.spaceTargetIndex,
-		cardInfoTargetIndex = context?.cardInfoTargetIndex ?? other?.cardInfoTargetIndex,
-		playerTargetIndex = context?.playerTargetIndex ?? other?.playerTargetIndex,
-		stackableTargetIndex = context?.stackableTargetIndex ?? other?.stackableTargetIndex,
-	};
+		Data.jumpIndicesIndex);
 }
