@@ -7,7 +7,7 @@ namespace Kompas.Effects.Models;
 public class EffectData
 {
 	[JsonProperty(Required = Required.Always)]
-	public SubeffectData[] Subeffects;
+	public SubeffectData[]? Subeffects;
 
 	[JsonProperty]
 	public TriggerData? triggerData;

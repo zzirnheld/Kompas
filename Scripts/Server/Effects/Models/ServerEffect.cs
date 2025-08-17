@@ -50,6 +50,7 @@ public class ServerEffect : Effect, IServerEffect
 	public override Subeffect[] Subeffects => ServerSubeffects;
 	public ServerTrigger? ServerTrigger { get; private set; }
 	public override Trigger? Trigger => ServerTrigger;
+	private readonly TriggerData? triggerData;
 
 	public override bool Negated
 	{
@@ -65,12 +66,13 @@ public class ServerEffect : Effect, IServerEffect
 
 	public ServerEffect(EffectData data) : base(data)
 	{
-		ServerSubeffects = data.Subeffects
+		var subeffects = data.Subeffects
+			?? throw new MissingJSONValueException(nameof(data.Subeffects));
+		ServerSubeffects = subeffects
 			.Select(ServerSubeffectFactory.FromData)
 			.ToArray();
 
-		if (data.triggerData != null && !string.IsNullOrEmpty(data.triggerData.triggerCondition))
-			ServerTrigger = ServerTrigger.Create(data.triggerData, this);
+		triggerData = data.triggerData;
 	}
 
 	public void SetInfo(ServerGameCard card, IServerGame game, int effectIndex)
@@ -79,6 +81,9 @@ public class ServerEffect : Effect, IServerEffect
 		_serverGame = game;
 		_ownerServerPlayer = game.ServerControllerOf(card);
 		base.SetInfo(effectIndex);
+
+		if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
+			ServerTrigger = ServerTrigger.Create(triggerData, this);
 
 		foreach (var (i, subeff) in ServerSubeffects.Enumerate()) subeff.Initialize(this, i);
 	}

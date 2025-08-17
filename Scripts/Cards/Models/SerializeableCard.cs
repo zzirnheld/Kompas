@@ -39,7 +39,7 @@ public class SerializableCard
 	public override string ToString() => $"{cardName}";
 }
 
-public abstract class SerializableGameCard : SerializableCard
+public class SerializableGameCard : SerializableCard
 {
-	public EffectData[]? Effects { get; }
+	public EffectData[]? effects;
 }

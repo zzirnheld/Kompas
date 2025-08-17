@@ -26,6 +26,7 @@ public class ClientEffect : Effect, IClientStackable
 		private set => _clientGame = value;
 	}
 
+	private readonly TriggerData? triggerData;
 	public override Trigger? Trigger => ClientTrigger;
 	public ClientTrigger? ClientTrigger { get; private set; }
 	public override IGame Game => ClientGame;
@@ -37,8 +38,7 @@ public class ClientEffect : Effect, IClientStackable
 
 	public ClientEffect(EffectData data) : base(data)
 	{
-		if (data.triggerData != null && !string.IsNullOrEmpty(data.triggerData.triggerCondition))
-			ClientTrigger = new ClientTrigger(data.triggerData, this);
+		triggerData = data.triggerData;
 	}
 
 	public void SetInfo(ClientGameCard card, ClientGame clientGame, int effectIndex, IPlayer owningPlayer)
@@ -47,6 +47,8 @@ public class ClientEffect : Effect, IClientStackable
 		ClientGame = clientGame;
 		this.owningPlayer = owningPlayer;
 		base.SetInfo(effectIndex);
+		if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
+			ClientTrigger = new ClientTrigger(triggerData, this);
 	}
 
 	//TODO eventually make client aware of activation contexts

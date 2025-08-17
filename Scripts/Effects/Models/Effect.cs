@@ -34,7 +34,7 @@ public abstract class Effect : IEffect
 	public IActivationRestriction? ActivationRestriction { get; }
 
 	//Misc effect info
-	public string InitialBlurb { get; }
+	public string InitialBlurb { get; private set; } = string.Empty;
 	private int _timesUsedThisTurn;
 	private int _timesUsedThisRound;
 	private int _timesUsedThisStack;
@@ -79,7 +79,7 @@ public abstract class Effect : IEffect
 	public Effect(EffectData data)
 	{
 		ActivationRestriction = data.activationRestriction;
-		InitialBlurb = data.initialBlurb ?? $"Effect of {Card.CardName}";
+		InitialBlurb = data.initialBlurb ?? string.Empty;
 		Arg = data.arg;
 	}
 
@@ -90,6 +90,7 @@ public abstract class Effect : IEffect
 		if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
 		ActivationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
 		TimesUsedThisTurn = 0;
+		if (InitialBlurb == string.Empty) InitialBlurb = $"Effect of {Card.CardName}";
 	}
 
 	public void ResetForTurn(IPlayer turnPlayer)

@@ -12,6 +12,12 @@ public static class ServerSubeffectFactory
 	// That would kinda violate the whole point of separating data to be unrelated to the Server package, tho
 	public static ServerSubeffect FromData(SubeffectData subeffectData) => subeffectData switch
 	{
+		ClearOnImpossibleData data => new ClearOnImpossible(data),
+		CountXLoopData data => new CountXLoop(data),
+		LoopWhileHaveTargetsData data => new LoopWhileHaveTargets(data),
+		XTimesData data => new XTimes(data),
+		LoopData data => new Loop(data),
+
 		CanResolveData data => new CanResolve(data),
 		ChooseOptionData data => new ChooseOption(data),
 		ConditionalEndData data => new ConditionalEnd(data),

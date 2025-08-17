@@ -25,7 +25,7 @@ public abstract class Discard : OwnedLocationModel
 	protected override void PerformAdd(GameCard card, int? index, IStackable? stackableCause)
 	{
 		base.PerformAdd(card, index, stackableCause);
-		discardController.Refresh();
+		discardController.RefreshJustAdded(card.CardController);
 	}
 
 	protected override void AddToCollection(GameCard card, int? index)

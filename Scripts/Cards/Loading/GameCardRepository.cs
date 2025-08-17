@@ -54,7 +54,7 @@ public abstract partial class GameCardRepository<TEffect, TCardController> : Car
 				return default;
 			}
 			validation?.Invoke(cardInfo);
-			var effectData = cardInfo.Effects ?? Enumerable.Empty<EffectData>();
+			var effectData = cardInfo.effects ?? Enumerable.Empty<EffectData>();
 
 			effects.AddRange(effectData.Select(constructEffect.Invoke));
 			effects.AddRange(GetKeywordEffects(cardInfo, constructEffect));
