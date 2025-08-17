@@ -27,8 +27,7 @@ public class Attack : ServerSubeffect
 	{
 		var attacker = resolution.Context.GetCardTarget(attackerIndex)
 			?? throw new NullCardException("Attacker was null");
-		var defender = GetCardTarget(resolution.Context)
-			?? throw new NullCardException("Defender was null");
+		var defender = GetCardTarget(resolution.Context);
 
 		//TODO: is there a better way to cast it? / do we need it to be a ServerPlayer for the ServerAttack?
 		var instigator = GetPlayerTarget(resolution.Context) as ServerPlayer

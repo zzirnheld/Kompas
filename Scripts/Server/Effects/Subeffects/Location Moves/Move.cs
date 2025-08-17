@@ -13,9 +13,8 @@ public class Move : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var card = GetCardTarget(resolution.Context)
-			?? throw new NullCardException(TargetWasNull);
-		if (card.Position == null) throw new NullSpaceOnBoardException(GetCardTarget(resolution.Context));
+		var card = GetCardTarget(resolution.Context);
+		if (card.Position == null) throw new NullSpaceOnBoardException(card);
 
 		var space = GetSpaceTarget(resolution.Context);
 		var player = GetPlayerTarget(resolution.Context);

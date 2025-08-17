@@ -27,9 +27,7 @@ public abstract class ChangeGameLocation : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		GameCard target = GetCardTarget(resolution.Context)
-			?? throw new NullCardException(TargetWasNull);
-
+		var target = GetCardTarget(resolution.Context);
 		ChangeLocation(target, resolution.Context);
 		return Task.FromResult(ResolutionInfo.Next);
 	}

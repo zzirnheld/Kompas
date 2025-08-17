@@ -25,24 +25,21 @@ public class Swap : ServerSubeffect
 	}
 
 	public GameCard GetSecondTarget(IResolutionContext context)
-	{
-		return context.GetCardTarget(secondTargetIndex) ?? throw new NullCardException(TargetWasNull);
-	}
+		=> context.GetCardTarget(secondTargetIndex)
+			?? throw new NullCardException(TargetWasNull);
 
 	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 		=> context.GetCardTarget(overrideContext.OrElse(CurrTargetingContext)) == null || GetSecondTarget(context) == null;
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var firstTarget = GetCardTarget(resolution.Context)
-			?? throw new NullCardException(TargetWasNull);
+		var firstTarget = GetCardTarget(resolution.Context);
 		if (forbidNotBoard && firstTarget.Location != Location.Board)
 			throw new InvalidLocationException(firstTarget.Location, firstTarget, MovedCardOffBoard);
 		if (firstTarget.Position == null)
 			throw new NullSpaceOnBoardException(firstTarget);
 
-		var secondTarget = GetSecondTarget(resolution.Context)
-			?? throw new NullCardException(TargetWasNull);
+		var secondTarget = GetSecondTarget(resolution.Context);
 		if (secondTarget.Location != Location.Board)
 			throw new InvalidLocationException(secondTarget.Location, secondTarget, MovedCardOffBoard);
 		if (secondTarget.Position == null)

@@ -16,7 +16,7 @@ public class Heal : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var target = GetCardTarget(resolution.Context) ?? throw new NullCardException(TargetWasNull);
+		var target = GetCardTarget(resolution.Context);
 		if (forbidNotBoard && target.Location != Location.Board)
 			throw new InvalidLocationException(target.Location, target, ChangedStatsOfCardOffBoard);
 		if (target.E >= target.BaseE)

@@ -21,8 +21,12 @@ public abstract class CardStatChangeBase : ServerSubeffect
 
 	protected CardStatChangeBase(CardStatChangeDataBase data) : base(data)
 	{
-		var card = data.card ?? new TargetIndex() { index = data.targetIndex };
-		cards = data.cards ?? new Concat() { cards = new IIdentity<IGameCardInfo>[] { card } };
+		// `cards` takes priority over `card` which falls back to the target index
+		cards = data.cards ?? new Concat() {
+			cards = new IIdentity<IGameCardInfo>[] {
+				data.card ?? new TargetIndex() { index = data.targetIndex }
+			}
+		};
 
 		turnsOnBoard = data.turnsOnBoard;
 		attacksThisTurn = data.attacksThisTurn;

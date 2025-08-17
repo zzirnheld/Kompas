@@ -17,12 +17,11 @@ public class Damage : ServerSubeffect
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		if (GetCardTarget(resolution.Context) == null)
-			throw new NullCardException(TargetWasNull);
-		else if (forbidNotBoard && GetCardTarget(resolution.Context).Location != Location.Board)
-			throw new InvalidLocationException(GetCardTarget(resolution.Context).Location, GetCardTarget(resolution.Context), ChangedStatsOfCardOffBoard);
+		var card = GetCardTarget(resolution.Context);
+		if (forbidNotBoard && card.Location != Location.Board)
+			throw new InvalidLocationException(card.Location, card, ChangedStatsOfCardOffBoard);
 
-		GetCardTarget(resolution.Context).TakeDamage(AdjustX(resolution.Context), Effect);
+		card.TakeDamage(AdjustX(resolution.Context), Effect);
 		return Task.FromResult(ResolutionInfo.Next);
 	}
 }
