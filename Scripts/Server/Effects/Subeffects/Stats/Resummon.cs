@@ -1,5 +1,6 @@
 ﻿using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Server.Effects.Controllers;
@@ -7,11 +8,18 @@ using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class ResummonData : SubeffectData { }
+
+/// <summary>
+/// Known these days as echoing, but changing the JSON is annoying
+/// </summary>
 public class Resummon : ServerSubeffect
 {
+	public Resummon(ResummonData data) : base(data) { }
+
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
-		var target = GetCardTarget(resolution.Context) ?? throw new NullCardException(TargetWasNull);
+		var target = GetCardTarget(resolution.Context);
 		if (forbidNotBoard && target.Location != Location.Board)
 			throw new InvalidLocationException(target.Location, target, "Target not on board :(");
 
