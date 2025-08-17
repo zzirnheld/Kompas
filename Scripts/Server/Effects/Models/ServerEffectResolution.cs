@@ -67,12 +67,12 @@ public class ServerEffectResolution
 			{
 				case ResolutionResult.Next:
 					index++;
-					if (index < Effect.ServerSubeffects.Length) result = await ResolveSubeffect(index);
+					if (index < Effect.ServerSubeffects.Count) result = await ResolveSubeffect(index);
 					else resolve = false; //stop if next subeffect index is out of bounds
 					break;
 				case ResolutionResult.Index:
 					index = result.index;
-					if (index < Effect.ServerSubeffects.Length) result = await ResolveSubeffect(index);
+					if (index < Effect.ServerSubeffects.Count) result = await ResolveSubeffect(index);
 					else resolve = false; //stop if that subeffect index is out of bounds
 					break;
 				case ResolutionResult.Impossible:
@@ -92,7 +92,7 @@ public class ServerEffectResolution
 
 	public async Task<ResolutionInfo> ResolveSubeffect(int index)
 	{
-		if (index >= Effect.ServerSubeffects.Length)
+		if (index >= Effect.ServerSubeffects.Count)
 		{
 			return ResolutionInfo.Impossible("Subeffect index out of bounds.");
 		}

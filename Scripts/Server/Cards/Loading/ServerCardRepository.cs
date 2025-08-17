@@ -53,7 +53,7 @@ public class ServerCardRepository : GameCardRepository<ServerEffect, ServerCardC
 
 		ServerGameCard ConstructCard(SerializableGameCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
 			=> ServerGameCard.Create(cardInfo, id, owner, game, ctrl, effects, isAvatar);
-		ServerEffect ConstructEffect(EffectData data) => new(data);
+		ServerEffect ConstructEffect(EffectData data) => new(data, game);
 
 		var ret = InstantiateGameCard(json, ConstructCard, ConstructEffect)
 			?? throw new InvalidOperationException($"Failed to instantiate {json}");

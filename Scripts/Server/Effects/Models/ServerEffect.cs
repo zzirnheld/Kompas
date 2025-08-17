@@ -20,9 +20,9 @@ namespace Kompas.Server.Effects.Models;
 
 public interface IServerEffect : IEffect, IServerStackable
 {
-	public ServerSubeffect[] ServerSubeffects { get; }
+	public List<ServerSubeffect> ServerSubeffects { get; }
 
-	public void SetInfo(ServerGameCard card, IServerGame game, int index);
+	public void SetInfo(ServerGameCard card, int index);
 
 	public bool CanBeActivatedBy(IPlayer player);
 
@@ -31,26 +31,27 @@ public interface IServerEffect : IEffect, IServerStackable
 
 public class ServerEffect : Effect, IServerEffect
 {
-	private IServerGame? _serverGame;
-	public IServerGame ServerGame => _serverGame
-		?? throw new NotInitializedException();
+	private readonly TriggerData? triggerData;
+
+	// Properties initialized in constructor
+	public IServerGame ServerGame { get; }
+	public List<ServerSubeffect> ServerSubeffects { get; }
+
+	// Property that can stay null
+	public ServerTrigger? ServerTrigger { get; private set; }
+
+	// Forwarding for interfaces
 	public override IGame Game => ServerGame;
-	public IServerStackController EffectsController => ServerGame.StackController;
+	public override IPlayer OwningPlayer => OwningServerPlayer;
+	public override IReadOnlyList<ISubeffect> Subeffects => ServerSubeffects;
+	public override Trigger? Trigger => ServerTrigger;
 
-	private ServerGameCard? _card;
-	public override GameCard Card => _card
-		?? throw new NotInitializedException();
-
+	// Fields that must be initialized after creation
 	private ServerPlayer? _ownerServerPlayer;
 	public ServerPlayer OwningServerPlayer => _ownerServerPlayer
 		?? throw new NotInitializedException();
-	public override IPlayer OwningPlayer => OwningServerPlayer;
-
-	public ServerSubeffect[] ServerSubeffects { get; private set; }
-	public override Subeffect[] Subeffects => ServerSubeffects;
-	public ServerTrigger? ServerTrigger { get; private set; }
-	public override Trigger? Trigger => ServerTrigger;
-	private readonly TriggerData? triggerData;
+		
+	public IServerStackController EffectsController => ServerGame.StackController;
 
 	public override bool Negated
 	{
@@ -64,23 +65,23 @@ public class ServerEffect : Effect, IServerEffect
 		}
 	}
 
-	public ServerEffect(EffectData data) : base(data)
+	public ServerEffect(EffectData data, IServerGame game) : base(data)
 	{
+		ServerGame = game;
+
 		var subeffects = data.Subeffects
 			?? throw new MissingJSONValueException(nameof(data.Subeffects));
 		ServerSubeffects = subeffects
 			.Select(ServerSubeffectFactory.FromData)
-			.ToArray();
+			.ToList();
 
 		triggerData = data.triggerData;
 	}
 
-	public void SetInfo(ServerGameCard card, IServerGame game, int effectIndex)
+	public void SetInfo(ServerGameCard card, int effectIndex)
 	{
-		_card = card;
-		_serverGame = game;
-		_ownerServerPlayer = game.ServerControllerOf(card);
-		base.SetInfo(effectIndex);
+		_ownerServerPlayer = ServerGame.ServerControllerOf(card);
+		base.SetInfo(card, effectIndex);
 
 		if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
 			ServerTrigger = ServerTrigger.Create(triggerData, this);
@@ -105,7 +106,7 @@ public class ServerEffect : Effect, IServerEffect
 		//And of any extant subeffects whose indices would be after the insertion point
 		foreach (var s in ServerSubeffects) s.AdjustSubeffectIndices(newSubeffects.Length, startingAtIndex);
 
-		ServerSubeffect[] combinedSubeffects = new ServerSubeffect[ServerSubeffects.Length + newSubeffects.Length];
+		ServerSubeffect[] combinedSubeffects = new ServerSubeffect[ServerSubeffects.Count + newSubeffects.Length];
 		int oldIndex;
 		int newIndex;
 		int combinedIndex;
@@ -125,12 +126,13 @@ public class ServerEffect : Effect, IServerEffect
 		}
 		//Add the remaining old subeffects to the array
 		for (;
-			oldIndex < ServerSubeffects.Length;
+			oldIndex < ServerSubeffects.Count;
 			oldIndex++, combinedIndex++)
 		{
 			combinedSubeffects[combinedIndex] = ServerSubeffects[oldIndex];
 		}
-		ServerSubeffects = combinedSubeffects;
+		ServerSubeffects.Clear();
+		foreach (var subeff in combinedSubeffects) ServerSubeffects.Add(subeff);
 	}
 
 	public override bool CanBeActivatedBy(IPlayer controller)
@@ -176,8 +178,6 @@ public class ServerEffect : Effect, IServerEffect
 			ServerNotifier.RemoveCardLink(link, Game.Players);
 		}
 	}
-
-	public override string ToString() => $"Effect {EffectIndex} of {_card?.CardName}";
 
 	public async Task StartResolution(IServerResolutionContext context)
 	{

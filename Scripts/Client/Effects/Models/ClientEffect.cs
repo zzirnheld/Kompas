@@ -16,9 +16,6 @@ public class ClientEffect : Effect, IClientStackable
 	private IPlayer? owningPlayer;
 	public override IPlayer OwningPlayer => owningPlayer ?? throw new System.NullReferenceException("Tried to get owning player of uninitialized effect");
 
-	private ClientGameCard? card;
-	public override GameCard Card => card ?? throw new System.NullReferenceException("Tried to get card of uninitialized effect");
-
 	private ClientGame? _clientGame;
 	public ClientGame ClientGame
 	{
@@ -43,10 +40,9 @@ public class ClientEffect : Effect, IClientStackable
 
 	public void SetInfo(ClientGameCard card, ClientGame clientGame, int effectIndex, IPlayer owningPlayer)
 	{
-		this.card = card;
 		ClientGame = clientGame;
 		this.owningPlayer = owningPlayer;
-		base.SetInfo(effectIndex);
+		base.SetInfo(card, effectIndex);
 		if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
 			ClientTrigger = new ClientTrigger(triggerData, this);
 	}

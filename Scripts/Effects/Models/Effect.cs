@@ -5,6 +5,7 @@ using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Subeffects;
 using Kompas.Gamestate;
 using Kompas.Gamestate.Players;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Effects.Models;
 
@@ -16,12 +17,11 @@ public abstract class Effect : IEffect
 	public abstract IGame Game { get; }
 
 	public int EffectIndex { get; private set; }
-	public abstract GameCard Card { get; }
 	public abstract IPlayer OwningPlayer { get; }
 	public IPlayer ControllingPlayer => OwningPlayer; //FUTURE: effects can change control. for now, assume same player
 
 	//subeffects
-	public abstract ISubeffect[] Subeffects { get; }
+	public abstract IReadOnlyList<ISubeffect> Subeffects { get; }
 	//Targets
 	protected readonly List<CardLink> cardLinks = new();
 
@@ -40,6 +40,10 @@ public abstract class Effect : IEffect
 	private int _timesUsedThisStack;
 	public event System.EventHandler<IEffect>? EffectInformationChanged;
 	public int Arg { get; }
+
+	private GameCard? _card;
+	public GameCard Card => _card
+		?? throw new NotInitializedException();
 
 	public int TimesUsedThisTurn
 	{
@@ -83,13 +87,14 @@ public abstract class Effect : IEffect
 		Arg = data.arg;
 	}
 
-	protected void SetInfo(int effIndex)
+	protected void SetInfo(GameCard card, int effIndex)
 	{
 		EffectIndex = effIndex;
+		_card = card;
 
-		if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
 		ActivationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
 		TimesUsedThisTurn = 0;
+		
 		if (InitialBlurb == string.Empty) InitialBlurb = $"Effect of {Card.CardName}";
 	}
 
