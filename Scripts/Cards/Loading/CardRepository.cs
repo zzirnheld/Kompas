@@ -84,7 +84,7 @@ public abstract class CardRepository : ICardRepository
 	public static readonly string CardImagesPath = "res://Sprites";
 
 	private static readonly Regex subeffRegex = new(@"Subeffect:([^:]+):"); //Subeffect:*:
-	private const string subeffReplacement = @"Kompas.Server.Effects.Models.Subeffects.$1, Kompas";
+	private const string subeffReplacement = @"Kompas.Server.Effects.Models.Subeffects.$1Data, Kompas";
 
 	private static readonly Regex coreRestrictionRegex = new(@"Restrict\.([^:]+):([^:]+):"); //Restrict.*:*:
 	private const string coreRestrictionReplacement = @"Kompas.Effects.Models.Restrictions.$1.$2, Kompas";

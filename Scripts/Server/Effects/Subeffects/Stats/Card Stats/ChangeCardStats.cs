@@ -1,13 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Kompas.Cards.Models;
+﻿using System.Threading.Tasks;
 using Kompas.Effects.Models.Identities;
-using Kompas.Effects.Models.Identities.Cards;
-using Kompas.Effects.Models.Identities.ManyCards;
 using Kompas.Effects.Models.Identities.Numbers;
-using Kompas.Gamestate.Exceptions;
-using Kompas.Gamestate.Locations;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;

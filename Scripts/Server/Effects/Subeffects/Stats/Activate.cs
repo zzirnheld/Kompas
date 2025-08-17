@@ -1,11 +1,24 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class ActivateData : SubeffectData
+{
+	[JsonProperty]
+	public bool activate = true;
+}
+
 public class Activate : ServerSubeffect
 {
-	public bool activate = true;
+	private readonly bool activate;
+
+	public Activate(ActivateData data) : base(data)
+	{
+		activate = data.activate;
+	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
