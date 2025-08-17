@@ -1,10 +1,15 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class TargetEnemyData : SubeffectData { }
+
 public class TargetEnemy : ServerSubeffect
 {
+	public TargetEnemy(TargetEnemyData data) : base(data) { }
+
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var player = GetPlayerTarget(resolution.Context) ?? throw new NullPlayerException("No player to get the enemy of");

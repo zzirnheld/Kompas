@@ -1,12 +1,25 @@
 ﻿using Kompas.Gamestate.Exceptions;
 using System.Threading.Tasks;
 using Kompas.Gamestate.Locations;
+using Kompas.Effects.Subeffects;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class TargetTriggeringCardsSpaceData : SubeffectData
+{
+	[JsonProperty]
+	public bool after;
+}
+
 public class TargetTriggeringCardsSpace : ServerSubeffect
 {
-	public bool after = false;
+	private readonly bool after;
+
+	public TargetTriggeringCardsSpace(TargetTriggeringCardsSpaceData data) : base(data)
+	{
+		after = data.after;
+	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{

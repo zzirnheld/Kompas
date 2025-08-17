@@ -50,27 +50,27 @@ public class CardTargetData : SubeffectData
 
 public class CardTarget : ServerSubeffect
 {
-	public string blurb;
-	public bool secretTarget;
+	private readonly string blurb;
+	private readonly bool secretTarget;
 
-	public IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch;
+	protected readonly IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch;
 
 	/// <summary>
 	/// Restriction that each card must fulfill
 	/// </summary>
-	public IRestriction<IGameCardInfo> cardRestriction;
+	private readonly IRestriction<IGameCardInfo> cardRestriction;
 
 	/// <summary>
 	/// Restriction that the list collectively must fulfill
 	/// </summary>
-	public IListRestriction listRestriction;
+	private readonly IListRestriction listRestriction;
 
 	/// <summary>
 	/// Identifies a card that this target should be linked with.
 	/// Usually null, but if you plan on having a delay later, probably a good idea
 	/// </summary>
-	public IIdentity<IGameCardInfo>? toLinkWith;
-	public Color linkColor; // "r": #, "g" ... etc
+	private readonly IIdentity<IGameCardInfo>? toLinkWith;
+	private readonly Color linkColor; // "r": #, "g" ... etc
 
 	//TODO: should these be moved to CurrentResolutionContext?
 	protected IReadOnlyCollection<int>? stashedToSearchIDs;

@@ -21,7 +21,7 @@ public class CardTargetSaveRest : CardTarget
 	/// <summary>
 	/// If null, default to cardRestriction
 	/// </summary>
-	public IRestriction<IGameCardInfo> restRestriction;
+	private readonly IRestriction<IGameCardInfo> restRestriction;
 
 	public CardTargetSaveRest(CardTargetSaveRestData data) : base(data)
 	{

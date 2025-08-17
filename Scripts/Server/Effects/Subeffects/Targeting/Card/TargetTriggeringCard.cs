@@ -17,9 +17,9 @@ public class TargetTriggeringCardData : SubeffectData
 
 public class TargetTriggeringCard : ServerSubeffect
 {
-	public bool contextSecondaryCard;
-	public bool info;
-	public bool cause;
+	private readonly bool contextSecondaryCard;
+	private readonly bool info;
+	private readonly bool cause;
 
 	public TargetTriggeringCard(TargetTriggeringCardData data) : base(data)
 	{
