@@ -3,30 +3,32 @@ using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.ManyCards;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Effects.Models.Restrictions.Cards;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class ChangeAllCardStats : ChangeCardStats
+public class ChangeAllCardStatsData : ChangeCardStatsData
 {
 	//default to making sure things are characters before changing their stats
+	[JsonProperty]
 	public IRestriction<IGameCardInfo> cardRestriction = new Character();
 
+	[JsonProperty]
 	public IIdentity<IReadOnlyCollection<IGameCardInfo>> cardsCard = new Board();
+}
 
+public class ChangeAllCardStats : ChangeCardStats
+{
+	public ChangeAllCardStats(ChangeAllCardStatsData data) : base(PopulateCards(data)) { }
 
-	public override void Initialize(ServerEffect eff, int subeffIndex)
+	private static ChangeCardStatsData PopulateCards(ChangeAllCardStatsData data)
 	{
-		cards ??= new Restricted() {
-			cardRestriction = cardRestriction,
-			cards = cardsCard
+		data.cards ??= new Restricted()
+		{
+			cardRestriction = data.cardRestriction,
+			cards = data.cardsCard
 		};
-		base.Initialize(eff, subeffIndex);
-	}
-
-	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
-	{
-		base.AdjustSubeffectIndices(increment, startingAtIndex);
-		cardRestriction.AdjustSubeffectIndices(increment, startingAtIndex);
+		return data;
 	}
 }

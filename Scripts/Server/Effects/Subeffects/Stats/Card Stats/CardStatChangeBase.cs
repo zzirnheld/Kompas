@@ -45,6 +45,13 @@ public abstract class CardStatChangeBase : ServerSubeffect
 		duration?.Initialize(initContext);
 	}
 
+	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
+	{
+		base.AdjustSubeffectIndices(increment, startingAtIndex);
+
+		cards.AdjustSubeffectIndices(increment, startingAtIndex);
+	}
+
 	protected IEnumerable<GameCard> GetCardsToAffect(IServerResolutionContext context)
 		=> cards.From(context)?.Select(c => c.Card)
 			?? throw new System.InvalidOperationException();
