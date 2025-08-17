@@ -10,17 +10,31 @@ using Kompas.Server.Networking;
 using Newtonsoft.Json;
 using Kompas.Shared.Enumerable;
 using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class SpaceTarget : ServerSubeffect
+public class SpaceTargetData : SubeffectData
 {
 	[JsonProperty]
 	public string? blurb;
-	#nullable disable
+	
 	[JsonProperty(Required = Required.Always)]
+	public IRestriction<Space>? spaceRestriction;
+}
+
+public class SpaceTarget : ServerSubeffect
+{
+	public string? blurb;
+	
 	public IRestriction<Space> spaceRestriction;
-	#nullable restore
+
+	public SpaceTarget(SpaceTargetData data) : base(data)
+	{
+		spaceRestriction = data.spaceRestriction
+			?? throw new MissingJSONValueException(nameof(spaceRestriction), this);
+		blurb = data.blurb;
+	}
 
 	private bool ForPlay => spaceRestriction is AllOf allOf && allOf.elements.Any(elem => elem is CanPlayCard);
 
@@ -30,16 +44,16 @@ public class SpaceTarget : ServerSubeffect
 		spaceRestriction.Initialize(DefaultInitializationContext);
 	}
 
-    public IEnumerable<Space> GetValidSpaces(IResolutionContext context)
-    {
+	public IEnumerable<Space> GetValidSpaces(IResolutionContext context)
+	{
 		var player = GetPlayerTarget(context);
-        return Space.Spaces
+		return Space.Spaces
 			.Where(s => spaceRestriction.IsValid(s, context))
 			.Select(s => player?.SubjectiveCoords(s))
 			.NonNull();
-    }
+	}
 
-    public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
+	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 		=> !GetValidSpaces(context).Any();
 
 	/// <summary>

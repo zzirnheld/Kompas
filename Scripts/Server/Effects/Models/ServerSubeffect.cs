@@ -40,13 +40,13 @@ public abstract class ServerSubeffect : Subeffect, IServerSubeffect
 	private readonly int jumpIndicesIndex;
 
 	/// <summary> See <see cref="SubeffectData.xMultiplier"/> </summary>
-	private readonly int xMultiplier;
+	protected readonly int xMultiplier;
 
 	/// <summary> See <see cref="SubeffectData.xDivisor"/> </summary>
-	private readonly int xDivisor;
+	protected readonly int xDivisor;
 
 	/// <summary> See <see cref="SubeffectData.xModifier"/> </summary>
-	private readonly int xModifier;
+	protected readonly int xModifier;
 
 	protected ServerSubeffect(SubeffectData data)
 	{

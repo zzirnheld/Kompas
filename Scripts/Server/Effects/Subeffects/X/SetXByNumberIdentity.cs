@@ -1,14 +1,24 @@
 using Kompas.Effects.Models.Identities;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class SetXByNumberIdentity: SetX
+public class SetXByNumberIdentityData : SetXData
 {
-	#nullable disable
 	[JsonProperty(Required = Required.Always)]
+	public IIdentity<int>? numberIdentity;
+}
+
+public class SetXByNumberIdentity : SetX
+{
 	public IIdentity<int> numberIdentity;
-	#nullable restore
+
+	public SetXByNumberIdentity(SetXByNumberIdentityData data) : base(data)
+	{
+		numberIdentity = data.numberIdentity
+			?? throw new MissingJSONValueException(nameof(numberIdentity), this);
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
@@ -19,8 +29,8 @@ public class SetXByNumberIdentity: SetX
 		numberIdentity.Initialize(initializationContext: DefaultInitializationContext);
 	}
 
-    public override int GetBaseCount(IServerResolutionContext context)
-    {
-        return numberIdentity.From(context, context);
-    }
+	public override int GetBaseCount(IServerResolutionContext context)
+	{
+		return numberIdentity.From(context, context);
+	}
 }

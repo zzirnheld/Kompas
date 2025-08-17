@@ -4,15 +4,26 @@ using System.Threading.Tasks;
 using Kompas.Effects.Models.Restrictions;
 using Kompas.Gamestate;
 using Newtonsoft.Json;
+using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class AutoSpaceTargetData : SubeffectData
+{
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<Space>? spaceRestriction;
+}
+
 public class AutoSpaceTarget : ServerSubeffect
 {
-	#nullable disable
-	[JsonProperty(Required = Required.Always)]
-	public IRestriction<Space> spaceRestriction;
-	#nullable restore
+	private readonly IRestriction<Space> spaceRestriction;
+
+	public AutoSpaceTarget(AutoSpaceTargetData data) : base(data)
+	{
+		spaceRestriction = data.spaceRestriction
+			?? throw new MissingJSONValueException(nameof(spaceRestriction), this);
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{

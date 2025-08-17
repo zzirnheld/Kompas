@@ -1,21 +1,32 @@
 ﻿using Kompas.Effects.Models.Restrictions;
+using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class PlayerChooseXData : SubeffectData
+{
+	[JsonProperty(Required = Required.Always)]
+	public IRestriction<int>? XRest;
+}
+
 public class PlayerChooseX : ServerSubeffect
 {
-	#nullable disable
-	[JsonProperty(Required = Required.Always)]
-	public IRestriction<int> XRest;
-	#nullable restore
+	private readonly IRestriction<int> xRestriction;
+
+	public PlayerChooseX(PlayerChooseXData data) : base(data)
+	{
+		xRestriction = data.XRest
+			?? throw new MissingJSONValueException(nameof(xRestriction), this);
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
 		base.Initialize(eff, subeffIndex);
-		XRest.Initialize(DefaultInitializationContext);
+		xRestriction.Initialize(DefaultInitializationContext);
 	}
 
 	private async Task<int> AskForX(IServerResolutionContext context)
@@ -35,7 +46,7 @@ public class PlayerChooseX : ServerSubeffect
 
 	public bool SetXIfLegal(int x, IServerResolutionContext context)
 	{
-		if (XRest.IsValid(x, context))
+		if (xRestriction.IsValid(x, context))
 		{
 			context.X = x;
 			return true;

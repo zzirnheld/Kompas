@@ -1,11 +1,16 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class TargetThisSpaceData : SubeffectData { }
+
 public class TargetThisSpace : ServerSubeffect
 {
+	public TargetThisSpace(TargetThisSpaceData data) : base(data) { }
+
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		_ = Effect ?? throw new System.NullReferenceException("Was the effect not resolving?");
