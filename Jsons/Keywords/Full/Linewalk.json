@@ -54,9 +54,8 @@
 			"$type":"Subeffect:Move:"
 		},
 		{
-			"$type":"Subeffect:SpendMovement:",
-					"xMultiplier": 0,
-					"xModifier":1
+			"$type": "Subeffect:ChangeCardStats:",
+			"spacesMovedChange": { "$type": "Identify.Numbers:Constant:", "constant": 1 }
 		}
 	]
 }

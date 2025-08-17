@@ -5,7 +5,6 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Cards;
 using Kompas.Effects.Models.Identities.ManyCards;
-using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 
