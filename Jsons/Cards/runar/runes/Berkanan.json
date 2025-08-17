@@ -30,7 +30,7 @@
 					}
 				},
 				{
-					"$type": "Subeffect:SetCardStatsOld:",
+					"$type": "Subeffect:SetCardStats:",
 					"eVal": 5,
 					"wVal": 0
 				}

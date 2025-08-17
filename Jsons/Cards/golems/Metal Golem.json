@@ -21,7 +21,7 @@
 					"cardRestriction": { "$type": "Restrict.Cards:Character:" }
 				},
 				{
-					"$type": "Subeffect:SetCardStatsOld:",
+					"$type": "Subeffect:SetCardStats:",
 					"nVal": 0
 				},
 				{
@@ -40,7 +40,7 @@
 					}
 				},
 				{
-					"$type": "Subeffect:SetCardStatsOld:",
+					"$type": "Subeffect:SetCardStats:",
 					"nVal": 0
 				}
 			]

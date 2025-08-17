@@ -8,42 +8,84 @@ using Kompas.Cards.Models;
 using Kompas.Gamestate.Locations;
 using System;
 using Newtonsoft.Json;
+using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public abstract class ChangeCardStatsBase : ServerSubeffect
+public abstract class ChangeCardStatsDataBase : SubeffectData
 {
-	#nullable disable
-	//These are set in Initialize
 	[JsonProperty]
-	public IIdentity<IGameCardInfo> card;
+	public IIdentity<IGameCardInfo>? card;
 	[JsonProperty]
-	public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards;
-	#nullable restore
+	public IIdentity<IReadOnlyCollection<IGameCardInfo>>? cards;
 
+	[JsonProperty]
 	public IIdentity<int>? n;
+	[JsonProperty]
 	public IIdentity<int>? e;
+	[JsonProperty]
 	public IIdentity<int>? s;
+	[JsonProperty]
 	public IIdentity<int>? w;
+	[JsonProperty]
 	public IIdentity<int>? c;
+	[JsonProperty]
 	public IIdentity<int>? a;
 
+	[JsonProperty]
 	public IIdentity<int>? turnsOnBoard;
+	[JsonProperty]
 	public IIdentity<int>? attacksThisTurn;
+	[JsonProperty]
 	public IIdentity<int>? spacesMoved;
+	[JsonProperty]
 	public IIdentity<int>? duration;
+	
+}
 
-    protected IEnumerable<GameCard> GetCardsToAffect(IServerResolutionContext context)
+public abstract class ChangeCardStatsBase : ServerSubeffect
+{
+	protected readonly IIdentity<IReadOnlyCollection<IGameCardInfo>> cards;
+
+	protected readonly IIdentity<int>? n;
+	protected readonly IIdentity<int>? e;
+	protected readonly IIdentity<int>? s;
+	protected readonly IIdentity<int>? w;
+	protected readonly IIdentity<int>? c;
+	protected readonly IIdentity<int>? a;
+
+	protected readonly IIdentity<int>? turnsOnBoard;
+	protected readonly IIdentity<int>? attacksThisTurn;
+	protected readonly IIdentity<int>? spacesMoved;
+	protected readonly IIdentity<int>? duration;
+
+	protected ChangeCardStatsBase(ChangeCardStatsDataBase data) : base(data)
+	{
+		var card = data.card ?? new TargetIndex() { index = data.targetIndex };
+		cards = data.cards ?? new Concat() { cards = new IIdentity<IGameCardInfo>[] { card } };
+
+		n = data.n;
+		e = data.e;
+		s = data.s;
+		w = data.w;
+		c = data.c;
+		a = data.a;
+
+		turnsOnBoard = data.turnsOnBoard;
+		attacksThisTurn = data.attacksThisTurn;
+		spacesMoved = data.spacesMoved;
+		duration = data.duration;
+	}
+
+	protected IEnumerable<GameCard> GetCardsToAffect(IServerResolutionContext context)
 		=> cards.From(context)
 			?.Select(c => c.Card)
 			?? throw new InvalidOperationException();
 
-    public override void Initialize(ServerEffect eff, int subeffIndex)
+	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
 		base.Initialize(eff, subeffIndex);
 
-		card ??= new TargetIndex() { index = targetIndex };
-		cards ??= new Concat() { cards = new IIdentity<IGameCardInfo>[] { card } };
 
 		var initContext = DefaultInitializationContext;
 		cards.Initialize(initContext);

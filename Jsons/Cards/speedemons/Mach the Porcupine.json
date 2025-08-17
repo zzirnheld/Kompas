@@ -38,7 +38,7 @@
 					"$type": "Subeffect:TargetThis:"
 				},
 				{
-					"$type": "Subeffect:SetCardStatsOld:",
+					"$type": "Subeffect:SetCardStats:",
 					"wVal": 0
 				}
 			]

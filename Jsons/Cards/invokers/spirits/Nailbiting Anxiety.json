@@ -44,7 +44,7 @@
 					}
 				},
 				{
-					"$type": "Subeffect:SetCardStatsOld:",
+					"$type": "Subeffect:SetCardStats:",
 					"nVal": 0
 				}
 			]
