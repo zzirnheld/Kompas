@@ -159,21 +159,21 @@ public class ServerEffect : Effect, IServerEffect
 		//if (validCards.Length <= 1) return; //Don't create a link between one non-null card? nah, do, so we can delete it as expected later
 
 		var link = new CardLink(new HashSet<int>(validCards.Select(c => c.ID)), this, linkColor);
-		cardLinks.Add(link);
+		CardLinks.Add(link);
 		if (onlyPlayerToKnow != null) ServerNotifier.AddHiddenCardLink(onlyPlayerToKnow, link);
 		else ServerNotifier.AddCardLink(link, Game.Players);
 	}
 
 	public void DestroyCardLink(int index)
 	{
-		var link = cardLinks.ElementAtWrapped(index);
+		var link = CardLinks.ElementAtWrapped(index);
 		if (link == null)
 		{
 			Logger.Err($"No card link at index {index}");
 			return;
 		}
 
-		if (cardLinks.Remove(link))
+		if (CardLinks.Remove(link))
 		{
 			ServerNotifier.RemoveCardLink(link, Game.Players);
 		}

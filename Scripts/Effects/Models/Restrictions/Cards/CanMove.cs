@@ -52,7 +52,7 @@ public class CanMove : CardRestrictionBase
 			}
 
 			bool IsSubeffectRestrictionValid(Space space) => spaceTargetSubeffect.spaceRestriction.IsValid(space, context);
-			return InitializationContext.effect.identityOverrides.WithTargetCardOverride(card,
+			return InitializationContext.effect.IdentityOverrides.WithTargetCardOverride(card,
 				() => Space.Spaces.Where(IsSubeffectRestrictionValid).Any(IsValidMoveSpace));
 		}
 		else return Space.Spaces.Any(IsValidMoveSpace);

@@ -10,7 +10,7 @@ public class TargetIndex : EffectContextualCardIdentityBase
 
 	protected override IGameCardInfo? AbstractItemFrom(IResolutionContext contextToConsider)
 	{
-		return InitializationContext.effect?.identityOverrides.TargetCardOverride
+		return InitializationContext.effect?.IdentityOverrides.TargetCardOverride
 			?? EffectHelper.GetItem(contextToConsider.CardTargets, index);
 	} 
 }

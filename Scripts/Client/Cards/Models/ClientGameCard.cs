@@ -83,7 +83,7 @@ public class ClientGameCard : GameCard
 		cardController.Card = ret;
 		foreach (var (index, eff) in effects.Enumerate())
 		{
-			eff.SetInfo(ret, game, index, owningPlayer);
+			eff.SetInfo(ret, index);
 			eff.EffectInformationChanged += (_, _) => ret.RefreshEffectInformation();
 		}
 		game.AddCard(ret);

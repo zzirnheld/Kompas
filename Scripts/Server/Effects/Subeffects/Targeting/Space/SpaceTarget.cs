@@ -68,7 +68,7 @@ public class SpaceTarget : ServerSubeffect
 		if (theoreticalTarget == null) return false;
 		foreach (var space in Space.Spaces)
 		{
-			if (Effect.identityOverrides.WithTargetCardOverride(theoreticalTarget,
+			if (Effect.IdentityOverrides.WithTargetCardOverride(theoreticalTarget,
 				() => spaceRestriction.IsValid(space, context)))
 				return true;
 		}

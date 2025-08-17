@@ -14,32 +14,28 @@ namespace Kompas.Effects.Models;
 /// </summary>
 public abstract class Effect : IEffect
 {
-	public abstract IGame Game { get; }
-
-	public int EffectIndex { get; private set; }
-	public abstract IPlayer OwningPlayer { get; }
-	public IPlayer ControllingPlayer => OwningPlayer; //FUTURE: effects can change control. for now, assume same player
-
-	//subeffects
-	public abstract IReadOnlyList<ISubeffect> Subeffects { get; }
-	//Targets
-	protected readonly List<CardLink> cardLinks = new();
-
-	//we don't care about informing players of the contents of these. yet. but we might later
-	public IdentityOverrides identityOverrides = new();
-
-	//Triggering and Activating
-	public abstract Trigger? Trigger { get; }
-	public ITriggerRestriction? TriggerRestriction => Trigger?.TriggerRestriction;
 	public IActivationRestriction? ActivationRestriction { get; }
+	public int Arg { get; }
 
-	//Misc effect info
+	public abstract IGame Game { get; }
+	public abstract IPlayer OwningPlayer { get; }
+	public abstract Trigger? Trigger { get; }
+	public abstract IReadOnlyList<ISubeffect> Subeffects { get; }
+
+	public IdentityOverrides IdentityOverrides { get; } = new();
+	protected List<CardLink> CardLinks { get; } = new();
+
+	public IPlayer ControllingPlayer => OwningPlayer; //FUTURE: effects can change control. for now, assume same player. eventually, put effect controller in resolution context
+	public ITriggerRestriction? TriggerRestriction => Trigger?.TriggerRestriction;
+
 	public string InitialBlurb { get; private set; } = string.Empty;
+	public int EffectIndex { get; private set; }
+
 	private int _timesUsedThisTurn;
 	private int _timesUsedThisRound;
 	private int _timesUsedThisStack;
+
 	public event System.EventHandler<IEffect>? EffectInformationChanged;
-	public int Arg { get; }
 
 	private GameCard? _card;
 	public GameCard Card => _card
@@ -94,7 +90,7 @@ public abstract class Effect : IEffect
 
 		ActivationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
 		TimesUsedThisTurn = 0;
-		
+
 		if (InitialBlurb == string.Empty) InitialBlurb = $"Effect of {Card.CardName}";
 	}
 
@@ -117,7 +113,7 @@ public abstract class Effect : IEffect
 	public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
 		=> Trigger == null && ActivationRestriction != null && ActivationRestriction.IsPotentiallyValidActivation(activator);
 
-	public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest, IResolutionContext context)
+	public static T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest, IResolutionContext context)
 	{
 		if (target != null) context.CardTargets.Add(target);
 		var ret = toTest();

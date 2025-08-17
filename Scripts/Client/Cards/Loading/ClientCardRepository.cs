@@ -32,11 +32,10 @@ public class ClientCardRepository : GameCardRepository<ClientEffect, ClientCardC
 
 		ClientGameCard ConstructAvatar(SerializableGameCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
 			=> ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl, isAvatar: true);
+		ClientEffect ConstructClientEffect(EffectData data) => new(data, game, owner);
 
 		return InstantiateGameCard(SanitizeJson(json), ConstructAvatar, ConstructClientEffect, validation);
 	}
-
-	private static ClientEffect ConstructClientEffect(EffectData data) => new(data);
 
 	private static string SanitizeJson(string json) => json; //TODO
 
@@ -44,6 +43,7 @@ public class ClientCardRepository : GameCardRepository<ClientEffect, ClientCardC
 	{
 		ClientGameCard ConstructNonAvatar(SerializableGameCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
 			=> ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl);
+		ClientEffect ConstructClientEffect(EffectData data) => new(data, game, owner);
 		var card = InstantiateGameCard(SanitizeJson(json),
 			ConstructNonAvatar,
 			ConstructClientEffect);
