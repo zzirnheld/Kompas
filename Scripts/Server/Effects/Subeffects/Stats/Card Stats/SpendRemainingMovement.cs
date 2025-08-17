@@ -1,13 +1,32 @@
 ﻿using System.Threading.Tasks;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
+using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class SpendRemainingMovementData : SubeffectData
+{
+	[JsonProperty]
+	public int mult = 1;
+	[JsonProperty]
+	public int div = 1;
+	[JsonProperty]
+	public int mod = 0;
+}
+
 public class SpendRemainingMovement : ServerSubeffect
 {
-	public int mult = 1;
-	public int div = 1;
-	public int mod = 0;
+	private readonly int mult;
+	private readonly int div;
+	private readonly int mod;
+
+	public SpendRemainingMovement(SpendRemainingMovementData data) : base(data)
+	{
+		mult = data.mult;
+		div = data.div;
+		mod = data.mod;
+	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{

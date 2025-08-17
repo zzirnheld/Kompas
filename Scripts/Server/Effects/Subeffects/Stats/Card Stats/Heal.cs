@@ -1,5 +1,6 @@
 ﻿using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
 using Kompas.Server.Effects.Controllers;
@@ -7,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class HealData : SubeffectData { }
+
 public class Heal : ServerSubeffect
 {
+	public Heal(HealData data) : base(data) { }
+
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
 		var target = GetCardTarget(resolution.Context) ?? throw new NullCardException(TargetWasNull);

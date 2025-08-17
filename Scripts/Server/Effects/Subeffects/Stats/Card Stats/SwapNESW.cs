@@ -1,22 +1,45 @@
 ﻿using Kompas.Effects.Models;
+using Kompas.Effects.Subeffects;
 using Kompas.Gamestate.Exceptions;
 using Kompas.Gamestate.Locations;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class SwapNESWData : SubeffectData
+{
+	[JsonProperty(Required = Required.Always)]
+	public int[]? targetIndices;
+
+	[JsonProperty]
+	public bool swapN = false;
+	[JsonProperty]
+	public bool swapE = false;
+	[JsonProperty]
+	public bool swapS = false;
+	[JsonProperty]
+	public bool swapW = false;
+}
+
 public class SwapNESW : ServerSubeffect
 {
-	#nullable disable
-	[JsonProperty (Required = Required.Always)]
 	public int[] targetIndices;
-	#nullable restore
+	public bool swapN;
+	public bool swapE;
+	public bool swapS;
+	public bool swapW;
 
-	public bool swapN = false;
-	public bool swapE = false;
-	public bool swapS = false;
-	public bool swapW = false;
+	public SwapNESW(SwapNESWData data) : base(data)
+	{
+		targetIndices = data.targetIndices ?? throw new MissingJSONValueException(nameof(targetIndices), this);
+
+		swapN = data.swapN;
+		swapE = data.swapE;
+		swapS = data.swapS;
+		swapW = data.swapW;
+	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
