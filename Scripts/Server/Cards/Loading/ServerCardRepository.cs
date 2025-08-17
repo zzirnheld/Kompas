@@ -1,6 +1,7 @@
 using System;
 using Kompas.Cards.Loading;
 using Kompas.Cards.Models;
+using Kompas.Effects.Models;
 using Kompas.Gamestate.Players;
 using Kompas.Server.Cards.Controllers;
 using Kompas.Server.Cards.Models;
@@ -52,7 +53,9 @@ public class ServerCardRepository : GameCardRepository<ServerSerializableCard, S
 
 		ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
 			=> ServerGameCard.Create(cardInfo, id, owner, game, ctrl, effects, isAvatar);
-		var ret = InstantiateGameCard(json, ConstructCard)
+		ServerEffect ConstructEffect(EffectData data) => new(data);
+
+		var ret = InstantiateGameCard(json, ConstructCard, ConstructEffect)
 			?? throw new InvalidOperationException($"Failed to instantiate {json}");
 		game.AddCard(ret);
 		return ret;

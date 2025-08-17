@@ -66,7 +66,7 @@ public class ServerEffect : Effect, IServerEffect
 	public ServerEffect(EffectData data) : base(data)
 	{
 		ServerSubeffects = data.Subeffects
-			.Select(sd => FACTORY_METHOD)
+			.Select(ServerSubeffectFactory.FromData)
 			.ToArray();
 
 		if (data.triggerData != null && !string.IsNullOrEmpty(data.triggerData.triggerCondition))

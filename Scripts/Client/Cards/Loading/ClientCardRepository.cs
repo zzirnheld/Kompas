@@ -7,6 +7,7 @@ using Kompas.Client.Cards.Models;
 using Kompas.Client.Effects.Models;
 using Kompas.Client.Gamestate;
 using Kompas.Client.Gamestate.Players;
+using Kompas.Effects.Models;
 using Kompas.Gamestate.Players;
 using Newtonsoft.Json;
 
@@ -32,15 +33,20 @@ public class ClientCardRepository : GameCardRepository<ClientSerializableCard, C
 		ClientGameCard ConstructAvatar(ClientSerializableCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
 			=> ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl, isAvatar: true);
 
-		return InstantiateGameCard(SanitizeJson(json), ConstructAvatar, validation);
+		return InstantiateGameCard(SanitizeJson(json), ConstructAvatar, ConstructClientEffect, validation);
 	}
 
-	private string SanitizeJson(string json) => json; //TODO
+	private static ClientEffect ConstructClientEffect(EffectData data) => new(data);
+
+	private static string SanitizeJson(string json) => json; //TODO
 
 	public ClientGameCard? InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
 	{
+		ClientGameCard ConstructNonAvatar(ClientSerializableCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
+			=> ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl);
 		var card = InstantiateGameCard(SanitizeJson(json),
-			(cardInfo, effects, ctrl) => ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl));
+			ConstructNonAvatar,
+			ConstructClientEffect);
 
 		if (card == null) return card;
 

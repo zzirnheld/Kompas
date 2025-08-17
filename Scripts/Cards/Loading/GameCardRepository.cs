@@ -25,37 +25,8 @@ public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCa
 		Initialize();
 	}
 
-	private static IList<TEffect> GetKeywordEffects(SerializableCard card)
-	{
-		var effects = new List<TEffect>();
-		foreach (var (index, keyword) in card.keywords.Enumerate())
-		{
-			if (!keywordJsons.ContainsKey(keyword))
-				Logger.Err($"Failed to add {keyword} length {keyword.Length} to {card.cardName}"
-				+ $"Not present in {string.Join(", ", keywordJsons.Keys)}");
-			var keywordJson = keywordJsons[keyword];
-			TEffect? eff;
-			try
-			{
-				eff = JsonConvert.DeserializeObject<TEffect>(keywordJson, CardLoadingSettings);
-			}
-			catch (JsonReaderException jrEx)
-			{
-				Logger.Err($"Failed to load {card} because {jrEx}");
-				throw;
-			}
-			if (eff == null)
-			{
-				Logger.Err($"Failed to load {keywordJson}");
-				continue;
-			}
-			eff.arg = card.keywordArgs.Length > index ? card.keywordArgs[index] : 0;
-			effects.Add(eff);
-		}
-		return effects;
-	}
-
 	protected delegate TGameCard ConstructCard<TGameCard>(TSerializableCard cardInfo, TEffect[] effects, TCardController ctrl);
+	protected delegate TEffect ConstructEffect(EffectData data);
 	protected delegate void Validate(SerializableCard card);
 
 	public static string JsonPrettify(string json)
@@ -68,7 +39,7 @@ public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCa
 		return stringWriter.ToString();
 	}
 
-	protected TGameCard? InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, Validate? validation = null)
+	protected TGameCard? InstantiateGameCard<TGameCard>(string json, ConstructCard<TGameCard> cardConstructor, ConstructEffect constructEffect, Validate? validation = null)
 		where TGameCard : GameCard
 	{
 		Logger.Log($"Loading {JsonPrettify(json)}");
@@ -86,7 +57,7 @@ public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCa
 			validation?.Invoke(cardInfo);
 
 			effects.AddRangeWithCast(cardInfo.Effects ?? Enumerable.Empty<TEffect>());
-			effects.AddRange(GetKeywordEffects(cardInfo));
+			effects.AddRange(GetKeywordEffects(cardInfo, constructEffect));
 		}
 		catch (System.ArgumentException argEx)
 		{
@@ -106,6 +77,36 @@ public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCa
 		var ctrl = GetCardController();
 		var card = cardConstructor(cardInfo, effects.ToArray(), ctrl);
 		return card;
+	}
+
+	private static IList<TEffect> GetKeywordEffects(SerializableCard card, ConstructEffect constructEffect)
+	{
+		var effects = new List<TEffect>();
+		foreach (var (index, keyword) in card.keywords.Enumerate())
+		{
+			if (!keywordJsons.ContainsKey(keyword))
+				Logger.Err($"Failed to add {keyword} length {keyword.Length} to {card.cardName}"
+				+ $"Not present in {string.Join(", ", keywordJsons.Keys)}");
+			var keywordJson = keywordJsons[keyword];
+			EffectData? eff;
+			try
+			{
+				eff = JsonConvert.DeserializeObject<EffectData>(keywordJson, CardLoadingSettings);
+			}
+			catch (JsonReaderException jrEx)
+			{
+				Logger.Err($"Failed to load {card} because {jrEx}");
+				throw;
+			}
+			if (eff == null)
+			{
+				Logger.Err($"Failed to load {keywordJson}");
+				continue;
+			}
+			eff.arg = card.keywordArgs.Length > index ? card.keywordArgs[index] : 0;
+			effects.Add(constructEffect(eff));
+		}
+		return effects;
 	}
 
 	protected virtual TCardController GetCardController()
