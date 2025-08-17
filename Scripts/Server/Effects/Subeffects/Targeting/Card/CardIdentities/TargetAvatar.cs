@@ -2,11 +2,15 @@
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class TargetAvatarData : AutoTargetCardIdentityData { }
+
 public class TargetAvatar : AutoTargetCardIdentity
 {
-	public override void Initialize(ServerEffect eff, int subeffIndex)
+	public TargetAvatar(TargetAvatarData data) : base(PopulateIdentity(data)) { }
+
+	private static AutoTargetCardIdentityData PopulateIdentity(TargetAvatarData data)
 	{
-		subeffectCardIdentity = new Avatar() { player = new Kompas.Effects.Models.Identities.Players.TargetIndex() };
-		base.Initialize(eff, subeffIndex);
+		data.subeffectCardIdentity = new Avatar() { player = new Kompas.Effects.Models.Identities.Players.TargetIndex() };
+		return data;
 	}
 }

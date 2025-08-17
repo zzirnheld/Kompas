@@ -1,16 +1,28 @@
 using Kompas.Cards.Models;
 using Kompas.Effects.Models.Identities;
+using Kompas.Effects.Subeffects;
+using Kompas.Shared.Exceptions;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class AutoTargetCardIdentityData : SubeffectData
+{
+	[JsonProperty] //Can be populated by inheritors, not always required
+	public IIdentity<IGameCardInfo>? subeffectCardIdentity;
+	
+}
+
 public class AutoTargetCardIdentity : ServerSubeffect
 {
-	#nullable disable
-	[JsonProperty] //Can be populated by inheritors, not always required
 	public IIdentity<IGameCardInfo> subeffectCardIdentity;
-	#nullable restore
+
+	public AutoTargetCardIdentity(AutoTargetCardIdentityData data) : base(data)
+	{
+		subeffectCardIdentity = data.subeffectCardIdentity
+			?? throw new MissingJSONValueException(nameof(subeffectCardIdentity), this);
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
