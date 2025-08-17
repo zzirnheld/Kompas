@@ -18,9 +18,8 @@
 					"cModifier": 1
 				},
 				{
-					"$type": "Subeffect:SetTurnsOnBoard:",
-					"xMultiplier": 0,
-					"xModifier": -1
+					"$type": "Subeffect:SetCardStats:",
+					"turnsOnBoard": { "$type": "Identify.Numbers:EffectX:", "multiplier": 0, "modifier": -1}
 				}
 			]
 		},
