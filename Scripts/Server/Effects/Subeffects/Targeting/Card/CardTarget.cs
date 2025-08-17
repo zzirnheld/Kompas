@@ -16,7 +16,7 @@ using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class CardTarget : ServerSubeffect
+public class CardTargetData : SubeffectData
 {
 	[JsonProperty]
 	public string blurb = string.Empty;
@@ -46,15 +46,51 @@ public class CardTarget : ServerSubeffect
 	public IIdentity<IGameCardInfo>? toLinkWith;
 	[JsonProperty]
 	public Color linkColor = CardLink.DefaultColor; // "r": #, "g" ... etc
+}
+
+public class CardTarget : ServerSubeffect
+{
+	public string blurb;
+	public bool secretTarget;
+
+	public IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch;
+
+	/// <summary>
+	/// Restriction that each card must fulfill
+	/// </summary>
+	public IRestriction<IGameCardInfo> cardRestriction;
+
+	/// <summary>
+	/// Restriction that the list collectively must fulfill
+	/// </summary>
+	public IListRestriction listRestriction;
+
+	/// <summary>
+	/// Identifies a card that this target should be linked with.
+	/// Usually null, but if you plan on having a delay later, probably a good idea
+	/// </summary>
+	public IIdentity<IGameCardInfo>? toLinkWith;
+	public Color linkColor; // "r": #, "g" ... etc
 
 	//TODO: should these be moved to CurrentResolutionContext?
 	protected IReadOnlyCollection<int>? stashedToSearchIDs;
 	protected IReadOnlyCollection<GameCard>? stashedPotentialTargets;
 
+	public CardTarget(CardTargetData data) : base(data)
+	{
+		blurb = data.blurb;
+		secretTarget = data.secretTarget;
+		toSearch = data.toSearch;
+		cardRestriction = data.cardRestriction;
+		listRestriction = data.listRestriction;
+		toLinkWith = data.toLinkWith;
+		linkColor = data.linkColor;
+	}
+
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
 		base.Initialize(eff, subeffIndex);
-		
+
 		toSearch.Initialize(DefaultInitializationContext);
 		cardRestriction.Initialize(DefaultInitializationContext);
 		listRestriction.Initialize(DefaultInitializationContext);
@@ -117,7 +153,8 @@ public class CardTarget : ServerSubeffect
 		}
 
 		IEnumerable<GameCard>? targets = null;
-		do {
+		do
+		{
 			targets = await RequestTargets(resolution.Context);
 			if (targets == null && resolution.Context.CanDeclineTarget) return ResolutionInfo.Impossible(DeclinedFurtherTargets);
 		} while (!AddListIfLegal(targets, resolution));

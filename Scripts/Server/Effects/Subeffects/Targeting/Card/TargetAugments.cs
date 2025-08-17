@@ -4,13 +4,19 @@ using Kompas.Effects.Models.Restrictions.Gamestate;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class TargetAugmentsData : TargetAllData { }
+
 public class TargetAugments : TargetAll
 {
-	public override void Initialize(ServerEffect eff, int subeffIndex)
+	public TargetAugments(TargetAugmentsData data) : base(PopulateToSearch(data)) { }
+
+	private static TargetAllData PopulateToSearch(TargetAugmentsData data)
 	{
-		toSearch = new Restricted() {
-			cardRestriction = cardRestriction ?? new AlwaysValid(),
-			cards = new Kompas.Effects.Models.Identities.ManyCards.Augments() { card = new TargetIndex() } };
-		base.Initialize(eff, subeffIndex);
+		data.toSearch = new Restricted()
+		{
+			cardRestriction = data.cardRestriction ?? new AlwaysValid(),
+			cards = new Kompas.Effects.Models.Identities.ManyCards.Augments() { card = new TargetIndex() }
+		};
+		return data;
 	}
 }

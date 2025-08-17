@@ -1,13 +1,32 @@
-﻿using Kompas.Gamestate.Exceptions;
+﻿using Kompas.Effects.Subeffects;
+using Kompas.Gamestate.Exceptions;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class TargetTriggeringCardData : SubeffectData
+{
+	[JsonProperty]
+	public bool contextSecondaryCard = false;
+	[JsonProperty]
+	public bool info = false;
+	[JsonProperty]
+	public bool cause = false;
+}
+
 public class TargetTriggeringCard : ServerSubeffect
 {
-	public bool contextSecondaryCard = false;
-	public bool info = false;
-	public bool cause = false;
+	public bool contextSecondaryCard;
+	public bool info;
+	public bool cause;
+
+	public TargetTriggeringCard(TargetTriggeringCardData data) : base(data)
+	{
+		contextSecondaryCard = data.contextSecondaryCard;
+		info = data.info;
+		cause = data.cause;
+	}
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{
@@ -16,7 +35,7 @@ public class TargetTriggeringCard : ServerSubeffect
 		if (cause) cardInfoToTarget = resolution.Context.TriggerContext?.CauseCardBefore;
 
 		if (cardInfoToTarget == null)
-			throw new NullCardException(debugMessage: $"Trigger context was {resolution.Context.TriggerContext}", 
+			throw new NullCardException(debugMessage: $"Trigger context was {resolution.Context.TriggerContext}",
 				message: NoValidCardTarget);
 
 		if (info) resolution.Context.CardInfoTargets.Add(cardInfoToTarget);

@@ -5,8 +5,12 @@ using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class TargetAll: CardTarget
+public class TargetAllData : CardTargetData { }
+
+public class TargetAll : CardTarget
 {
+	public TargetAll(TargetAllData data) : base(data) { }
+
 	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 	{
 		var (_, targets) = DeterminePossibleTargets(context);

@@ -13,12 +13,8 @@ using Kompas.Effects.Subeffects;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class AutoTarget : ServerSubeffect
+public class AutoTargetData : SubeffectData
 {
-	public const string Maximum = "Maximum";
-	public const string Any = "Any";
-	public const string RandomCard = "Random";
-
 	[JsonProperty]
 	public IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch = new All();
 	[JsonProperty]
@@ -27,6 +23,26 @@ public class AutoTarget : ServerSubeffect
 	public CardValue? tiebreakerValue;
 	[JsonProperty]
 	public string tiebreakerDirection = string.Empty;
+}
+
+public class AutoTarget : ServerSubeffect
+{
+	public const string Maximum = "Maximum";
+	public const string Any = "Any";
+	public const string RandomCard = "Random";
+
+	private readonly IIdentity<IReadOnlyCollection<IGameCardInfo>> toSearch;
+	private readonly IRestriction<IGameCardInfo> cardRestriction;
+	private readonly CardValue? tiebreakerValue;
+	private readonly string tiebreakerDirection;
+
+	public AutoTarget(AutoTargetData data) : base(data)
+	{
+		toSearch = data.toSearch;
+		cardRestriction = data.cardRestriction;
+		tiebreakerValue = data.tiebreakerValue;
+		tiebreakerDirection = data.tiebreakerDirection;
+	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
 	{
@@ -42,7 +58,7 @@ public class AutoTarget : ServerSubeffect
 		cardRestriction?.AdjustSubeffectIndices(increment, startingAtIndex);
 	}
 
-	public override bool IsImpossible (IResolutionContext context, TargetingContext? overrideContext = null)
+	public override bool IsImpossible(IResolutionContext context, TargetingContext? overrideContext = null)
 		=> !Game.Cards.Any(c => cardRestriction.IsValid(c, context));
 
 	private static GameCard GetRandomCard(GameCard[] cards)

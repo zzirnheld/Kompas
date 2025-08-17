@@ -10,19 +10,22 @@ using System.Threading.Tasks;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
+public class CardTargetSaveRestData : CardTargetData
+{
+	[JsonProperty]
+	public IRestriction<IGameCardInfo>? restRestriction;
+}
+
 public class CardTargetSaveRest : CardTarget
 {
 	/// <summary>
 	/// If null, default to cardRestriction
 	/// </summary>
-	[JsonProperty]
-	public IRestriction<IGameCardInfo>? restRestriction;
+	public IRestriction<IGameCardInfo> restRestriction;
 
-	public override void Initialize(ServerEffect eff, int subeffIndex)
+	public CardTargetSaveRest(CardTargetSaveRestData data) : base(data)
 	{
-		base.Initialize(eff, subeffIndex);
-		if (restRestriction == null) restRestriction = cardRestriction;
-		else restRestriction.Initialize(DefaultInitializationContext);
+		restRestriction = data.restRestriction ?? data.cardRestriction;
 	}
 
 	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
