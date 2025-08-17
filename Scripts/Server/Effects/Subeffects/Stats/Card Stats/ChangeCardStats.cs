@@ -56,21 +56,15 @@ public class ChangeCardStatsData : CardStatChangeDataBase
 	
 }
 
-public class ChangeCardStats : ServerSubeffect
+public class ChangeCardStats : CardStatChangeBase
 {
+	//Can't refactor to coalesce with SetCardStats because I want to lock in non-nullability here
 	protected readonly IIdentity<int> n;
 	protected readonly IIdentity<int> e;
 	protected readonly IIdentity<int> s;
 	protected readonly IIdentity<int> w;
 	protected readonly IIdentity<int> c;
 	protected readonly IIdentity<int> a;
-
-	public IIdentity<IReadOnlyCollection<IGameCardInfo>> cards;
-
-	public IIdentity<int>? turnsOnBoard;
-	public IIdentity<int>? attacksThisTurn;
-	public IIdentity<int>? spacesMoved;
-	public IIdentity<int>? duration;
 
 	public ChangeCardStats(ChangeCardStatsData data) : base(data)
 	{
@@ -80,14 +74,6 @@ public class ChangeCardStats : ServerSubeffect
 		w = data.w ?? new EffectX() { multiplier = data.wMultiplier, modifier = data.wModifier, divisor = data.wDivisor };
 		c = data.c ?? new EffectX() { multiplier = data.cMultiplier, modifier = data.cModifier, divisor = data.cDivisor };
 		a = data.a ?? new EffectX() { multiplier = data.aMultiplier, modifier = data.aModifier, divisor = data.aDivisor };
-
-		var card = data.card ?? new TargetIndex() { index = data.targetIndex };
-		cards = data.cards ?? new Concat() { cards = new IIdentity<IGameCardInfo>[] { card } };
-
-		turnsOnBoard = data.turnsOnBoard;
-		attacksThisTurn = data.attacksThisTurn;
-		spacesMoved = data.spacesMoved;
-		duration = data.duration;
 	}
 
 	public override void Initialize(ServerEffect eff, int subeffIndex)
@@ -130,15 +116,5 @@ public class ChangeCardStats : ServerSubeffect
 		}
 
 		return Task.FromResult(ResolutionInfo.Next);
-	}
-
-	protected IEnumerable<GameCard> GetCardsToAffect(IServerResolutionContext context)
-		=> cards.From(context)?.Select(c => c.Card)
-			?? throw new System.InvalidOperationException();
-			
-	protected void ValidateCardOnBoard(GameCard card)
-	{
-		if (forbidNotBoard && card.Location != Location.Board)
-			throw new InvalidLocationException(card.Location, card, ChangedStatsOfCardOffBoard);
 	}
 }
