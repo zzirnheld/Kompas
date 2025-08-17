@@ -31,14 +31,10 @@ public abstract class Effect : IEffect
 	//Triggering and Activating
 	public abstract Trigger? Trigger { get; }
 	public ITriggerRestriction? TriggerRestriction => Trigger?.TriggerRestriction;
-	public TriggerData? triggerData;
-	public IActivationRestriction? activationRestriction;
-	public IActivationRestriction? ActivationRestriction => activationRestriction;
+	public IActivationRestriction? ActivationRestriction { get; }
 
 	//Misc effect info
-	public string? initialBlurb;
-	public string InitialBlurb => initialBlurb ??= $"Effect of {Card.CardName}";
-	public int arg; //used for keyword arguments, and such
+	public string InitialBlurb { get; }
 	private int _timesUsedThisTurn;
 	private int _timesUsedThisRound;
 	private int _timesUsedThisStack;
@@ -79,14 +75,18 @@ public abstract class Effect : IEffect
 	/// </summary>
 	public string? Keyword { get; set; }
 
+	public Effect(EffectData data)
+	{
+		ActivationRestriction = data.activationRestriction;
+		InitialBlurb = data.initialBlurb ?? $"Effect of {Card.CardName}";
+	}
+
 	protected void SetInfo(int effIndex)
 	{
 		EffectIndex = effIndex;
 
-		//TODO go back to a SerializableEffect model. The Subeffects will still be specified "manually" but that's the cross I'll have to bear, I think,
-		//unless I want to make a Serializable version of every subeffect. Which might be a good idea anyway (I'd just put them in the same file for convenience)
 		if (Card == null) throw new System.NotImplementedException("Card must be already non-null by the time SetInfo is called.");
-		activationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
+		ActivationRestriction?.Initialize(new InitializationContext(game: Game, source: Card, effect: this));
 		TimesUsedThisTurn = 0;
 	}
 
@@ -104,10 +104,10 @@ public abstract class Effect : IEffect
 	}
 
 	public virtual bool CanBeActivatedBy(IPlayer controller)
-		=> Trigger == null && activationRestriction != null && activationRestriction.IsValid(controller, IResolutionContext.PlayerAction(controller));
+		=> Trigger == null && ActivationRestriction != null && ActivationRestriction.IsValid(controller, IResolutionContext.PlayerAction(controller));
 
 	public virtual bool CanBeActivatedAtAllBy(IPlayer activator)
-		=> Trigger == null && activationRestriction != null && activationRestriction.IsPotentiallyValidActivation(activator);
+		=> Trigger == null && ActivationRestriction != null && ActivationRestriction.IsPotentiallyValidActivation(activator);
 
 	public T TestWithCardTarget<T>(GameCard? target, System.Func<T> toTest, IResolutionContext context)
 	{

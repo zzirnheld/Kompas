@@ -25,7 +25,7 @@ public class CanResolve : ServerSubeffect
 	private readonly int skipIndex;
 	private readonly TargetingContext? overrideTargetingContext;
 
-	private IEnumerable<IServerSubeffect> Subeffects => subeffIndices.Select(s => ServerEffect.subeffects[s]);
+	private IEnumerable<IServerSubeffect> Subeffects => subeffIndices.Select((System.Func<int, ServerSubeffect>)(s => (ServerSubeffect)ServerEffect.ServerSubeffects[s]));
 
 	public CanResolve(CanResolveData data) : base(data)
 	{

@@ -46,9 +46,8 @@ public class ServerEffect : Effect, IServerEffect
 		?? throw new NotInitializedException();
 	public override IPlayer OwningPlayer => OwningServerPlayer;
 
-	public ServerSubeffect[] subeffects = System.Array.Empty<ServerSubeffect>();
-	public ServerSubeffect[] ServerSubeffects => subeffects;
-	public override Subeffect[] Subeffects => subeffects;
+	public ServerSubeffect[] ServerSubeffects { get; private set; }
+	public override Subeffect[] Subeffects => ServerSubeffects;
 	public ServerTrigger? ServerTrigger { get; private set; }
 	public override Trigger? Trigger => ServerTrigger;
 
@@ -64,6 +63,16 @@ public class ServerEffect : Effect, IServerEffect
 		}
 	}
 
+	public ServerEffect(EffectData data) : base(data)
+	{
+		ServerSubeffects = data.Subeffects
+			.Select(sd => FACTORY_METHOD)
+			.ToArray();
+
+		if (data.triggerData != null && !string.IsNullOrEmpty(data.triggerData.triggerCondition))
+			ServerTrigger = ServerTrigger.Create(data.triggerData, this);
+	}
+
 	public void SetInfo(ServerGameCard card, IServerGame game, int effectIndex)
 	{
 		_card = card;
@@ -71,14 +80,11 @@ public class ServerEffect : Effect, IServerEffect
 		_ownerServerPlayer = game.ServerControllerOf(card);
 		base.SetInfo(effectIndex);
 
-		if (triggerData != null && !string.IsNullOrEmpty(triggerData.triggerCondition))
-			ServerTrigger = ServerTrigger.Create(triggerData, this);
-
-		foreach (var (i, subeff) in subeffects.Enumerate()) subeff.Initialize(this, i);
+		foreach (var (i, subeff) in ServerSubeffects.Enumerate()) subeff.Initialize(this, i);
 	}
 
 	/// <summary>
-	/// Inserts the given array of subeffects into this effect's <see cref="subeffects"/> array.
+	/// Inserts the given array of subeffects into this effect's <see cref="ServerSubeffects"/> array.
 	/// The first subeffect (index 0) of <paramref name="newSubeffects"/> 
 	/// will be at <paramref name="startingAtIndex"/> in the new array.
 	/// </summary>
@@ -92,9 +98,9 @@ public class ServerEffect : Effect, IServerEffect
 		//Of the subeffects to be inserted
 		foreach (var s in newSubeffects) s.AdjustSubeffectIndices(startingAtIndex);
 		//And of any extant subeffects whose indices would be after the insertion point
-		foreach (var s in subeffects) s.AdjustSubeffectIndices(newSubeffects.Length, startingAtIndex);
+		foreach (var s in ServerSubeffects) s.AdjustSubeffectIndices(newSubeffects.Length, startingAtIndex);
 
-		ServerSubeffect[] combinedSubeffects = new ServerSubeffect[subeffects.Length + newSubeffects.Length];
+		ServerSubeffect[] combinedSubeffects = new ServerSubeffect[ServerSubeffects.Length + newSubeffects.Length];
 		int oldIndex;
 		int newIndex;
 		int combinedIndex;
@@ -103,7 +109,7 @@ public class ServerEffect : Effect, IServerEffect
 			combinedIndex < startingAtIndex;
 			oldIndex++, combinedIndex++)
 		{
-			combinedSubeffects[combinedIndex] = subeffects[oldIndex];
+			combinedSubeffects[combinedIndex] = ServerSubeffects[oldIndex];
 		}
 		//Add all the new subeffects to the combined array
 		for (newIndex = 0;
@@ -114,12 +120,12 @@ public class ServerEffect : Effect, IServerEffect
 		}
 		//Add the remaining old subeffects to the array
 		for (;
-			oldIndex < subeffects.Length;
+			oldIndex < ServerSubeffects.Length;
 			oldIndex++, combinedIndex++)
 		{
-			combinedSubeffects[combinedIndex] = subeffects[oldIndex];
+			combinedSubeffects[combinedIndex] = ServerSubeffects[oldIndex];
 		}
-		subeffects = combinedSubeffects;
+		ServerSubeffects = combinedSubeffects;
 	}
 
 	public override bool CanBeActivatedBy(IPlayer controller)

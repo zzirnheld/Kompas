@@ -27,7 +27,7 @@ public class SubeffectValidIfTargeted : CardRestrictionBase
 		if (InitializationContext.effect is not ServerEffect serverEffect)
 			throw new System.InvalidOperationException("Cannot check validity of a server-reliant restriction client-side!");
 
-		return subeffectIndices.Select(i => serverEffect.subeffects[i])
+		return subeffectIndices.Select(i => serverEffect.ServerSubeffects[i])
 			.All(subeff => !subeff.IsImpossible(context));
 	}
 
