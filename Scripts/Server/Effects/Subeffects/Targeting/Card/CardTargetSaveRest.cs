@@ -28,6 +28,13 @@ public class CardTargetSaveRest : CardTarget
 		restRestriction = data.restRestriction ?? data.cardRestriction;
 	}
 
+	public override void Initialize(ServerEffect eff, int subeffIndex)
+	{
+		base.Initialize(eff, subeffIndex);
+		//May cause duplicate initializations, but that's acceptable
+		restRestriction.Initialize(DefaultInitializationContext);
+	}
+
 	public override void AdjustSubeffectIndices(int increment, int startingAtIndex = 0)
 	{
 		base.AdjustSubeffectIndices(increment, startingAtIndex);
