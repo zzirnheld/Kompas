@@ -1,13 +1,16 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Kompas.Effects.Models.Identities;
 using Kompas.Effects.Models.Identities.Numbers;
+using Kompas.Effects.Subeffects;
 using Newtonsoft.Json;
 
 namespace Kompas.Server.Effects.Models.Subeffects;
 
-public class SetCardStatsData : ChangeCardStatsDataBase
+public class SetCardStatsData : CardStatChangeDataBase
 {
+	//IIdentities take precendence over the "val" variables from legacy cards
 	[JsonProperty]
 	public int nVal = -1;
 	[JsonProperty]
@@ -22,20 +25,9 @@ public class SetCardStatsData : ChangeCardStatsDataBase
 	public int aVal = -1;
 }
 
-public class SetCardStats : ChangeCardStatsBase
+public class SetCardStats : ServerSubeffect
 {
-	public SetCardStats(SetCardStatsData data) : base(PopulateIdentities(data)) { }
-
-	private static ChangeCardStatsDataBase PopulateIdentities(SetCardStatsData data)
-	{
-		if (data.nVal >= 0) data.n ??= new Constant() { constant = data.nVal };
-		if (data.eVal >= 0) data.e ??= new Constant() { constant = data.eVal };
-		if (data.sVal >= 0) data.s ??= new Constant() { constant = data.sVal };
-		if (data.wVal >= 0) data.w ??= new Constant() { constant = data.wVal };
-		if (data.cVal >= 0) data.c ??= new Constant() { constant = data.cVal };
-		if (data.aVal >= 0) data.a ??= new Constant() { constant = data.aVal };
-		return data;
-	}
+	public SetCardStats(SetCardStatsData data) : base(data) { }
 
 	public override Task<ResolutionInfo> Resolve(ServerEffectResolution resolution)
 	{

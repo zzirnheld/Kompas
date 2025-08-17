@@ -20,19 +20,6 @@ public abstract class ChangeCardStatsDataBase : SubeffectData
 	public IIdentity<IReadOnlyCollection<IGameCardInfo>>? cards;
 
 	[JsonProperty]
-	public IIdentity<int>? n;
-	[JsonProperty]
-	public IIdentity<int>? e;
-	[JsonProperty]
-	public IIdentity<int>? s;
-	[JsonProperty]
-	public IIdentity<int>? w;
-	[JsonProperty]
-	public IIdentity<int>? c;
-	[JsonProperty]
-	public IIdentity<int>? a;
-
-	[JsonProperty]
 	public IIdentity<int>? turnsOnBoard;
 	[JsonProperty]
 	public IIdentity<int>? attacksThisTurn;
@@ -47,13 +34,6 @@ public abstract class ChangeCardStatsBase : ServerSubeffect
 {
 	protected readonly IIdentity<IReadOnlyCollection<IGameCardInfo>> cards;
 
-	protected readonly IIdentity<int>? n;
-	protected readonly IIdentity<int>? e;
-	protected readonly IIdentity<int>? s;
-	protected readonly IIdentity<int>? w;
-	protected readonly IIdentity<int>? c;
-	protected readonly IIdentity<int>? a;
-
 	protected readonly IIdentity<int>? turnsOnBoard;
 	protected readonly IIdentity<int>? attacksThisTurn;
 	protected readonly IIdentity<int>? spacesMoved;
@@ -63,13 +43,6 @@ public abstract class ChangeCardStatsBase : ServerSubeffect
 	{
 		var card = data.card ?? new TargetIndex() { index = data.targetIndex };
 		cards = data.cards ?? new Concat() { cards = new IIdentity<IGameCardInfo>[] { card } };
-
-		n = data.n;
-		e = data.e;
-		s = data.s;
-		w = data.w;
-		c = data.c;
-		a = data.a;
 
 		turnsOnBoard = data.turnsOnBoard;
 		attacksThisTurn = data.attacksThisTurn;
@@ -86,16 +59,8 @@ public abstract class ChangeCardStatsBase : ServerSubeffect
 	{
 		base.Initialize(eff, subeffIndex);
 
-
 		var initContext = DefaultInitializationContext;
 		cards.Initialize(initContext);
-
-		n?.Initialize(initContext);
-		e?.Initialize(initContext);
-		s?.Initialize(initContext);
-		w?.Initialize(initContext);
-		c?.Initialize(initContext);
-		a?.Initialize(initContext);
 
 		turnsOnBoard?.Initialize(initContext);
 		attacksThisTurn?.Initialize(initContext);
