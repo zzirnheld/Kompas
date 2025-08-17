@@ -4,6 +4,7 @@ using Kompas.Cards.Models;
 using Kompas.Effects.Models;
 using Kompas.Effects.Models.TriggeringEvent;
 using Kompas.Gamestate;
+using Kompas.Server.Effects.Models.Subeffects;
 using Kompas.Server.Gamestate.Players;
 
 namespace Kompas.Server.Effects.Models;
@@ -12,7 +13,7 @@ public class ServerResolutionContext : ResolutionContext, IServerResolutionConte
 {
 	public ServerPlayer ControllingPlayer { get; init; }
 
-	public ServerSubeffect? OnImpossible { get; set; } = null;
+	public IServerSubeffect? OnImpossible { get; set; } = null;
 
 	public static ServerResolutionContext PlayerTrigger(IEffect effect, ServerPlayer controllingPlayer)
 		=> new(new EventContext() { StackableEvent = effect }, controllingPlayer, effect.InitialBlurb);

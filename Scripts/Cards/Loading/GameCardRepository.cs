@@ -11,8 +11,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Cards.Loading;
 
-public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCardController> : CardRepository
-	where TSerializableCard : SerializableGameCard
+public abstract partial class GameCardRepository<TEffect, TCardController> : CardRepository
 	where TEffect : Effect
 	where TCardController : class, ICardController
 {
@@ -25,7 +24,7 @@ public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCa
 		Initialize();
 	}
 
-	protected delegate TGameCard ConstructCard<TGameCard>(TSerializableCard cardInfo, TEffect[] effects, TCardController ctrl);
+	protected delegate TGameCard ConstructCard<TGameCard>(SerializableGameCard cardInfo, TEffect[] effects, TCardController ctrl);
 	protected delegate TEffect ConstructEffect(EffectData data);
 	protected delegate void Validate(SerializableCard card);
 
@@ -43,20 +42,21 @@ public abstract partial class GameCardRepository<TSerializableCard, TEffect, TCa
 		where TGameCard : GameCard
 	{
 		Logger.Log($"Loading {JsonPrettify(json)}");
-		TSerializableCard? cardInfo;
+		SerializableGameCard? cardInfo;
 		var effects = new List<TEffect>();
 
 		try
 		{
-			cardInfo = JsonConvert.DeserializeObject<TSerializableCard>(json, CardLoadingSettings);
+			cardInfo = JsonConvert.DeserializeObject<SerializableGameCard>(json, CardLoadingSettings);
 			if (cardInfo == null)
 			{
 				Logger.Err($"Failed to load {json}");
 				return default;
 			}
 			validation?.Invoke(cardInfo);
+			var effectData = cardInfo.Effects ?? Enumerable.Empty<EffectData>();
 
-			effects.AddRangeWithCast(cardInfo.Effects ?? Enumerable.Empty<TEffect>());
+			effects.AddRange(effectData.Select(constructEffect.Invoke));
 			effects.AddRange(GetKeywordEffects(cardInfo, constructEffect));
 		}
 		catch (System.ArgumentException argEx)

@@ -14,6 +14,7 @@ public interface IServerSubeffect
 	public ServerEffect ServerEffect { get; }
 	public IServerGame ServerGame { get; }
 	public int JumpIndex { get; }
+	public int SubeffIndex { get; }
 
 	public InitializationContext DefaultInitializationContext { get; }
 

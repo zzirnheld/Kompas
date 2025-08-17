@@ -41,6 +41,5 @@ public class SerializableCard
 
 public abstract class SerializableGameCard : SerializableCard
 {
-	//TODO: this should instead point to an EffectData array, which we can then initialize Effects with
-	public abstract IEnumerable<Effect>? Effects { get; }
+	public EffectData[]? Effects { get; }
 }

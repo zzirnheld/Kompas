@@ -39,6 +39,7 @@ public abstract class Effect : IEffect
 	private int _timesUsedThisRound;
 	private int _timesUsedThisStack;
 	public event System.EventHandler<IEffect>? EffectInformationChanged;
+	public int Arg { get; }
 
 	public int TimesUsedThisTurn
 	{
@@ -79,6 +80,7 @@ public abstract class Effect : IEffect
 	{
 		ActivationRestriction = data.activationRestriction;
 		InitialBlurb = data.initialBlurb ?? $"Effect of {Card.CardName}";
+		Arg = data.arg;
 	}
 
 	protected void SetInfo(int effIndex)

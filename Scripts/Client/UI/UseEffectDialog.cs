@@ -62,9 +62,9 @@ public partial class UseEffectDialog : Control
 
 		var localPlayer = cardController.Card.ClientGame.FriendlyPlayer;
 		var effects = cardController.Card.Effects
-			.Where(eff => eff.activationRestriction != null)
+			.Where(eff => eff.ActivationRestriction != null)
 			//TODO config/debug mode for whether can currently activate normally
-			.Where(eff => eff.activationRestriction?.IsValid(localPlayer, IResolutionContext.PlayerAction(localPlayer)) ?? false);
+			.Where(eff => eff.ActivationRestriction?.IsValid(localPlayer, IResolutionContext.PlayerAction(localPlayer)) ?? false);
 		CardName.Text = cardController.Card.CardName;
 		
 		foreach (var child in buttons)

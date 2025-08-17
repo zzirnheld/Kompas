@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Client.Cards.Loading;
 
-public class ClientCardRepository : GameCardRepository<ClientSerializableCard, ClientEffect, ClientCardController>
+public class ClientCardRepository : GameCardRepository<ClientEffect, ClientCardController>
 {
 	public ClientCardRepository(PackedScene cardPrefab)
 		: this(IFileLoader.Godot, false, cardPrefab)
@@ -30,7 +30,7 @@ public class ClientCardRepository : GameCardRepository<ClientSerializableCard, C
 			if (cardInfo.cardType != 'C') throw new System.NotImplementedException("Card type for client avatar isn't character!");
 		}
 
-		ClientGameCard ConstructAvatar(ClientSerializableCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
+		ClientGameCard ConstructAvatar(SerializableGameCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
 			=> ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl, isAvatar: true);
 
 		return InstantiateGameCard(SanitizeJson(json), ConstructAvatar, ConstructClientEffect, validation);
@@ -42,7 +42,7 @@ public class ClientCardRepository : GameCardRepository<ClientSerializableCard, C
 
 	public ClientGameCard? InstantiateClientNonAvatar(string json, IPlayer owner, int id, ClientGame game)
 	{
-		ClientGameCard ConstructNonAvatar(ClientSerializableCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
+		ClientGameCard ConstructNonAvatar(SerializableGameCard cardInfo, ClientEffect[] effects, ClientCardController ctrl)
 			=> ClientGameCard.Create(cardInfo, id, game, owner, effects, ctrl);
 		var card = InstantiateGameCard(SanitizeJson(json),
 			ConstructNonAvatar,

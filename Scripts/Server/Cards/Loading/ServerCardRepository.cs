@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Kompas.Server.Cards.Loading;
 
-public class ServerCardRepository : GameCardRepository<ServerSerializableCard, ServerEffect, ServerCardController>
+public class ServerCardRepository : GameCardRepository<ServerEffect, ServerCardController>
 {
 	public ServerCardRepository()
 		: this(IFileLoader.Godot, false)
@@ -51,7 +51,7 @@ public class ServerCardRepository : GameCardRepository<ServerSerializableCard, S
 	{
 		string json = cardJsons[name] ?? throw new System.ArgumentException($"Name {name} not associated with json");
 
-		ServerGameCard ConstructCard(ServerSerializableCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
+		ServerGameCard ConstructCard(SerializableGameCard cardInfo, ServerEffect[] effects, ServerCardController ctrl)
 			=> ServerGameCard.Create(cardInfo, id, owner, game, ctrl, effects, isAvatar);
 		ServerEffect ConstructEffect(EffectData data) => new(data);
 

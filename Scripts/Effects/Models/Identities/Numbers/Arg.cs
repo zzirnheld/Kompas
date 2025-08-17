@@ -10,7 +10,7 @@ public class Arg : ContextlessLeafIdentityBase<int>
 		{
 			var effect = InitializationContext.effect
 				?? throw new IllDefinedException(); //TODO go through all IllDefinedExceptions and add InitializationRequirements
-			return effect.arg;
+			return effect.Arg;
 		}
 	}
 }
